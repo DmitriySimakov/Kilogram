@@ -12,21 +12,22 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardUseCompatPadding="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:paddingTop="4dp"
                 android:adjustViewBounds="true"
-                android:src="@drawable/shoulders"/>
+                tools:src="@drawable/chest"
+                app:muscleImage="@{muscle._id}"/>
 
             <TextView
                 android:id="@+id/muscle_name"

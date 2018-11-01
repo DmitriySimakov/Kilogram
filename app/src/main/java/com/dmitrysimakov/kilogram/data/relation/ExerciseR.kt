@@ -1,6 +1,7 @@
 package com.dmitrysimakov.kilogram.data.relation
 
 class ExerciseR (
+        val _id: Long,
         val name: String,
         val description: String? = null,
         val main_muscle: String? = null,

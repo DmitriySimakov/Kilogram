@@ -24,7 +24,7 @@ interface ExerciseDao {
     fun getExercise(id: Long) : LiveData<Exercise>
 
     @Query("""
-        SELECT name, description,
+        SELECT _id, name, description,
         (SELECT name FROM muscle WHERE _id = main_muscle_id ) AS main_muscle,
         (SELECT group_concat(m.name, ', ')
             FROM  targeted_muscle  AS tm LEFT JOIN muscle AS m
