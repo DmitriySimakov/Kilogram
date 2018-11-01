@@ -27,7 +27,7 @@
                 android:paddingTop="4dp"
                 android:adjustViewBounds="true"
                 tools:src="@drawable/chest"
-                app:muscleImage="@{muscle._id}"/>
+                app:assetsImage='@{"muscles/"+ muscle._id +".png"}'/>
 
             <TextView
                 android:id="@+id/muscle_name"

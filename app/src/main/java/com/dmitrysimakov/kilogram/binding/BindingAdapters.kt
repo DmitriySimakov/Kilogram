@@ -17,24 +17,11 @@ object BindingAdapters {
     }
 
     @JvmStatic
-    @BindingAdapter("muscleImage")
-    fun bindMuscleImage(view: ImageView, id: Long) {
+    @BindingAdapter("assetsImage")
+    fun assetsImage(view: ImageView, path: String) {
         try {
-            val inputStream = view.context.assets.open("images/muscles/$id.png")
-            val drawable = Drawable.createFromStream(inputStream, null)
-            view.setImageDrawable(drawable)
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-    }
-
-    @JvmStatic
-    @BindingAdapter("firstExerciseImage")
-    fun bindExerciseImage(view: ImageView, id: Long) {
-        try {
-            val inputStream = view.context.assets.open("images/exercises/${id}_1.jpeg")
-            val drawable = Drawable.createFromStream(inputStream, null)
-            view.setImageDrawable(drawable)
+            val inputStream = view.context.assets.open("images/$path")
+            view.setImageDrawable(Drawable.createFromStream(inputStream, null))
         } catch (e: IOException) {
             e.printStackTrace()
         }

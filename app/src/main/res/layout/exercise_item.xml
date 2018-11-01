@@ -25,7 +25,7 @@
                 android:layout_height="match_parent"
                 tools:layout_width="?android:attr/listPreferredItemHeight"
                 android:adjustViewBounds="true"
-                app:firstExerciseImage="@{exercise._id}"/>
+                app:assetsImage='@{"exercises/"+ exercise._id +"_1.jpeg"}'/>
 
             <TextView
                 android:id="@+id/exercise_name"
