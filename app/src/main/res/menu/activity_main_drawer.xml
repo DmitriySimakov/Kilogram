@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group
+        android:id="@+id/group1"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/mainFragment"
+            android:icon="@drawable/baseline_home_black_24"
+            android:title="@string/main"/>
+    </group>
+
+    <group
+        android:id="@+id/group2"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/chooseMuscleFragment"
+            android:icon="@drawable/round_fitness_center_black_24"
+            android:title="@string/exercises" />
+        <item
+            android:id="@+id/training_programs_fragment"
+            android:icon="@drawable/ic_clipboard_text_outline"
+            android:title="@string/training_programs" />
+        <item
+            android:id="@+id/trainingsFragment"
+            android:icon="@drawable/ic_calendar_multiselect"
+            android:title="@string/training_sessions" />
+        <item
+            android:id="@+id/measures_fragment"
+            android:icon="@drawable/baseline_straighten_black_24"
+            android:title="@string/measures" />
+    </group>
+
+    <group
+        android:id="@+id/group3"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/baseline_settings_black_24"
+            android:title="@string/settings" />
+        <item
+            android:id="@+id/nav_info"
+            android:icon="@drawable/baseline_info_black_24"
+            android:title="@string/about" />
+    </group>
+
+</menu>

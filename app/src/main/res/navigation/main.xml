@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.main.MainFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/to_trainingsFragment"
+            app:destination="@id/trainingsFragment" />
+        <action
+            android:id="@+id/to_chooseMuscleFragment"
+            app:destination="@id/chooseMuscleFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/chooseMuscleFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.exercises.ChooseMuscleFragment"
+        android:label="@string/exercises"
+        tools:layout="@layout/fragment_choose_muscle">
+        <action
+            android:id="@+id/to_exercisesFragment"
+            app:destination="@id/exercisesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/trainingsFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.trainings.TrainingsFragment"
+        android:label="@string/training_sessions"
+        tools:layout="@layout/fragment_trainings">
+        <action
+            android:id="@+id/to_trainingFragment"
+            app:destination="@id/trainingFragment" />
+        <action
+            android:id="@+id/to_createTrainingFragment"
+            app:destination="@id/createTrainingFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/createTrainingFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.createTraining.CreateTrainingDialog"
+        android:label="@string/training_session"
+        tools:layout="@layout/dialog_create_training">
+
+        <action
+            android:id="@+id/to_trainingFragment"
+            app:popUpTo="@id/trainingsFragment"
+            app:destination="@id/trainingFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/trainingFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.training.TrainingFragment"
+        android:label="@string/training_session"
+        tools:layout="@layout/fragment_training">
+    </fragment>
+
+    <fragment
+        android:id="@+id/exercisesFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.exercises.ExercisesFragment"
+        android:label="@string/exercises"
+        tools:layout="@layout/fragment_exercises">
+        <argument
+            android:name="muscle_id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/to_exerciseDetailFragment"
+            app:destination="@id/exerciseDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/exerciseDetailFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.exercises.ExerciseDetailFragment"
+        tools:layout="@layout/fragment_exercise_detail" >
+        <argument
+            android:name="exercise_id"
+            app:argType="integer" />
+    </fragment>
+
+</navigation>

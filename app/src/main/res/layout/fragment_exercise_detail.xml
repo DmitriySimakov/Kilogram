@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="exercise"
+            type="com.dmitrysimakov.kilogram.data.relation.ExerciseR"/>
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.exercises.ExerciseDetailFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/fragment_padding">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/image_1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"/>
+
+                <ImageView
+                    android:id="@+id/image_2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:text="@string/main_muscle"
+                style="@style/LabelStyle"/>
+
+            <TextView
+                android:id="@+id/main_muscle"
+                style="@style/FieldStyle"
+                android:text="@{exercise.main_muscle}"
+                tools:text="@string/main_muscle" />
+
+            <View style="@style/DividerStyle" />
+
+            <TextView
+                android:text="@string/targeted_muscles"
+                style="@style/LabelStyle"/>
+
+            <TextView
+                android:id="@+id/targeted_muscles"
+                tools:text="@string/targeted_muscles"
+                android:text="@{exercise.targeted_muscles}"
+                style="@style/FieldStyle"/>
+
+            <View style="@style/DividerStyle" />
+
+            <TextView
+                android:text="@string/mechanics_type"
+                style="@style/LabelStyle" />
+
+            <TextView
+                android:id="@+id/mechanics_type"
+                tools:text="@string/mechanics_type"
+                android:text="@{exercise.mechanics_type}"
+                style="@style/FieldStyle" />
+
+            <View style="@style/DividerStyle" />
+
+            <TextView
+                android:text="@string/exercise_type"
+                style="@style/LabelStyle" />
+
+            <TextView
+                android:id="@+id/exercise_type"
+                tools:text="@string/exercise_type"
+                android:text="@{exercise.exercise_type}"
+                style="@style/FieldStyle" />
+
+            <View style="@style/DividerStyle" />
+
+            <TextView
+                android:text="@string/equipment"
+                style="@style/LabelStyle" />
+
+            <TextView
+                android:id="@+id/equipment"
+                tools:text="@string/equipment"
+                android:text="@{exercise.equipment}"
+                style="@style/FieldStyle" />
+
+            <View style="@style/DividerStyle" />
+
+            <TextView
+                android:text="@string/description"
+                style="@style/LabelStyle" />
+
+            <TextView
+                android:id="@+id/description"
+                tools:text="@string/description"
+                android:text="@{exercise.description}"
+                style="@style/FieldStyle" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>
