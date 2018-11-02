@@ -21,6 +21,12 @@
             android:orientation="vertical"
             android:padding="@dimen/fragment_padding">
 
+            <TextView
+                android:id="@+id/exercise_name"
+                style="@style/FieldStyle"
+                android:text="@{exercise.name}"
+                tools:text="@string/exercise_name" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -31,14 +37,20 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:adjustViewBounds="true"/>
+                    android:contentDescription="@string/first_phase"
+                    android:adjustViewBounds="true"
+                    tools:src="@drawable/exercise_sample_1"
+                    app:assetsImage='@{"exercises/"+ exercise._id +"_1.jpeg"}'/>
 
                 <ImageView
                     android:id="@+id/image_2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:adjustViewBounds="true"/>
+                    android:contentDescription="@string/second_phase"
+                    android:adjustViewBounds="true"
+                    tools:src="@drawable/exercise_sample_2"
+                    app:assetsImage='@{"exercises/"+ exercise._id +"_2.jpeg"}'/>
 
             </LinearLayout>
 

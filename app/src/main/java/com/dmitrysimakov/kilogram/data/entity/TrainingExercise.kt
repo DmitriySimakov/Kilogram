@@ -19,10 +19,9 @@ import com.dmitrysimakov.kilogram.util.HasId
                     onDelete = ForeignKey.CASCADE)
         ])
 data class TrainingExercise(
+        @PrimaryKey(autoGenerate = true) override val _id: Long = 0,
         val training_id: Long,
         val exercise_id: Long,
         val number: Byte,
         val params_bool_arr: Short? = null
-) : HasId {
-    @PrimaryKey(autoGenerate = true) override var _id: Long = 0
-}
+) : HasId

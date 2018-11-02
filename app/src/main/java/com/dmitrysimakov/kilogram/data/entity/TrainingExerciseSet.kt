@@ -15,12 +15,11 @@ import com.dmitrysimakov.kilogram.util.HasId
         ]
 )
 data class TrainingExerciseSet(
+        @PrimaryKey(autoGenerate = true) override val _id: Long = 0,
         val training_exercise_id: Long,
         val secs_since_start: Int? = null,
         val weight: Int? = null,
         val reps: Int? = null,
         val time: Int? = null,
         val distance: Int? = null
-) : HasId {
-    @PrimaryKey(autoGenerate = true) override var _id: Long = 0
-}
+) : HasId

@@ -15,9 +15,8 @@ import com.dmitrysimakov.kilogram.util.HasId
         ]
 )
 data class Measurement(
+        @PrimaryKey(autoGenerate = true) override val _id: Long = 0,
         val date: String,
         val param_id: Long,
         val value: Double
-) : HasId {
-    @PrimaryKey(autoGenerate = true) override var _id: Long = 0
-}
+) : HasId

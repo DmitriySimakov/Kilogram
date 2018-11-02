@@ -55,5 +55,7 @@
     <string name="expected_value">Ожидаемое значение</string>
     <string name="percent">Процент</string>
     <string name="delete_exercise">Удалить упражнение</string>
+    <string name="first_phase">Первая фаза упражнения</string>
+    <string name="second_phase">Вторая фаза упражнения</string>
 
 </resources>

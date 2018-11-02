@@ -30,12 +30,11 @@ import com.dmitrysimakov.kilogram.util.HasId
         ]
 )
 data class Exercise(
+        @PrimaryKey(autoGenerate = true) override val _id: Long = 0,
         val name: String,
         val main_muscle_id: Long? = null,
         val mechanics_type_id: Long? = null,
         val exercise_type_id: Long? = null,
         val equipment_id: Long? = null,
         val description: String? = null
-) : HasId {
-    @PrimaryKey(autoGenerate = true) override var _id: Long = 0
-}
+) : HasId

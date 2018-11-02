@@ -6,10 +6,9 @@ import com.dmitrysimakov.kilogram.util.HasId
 
 @Entity(tableName = "measurement_param")
 data class MeasurementParam(
+        @PrimaryKey(autoGenerate = true) override val _id: Long = 0,
         val name: String,
         val image: String? = null,
         val instruction: String? = null,
         val coefficient: Double? = null
-) : HasId {
-    @PrimaryKey(autoGenerate = true) override var _id: Long = 0
-}
+) : HasId

@@ -5,6 +5,7 @@ import androidx.room.PrimaryKey
 import com.dmitrysimakov.kilogram.util.HasId
 
 @Entity(tableName = "exercise_type")
-data class ExerciseType(val name: String) : HasId {
-    @PrimaryKey(autoGenerate = true) override var _id: Long = 0
-}
+data class ExerciseType(
+        @PrimaryKey(autoGenerate = true) override val _id: Long = 0,
+        val name: String
+) : HasId

@@ -20,13 +20,13 @@ class CreateTrainingViewModel @Inject constructor(
     val time = MutableLiveData<String>()
 
     init {
-        date.value = SimpleDateFormat("yyyy-MM-dd").format(calendar.time)
-        time.value = SimpleDateFormat("HH:mm:ss").format(calendar.time)
+        date.value = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(calendar.time)
+        time.value = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(calendar.time)
 
         byProgram.value = false
     }
 
     fun createTraining(callback: ItemInsertedListener) {
-        repository.insertTraining(Training("${date.value} ${time.value}"), callback)
+        repository.insertTraining(Training(date_time = "${date.value} ${time.value}"), callback)
     }
 }
