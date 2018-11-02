@@ -14,14 +14,15 @@ class CreateTrainingViewModel @Inject constructor(
 ) : ViewModel() {
 
     val calendar: Calendar = Calendar.getInstance()
-
-    val byProgram = MutableLiveData<Boolean>()
     val date = MutableLiveData<String>()
     val time = MutableLiveData<String>()
 
+    val byProgram = MutableLiveData<Boolean>()
+
     init {
-        date.value = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(calendar.time)
-        time.value = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(calendar.time)
+        val locale = Locale.getDefault()
+        date.value = SimpleDateFormat("yyyy-MM-dd", locale).format(calendar.time)
+        time.value = SimpleDateFormat("HH:mm:ss", locale).format(calendar.time)
 
         byProgram.value = false
     }

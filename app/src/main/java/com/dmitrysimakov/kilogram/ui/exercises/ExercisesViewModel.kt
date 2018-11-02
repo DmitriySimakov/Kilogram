@@ -12,8 +12,6 @@ import javax.inject.Inject
 class ExercisesViewModel @Inject constructor(private val repository: ExerciseRepository) : ViewModel() {
 
     private val _muscleId = MutableLiveData<Long>()
-    val muscleId: LiveData<Long>
-        get() = _muscleId
 
     val exerciseList : LiveData<List<Exercise>> = Transformations
             .switchMap(_muscleId) { muscleId ->

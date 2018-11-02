@@ -67,7 +67,7 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
             DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 val c = Calendar.getInstance()
                 c.set(year, monthOfYear, dayOfMonth)
-                viewModel.date.value = SimpleDateFormat("yyyy-MM-dd").format(c.time)
+                viewModel.date.value = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(c.time)
             }, curYear, curMonthOfYear, curDay).apply {
                 datePicker.minDate = 0
                 val millisecondsPerMonth = 30.toLong() * 24 * 60 * 60 * 1000
@@ -85,7 +85,7 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
             val dialog = TimePickerDialog(context, { _, hourOfDay, minute ->
                 val c = Calendar.getInstance()
                 c.set(1970, 0, 1, hourOfDay, minute)
-                viewModel.time.value = SimpleDateFormat("HH:mm:ss").format(c.time)
+                viewModel.time.value = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(c.time)
             }, curHourOfDay, curMinute, true)
             dialog.show()
         }

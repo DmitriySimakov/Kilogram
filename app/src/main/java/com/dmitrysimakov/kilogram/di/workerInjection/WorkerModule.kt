@@ -7,9 +7,8 @@ import dagger.Module
 import dagger.android.AndroidInjector
 import dagger.multibindings.IntoMap
 
-@Module(subcomponents = [
-    WorkerSubcomponent::class
-])
+@Suppress("unused")
+@Module(subcomponents = [WorkerSubcomponent::class])
 abstract class WorkerModule {
     @Binds
     @IntoMap

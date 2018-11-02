@@ -1,11 +1,9 @@
 package com.dmitrysimakov.kilogram.binding
 
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import com.dmitrysimakov.kilogram.data.entity.Exercise
-import android.graphics.drawable.Drawable
-import com.dmitrysimakov.kilogram.data.entity.Muscle
 import java.io.IOException
 
 

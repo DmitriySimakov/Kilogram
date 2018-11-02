@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class SeedDatabaseWorker(val context: Context, workerParams: WorkerParameters) : Worker(context, workerParams) {
 
-    private val TAG = this::class.java.simpleName
+    private val tag = this::class.java.simpleName
 
     @Inject lateinit var database: KilogramDb
 
@@ -34,7 +34,7 @@ class SeedDatabaseWorker(val context: Context, workerParams: WorkerParameters) :
             }
             Result.SUCCESS
         } catch (e: Exception) {
-            Log.e(TAG, "Error seeding database", e)
+            Log.e(tag, "Error seeding database", e)
             Result.FAILURE
         } finally {
             jsonReader?.close()
