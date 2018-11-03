@@ -22,7 +22,7 @@ class ExercisesFragment : DaggerFragment() {
 
     private lateinit var viewModel: ExercisesViewModel
 
-    private lateinit var adapter: ExercisesListAdapter
+    private lateinit var adapter: ExercisesAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -39,7 +39,7 @@ class ExercisesFragment : DaggerFragment() {
         val params = ExercisesFragmentArgs.fromBundle(arguments)
         viewModel.setMuscle(params.muscleId.toLong())
 
-        adapter = ExercisesListAdapter(executors) { exercise ->
+        adapter = ExercisesAdapter(executors) { exercise ->
             findNavController().navigate(
                     ExercisesFragmentDirections.toExerciseDetailFragment(exercise._id.toInt()))
         }

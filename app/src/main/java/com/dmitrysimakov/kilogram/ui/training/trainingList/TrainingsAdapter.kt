@@ -6,15 +6,12 @@ import com.dmitrysimakov.kilogram.data.entity.Training
 import com.dmitrysimakov.kilogram.databinding.TrainingItemBinding
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.util.DataBoundListAdapter
-import com.dmitrysimakov.kilogram.util.DiffCallback
+import com.dmitrysimakov.kilogram.util.IdDiffCallback
 
-class TrainingsListAdapter(
+class TrainingsAdapter(
         appExecutors: AppExecutors,
         private val clickCallback: ((Training) -> Unit)
-) : DataBoundListAdapter<Training, TrainingItemBinding>(
-        appExecutors,
-        object : DiffCallback<Training>() {}
-) {
+) : DataBoundListAdapter<Training, TrainingItemBinding>(appExecutors, IdDiffCallback()) {
 
     override fun createBinding(parent: ViewGroup) = TrainingItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false).apply {

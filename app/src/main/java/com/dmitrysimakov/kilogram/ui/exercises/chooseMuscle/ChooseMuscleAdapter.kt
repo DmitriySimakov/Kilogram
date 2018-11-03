@@ -6,15 +6,12 @@ import com.dmitrysimakov.kilogram.data.entity.Muscle
 import com.dmitrysimakov.kilogram.databinding.ChooseMuscleItemBinding
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.util.DataBoundListAdapter
-import com.dmitrysimakov.kilogram.util.DiffCallback
+import com.dmitrysimakov.kilogram.util.IdDiffCallback
 
 class ChooseMuscleAdapter(
         appExecutors: AppExecutors,
         private val clickCallback: ((Muscle) -> Unit)
-) : DataBoundListAdapter<Muscle, ChooseMuscleItemBinding>(
-        appExecutors,
-        object : DiffCallback<Muscle>() {}
-) {
+) : DataBoundListAdapter<Muscle, ChooseMuscleItemBinding>(appExecutors, IdDiffCallback()) {
 
     override fun createBinding(parent: ViewGroup) = ChooseMuscleItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false).apply {

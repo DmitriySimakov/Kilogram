@@ -21,7 +21,7 @@ class TrainingFragment : DaggerFragment() {
 
     private lateinit var viewModel: TrainingViewModel
 
-    lateinit var adapter: TrainingListAdapter
+    lateinit var adapter: TrainingAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -33,7 +33,7 @@ class TrainingFragment : DaggerFragment() {
 
         viewModel = getViewModel(viewModelFactory)
 
-        adapter = TrainingListAdapter(executors) {
+        adapter = TrainingAdapter(executors) {
             //CreateTrainingDialog().show(childFragmentManager, null)
         }
 

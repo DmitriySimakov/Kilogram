@@ -23,7 +23,7 @@ class TrainingsFragment : DaggerFragment() {
 
     private lateinit var viewModel: TrainingsViewModel
 
-    lateinit var adapter: TrainingsListAdapter
+    lateinit var adapter: TrainingsAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -37,7 +37,7 @@ class TrainingsFragment : DaggerFragment() {
         viewModel = getViewModel(viewModelFactory)
         viewModel.trainingList.observe(this, Observer { adapter.submitList(it) })
 
-        adapter = TrainingsListAdapter(executors) {}
+        adapter = TrainingsAdapter(executors) {}
 
         trainings_rv.adapter = adapter
 
