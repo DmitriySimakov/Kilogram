@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/chooseMuscleFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.exercises.ChooseMuscleFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.exercises.chooseMuscle.ChooseMuscleFragment"
         android:label="@string/exercises"
         tools:layout="@layout/fragment_choose_muscle">
         <action
@@ -30,7 +30,7 @@
 
     <fragment
         android:id="@+id/trainingsFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.trainings.TrainingsFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.training.trainingList.TrainingsFragment"
         android:label="@string/training_sessions"
         tools:layout="@layout/fragment_trainings">
         <action
@@ -43,7 +43,7 @@
 
     <fragment
         android:id="@+id/createTrainingFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.createTraining.CreateTrainingDialog"
+        android:name="com.dmitrysimakov.kilogram.ui.training.createTraining.CreateTrainingDialog"
         android:label="@string/training_session"
         tools:layout="@layout/dialog_create_training">
 
@@ -56,14 +56,14 @@
 
     <fragment
         android:id="@+id/trainingFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.training.TrainingFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.training.training.TrainingFragment"
         android:label="@string/training_session"
         tools:layout="@layout/fragment_training">
     </fragment>
 
     <fragment
         android:id="@+id/exercisesFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.exercises.ExercisesFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.exercises.exercises.ExercisesFragment"
         android:label="@string/exercises"
         tools:layout="@layout/fragment_exercises">
         <argument
@@ -76,7 +76,7 @@
 
     <fragment
         android:id="@+id/exerciseDetailFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.exercises.ExerciseDetailFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.exercises.detail.ExerciseDetailFragment"
         tools:layout="@layout/fragment_exercise_detail" >
         <argument
             android:name="exercise_id"

@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.exercises
+package com.dmitrysimakov.kilogram.ui.exercises.chooseMuscle
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -36,8 +36,9 @@ class ChooseMuscleFragment : DaggerFragment() {
                 .get(ChooseMuscleViewModel::class.java)
         viewModel.muscleList.observe(this, Observer { adapter.submitList(it) })
 
-        adapter = ChooseMuscleAdapter(executors) {muscle -> findNavController().navigate(
-                ChooseMuscleFragmentDirections.toExercisesFragment(muscle._id.toInt()))
+        adapter = ChooseMuscleAdapter(executors) { muscle ->
+            findNavController().navigate(
+                    ChooseMuscleFragmentDirections.toExercisesFragment(muscle._id.toInt()))
         }
 
         choose_exercises_rv.adapter = adapter

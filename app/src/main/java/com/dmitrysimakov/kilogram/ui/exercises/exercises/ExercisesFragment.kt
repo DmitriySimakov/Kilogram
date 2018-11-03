@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.exercises
+package com.dmitrysimakov.kilogram.ui.exercises.exercises
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -41,13 +41,11 @@ class ExercisesFragment : DaggerFragment() {
         val params = ExercisesFragmentArgs.fromBundle(arguments)
         viewModel.setMuscle(params.muscleId.toLong())
 
-        adapter = ExercisesListAdapter(executors) { exercise -> findNavController().navigate(
-                ExercisesFragmentDirections.toExerciseDetailFragment(exercise._id.toInt())) }
+        adapter = ExercisesListAdapter(executors) { exercise ->
+            findNavController().navigate(
+                    ExercisesFragmentDirections.toExerciseDetailFragment(exercise._id.toInt()))
+        }
 
         exercises_rv.adapter = adapter
-
-        activity?.fab?.setOnClickListener{
-            //findNavController().navigate(R.id.create_training_fragment)
-        }
     }
 }

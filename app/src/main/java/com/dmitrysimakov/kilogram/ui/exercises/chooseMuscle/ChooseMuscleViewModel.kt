@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.exercises
+package com.dmitrysimakov.kilogram.ui.exercises.chooseMuscle
 
 import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.repository.MuscleRepository

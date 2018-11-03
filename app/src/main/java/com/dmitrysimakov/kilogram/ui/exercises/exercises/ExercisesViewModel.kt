@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.exercises
+package com.dmitrysimakov.kilogram.ui.exercises.exercises
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

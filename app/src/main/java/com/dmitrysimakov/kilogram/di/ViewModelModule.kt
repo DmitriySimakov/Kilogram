@@ -2,12 +2,12 @@ package com.dmitrysimakov.kilogram.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.dmitrysimakov.kilogram.ui.createTraining.CreateTrainingViewModel
-import com.dmitrysimakov.kilogram.ui.exercises.ChooseMuscleViewModel
-import com.dmitrysimakov.kilogram.ui.exercises.ExerciseDetailViewModel
-import com.dmitrysimakov.kilogram.ui.exercises.ExercisesViewModel
-import com.dmitrysimakov.kilogram.ui.training.TrainingViewModel
-import com.dmitrysimakov.kilogram.ui.trainings.TrainingsViewModel
+import com.dmitrysimakov.kilogram.ui.training.createTraining.CreateTrainingViewModel
+import com.dmitrysimakov.kilogram.ui.exercises.chooseMuscle.ChooseMuscleViewModel
+import com.dmitrysimakov.kilogram.ui.exercises.detail.ExerciseDetailViewModel
+import com.dmitrysimakov.kilogram.ui.exercises.exercises.ExercisesViewModel
+import com.dmitrysimakov.kilogram.ui.training.training.TrainingViewModel
+import com.dmitrysimakov.kilogram.ui.training.trainingList.TrainingsViewModel
 import com.dmitrysimakov.kilogram.util.ViewModelFactory
 import dagger.Binds
 import dagger.Module
