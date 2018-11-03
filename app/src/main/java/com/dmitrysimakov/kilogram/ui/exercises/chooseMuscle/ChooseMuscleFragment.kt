@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.util.AppExecutors
+import com.dmitrysimakov.kilogram.util.getViewModel
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_choose_muscle.*
 import javax.inject.Inject
@@ -32,8 +32,7 @@ class ChooseMuscleFragment : DaggerFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(ChooseMuscleViewModel::class.java)
+        viewModel = getViewModel(viewModelFactory)
         viewModel.muscleList.observe(this, Observer { adapter.submitList(it) })
 
         adapter = ChooseMuscleAdapter(executors) { muscle ->

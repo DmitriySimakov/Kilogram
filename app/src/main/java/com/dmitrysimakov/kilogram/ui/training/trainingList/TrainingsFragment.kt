@@ -1,16 +1,15 @@
 package com.dmitrysimakov.kilogram.ui.training.trainingList
 
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.ui.training.createTraining.CreateTrainingDialog
+import com.dmitrysimakov.kilogram.util.AppExecutors
+import com.dmitrysimakov.kilogram.util.getViewModel
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_trainings.*
@@ -35,13 +34,10 @@ class TrainingsFragment : DaggerFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(TrainingsViewModel::class.java)
+        viewModel = getViewModel(viewModelFactory)
         viewModel.trainingList.observe(this, Observer { adapter.submitList(it) })
 
-        adapter = TrainingsListAdapter(executors) {
-            CreateTrainingDialog().show(childFragmentManager, null)
-        }
+        adapter = TrainingsListAdapter(executors) {}
 
         trainings_rv.adapter = adapter
 

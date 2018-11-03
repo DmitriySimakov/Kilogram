@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.dmitrysimakov.kilogram.databinding.FragmentExerciseDetailBinding
+import com.dmitrysimakov.kilogram.util.getViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -30,8 +30,7 @@ class ExerciseDetailFragment : DaggerFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(ExerciseDetailViewModel::class.java)
+        viewModel = getViewModel(viewModelFactory)
 
         val params = ExerciseDetailFragmentArgs.fromBundle(arguments)
         viewModel.setExercise(params.exerciseId.toLong())

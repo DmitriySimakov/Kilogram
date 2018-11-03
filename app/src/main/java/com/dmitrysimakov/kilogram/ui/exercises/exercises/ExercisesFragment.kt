@@ -6,12 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.util.AppExecutors
+import com.dmitrysimakov.kilogram.util.getViewModel
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_exercises.*
 import javax.inject.Inject
 
@@ -34,8 +33,7 @@ class ExercisesFragment : DaggerFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(ExercisesViewModel::class.java)
+        viewModel = getViewModel(viewModelFactory)
         viewModel.exerciseList.observe(this, Observer { adapter.submitList(it) })
 
         val params = ExercisesFragmentArgs.fromBundle(arguments)

@@ -3,18 +3,18 @@ package com.dmitrysimakov.kilogram.ui.training.createTraining
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.app.TimePickerDialog
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
-import androidx.annotation.MainThread
-import androidx.appcompat.app.AlertDialog
 import android.util.Log.d
 import android.view.*
+import androidx.annotation.MainThread
+import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.data.ItemInsertedListener
 import com.dmitrysimakov.kilogram.databinding.DialogCreateTrainingBinding
+import com.dmitrysimakov.kilogram.util.getViewModel
 import dagger.android.support.DaggerAppCompatDialogFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import java.text.SimpleDateFormat
@@ -48,8 +48,7 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         d(TAG, "onCreateView")
-        viewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(CreateTrainingViewModel::class.java)
+        viewModel = getViewModel(viewModelFactory)
         binding.viewModel = viewModel
         binding.setLifecycleOwner(this)
 
