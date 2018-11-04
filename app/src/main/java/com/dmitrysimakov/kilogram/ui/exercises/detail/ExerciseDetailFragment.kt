@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.dmitrysimakov.kilogram.databinding.FragmentExerciseDetailBinding
 import com.dmitrysimakov.kilogram.util.getViewModel
@@ -15,28 +14,15 @@ class ExerciseDetailFragment : DaggerFragment() {
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var binding: FragmentExerciseDetailBinding
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val viewModel: ExerciseDetailViewModel = getViewModel(viewModelFactory)
+        val args = ExerciseDetailFragmentArgs.fromBundle(arguments)
+        viewModel.setExercise(args.exerciseId.toLong())
 
-    private lateinit var viewModel: ExerciseDetailViewModel
-
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-
-        binding = FragmentExerciseDetailBinding.inflate(LayoutInflater.from(context))
-        return binding.root
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        viewModel = getViewModel(viewModelFactory)
-
-        val params = ExerciseDetailFragmentArgs.fromBundle(arguments)
-        viewModel.setExercise(params.exerciseId.toLong())
-
-        viewModel.exercise.observe(this, Observer {
-            binding.exercise = it
-        })
+        FragmentExerciseDetailBinding.inflate(inflater).apply {
+            vm = viewModel
+            setLifecycleOwner(this@ExerciseDetailFragment)
+            return root
+        }
     }
 }

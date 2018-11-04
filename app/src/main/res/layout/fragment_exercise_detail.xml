@@ -6,8 +6,8 @@
 
     <data>
         <variable
-            name="exercise"
-            type="com.dmitrysimakov.kilogram.data.relation.ExerciseR"/>
+            name="vm"
+            type="com.dmitrysimakov.kilogram.ui.exercises.detail.ExerciseDetailViewModel"/>
     </data>
 
     <ScrollView
@@ -24,7 +24,7 @@
             <TextView
                 android:id="@+id/exercise_name"
                 style="@style/FieldStyle"
-                android:text="@{exercise.name}"
+                android:text="@{vm.exercise.name}"
                 tools:text="@string/exercise_name" />
 
             <LinearLayout
@@ -40,7 +40,7 @@
                     android:contentDescription="@string/first_phase"
                     android:adjustViewBounds="true"
                     tools:src="@drawable/exercise_sample_1"
-                    app:assetsImage='@{"exercises/"+ exercise._id +"_1.jpeg"}'/>
+                    app:assetsImage='@{"exercises/"+ vm.exercise._id +"_1.jpeg"}'/>
 
                 <ImageView
                     android:id="@+id/image_2"
@@ -50,7 +50,7 @@
                     android:contentDescription="@string/second_phase"
                     android:adjustViewBounds="true"
                     tools:src="@drawable/exercise_sample_2"
-                    app:assetsImage='@{"exercises/"+ exercise._id +"_2.jpeg"}'/>
+                    app:assetsImage='@{"exercises/"+ vm.exercise._id +"_2.jpeg"}'/>
 
             </LinearLayout>
 
@@ -61,7 +61,7 @@
             <TextView
                 android:id="@+id/main_muscle"
                 style="@style/FieldStyle"
-                android:text="@{exercise.main_muscle}"
+                android:text="@{vm.exercise.main_muscle}"
                 tools:text="@string/main_muscle" />
 
             <View style="@style/DividerStyle" />
@@ -73,7 +73,7 @@
             <TextView
                 android:id="@+id/targeted_muscles"
                 tools:text="@string/targeted_muscles"
-                android:text="@{exercise.targeted_muscles}"
+                android:text="@{vm.exercise.targeted_muscles}"
                 style="@style/FieldStyle"/>
 
             <View style="@style/DividerStyle" />
@@ -85,7 +85,7 @@
             <TextView
                 android:id="@+id/mechanics_type"
                 tools:text="@string/mechanics_type"
-                android:text="@{exercise.mechanics_type}"
+                android:text="@{vm.exercise.mechanics_type}"
                 style="@style/FieldStyle" />
 
             <View style="@style/DividerStyle" />
@@ -97,7 +97,7 @@
             <TextView
                 android:id="@+id/exercise_type"
                 tools:text="@string/exercise_type"
-                android:text="@{exercise.exercise_type}"
+                android:text="@{vm.exercise.exercise_type}"
                 style="@style/FieldStyle" />
 
             <View style="@style/DividerStyle" />
@@ -109,7 +109,7 @@
             <TextView
                 android:id="@+id/equipment"
                 tools:text="@string/equipment"
-                android:text="@{exercise.equipment}"
+                android:text="@{vm.exercise.equipment}"
                 style="@style/FieldStyle" />
 
             <View style="@style/DividerStyle" />
@@ -121,7 +121,7 @@
             <TextView
                 android:id="@+id/description"
                 tools:text="@string/description"
-                android:text="@{exercise.description}"
+                android:text="@{vm.exercise.description}"
                 style="@style/FieldStyle" />
 
         </LinearLayout>
