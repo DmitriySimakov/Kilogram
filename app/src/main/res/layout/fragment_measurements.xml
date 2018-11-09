@@ -5,13 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.exercises.exercises.ExercisesFragment">
+    tools:context=".ui.measurements.addMeasurement.MeasurementsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/exercises_rv"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/exercise_item"/>
+        tools:listitem="@layout/measurement_item"/>
 
 </FrameLayout>

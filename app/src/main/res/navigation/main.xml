@@ -16,6 +16,9 @@
         <action
             android:id="@+id/to_chooseMuscleFragment"
             app:destination="@id/chooseMuscleFragment" />
+        <action
+            android:id="@+id/to_measurementsTabFragment"
+            app:destination="@id/measurementsTabFragment" />
     </fragment>
 
     <fragment
@@ -82,5 +85,10 @@
             android:name="exercise_id"
             app:argType="integer" />
     </fragment>
+
+    <fragment
+        android:id="@+id/measurementsTabFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.measurements.MeasurementsTabFragment"
+        android:label="@string/measurements" />
 
 </navigation>

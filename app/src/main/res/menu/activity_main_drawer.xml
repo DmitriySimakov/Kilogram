@@ -20,7 +20,7 @@
             android:icon="@drawable/round_fitness_center_black_24"
             android:title="@string/exercises" />
         <item
-            android:id="@+id/training_programs_fragment"
+            android:id="@+id/programsFragment"
             android:icon="@drawable/ic_clipboard_text_outline"
             android:title="@string/training_programs" />
         <item
@@ -28,9 +28,9 @@
             android:icon="@drawable/ic_calendar_multiselect"
             android:title="@string/training_sessions" />
         <item
-            android:id="@+id/measures_fragment"
+            android:id="@+id/measurementsTabFragment"
             android:icon="@drawable/baseline_straighten_black_24"
-            android:title="@string/measures" />
+            android:title="@string/measurements" />
     </group>
 
     <group

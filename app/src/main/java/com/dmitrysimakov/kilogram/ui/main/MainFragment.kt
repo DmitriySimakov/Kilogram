@@ -24,5 +24,8 @@ class MainFragment : Fragment() {
 
         trainingsBtn.setOnClickListener { findNavController().navigate(
                 MainFragmentDirections.toTrainingsFragment()) }
+
+        measuresBtn.setOnClickListener { findNavController().navigate(
+                MainFragmentDirections.toMeasurementsTabFragment()) }
     }
 }

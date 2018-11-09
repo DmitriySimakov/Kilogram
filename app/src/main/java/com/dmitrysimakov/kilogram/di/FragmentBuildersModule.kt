@@ -5,6 +5,7 @@ import com.dmitrysimakov.kilogram.ui.exercises.chooseMuscle.ChooseMuscleFragment
 import com.dmitrysimakov.kilogram.ui.exercises.detail.ExerciseDetailFragment
 import com.dmitrysimakov.kilogram.ui.exercises.exercises.ExercisesFragment
 import com.dmitrysimakov.kilogram.ui.main.MainFragment
+import com.dmitrysimakov.kilogram.ui.measurements.addMeasurement.MeasurementsFragment
 import com.dmitrysimakov.kilogram.ui.training.training.TrainingFragment
 import com.dmitrysimakov.kilogram.ui.training.trainingList.TrainingsFragment
 import dagger.Module
@@ -36,4 +37,8 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun contributeTrainingFragment(): TrainingFragment
+
+
+    @ContributesAndroidInjector
+    abstract fun contributeMeasurementsFragment(): MeasurementsFragment
 }
