@@ -30,10 +30,10 @@ class SeedDatabaseWorker(val context: Context, workerParams: WorkerParameters) :
 
                 measurementParamDao().insert(listFromJson("measurement_param.json"))
             }
-            Result.SUCCESS
+            Result.success()
         } catch (e: Exception) {
             Log.e(TAG, "Error seeding database", e)
-            Result.FAILURE
+            Result.failure()
         }
     }
 

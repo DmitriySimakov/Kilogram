@@ -38,7 +38,7 @@ dependencies {
     //implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$rootProject.kotlin_version"
     implementation 'androidx.core:core-ktx:1.0.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
 
     // Support Library
     def support_library_version = '1.0.0'
@@ -54,8 +54,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0-alpha1'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0-alpha1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0-alpha01'
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
 
     // navigation
@@ -63,12 +63,12 @@ dependencies {
     implementation "android.arch.navigation:navigation-ui-ktx:$rootProject.navigation_version"
 
     // room
-    def room_version = '2.1.0-alpha02'
+    def room_version = '2.1.0-alpha03'
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
     // work manager
-    implementation 'android.arch.work:work-runtime-ktx:1.0.0-alpha11'
+    implementation 'android.arch.work:work-runtime-ktx:1.0.0-beta01'
 
     // Gson
     implementation 'com.google.code.gson:gson:2.8.2'
@@ -82,7 +82,7 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
 
     // Testing dependencies
-    androidTestImplementation 'androidx.test:runner:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     testImplementation 'junit:junit:4.12'
 }

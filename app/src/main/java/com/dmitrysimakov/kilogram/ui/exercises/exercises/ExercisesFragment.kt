@@ -36,7 +36,7 @@ class ExercisesFragment : DaggerFragment() {
         viewModel = getViewModel(viewModelFactory)
         viewModel.exerciseList.observe(this, Observer { adapter.submitList(it) })
 
-        val params = ExercisesFragmentArgs.fromBundle(arguments)
+        val params = ExercisesFragmentArgs.fromBundle(arguments!!)
         viewModel.setMuscle(params.muscleId.toLong())
 
         adapter = ExercisesAdapter(executors) { exercise ->
