@@ -23,4 +23,10 @@ class TrainingRepository @Inject constructor(
     }
 
     fun loadTrainingList() = trainingDao.getTrainingList()
+
+    fun deleteTraining(training: Training) {
+        executors.diskIO().execute{
+            trainingDao.delete(training)
+        }
+    }
 }

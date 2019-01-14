@@ -14,6 +14,8 @@ import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_trainings.*
 import javax.inject.Inject
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ItemTouchHelper
 
 class TrainingsFragment : DaggerFragment() {
 
@@ -40,6 +42,20 @@ class TrainingsFragment : DaggerFragment() {
         adapter = TrainingsAdapter(executors) {}
 
         trainings_rv.adapter = adapter
+
+        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
+                val training = adapter.get(viewHolder.adapterPosition)
+                viewModel.deleteTraining(training)
+            }
+
+        }).attachToRecyclerView(trainings_rv)
 
         activity?.fab?.setOnClickListener{
             findNavController().navigate(R.id.createTrainingFragment)
