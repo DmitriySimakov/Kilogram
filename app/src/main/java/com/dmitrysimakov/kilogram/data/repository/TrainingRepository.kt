@@ -3,6 +3,7 @@ package com.dmitrysimakov.kilogram.data.repository
 import com.dmitrysimakov.kilogram.data.ItemInsertedListener
 import com.dmitrysimakov.kilogram.data.dao.TrainingDao
 import com.dmitrysimakov.kilogram.data.dao.TrainingExerciseDao
+import com.dmitrysimakov.kilogram.data.entity.Exercise
 import com.dmitrysimakov.kilogram.data.entity.Training
 import com.dmitrysimakov.kilogram.data.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.util.AppExecutors
@@ -39,6 +40,12 @@ class TrainingRepository @Inject constructor(
     fun addExercise(exercise_id: Long, training_id: Long) {
         executors.diskIO().execute{
             trainingExerciseDao.insert(TrainingExercise(training_id = training_id, exercise_id = exercise_id, number = 0))
+        }
+    }
+
+    fun deleteExercise(exercise: Exercise, training_id: Long) {
+        executors.diskIO().execute{
+            trainingExerciseDao.deleteExerciseFromTraining(exercise._id, training_id)
         }
     }
 }

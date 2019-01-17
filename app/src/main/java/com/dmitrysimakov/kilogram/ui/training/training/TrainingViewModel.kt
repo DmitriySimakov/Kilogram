@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import com.dmitrysimakov.kilogram.data.entity.Exercise
 import com.dmitrysimakov.kilogram.data.entity.Training
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
 import com.dmitrysimakov.kilogram.util.AbsentLiveData
@@ -27,5 +28,9 @@ class TrainingViewModel @Inject constructor(private val repository: TrainingRepo
         if (_id.value != id) {
             _id.value = id
         }
+    }
+
+    fun deleteExercise(exercise: Exercise, training_id: Long) {
+        repository.deleteExercise(exercise, training_id)
     }
 }

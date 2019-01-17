@@ -1,10 +1,7 @@
 package com.dmitrysimakov.kilogram.data.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.dmitrysimakov.kilogram.data.entity.Exercise
 import com.dmitrysimakov.kilogram.data.entity.TrainingExercise
 
@@ -26,4 +23,7 @@ interface TrainingExerciseDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(trainingExercise: TrainingExercise)
+
+    @Query("DELETE FROM training_exercise WHERE training_id = :training_id AND exercise_id = :exercise_id")
+    fun deleteExerciseFromTraining(exercise_id: Long, training_id: Long)
 }

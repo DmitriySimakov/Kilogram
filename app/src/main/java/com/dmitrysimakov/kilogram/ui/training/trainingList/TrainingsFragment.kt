@@ -1,6 +1,7 @@
 package com.dmitrysimakov.kilogram.ui.training.trainingList
 
 import android.os.Bundle
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,21 +39,19 @@ class TrainingsFragment : DaggerFragment() {
 
         viewModel = getViewModel(viewModelFactory)
         viewModel.trainingList.observe(this, Observer { adapter.submitList(it) })
-        adapter = TrainingsAdapter(executors) {}
+        adapter = TrainingsAdapter(executors) { training ->
+            findNavController().navigate(TrainingsFragmentDirections.toTrainingFragment(training._id))
+        }
         trainings_rv.adapter = adapter
 
-        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0,
-                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
-
+        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
                 return false
             }
-
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
                 val training = adapter.get(viewHolder.adapterPosition)
                 viewModel.deleteTraining(training)
             }
-
         }).attachToRecyclerView(trainings_rv)
 
         activity?.fab?.setOnClickListener{
