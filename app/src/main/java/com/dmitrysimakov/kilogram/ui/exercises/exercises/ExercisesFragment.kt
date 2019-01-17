@@ -37,11 +37,17 @@ class ExercisesFragment : DaggerFragment() {
         viewModel.exerciseList.observe(this, Observer { adapter.submitList(it) })
 
         val params = ExercisesFragmentArgs.fromBundle(arguments!!)
-        viewModel.setMuscle(params.muscleId.toLong())
+        viewModel.setMuscle(params.muscleId)
 
         adapter = ExercisesAdapter(executors) { exercise ->
-            findNavController().navigate(
-                    ExercisesFragmentDirections.toExerciseDetailFragment(exercise._id.toInt()))
+            val navController = findNavController()
+            if (params.trainingId == 0L) {
+                navController.navigate(ExercisesFragmentDirections
+                        .toExerciseDetailFragment(exercise._id))
+            } else {
+                navController.navigate(ExercisesFragmentDirections
+                        .toAddExerciseDialog(params.trainingId, exercise._id))
+            }
         }
 
         exercises_rv.adapter = adapter

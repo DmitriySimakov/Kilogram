@@ -15,6 +15,12 @@ object BindingAdapters {
     }
 
     @JvmStatic
+    @BindingAdapter("visibleGone")
+    fun visibleGone(view: View, visible: Boolean) {
+        view.visibility = if (visible) View.VISIBLE else View.GONE
+    }
+
+    @JvmStatic
     @BindingAdapter("assetsImage")
     fun assetsImage(view: ImageView, path: String) {
         try {

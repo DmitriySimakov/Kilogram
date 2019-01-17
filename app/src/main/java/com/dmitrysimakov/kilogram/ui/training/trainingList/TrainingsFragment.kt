@@ -38,9 +38,7 @@ class TrainingsFragment : DaggerFragment() {
 
         viewModel = getViewModel(viewModelFactory)
         viewModel.trainingList.observe(this, Observer { adapter.submitList(it) })
-
         adapter = TrainingsAdapter(executors) {}
-
         trainings_rv.adapter = adapter
 
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0,
@@ -58,7 +56,7 @@ class TrainingsFragment : DaggerFragment() {
         }).attachToRecyclerView(trainings_rv)
 
         activity?.fab?.setOnClickListener{
-            findNavController().navigate(R.id.createTrainingFragment)
+            findNavController().navigate(TrainingsFragmentDirections.toCreateTrainingFragment())
         }
     }
 }

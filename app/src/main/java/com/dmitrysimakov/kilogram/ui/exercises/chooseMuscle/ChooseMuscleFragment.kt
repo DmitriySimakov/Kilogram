@@ -36,8 +36,9 @@ class ChooseMuscleFragment : DaggerFragment() {
         viewModel.muscleList.observe(this, Observer { adapter.submitList(it) })
 
         adapter = ChooseMuscleAdapter(executors) { muscle ->
-            findNavController().navigate(
-                    ChooseMuscleFragmentDirections.toExercisesFragment(muscle._id.toInt()))
+            val params = ChooseMuscleFragmentArgs.fromBundle(arguments!!)
+            findNavController().navigate(ChooseMuscleFragmentDirections
+                    .toExercisesFragment(muscle._id, params.trainingId))
         }
 
         choose_exercises_rv.adapter = adapter

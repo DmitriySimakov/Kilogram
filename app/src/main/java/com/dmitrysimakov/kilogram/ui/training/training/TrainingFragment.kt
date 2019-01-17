@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.util.getViewModel
@@ -32,15 +34,15 @@ class TrainingFragment : DaggerFragment() {
         super.onActivityCreated(savedInstanceState)
 
         viewModel = getViewModel(viewModelFactory)
+        val params = TrainingFragmentArgs.fromBundle(arguments!!)
+        viewModel.setTraining(params.trainingId)
 
-        adapter = TrainingAdapter(executors) {
-            //CreateTrainingDialog().show(childFragmentManager, null)
-        }
-
+        viewModel.exercises.observe(this, Observer { adapter.submitList(it) })
+        adapter = TrainingAdapter(executors) {}
         exercises_rv.adapter = adapter
 
         activity?.fab?.setOnClickListener{
-
+            findNavController().navigate(TrainingFragmentDirections.toChooseMuscleFragment(params.trainingId))
         }
     }
 }

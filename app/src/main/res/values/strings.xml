@@ -57,5 +57,6 @@
     <string name="delete_exercise">Удалить упражнение</string>
     <string name="first_phase">Первая фаза упражнения</string>
     <string name="second_phase">Вторая фаза упражнения</string>
+    <string name="addExercise">Добавить упражнение</string>
 
 </resources>

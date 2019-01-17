@@ -116,6 +116,6 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
 
     @MainThread
     override fun onItemInserted(id: Long) {
-        findNavController().navigate(CreateTrainingDialogDirections.toTrainingFragment())
+        findNavController().navigate(CreateTrainingDialogDirections.toTrainingFragment(id))
     }
 }

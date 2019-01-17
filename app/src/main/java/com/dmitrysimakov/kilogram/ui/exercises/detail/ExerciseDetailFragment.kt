@@ -17,7 +17,7 @@ class ExerciseDetailFragment : DaggerFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val viewModel: ExerciseDetailViewModel = getViewModel(viewModelFactory)
         val args = ExerciseDetailFragmentArgs.fromBundle(arguments!!)
-        viewModel.setExercise(args.exerciseId.toLong())
+        viewModel.setExercise(args.exerciseId)
 
         FragmentExerciseDetailBinding.inflate(inflater).apply {
             vm = viewModel

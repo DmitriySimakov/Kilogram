@@ -15,7 +15,11 @@
             app:destination="@id/trainingsFragment" />
         <action
             android:id="@+id/to_chooseMuscleFragment"
-            app:destination="@id/chooseMuscleFragment" />
+            app:destination="@id/chooseMuscleFragment" >
+            <argument
+                android:name="training_id"
+                android:defaultValue="0L" />
+        </action>
         <action
             android:id="@+id/to_measurementsTabFragment"
             app:destination="@id/measurementsTabFragment" />
@@ -29,6 +33,9 @@
         <action
             android:id="@+id/to_exercisesFragment"
             app:destination="@id/exercisesFragment" />
+        <argument
+            android:name="training_id"
+            app:argType="long" />
     </fragment>
 
     <fragment
@@ -62,6 +69,28 @@
         android:name="com.dmitrysimakov.kilogram.ui.training.training.TrainingFragment"
         android:label="@string/training_session"
         tools:layout="@layout/fragment_training">
+        <action
+            android:id="@+id/to_chooseMuscleFragment"
+            app:destination="@id/chooseMuscleFragment" />
+        <argument
+            android:name="training_id"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addExerciseDialog"
+        android:name="com.dmitrysimakov.kilogram.ui.training.addExercise.AddExerciseDialog"
+        android:label="@string/addExercise"
+        tools:layout="@layout/dialog_add_exercise">
+        <action
+            android:id="@+id/to_chooseMuscleFragment"
+            app:destination="@id/chooseMuscleFragment" />
+        <argument
+            android:name="training_id"
+            app:argType="long" />
+        <argument
+            android:name="exercise_id"
+            app:argType="long" />
     </fragment>
 
     <fragment
@@ -71,10 +100,17 @@
         tools:layout="@layout/fragment_exercises">
         <argument
             android:name="muscle_id"
-            app:argType="integer" />
+            app:argType="long" />
         <action
             android:id="@+id/to_exerciseDetailFragment"
             app:destination="@id/exerciseDetailFragment" />
+        <action
+            android:id="@+id/to_addExerciseDialog"
+            app:destination="@id/addExerciseDialog"
+            app:popUpTo="@+id/trainingFragment" />
+        <argument
+            android:name="training_id"
+            app:argType="long" />
     </fragment>
 
     <fragment
@@ -83,7 +119,7 @@
         tools:layout="@layout/fragment_exercise_detail" >
         <argument
             android:name="exercise_id"
-            app:argType="integer" />
+            app:argType="long" />
     </fragment>
 
     <fragment
