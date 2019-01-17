@@ -39,9 +39,11 @@ class TrainingFragment : DaggerFragment() {
         val params = TrainingFragmentArgs.fromBundle(arguments!!)
         viewModel.setTraining(params.trainingId)
 
-        viewModel.exercises.observe(this, Observer { adapter.submitList(it) })
-        adapter = TrainingAdapter(executors) {}
+        adapter = TrainingAdapter(executors) {
+            findNavController().navigate(TrainingFragmentDirections.toTrainingSetsFragment(1))
+        }
         exercises_rv.adapter = adapter
+        viewModel.exercises.observe(this, Observer { adapter.submitList(it) })
 
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {

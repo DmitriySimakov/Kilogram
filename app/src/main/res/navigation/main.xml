@@ -75,6 +75,9 @@
         <argument
             android:name="training_id"
             app:argType="long" />
+        <action
+            android:id="@+id/to_trainingSetsFragment"
+            app:destination="@id/trainingSetsFragment" />
     </fragment>
 
     <fragment
@@ -126,5 +129,15 @@
         android:id="@+id/measurementsTabFragment"
         android:name="com.dmitrysimakov.kilogram.ui.measurements.MeasurementsTabFragment"
         android:label="@string/measurements" />
+
+    <fragment
+        android:id="@+id/trainingSetsFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.training.sets.TrainingSetsFragment"
+        android:label="TrainingSetsFragment"
+        tools:layout="@layout/fragment_training_sets">
+        <argument
+            android:name="training_exercise_id"
+            app:argType="long" />
+    </fragment>
 
 </navigation>
