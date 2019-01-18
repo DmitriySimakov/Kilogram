@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.dmitrysimakov.kilogram.databinding.FragmentExerciseDetailBinding
 import com.dmitrysimakov.kilogram.util.getViewModel
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.app_bar_main.*
 import javax.inject.Inject
 
 class ExerciseDetailFragment : DaggerFragment() {
@@ -24,5 +25,10 @@ class ExerciseDetailFragment : DaggerFragment() {
             setLifecycleOwner(this@ExerciseDetailFragment)
             return root
         }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        activity?.fab?.hide()
     }
 }

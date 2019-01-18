@@ -11,6 +11,7 @@ import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.util.getViewModel
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_choose_muscle.*
 import javax.inject.Inject
 
@@ -42,5 +43,7 @@ class ChooseMuscleFragment : DaggerFragment() {
         }
 
         choose_exercises_rv.adapter = adapter
+
+        activity?.fab?.hide()
     }
 }

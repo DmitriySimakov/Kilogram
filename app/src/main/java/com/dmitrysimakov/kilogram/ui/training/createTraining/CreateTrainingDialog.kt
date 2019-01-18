@@ -97,6 +97,8 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
             activity?.toolbar?.setNavigationIcon(R.drawable.baseline_close_white_24)
             setHasOptionsMenu(true)
         }
+
+        activity?.fab?.hide()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {

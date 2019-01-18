@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
+import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : Fragment() {
@@ -27,5 +28,11 @@ class MainFragment : Fragment() {
 
         measuresBtn.setOnClickListener { findNavController().navigate(
                 MainFragmentDirections.toMeasurementsTabFragment()) }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        activity?.fab?.hide()
     }
 }

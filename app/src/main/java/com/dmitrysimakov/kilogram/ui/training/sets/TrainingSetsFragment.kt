@@ -50,6 +50,7 @@ class TrainingSetsFragment : DaggerFragment() {
             }
         }).attachToRecyclerView(exercises_rv)*/
 
+        activity?.fab?.show()
         activity?.fab?.setOnClickListener{
             findNavController().navigate(TrainingSetsFragmentDirections
                     .toAddSetDialog(params.trainingExerciseId))

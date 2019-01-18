@@ -55,6 +55,7 @@ class TrainingFragment : DaggerFragment() {
             }
         }).attachToRecyclerView(exercises_rv)
 
+        activity?.fab?.show()
         activity?.fab?.setOnClickListener{
             findNavController().navigate(TrainingFragmentDirections.toChooseMuscleFragment(params.trainingId))
         }
