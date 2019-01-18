@@ -138,6 +138,19 @@
         <argument
             android:name="training_exercise_id"
             app:argType="long" />
+        <action
+            android:id="@+id/to_addSetDialog"
+            app:destination="@id/addSetDialog" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addSetDialog"
+        android:name="com.dmitrysimakov.kilogram.ui.training.addSet.AddSetDialog"
+        android:label="Добавить подход"
+        tools:layout="@layout/dialog_add_set" >
+        <argument
+            android:name="training_exercise_id"
+            app:argType="long" />
     </fragment>
 
 </navigation>

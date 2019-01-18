@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.training.addExercise
+package com.dmitrysimakov.kilogram.ui.training.addSet
 
 import android.app.Dialog
 import android.content.Context
@@ -8,33 +8,31 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.databinding.DialogAddExerciseBinding
+import com.dmitrysimakov.kilogram.databinding.DialogAddSetBinding
 import com.dmitrysimakov.kilogram.util.getViewModel
 import dagger.android.support.DaggerAppCompatDialogFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import javax.inject.Inject
 
-class AddExerciseDialog: DaggerAppCompatDialogFragment() {
+class AddSetDialog : DaggerAppCompatDialogFragment() {
 
-    private val TAG = this::class.java.simpleName
+    private lateinit var viewModel: AddSetViewModel
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var binding: DialogAddExerciseBinding
+    private lateinit var binding: DialogAddSetBinding
 
-    private lateinit var viewModel: AddExerciseViewModel
-
-    private lateinit var params: AddExerciseDialogArgs
+    private lateinit var params: AddSetDialogArgs
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        binding = DialogAddExerciseBinding.inflate(LayoutInflater.from(context))
+        binding = DialogAddSetBinding.inflate(LayoutInflater.from(context))
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return AlertDialog.Builder(activity!!)
                 .setView(binding.root)
-                .setTitle("Добавить упражнение")
+                .setTitle("Добавить подход")
                 .setPositiveButton("Добавить", null)
                 .setNegativeButton("Отмена") { dialog, _ -> dialog.cancel() }
                 .create()
@@ -45,11 +43,8 @@ class AddExerciseDialog: DaggerAppCompatDialogFragment() {
         binding.viewModel = viewModel
         binding.setLifecycleOwner(this)
 
-        params = AddExerciseDialogArgs.fromBundle(arguments!!)
+        params = AddSetDialogArgs.fromBundle(arguments!!)
 
-        binding.chooseExerciseBtn.setOnClickListener{
-            AddExerciseDialogDirections.toChooseMuscleFragment(params.trainingId)
-        }
         return binding.root
     }
 
@@ -69,7 +64,7 @@ class AddExerciseDialog: DaggerAppCompatDialogFragment() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.ok -> {
-                viewModel.addExercise(params.exerciseId ,params.trainingId)
+                //viewModel.addSet(params.exerciseId ,params.trainingId)
                 findNavController().popBackStack()
                 return true
             }

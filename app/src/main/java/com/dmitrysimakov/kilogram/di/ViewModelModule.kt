@@ -8,6 +8,7 @@ import com.dmitrysimakov.kilogram.ui.exercises.detail.ExerciseDetailViewModel
 import com.dmitrysimakov.kilogram.ui.exercises.exercises.ExercisesViewModel
 import com.dmitrysimakov.kilogram.ui.measurements.addMeasurement.MeasurementsViewModel
 import com.dmitrysimakov.kilogram.ui.training.addExercise.AddExerciseViewModel
+import com.dmitrysimakov.kilogram.ui.training.addSet.AddSetViewModel
 import com.dmitrysimakov.kilogram.ui.training.sets.TrainingSetsViewModel
 import com.dmitrysimakov.kilogram.ui.training.training.TrainingViewModel
 import com.dmitrysimakov.kilogram.ui.training.trainingList.TrainingsViewModel
@@ -60,6 +61,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(TrainingSetsViewModel::class)
     abstract fun bindTrainingSetsViewModel(viewModel: TrainingSetsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AddSetViewModel::class)
+    abstract fun bindAddSetViewModel(viewModel: AddSetViewModel): ViewModel
 
 
     @Binds

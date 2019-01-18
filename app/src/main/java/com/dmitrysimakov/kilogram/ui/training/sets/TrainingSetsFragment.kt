@@ -51,7 +51,8 @@ class TrainingSetsFragment : DaggerFragment() {
         }).attachToRecyclerView(exercises_rv)*/
 
         activity?.fab?.setOnClickListener{
-            //findNavController().navigate(TrainingFragmentDirections.toChooseMuscleFragment(params.trainingId))
+            findNavController().navigate(TrainingSetsFragmentDirections
+                    .toAddSetDialog(params.trainingExerciseId))
         }
     }
 }

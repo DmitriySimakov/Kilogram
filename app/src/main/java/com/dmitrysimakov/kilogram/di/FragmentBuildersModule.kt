@@ -7,6 +7,7 @@ import com.dmitrysimakov.kilogram.ui.exercises.exercises.ExercisesFragment
 import com.dmitrysimakov.kilogram.ui.main.MainFragment
 import com.dmitrysimakov.kilogram.ui.measurements.addMeasurement.MeasurementsFragment
 import com.dmitrysimakov.kilogram.ui.training.addExercise.AddExerciseDialog
+import com.dmitrysimakov.kilogram.ui.training.addSet.AddSetDialog
 import com.dmitrysimakov.kilogram.ui.training.sets.TrainingSetsFragment
 import com.dmitrysimakov.kilogram.ui.training.training.TrainingFragment
 import com.dmitrysimakov.kilogram.ui.training.trainingList.TrainingsFragment
@@ -45,6 +46,9 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun contributeTrainingSetsFragment(): TrainingSetsFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeAddSetDialog(): AddSetDialog
 
 
     @ContributesAndroidInjector
