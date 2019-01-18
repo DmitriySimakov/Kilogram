@@ -66,7 +66,11 @@ class AddSetDialog : DaggerAppCompatDialogFragment() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.ok -> {
-                //viewModel.addSet(params.exerciseId ,params.trainingId)
+                val weight = binding.weightEt.text.toString().toInt()
+                val reps = binding.repsEt.text.toString().toInt()
+                val time = binding.timeEt.text.toString().toInt()
+                val distance = binding.distanceEt.text.toString().toInt()
+                viewModel.addSet(params.trainingExerciseId, weight, reps, time, distance)
                 findNavController().popBackStack()
                 return true
             }

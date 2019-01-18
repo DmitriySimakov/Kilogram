@@ -6,7 +6,6 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import java.io.IOException
 
-
 object BindingAdapters {
     @JvmStatic
     @BindingAdapter("visibleInvisible")

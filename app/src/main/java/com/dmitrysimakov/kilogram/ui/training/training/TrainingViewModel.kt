@@ -6,6 +6,7 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.entity.Exercise
 import com.dmitrysimakov.kilogram.data.entity.Training
+import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
 import com.dmitrysimakov.kilogram.util.AbsentLiveData
 import javax.inject.Inject
@@ -30,7 +31,7 @@ class TrainingViewModel @Inject constructor(private val repository: TrainingRepo
         }
     }
 
-    fun deleteExercise(exercise: Exercise, training_id: Long) {
-        repository.deleteExercise(exercise, training_id)
+    fun deleteExercise(exercise: TrainingExerciseR) {
+        repository.deleteExercise(exercise)
     }
 }

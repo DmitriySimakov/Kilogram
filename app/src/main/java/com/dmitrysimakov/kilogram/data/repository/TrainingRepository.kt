@@ -3,9 +3,12 @@ package com.dmitrysimakov.kilogram.data.repository
 import com.dmitrysimakov.kilogram.data.ItemInsertedListener
 import com.dmitrysimakov.kilogram.data.dao.TrainingDao
 import com.dmitrysimakov.kilogram.data.dao.TrainingExerciseDao
+import com.dmitrysimakov.kilogram.data.dao.TrainingExerciseSetDao
 import com.dmitrysimakov.kilogram.data.entity.Exercise
 import com.dmitrysimakov.kilogram.data.entity.Training
 import com.dmitrysimakov.kilogram.data.entity.TrainingExercise
+import com.dmitrysimakov.kilogram.data.entity.TrainingExerciseSet
+import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -14,7 +17,8 @@ import javax.inject.Singleton
 class TrainingRepository @Inject constructor(
         private val executors: AppExecutors,
         private val trainingDao: TrainingDao,
-        private val trainingExerciseDao: TrainingExerciseDao
+        private val trainingExerciseDao: TrainingExerciseDao,
+        private val trainingExerciseSetDao: TrainingExerciseSetDao
 ) {
 
     fun loadTrainingList() = trainingDao.getTrainingList()
@@ -43,9 +47,24 @@ class TrainingRepository @Inject constructor(
         }
     }
 
-    fun deleteExercise(exercise: Exercise, training_id: Long) {
+    fun deleteExercise(exercise: TrainingExerciseR) {
         executors.diskIO().execute{
-            trainingExerciseDao.deleteExerciseFromTraining(exercise._id, training_id)
+            trainingExerciseDao.deleteExerciseFromTraining(exercise._id)
+        }
+    }
+
+
+    fun loadSets(training_exercise_id: Long) = trainingExerciseSetDao.getSets(training_exercise_id)
+
+    fun insertSet(set: TrainingExerciseSet) {
+        executors.diskIO().execute{
+            trainingExerciseSetDao.insert(set)
+        }
+    }
+
+    fun deleteSet(set: TrainingExerciseSet) {
+        executors.diskIO().execute{
+            trainingExerciseSetDao.delete(set)
         }
     }
 }

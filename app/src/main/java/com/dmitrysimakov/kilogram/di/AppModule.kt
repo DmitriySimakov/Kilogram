@@ -48,5 +48,9 @@ class AppModule {
 
     @Singleton
     @Provides
+    fun provideTrainingExerciseSetDao(db: KilogramDb) = db.trainingExerciseSetDao()
+
+    @Singleton
+    @Provides
     fun provideMeasurementDao(db: KilogramDb) = db.measurementDao()
 }

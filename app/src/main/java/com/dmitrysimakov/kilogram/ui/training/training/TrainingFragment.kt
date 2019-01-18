@@ -39,8 +39,8 @@ class TrainingFragment : DaggerFragment() {
         val params = TrainingFragmentArgs.fromBundle(arguments!!)
         viewModel.setTraining(params.trainingId)
 
-        adapter = TrainingAdapter(executors) {
-            findNavController().navigate(TrainingFragmentDirections.toTrainingSetsFragment(1))
+        adapter = TrainingAdapter(executors) { exercise ->
+            findNavController().navigate(TrainingFragmentDirections.toTrainingSetsFragment(exercise._id))
         }
         exercises_rv.adapter = adapter
         viewModel.exercises.observe(this, Observer { adapter.submitList(it) })
@@ -51,7 +51,7 @@ class TrainingFragment : DaggerFragment() {
             }
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
                 val exercise = adapter.get(viewHolder.adapterPosition)
-                viewModel.deleteExercise(exercise, params.trainingId)
+                viewModel.deleteExercise(exercise)
             }
         }).attachToRecyclerView(exercises_rv)
 

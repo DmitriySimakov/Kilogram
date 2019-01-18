@@ -62,10 +62,6 @@
             android:textSize="12sp"
             android:text="Расстояние" />
 
-        <Space
-            android:layout_width="40dp"
-            android:layout_height="match_parent"/>
-
     </LinearLayout>
 
     <View style="@style/DividerStyle"
