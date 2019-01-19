@@ -3,43 +3,43 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
+    
     <data>
         <variable
             name="exercise"
             type="com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR"/>
     </data>
-
+    
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="?attr/listPreferredItemHeight"
         app:cardUseCompatPadding="true">
-
+        
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
+            
             <ImageView
                 android:id="@+id/exercise_image"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                tools:layout_width="?android:attr/listPreferredItemHeight"
                 android:adjustViewBounds="true"
-                app:assetsImage='@{"exercises/"+ exercise.exercise_id +"_1.jpeg"}'/>
-
+                app:assetsImage='@{"exercises/"+ exercise.exercise_id +"_1.jpeg"}'
+                tools:layout_width="?android:attr/listPreferredItemHeight"/>
+            
             <TextView
                 android:id="@+id/exercise_name"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:paddingStart="?android:attr/listPreferredItemPaddingLeft"
                 android:paddingEnd="?android:attr/listPreferredItemPaddingRight"
-                android:gravity="center_vertical"
-                android:textAppearance="?android:attr/textAppearanceListItemSmall"
                 android:text="@{exercise.name}"
-                tools:text="Упражнение" />
-
+                android:textAppearance="?android:attr/textAppearanceListItemSmall"
+                tools:text="Упражнение"/>
+        
         </LinearLayout>
-
+    
     </com.google.android.material.card.MaterialCardView>
 </layout>

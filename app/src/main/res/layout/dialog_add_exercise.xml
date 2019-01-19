@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
+    
     <data>
         <variable
             name="viewModel"
             type="com.dmitrysimakov.kilogram.ui.training.addExercise.AddExerciseViewModel"/>
     </data>
-
+    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,183 +17,187 @@
         android:paddingLeft="?attr/dialogPreferredPadding"
         android:paddingRight="?attr/dialogPreferredPadding"
         tools:context=".training_sessions.TrainingSessionExerciseDialog">
-
+        
         <Button
             android:id="@+id/choose_exercise_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Выбрать упражнение"
+            android:text="@string/choose_exercise"
             app:visibleGone="@{viewModel.exercise == null}"/>
-
+        
         <LinearLayout
             android:id="@+id/chosen_exercise_ll"
             android:layout_width="match_parent"
             android:layout_height="?attr/listPreferredItemHeight"
-            android:orientation="horizontal"
             android:gravity="center"
+            android:orientation="horizontal"
             app:visibleGone="@{viewModel.exercise != null}">
-
+            
             <ImageView
                 android:id="@+id/exercise_image"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"/>
-
+            
             <TextView
                 android:id="@+id/exercise_name"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
-                android:paddingRight="?android:attr/listPreferredItemPaddingRight"
                 android:gravity="center_vertical"
+                android:paddingStart="?android:attr/listPreferredItemPaddingLeft"
+                android:paddingEnd="?android:attr/listPreferredItemPaddingRight"
                 android:textAppearance="?android:attr/textAppearanceListItemSmall"
-                tools:text="Упражнение" />
-
+                tools:text="Упражнение"/>
+            
             <ImageView
                 android:id="@+id/remove_exercise_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:src="@drawable/baseline_close_black_24"/>
-
+        
         </LinearLayout>
-
+        
         <View style="@style/DividerStyle"/>
-
+        
         <TextView
             style="@style/LabelStyle"
-            android:text="Меры измерения"/>
-
+            android:text="@string/measures"/>
+        
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
+            
             <CheckBox
                 android:id="@+id/weight_cb"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-
-                android:lines="1"
+                
                 android:ellipsize="end"
-                android:textSize="12sp"
-                android:text="Вес"/>
-
+                android:lines="1"
+                android:text="@string/weight"
+                android:textSize="12sp"/>
+            
             <CheckBox
                 android:id="@+id/time_cb"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-
-                android:lines="1"
+                
                 android:ellipsize="end"
-                android:textSize="12sp"
-                android:text="Время"/>
-
+                android:lines="1"
+                android:text="@string/time"
+                android:textSize="12sp"/>
+        
         </LinearLayout>
-
+        
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
+            
             <CheckBox
                 android:id="@+id/reps_cb"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-
-                android:lines="1"
+                
                 android:ellipsize="end"
-                android:textSize="12sp"
-                android:text="Повторения"/>
-
+                android:lines="1"
+                android:text="@string/reps"
+                android:textSize="12sp"/>
+            
             <CheckBox
                 android:id="@+id/distance_cb"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-
-                android:lines="1"
+                
                 android:ellipsize="end"
-                android:textSize="12sp"
-                android:text="Расстояние"/>
-
+                android:lines="1"
+                android:text="@string/distance"
+                android:textSize="12sp"/>
+        
         </LinearLayout>
-
+        
         <View style="@style/DividerStyle"/>
-
+        
         <TextView
             style="@style/LabelStyle"
-            android:text="Время отдыха после ... , сек"/>
-
+            android:text="@string/rest_time_after"/>
+        
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
-
+            android:gravity="center"
+            android:orientation="horizontal">
+            
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="12sp"
-                android:text="разминочных подходов"/>
-
+                android:text="@string/after_warm_up_sets"
+                android:textSize="12sp"/>
+            
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="12sp"
-                android:text="рабочих подходов"/>
-
+                android:text="@string/after_work_sets"
+                android:textSize="12sp"/>
+            
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="12sp"
-                android:text="упражнения"/>
-
+                android:text="@string/after_exercise"
+                android:textSize="12sp"/>
+        
         </LinearLayout>
-
+        
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
+            
             <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
-
+                android:layout_weight="1"
+                android:inputType="number"/>
+            
             <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
-
+                android:layout_weight="1"
+                android:inputType="number"/>
+            
             <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
-
+                android:layout_weight="1"
+                android:inputType="number"/>
+        
         </LinearLayout>
-
+        
         <View style="@style/DividerStyle"/>
-
+        
         <TextView
             style="@style/LabelStyle"
-            android:text="Стратегия выполнения"/>
-
+            android:text="@string/execution_strategy"/>
+        
         <EditText
-            android:id="@+id/exercise_strategy"
+            android:id="@+id/execution_strategy"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="wrap_content"
+            android:inputType="text"/>
+    
     </LinearLayout>
 
 </layout>

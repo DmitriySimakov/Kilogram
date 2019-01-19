@@ -3,184 +3,187 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
+    
     <data>
         <variable
             name="viewModel"
             type="com.dmitrysimakov.kilogram.ui.training.addSet.AddSetViewModel"/>
     </data>
-
+    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:paddingTop="?attr/dialogPreferredPadding"
-        android:paddingLeft="?attr/dialogPreferredPadding"
-        android:paddingRight="?attr/dialogPreferredPadding"
         android:orientation="vertical"
+        android:paddingLeft="?attr/dialogPreferredPadding"
+        android:paddingTop="?attr/dialogPreferredPadding"
+        android:paddingRight="?attr/dialogPreferredPadding"
         tools:context="ui.training.addSet.AddSetDialog">
-
+        
         <TextView
             android:id="@+id/weight_tv"
             style="@style/LabelStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Вес, кг" />
-
+            android:text="@string/weight_kg"/>
+        
         <LinearLayout
             android:id="@+id/weight_ll"
             android:layout_width="match_parent"
             android:layout_height="?attr/listPreferredItemHeightSmall">
-
+            
             <ImageView
                 android:id="@+id/minus_weight"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:layout_gravity="center"
                 android:src="@drawable/baseline_remove_black_24"/>
-
+            
             <EditText
                 android:id="@+id/weight_et"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"/>
-
+                android:gravity="center"
+                android:inputType="numberDecimal"/>
+            
             <ImageView
                 android:id="@+id/plus_weight"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:layout_gravity="center"
                 android:src="@drawable/baseline_add_black_24"/>
-
+        
         </LinearLayout>
-
+        
         <TextView
             android:id="@+id/reps_tv"
             style="@style/LabelStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Повторения" />
-
+            android:text="@string/reps"/>
+        
         <LinearLayout
             android:id="@+id/reps_ll"
             android:layout_width="match_parent"
             android:layout_height="?attr/listPreferredItemHeightSmall">
-
+            
             <ImageView
                 android:id="@+id/minus_reps"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:layout_gravity="center"
                 android:src="@drawable/baseline_remove_black_24"/>
-
+            
             <EditText
                 android:id="@+id/reps_et"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center" />
-
+                android:gravity="center"
+                android:inputType="number"/>
+            
             <ImageView
                 android:id="@+id/plus_reps"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:layout_gravity="center"
                 android:src="@drawable/baseline_add_black_24"/>
-
+        
         </LinearLayout>
-
+        
         <TextView
             android:id="@+id/time_tv"
             style="@style/LabelStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Время, сек" />
-
+            android:text="@string/time_sec"/>
+        
         <LinearLayout
             android:id="@+id/time_ll"
             android:layout_width="match_parent"
             android:layout_height="?attr/listPreferredItemHeightSmall">
-
+            
             <ImageView
                 android:id="@+id/minus_time"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:layout_gravity="center"
                 android:src="@drawable/baseline_remove_black_24"/>
-
+            
             <EditText
                 android:id="@+id/time_et"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center" />
-
+                android:gravity="center"
+                android:inputType="number"/>
+            
             <ImageView
                 android:id="@+id/plus_time"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:layout_gravity="center"
                 android:src="@drawable/baseline_add_black_24"/>
-
+        
         </LinearLayout>
-
+        
         <TextView
             android:id="@+id/distance_tv"
             style="@style/LabelStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Расстояние, метры" />
-
+            android:text="@string/distance_metres"/>
+        
         <LinearLayout
             android:id="@+id/distance_ll"
             android:layout_width="match_parent"
             android:layout_height="?attr/listPreferredItemHeightSmall">
-
+            
             <ImageView
                 android:id="@+id/minus_distance"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:layout_gravity="center"
                 android:src="@drawable/baseline_remove_black_24"/>
-
+            
             <EditText
                 android:id="@+id/distance_et"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                />
-
+                android:inputType="number"/>
+            
             <ImageView
                 android:id="@+id/plus_distance"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:layout_gravity="center"
                 android:src="@drawable/baseline_add_black_24"/>
-
+        
         </LinearLayout>
-
+    
     </LinearLayout>
 
 </layout>

@@ -7,60 +7,60 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
-
+    
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
+        
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:theme="?attr/toolbarOverlay" />
-
+            android:theme="?attr/toolbarOverlay"/>
+    
     </com.google.android.material.appbar.AppBarLayout>
-
+    
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/timer_panel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="bottom"
         android:background="?attr/tabBackground">
-
+        
         <fragment
             android:id="@+id/fragment_container"
             android:name="androidx.navigation.fragment.NavHostFragment"
-            app:navGraph="@navigation/main"
-            app:defaultNavHost="true"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toTopOf="@id/duration"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/duration"/>
-
+            app:navGraph="@navigation/main"/>
+        
         <TextView
             android:id="@+id/duration"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="8dp"
             android:gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/rest"
+            android:padding="8dp"
             android:visibility="gone"
-            tools:text="32:30" />
-
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/rest"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="32:30"/>
+        
         <TextView
             android:id="@+id/rest"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="8dp"
             android:gravity="center"
+            android:padding="8dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/duration"
-            android:visibility="gone"
-            tools:text="2:05" />
-
+            tools:text="2:05"/>
+        
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
@@ -68,8 +68,8 @@
             android:layout_margin="@dimen/fab_margin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@android:drawable/ic_dialog_email" />
-
+            app:srcCompat="@android:drawable/ic_dialog_email"/>
+    
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

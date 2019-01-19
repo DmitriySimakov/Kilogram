@@ -3,53 +3,53 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
+    
     <data>
         <variable
             name="measurement"
             type="com.dmitrysimakov.kilogram.data.relation.MeasurementR"/>
     </data>
-
+    
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="?android:attr/listPreferredItemHeightSmall"
         android:paddingStart="?attr/listPreferredItemPaddingLeft"
         android:paddingEnd="?attr/listPreferredItemPaddingRight">
-
+        
         <TextView
             android:id="@+id/measureParameter"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall"
             android:text="@{measurement.param}"
-            tools:text="Параметр тела"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent" />
-
+            tools:text="Параметр тела"/>
+        
         <TextView
             android:id="@+id/measureValue"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:gravity="end"
-            android:textSize="20sp"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall"
             android:text="@{String.valueOf(measurement.value)}"
-            tools:text="175"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            android:textSize="20sp"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
-
+            tools:text="175"/>
+        
         <TextView
             android:id="@+id/measureDifference"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:textSize="12sp"
             android:textColor="#757575"
-            tools:text="-3 за 3 дн."
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
-
+            app:layout_constraintRight_toRightOf="parent"
+            tools:text="-3 за 3 дн."/>
+    
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

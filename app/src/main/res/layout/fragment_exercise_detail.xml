@@ -3,129 +3,129 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
+    
     <data>
         <variable
             name="vm"
             type="com.dmitrysimakov.kilogram.ui.exercises.detail.ExerciseDetailViewModel"/>
     </data>
-
+    
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.exercises.detail.ExerciseDetailFragment">
-
+        
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="@dimen/fragment_padding">
-
+            
             <TextView
                 android:id="@+id/exercise_name"
                 style="@style/FieldStyle"
                 android:text="@{vm.exercise.name}"
-                tools:text="@string/exercise_name" />
-
+                tools:text="@string/exercise_name"/>
+            
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
+                
                 <ImageView
                     android:id="@+id/image_1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:contentDescription="@string/first_phase"
                     android:adjustViewBounds="true"
-                    tools:src="@drawable/exercise_sample_1"
-                    app:assetsImage='@{"exercises/"+ vm.exercise._id +"_1.jpeg"}'/>
-
+                    android:contentDescription="@string/first_phase"
+                    app:assetsImage='@{"exercises/"+ vm.exercise._id +"_1.jpeg"}'
+                    tools:src="@drawable/exercise_sample_1"/>
+                
                 <ImageView
                     android:id="@+id/image_2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:contentDescription="@string/second_phase"
                     android:adjustViewBounds="true"
-                    tools:src="@drawable/exercise_sample_2"
-                    app:assetsImage='@{"exercises/"+ vm.exercise._id +"_2.jpeg"}'/>
-
+                    android:contentDescription="@string/second_phase"
+                    app:assetsImage='@{"exercises/"+ vm.exercise._id +"_2.jpeg"}'
+                    tools:src="@drawable/exercise_sample_2"/>
+            
             </LinearLayout>
-
+            
             <TextView
-                android:text="@string/main_muscle"
-                style="@style/LabelStyle"/>
-
+                style="@style/LabelStyle"
+                android:text="@string/main_muscle"/>
+            
             <TextView
                 android:id="@+id/main_muscle"
                 style="@style/FieldStyle"
                 android:text="@{vm.exercise.main_muscle}"
-                tools:text="@string/main_muscle" />
-
-            <View style="@style/DividerStyle" />
-
+                tools:text="@string/main_muscle"/>
+            
+            <View style="@style/DividerStyle"/>
+            
             <TextView
-                android:text="@string/targeted_muscles"
-                style="@style/LabelStyle"/>
-
+                style="@style/LabelStyle"
+                android:text="@string/targeted_muscles"/>
+            
             <TextView
                 android:id="@+id/targeted_muscles"
-                tools:text="@string/targeted_muscles"
+                style="@style/FieldStyle"
                 android:text="@{vm.exercise.targeted_muscles}"
-                style="@style/FieldStyle"/>
-
-            <View style="@style/DividerStyle" />
-
+                tools:text="@string/targeted_muscles"/>
+            
+            <View style="@style/DividerStyle"/>
+            
             <TextView
-                android:text="@string/mechanics_type"
-                style="@style/LabelStyle" />
-
+                style="@style/LabelStyle"
+                android:text="@string/mechanics_type"/>
+            
             <TextView
                 android:id="@+id/mechanics_type"
-                tools:text="@string/mechanics_type"
+                style="@style/FieldStyle"
                 android:text="@{vm.exercise.mechanics_type}"
-                style="@style/FieldStyle" />
-
-            <View style="@style/DividerStyle" />
-
+                tools:text="@string/mechanics_type"/>
+            
+            <View style="@style/DividerStyle"/>
+            
             <TextView
-                android:text="@string/exercise_type"
-                style="@style/LabelStyle" />
-
+                style="@style/LabelStyle"
+                android:text="@string/exercise_type"/>
+            
             <TextView
                 android:id="@+id/exercise_type"
-                tools:text="@string/exercise_type"
+                style="@style/FieldStyle"
                 android:text="@{vm.exercise.exercise_type}"
-                style="@style/FieldStyle" />
-
-            <View style="@style/DividerStyle" />
-
+                tools:text="@string/exercise_type"/>
+            
+            <View style="@style/DividerStyle"/>
+            
             <TextView
-                android:text="@string/equipment"
-                style="@style/LabelStyle" />
-
+                style="@style/LabelStyle"
+                android:text="@string/equipment"/>
+            
             <TextView
                 android:id="@+id/equipment"
-                tools:text="@string/equipment"
+                style="@style/FieldStyle"
                 android:text="@{vm.exercise.equipment}"
-                style="@style/FieldStyle" />
-
-            <View style="@style/DividerStyle" />
-
+                tools:text="@string/equipment"/>
+            
+            <View style="@style/DividerStyle"/>
+            
             <TextView
-                android:text="@string/description"
-                style="@style/LabelStyle" />
-
+                style="@style/LabelStyle"
+                android:text="@string/description"/>
+            
             <TextView
                 android:id="@+id/description"
-                tools:text="@string/description"
+                style="@style/FieldStyle"
                 android:text="@{vm.exercise.description}"
-                style="@style/FieldStyle" />
-
+                tools:text="@string/description"/>
+        
         </LinearLayout>
-
+    
     </ScrollView>
 
 </layout>
