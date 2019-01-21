@@ -39,8 +39,9 @@ class TrainingSetsFragment : DaggerFragment() {
         val params = TrainingSetsFragmentArgs.fromBundle(arguments!!)
         viewModel.setExercise(params.trainingExerciseId)
 
-        adapter = TrainingSetsAdapter(executors) {
-
+        adapter = TrainingSetsAdapter(executors) { set ->
+            findNavController().navigate(TrainingSetsFragmentDirections
+                    .toAddSetDialog(params.trainingExerciseId, set._id))
         }
         sets_rv.adapter = adapter
         viewModel.sets.observe(this, Observer { adapter.submitList(it) })
@@ -58,7 +59,7 @@ class TrainingSetsFragment : DaggerFragment() {
         activity?.fab?.show()
         activity?.fab?.setOnClickListener{
             findNavController().navigate(TrainingSetsFragmentDirections
-                    .toAddSetDialog(params.trainingExerciseId))
+                    .toAddSetDialog(params.trainingExerciseId, 0))
         }
     }
 }

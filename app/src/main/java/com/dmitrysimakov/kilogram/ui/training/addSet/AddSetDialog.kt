@@ -8,6 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
+import com.dmitrysimakov.kilogram.data.entity.TrainingExerciseSet
 import com.dmitrysimakov.kilogram.databinding.DialogAddSetBinding
 import com.dmitrysimakov.kilogram.util.getViewModel
 import dagger.android.support.DaggerAppCompatDialogFragment
@@ -70,7 +71,12 @@ class AddSetDialog : DaggerAppCompatDialogFragment() {
                 val reps = binding.repsEt.text.toString().toInt()
                 val time = binding.timeEt.text.toString().toInt()
                 val distance = binding.distanceEt.text.toString().toInt()
-                viewModel.addSet(params.trainingExerciseId, weight, reps, time, distance)
+                if (params.setId == 0L) {
+                    viewModel.addSet(params.trainingExerciseId, weight, reps, time, distance)
+                } else {
+                    viewModel.updateSet(TrainingExerciseSet(params.setId, params.trainingExerciseId,
+                            null, weight, reps, time, distance))
+                }
                 findNavController().popBackStack()
                 return true
             }

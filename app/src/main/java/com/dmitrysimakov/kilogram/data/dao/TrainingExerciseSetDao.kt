@@ -18,4 +18,7 @@ interface TrainingExerciseSetDao {
 
     @Delete
     fun delete(set: TrainingExerciseSet)
+    
+    @Update
+    fun update(set: TrainingExerciseSet)
 }

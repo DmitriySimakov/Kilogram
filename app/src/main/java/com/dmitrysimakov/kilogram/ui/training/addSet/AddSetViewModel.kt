@@ -13,4 +13,8 @@ class AddSetViewModel @Inject constructor(
     fun addSet(trainingExerciseId: Long, weight: Int, reps: Int, time: Int, distance: Int) {
         repository.insertSet(TrainingExerciseSet(0, trainingExerciseId, null, weight, reps, time, distance))
     }
+    
+    fun updateSet(set: TrainingExerciseSet) {
+        repository.updateSet(set)
+    }
 }

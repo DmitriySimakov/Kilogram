@@ -67,4 +67,10 @@ class TrainingRepository @Inject constructor(
             trainingExerciseSetDao.delete(set)
         }
     }
+    
+    fun updateSet(set: TrainingExerciseSet) {
+        executors.diskIO().execute{
+            trainingExerciseSetDao.update(set)
+        }
+    }
 }
