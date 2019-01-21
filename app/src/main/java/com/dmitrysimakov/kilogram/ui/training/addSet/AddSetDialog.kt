@@ -45,6 +45,7 @@ class AddSetDialog : DaggerAppCompatDialogFragment() {
         binding.setLifecycleOwner(this)
 
         params = AddSetDialogArgs.fromBundle(arguments!!)
+        viewModel.setSet(params.setId)
 
         return binding.root
     }
@@ -71,11 +72,13 @@ class AddSetDialog : DaggerAppCompatDialogFragment() {
                 val reps = binding.repsEt.text.toString().toInt()
                 val time = binding.timeEt.text.toString().toInt()
                 val distance = binding.distanceEt.text.toString().toInt()
-                if (params.setId == 0L) {
-                    viewModel.addSet(params.trainingExerciseId, weight, reps, time, distance)
+                
+                val set = TrainingExerciseSet(params.setId, params.trainingExerciseId,
+                        null, weight, reps, time, distance)
+                if (set._id == 0L) {
+                    viewModel.addSet(set)
                 } else {
-                    viewModel.updateSet(TrainingExerciseSet(params.setId, params.trainingExerciseId,
-                            null, weight, reps, time, distance))
+                    viewModel.updateSet(set)
                 }
                 findNavController().popBackStack()
                 return true

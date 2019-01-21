@@ -56,6 +56,8 @@ class TrainingRepository @Inject constructor(
 
     fun loadSets(training_exercise_id: Long) = trainingExerciseSetDao.getSets(training_exercise_id)
 
+    fun loadSet(id: Long) = trainingExerciseSetDao.getSet(id)
+    
     fun insertSet(set: TrainingExerciseSet) {
         executors.diskIO().execute{
             trainingExerciseSetDao.insert(set)

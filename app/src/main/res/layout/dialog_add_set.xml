@@ -48,7 +48,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:inputType="numberDecimal"/>
+                android:inputType="numberDecimal"
+                android:text="@{`` + viewModel.set.weight}"/>
             
             <ImageView
                 android:id="@+id/plus_weight"
@@ -89,7 +90,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:inputType="number"/>
+                android:inputType="number"
+                android:text="@{`` + viewModel.set.reps}"/>
             
             <ImageView
                 android:id="@+id/plus_reps"
@@ -130,7 +132,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:inputType="number"/>
+                android:inputType="number"
+                android:text="@{`` + viewModel.set.time}"/>
             
             <ImageView
                 android:id="@+id/plus_time"
@@ -171,7 +174,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:inputType="number"/>
+                android:inputType="number"
+                android:text="@{`` + viewModel.set.distance}"/>
             
             <ImageView
                 android:id="@+id/plus_distance"
