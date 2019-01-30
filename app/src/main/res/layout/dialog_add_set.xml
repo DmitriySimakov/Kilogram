@@ -5,6 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools">
     
     <data>
+        <import type="com.dmitrysimakov.kilogram.util.Converter"/>
+    
         <variable
             name="viewModel"
             type="com.dmitrysimakov.kilogram.ui.training.addSet.AddSetViewModel"/>
@@ -49,6 +51,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:inputType="numberDecimal"
+                android:selectAllOnFocus="true"
                 android:text="@{`` + viewModel.set.weight}"/>
             
             <ImageView
@@ -91,6 +94,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:inputType="number"
+                android:selectAllOnFocus="true"
                 android:text="@{`` + viewModel.set.reps}"/>
             
             <ImageView
@@ -133,6 +137,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:inputType="number"
+                android:selectAllOnFocus="true"
                 android:text="@{`` + viewModel.set.time}"/>
             
             <ImageView
@@ -175,7 +180,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:inputType="number"
-                android:text="@{`` + viewModel.set.distance}"/>
+                android:selectAllOnFocus="true"
+                app:txt="@{`` + viewModel.set.distance}"/>
             
             <ImageView
                 android:id="@+id/plus_distance"

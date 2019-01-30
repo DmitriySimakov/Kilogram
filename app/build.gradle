@@ -64,12 +64,12 @@ dependencies {
     implementation "android.arch.navigation:navigation-ui-ktx:$rootProject.navigation_version"
 
     // room
-    def room_version = '2.1.0-alpha03'
+    def room_version = '2.1.0-alpha04'
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
     // work manager
-    implementation 'android.arch.work:work-runtime-ktx:1.0.0-beta01'
+    implementation 'android.arch.work:work-runtime-ktx:1.0.0-beta03'
 
     // Gson
     implementation 'com.google.code.gson:gson:2.8.2'

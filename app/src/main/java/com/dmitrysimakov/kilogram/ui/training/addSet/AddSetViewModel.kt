@@ -1,6 +1,5 @@
 package com.dmitrysimakov.kilogram. ui.training.addSet
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
@@ -19,14 +18,14 @@ class AddSetViewModel @Inject constructor(
         when (id) {
             null -> AbsentLiveData.create()
             0L -> MutableLiveData(TrainingExerciseSet(
-                    0, 0, 0, 0 , 0, 0, 0))
+                    0, 0, 0, 0, 0, 0, 0))
             else -> repository.loadSet(id)
         }
     }
     
-    fun setSet(setId: Long) {
-        if (_setId.value != setId) {
-            _setId.value = setId
+    fun setSet(id: Long) {
+        if (_setId.value != id) {
+            _setId.value = id
         }
     }
     

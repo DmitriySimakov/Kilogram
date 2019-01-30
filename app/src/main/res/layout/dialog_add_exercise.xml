@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/choose_exercise"
-            app:visibleGone="@{viewModel.exercise == null}"/>
+            app:goneUnless="@{viewModel.exercise == null}"/>
         
         <LinearLayout
             android:id="@+id/chosen_exercise_ll"
@@ -31,7 +31,7 @@
             android:layout_height="?attr/listPreferredItemHeight"
             android:gravity="center"
             android:orientation="horizontal"
-            app:visibleGone="@{viewModel.exercise != null}">
+            app:goneUnless="@{viewModel.exercise != null}">
             
             <ImageView
                 android:id="@+id/exercise_image"
