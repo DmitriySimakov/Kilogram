@@ -1,8 +1,7 @@
-package com.dmitrysimakov.kilogram.ui.measurements.addMeasurement
+package com.dmitrysimakov.kilogram.ui.measurements.add_measurement
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.dmitrysimakov.kilogram.data.entity.Measurement
 import com.dmitrysimakov.kilogram.data.relation.MeasurementR
 import com.dmitrysimakov.kilogram.databinding.MeasurementItemBinding
 import com.dmitrysimakov.kilogram.util.AppExecutors

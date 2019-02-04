@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.training.trainingList
+package com.dmitrysimakov.kilogram.ui.training.training_list
 
 import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.entity.Training

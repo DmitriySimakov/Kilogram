@@ -9,8 +9,6 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import androidx.databinding.InverseBindingAdapter
-import androidx.databinding.InverseBindingListener
 import java.io.IOException
 
 object BindingAdapters {
@@ -47,22 +45,5 @@ object BindingAdapters {
             false
         }
         setOnEditorActionListener(listener)
-    }
-    
-    @BindingAdapter("txt")
-    @JvmStatic fun EditText.setTxt(value: String) {
-        setText(value)
-    }
-    
-    @InverseBindingAdapter(attribute = "txt")
-    @JvmStatic fun EditText.getTxt(): String {
-        return text.toString()
-    }
-    
-    @BindingAdapter("txtAttrChanged")
-    @JvmStatic fun EditText.setListener(listener: InverseBindingListener?) {
-        onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) listener?.onChange()
-        }
     }
 }

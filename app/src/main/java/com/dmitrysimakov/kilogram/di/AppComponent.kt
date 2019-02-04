@@ -1,8 +1,8 @@
 package com.dmitrysimakov.kilogram.di
 
 import com.dmitrysimakov.kilogram.KilogramApp
-import com.dmitrysimakov.kilogram.di.workerInjection.AndroidWorkerInjectionModule
-import com.dmitrysimakov.kilogram.di.workerInjection.WorkerModule
+import com.dmitrysimakov.kilogram.di.worker_injection.AndroidWorkerInjectionModule
+import com.dmitrysimakov.kilogram.di.worker_injection.WorkerModule
 import com.dmitrysimakov.kilogram.data.SeedDatabaseWorker
 import dagger.Component
 import dagger.android.AndroidInjector

@@ -1,16 +1,16 @@
 package com.dmitrysimakov.kilogram.di
 
-import com.dmitrysimakov.kilogram.ui.training.createTraining.CreateTrainingDialog
-import com.dmitrysimakov.kilogram.ui.exercises.chooseMuscle.ChooseMuscleFragment
+import com.dmitrysimakov.kilogram.ui.training.create_training.CreateTrainingDialog
+import com.dmitrysimakov.kilogram.ui.exercises.choose_muscle.ChooseMuscleFragment
 import com.dmitrysimakov.kilogram.ui.exercises.detail.ExerciseDetailFragment
 import com.dmitrysimakov.kilogram.ui.exercises.exercises.ExercisesFragment
 import com.dmitrysimakov.kilogram.ui.main.MainFragment
-import com.dmitrysimakov.kilogram.ui.measurements.addMeasurement.MeasurementsFragment
-import com.dmitrysimakov.kilogram.ui.training.addExercise.AddExerciseDialog
-import com.dmitrysimakov.kilogram.ui.training.addSet.AddSetDialog
+import com.dmitrysimakov.kilogram.ui.measurements.add_measurement.MeasurementsFragment
+import com.dmitrysimakov.kilogram.ui.training.add_exercise.AddExerciseDialog
+import com.dmitrysimakov.kilogram.ui.training.add_set.AddSetDialog
 import com.dmitrysimakov.kilogram.ui.training.sets.TrainingSetsFragment
 import com.dmitrysimakov.kilogram.ui.training.training.TrainingFragment
-import com.dmitrysimakov.kilogram.ui.training.trainingList.TrainingsFragment
+import com.dmitrysimakov.kilogram.ui.training.training_list.TrainingsFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

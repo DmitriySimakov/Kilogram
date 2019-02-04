@@ -9,8 +9,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.ui.main.MainFragment
-import com.dmitrysimakov.kilogram.ui.measurements.addMeasurement.MeasurementsFragment
+import com.dmitrysimakov.kilogram.ui.measurements.add_measurement.MeasurementsFragment
 import kotlinx.android.synthetic.main.fragment_measurements_tab.*
 
 class MeasurementsTabFragment : Fragment() {

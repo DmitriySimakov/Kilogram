@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.training.createTraining
+package com.dmitrysimakov.kilogram.ui.training.create_training
 
 import android.app.DatePickerDialog
 import android.app.Dialog

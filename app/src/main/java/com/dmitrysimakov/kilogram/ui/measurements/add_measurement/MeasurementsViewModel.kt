@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.measurements.addMeasurement
+package com.dmitrysimakov.kilogram.ui.measurements.add_measurement
 
 import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.repository.MeasurementRepository

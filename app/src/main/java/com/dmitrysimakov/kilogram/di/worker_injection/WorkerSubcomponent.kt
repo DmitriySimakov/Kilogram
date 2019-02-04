@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.di.workerInjection
+package com.dmitrysimakov.kilogram.di.worker_injection
 
 import com.dmitrysimakov.kilogram.data.SeedDatabaseWorker
 import dagger.Subcomponent

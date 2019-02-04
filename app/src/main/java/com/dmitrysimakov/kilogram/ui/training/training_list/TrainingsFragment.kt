@@ -1,7 +1,6 @@
-package com.dmitrysimakov.kilogram.ui.training.trainingList
+package com.dmitrysimakov.kilogram.ui.training.training_list
 
 import android.os.Bundle
-import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

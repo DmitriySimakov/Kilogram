@@ -4,7 +4,7 @@ import android.app.Activity
 import android.app.Application
 import androidx.work.Worker
 import com.dmitrysimakov.kilogram.di.DaggerAppComponent
-import com.dmitrysimakov.kilogram.di.workerInjection.HasWorkerInjector
+import com.dmitrysimakov.kilogram.di.worker_injection.HasWorkerInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import javax.inject.Inject

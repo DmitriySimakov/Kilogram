@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.dmitrysimakov.kilogram.ui.training.createTraining.CreateTrainingViewModel"/>
+            type="com.dmitrysimakov.kilogram.ui.training.create_training.CreateTrainingViewModel"/>
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:paddingLeft="?attr/dialogPreferredPadding"
         android:paddingRight="?attr/dialogPreferredPadding"
-        tools:context=".ui.training.createTraining.CreateTrainingDialog">
+        tools:context=".ui.training.create_training.CreateTrainingDialog">
         
         <TextView
             android:id="@+id/date_tv"

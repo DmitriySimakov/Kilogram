@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.training.addExercise
+package com.dmitrysimakov.kilogram.ui.training.add_exercise
 
 import android.app.Dialog
 import android.content.Context

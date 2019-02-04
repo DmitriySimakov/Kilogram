@@ -5,11 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools">
     
     <data>
-        <import type="com.dmitrysimakov.kilogram.util.Converter"/>
-    
         <variable
             name="viewModel"
-            type="com.dmitrysimakov.kilogram.ui.training.addSet.AddSetViewModel"/>
+            type="com.dmitrysimakov.kilogram.ui.training.add_set.AddSetViewModel"/>
     </data>
     
     <LinearLayout
@@ -20,7 +18,7 @@
         android:paddingLeft="?attr/dialogPreferredPadding"
         android:paddingTop="?attr/dialogPreferredPadding"
         android:paddingRight="?attr/dialogPreferredPadding"
-        tools:context="ui.training.addSet.AddSetDialog">
+        tools:context="ui.training.add_set.AddSetDialog">
         
         <TextView
             android:id="@+id/weight_tv"
@@ -52,7 +50,7 @@
                 android:gravity="center"
                 android:inputType="numberDecimal"
                 android:selectAllOnFocus="true"
-                android:text="@{`` + viewModel.set.weight}"/>
+                android:text="@={`` + viewModel.set.weight}"/>
             
             <ImageView
                 android:id="@+id/plus_weight"
@@ -95,7 +93,7 @@
                 android:gravity="center"
                 android:inputType="number"
                 android:selectAllOnFocus="true"
-                android:text="@{`` + viewModel.set.reps}"/>
+                android:text="@={`` + viewModel.set.reps}"/>
             
             <ImageView
                 android:id="@+id/plus_reps"
@@ -138,7 +136,7 @@
                 android:gravity="center"
                 android:inputType="number"
                 android:selectAllOnFocus="true"
-                android:text="@{`` + viewModel.set.time}"/>
+                android:text="@={`` + viewModel.set.time}"/>
             
             <ImageView
                 android:id="@+id/plus_time"
@@ -181,7 +179,7 @@
                 android:gravity="center"
                 android:inputType="number"
                 android:selectAllOnFocus="true"
-                app:txt="@{`` + viewModel.set.distance}"/>
+                android:text="@={`` + viewModel.set.distance}"/>
             
             <ImageView
                 android:id="@+id/plus_distance"

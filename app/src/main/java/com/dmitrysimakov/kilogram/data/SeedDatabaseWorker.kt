@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.dmitrysimakov.kilogram.di.workerInjection.AndroidWorkerInjection
+import com.dmitrysimakov.kilogram.di.worker_injection.AndroidWorkerInjection
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader

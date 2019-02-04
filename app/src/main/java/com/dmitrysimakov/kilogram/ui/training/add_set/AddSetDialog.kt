@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.training.addSet
+package com.dmitrysimakov.kilogram.ui.training.add_set
 
 import android.app.Dialog
 import android.content.Context
@@ -8,7 +8,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.data.entity.TrainingExerciseSet
 import com.dmitrysimakov.kilogram.databinding.DialogAddSetBinding
 import com.dmitrysimakov.kilogram.util.getViewModel
 import dagger.android.support.DaggerAppCompatDialogFragment
@@ -45,7 +44,7 @@ class AddSetDialog : DaggerAppCompatDialogFragment() {
         binding.setLifecycleOwner(this)
 
         params = AddSetDialogArgs.fromBundle(arguments!!)
-        viewModel.setSet(params.setId)
+        viewModel.setParams(params.setId, params.trainingExerciseId)
 
         return binding.root
     }
@@ -68,17 +67,10 @@ class AddSetDialog : DaggerAppCompatDialogFragment() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.ok -> {
-                val weight = binding.weightEt.text.toString().toInt()
-                val reps = binding.repsEt.text.toString().toInt()
-                val time = binding.timeEt.text.toString().toInt()
-                val distance = binding.distanceEt.text.toString().toInt()
-                
-                val set = TrainingExerciseSet(params.setId, params.trainingExerciseId,
-                        null, weight, reps, time, distance)
-                if (set._id == 0L) {
-                    viewModel.addSet(set)
+                if (params.setId == 0L) {
+                    viewModel.addSet()
                 } else {
-                    viewModel.updateSet(set)
+                    viewModel.updateSet()
                 }
                 findNavController().popBackStack()
                 return true
