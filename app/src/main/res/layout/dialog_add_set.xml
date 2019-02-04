@@ -33,14 +33,16 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/listPreferredItemHeightSmall">
             
-            <ImageView
+            <Button
                 android:id="@+id/minus_weight"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:src="@drawable/baseline_remove_black_24"/>
+                android:onClick="@{() -> viewModel.decreaseWeight()}"
+                android:text="@string/minus_sign"
+                android:textSize="@dimen/sign_button_text_size"/>
             
             <EditText
                 android:id="@+id/weight_et"
@@ -52,14 +54,16 @@
                 android:selectAllOnFocus="true"
                 android:text="@={`` + viewModel.set.weight}"/>
             
-            <ImageView
+            <Button
                 android:id="@+id/plus_weight"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:src="@drawable/baseline_add_black_24"/>
+                android:onClick="@{() -> viewModel.increaseWeight()}"
+                android:text="@string/plus_sign"
+                android:textSize="@dimen/sign_button_text_size"/>
         
         </LinearLayout>
         
@@ -76,14 +80,16 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/listPreferredItemHeightSmall">
             
-            <ImageView
+            <Button
                 android:id="@+id/minus_reps"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:src="@drawable/baseline_remove_black_24"/>
+                android:onClick="@{() -> viewModel.decreaseReps()}"
+                android:text="@string/minus_sign"
+                android:textSize="@dimen/sign_button_text_size"/>
             
             <EditText
                 android:id="@+id/reps_et"
@@ -95,14 +101,16 @@
                 android:selectAllOnFocus="true"
                 android:text="@={`` + viewModel.set.reps}"/>
             
-            <ImageView
+            <Button
                 android:id="@+id/plus_reps"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:src="@drawable/baseline_add_black_24"/>
+                android:onClick="@{() -> viewModel.increaseReps()}"
+                android:text="@string/plus_sign"
+                android:textSize="@dimen/sign_button_text_size"/>
         
         </LinearLayout>
         
@@ -119,14 +127,16 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/listPreferredItemHeightSmall">
             
-            <ImageView
+            <Button
                 android:id="@+id/minus_time"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:src="@drawable/baseline_remove_black_24"/>
+                android:onClick="@{() -> viewModel.decreaseTime()}"
+                android:text="@string/minus_sign"
+                android:textSize="@dimen/sign_button_text_size"/>
             
             <EditText
                 android:id="@+id/time_et"
@@ -138,14 +148,16 @@
                 android:selectAllOnFocus="true"
                 android:text="@={`` + viewModel.set.time}"/>
             
-            <ImageView
+            <Button
                 android:id="@+id/plus_time"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:src="@drawable/baseline_add_black_24"/>
+                android:onClick="@{() -> viewModel.increaseTime()}"
+                android:text="@string/plus_sign"
+                android:textSize="@dimen/sign_button_text_size"/>
         
         </LinearLayout>
         
@@ -162,14 +174,16 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/listPreferredItemHeightSmall">
             
-            <ImageView
+            <Button
                 android:id="@+id/minus_distance"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:src="@drawable/baseline_remove_black_24"/>
+                android:onClick="@{() -> viewModel.decreaseDistance()}"
+                android:text="@string/minus_sign"
+                android:textSize="@dimen/sign_button_text_size"/>
             
             <EditText
                 android:id="@+id/distance_et"
@@ -181,14 +195,16 @@
                 android:selectAllOnFocus="true"
                 android:text="@={`` + viewModel.set.distance}"/>
             
-            <ImageView
+            <Button
                 android:id="@+id/plus_distance"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:src="@drawable/baseline_add_black_24"/>
+                android:onClick="@{() -> viewModel.increaseDistance()}"
+                android:text="@string/plus_sign"
+                android:textSize="@dimen/sign_button_text_size"/>
         
         </LinearLayout>
     

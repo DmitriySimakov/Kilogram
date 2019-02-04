@@ -1,5 +1,7 @@
 package com.dmitrysimakov.kilogram. ui.training.add_set
 
+import android.util.Log.d
+import androidx.databinding.ObservableInt
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
@@ -38,5 +40,37 @@ class AddSetViewModel @Inject constructor(
     
     fun updateSet() {
         set.value?.let { repository.updateSet(it) }
+    }
+    
+    fun decreaseWeight() {
+        set.value?.weight = set.value?.weight?.minus(5)?.coerceAtLeast(0)
+    }
+    
+    fun increaseWeight() {
+        set.value?.weight = set.value?.weight?.plus(5)
+    }
+    
+    fun decreaseReps() {
+        set.value?.reps = set.value?.reps?.minus(1)?.coerceAtLeast(0)
+    }
+    
+    fun increaseReps() {
+        set.value?.reps = set.value?.reps?.plus(1)
+    }
+    
+    fun decreaseTime() {
+        set.value?.time = set.value?.time?.minus(15)?.coerceAtLeast(0)
+    }
+    
+    fun increaseTime() {
+        set.value?.time = set.value?.time?.plus(15)
+    }
+    
+    fun decreaseDistance() {
+        set.value?.distance = set.value?.distance?.minus(1)?.coerceAtLeast(0)
+    }
+    
+    fun increaseDistance() {
+        set.value?.distance = set.value?.distance?.plus(1)
     }
 }

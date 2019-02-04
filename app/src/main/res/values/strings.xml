@@ -73,5 +73,7 @@
     <string name="weight_kg">Вес, кг</string>
     <string name="time_sec">Время, сек</string>
     <string name="distance_metres">Расстояние, метры</string>
+    <string name="minus_sign">-</string>
+    <string name="plus_sign">+</string>
 
 </resources>
