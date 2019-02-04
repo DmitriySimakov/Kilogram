@@ -1,13 +1,8 @@
 package com.dmitrysimakov.kilogram.binding
 
-import android.content.Context
 import android.graphics.drawable.Drawable
 import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import java.io.IOException
 
@@ -31,19 +26,5 @@ object BindingAdapters {
         } catch (e: IOException) {
             e.printStackTrace()
         }
-    }
-    
-    @BindingAdapter("hideKeyboardOnInputDone")
-    @JvmStatic fun EditText.hideKeyboardOnInputDone(enabled: Boolean) {
-        if (!enabled) return
-        val listener = TextView.OnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                clearFocus()
-                val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(windowToken, 0)
-            }
-            false
-        }
-        setOnEditorActionListener(listener)
     }
 }

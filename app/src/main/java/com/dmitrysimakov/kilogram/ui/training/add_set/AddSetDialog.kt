@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.DialogAddSetBinding
 import com.dmitrysimakov.kilogram.util.getViewModel
+import com.dmitrysimakov.kilogram.util.hideKeyboard
 import dagger.android.support.DaggerAppCompatDialogFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import javax.inject.Inject
@@ -72,6 +73,7 @@ class AddSetDialog : DaggerAppCompatDialogFragment() {
                 } else {
                     viewModel.updateSet()
                 }
+                hideKeyboard()
                 findNavController().popBackStack()
                 return true
             }

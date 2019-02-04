@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     
     <data>
+        
         <variable
             name="viewModel"
-            type="com.dmitrysimakov.kilogram.ui.training.add_set.AddSetViewModel"/>
+            type="com.dmitrysimakov.kilogram.ui.training.add_set.AddSetViewModel" />
     </data>
     
     <LinearLayout
@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/weight_kg"/>
+            android:text="@string/weight_kg" />
         
         <LinearLayout
             android:id="@+id/weight_ll"
@@ -38,11 +38,11 @@
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:onClick="@{() -> viewModel.decreaseWeight()}"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:onClick="@{() -> viewModel.decreaseWeight()}"
                 android:text="@string/minus_sign"
-                android:textSize="@dimen/sign_button_text_size"/>
+                android:textSize="@dimen/sign_button_text_size" />
             
             <EditText
                 android:id="@+id/weight_et"
@@ -52,18 +52,18 @@
                 android:gravity="center"
                 android:inputType="numberDecimal"
                 android:selectAllOnFocus="true"
-                android:text="@={`` + viewModel.set.weight}"/>
+                android:text="@={`` + viewModel.set.weight}" />
             
             <Button
                 android:id="@+id/plus_weight"
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:onClick="@{() -> viewModel.increaseWeight()}"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:onClick="@{() -> viewModel.increaseWeight()}"
                 android:text="@string/plus_sign"
-                android:textSize="@dimen/sign_button_text_size"/>
+                android:textSize="@dimen/sign_button_text_size" />
         
         </LinearLayout>
         
@@ -73,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/reps"/>
+            android:text="@string/reps" />
         
         <LinearLayout
             android:id="@+id/reps_ll"
@@ -85,11 +85,11 @@
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:onClick="@{() -> viewModel.decreaseReps()}"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:onClick="@{() -> viewModel.decreaseReps()}"
                 android:text="@string/minus_sign"
-                android:textSize="@dimen/sign_button_text_size"/>
+                android:textSize="@dimen/sign_button_text_size" />
             
             <EditText
                 android:id="@+id/reps_et"
@@ -99,18 +99,18 @@
                 android:gravity="center"
                 android:inputType="number"
                 android:selectAllOnFocus="true"
-                android:text="@={`` + viewModel.set.reps}"/>
+                android:text="@={`` + viewModel.set.reps}" />
             
             <Button
                 android:id="@+id/plus_reps"
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:onClick="@{() -> viewModel.increaseReps()}"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:onClick="@{() -> viewModel.increaseReps()}"
                 android:text="@string/plus_sign"
-                android:textSize="@dimen/sign_button_text_size"/>
+                android:textSize="@dimen/sign_button_text_size" />
         
         </LinearLayout>
         
@@ -120,7 +120,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/time_sec"/>
+            android:text="@string/time_sec" />
         
         <LinearLayout
             android:id="@+id/time_ll"
@@ -132,11 +132,11 @@
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:onClick="@{() -> viewModel.decreaseTime()}"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:onClick="@{() -> viewModel.decreaseTime()}"
                 android:text="@string/minus_sign"
-                android:textSize="@dimen/sign_button_text_size"/>
+                android:textSize="@dimen/sign_button_text_size" />
             
             <EditText
                 android:id="@+id/time_et"
@@ -146,18 +146,18 @@
                 android:gravity="center"
                 android:inputType="number"
                 android:selectAllOnFocus="true"
-                android:text="@={`` + viewModel.set.time}"/>
+                android:text="@={`` + viewModel.set.time}" />
             
             <Button
                 android:id="@+id/plus_time"
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:onClick="@{() -> viewModel.increaseTime()}"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:onClick="@{() -> viewModel.increaseTime()}"
                 android:text="@string/plus_sign"
-                android:textSize="@dimen/sign_button_text_size"/>
+                android:textSize="@dimen/sign_button_text_size" />
         
         </LinearLayout>
         
@@ -167,7 +167,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/distance_metres"/>
+            android:text="@string/distance_metres" />
         
         <LinearLayout
             android:id="@+id/distance_ll"
@@ -179,11 +179,11 @@
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:onClick="@{() -> viewModel.decreaseDistance()}"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:onClick="@{() -> viewModel.decreaseDistance()}"
                 android:text="@string/minus_sign"
-                android:textSize="@dimen/sign_button_text_size"/>
+                android:textSize="@dimen/sign_button_text_size" />
             
             <EditText
                 android:id="@+id/distance_et"
@@ -193,18 +193,18 @@
                 android:gravity="center"
                 android:inputType="number"
                 android:selectAllOnFocus="true"
-                android:text="@={`` + viewModel.set.distance}"/>
+                android:text="@={`` + viewModel.set.distance}" />
             
             <Button
                 android:id="@+id/plus_distance"
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:onClick="@{() -> viewModel.increaseDistance()}"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:onClick="@{() -> viewModel.increaseDistance()}"
                 android:text="@string/plus_sign"
-                android:textSize="@dimen/sign_button_text_size"/>
+                android:textSize="@dimen/sign_button_text_size" />
         
         </LinearLayout>
     
