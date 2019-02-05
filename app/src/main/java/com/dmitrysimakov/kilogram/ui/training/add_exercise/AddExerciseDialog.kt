@@ -3,6 +3,7 @@ package com.dmitrysimakov.kilogram.ui.training.add_exercise
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log.d
 import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
@@ -46,8 +47,10 @@ class AddExerciseDialog: DaggerAppCompatDialogFragment() {
         binding.setLifecycleOwner(this)
 
         params = AddExerciseDialogArgs.fromBundle(arguments!!)
+        viewModel.setExercise(params.exerciseId)
 
         binding.chooseExerciseBtn.setOnClickListener{
+            d("kek", "kek")
             AddExerciseDialogDirections.toChooseMuscleFragment(params.trainingId)
         }
         return binding.root
@@ -71,9 +74,11 @@ class AddExerciseDialog: DaggerAppCompatDialogFragment() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.ok -> {
-                viewModel.addExercise(params.exerciseId ,params.trainingId)
-                findNavController().popBackStack()
-                return true
+                viewModel.exercise.value?.let { exercise ->
+                    viewModel.addExercise(exercise._id, params.trainingId)
+                    findNavController().popBackStack()
+                    return true
+                }
             }
         }
         return false

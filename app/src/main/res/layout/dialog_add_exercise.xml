@@ -37,7 +37,9 @@
                 android:id="@+id/exercise_image"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:adjustViewBounds="true"/>
+                android:adjustViewBounds="true"
+                app:assetsImage='@{"exercises/"+ viewModel.exercise._id +"_1.jpeg"}'
+                tools:layout_width="?android:attr/listPreferredItemHeight"/>
             
             <TextView
                 android:id="@+id/exercise_name"
@@ -47,6 +49,7 @@
                 android:gravity="center_vertical"
                 android:paddingStart="?android:attr/listPreferredItemPaddingLeft"
                 android:paddingEnd="?android:attr/listPreferredItemPaddingRight"
+                android:text="@{viewModel.exercise.name}"
                 android:textAppearance="?android:attr/textAppearanceListItemSmall"
                 tools:text="Упражнение"/>
             
@@ -55,6 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
+                android:onClick="@{() -> viewModel.setExercise((Long)null)}"
                 android:src="@drawable/baseline_close_black_24"/>
         
         </LinearLayout>

@@ -7,5 +7,7 @@ class ExerciseRepository @Inject constructor(private val exerciseDao: ExerciseDa
 
     fun loadExerciseList(muscleId: Long) = exerciseDao.getExerciseList(muscleId)
 
+    fun loadExercise(id: Long) = exerciseDao.getExercise(id)
+    
     fun loadExerciseR(id: Long) = exerciseDao.getExerciseR(id)
 }
