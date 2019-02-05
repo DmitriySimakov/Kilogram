@@ -2,13 +2,13 @@ package com.dmitrysimakov.kilogram.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.dmitrysimakov.kilogram.ui.training.create_training.CreateTrainingViewModel
 import com.dmitrysimakov.kilogram.ui.exercises.choose_muscle.ChooseMuscleViewModel
 import com.dmitrysimakov.kilogram.ui.exercises.detail.ExerciseDetailViewModel
 import com.dmitrysimakov.kilogram.ui.exercises.exercises.ExercisesViewModel
 import com.dmitrysimakov.kilogram.ui.measurements.add_measurement.MeasurementsViewModel
 import com.dmitrysimakov.kilogram.ui.training.add_exercise.AddExerciseViewModel
 import com.dmitrysimakov.kilogram.ui.training.add_set.AddSetViewModel
+import com.dmitrysimakov.kilogram.ui.training.create_training.CreateTrainingViewModel
 import com.dmitrysimakov.kilogram.ui.training.sets.TrainingSetsViewModel
 import com.dmitrysimakov.kilogram.ui.training.training.TrainingViewModel
 import com.dmitrysimakov.kilogram.ui.training.training_list.TrainingsViewModel

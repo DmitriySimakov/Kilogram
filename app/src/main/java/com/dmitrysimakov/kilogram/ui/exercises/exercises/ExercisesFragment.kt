@@ -25,9 +25,7 @@ class ExercisesFragment : DaggerFragment() {
 
     private lateinit var adapter: ExercisesAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_exercises, container, false)
     }
 
@@ -43,11 +41,9 @@ class ExercisesFragment : DaggerFragment() {
         adapter = ExercisesAdapter(executors) { exercise ->
             val navController = findNavController()
             if (params.trainingId == 0L) {
-                navController.navigate(ExercisesFragmentDirections
-                        .toExerciseDetailFragment(exercise._id))
+                navController.navigate(ExercisesFragmentDirections.toExerciseDetailFragment(exercise._id))
             } else {
-                navController.navigate(ExercisesFragmentDirections
-                        .toAddExerciseDialog(params.trainingId, exercise._id))
+                navController.navigate(ExercisesFragmentDirections.toAddExerciseFragment(exercise._id, params.trainingId))
             }
         }
 
