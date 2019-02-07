@@ -17,6 +17,6 @@ import com.dmitrysimakov.kilogram.util.HasId
 data class Training(
         @PrimaryKey(autoGenerate = true) override val _id: Long = 0,
         val date_time: String,
-        val program_day_id: Long? = null,
-        val duration: Int? = null
+        var program_day_id: Long? = null,
+        var duration: Int? = null
 ) : HasId

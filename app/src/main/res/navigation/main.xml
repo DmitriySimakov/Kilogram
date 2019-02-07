@@ -58,7 +58,11 @@
         <action
             android:id="@+id/to_trainingFragment"
             app:destination="@id/trainingFragment"
-            app:popUpTo="@id/trainingsFragment" />
+            app:popUpTo="@+id/trainingsFragment">
+            <argument
+                android:name="training_is_running"
+                android:defaultValue="true" />
+        </action>
     </fragment>
     
     <fragment
@@ -75,6 +79,9 @@
         <action
             android:id="@+id/to_chooseMuscleFragment"
             app:destination="@id/chooseMuscleFragment" />
+        <argument
+            android:name="training_is_running"
+            app:argType="boolean" />
     </fragment>
     
     <fragment

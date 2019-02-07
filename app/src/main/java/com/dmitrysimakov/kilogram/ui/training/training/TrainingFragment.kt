@@ -1,15 +1,16 @@
 package com.dmitrysimakov.kilogram.ui.training.training
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log.d
+import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
+import com.dmitrysimakov.kilogram.ui.MainViewModel
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.util.getViewModel
 import dagger.android.support.DaggerFragment
@@ -24,11 +25,14 @@ class TrainingFragment : DaggerFragment() {
     @Inject lateinit var executors: AppExecutors
 
     private lateinit var viewModel: TrainingViewModel
+    
+    private lateinit var params: TrainingFragmentArgs
 
     lateinit var adapter: TrainingAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_training, container, false)
     }
 
@@ -36,7 +40,7 @@ class TrainingFragment : DaggerFragment() {
         super.onActivityCreated(savedInstanceState)
 
         viewModel = getViewModel(viewModelFactory)
-        val params = TrainingFragmentArgs.fromBundle(arguments!!)
+        params = TrainingFragmentArgs.fromBundle(arguments!!)
         viewModel.setTraining(params.trainingId)
 
         adapter = TrainingAdapter(executors) { exercise ->
@@ -44,6 +48,7 @@ class TrainingFragment : DaggerFragment() {
         }
         exercises_rv.adapter = adapter
         viewModel.exercises.observe(this, Observer { adapter.submitList(it) })
+        viewModel.training.observe(this, Observer {  })
 
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
@@ -59,5 +64,25 @@ class TrainingFragment : DaggerFragment() {
         activity?.fab?.setOnClickListener{
             findNavController().navigate(TrainingFragmentDirections.toChooseMuscleFragment(params.trainingId))
         }
+    }
+    
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+        if (params.trainingIsRunning) {
+            inflater?.inflate(R.menu.active_training, menu);
+        }
+    }
+    
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.finish_session -> {
+                viewModel.finishSession()
+                val mainViewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
+                mainViewModel.finishTrainingSession()
+                findNavController().popBackStack()
+                return true
+            }
+        }
+        return false
     }
 }

@@ -10,10 +10,12 @@ import android.view.*
 import androidx.annotation.MainThread
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.data.ItemInsertedListener
 import com.dmitrysimakov.kilogram.databinding.DialogCreateTrainingBinding
+import com.dmitrysimakov.kilogram.ui.MainViewModel
 import com.dmitrysimakov.kilogram.util.getViewModel
 import dagger.android.support.DaggerAppCompatDialogFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -110,6 +112,8 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
         when (item?.itemId) {
             R.id.ok -> {
                 viewModel.createTraining(this)
+                val mainViewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
+                mainViewModel.startTrainingSession(viewModel.calendar.time.time)
                 return true
             }
         }

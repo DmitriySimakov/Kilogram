@@ -1,5 +1,6 @@
 package com.dmitrysimakov.kilogram.di
 
+import android.content.Context
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -14,7 +15,11 @@ import javax.inject.Singleton
 
 @Module(includes = [ViewModelModule::class])
 class AppModule {
-
+    
+    @Singleton
+    @Provides
+    fun provideSharedPreferences(app: KilogramApp) = app.getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
+    
     @Singleton
     @Provides
     fun provideDb(app: KilogramApp): KilogramDb {

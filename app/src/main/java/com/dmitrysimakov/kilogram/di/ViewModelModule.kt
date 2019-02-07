@@ -2,6 +2,7 @@ package com.dmitrysimakov.kilogram.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.dmitrysimakov.kilogram.ui.MainViewModel
 import com.dmitrysimakov.kilogram.ui.exercises.choose_muscle.ChooseMuscleViewModel
 import com.dmitrysimakov.kilogram.ui.exercises.detail.ExerciseDetailViewModel
 import com.dmitrysimakov.kilogram.ui.exercises.exercises.ExercisesViewModel
@@ -20,7 +21,13 @@ import dagger.multibindings.IntoMap
 @Suppress("unused")
 @Module
 abstract class ViewModelModule {
-
+    
+    @Binds
+    @IntoMap
+    @ViewModelKey(MainViewModel::class)
+    abstract fun bindMainViewModel(viewModel: MainViewModel): ViewModel
+    
+    
     @Binds
     @IntoMap
     @ViewModelKey(ChooseMuscleViewModel::class)

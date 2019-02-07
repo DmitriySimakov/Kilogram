@@ -1,5 +1,6 @@
 package com.dmitrysimakov.kilogram.ui.training.training
 
+import android.util.Log.d
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -17,11 +18,17 @@ class TrainingViewModel @Inject constructor(private val repository: TrainingRepo
     val id: LiveData<Long>
         get() = _id
 
+    val training = Transformations.switchMap(_id) { id ->
+        when(id) {
+            null -> AbsentLiveData.create()
+            else -> repository.loadTraining(id)
+        }
+    }
+    
     val exercises = Transformations.switchMap(_id) { id ->
-        if (id == null) {
-            AbsentLiveData.create()
-        } else {
-            repository.loadExercises(id)
+        when (id) {
+            null ->AbsentLiveData.create()
+            else ->repository.loadExercises(id)
         }
     }
 
@@ -33,5 +40,13 @@ class TrainingViewModel @Inject constructor(private val repository: TrainingRepo
 
     fun deleteExercise(exercise: TrainingExerciseR) {
         repository.deleteExercise(exercise)
+    }
+    
+    fun finishSession() {
+        training.value?.let {
+            d("lol", "FINISH")
+            it.duration = 10 // TODO
+            repository.updateTraining(it)
+        }
     }
 }
