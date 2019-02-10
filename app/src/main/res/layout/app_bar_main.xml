@@ -5,6 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools">
     
     <data>
+        <import type="com.dmitrysimakov.kilogram.util.Converter"/>
+        
         <variable
             name="viewModel"
             type="com.dmitrysimakov.kilogram.ui.MainViewModel"/>
@@ -55,7 +57,7 @@
                 app:layout_constraintEnd_toStartOf="@id/rest"
                 app:layout_constraintStart_toStartOf="parent"
                 app:goneUnless="@{viewModel.timerIsRunning}"
-                android:text="@{`` + viewModel.sessionTime}"
+                android:text="@{Converter.toTimeFormat(viewModel.sessionTime)}"
                 tools:text="32:30"/>
             
             <TextView
@@ -68,7 +70,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/duration"
                 app:goneUnless="@{viewModel.timerIsRunning &amp;&amp; viewModel.restTime != null}"
-                android:text="@{`` + viewModel.restTime}"
+                android:text="@{Converter.toTimeFormat(viewModel.restTime)}"
                 tools:text="2:05"/>
             
             <com.google.android.material.floatingactionbutton.FloatingActionButton

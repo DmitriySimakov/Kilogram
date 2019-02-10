@@ -19,18 +19,18 @@ class MainViewModel @Inject constructor(private val preferences: SharedPreferenc
     
     var restStartMillis = 0L
     
-    val sessionTime = MutableLiveData<Long>()
+    val sessionTime = MutableLiveData<Int>()
     
-    val restTime = MutableLiveData<Long>()
+    val restTime = MutableLiveData<Int>()
     
     fun startTimer() {
         timer = Timer()
         val task = object : TimerTask() {
             override fun run() {
                 val now = System.currentTimeMillis()
-                sessionTime.postValue((now - sessionStartMillis)/1000)
+                sessionTime.postValue(((now - sessionStartMillis)/1000).toInt())
                 if (restStartMillis != 0L) {
-                    restTime.postValue((now - restStartMillis) / 1000)
+                    restTime.postValue(((now - restStartMillis) / 1000).toInt())
                 }
             }
         }
