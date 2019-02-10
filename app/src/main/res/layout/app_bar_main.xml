@@ -67,7 +67,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/duration"
-                app:goneUnless="@{viewModel.timerIsRunning}"
+                app:goneUnless="@{viewModel.timerIsRunning &amp;&amp; viewModel.restTime != null}"
                 android:text="@{`` + viewModel.restTime}"
                 tools:text="2:05"/>
             

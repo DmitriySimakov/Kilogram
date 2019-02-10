@@ -29,7 +29,9 @@ class MainViewModel @Inject constructor(private val preferences: SharedPreferenc
             override fun run() {
                 val now = System.currentTimeMillis()
                 sessionTime.postValue((now - sessionStartMillis)/1000)
-                restTime.postValue((now - restStartMillis)/1000)
+                if (restStartMillis != 0L) {
+                    restTime.postValue((now - restStartMillis) / 1000)
+                }
             }
         }
         timer?.scheduleAtFixedRate(task, 0, 1000)
@@ -40,14 +42,20 @@ class MainViewModel @Inject constructor(private val preferences: SharedPreferenc
         timer = null
     }
     
-    fun startTrainingSession(time: Long) {
-        sessionStartMillis = time
+    fun onTrainingSessionStarted() {
+        sessionStartMillis = System.currentTimeMillis()
+        restStartMillis = 0L
+        
         timerIsRunning.value = true
         startTimer()
         preferences.edit().putLong(PreferencesKeys.SESSION_START_MILLIS, sessionStartMillis).apply()
     }
     
-    fun finishTrainingSession() {
+    fun onTrainingSessionFinished() {
         timerIsRunning.value = false
+    }
+    
+    fun onSetCompleted() {
+        restStartMillis = System.currentTimeMillis()
     }
 }

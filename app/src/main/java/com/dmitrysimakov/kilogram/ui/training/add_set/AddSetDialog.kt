@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.DialogAddSetBinding
+import com.dmitrysimakov.kilogram.ui.MainViewModel
 import com.dmitrysimakov.kilogram.util.getViewModel
 import com.dmitrysimakov.kilogram.util.hideKeyboard
 import dagger.android.support.DaggerAppCompatDialogFragment
@@ -70,6 +72,8 @@ class AddSetDialog : DaggerAppCompatDialogFragment() {
             R.id.ok -> {
                 if (params.setId == 0L) {
                     viewModel.addSet()
+                    val mainViewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
+                    mainViewModel.onSetCompleted()
                 } else {
                     viewModel.updateSet()
                 }

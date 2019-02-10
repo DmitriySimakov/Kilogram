@@ -1,7 +1,6 @@
 package com.dmitrysimakov.kilogram.ui.training.training
 
 import android.os.Bundle
-import android.util.Log.d
 import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -78,7 +77,7 @@ class TrainingFragment : DaggerFragment() {
             R.id.finish_session -> {
                 viewModel.finishSession()
                 val mainViewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
-                mainViewModel.finishTrainingSession()
+                mainViewModel.onTrainingSessionFinished()
                 findNavController().popBackStack()
                 return true
             }

@@ -113,7 +113,7 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
             R.id.ok -> {
                 viewModel.createTraining(this)
                 val mainViewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
-                mainViewModel.startTrainingSession(viewModel.calendar.time.time)
+                mainViewModel.onTrainingSessionStarted()
                 return true
             }
         }
