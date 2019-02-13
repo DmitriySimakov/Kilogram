@@ -42,8 +42,8 @@ class TrainingFragment : DaggerFragment() {
         params = TrainingFragmentArgs.fromBundle(arguments!!)
         viewModel.setTraining(params.trainingId)
 
-        adapter = TrainingAdapter(executors) { exercise ->
-            findNavController().navigate(TrainingFragmentDirections.toTrainingSetsFragment(exercise._id))
+        adapter = TrainingAdapter(executors) {
+            findNavController().navigate(TrainingFragmentDirections.toTrainingSetsFragment(it._id, it.exercise_id))
         }
         exercises_rv.adapter = adapter
         viewModel.exercises.observe(this, Observer { adapter.submitList(it) })

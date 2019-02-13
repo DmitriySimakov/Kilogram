@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
+import com.dmitrysimakov.kilogram.databinding.FragmentTrainingSetsBinding
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.util.getViewModel
 import dagger.android.support.DaggerFragment
@@ -18,18 +19,21 @@ import kotlinx.android.synthetic.main.fragment_training_sets.*
 import javax.inject.Inject
 
 class TrainingSetsFragment : DaggerFragment() {
-
+    
+    @Inject lateinit var executors: AppExecutors
+    
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    @Inject lateinit var executors: AppExecutors
-
     private lateinit var viewModel: TrainingSetsViewModel
+    
+    private lateinit var binding: FragmentTrainingSetsBinding
+    
+    private lateinit var adapter: TrainingSetsAdapter
 
-    lateinit var adapter: TrainingSetsAdapter
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_training_sets, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = FragmentTrainingSetsBinding.inflate(inflater)
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -37,24 +41,29 @@ class TrainingSetsFragment : DaggerFragment() {
 
         viewModel = getViewModel(viewModelFactory)
         val params = TrainingSetsFragmentArgs.fromBundle(arguments!!)
-        viewModel.setExercise(params.trainingExerciseId)
-
-        adapter = TrainingSetsAdapter(executors) { set ->
-            findNavController().navigate(TrainingSetsFragmentDirections
-                    .toAddSetDialog(params.trainingExerciseId, set._id))
-        }
-        sets_rv.adapter = adapter
-        viewModel.sets.observe(this, Observer { adapter.submitList(it) })
-
-        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
-            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
-                return false
+        viewModel.setParams(params.trainingExerciseId, params.exerciseId)
+        
+        viewModel.exerciseMeasures.observe(this, Observer { measures ->
+            binding.exerciseMeasures = measures
+            
+            adapter = TrainingSetsAdapter(executors, measures) { set ->
+                findNavController().navigate(TrainingSetsFragmentDirections
+                        .toAddSetDialog(params.trainingExerciseId, set._id))
             }
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                val set = adapter.get(viewHolder.adapterPosition)
-                viewModel.deleteSet(set)
-            }
-        }).attachToRecyclerView(sets_rv)
+            sets_rv.adapter = adapter
+    
+            viewModel.sets.observe(this, Observer { adapter.submitList(it) })
+            
+            ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+                override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+                    return false
+                }
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
+                    val set = adapter.get(viewHolder.adapterPosition)
+                    viewModel.deleteSet(set)
+                }
+            }).attachToRecyclerView(sets_rv)
+        })
 
         activity?.fab?.show()
         activity?.fab?.setOnClickListener{

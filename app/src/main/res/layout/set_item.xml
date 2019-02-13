@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     
     <data>
+        <variable
+            name="exercise_measures"
+            type="com.dmitrysimakov.kilogram.data.relation.ExerciseMeasures"/>
+        
         <variable
             name="set"
             type="com.dmitrysimakov.kilogram.data.entity.TrainingExerciseSet"/>
@@ -27,6 +32,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@{`` + set.weight}"
+            app:goneUnless="@{exercise_measures.weight}"
             tools:text="150"/>
         
         <TextView
@@ -35,6 +41,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@{`` + set.reps}"
+            app:goneUnless="@{exercise_measures.reps}"
             tools:text="8"/>
         
         <TextView
@@ -43,6 +50,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@{`` + set.time}"
+            app:goneUnless="@{exercise_measures.time}"
             tools:text="120"/>
         
         <TextView
@@ -51,6 +59,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@{`` + set.distance}"
+            app:goneUnless="@{exercise_measures.distance}"
             tools:text="100"/>
     
     </LinearLayout>

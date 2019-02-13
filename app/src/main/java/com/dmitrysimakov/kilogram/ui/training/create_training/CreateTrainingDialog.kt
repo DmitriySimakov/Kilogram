@@ -39,7 +39,6 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        d(TAG, "onCreateDialog")
         return AlertDialog.Builder(activity!!)
                 .setView(binding.root)
                 .setTitle("Тренировка")

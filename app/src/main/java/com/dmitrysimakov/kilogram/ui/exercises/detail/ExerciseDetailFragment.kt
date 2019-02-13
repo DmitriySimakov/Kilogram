@@ -1,9 +1,11 @@
 package com.dmitrysimakov.kilogram.ui.exercises.detail
 
 import android.os.Bundle
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.dmitrysimakov.kilogram.databinding.FragmentExerciseDetailBinding
 import com.dmitrysimakov.kilogram.util.getViewModel
@@ -19,10 +21,10 @@ class ExerciseDetailFragment : DaggerFragment() {
         val viewModel: ExerciseDetailViewModel = getViewModel(viewModelFactory)
         val args = ExerciseDetailFragmentArgs.fromBundle(arguments!!)
         viewModel.setExercise(args.exerciseId)
-
+        
         FragmentExerciseDetailBinding.inflate(inflater).apply {
             vm = viewModel
-            setLifecycleOwner(this@ExerciseDetailFragment)
+            lifecycleOwner = this@ExerciseDetailFragment
             return root
         }
     }

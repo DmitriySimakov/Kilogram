@@ -1,8 +1,10 @@
 package com.dmitrysimakov.kilogram.data.entity
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.dmitrysimakov.kilogram.data.relation.ExerciseMeasures
 import com.dmitrysimakov.kilogram.util.HasId
 
 @Entity(tableName = "exercise",
@@ -36,5 +38,9 @@ data class Exercise(
         val mechanics_type_id: Long? = null,
         val exercise_type_id: Long? = null,
         val equipment_id: Long? = null,
-        val description: String? = null
+        val description: String? = null,
+        val weight: Boolean = true,
+        val reps: Boolean = true,
+        val time: Boolean = false,
+        val distance: Boolean = false
 ) : HasId

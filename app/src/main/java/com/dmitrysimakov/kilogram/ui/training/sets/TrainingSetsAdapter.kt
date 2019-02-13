@@ -3,6 +3,7 @@ package com.dmitrysimakov.kilogram.ui.training.sets
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.dmitrysimakov.kilogram.data.entity.TrainingExerciseSet
+import com.dmitrysimakov.kilogram.data.relation.ExerciseMeasures
 import com.dmitrysimakov.kilogram.databinding.SetItemBinding
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.util.DataBoundListAdapter
@@ -11,6 +12,7 @@ import com.dmitrysimakov.kilogram.util.IdDiffCallback
 
 class TrainingSetsAdapter(
         appExecutors: AppExecutors,
+        private val exerciseMeasures: ExerciseMeasures,
         private val clickCallback: ((TrainingExerciseSet) -> Unit)
 ) : DataBoundListAdapter<TrainingExerciseSet, SetItemBinding>(appExecutors, IdDiffCallback()) {
 
@@ -27,5 +29,6 @@ class TrainingSetsAdapter(
 
     override fun bind(binding: SetItemBinding, item: TrainingExerciseSet) {
         binding.set = item
+        binding.exerciseMeasures = exerciseMeasures
     }
 }

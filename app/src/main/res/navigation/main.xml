@@ -141,6 +141,9 @@
         <action
             android:id="@+id/to_addSetDialog"
             app:destination="@id/addSetDialog" />
+        <argument
+            android:name="exercise_id"
+            app:argType="long" />
     </fragment>
     
     <fragment

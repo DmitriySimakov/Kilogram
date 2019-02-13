@@ -1,6 +1,7 @@
 package com.dmitrysimakov.kilogram.data.repository
 
 import com.dmitrysimakov.kilogram.data.ItemInsertedListener
+import com.dmitrysimakov.kilogram.data.dao.ExerciseDao
 import com.dmitrysimakov.kilogram.data.dao.TrainingDao
 import com.dmitrysimakov.kilogram.data.dao.TrainingExerciseDao
 import com.dmitrysimakov.kilogram.data.dao.TrainingExerciseSetDao
@@ -16,6 +17,7 @@ import javax.inject.Singleton
 class TrainingRepository @Inject constructor(
         private val executors: AppExecutors,
         private val trainingDao: TrainingDao,
+        private val exerciseDao: ExerciseDao,
         private val trainingExerciseDao: TrainingExerciseDao,
         private val trainingExerciseSetDao: TrainingExerciseSetDao
 ) {
@@ -82,4 +84,6 @@ class TrainingRepository @Inject constructor(
             trainingExerciseSetDao.update(set)
         }
     }
+    
+    fun loadExerciseMeasures(exerciseId: Long) = exerciseDao.getExerciseMeasures(exerciseId)
 }

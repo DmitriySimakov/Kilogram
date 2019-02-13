@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.dmitrysimakov.kilogram.data.relation.ExerciseMeasures
 import com.dmitrysimakov.kilogram.data.entity.Exercise
 import com.dmitrysimakov.kilogram.data.relation.ExerciseR
 
@@ -37,4 +38,11 @@ interface ExerciseDao {
         WHERE _id = :id
     """)
     fun getExerciseR(id: Long) : LiveData<ExerciseR>
+    
+    @Query("""
+        SELECT weight, reps, time, distance
+        FROM exercise
+        WHERE _id = :exerciseId
+        """)
+    fun getExerciseMeasures(exerciseId: Long) : LiveData<ExerciseMeasures>
 }
