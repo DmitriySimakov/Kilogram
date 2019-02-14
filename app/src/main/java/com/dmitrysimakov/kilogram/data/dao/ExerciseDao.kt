@@ -34,7 +34,11 @@ interface ExerciseDao {
     fun getExerciseR(id: Long) : LiveData<ExerciseR>
     
     @Query("""
-        SELECT weight, reps, time, distance
+        SELECT
+        measure_weight AS weight,
+        measure_reps AS reps,
+        measure_time AS time,
+        measure_distance AS distance
         FROM exercise
         WHERE _id = :exerciseId
         """)

@@ -1,12 +1,9 @@
 package com.dmitrysimakov.kilogram.data.entity
 
-import androidx.databinding.BaseObservable
-import androidx.databinding.Bindable
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.dmitrysimakov.kilogram.BR
 import com.dmitrysimakov.kilogram.data.relation.ExerciseMeasures
 import com.dmitrysimakov.kilogram.util.HasId
 
@@ -42,33 +39,5 @@ class Exercise(
         val exercise_type_id: Long? = null,
         val equipment_id: Long? = null,
         val description: String? = null,
-        weight: Boolean = true,
-        reps: Boolean = true,
-        time: Boolean = false,
-        distance: Boolean = false
-) : BaseObservable(), HasId {
-    
-    @get:Bindable var weight = weight
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.weight)
-        }
-    
-    @get:Bindable var reps = reps
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.reps)
-        }
-    
-    @get:Bindable var time = time
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.time)
-        }
-    
-    @get:Bindable var distance = distance
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.distance)
-        }
-}
+        @Embedded(prefix = "measure_") val measures: ExerciseMeasures = ExerciseMeasures()
+) : HasId
