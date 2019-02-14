@@ -62,22 +62,22 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                
                 android:ellipsize="end"
                 android:lines="1"
                 android:text="@string/weight"
-                android:textSize="12sp"/>
+                android:textSize="12sp"
+                android:checked="@={viewModel.exercise.weight}" />
             
             <CheckBox
                 android:id="@+id/time_cb"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                
                 android:ellipsize="end"
                 android:lines="1"
                 android:text="@string/time"
-                android:textSize="12sp"/>
+                android:textSize="12sp"
+                android:checked="@={viewModel.exercise.time}"/>
         
         </LinearLayout>
         
@@ -91,22 +91,22 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                
                 android:ellipsize="end"
                 android:lines="1"
                 android:text="@string/reps"
-                android:textSize="12sp"/>
+                android:textSize="12sp"
+                android:checked="@={viewModel.exercise.reps}"/>
             
             <CheckBox
                 android:id="@+id/distance_cb"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                
                 android:ellipsize="end"
                 android:lines="1"
                 android:text="@string/distance"
-                android:textSize="12sp"/>
+                android:textSize="12sp"
+                android:checked="@={viewModel.exercise.distance}"/>
         
         </LinearLayout>
         

@@ -1,9 +1,12 @@
 package com.dmitrysimakov.kilogram.data.entity
 
+import androidx.databinding.BaseObservable
+import androidx.databinding.Bindable
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.dmitrysimakov.kilogram.BR
 import com.dmitrysimakov.kilogram.data.relation.ExerciseMeasures
 import com.dmitrysimakov.kilogram.util.HasId
 
@@ -31,7 +34,7 @@ import com.dmitrysimakov.kilogram.util.HasId
                     onDelete = ForeignKey.SET_NULL)
         ]
 )
-data class Exercise(
+class Exercise(
         @PrimaryKey(autoGenerate = true) override val _id: Long = 0,
         val name: String,
         val main_muscle_id: Long? = null,
@@ -39,8 +42,33 @@ data class Exercise(
         val exercise_type_id: Long? = null,
         val equipment_id: Long? = null,
         val description: String? = null,
-        val weight: Boolean = true,
-        val reps: Boolean = true,
-        val time: Boolean = false,
-        val distance: Boolean = false
-) : HasId
+        weight: Boolean = true,
+        reps: Boolean = true,
+        time: Boolean = false,
+        distance: Boolean = false
+) : BaseObservable(), HasId {
+    
+    @get:Bindable var weight = weight
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.weight)
+        }
+    
+    @get:Bindable var reps = reps
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.reps)
+        }
+    
+    @get:Bindable var time = time
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.time)
+        }
+    
+    @get:Bindable var distance = distance
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.distance)
+        }
+}

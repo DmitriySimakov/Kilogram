@@ -34,4 +34,8 @@ class AddExerciseViewModel @Inject constructor(
     fun addExercise(training_id: Long) {
         exercise.value?.let { trainingRepository.addExercise(it._id, training_id) }
     }
+    
+    fun updateMeasures() {
+        exercise.value?.let { exerciseRepository.updateExercise(it) }
+    }
 }

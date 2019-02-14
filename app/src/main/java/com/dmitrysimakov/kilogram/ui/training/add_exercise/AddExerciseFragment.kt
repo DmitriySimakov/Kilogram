@@ -55,6 +55,7 @@ class AddExerciseFragment: DaggerFragment() {
         when (item?.itemId) {
             R.id.ok -> {
                 viewModel.addExercise(params.trainingId)
+                viewModel.updateMeasures()
                 findNavController().popBackStack(R.id.trainingFragment, false)
                 return true
             }
