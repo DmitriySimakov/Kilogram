@@ -22,6 +22,9 @@
         <action
             android:id="@+id/to_measurementsTabFragment"
             app:destination="@id/measurementsTabFragment" />
+        <action
+            android:id="@+id/to_programsFragment"
+            app:destination="@id/programsFragment" />
     </fragment>
     
     <fragment
@@ -158,5 +161,21 @@
             android:name="set_id"
             app:argType="long" />
     </fragment>
+    
+    <fragment
+        android:id="@+id/programsFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.programs.programs.ProgramsFragment"
+        android:label="Тренировочные программы"
+        tools:layout="@layout/fragment_programs">
+        <action
+            android:id="@+id/to_createProgramDialog"
+            app:destination="@id/createProgramDialog" />
+    </fragment>
+    
+    <fragment
+        android:id="@+id/createProgramDialog"
+        android:name="com.dmitrysimakov.kilogram.ui.programs.create_program.CreateProgramDialog"
+        android:label="Тренировочная программа"
+        tools:layout="@layout/dialog_create_program"/>
 
 </navigation>

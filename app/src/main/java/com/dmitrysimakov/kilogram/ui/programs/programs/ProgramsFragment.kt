@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.training.training_list
+package com.dmitrysimakov.kilogram.ui.programs.programs
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,54 +7,54 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.util.getViewModel
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.fragment_trainings.*
+import kotlinx.android.synthetic.main.fragment_programs.*
 import javax.inject.Inject
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.ItemTouchHelper
 
-class TrainingsFragment : DaggerFragment() {
-
+class ProgramsFragment : DaggerFragment() {
+    
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
-
+    
     @Inject lateinit var executors: AppExecutors
-
-    private lateinit var viewModel: TrainingsViewModel
-
-    lateinit var adapter: TrainingsAdapter
-
+    
+    private lateinit var viewModel: ProgramsViewModel
+    
+    lateinit var adapter: ProgramsAdapter
+    
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_trainings, container, false)
+        return inflater.inflate(R.layout.fragment_programs, container, false)
     }
-
+    
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        
         viewModel = getViewModel(viewModelFactory)
-        adapter = TrainingsAdapter(executors) { training ->
-            findNavController().navigate(TrainingsFragmentDirections
-                    .toTrainingFragment(training._id, training.duration == null))
+        adapter = ProgramsAdapter(executors) { program ->
+//            findNavController().navigate(ProgramsFragmentDirections
+//                    .toTrainingFragment(training._id, training.duration == null))
         }
-        trainings_rv.adapter = adapter
-        viewModel.trainingList.observe(this, Observer { adapter.submitList(it) })
-
+        programs_rv.adapter = adapter
+        viewModel.programList.observe(this, Observer { adapter.submitList(it) })
+        
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
                 return false
             }
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                val training = adapter.get(viewHolder.adapterPosition)
-                viewModel.deleteTraining(training)
+                val program = adapter.get(viewHolder.adapterPosition)
+                viewModel.deleteProgram(program)
             }
-        }).attachToRecyclerView(trainings_rv)
-
+        }).attachToRecyclerView(programs_rv)
+        
         activity?.fab?.show()
         activity?.fab?.setOnClickListener{
-            findNavController().navigate(TrainingsFragmentDirections.toCreateTrainingFragment())
+            findNavController().navigate(ProgramsFragmentDirections.toCreateProgramDialog())
         }
     }
 }

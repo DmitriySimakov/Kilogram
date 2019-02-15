@@ -23,6 +23,10 @@ class MainFragment : Fragment() {
         exerciseBtn.setOnClickListener { findNavController().navigate(
                 MainFragmentDirections.toChooseMuscleFragment()) }
 
+        programsBtn.setOnClickListener { findNavController().navigate(
+                MainFragmentDirections.toProgramsFragment())
+        }
+        
         trainingsBtn.setOnClickListener { findNavController().navigate(
                 MainFragmentDirections.toTrainingsFragment()) }
 
