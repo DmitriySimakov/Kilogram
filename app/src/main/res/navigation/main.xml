@@ -170,12 +170,43 @@
         <action
             android:id="@+id/to_createProgramDialog"
             app:destination="@id/createProgramDialog" />
+        <action
+            android:id="@+id/to_trainingDaysFragment"
+            app:destination="@id/programDaysFragment" />
     </fragment>
     
     <fragment
         android:id="@+id/createProgramDialog"
         android:name="com.dmitrysimakov.kilogram.ui.programs.create_program.CreateProgramDialog"
         android:label="Тренировочная программа"
-        tools:layout="@layout/dialog_create_program"/>
+        tools:layout="@layout/dialog_create_program">
+        <action
+            android:id="@+id/to_trainingDaysFragment"
+            app:destination="@id/programDaysFragment"
+            app:popUpTo="@+id/programsFragment" />
+    </fragment>
+    
+    <fragment
+        android:id="@+id/programDaysFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.programs.program_days.ProgramDaysFragment"
+        android:label="fragment_training_days"
+        tools:layout="@layout/fragment_program_days" >
+        <argument
+            android:name="program_id"
+            app:argType="long" />
+        <action
+            android:id="@+id/to_createProgramDayDialog"
+            app:destination="@id/createProgramDayDialog" />
+    </fragment>
+    
+    <fragment
+        android:id="@+id/createProgramDayDialog"
+        android:name="com.dmitrysimakov.kilogram.ui.programs.create_program_day.CreateProgramDayDialog"
+        android:label="CreateProgramDayDialog"
+        tools:layout="@layout/dialog_create_program_day" >
+        <argument
+            android:name="program_id"
+            app:argType="long" />
+    </fragment>
 
 </navigation>

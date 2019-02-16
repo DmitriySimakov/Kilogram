@@ -18,5 +18,5 @@ data class ProgramDay(
         @PrimaryKey(autoGenerate = true) override val _id: Long = 0,
         val name: String,
         val number: Byte,
-        val program_id: Long? = null
+        val program_id: Long
 ) : HasId

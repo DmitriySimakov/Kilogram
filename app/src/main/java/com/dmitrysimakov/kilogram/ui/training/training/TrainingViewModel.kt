@@ -15,9 +15,7 @@ import javax.inject.Inject
 class TrainingViewModel @Inject constructor(private val repository: TrainingRepository) : ViewModel() {
 
     private val _id = MutableLiveData<Long>()
-    val id: LiveData<Long>
-        get() = _id
-
+    
     val training = Transformations.switchMap(_id) { id ->
         when(id) {
             null -> AbsentLiveData.create()

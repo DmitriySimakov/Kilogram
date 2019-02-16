@@ -42,6 +42,10 @@ class AppModule {
     @Singleton
     @Provides
     fun provideProgramDao(db: KilogramDb) = db.programDao()
+    
+    @Singleton
+    @Provides
+    fun provideProgramDayDao(db: KilogramDb) = db.programDayDao()
 
     @Singleton
     @Provides

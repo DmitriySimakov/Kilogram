@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">Kilogram</string>
-
+    
     <!-- NavigationView -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Kilogram</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-
+    
     <!-- NavigationView items -->
     <string name="main">На главную</string>
     <string name="exercises">Упражнения</string>
@@ -16,14 +16,14 @@
     <string name="measurements">Замеры</string>
     <string name="settings">Настройки</string>
     <string name="about">О приложении</string>
-
+    
     <!-- Options menu -->
     <string name="finish_session">Завершить тренировку</string>
     <string name="delete_session">Удалить тренировку</string>
-
+    
     <!-- ExerciseDescriptionFragment -->
     <string name="exercise">Упражнение</string>
-
+    
     <string name="exercise_name">Название упражнения</string>
     <string name="images">Изображения</string>
     <string name="main_muscle">Целевые мышцы</string>
@@ -33,19 +33,19 @@
     <string name="equipment">Оборудование</string>
     <string name="description">Описание</string>
     <string name="technique">Техника выполнения</string>
-
+    
     <!-- CreateTrainingDialog -->
     <string name="training_session">Тренировка</string>
     <string name="training_program">Тренировочная программа</string>
-
+    
     <!-- MeasurementTabFragment -->
     <string name="calculator">Калькулятор</string>
     <string name="add_measurement">Добавить</string>
     <string name="measurement_history">История</string>
-
+    
     <!-- MeasurementDialog -->
     <string name="enter_value">Введите значение параметра</string>
-
+    
     <!-- ProportionsCalculatorFragment -->
     <string name="reset">Сбросить</string>
     <string name="fill">Заполнить</string>
@@ -75,5 +75,8 @@
     <string name="distance_metres">Расстояние, метры</string>
     <string name="minus_sign">-</string>
     <string name="plus_sign">+</string>
+    
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -6,7 +6,7 @@ apply plugin: 'androidx.navigation.safeargs'
 
 android {
     compileSdkVersion 28
-
+    
     defaultConfig {
         applicationId "com.dmitrysimakov.kilogram"
         minSdkVersion 21
@@ -15,18 +15,18 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
+    
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
+    
     dataBinding {
         enabled = true
     }
-
+    
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -34,12 +34,12 @@ android {
 }
 
 dependencies {
-
+    
     //implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$rootProject.kotlin_version"
     implementation 'androidx.core:core-ktx:1.0.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
-
+    
     // Support Library
     def support_library_version = '1.0.0'
     implementation "androidx.appcompat:appcompat:1.0.2"
@@ -47,7 +47,7 @@ dependencies {
     implementation "com.google.android.material:material:$support_library_version"
     implementation "androidx.recyclerview:recyclerview:$support_library_version"
     implementation "androidx.legacy:legacy-support-v4:$support_library_version"
-
+    
     // Architecture components
     // lifecycle
     def lifecycle_version = '2.1.0-alpha02'
@@ -57,22 +57,22 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0'
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
-
+    
     // navigation
     implementation "android.arch.navigation:navigation-fragment-ktx:$rootProject.navigation_version"
     implementation "android.arch.navigation:navigation-ui-ktx:$rootProject.navigation_version"
-
+    
     // room
     def room_version = '2.1.0-alpha04'
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
-
+    
     // work manager
     implementation 'android.arch.work:work-runtime-ktx:1.0.0-beta05'
-
+    
     // Gson
     implementation 'com.google.code.gson:gson:2.8.2'
-
+    
     // Dagger 2
     def dagger_version = '2.16'
     implementation "com.google.dagger:dagger:$dagger_version"
@@ -80,7 +80,7 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
-
+    
     // Testing dependencies
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
