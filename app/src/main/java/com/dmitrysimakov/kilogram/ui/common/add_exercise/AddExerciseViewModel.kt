@@ -1,10 +1,8 @@
-package com.dmitrysimakov.kilogram.ui.training.add_exercise
+package com.dmitrysimakov.kilogram.ui.common.add_exercise
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.dmitrysimakov.kilogram.data.entity.Exercise
 import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
 import com.dmitrysimakov.kilogram.util.AbsentLiveData

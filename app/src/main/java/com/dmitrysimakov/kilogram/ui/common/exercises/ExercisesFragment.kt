@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.training.training
+package com.dmitrysimakov.kilogram.ui.common.exercises
 
 import android.os.Bundle
 import android.view.*
@@ -14,36 +14,35 @@ import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.util.getViewModel
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.fragment_training.*
+import kotlinx.android.synthetic.main.fragment_exercises.*
 import javax.inject.Inject
 
-class TrainingFragment : DaggerFragment() {
+class ExercisesFragment : DaggerFragment() {
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     @Inject lateinit var executors: AppExecutors
 
-    private lateinit var viewModel: TrainingViewModel
+    private lateinit var viewModel: ExercisesViewModel
     
-    private lateinit var params: TrainingFragmentArgs
+    private lateinit var params: ExercisesFragmentArgs
 
-    lateinit var adapter: TrainingAdapter
+    lateinit var adapter: TrainingExerciseListAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
-        return inflater.inflate(R.layout.fragment_training, container, false)
+        return inflater.inflate(R.layout.fragment_exercises, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         viewModel = getViewModel(viewModelFactory)
-        params = TrainingFragmentArgs.fromBundle(arguments!!)
+        params = ExercisesFragmentArgs.fromBundle(arguments!!)
         viewModel.setTraining(params.trainingId)
 
-        adapter = TrainingAdapter(executors) {
-            findNavController().navigate(TrainingFragmentDirections.toTrainingSetsFragment(it._id, it.exercise_id))
+        adapter = TrainingExerciseListAdapter(executors) {
+            findNavController().navigate(ExercisesFragmentDirections.toTrainingSetsFragment(it._id, it.exercise_id))
         }
         exercises_rv.adapter = adapter
         viewModel.exercises.observe(this, Observer { adapter.submitList(it) })
@@ -61,7 +60,7 @@ class TrainingFragment : DaggerFragment() {
 
         activity?.fab?.show()
         activity?.fab?.setOnClickListener{
-            findNavController().navigate(TrainingFragmentDirections.toChooseMuscleFragment(params.trainingId))
+            findNavController().navigate(ExercisesFragmentDirections.toChooseMuscleFragment(params.programDayId, params.trainingId))
         }
     }
     

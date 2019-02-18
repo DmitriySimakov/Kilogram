@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.exercises.exercises
+package com.dmitrysimakov.kilogram.ui.common.choose_exercise
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,21 +12,21 @@ import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.util.getViewModel
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.fragment_exercises.*
+import kotlinx.android.synthetic.main.fragment_choose_exercise.*
 import javax.inject.Inject
 
-class ExercisesFragment : DaggerFragment() {
+class ChooseExerciseFragment : DaggerFragment() {
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     @Inject lateinit var executors: AppExecutors
 
-    private lateinit var viewModel: ExercisesViewModel
+    private lateinit var viewModel: ChooseExerciseViewModel
 
-    private lateinit var adapter: ExercisesAdapter
+    private lateinit var adapter: ExerciseListAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_exercises, container, false)
+        return inflater.inflate(R.layout.fragment_choose_exercise, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -35,15 +35,15 @@ class ExercisesFragment : DaggerFragment() {
         viewModel = getViewModel(viewModelFactory)
         viewModel.exerciseList.observe(this, Observer { adapter.submitList(it) })
 
-        val params = ExercisesFragmentArgs.fromBundle(arguments!!)
+        val params = ChooseExerciseFragmentArgs.fromBundle(arguments!!)
         viewModel.setMuscle(params.muscleId)
 
-        adapter = ExercisesAdapter(executors) { exercise ->
+        adapter = ExerciseListAdapter(executors) { exercise ->
             val navController = findNavController()
-            if (params.trainingId == 0L) {
-                navController.navigate(ExercisesFragmentDirections.toExerciseDetailFragment(exercise._id))
+            if (params.trainingId == 0L && params.programDayId == 0L) {
+                navController.navigate(ChooseExerciseFragmentDirections.toExerciseDetailFragment(exercise._id))
             } else {
-                navController.navigate(ExercisesFragmentDirections.toAddExerciseFragment(exercise._id, params.trainingId))
+                navController.navigate(ChooseExerciseFragmentDirections.toAddExerciseFragment(exercise._id, params.programDayId, params.trainingId))
             }
         }
 

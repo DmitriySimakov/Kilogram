@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.training.training_list
+package com.dmitrysimakov.kilogram.ui.trainings.trainings
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -37,7 +37,7 @@ class TrainingsFragment : DaggerFragment() {
         viewModel = getViewModel(viewModelFactory)
         adapter = TrainingsAdapter(executors) { training ->
             findNavController().navigate(TrainingsFragmentDirections
-                    .toTrainingFragment(training._id, training.duration == null))
+                    .toExercisesFragment(training._id, training.duration == null))
         }
         trainings_rv.adapter = adapter
         viewModel.trainingList.observe(this, Observer { adapter.submitList(it) })

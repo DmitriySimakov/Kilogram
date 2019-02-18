@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.training.create_training
+package com.dmitrysimakov.kilogram.ui.trainings.create_training
 
 import android.app.DatePickerDialog
 import android.app.Dialog
@@ -121,6 +121,6 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
 
     @MainThread
     override fun onItemInserted(id: Long) {
-        findNavController().navigate(CreateTrainingDialogDirections.toTrainingFragment(id))
+        findNavController().navigate(CreateTrainingDialogDirections.toExercisesFragment(id))
     }
 }

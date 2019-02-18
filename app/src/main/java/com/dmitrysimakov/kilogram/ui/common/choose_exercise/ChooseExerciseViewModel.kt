@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.exercises.exercises
+package com.dmitrysimakov.kilogram.ui.common.choose_exercise
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,7 +9,7 @@ import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.util.AbsentLiveData
 import javax.inject.Inject
 
-class ExercisesViewModel @Inject constructor(private val repository: ExerciseRepository) : ViewModel() {
+class ChooseExerciseViewModel @Inject constructor(private val repository: ExerciseRepository) : ViewModel() {
 
     private val _muscleId = MutableLiveData<Long>()
 

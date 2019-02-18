@@ -1,6 +1,5 @@
-package com.dmitrysimakov.kilogram.ui.training.sets
+package com.dmitrysimakov.kilogram.ui.trainings.sets
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel

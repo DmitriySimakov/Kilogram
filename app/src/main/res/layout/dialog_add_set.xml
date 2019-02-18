@@ -7,7 +7,7 @@
         
         <variable
             name="viewModel"
-            type="com.dmitrysimakov.kilogram.ui.training.add_set.AddSetViewModel" />
+            type="com.dmitrysimakov.kilogram.ui.trainings.add_set.AddSetViewModel" />
     </data>
     
     <LinearLayout
@@ -18,7 +18,7 @@
         android:paddingLeft="?attr/dialogPreferredPadding"
         android:paddingTop="?attr/dialogPreferredPadding"
         android:paddingRight="?attr/dialogPreferredPadding"
-        tools:context="ui.training.add_set.AddSetDialog">
+        tools:context="ui.trainings.add_set.AddSetDialog">
         
         <TextView
             android:id="@+id/weight_tv"

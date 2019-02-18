@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.exercises.choose_muscle
+package com.dmitrysimakov.kilogram.ui.common.choose_muscle
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,10 +23,9 @@ class ChooseMuscleFragment : DaggerFragment() {
 
     private lateinit var viewModel: ChooseMuscleViewModel
 
-    private lateinit var adapter: ChooseMuscleAdapter
+    private lateinit var adapter: MuscleListAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_choose_muscle, container, false)
     }
 
@@ -36,10 +35,10 @@ class ChooseMuscleFragment : DaggerFragment() {
         viewModel = getViewModel(viewModelFactory)
         viewModel.muscleList.observe(this, Observer { adapter.submitList(it) })
 
-        adapter = ChooseMuscleAdapter(executors) { muscle ->
+        adapter = MuscleListAdapter(executors) { muscle ->
             val params = ChooseMuscleFragmentArgs.fromBundle(arguments!!)
             findNavController().navigate(ChooseMuscleFragmentDirections
-                    .toExercisesFragment(muscle._id, params.trainingId))
+                    .toChooseExerciseFragment(muscle._id, params.programDayId, params.trainingId))
         }
 
         choose_exercises_rv.adapter = adapter

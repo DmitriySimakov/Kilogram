@@ -1,7 +1,5 @@
-package com.dmitrysimakov.kilogram. ui.training.add_set
+package com.dmitrysimakov.kilogram. ui.trainings.add_set
 
-import android.util.Log.d
-import androidx.databinding.ObservableInt
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel

@@ -1,18 +1,15 @@
-package com.dmitrysimakov.kilogram.ui.training.training
+package com.dmitrysimakov.kilogram.ui.common.exercises
 
 import android.util.Log.d
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.dmitrysimakov.kilogram.data.entity.Exercise
-import com.dmitrysimakov.kilogram.data.entity.Training
 import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
 import com.dmitrysimakov.kilogram.util.AbsentLiveData
 import javax.inject.Inject
 
-class TrainingViewModel @Inject constructor(private val repository: TrainingRepository) : ViewModel() {
+class ExercisesViewModel @Inject constructor(private val repository: TrainingRepository) : ViewModel() {
 
     private val _id = MutableLiveData<Long>()
     

@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.training.training
+package com.dmitrysimakov.kilogram.ui.common.exercises
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,7 +8,7 @@ import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.util.DataBoundListAdapter
 import com.dmitrysimakov.kilogram.util.IdDiffCallback
 
-class TrainingAdapter(
+class TrainingExerciseListAdapter(
         appExecutors: AppExecutors,
         private val clickCallback: ((TrainingExerciseR) -> Unit)
 ) : DataBoundListAdapter<TrainingExerciseR, TrainingExerciseItemBinding>(appExecutors, IdDiffCallback()) {

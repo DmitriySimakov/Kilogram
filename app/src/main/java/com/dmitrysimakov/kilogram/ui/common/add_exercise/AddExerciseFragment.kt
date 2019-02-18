@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.training.add_exercise
+package com.dmitrysimakov.kilogram.ui.common.add_exercise
 
 import android.content.Context
 import android.os.Bundle
@@ -56,7 +56,7 @@ class AddExerciseFragment: DaggerFragment() {
             R.id.ok -> {
                 viewModel.addExercise(params.trainingId)
                 viewModel.updateMeasures()
-                findNavController().popBackStack(R.id.trainingFragment, false)
+                findNavController().popBackStack(R.id.exercisesFragment, false)
                 return true
             }
         }

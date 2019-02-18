@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.dmitrysimakov.kilogram.ui.training.add_exercise.AddExerciseViewModel"/>
+            type="com.dmitrysimakov.kilogram.ui.common.add_exercise.AddExerciseViewModel"/>
     </data>
     
     <LinearLayout

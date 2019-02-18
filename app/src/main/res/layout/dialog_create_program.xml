@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="?attr/dialogPreferredPadding"
-        tools:context=".ui.training.create_training.CreateTrainingDialog">
+        tools:context=".ui.trainings.create_training.CreateTrainingDialog">
         
         <EditText
             android:id="@+id/name"

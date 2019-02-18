@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.exercises.choose_muscle
+package com.dmitrysimakov.kilogram.ui.common.choose_muscle
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,7 +8,7 @@ import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.util.DataBoundListAdapter
 import com.dmitrysimakov.kilogram.util.IdDiffCallback
 
-class ChooseMuscleAdapter(
+class MuscleListAdapter(
         appExecutors: AppExecutors,
         private val clickCallback: ((Muscle) -> Unit)
 ) : DataBoundListAdapter<Muscle, ChooseMuscleItemBinding>(appExecutors, IdDiffCallback()) {
