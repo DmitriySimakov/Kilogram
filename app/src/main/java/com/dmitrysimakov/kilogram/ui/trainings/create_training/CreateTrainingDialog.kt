@@ -24,9 +24,7 @@ import java.util.*
 import javax.inject.Inject
 
 class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListener {
-
-    private val TAG = this::class.java.simpleName
-
+    
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var binding: DialogCreateTrainingBinding
@@ -48,7 +46,6 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        d(TAG, "onCreateView")
         viewModel = getViewModel(viewModelFactory)
         binding.viewModel = viewModel
         binding.setLifecycleOwner(this)
@@ -93,7 +90,6 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        d(TAG, "onActivityCreated")
         if (dialog == null) {
             activity?.toolbar?.setNavigationIcon(R.drawable.baseline_close_white_24)
             setHasOptionsMenu(true)

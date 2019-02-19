@@ -47,9 +47,9 @@ class TrainingSetsFragment : DaggerFragment() {
             
             adapter = TrainingSetsAdapter(executors, measures) { set ->
                 findNavController().navigate(TrainingSetsFragmentDirections
-                        .toAddSetDialog(params.trainingExerciseId, set._id))
+                        .toAddSetDialog(set._id, params.trainingExerciseId))
             }
-            sets_rv.adapter = adapter
+            recyclerView.adapter = adapter
     
             viewModel.sets.observe(this, Observer { adapter.submitList(it) })
             
@@ -61,13 +61,13 @@ class TrainingSetsFragment : DaggerFragment() {
                     val set = adapter.get(viewHolder.adapterPosition)
                     viewModel.deleteSet(set)
                 }
-            }).attachToRecyclerView(sets_rv)
+            }).attachToRecyclerView(recyclerView)
         })
 
         activity?.fab?.show()
         activity?.fab?.setOnClickListener{
             findNavController().navigate(TrainingSetsFragmentDirections
-                    .toAddSetDialog(params.trainingExerciseId, 0))
+                    .toAddSetDialog(0, params.trainingExerciseId))
         }
     }
 }

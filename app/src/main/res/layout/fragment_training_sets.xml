@@ -80,7 +80,7 @@
             app:layout_constraintTop_toBottomOf="@id/header_num"/>
         
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/sets_rv"
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

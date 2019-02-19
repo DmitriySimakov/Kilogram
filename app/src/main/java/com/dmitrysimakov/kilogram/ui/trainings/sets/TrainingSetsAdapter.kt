@@ -13,12 +13,12 @@ import com.dmitrysimakov.kilogram.util.IdDiffCallback
 class TrainingSetsAdapter(
         appExecutors: AppExecutors,
         private val exerciseMeasures: ExerciseMeasures,
-        private val clickCallback: ((TrainingExerciseSet) -> Unit)
-) : DataBoundListAdapter<TrainingExerciseSet, SetItemBinding>(appExecutors, IdDiffCallback()) {
+        clickCallback: ((TrainingExerciseSet) -> Unit)?
+) : DataBoundListAdapter<TrainingExerciseSet, SetItemBinding>(appExecutors, clickCallback) {
 
     override fun createBinding(parent: ViewGroup) = SetItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false).apply {
-        root.setOnClickListener { set?.run { clickCallback.invoke(this) } }
+        root.setOnClickListener { set?.run { clickCallback?.invoke(this) } }
     }
 
     override fun onBindViewHolder(holder: DataBoundViewHolder<SetItemBinding>, position: Int) {

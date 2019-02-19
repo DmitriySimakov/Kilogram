@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.util.AppExecutors
@@ -16,6 +17,7 @@ import kotlinx.android.synthetic.main.fragment_trainings.*
 import javax.inject.Inject
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.ItemTouchHelper
+import com.dmitrysimakov.kilogram.ui.MainViewModel
 
 class TrainingsFragment : DaggerFragment() {
 
@@ -49,6 +51,8 @@ class TrainingsFragment : DaggerFragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
                 val training = adapter.get(viewHolder.adapterPosition)
                 viewModel.deleteTraining(training)
+                val mainViewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
+                mainViewModel.onTrainingSessionFinished()
             }
         }).attachToRecyclerView(trainings_rv)
 

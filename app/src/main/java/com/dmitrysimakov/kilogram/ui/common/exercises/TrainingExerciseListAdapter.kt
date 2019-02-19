@@ -10,12 +10,12 @@ import com.dmitrysimakov.kilogram.util.IdDiffCallback
 
 class TrainingExerciseListAdapter(
         appExecutors: AppExecutors,
-        private val clickCallback: ((TrainingExerciseR) -> Unit)
-) : DataBoundListAdapter<TrainingExerciseR, TrainingExerciseItemBinding>(appExecutors, IdDiffCallback()) {
+        clickCallback: ((TrainingExerciseR) -> Unit)? = null
+) : DataBoundListAdapter<TrainingExerciseR, TrainingExerciseItemBinding>(appExecutors, clickCallback) {
 
     override fun createBinding(parent: ViewGroup) = TrainingExerciseItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false).apply {
-        root.setOnClickListener { exercise?.run { clickCallback.invoke(this) } }
+        root.setOnClickListener { exercise?.run { clickCallback?.invoke(this) } }
     }
 
     override fun bind(binding: TrainingExerciseItemBinding, item: TrainingExerciseR) {

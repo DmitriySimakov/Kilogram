@@ -12,54 +12,26 @@ import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import javax.inject.Inject
 
-class AddExerciseFragment: DaggerFragment() {
-
-    private val TAG = this::class.java.simpleName
-
+open class AddExerciseFragment: DaggerFragment() {
+    
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var binding: FragmentAddExerciseBinding
+    protected lateinit var binding: FragmentAddExerciseBinding
     
-    private lateinit var viewModel: AddExerciseViewModel
-
-    private lateinit var params: AddExerciseFragmentArgs
-
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        binding = FragmentAddExerciseBinding.inflate(LayoutInflater.from(context))
-    }
+    protected lateinit var viewModel: AddExerciseViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewModel = getViewModel(viewModelFactory)
-        binding.viewModel = viewModel
-        binding.setLifecycleOwner(this)
-
-        params = AddExerciseFragmentArgs.fromBundle(arguments!!)
-        viewModel.setExercise(params.exerciseId)
-        
+        binding = FragmentAddExerciseBinding.inflate(inflater)
+        binding.lifecycleOwner = this
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setHasOptionsMenu(true)
+    
+        viewModel = getViewModel(viewModelFactory)
+        binding.viewModel = viewModel
+        
         activity?.fab?.hide()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.dialog, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-            R.id.ok -> {
-                viewModel.addExercise(params.trainingId)
-                viewModel.updateMeasures()
-                findNavController().popBackStack(R.id.exercisesFragment, false)
-                return true
-            }
-        }
-        return false
     }
 }

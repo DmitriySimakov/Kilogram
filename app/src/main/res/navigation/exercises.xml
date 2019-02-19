@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/exercises"
+    app:startDestination="@id/exercises_ChooseMuscleFragment">
+    <fragment
+        android:id="@+id/exercises_ChooseMuscleFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.exercises.choose_muscle.Exercises_ChooseMuscleFragment"
+        tools:layout="@layout/fragment_choose_muscle">
+        <action
+            android:id="@+id/to_chooseExerciseFragment"
+            app:destination="@id/exercises_ChooseExerciseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exercises_ChooseExerciseFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.exercises.choose_exercise.Exercises_ChooseExerciseFragment"
+        tools:layout="@layout/fragment_choose_exercise">
+        <action
+            android:id="@+id/to_exerciseDetailFragment"
+            app:destination="@id/exerciseDetailFragment" />
+        <argument
+            android:name="muscle_id"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/exerciseDetailFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.exercises.detail.ExerciseDetailFragment"
+        tools:layout="@layout/fragment_exercise_detail">
+        <argument
+            android:name="exercise_id"
+            app:argType="long" />
+    </fragment>
+</navigation>

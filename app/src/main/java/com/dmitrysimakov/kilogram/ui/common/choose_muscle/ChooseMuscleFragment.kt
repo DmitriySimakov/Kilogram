@@ -15,15 +15,15 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_choose_muscle.*
 import javax.inject.Inject
 
-class ChooseMuscleFragment : DaggerFragment() {
+open class ChooseMuscleFragment : DaggerFragment() {
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     @Inject lateinit var executors: AppExecutors
 
-    private lateinit var viewModel: ChooseMuscleViewModel
+    protected lateinit var viewModel: ChooseMuscleViewModel
 
-    private lateinit var adapter: MuscleListAdapter
+    protected lateinit var adapter: MuscleListAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_choose_muscle, container, false)
@@ -31,18 +31,13 @@ class ChooseMuscleFragment : DaggerFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+    
+        adapter = MuscleListAdapter(executors)
+        recyclerView.adapter = adapter
+    
         viewModel = getViewModel(viewModelFactory)
         viewModel.muscleList.observe(this, Observer { adapter.submitList(it) })
-
-        adapter = MuscleListAdapter(executors) { muscle ->
-            val params = ChooseMuscleFragmentArgs.fromBundle(arguments!!)
-            findNavController().navigate(ChooseMuscleFragmentDirections
-                    .toChooseExerciseFragment(muscle._id, params.programDayId, params.trainingId))
-        }
-
-        choose_exercises_rv.adapter = adapter
-
+        
         activity?.fab?.hide()
     }
 }

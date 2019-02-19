@@ -10,12 +10,12 @@ import com.dmitrysimakov.kilogram.util.IdDiffCallback
 
 class ProgramDaysAdapter(
         appExecutors: AppExecutors,
-        private val clickCallback: ((ProgramDay) -> Unit)
-) : DataBoundListAdapter<ProgramDay, TrainingDayItemBinding>(appExecutors, IdDiffCallback()) {
+        clickCallback: ((ProgramDay) -> Unit)?
+) : DataBoundListAdapter<ProgramDay, TrainingDayItemBinding>(appExecutors, clickCallback) {
 
     override fun createBinding(parent: ViewGroup) = TrainingDayItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false).apply {
-        root.setOnClickListener { day?.run { clickCallback.invoke(this) } }
+        root.setOnClickListener { day?.run { clickCallback?.invoke(this) } }
     }
 
     override fun bind(binding: TrainingDayItemBinding, item: ProgramDay) {

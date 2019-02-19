@@ -12,11 +12,11 @@ import android.view.ViewGroup
  * @param <T> Type of the items in the list
  * @param <V> The type of the ViewDataBinding
 </V></T> */
-abstract class DataBoundListAdapter<T, V : ViewDataBinding>(
+abstract class DataBoundListAdapter<T : HasId, V : ViewDataBinding>(
         appExecutors: AppExecutors,
-        diffCallback: DiffUtil.ItemCallback<T>
+        protected var clickCallback: ((T) -> Unit)?
 ) : ListAdapter<T, DataBoundViewHolder<V>>(
-        AsyncDifferConfig.Builder(diffCallback)
+        AsyncDifferConfig.Builder(IdDiffCallback<T>())
                 .setBackgroundThreadExecutor(appExecutors.diskIO())
                 .build()
 ) {
@@ -24,6 +24,10 @@ abstract class DataBoundListAdapter<T, V : ViewDataBinding>(
             DataBoundViewHolder(createBinding(parent))
 
     fun get(position: Int) : T = getItem(position)
+    
+    fun setClickListener(callback : ((T) -> Unit)) {
+        clickCallback = callback
+    }
 
     protected abstract fun createBinding(parent: ViewGroup): V
 

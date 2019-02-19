@@ -12,31 +12,21 @@ import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        exerciseBtn.setOnClickListener { findNavController().navigate(
-                MainFragmentDirections.toChooseMuscleFragment()) }
-
-        programsBtn.setOnClickListener { findNavController().navigate(
-                MainFragmentDirections.toProgramsFragment())
-        }
-        
-        trainingsBtn.setOnClickListener { findNavController().navigate(
-                MainFragmentDirections.toTrainingsFragment()) }
-
-        measuresBtn.setOnClickListener { findNavController().navigate(
-                MainFragmentDirections.toMeasurementsTabFragment()) }
-    }
+        val navController = findNavController()
+        exerciseBtn.setOnClickListener { navController.navigate(MainFragmentDirections.toExercises()) }
+        programsBtn.setOnClickListener { navController.navigate(MainFragmentDirections.toPrograms()) }
+        trainingsBtn.setOnClickListener { navController.navigate(MainFragmentDirections.toTrainings()) }
+        measurementsBtn.setOnClickListener { navController.navigate(MainFragmentDirections.toMeasurements()) } }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         activity?.fab?.hide()
     }
 }

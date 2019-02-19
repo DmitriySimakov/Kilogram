@@ -76,6 +76,6 @@ class CreateProgramDialog : DaggerAppCompatDialogFragment(), ItemInsertedListene
 
     @MainThread
     override fun onItemInserted(id: Long) {
-        findNavController().navigate(CreateProgramDialogDirections.toTrainingDaysFragment(id))
+        findNavController().navigate(CreateProgramDialogDirections.toProgramDaysFragment(id))
     }
 }

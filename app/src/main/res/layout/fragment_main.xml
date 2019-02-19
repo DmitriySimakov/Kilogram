@@ -35,14 +35,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/training_sessions"
-        app:layout_constraintBottom_toTopOf="@+id/measuresBtn"
+        app:layout_constraintBottom_toTopOf="@+id/measurementsBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/programsBtn"/>
     
     <Button
-        android:id="@+id/measuresBtn"
+        android:id="@+id/measurementsBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/measurements"

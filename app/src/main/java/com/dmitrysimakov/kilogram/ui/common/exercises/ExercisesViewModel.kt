@@ -39,7 +39,6 @@ class ExercisesViewModel @Inject constructor(private val repository: TrainingRep
     
     fun finishSession() {
         training.value?.let {
-            d("lol", "FINISH")
             it.duration = 10 // TODO
             repository.updateTraining(it)
         }
