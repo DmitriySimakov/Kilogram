@@ -8,6 +8,7 @@ import com.dmitrysimakov.kilogram.data.entity.ProgramDay
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
 import com.dmitrysimakov.kilogram.data.entity.Training
 import com.dmitrysimakov.kilogram.data.repository.ProgramRepository
+import com.dmitrysimakov.kilogram.util.setNewValue
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -21,9 +22,7 @@ class CreateProgramDayViewModel @Inject constructor(
     private val _programId = MutableLiveData<Long>()
     
     fun setParams(programId: Long) {
-        if (_programId.value != programId) {
-            _programId.value = programId
-        }
+        _programId.setNewValue(programId)
     }
     
     fun createProgramDay(callback: ItemInsertedListener) {

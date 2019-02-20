@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.entity.TrainingExerciseSet
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
 import com.dmitrysimakov.kilogram.util.AbsentLiveData
+import com.dmitrysimakov.kilogram.util.setNewValue
 import javax.inject.Inject
 
 class TrainingSetsViewModel @Inject constructor(private val repository: TrainingRepository) : ViewModel() {
@@ -28,12 +29,8 @@ class TrainingSetsViewModel @Inject constructor(private val repository: Training
     }
 
     fun setParams(trainingExerciseId: Long, exerciseId: Long) {
-        if (_trainingExerciseId.value != trainingExerciseId) {
-            _trainingExerciseId.value = trainingExerciseId
-        }
-        if (_exerciseId.value != exerciseId) {
-            _exerciseId.value = exerciseId
-        }
+        _trainingExerciseId.setNewValue(trainingExerciseId)
+        _exerciseId.setNewValue(exerciseId)
     }
 
     fun deleteSet(set: TrainingExerciseSet) {

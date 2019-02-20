@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.relation.ExerciseR
 import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.util.AbsentLiveData
+import com.dmitrysimakov.kilogram.util.setNewValue
 import javax.inject.Inject
 
 class ExerciseDetailViewModel @Inject constructor(private val repository: ExerciseRepository) : ViewModel() {
@@ -23,8 +24,6 @@ class ExerciseDetailViewModel @Inject constructor(private val repository: Exerci
             }
 
     fun setExercise(id: Long?) {
-        if (_exerciseId.value != id) {
-            _exerciseId.value = id
-        }
+        _exerciseId.setNewValue(id)
     }
 }

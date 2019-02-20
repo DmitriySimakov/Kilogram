@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.entity.ProgramDay
 import com.dmitrysimakov.kilogram.data.repository.ProgramRepository
 import com.dmitrysimakov.kilogram.util.AbsentLiveData
+import com.dmitrysimakov.kilogram.util.setNewValue
 import javax.inject.Inject
 
 
@@ -21,9 +22,7 @@ class ProgramDaysViewModel @Inject constructor(private val repository: ProgramRe
     }
     
     fun setParams(programId: Long) {
-        if (_programId.value != programId) {
-            _programId.value = programId
-        }
+        _programId.setNewValue(programId)
     }
 
     fun deleteTrainingDay(day: ProgramDay) {

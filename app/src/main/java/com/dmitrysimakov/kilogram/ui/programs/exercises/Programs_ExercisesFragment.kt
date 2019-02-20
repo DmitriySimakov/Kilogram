@@ -15,7 +15,7 @@ class Programs_ExercisesFragment : ExercisesFragment() {
         super.onActivityCreated(savedInstanceState)
     
         val params = Programs_ExercisesFragmentArgs.fromBundle(arguments!!)
-        //viewModel.setProgramDay(params.programDayId)
+        viewModel.setProgramDay(params.programDayId)
     
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
