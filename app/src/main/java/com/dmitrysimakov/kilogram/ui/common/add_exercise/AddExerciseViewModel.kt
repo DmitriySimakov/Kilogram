@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
+import com.dmitrysimakov.kilogram.data.repository.ProgramRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
 import com.dmitrysimakov.kilogram.util.AbsentLiveData
 import com.dmitrysimakov.kilogram.util.setNewValue
@@ -11,7 +12,8 @@ import javax.inject.Inject
 
 class AddExerciseViewModel @Inject constructor(
         private val exerciseRepository: ExerciseRepository,
-        private val trainingRepository: TrainingRepository
+        private val trainingRepository: TrainingRepository,
+        private val programRepository: ProgramRepository
 ) : ViewModel() {
     
     private val _exerciseId = MutableLiveData<Long>()
@@ -28,8 +30,12 @@ class AddExerciseViewModel @Inject constructor(
         _exerciseId.setNewValue(id)
     }
     
-    fun addExercise(training_id: Long) {
-        exercise.value?.let { trainingRepository.addExercise(it._id, training_id) }
+    fun addExerciseToTraining(trainingId: Long) {
+        exercise.value?.let { trainingRepository.addExercise(it._id, trainingId) }
+    }
+    
+    fun addExerciseToProgramDay(programDayId: Long) {
+        exercise.value?.let { programRepository.addExerciseToProgramDay(it._id, programDayId) }
     }
     
     fun updateMeasures() {

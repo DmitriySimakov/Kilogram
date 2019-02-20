@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.programs.program_days
+package com.dmitrysimakov.kilogram.ui.programs.exercises
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,53 +10,55 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
+import com.dmitrysimakov.kilogram.ui.trainings.exercises.TrainingExerciseListAdapter
+import com.dmitrysimakov.kilogram.ui.trainings.exercises.TrainingExercisesViewModel
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.util.getViewModel
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.fragment_program_days.*
+import kotlinx.android.synthetic.main.fragment_exercises.*
 import javax.inject.Inject
 
-class ProgramDaysFragment : DaggerFragment() {
+class ProgramDayExercisesFragment : DaggerFragment() {
     
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     
     @Inject lateinit var executors: AppExecutors
     
-    private lateinit var viewModel: ProgramDaysViewModel
+    protected lateinit var viewModel: ProgramDayExercisesViewModel
     
-    private lateinit var adapter: ProgramDaysAdapter
+    protected lateinit var adapter: ProgramDayExerciseListAdapter
+    
+    private lateinit var params: ProgramDayExercisesFragmentArgs
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_program_days, container, false)
+        return inflater.inflate(R.layout.fragment_exercises, container, false)
     }
     
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        
+    
+        val params = ProgramDayExercisesFragmentArgs.fromBundle(arguments!!)
+    
+        adapter = ProgramDayExerciseListAdapter(executors)
+        recyclerView.adapter = adapter
+    
         viewModel = getViewModel(viewModelFactory)
-        val params = ProgramDaysFragmentArgs.fromBundle(arguments!!)
-        viewModel.setParams(params.programId)
-        
-        adapter = ProgramDaysAdapter(executors) { programDay ->
-            findNavController().navigate(ProgramDaysFragmentDirections
-                    .toExercisesFragment(programDay._id))
-        }
-        days_rv.adapter = adapter
-        viewModel.trainingDays.observe(this, Observer { adapter.submitList(it) })
-        
+        viewModel.setProgramDay(params.programDayId)
+        viewModel.exercises.observe(this, Observer { adapter.submitList(it) })
+    
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
                 return false
             }
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                viewModel.deleteTrainingDay(adapter.get(viewHolder.adapterPosition))
+                viewModel.deleteExercise(adapter.get(viewHolder.adapterPosition))
             }
-        }).attachToRecyclerView(days_rv)
-        
+        }).attachToRecyclerView(recyclerView)
+    
         activity?.fab?.show()
         activity?.fab?.setOnClickListener{
-            findNavController().navigate(ProgramDaysFragmentDirections.toCreateProgramDayDialog(params.programId))
+            findNavController().navigate(ProgramDayExercisesFragmentDirections.toChooseMuscleFragment(params.programDayId))
         }
     }
 }

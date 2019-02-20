@@ -3,8 +3,11 @@ package com.dmitrysimakov.kilogram.data.repository
 import com.dmitrysimakov.kilogram.data.ItemInsertedListener
 import com.dmitrysimakov.kilogram.data.dao.ProgramDao
 import com.dmitrysimakov.kilogram.data.dao.ProgramDayDao
+import com.dmitrysimakov.kilogram.data.dao.ProgramDayExerciseDao
 import com.dmitrysimakov.kilogram.data.entity.Program
 import com.dmitrysimakov.kilogram.data.entity.ProgramDay
+import com.dmitrysimakov.kilogram.data.entity.ProgramDayExercise
+import com.dmitrysimakov.kilogram.data.relation.ProgramExerciseR
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -13,7 +16,8 @@ import javax.inject.Singleton
 class ProgramRepository @Inject constructor(
         private val executors: AppExecutors,
         private val programDao: ProgramDao,
-        private val programDayDao: ProgramDayDao
+        private val programDayDao: ProgramDayDao,
+        private val programDayExerciseDao: ProgramDayExerciseDao
 ) {
     
     fun loadProgramList() = programDao.getProgramList()
@@ -48,6 +52,20 @@ class ProgramRepository @Inject constructor(
     fun deleteTrainingDay(day: ProgramDay) {
         executors.diskIO().execute {
             programDayDao.delete(day)
+        }
+    }
+    
+    fun loadExercises(programDayId: Long) = programDayExerciseDao.getExercises(programDayId)
+    
+    fun addExerciseToProgramDay(exerciseId: Long, programDayId: Long) {
+        executors.diskIO().execute {
+            programDayExerciseDao.insert(ProgramDayExercise(0, programDayId, exerciseId, 1))
+        }
+    }
+    
+    fun deleteExerciseFromProgramDay(exercise: ProgramExerciseR) {
+        executors.diskIO().execute {
+            programDayExerciseDao.delete(exercise._id)
         }
     }
 }

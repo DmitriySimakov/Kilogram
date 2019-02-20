@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.common.exercises
+package com.dmitrysimakov.kilogram.ui.trainings.exercises
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,6 @@ import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR
 import com.dmitrysimakov.kilogram.databinding.TrainingExerciseItemBinding
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.util.DataBoundListAdapter
-import com.dmitrysimakov.kilogram.util.IdDiffCallback
 
 class TrainingExerciseListAdapter(
         appExecutors: AppExecutors,

@@ -28,9 +28,9 @@ class Trainings_AddExerciseFragment : AddExerciseFragment() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.ok -> {
-                viewModel.addExercise(params.trainingId)
+                viewModel.addExerciseToTraining(params.trainingId)
                 viewModel.updateMeasures()
-                findNavController().popBackStack(R.id.exercisesFragment, false)
+                findNavController().popBackStack(R.id.trainingExercisesFragment, false)
                 return true
             }
         }

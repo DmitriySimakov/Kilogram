@@ -40,7 +40,7 @@
             app:destination="@id/createProgramDayDialog" />
         <action
             android:id="@+id/to_exercisesFragment"
-            app:destination="@id/programs_ExercisesFragment" />
+            app:destination="@id/programDayExercisesFragment" />
     </fragment>
     <fragment
         android:id="@+id/createProgramDayDialog"
@@ -52,11 +52,11 @@
             app:argType="long" />
         <action
             android:id="@+id/to_exercisesFragment"
-            app:destination="@id/programs_ExercisesFragment" />
+            app:destination="@id/programDayExercisesFragment" />
     </fragment>
     <fragment
-        android:id="@+id/programs_ExercisesFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.programs.exercises.Programs_ExercisesFragment"
+        android:id="@+id/programDayExercisesFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.programs.exercises.ProgramDayExercisesFragment"
         android:label="Programs_ExercisesFragment">
         <argument
             android:name="program_day_id"

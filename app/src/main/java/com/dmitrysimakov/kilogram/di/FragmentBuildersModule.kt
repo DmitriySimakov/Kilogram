@@ -3,7 +3,6 @@ package com.dmitrysimakov.kilogram.di
 import com.dmitrysimakov.kilogram.ui.common.add_exercise.AddExerciseFragment
 import com.dmitrysimakov.kilogram.ui.common.choose_exercise.ChooseExerciseFragment
 import com.dmitrysimakov.kilogram.ui.common.choose_muscle.ChooseMuscleFragment
-import com.dmitrysimakov.kilogram.ui.common.exercises.ExercisesFragment
 import com.dmitrysimakov.kilogram.ui.exercises.choose_exercise.Exercises_ChooseExerciseFragment
 import com.dmitrysimakov.kilogram.ui.exercises.choose_muscle.Exercises_ChooseMuscleFragment
 import com.dmitrysimakov.kilogram.ui.exercises.detail.ExerciseDetailFragment
@@ -14,7 +13,7 @@ import com.dmitrysimakov.kilogram.ui.programs.choose_exercise.Programs_ChooseExe
 import com.dmitrysimakov.kilogram.ui.programs.choose_muscle.Programs_ChooseMuscleFragment
 import com.dmitrysimakov.kilogram.ui.programs.create_program.CreateProgramDialog
 import com.dmitrysimakov.kilogram.ui.programs.create_program_day.CreateProgramDayDialog
-import com.dmitrysimakov.kilogram.ui.programs.exercises.Programs_ExercisesFragment
+import com.dmitrysimakov.kilogram.ui.programs.exercises.ProgramDayExercisesFragment
 import com.dmitrysimakov.kilogram.ui.programs.program_days.ProgramDaysFragment
 import com.dmitrysimakov.kilogram.ui.programs.programs.ProgramsFragment
 import com.dmitrysimakov.kilogram.ui.trainings.add_exercise.Trainings_AddExerciseFragment
@@ -22,7 +21,7 @@ import com.dmitrysimakov.kilogram.ui.trainings.add_set.AddSetDialog
 import com.dmitrysimakov.kilogram.ui.trainings.choose_exercise.Trainings_ChooseExerciseFragment
 import com.dmitrysimakov.kilogram.ui.trainings.choose_muscle.Trainings_ChooseMuscleFragment
 import com.dmitrysimakov.kilogram.ui.trainings.create_training.CreateTrainingDialog
-import com.dmitrysimakov.kilogram.ui.trainings.exercises.Trainings_ExercisesFragment
+import com.dmitrysimakov.kilogram.ui.trainings.exercises.TrainingExercisesFragment
 import com.dmitrysimakov.kilogram.ui.trainings.sets.TrainingSetsFragment
 import com.dmitrysimakov.kilogram.ui.trainings.trainings.TrainingsFragment
 import dagger.Module
@@ -45,9 +44,6 @@ abstract class FragmentBuildersModule {
     
     @ContributesAndroidInjector
     abstract fun contributeAddExerciseFragment(): AddExerciseFragment
-    
-    @ContributesAndroidInjector
-    abstract fun contributeExercisesFragment(): ExercisesFragment
     
     // EXERCISES
     
@@ -75,7 +71,7 @@ abstract class FragmentBuildersModule {
     abstract fun contributeCreateProgramDayDialog(): CreateProgramDayDialog
     
     @ContributesAndroidInjector
-    abstract fun contributePrograms_ExercisesFragment(): Programs_ExercisesFragment
+    abstract fun contributeProgramDayExercisesFragment(): ProgramDayExercisesFragment
     
     @ContributesAndroidInjector
     abstract fun contributePrograms_ChooseMuscleFragment(): Programs_ChooseMuscleFragment
@@ -95,7 +91,7 @@ abstract class FragmentBuildersModule {
     abstract fun contributeCreateTrainingDialog(): CreateTrainingDialog
     
     @ContributesAndroidInjector
-    abstract fun contributeTrainings_ExercisesFragment(): Trainings_ExercisesFragment
+    abstract fun contributeExercisesFragment(): TrainingExercisesFragment
     
     @ContributesAndroidInjector
     abstract fun contributeTrainingSetsFragment(): TrainingSetsFragment

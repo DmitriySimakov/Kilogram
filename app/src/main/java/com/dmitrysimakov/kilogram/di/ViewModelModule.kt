@@ -6,15 +6,16 @@ import com.dmitrysimakov.kilogram.ui.MainViewModel
 import com.dmitrysimakov.kilogram.ui.common.add_exercise.AddExerciseViewModel
 import com.dmitrysimakov.kilogram.ui.common.choose_exercise.ChooseExerciseViewModel
 import com.dmitrysimakov.kilogram.ui.common.choose_muscle.ChooseMuscleViewModel
-import com.dmitrysimakov.kilogram.ui.common.exercises.ExercisesViewModel
 import com.dmitrysimakov.kilogram.ui.exercises.detail.ExerciseDetailViewModel
 import com.dmitrysimakov.kilogram.ui.measurements.add_measurement.MeasurementsViewModel
 import com.dmitrysimakov.kilogram.ui.programs.create_program.CreateProgramViewModel
 import com.dmitrysimakov.kilogram.ui.programs.create_program_day.CreateProgramDayViewModel
+import com.dmitrysimakov.kilogram.ui.programs.exercises.ProgramDayExercisesViewModel
 import com.dmitrysimakov.kilogram.ui.programs.program_days.ProgramDaysViewModel
 import com.dmitrysimakov.kilogram.ui.programs.programs.ProgramsViewModel
 import com.dmitrysimakov.kilogram.ui.trainings.add_set.AddSetViewModel
 import com.dmitrysimakov.kilogram.ui.trainings.create_training.CreateTrainingViewModel
+import com.dmitrysimakov.kilogram.ui.trainings.exercises.TrainingExercisesViewModel
 import com.dmitrysimakov.kilogram.ui.trainings.sets.TrainingSetsViewModel
 import com.dmitrysimakov.kilogram.ui.trainings.trainings.TrainingsViewModel
 import com.dmitrysimakov.kilogram.util.ViewModelFactory
@@ -51,11 +52,6 @@ abstract class ViewModelModule {
     @ViewModelKey(AddExerciseViewModel::class)
     abstract fun bindAddExerciseViewModel(viewModel: AddExerciseViewModel): ViewModel
     
-    @Binds
-    @IntoMap
-    @ViewModelKey(ExercisesViewModel::class)
-    abstract fun bindExercisesViewModel(viewModel: ExercisesViewModel): ViewModel
-    
     // EXERCISES
 
     @Binds
@@ -85,6 +81,11 @@ abstract class ViewModelModule {
     @ViewModelKey(CreateProgramDayViewModel::class)
     abstract fun bindCreateProgramDayViewModel(viewModel: CreateProgramDayViewModel): ViewModel
     
+    @Binds
+    @IntoMap
+    @ViewModelKey(ProgramDayExercisesViewModel::class)
+    abstract fun bindProgramDayExercisesViewModel(viewModel: ProgramDayExercisesViewModel): ViewModel
+    
     // TRAININGS
     
     @Binds
@@ -96,6 +97,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(CreateTrainingViewModel::class)
     abstract fun bindCreateTrainingViewModel(viewModel: CreateTrainingViewModel): ViewModel
+    
+    @Binds
+    @IntoMap
+    @ViewModelKey(TrainingExercisesViewModel::class)
+    abstract fun bindTrainingExercisesViewModel(viewModel: TrainingExercisesViewModel): ViewModel
 
     @Binds
     @IntoMap

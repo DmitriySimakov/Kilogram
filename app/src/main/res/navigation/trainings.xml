@@ -15,7 +15,7 @@
             app:destination="@id/createTrainingFragment" />
         <action
             android:id="@+id/to_exercisesFragment"
-            app:destination="@id/exercisesFragment" />
+            app:destination="@id/trainingExercisesFragment" />
     </fragment>
     <fragment
         android:id="@+id/createTrainingFragment"
@@ -24,7 +24,7 @@
         tools:layout="@layout/dialog_create_training">
         <action
             android:id="@+id/to_exercisesFragment"
-            app:destination="@id/exercisesFragment"
+            app:destination="@id/trainingExercisesFragment"
             app:popUpTo="@+id/trainingsFragment">
             <argument
                 android:name="training_is_running"
@@ -32,8 +32,8 @@
         </action>
     </fragment>
     <fragment
-        android:id="@+id/exercisesFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.trainings.exercises.Trainings_ExercisesFragment"
+        android:id="@+id/trainingExercisesFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.trainings.exercises.TrainingExercisesFragment"
         android:label="@string/training_session"
         tools:layout="@layout/fragment_exercises">
         <argument

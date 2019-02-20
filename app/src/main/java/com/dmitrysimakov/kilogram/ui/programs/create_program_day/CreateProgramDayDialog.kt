@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.data.ItemInsertedListener
 import com.dmitrysimakov.kilogram.databinding.DialogCreateProgramDayBinding
+import com.dmitrysimakov.kilogram.ui.programs.create_program.CreateProgramDialogDirections
 import com.dmitrysimakov.kilogram.util.getViewModel
 import dagger.android.support.DaggerAppCompatDialogFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -76,7 +77,6 @@ class CreateProgramDayDialog : DaggerAppCompatDialogFragment(), ItemInsertedList
 
     @MainThread
     override fun onItemInserted(id: Long) {
-        //findNavController().navigate(CreateProgramDialogDirections.toTrainingDaysFragment(id))
-        findNavController().popBackStack() //TODO: delete
+        findNavController().navigate(CreateProgramDayDialogDirections.toExercisesFragment(id))
     }
 }

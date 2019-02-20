@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.common.exercises
+package com.dmitrysimakov.kilogram.ui.trainings.exercises
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -9,7 +9,7 @@ import com.dmitrysimakov.kilogram.util.AbsentLiveData
 import com.dmitrysimakov.kilogram.util.setNewValue
 import javax.inject.Inject
 
-class ExercisesViewModel @Inject constructor(private val repository: TrainingRepository) : ViewModel() {
+class TrainingExercisesViewModel @Inject constructor(private val repository: TrainingRepository) : ViewModel() {
 
     private val _trainingId = MutableLiveData<Long>()
     private val _programDayId = MutableLiveData<Long>()
@@ -27,13 +27,9 @@ class ExercisesViewModel @Inject constructor(private val repository: TrainingRep
             else ->repository.loadExercises(id)
         }
     }
-
+    
     fun setTraining(id: Long) {
         _trainingId.setNewValue(id)
-    }
-    
-    fun setProgramDay(id: Long) {
-        _programDayId.setNewValue(id)
     }
 
     fun deleteExercise(exercise: TrainingExerciseR) {
