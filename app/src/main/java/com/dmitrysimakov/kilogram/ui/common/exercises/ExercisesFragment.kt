@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_exercises.*
 import javax.inject.Inject
 
-open class ExercisesFragment : DaggerFragment() {
+abstract class ExercisesFragment : DaggerFragment() {
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 

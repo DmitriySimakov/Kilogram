@@ -16,19 +16,19 @@
         android:id="@+id/group2"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/chooseMuscleFragment"
+            android:id="@+id/exercises"
             android:icon="@drawable/round_fitness_center_black_24"
             android:title="@string/exercises" />
         <item
-            android:id="@+id/programsFragment"
+            android:id="@+id/programs"
             android:icon="@drawable/ic_clipboard_text_outline"
             android:title="@string/training_programs" />
         <item
-            android:id="@+id/trainingsFragment"
+            android:id="@+id/trainings"
             android:icon="@drawable/ic_calendar_multiselect"
             android:title="@string/training_sessions" />
         <item
-            android:id="@+id/measurementsTabFragment"
+            android:id="@+id/measurements"
             android:icon="@drawable/baseline_straighten_black_24"
             android:title="@string/measurements" />
     </group>

@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_choose_exercise.*
 import javax.inject.Inject
 
-open class ChooseExerciseFragment : DaggerFragment() {
+abstract class ChooseExerciseFragment : DaggerFragment() {
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 

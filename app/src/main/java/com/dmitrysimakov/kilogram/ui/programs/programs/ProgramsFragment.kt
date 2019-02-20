@@ -25,7 +25,7 @@ class ProgramsFragment : DaggerFragment() {
     
     private lateinit var viewModel: ProgramsViewModel
     
-    lateinit var adapter: ProgramsAdapter
+    private lateinit var adapter: ProgramsAdapter
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_programs, container, false)

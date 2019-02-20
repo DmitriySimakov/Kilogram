@@ -27,7 +27,7 @@ class TrainingsFragment : DaggerFragment() {
 
     private lateinit var viewModel: TrainingsViewModel
 
-    lateinit var adapter: TrainingsAdapter
+    private lateinit var adapter: TrainingsAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_trainings, container, false)

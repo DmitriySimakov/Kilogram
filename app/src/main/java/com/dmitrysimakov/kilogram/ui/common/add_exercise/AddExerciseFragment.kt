@@ -1,18 +1,17 @@
 package com.dmitrysimakov.kilogram.ui.common.add_exercise
 
-import android.content.Context
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.FragmentAddExerciseBinding
 import com.dmitrysimakov.kilogram.util.getViewModel
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import javax.inject.Inject
 
-open class AddExerciseFragment: DaggerFragment() {
+abstract class AddExerciseFragment: DaggerFragment() {
     
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 

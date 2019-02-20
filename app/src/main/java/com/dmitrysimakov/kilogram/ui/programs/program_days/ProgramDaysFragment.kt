@@ -25,7 +25,7 @@ class ProgramDaysFragment : DaggerFragment() {
     
     private lateinit var viewModel: ProgramDaysViewModel
     
-    lateinit var adapter: ProgramDaysAdapter
+    private lateinit var adapter: ProgramDaysAdapter
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_program_days, container, false)
