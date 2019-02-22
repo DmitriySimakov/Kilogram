@@ -52,7 +52,8 @@
             app:argType="long" />
         <action
             android:id="@+id/to_exercisesFragment"
-            app:destination="@id/programDayExercisesFragment" />
+            app:destination="@id/programDayExercisesFragment"
+            app:popUpTo="@+id/programDaysFragment" />
     </fragment>
     <fragment
         android:id="@+id/programDayExercisesFragment"
