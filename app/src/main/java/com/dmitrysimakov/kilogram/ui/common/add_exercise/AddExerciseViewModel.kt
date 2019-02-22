@@ -19,10 +19,9 @@ class AddExerciseViewModel @Inject constructor(
     private val _exerciseId = MutableLiveData<Long>()
     
     val exercise = Transformations.switchMap(_exerciseId) { id ->
-        if (id == null) {
-            AbsentLiveData.create()
-        } else {
-            exerciseRepository.loadExercise(id)
+        when (id) {
+            null -> AbsentLiveData.create()
+            else -> exerciseRepository.loadExercise(id)
         }
     }
     
@@ -31,11 +30,11 @@ class AddExerciseViewModel @Inject constructor(
     }
     
     fun addExerciseToTraining(trainingId: Long) {
-        exercise.value?.let { trainingRepository.addExercise(it._id, trainingId) }
+        exercise.value?.let { trainingRepository.addExercise(it, trainingId) }
     }
     
     fun addExerciseToProgramDay(programDayId: Long) {
-        exercise.value?.let { programRepository.addExerciseToProgramDay(it._id, programDayId) }
+        exercise.value?.let { programRepository.addExerciseToProgramDay(it, programDayId) }
     }
     
     fun updateMeasures() {

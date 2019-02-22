@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.dmitrysimakov.kilogram.data.entity.Exercise
 import com.dmitrysimakov.kilogram.data.entity.TrainingExercise
+import com.dmitrysimakov.kilogram.data.relation.ExerciseMeasures
 import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR
 
 @Dao
@@ -17,7 +18,7 @@ interface TrainingExerciseDao {
         WHERE te.training_id = :training_id
         ORDER BY te.number
     """)
-    fun getExercises(training_id: Long) : LiveData<List<TrainingExerciseR>>
+    fun getExercises(training_id: Long): LiveData<List<TrainingExerciseR>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(list: List<TrainingExercise>)
@@ -27,4 +28,15 @@ interface TrainingExerciseDao {
 
     @Query("DELETE FROM training_exercise WHERE _id = :id")
     fun deleteExerciseFromTraining(id: Long)
+    
+    @Query("""
+        SELECT
+        measure_weight AS weight,
+        measure_reps AS reps,
+        measure_time AS time,
+        measure_distance AS distance
+        FROM training_exercise
+        WHERE _id = :trainingExerciseId
+        """)
+    fun getExerciseMeasures(trainingExerciseId: Long): LiveData<ExerciseMeasures>
 }

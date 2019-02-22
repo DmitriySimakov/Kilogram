@@ -40,8 +40,7 @@ class TrainingExercisesFragment : DaggerFragment() {
         params = TrainingExercisesFragmentArgs.fromBundle(arguments!!)
     
         adapter = TrainingExerciseListAdapter(executors) {
-            findNavController().navigate(TrainingExercisesFragmentDirections
-                    .toTrainingSetsFragment(it.exercise_id, it._id))
+            findNavController().navigate(TrainingExercisesFragmentDirections.toTrainingSetsFragment(it._id))
         }
         recyclerView.adapter = adapter
     

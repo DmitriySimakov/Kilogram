@@ -26,12 +26,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/weight_kg" />
+            android:text="@string/weight_kg"
+            app:goneUnless="@{viewModel.exerciseMeasures.weight}"/>
         
         <LinearLayout
             android:id="@+id/weight_ll"
             android:layout_width="match_parent"
-            android:layout_height="?attr/listPreferredItemHeightSmall">
+            android:layout_height="?attr/listPreferredItemHeightSmall"
+            app:goneUnless="@{viewModel.exerciseMeasures.weight}">
             
             <Button
                 android:id="@+id/minus_weight"
@@ -73,12 +75,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/reps" />
+            android:text="@string/reps"
+            app:goneUnless="@{viewModel.exerciseMeasures.reps}"/>
         
         <LinearLayout
             android:id="@+id/reps_ll"
             android:layout_width="match_parent"
-            android:layout_height="?attr/listPreferredItemHeightSmall">
+            android:layout_height="?attr/listPreferredItemHeightSmall"
+            app:goneUnless="@{viewModel.exerciseMeasures.reps}">
             
             <Button
                 android:id="@+id/minus_reps"
@@ -120,12 +124,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/time_sec" />
+            android:text="@string/time_sec"
+            app:goneUnless="@{viewModel.exerciseMeasures.time}"/>
         
         <LinearLayout
             android:id="@+id/time_ll"
             android:layout_width="match_parent"
-            android:layout_height="?attr/listPreferredItemHeightSmall">
+            android:layout_height="?attr/listPreferredItemHeightSmall"
+            app:goneUnless="@{viewModel.exerciseMeasures.time}">
             
             <Button
                 android:id="@+id/minus_time"
@@ -167,12 +173,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/distance_metres" />
+            android:text="@string/distance_metres"
+            app:goneUnless="@{viewModel.exerciseMeasures.distance}"/>
         
         <LinearLayout
             android:id="@+id/distance_ll"
             android:layout_width="match_parent"
-            android:layout_height="?attr/listPreferredItemHeightSmall">
+            android:layout_height="?attr/listPreferredItemHeightSmall"
+            app:goneUnless="@{viewModel.exerciseMeasures.distance}">
             
             <Button
                 android:id="@+id/minus_distance"

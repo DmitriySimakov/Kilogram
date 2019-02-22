@@ -12,7 +12,6 @@ import javax.inject.Inject
 class TrainingSetsViewModel @Inject constructor(private val repository: TrainingRepository) : ViewModel() {
 
     private val _trainingExerciseId = MutableLiveData<Long>()
-    private val _exerciseId = MutableLiveData<Long>()
 
     val sets = Transformations.switchMap(_trainingExerciseId) { id ->
         when (id) {
@@ -21,16 +20,15 @@ class TrainingSetsViewModel @Inject constructor(private val repository: Training
         }
     }
     
-    val exerciseMeasures = Transformations.switchMap(_exerciseId) { id ->
+    val exerciseMeasures = Transformations.switchMap(_trainingExerciseId) { id ->
         when (id) {
             null -> AbsentLiveData.create()
             else -> repository.loadExerciseMeasures(id)
         }
     }
 
-    fun setParams(trainingExerciseId: Long, exerciseId: Long) {
-        _trainingExerciseId.setNewValue(trainingExerciseId)
-        _exerciseId.setNewValue(exerciseId)
+    fun setTrainingExercise(id: Long) {
+        _trainingExerciseId.setNewValue(id)
     }
 
     fun deleteSet(set: TrainingExerciseSet) {

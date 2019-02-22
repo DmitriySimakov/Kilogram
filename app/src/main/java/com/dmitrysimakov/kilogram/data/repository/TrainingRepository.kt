@@ -5,6 +5,7 @@ import com.dmitrysimakov.kilogram.data.dao.ExerciseDao
 import com.dmitrysimakov.kilogram.data.dao.TrainingDao
 import com.dmitrysimakov.kilogram.data.dao.TrainingExerciseDao
 import com.dmitrysimakov.kilogram.data.dao.TrainingExerciseSetDao
+import com.dmitrysimakov.kilogram.data.entity.Exercise
 import com.dmitrysimakov.kilogram.data.entity.Training
 import com.dmitrysimakov.kilogram.data.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.entity.TrainingExerciseSet
@@ -50,9 +51,9 @@ class TrainingRepository @Inject constructor(
 
     fun loadExercises(training_id: Long) = trainingExerciseDao.getExercises(training_id)
 
-    fun addExercise(exercise_id: Long, training_id: Long) {
+    fun addExercise(exercise: Exercise, training_id: Long) {
         executors.diskIO().execute{
-            trainingExerciseDao.insert(TrainingExercise(training_id = training_id, exercise_id = exercise_id, number = 0))
+            trainingExerciseDao.insert(TrainingExercise(0, training_id, exercise._id, 0, exercise.measures))
         }
     }
 
@@ -85,5 +86,5 @@ class TrainingRepository @Inject constructor(
         }
     }
     
-    fun loadExerciseMeasures(exerciseId: Long) = exerciseDao.getExerciseMeasures(exerciseId)
+    fun loadExerciseMeasures(trainingExerciseId: Long) = trainingExerciseDao.getExerciseMeasures(trainingExerciseId)
 }

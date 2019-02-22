@@ -24,6 +24,13 @@ class AddSetViewModel @Inject constructor(
         }
     }
     
+    val exerciseMeasures = Transformations.switchMap(_trainingExerciseId) { id ->
+        when (id) {
+            null -> AbsentLiveData.create()
+            else -> repository.loadExerciseMeasures(id)
+        }
+    }
+    
     fun setParams(setId: Long, trainingExerciseId: Long) {
         _trainingExerciseId.setNewValue(trainingExerciseId)
         _setId.setNewValue(setId)

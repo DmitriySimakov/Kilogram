@@ -1,8 +1,10 @@
 package com.dmitrysimakov.kilogram.data.entity
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.dmitrysimakov.kilogram.data.relation.ExerciseMeasures
 import com.dmitrysimakov.kilogram.util.HasId
 
 @Entity(tableName = "program_day_exercise",
@@ -23,6 +25,6 @@ data class ProgramDayExercise(
         val program_day_id: Long,
         val exercise_id: Long,
         val number: Byte,
-        val params_bool_arr: Short? = null,
-        val strategy: String? = null
+        val strategy: String? = null,
+        @Embedded(prefix = "measure_") val measures: ExerciseMeasures = ExerciseMeasures()
 ) : HasId

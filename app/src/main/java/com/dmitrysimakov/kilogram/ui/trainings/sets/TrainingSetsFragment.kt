@@ -40,7 +40,7 @@ class TrainingSetsFragment : DaggerFragment() {
 
         viewModel = getViewModel(viewModelFactory)
         val params = TrainingSetsFragmentArgs.fromBundle(arguments!!)
-        viewModel.setParams(params.trainingExerciseId, params.exerciseId)
+        viewModel.setTrainingExercise(params.trainingExerciseId)
         
         viewModel.exerciseMeasures.observe(this, Observer { measures ->
             binding.exerciseMeasures = measures

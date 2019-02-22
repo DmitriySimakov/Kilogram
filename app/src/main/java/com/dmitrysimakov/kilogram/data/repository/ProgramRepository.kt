@@ -4,6 +4,7 @@ import com.dmitrysimakov.kilogram.data.ItemInsertedListener
 import com.dmitrysimakov.kilogram.data.dao.ProgramDao
 import com.dmitrysimakov.kilogram.data.dao.ProgramDayDao
 import com.dmitrysimakov.kilogram.data.dao.ProgramDayExerciseDao
+import com.dmitrysimakov.kilogram.data.entity.Exercise
 import com.dmitrysimakov.kilogram.data.entity.Program
 import com.dmitrysimakov.kilogram.data.entity.ProgramDay
 import com.dmitrysimakov.kilogram.data.entity.ProgramDayExercise
@@ -57,9 +58,9 @@ class ProgramRepository @Inject constructor(
     
     fun loadExercises(programDayId: Long) = programDayExerciseDao.getExercises(programDayId)
     
-    fun addExerciseToProgramDay(exerciseId: Long, programDayId: Long) {
+    fun addExerciseToProgramDay(exercise: Exercise, programDayId: Long) {
         executors.diskIO().execute {
-            programDayExerciseDao.insert(ProgramDayExercise(0, programDayId, exerciseId, 1))
+            programDayExerciseDao.insert(ProgramDayExercise(0, programDayId, exercise._id, 1, null, exercise.measures))
         }
     }
     
