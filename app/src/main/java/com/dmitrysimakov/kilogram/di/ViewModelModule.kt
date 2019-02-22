@@ -11,8 +11,8 @@ import com.dmitrysimakov.kilogram.ui.measurements.add_measurement.MeasurementsVi
 import com.dmitrysimakov.kilogram.ui.programs.create_program.CreateProgramViewModel
 import com.dmitrysimakov.kilogram.ui.programs.create_program_day.CreateProgramDayViewModel
 import com.dmitrysimakov.kilogram.ui.programs.exercises.ProgramDayExercisesViewModel
-import com.dmitrysimakov.kilogram.ui.programs.program_days.ProgramDaysViewModel
-import com.dmitrysimakov.kilogram.ui.programs.programs.ProgramsViewModel
+import com.dmitrysimakov.kilogram.ui.common.choose_program_day.ChooseProgramDayViewModel
+import com.dmitrysimakov.kilogram.ui.common.choose_program.ChooseProgramViewModel
 import com.dmitrysimakov.kilogram.ui.trainings.add_set.AddSetViewModel
 import com.dmitrysimakov.kilogram.ui.trainings.create_training.CreateTrainingViewModel
 import com.dmitrysimakov.kilogram.ui.trainings.exercises.TrainingExercisesViewModel
@@ -52,6 +52,16 @@ abstract class ViewModelModule {
     @ViewModelKey(AddExerciseViewModel::class)
     abstract fun bindAddExerciseViewModel(viewModel: AddExerciseViewModel): ViewModel
     
+    @Binds
+    @IntoMap
+    @ViewModelKey(ChooseProgramViewModel::class)
+    abstract fun bindChooseProgramViewModel(viewModel: ChooseProgramViewModel): ViewModel
+    
+    @Binds
+    @IntoMap
+    @ViewModelKey(ChooseProgramDayViewModel::class)
+    abstract fun bindChooseProgramDayViewModel(viewModel: ChooseProgramDayViewModel): ViewModel
+    
     // EXERCISES
 
     @Binds
@@ -63,18 +73,8 @@ abstract class ViewModelModule {
     
     @Binds
     @IntoMap
-    @ViewModelKey(ProgramsViewModel::class)
-    abstract fun bindProgramsViewModel(viewModel: ProgramsViewModel): ViewModel
-    
-    @Binds
-    @IntoMap
     @ViewModelKey(CreateProgramViewModel::class)
     abstract fun bindCreateProgramViewModel(viewModel: CreateProgramViewModel): ViewModel
-    
-    @Binds
-    @IntoMap
-    @ViewModelKey(ProgramDaysViewModel::class)
-    abstract fun bindProgramDaysViewModel(viewModel: ProgramDaysViewModel): ViewModel
     
     @Binds
     @IntoMap

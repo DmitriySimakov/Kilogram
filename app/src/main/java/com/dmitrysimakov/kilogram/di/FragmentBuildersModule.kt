@@ -14,12 +14,16 @@ import com.dmitrysimakov.kilogram.ui.programs.choose_muscle.Programs_ChooseMuscl
 import com.dmitrysimakov.kilogram.ui.programs.create_program.CreateProgramDialog
 import com.dmitrysimakov.kilogram.ui.programs.create_program_day.CreateProgramDayDialog
 import com.dmitrysimakov.kilogram.ui.programs.exercises.ProgramDayExercisesFragment
-import com.dmitrysimakov.kilogram.ui.programs.program_days.ProgramDaysFragment
-import com.dmitrysimakov.kilogram.ui.programs.programs.ProgramsFragment
+import com.dmitrysimakov.kilogram.ui.common.choose_program_day.ChooseProgramDayFragment
+import com.dmitrysimakov.kilogram.ui.common.choose_program.ChooseProgramFragment
+import com.dmitrysimakov.kilogram.ui.programs.choose_program.Programs_ChooseProgramFragment
+import com.dmitrysimakov.kilogram.ui.programs.choose_program_day.Programs_ChooseProgramDayFragment
 import com.dmitrysimakov.kilogram.ui.trainings.add_exercise.Trainings_AddExerciseFragment
 import com.dmitrysimakov.kilogram.ui.trainings.add_set.AddSetDialog
 import com.dmitrysimakov.kilogram.ui.trainings.choose_exercise.Trainings_ChooseExerciseFragment
 import com.dmitrysimakov.kilogram.ui.trainings.choose_muscle.Trainings_ChooseMuscleFragment
+import com.dmitrysimakov.kilogram.ui.trainings.choose_program.Trainings_ChooseProgramFragment
+import com.dmitrysimakov.kilogram.ui.trainings.choose_program_day.Trainings_ChooseProgramDayFragment
 import com.dmitrysimakov.kilogram.ui.trainings.create_training.CreateTrainingDialog
 import com.dmitrysimakov.kilogram.ui.trainings.exercises.TrainingExercisesFragment
 import com.dmitrysimakov.kilogram.ui.trainings.sets.TrainingSetsFragment
@@ -45,6 +49,12 @@ abstract class FragmentBuildersModule {
     @ContributesAndroidInjector
     abstract fun contributeAddExerciseFragment(): AddExerciseFragment
     
+    @ContributesAndroidInjector
+    abstract fun contributeChooseProgramFragment(): ChooseProgramFragment
+    
+    @ContributesAndroidInjector
+    abstract fun contributeChooseProgramDayFragment(): ChooseProgramDayFragment
+    
     // EXERCISES
     
     @ContributesAndroidInjector
@@ -59,13 +69,13 @@ abstract class FragmentBuildersModule {
     // PROGRAMS
     
     @ContributesAndroidInjector
-    abstract fun contributeProgramsFragment(): ProgramsFragment
+    abstract fun contributePrograms_ChooseProgramFragment(): Programs_ChooseProgramFragment
     
     @ContributesAndroidInjector
     abstract fun contributeCreateProgramDialog(): CreateProgramDialog
     
     @ContributesAndroidInjector
-    abstract fun contributeProgramDaysFragment(): ProgramDaysFragment
+    abstract fun contributePrograms_ChooseProgramDayFragment(): Programs_ChooseProgramDayFragment
     
     @ContributesAndroidInjector
     abstract fun contributeCreateProgramDayDialog(): CreateProgramDayDialog
@@ -89,6 +99,12 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun contributeCreateTrainingDialog(): CreateTrainingDialog
+    
+    @ContributesAndroidInjector
+    abstract fun contributeTrainings_ChooseProgramFragment(): Trainings_ChooseProgramFragment
+    
+    @ContributesAndroidInjector
+    abstract fun contributeTrainings_ChooseProgramDayFragment(): Trainings_ChooseProgramDayFragment
     
     @ContributesAndroidInjector
     abstract fun contributeExercisesFragment(): TrainingExercisesFragment

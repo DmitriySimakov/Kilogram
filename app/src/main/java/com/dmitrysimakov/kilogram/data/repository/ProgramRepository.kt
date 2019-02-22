@@ -69,4 +69,8 @@ class ProgramRepository @Inject constructor(
             programDayExerciseDao.delete(exercise._id)
         }
     }
+    
+    fun loadNextProgramDayR() = programDayDao.getNextProgramDayR()
+    
+    fun loadProgramDayR(id: Long) = programDayDao.getProgramDayR(id)
 }

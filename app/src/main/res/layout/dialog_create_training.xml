@@ -70,21 +70,23 @@
             android:layout_width="0dp"
             android:layout_height="?attr/listPreferredItemHeightSmall"
             android:gravity="center_vertical"
-            app:layout_constraintEnd_toStartOf="@id/program_day_tv"
+            android:text="@{viewModel.programDay.program}"
+            app:invisibleUnless="@{viewModel.byProgram}"
+            app:layout_constraintEnd_toStartOf="@id/programDayTV"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/program_label"
-            app:invisibleUnless="@{viewModel.byProgram}"
             tools:text="На массу"/>
         
         <TextView
-            android:id="@+id/program_day_tv"
+            android:id="@+id/programDayTV"
             android:layout_width="0dp"
             android:layout_height="?attr/listPreferredItemHeightSmall"
             android:gravity="center_vertical"
+            android:text='@{viewModel.programDay != null ? viewModel.programDay.program_day : "Выбрать" }'
+            app:invisibleUnless="@{viewModel.byProgram}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/program_tv"
             app:layout_constraintTop_toBottomOf="@id/program_label"
-            app:invisibleUnless="@{viewModel.byProgram}"
             tools:text="День ног"/>
     
     </androidx.constraintlayout.widget.ConstraintLayout>

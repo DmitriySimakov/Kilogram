@@ -5,10 +5,10 @@ import android.app.Dialog
 import android.app.TimePickerDialog
 import android.content.Context
 import android.os.Bundle
-import android.util.Log.d
 import android.view.*
 import androidx.annotation.MainThread
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -19,6 +19,7 @@ import com.dmitrysimakov.kilogram.ui.MainViewModel
 import com.dmitrysimakov.kilogram.util.getViewModel
 import dagger.android.support.DaggerAppCompatDialogFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.dialog_create_training.*
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -30,6 +31,8 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
     private lateinit var binding: DialogCreateTrainingBinding
 
     private lateinit var viewModel: CreateTrainingViewModel
+    
+    private lateinit var mainViewModel: MainViewModel
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -48,7 +51,7 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewModel = getViewModel(viewModelFactory)
         binding.viewModel = viewModel
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
 
         setDatePickerDialog()
         setTimePickerDialog()
@@ -90,9 +93,19 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        
+        mainViewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
+        mainViewModel.programDayId.observe(this, Observer {
+            viewModel.setProgramDay(it)
+        })
+        
         if (dialog == null) {
             activity?.toolbar?.setNavigationIcon(R.drawable.baseline_close_white_24)
             setHasOptionsMenu(true)
+        }
+    
+        programDayTV.setOnClickListener {
+            findNavController().navigate(CreateTrainingDialogDirections.toChooseProgramFragment())
         }
 
         activity?.fab?.hide()
@@ -107,7 +120,6 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
         when (item?.itemId) {
             R.id.ok -> {
                 viewModel.createTraining(this)
-                val mainViewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
                 mainViewModel.onTrainingSessionStarted()
                 return true
             }

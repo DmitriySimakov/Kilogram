@@ -4,18 +4,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/programs"
-    app:startDestination="@id/programsFragment">
+    app:startDestination="@id/programs_chooseProgramFragment">
     <fragment
-        android:id="@+id/programsFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.programs.programs.ProgramsFragment"
+        android:id="@+id/programs_chooseProgramFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.programs.choose_program.Programs_ChooseProgramFragment"
         android:label="Тренировочные программы"
-        tools:layout="@layout/fragment_programs">
+        tools:layout="@layout/fragment_choose_program">
         <action
             android:id="@+id/to_createProgramDialog"
             app:destination="@id/createProgramDialog" />
         <action
-            android:id="@+id/to_trainingDaysFragment"
-            app:destination="@id/programDaysFragment" />
+            android:id="@+id/to_chooseProgramDayFragment"
+            app:destination="@id/programs_chooseProgramDayFragment" />
     </fragment>
     <fragment
         android:id="@+id/createProgramDialog"
@@ -23,15 +23,15 @@
         android:label="Тренировочная программа"
         tools:layout="@layout/dialog_create_program">
         <action
-            android:id="@+id/to_programDaysFragment"
-            app:destination="@id/programDaysFragment"
-            app:popUpTo="@+id/programsFragment" />
+            android:id="@+id/to_chooseProgramDayFragment"
+            app:destination="@id/programs_chooseProgramDayFragment"
+            app:popUpTo="@+id/programs_chooseProgramFragment" />
     </fragment>
     <fragment
-        android:id="@+id/programDaysFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.programs.program_days.ProgramDaysFragment"
+        android:id="@+id/programs_chooseProgramDayFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.programs.choose_program_day.Programs_ChooseProgramDayFragment"
         android:label="fragment_training_days"
-        tools:layout="@layout/fragment_program_days">
+        tools:layout="@layout/fragment_choose_program_day">
         <argument
             android:name="program_id"
             app:argType="long" />
@@ -53,7 +53,7 @@
         <action
             android:id="@+id/to_exercisesFragment"
             app:destination="@id/programDayExercisesFragment"
-            app:popUpTo="@+id/programDaysFragment" />
+            app:popUpTo="@+id/programs_chooseProgramDayFragment" />
     </fragment>
     <fragment
         android:id="@+id/programDayExercisesFragment"

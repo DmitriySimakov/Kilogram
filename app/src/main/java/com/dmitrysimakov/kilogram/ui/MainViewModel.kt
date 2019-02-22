@@ -11,6 +11,8 @@ import javax.inject.Inject
 
 class MainViewModel @Inject constructor(private val preferences: SharedPreferences) : ViewModel() {
     
+    val programDayId = MutableLiveData<Long>()
+    
     private var timer: Timer? = null
     
     val timerIsRunning = MutableLiveData(false)

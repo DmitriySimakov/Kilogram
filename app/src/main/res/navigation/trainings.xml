@@ -30,6 +30,27 @@
                 android:name="training_is_running"
                 android:defaultValue="true" />
         </action>
+        <action
+            android:id="@+id/to_chooseProgramFragment"
+            app:destination="@id/trainings_ChooseProgramFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/trainings_ChooseProgramFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.trainings.choose_program.Trainings_ChooseProgramFragment"
+        android:label="Trainings_ChooseProgramFragment"
+        tools:layout="@layout/fragment_choose_program">
+        <action
+            android:id="@+id/to_chooseProgramDayFragment"
+            app:destination="@id/trainings_ChooseProgramDayFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/trainings_ChooseProgramDayFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.trainings.choose_program_day.Trainings_ChooseProgramDayFragment"
+        android:label="Trainings_ChooseProgramDayFragment"
+        tools:layout="@layout/fragment_choose_program_day">
+        <argument
+            android:name="program_id"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/trainingExercisesFragment"

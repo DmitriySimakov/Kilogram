@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.programs.program_days
+package com.dmitrysimakov.kilogram.ui.common.choose_program_day
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -10,7 +10,7 @@ import com.dmitrysimakov.kilogram.util.setNewValue
 import javax.inject.Inject
 
 
-class ProgramDaysViewModel @Inject constructor(private val repository: ProgramRepository) : ViewModel() {
+class ChooseProgramDayViewModel @Inject constructor(private val repository: ProgramRepository) : ViewModel() {
     
     private val _programId = MutableLiveData<Long>()
     
@@ -21,7 +21,7 @@ class ProgramDaysViewModel @Inject constructor(private val repository: ProgramRe
         }
     }
     
-    fun setParams(programId: Long) {
+    fun setProgram(programId: Long) {
         _programId.setNewValue(programId)
     }
 
