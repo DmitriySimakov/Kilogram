@@ -1,9 +1,6 @@
 package com.dmitrysimakov.kilogram.data.entity
 
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 import com.dmitrysimakov.kilogram.data.relation.ExerciseMeasures
 import com.dmitrysimakov.kilogram.util.HasId
 
@@ -24,6 +21,7 @@ data class TrainingExercise(
         @PrimaryKey(autoGenerate = true) override val _id: Long = 0,
         val training_id: Long,
         val exercise_id: Long,
-        val num: Byte,
+        val num: Int,
+        val strategy: String? = null,
         @Embedded(prefix = "measure_") val measures: ExerciseMeasures = ExerciseMeasures()
 ) : HasId

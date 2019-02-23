@@ -42,8 +42,8 @@ interface TrainingExerciseDao {
     
     @Suppress("AndroidUnresolvedRoomSqlReference")
     @Query("""
-        INSERT INTO training_exercise (training_id, exercise_id, num, measure_weight, measure_reps, measure_time, measure_distance)
-        SELECT :trainingId, exercise_id, num, measure_weight, measure_reps, measure_time, measure_distance
+        INSERT INTO training_exercise (training_id, exercise_id, num, strategy, measure_weight, measure_reps, measure_time, measure_distance)
+        SELECT :trainingId, exercise_id, num, strategy, measure_weight, measure_reps, measure_time, measure_distance
         FROM program_day_exercise
         WHERE program_day_id = :programDayId
     """)

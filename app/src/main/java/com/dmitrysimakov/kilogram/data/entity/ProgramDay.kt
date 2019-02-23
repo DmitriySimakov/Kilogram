@@ -17,6 +17,6 @@ import com.dmitrysimakov.kilogram.util.HasId
 data class ProgramDay(
         @PrimaryKey(autoGenerate = true) override val _id: Long = 0,
         val name: String,
-        val num: Byte,
+        val num: Int,
         val program_id: Long
 ) : HasId

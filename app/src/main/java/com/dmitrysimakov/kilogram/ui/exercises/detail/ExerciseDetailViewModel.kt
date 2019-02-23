@@ -14,14 +14,9 @@ class ExerciseDetailViewModel @Inject constructor(private val repository: Exerci
 
     private val _exerciseId = MutableLiveData<Long>()
 
-    val exercise : LiveData<ExerciseR> = Transformations
-            .switchMap(_exerciseId) { exerciseId ->
-                if (exerciseId == null) {
-                    AbsentLiveData.create()
-                } else {
-                    repository.loadExerciseR(exerciseId)
-                }
-            }
+    val exercise = Transformations.switchMap(_exerciseId) {
+        repository.loadExerciseR(it)
+    }
 
     fun setExercise(id: Long?) {
         _exerciseId.setNewValue(id)

@@ -24,7 +24,7 @@ data class ProgramDayExercise(
         @PrimaryKey(autoGenerate = true) override val _id: Long = 0,
         val program_day_id: Long,
         val exercise_id: Long,
-        val num: Byte,
+        val num: Int,
         val strategy: String? = null,
         @Embedded(prefix = "measure_") val measures: ExerciseMeasures = ExerciseMeasures()
 ) : HasId

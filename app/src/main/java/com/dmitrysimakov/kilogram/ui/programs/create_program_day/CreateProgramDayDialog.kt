@@ -11,8 +11,8 @@ import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.data.ItemInsertedListener
 import com.dmitrysimakov.kilogram.databinding.DialogCreateProgramDayBinding
-import com.dmitrysimakov.kilogram.ui.programs.create_program.CreateProgramDialogDirections
 import com.dmitrysimakov.kilogram.util.getViewModel
+import com.dmitrysimakov.kilogram.util.hideKeyboard
 import dagger.android.support.DaggerAppCompatDialogFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import javax.inject.Inject
@@ -24,7 +24,9 @@ class CreateProgramDayDialog : DaggerAppCompatDialogFragment(), ItemInsertedList
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var binding: DialogCreateProgramDayBinding
-
+    
+    private lateinit var params: CreateProgramDayDialogArgs
+    
     private lateinit var viewModel: CreateProgramDayViewModel
 
     override fun onAttach(context: Context?) {
@@ -43,8 +45,8 @@ class CreateProgramDayDialog : DaggerAppCompatDialogFragment(), ItemInsertedList
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewModel = getViewModel(viewModelFactory)
-        val params = CreateProgramDayDialogArgs.fromBundle(arguments!!)
-        viewModel.setParams(params.programId)
+        params = CreateProgramDayDialogArgs.fromBundle(arguments!!)
+        viewModel.setProgram(params.programId)
         
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
@@ -68,7 +70,8 @@ class CreateProgramDayDialog : DaggerAppCompatDialogFragment(), ItemInsertedList
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.ok -> {
-                viewModel.createProgramDay(this)
+                hideKeyboard()
+                viewModel.createProgramDay(params.num, this)
                 return true
             }
         }

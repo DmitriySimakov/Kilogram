@@ -48,6 +48,9 @@
         android:label="CreateProgramDayDialog"
         tools:layout="@layout/dialog_create_program_day">
         <argument
+            android:name="num"
+            app:argType="integer" />
+        <argument
             android:name="program_id"
             app:argType="long" />
         <action

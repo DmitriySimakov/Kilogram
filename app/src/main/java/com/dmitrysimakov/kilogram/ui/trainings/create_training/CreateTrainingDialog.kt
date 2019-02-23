@@ -17,6 +17,7 @@ import com.dmitrysimakov.kilogram.data.ItemInsertedListener
 import com.dmitrysimakov.kilogram.databinding.DialogCreateTrainingBinding
 import com.dmitrysimakov.kilogram.ui.MainViewModel
 import com.dmitrysimakov.kilogram.util.getViewModel
+import com.dmitrysimakov.kilogram.util.hideKeyboard
 import dagger.android.support.DaggerAppCompatDialogFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.dialog_create_training.*
@@ -97,6 +98,8 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
         mainViewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
         mainViewModel.programDayId.observe(this, Observer {
             viewModel.setProgramDay(it)
+            mainViewModel.programDayId.removeObservers(this)
+            mainViewModel.programDayId.value = 0L
         })
         
         if (dialog == null) {
@@ -119,6 +122,7 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.ok -> {
+                hideKeyboard()
                 viewModel.createTraining(this)
                 mainViewModel.onTrainingSessionStarted()
                 return true

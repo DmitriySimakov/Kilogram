@@ -7,6 +7,7 @@ import android.view.MenuItem
 import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.common.add_exercise.AddExerciseFragment
+import com.dmitrysimakov.kilogram.util.hideKeyboard
 
 class Trainings_AddExerciseFragment : AddExerciseFragment() {
     
@@ -28,6 +29,7 @@ class Trainings_AddExerciseFragment : AddExerciseFragment() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.ok -> {
+                hideKeyboard()
                 viewModel.addExerciseToTraining(params.trainingId)
                 viewModel.updateMeasures()
                 findNavController().popBackStack(R.id.trainingExercisesFragment, false)

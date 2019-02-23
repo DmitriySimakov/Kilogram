@@ -70,6 +70,7 @@ class AddSetDialog : DaggerAppCompatDialogFragment() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.ok -> {
+                hideKeyboard()
                 if (params.setId == 0L) {
                     viewModel.addSet()
                     val mainViewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
@@ -77,7 +78,6 @@ class AddSetDialog : DaggerAppCompatDialogFragment() {
                 } else {
                     viewModel.updateSet()
                 }
-                hideKeyboard()
                 findNavController().popBackStack()
                 return true
             }

@@ -33,7 +33,7 @@ class Programs_ChooseProgramDayFragment : ChooseProgramDayFragment() {
         activity?.fab?.show()
         activity?.fab?.setOnClickListener{
             findNavController().navigate(Programs_ChooseProgramDayFragmentDirections
-                    .toCreateProgramDayDialog(params.programId))
+                    .toCreateProgramDayDialog(adapter.itemCount + 1, params.programId))
         }
     }
 }

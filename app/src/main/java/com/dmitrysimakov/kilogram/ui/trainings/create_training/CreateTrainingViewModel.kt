@@ -7,6 +7,7 @@ import com.dmitrysimakov.kilogram.data.ItemInsertedListener
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
 import com.dmitrysimakov.kilogram.data.entity.Training
 import com.dmitrysimakov.kilogram.data.repository.ProgramRepository
+import com.dmitrysimakov.kilogram.util.AbsentLiveData
 import com.dmitrysimakov.kilogram.util.setNewValue
 import java.text.SimpleDateFormat
 import java.util.*
@@ -20,35 +21,34 @@ class CreateTrainingViewModel @Inject constructor(
     val calendar: Calendar = Calendar.getInstance()
     val date = MutableLiveData<String>()
     val time = MutableLiveData<String>()
-
-    val byProgram = MutableLiveData(true)
-
-    private val _programDayId = MutableLiveData<Long>()
-    
-    val programDay = Transformations.switchMap(_programDayId) {
-        when (it) {
-            null -> programRepository.loadNextProgramDayR()
-            else -> programRepository.loadProgramDayR(it)
-        }
-    }
-    
-    fun setProgramDay(id: Long) {
-        _programDayId.setNewValue(id)
-    }
     
     init {
         val locale = Locale.getDefault()
         date.value = SimpleDateFormat("yyyy-MM-dd", locale).format(calendar.time)
         time.value = SimpleDateFormat("HH:mm:ss", locale).format(calendar.time)
+    }
+    
+    val byProgram = MutableLiveData(true)
 
-        byProgram.value = false
+    private val _chosenProgramDayId = MutableLiveData<Long>()
+    
+    val programDay = Transformations.switchMap(_chosenProgramDayId) {
+        when (it) {
+            0L -> programRepository.loadNextProgramDayR()
+            else -> programRepository.loadProgramDayR(it)
+        }
+    }
+    
+    fun setProgramDay(id: Long) {
+        _chosenProgramDayId.setNewValue(id)
     }
 
     fun createTraining(callback: ItemInsertedListener) {
-        trainingRepository.insertTraining(Training(0,"${date.value} ${time.value}", _programDayId.value), callback)
+        val programDayId = if (byProgram.value!!) programDay.value?.program_day_id else null
+        trainingRepository.insertTraining(Training(0,"${date.value} ${time.value}", programDayId), callback)
     }
     
     fun fillTrainingWithProgramExercises(trainingId: Long) {
-        _programDayId.value?.let { trainingRepository.fillTrainingWithProgramExercises(trainingId, it) }
+        programDay.value?.let { trainingRepository.fillTrainingWithProgramExercises(trainingId, it.program_day_id) }
     }
 }

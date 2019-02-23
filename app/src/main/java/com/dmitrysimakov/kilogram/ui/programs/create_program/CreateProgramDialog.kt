@@ -13,6 +13,7 @@ import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.data.ItemInsertedListener
 import com.dmitrysimakov.kilogram.databinding.DialogCreateProgramBinding
 import com.dmitrysimakov.kilogram.util.getViewModel
+import com.dmitrysimakov.kilogram.util.hideKeyboard
 import dagger.android.support.DaggerAppCompatDialogFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import javax.inject.Inject
@@ -67,6 +68,7 @@ class CreateProgramDialog : DaggerAppCompatDialogFragment(), ItemInsertedListene
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.ok -> {
+                hideKeyboard()
                 viewModel.createProgram(this)
                 return true
             }

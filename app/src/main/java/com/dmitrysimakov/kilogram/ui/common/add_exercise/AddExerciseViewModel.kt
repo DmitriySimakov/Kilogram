@@ -18,11 +18,8 @@ class AddExerciseViewModel @Inject constructor(
     
     private val _exerciseId = MutableLiveData<Long>()
     
-    val exercise = Transformations.switchMap(_exerciseId) { id ->
-        when (id) {
-            null -> AbsentLiveData.create()
-            else -> exerciseRepository.loadExercise(id)
-        }
+    val exercise = Transformations.switchMap(_exerciseId) {
+        exerciseRepository.loadExercise(it)
     }
     
     fun setExercise(id: Long) {

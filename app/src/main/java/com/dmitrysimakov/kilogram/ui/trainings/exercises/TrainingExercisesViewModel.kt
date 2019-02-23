@@ -12,20 +12,13 @@ import javax.inject.Inject
 class TrainingExercisesViewModel @Inject constructor(private val repository: TrainingRepository) : ViewModel() {
 
     private val _trainingId = MutableLiveData<Long>()
-    private val _programDayId = MutableLiveData<Long>()
     
-    val training = Transformations.switchMap(_trainingId) { id ->
-        when(id) {
-            null -> AbsentLiveData.create()
-            else -> repository.loadTraining(id)
-        }
+    val training = Transformations.switchMap(_trainingId) {
+        repository.loadTraining(it)
     }
     
-    val exercises = Transformations.switchMap(_trainingId) { id ->
-        when (id) {
-            null ->AbsentLiveData.create()
-            else ->repository.loadExercises(id)
-        }
+    val exercises = Transformations.switchMap(_trainingId) {
+        repository.loadExercises(it)
     }
     
     fun setTraining(id: Long) {

@@ -14,11 +14,8 @@ class ChooseProgramDayViewModel @Inject constructor(private val repository: Prog
     
     private val _programId = MutableLiveData<Long>()
     
-    val trainingDays = Transformations.switchMap(_programId) { id ->
-        when(id) {
-            null -> AbsentLiveData.create()
-            else -> repository.loadTrainingDays(id)
-        }
+    val trainingDays = Transformations.switchMap(_programId) {
+        repository.loadTrainingDays(it)
     }
     
     fun setProgram(programId: Long) {
