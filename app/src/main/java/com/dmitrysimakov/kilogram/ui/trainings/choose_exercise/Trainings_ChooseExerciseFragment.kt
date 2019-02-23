@@ -16,7 +16,7 @@ class Trainings_ChooseExerciseFragment : ChooseExerciseFragment() {
         
         adapter.setClickListener { exercise ->
             findNavController().navigate(Trainings_ChooseExerciseFragmentDirections
-                    .toAddExerciseFragment(exercise._id, params.trainingId))
+                    .toAddExerciseFragment(exercise._id, params.num, params.trainingId))
         }
     }
 }

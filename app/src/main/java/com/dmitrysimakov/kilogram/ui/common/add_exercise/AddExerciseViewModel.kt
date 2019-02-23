@@ -3,6 +3,8 @@ package com.dmitrysimakov.kilogram.ui.common.add_exercise
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import com.dmitrysimakov.kilogram.data.entity.ProgramDayExercise
+import com.dmitrysimakov.kilogram.data.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.ProgramRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
@@ -26,12 +28,14 @@ class AddExerciseViewModel @Inject constructor(
         _exerciseId.setNewValue(id)
     }
     
-    fun addExerciseToTraining(trainingId: Long) {
-        exercise.value?.let { trainingRepository.addExercise(it, trainingId) }
+    fun addExerciseToTraining(trainingId: Long, num: Int) {
+        exercise.value?.run { trainingRepository.addExercise(
+                TrainingExercise(0, trainingId, _id, num, null, measures)) }
     }
     
-    fun addExerciseToProgramDay(programDayId: Long) {
-        exercise.value?.let { programRepository.addExerciseToProgramDay(it, programDayId) }
+    fun addExerciseToProgramDay(programDayId: Long, num: Int) {
+        exercise.value?.run { programRepository.addExerciseToProgramDay(
+                ProgramDayExercise(0, programDayId, _id, num, null, measures)) }
     }
     
     fun updateMeasures() {

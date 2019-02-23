@@ -51,9 +51,9 @@ class TrainingRepository @Inject constructor(
 
     fun loadExercises(training_id: Long) = trainingExerciseDao.getExercises(training_id)
 
-    fun addExercise(exercise: Exercise, training_id: Long) {
+    fun addExercise(exercise: TrainingExercise) {
         executors.diskIO().execute{
-            trainingExerciseDao.insert(TrainingExercise(0, training_id, exercise._id, 0, null, exercise.measures))
+            trainingExerciseDao.insert(exercise)
         }
     }
 

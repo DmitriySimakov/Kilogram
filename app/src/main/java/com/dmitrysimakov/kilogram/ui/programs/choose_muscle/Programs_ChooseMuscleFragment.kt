@@ -15,7 +15,7 @@ class Programs_ChooseMuscleFragment : ChooseMuscleFragment() {
         
         adapter.setClickListener { muscle ->
             findNavController().navigate(Programs_ChooseMuscleFragmentDirections
-                    .toChooseExerciseFragment(muscle._id, params.programDayId))
+                    .toChooseExerciseFragment(muscle._id, params.num, params.programDayId))
         }
     }
 }

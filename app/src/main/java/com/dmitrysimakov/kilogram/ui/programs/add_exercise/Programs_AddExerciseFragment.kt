@@ -30,7 +30,7 @@ class Programs_AddExerciseFragment : AddExerciseFragment() {
         when (item?.itemId) {
             R.id.ok -> {
                 hideKeyboard()
-                viewModel.addExerciseToProgramDay(params.programDayId)
+                viewModel.addExerciseToProgramDay(params.programDayId, params.num)
                 viewModel.updateMeasures()
                 findNavController().popBackStack(R.id.programDayExercisesFragment, false)
                 return true

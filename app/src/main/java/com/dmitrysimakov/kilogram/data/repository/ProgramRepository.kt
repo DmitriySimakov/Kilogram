@@ -58,9 +58,9 @@ class ProgramRepository @Inject constructor(
     
     fun loadExercises(programDayId: Long) = programDayExerciseDao.getExercises(programDayId)
     
-    fun addExerciseToProgramDay(exercise: Exercise, programDayId: Long) {
+    fun addExerciseToProgramDay(exercise: ProgramDayExercise) {
         executors.diskIO().execute {
-            programDayExerciseDao.insert(ProgramDayExercise(0, programDayId, exercise._id, 1, null, exercise.measures))
+            programDayExerciseDao.insert(exercise)
         }
     }
     
