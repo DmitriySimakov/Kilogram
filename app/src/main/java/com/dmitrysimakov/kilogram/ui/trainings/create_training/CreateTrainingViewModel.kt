@@ -21,7 +21,7 @@ class CreateTrainingViewModel @Inject constructor(
     val date = MutableLiveData<String>()
     val time = MutableLiveData<String>()
 
-    val byProgram = MutableLiveData<Boolean>()
+    val byProgram = MutableLiveData(true)
 
     private val _programDayId = MutableLiveData<Long>()
     
@@ -46,5 +46,9 @@ class CreateTrainingViewModel @Inject constructor(
 
     fun createTraining(callback: ItemInsertedListener) {
         trainingRepository.insertTraining(Training(0,"${date.value} ${time.value}", _programDayId.value), callback)
+    }
+    
+    fun fillTrainingWithProgramExercises(trainingId: Long) {
+        _programDayId.value?.let { trainingRepository.fillTrainingWithProgramExercises(trainingId, it) }
     }
 }

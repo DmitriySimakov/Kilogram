@@ -16,7 +16,7 @@ interface TrainingExerciseDao {
         LEFT JOIN exercise AS e
         ON te.exercise_id = e._id
         WHERE te.training_id = :training_id
-        ORDER BY te.number
+        ORDER BY te.num
     """)
     fun getExercises(training_id: Long): LiveData<List<TrainingExerciseR>>
 
@@ -39,4 +39,13 @@ interface TrainingExerciseDao {
         WHERE _id = :trainingExerciseId
         """)
     fun getExerciseMeasures(trainingExerciseId: Long): LiveData<ExerciseMeasures>
+    
+    @Suppress("AndroidUnresolvedRoomSqlReference")
+    @Query("""
+        INSERT INTO training_exercise (training_id, exercise_id, num, measure_weight, measure_reps, measure_time, measure_distance)
+        SELECT :trainingId, exercise_id, num, measure_weight, measure_reps, measure_time, measure_distance
+        FROM program_day_exercise
+        WHERE program_day_id = :programDayId
+    """)
+    fun fillTrainingWithProgramExercises(trainingId: Long, programDayId: Long)
 }

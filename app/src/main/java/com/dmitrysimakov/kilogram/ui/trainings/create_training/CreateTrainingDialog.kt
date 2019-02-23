@@ -129,6 +129,9 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
 
     @MainThread
     override fun onItemInserted(id: Long) {
+        if (viewModel.byProgram.value!!) {
+            viewModel.fillTrainingWithProgramExercises(id)
+        }
         findNavController().navigate(CreateTrainingDialogDirections.toExercisesFragment(id))
     }
 }

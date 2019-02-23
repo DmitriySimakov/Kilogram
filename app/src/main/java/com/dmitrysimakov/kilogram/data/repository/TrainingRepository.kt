@@ -87,4 +87,10 @@ class TrainingRepository @Inject constructor(
     }
     
     fun loadExerciseMeasures(trainingExerciseId: Long) = trainingExerciseDao.getExerciseMeasures(trainingExerciseId)
+    
+    fun fillTrainingWithProgramExercises(trainingId: Long, programDayId: Long) {
+        executors.diskIO().execute {
+            trainingExerciseDao.fillTrainingWithProgramExercises(trainingId, programDayId)
+        }
+    }
 }

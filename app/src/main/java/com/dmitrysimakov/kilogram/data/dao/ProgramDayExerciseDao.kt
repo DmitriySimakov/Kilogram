@@ -23,7 +23,7 @@ interface ProgramDayExerciseDao {
         LEFT JOIN exercise AS e
         ON pde.exercise_id = e._id
         WHERE pde.program_day_id = :programDayId
-        ORDER BY pde.number
+        ORDER BY pde.num
     """)
     fun getExercises(programDayId: Long) : LiveData<List<ProgramExerciseR>>
     
