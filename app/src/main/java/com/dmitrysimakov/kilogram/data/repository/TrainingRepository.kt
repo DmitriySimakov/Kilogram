@@ -5,7 +5,6 @@ import com.dmitrysimakov.kilogram.data.dao.ExerciseDao
 import com.dmitrysimakov.kilogram.data.dao.TrainingDao
 import com.dmitrysimakov.kilogram.data.dao.TrainingExerciseDao
 import com.dmitrysimakov.kilogram.data.dao.TrainingExerciseSetDao
-import com.dmitrysimakov.kilogram.data.entity.Exercise
 import com.dmitrysimakov.kilogram.data.entity.Training
 import com.dmitrysimakov.kilogram.data.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.entity.TrainingExerciseSet
@@ -91,6 +90,12 @@ class TrainingRepository @Inject constructor(
     fun fillTrainingWithProgramExercises(trainingId: Long, programDayId: Long) {
         executors.diskIO().execute {
             trainingExerciseDao.fillTrainingWithProgramExercises(trainingId, programDayId)
+        }
+    }
+    
+    fun updateNums(items: Set<TrainingExerciseR>) {
+        executors.diskIO().execute {
+            trainingExerciseDao.updateNums(items)
         }
     }
 }

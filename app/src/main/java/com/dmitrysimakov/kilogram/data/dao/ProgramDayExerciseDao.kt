@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.dmitrysimakov.kilogram.data.entity.ProgramDayExercise
 import com.dmitrysimakov.kilogram.data.relation.ProgramExerciseR
+import androidx.room.Transaction
 
 @Dao
 interface ProgramDayExerciseDao {
@@ -18,7 +19,7 @@ interface ProgramDayExerciseDao {
     fun insert(programDayExercise: ProgramDayExercise)
     
     @Query("""
-        SELECT pde._id AS _id, e._id AS exercise_id, e.name
+        SELECT pde._id AS _id, e._id AS exercise_id, e.name, pde.num
         FROM program_day_exercise AS pde
         LEFT JOIN exercise AS e
         ON pde.exercise_id = e._id
@@ -29,4 +30,14 @@ interface ProgramDayExerciseDao {
     
     @Query("DELETE FROM program_day_exercise WHERE _id = :id")
     fun delete(id: Long)
+    
+    @Query("UPDATE program_day_exercise SET num = :num WHERE _id = :id")
+    fun setNum(id: Long, num: Int)
+    
+    @Transaction
+    fun updateNums(exercises: Set<ProgramExerciseR>) {
+        for (exercise in exercises) {
+            setNum(exercise._id, exercise.num)
+        }
+    }
 }

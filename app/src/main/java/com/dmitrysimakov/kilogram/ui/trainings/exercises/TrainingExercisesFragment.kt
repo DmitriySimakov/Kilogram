@@ -1,6 +1,7 @@
 package com.dmitrysimakov.kilogram.ui.trainings.exercises
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -9,16 +10,20 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
+import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR
 import com.dmitrysimakov.kilogram.ui.MainViewModel
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.util.getViewModel
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_exercises.*
+import java.util.*
 import javax.inject.Inject
 
 class TrainingExercisesFragment : DaggerFragment() {
-
+    
+    private val TAG = this::class.java.simpleName
+    
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     @Inject lateinit var executors: AppExecutors
@@ -28,6 +33,8 @@ class TrainingExercisesFragment : DaggerFragment() {
     protected lateinit var adapter: TrainingExerciseListAdapter
     
     private lateinit var params: TrainingExercisesFragmentArgs
+    
+    private val draggedItems = HashSet<TrainingExerciseR>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_exercises, container, false)
@@ -49,8 +56,23 @@ class TrainingExercisesFragment : DaggerFragment() {
         viewModel.training.observe(this, Observer {  })
         viewModel.exercises.observe(this, Observer { adapter.submitList(it) })
     
-        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.RIGHT) {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+                val startPos = viewHolder.adapterPosition
+                val targetPos = target.adapterPosition
+    
+                Log.d(TAG, "$startPos $targetPos")
+                val startItem = adapter.get(startPos)
+                val targetItem = adapter.get(targetPos)
+    
+                startItem.num = targetPos
+                targetItem.num = startPos
+    
+                draggedItems.add(startItem)
+                draggedItems.add(targetItem)
+    
+                Collections.swap(viewModel.exercises.value, startPos, targetPos)
+                adapter.notifyItemMoved(startPos, targetPos)
                 return false
             }
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
@@ -83,5 +105,10 @@ class TrainingExercisesFragment : DaggerFragment() {
             }
         }
         return false
+    }
+    
+    override fun onPause() {
+        super.onPause()
+        viewModel.swap(draggedItems)
     }
 }

@@ -41,6 +41,19 @@ interface ProgramDayDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(programDay: ProgramDay): Long
     
+    @Update
+    fun update(programDay: ProgramDay)
+    
     @Delete
     fun delete(day: ProgramDay)
+    
+    @Query("UPDATE program_day SET num = :num WHERE _id = :id")
+    fun setNum(id: Long, num: Int)
+    
+    @Transaction
+    fun updateNums(programDays: Set<ProgramDay>) {
+        for (day in programDays) {
+            setNum(day._id, day.num)
+        }
+    }
 }

@@ -5,8 +5,8 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
-import com.dmitrysimakov.kilogram.util.AbsentLiveData
 import com.dmitrysimakov.kilogram.util.setNewValue
+import java.util.HashSet
 import javax.inject.Inject
 
 class TrainingExercisesViewModel @Inject constructor(private val repository: TrainingRepository) : ViewModel() {
@@ -34,5 +34,9 @@ class TrainingExercisesViewModel @Inject constructor(private val repository: Tra
             it.duration = 10 // TODO
             repository.updateTraining(it)
         }
+    }
+    
+    fun swap(items: Set<TrainingExerciseR>) {
+        repository.updateNums(items)
     }
 }

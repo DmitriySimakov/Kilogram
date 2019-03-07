@@ -4,7 +4,6 @@ import com.dmitrysimakov.kilogram.data.ItemInsertedListener
 import com.dmitrysimakov.kilogram.data.dao.ProgramDao
 import com.dmitrysimakov.kilogram.data.dao.ProgramDayDao
 import com.dmitrysimakov.kilogram.data.dao.ProgramDayExerciseDao
-import com.dmitrysimakov.kilogram.data.entity.Exercise
 import com.dmitrysimakov.kilogram.data.entity.Program
 import com.dmitrysimakov.kilogram.data.entity.ProgramDay
 import com.dmitrysimakov.kilogram.data.entity.ProgramDayExercise
@@ -50,11 +49,28 @@ class ProgramRepository @Inject constructor(
         }
     }
     
-    fun deleteTrainingDay(day: ProgramDay) {
+    fun update(programDay: ProgramDay) {
+        executors.diskIO().execute {
+            programDayDao.update(programDay)
+        }
+    }
+    
+    fun deleteProgramDay(day: ProgramDay) {
         executors.diskIO().execute {
             programDayDao.delete(day)
         }
     }
+    
+    fun updateNums(items: Set<ProgramDay>) {
+        executors.diskIO().execute {
+            programDayDao.updateNums(items)
+        }
+    }
+    
+    fun loadNextProgramDayR() = programDayDao.getNextProgramDayR()
+    
+    fun loadProgramDayR(id: Long) = programDayDao.getProgramDayR(id)
+    
     
     fun loadExercises(programDayId: Long) = programDayExerciseDao.getExercises(programDayId)
     
@@ -70,7 +86,9 @@ class ProgramRepository @Inject constructor(
         }
     }
     
-    fun loadNextProgramDayR() = programDayDao.getNextProgramDayR()
-    
-    fun loadProgramDayR(id: Long) = programDayDao.getProgramDayR(id)
+    fun updateNums2(items: Set<ProgramExerciseR>) {
+        executors.diskIO().execute {
+            programDayExerciseDao.updateNums(items)
+        }
+    }
 }

@@ -2,7 +2,6 @@ package com.dmitrysimakov.kilogram.data.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.dmitrysimakov.kilogram.data.entity.Exercise
 import com.dmitrysimakov.kilogram.data.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.relation.ExerciseMeasures
 import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR
@@ -11,7 +10,7 @@ import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR
 interface TrainingExerciseDao {
 
     @Query("""
-        SELECT te._id AS _id, e._id AS exercise_id, e.name
+        SELECT te._id AS _id, e._id AS exercise_id, e.name, te.num
         FROM training_exercise AS te
         LEFT JOIN exercise AS e
         ON te.exercise_id = e._id
@@ -48,4 +47,14 @@ interface TrainingExerciseDao {
         WHERE program_day_id = :programDayId
     """)
     fun fillTrainingWithProgramExercises(trainingId: Long, programDayId: Long)
+    
+    @Query("UPDATE training_exercise SET num = :num WHERE _id = :id")
+    fun setNum(id: Long, num: Int)
+    
+    @Transaction
+    fun updateNums(exercises: Set<TrainingExerciseR>) {
+        for (exercise in exercises) {
+            setNum(exercise._id, exercise.num)
+        }
+    }
 }
