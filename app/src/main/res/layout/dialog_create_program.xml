@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:text="@={viewModel.name}"
             tools:text="На массу"
+            android:inputType="text"
             app:layout_constraintTop_toTopOf="parent"/>
     
     </androidx.constraintlayout.widget.ConstraintLayout>

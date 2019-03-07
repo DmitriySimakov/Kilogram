@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log.d
 import android.view.*
+import android.view.inputmethod.EditorInfo
 import androidx.annotation.MainThread
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
@@ -16,6 +17,7 @@ import com.dmitrysimakov.kilogram.util.getViewModel
 import com.dmitrysimakov.kilogram.util.hideKeyboard
 import dagger.android.support.DaggerAppCompatDialogFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.dialog_create_program.*
 import javax.inject.Inject
 
 class CreateProgramDialog : DaggerAppCompatDialogFragment(), ItemInsertedListener {
@@ -57,6 +59,12 @@ class CreateProgramDialog : DaggerAppCompatDialogFragment(), ItemInsertedListene
             activity?.toolbar?.setNavigationIcon(R.drawable.baseline_close_white_24)
             setHasOptionsMenu(true)
         }
+        
+        name.setOnEditorActionListener { _, _, _ ->
+            createProgram()
+            true
+        }
+        
         activity?.fab?.hide()
     }
 
@@ -65,15 +73,17 @@ class CreateProgramDialog : DaggerAppCompatDialogFragment(), ItemInsertedListene
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-            R.id.ok -> {
-                hideKeyboard()
-                viewModel.createProgram(this)
-                return true
-            }
+    override fun onOptionsItemSelected(item: MenuItem?) = when (item?.itemId) {
+        R.id.ok -> {
+            createProgram()
+            true
         }
-        return false
+        else -> false
+    }
+    
+    private fun createProgram() {
+        hideKeyboard()
+        viewModel.createProgram(this)
     }
 
     @MainThread

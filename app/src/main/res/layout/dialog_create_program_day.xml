@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:text="@={viewModel.name}"
             tools:text="Понедельник день тяжёлый"
+            android:inputType="text"
             app:layout_constraintTop_toTopOf="parent"/>
     
     </androidx.constraintlayout.widget.ConstraintLayout>

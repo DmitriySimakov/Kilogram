@@ -35,7 +35,7 @@ abstract class ViewModelModule {
     @ViewModelKey(MainViewModel::class)
     abstract fun bindMainViewModel(viewModel: MainViewModel): ViewModel
     
-    // COMMON
+    //region COMMON
     
     @Binds
     @IntoMap
@@ -62,14 +62,18 @@ abstract class ViewModelModule {
     @ViewModelKey(ChooseProgramDayViewModel::class)
     abstract fun bindChooseProgramDayViewModel(viewModel: ChooseProgramDayViewModel): ViewModel
     
-    // EXERCISES
+    //endregion
+    
+    //region EXERCISES
 
     @Binds
     @IntoMap
     @ViewModelKey(ExerciseDetailViewModel::class)
     abstract fun bindExerciseDetailViewModel(viewModel: ExerciseDetailViewModel): ViewModel
     
-    // PROGRAMS
+    //endregion
+    
+    //region PROGRAMS
     
     @Binds
     @IntoMap
@@ -86,7 +90,9 @@ abstract class ViewModelModule {
     @ViewModelKey(ProgramDayExercisesViewModel::class)
     abstract fun bindProgramDayExercisesViewModel(viewModel: ProgramDayExercisesViewModel): ViewModel
     
-    // TRAININGS
+    //endregion
+    
+    //region TRAININGS
     
     @Binds
     @IntoMap
@@ -112,11 +118,15 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(AddSetViewModel::class)
     abstract fun bindAddSetViewModel(viewModel: AddSetViewModel): ViewModel
-
-    // MEASUREMENTS
+    
+    //endregion
+    
+    //region MEASUREMENTS
 
     @Binds
     @IntoMap
     @ViewModelKey(MeasurementsViewModel::class)
     abstract fun bindMeasurementsViewModel(viewModel: MeasurementsViewModel): ViewModel
+    
+    //endregion
 }

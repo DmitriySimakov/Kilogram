@@ -15,6 +15,7 @@ import com.dmitrysimakov.kilogram.util.getViewModel
 import com.dmitrysimakov.kilogram.util.hideKeyboard
 import dagger.android.support.DaggerAppCompatDialogFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.dialog_create_program.*
 import javax.inject.Inject
 
 class CreateProgramDayDialog : DaggerAppCompatDialogFragment(), ItemInsertedListener {
@@ -59,6 +60,12 @@ class CreateProgramDayDialog : DaggerAppCompatDialogFragment(), ItemInsertedList
             activity?.toolbar?.setNavigationIcon(R.drawable.baseline_close_white_24)
             setHasOptionsMenu(true)
         }
+    
+        name.setOnEditorActionListener { _, _, _ ->
+            createProgramDay()
+            true
+        }
+        
         activity?.fab?.hide()
     }
 
@@ -67,15 +74,17 @@ class CreateProgramDayDialog : DaggerAppCompatDialogFragment(), ItemInsertedList
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-            R.id.ok -> {
-                hideKeyboard()
-                viewModel.createProgramDay(params.num, this)
-                return true
-            }
+    override fun onOptionsItemSelected(item: MenuItem?) = when (item?.itemId) {
+        R.id.ok -> {
+            createProgramDay()
+            true
         }
-        return false
+        else -> false
+    }
+    
+    private fun createProgramDay() {
+        hideKeyboard()
+        viewModel.createProgramDay(params.num, this)
     }
 
     @MainThread

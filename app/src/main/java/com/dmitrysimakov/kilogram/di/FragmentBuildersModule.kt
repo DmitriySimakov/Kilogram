@@ -38,7 +38,7 @@ abstract class FragmentBuildersModule {
     @ContributesAndroidInjector
     abstract fun contributeMainFragment(): MainFragment
 
-    // COMMON
+    //region COMMON
     
     @ContributesAndroidInjector
     abstract fun contributeChooseMuscleFragment(): ChooseMuscleFragment
@@ -55,7 +55,9 @@ abstract class FragmentBuildersModule {
     @ContributesAndroidInjector
     abstract fun contributeChooseProgramDayFragment(): ChooseProgramDayFragment
     
-    // EXERCISES
+    //endregion
+    
+    //region EXERCISES
     
     @ContributesAndroidInjector
     abstract fun contributeExercises_ChooseMuscleFragment(): Exercises_ChooseMuscleFragment
@@ -66,7 +68,9 @@ abstract class FragmentBuildersModule {
     @ContributesAndroidInjector
     abstract fun contributeExerciseDetailFragment(): ExerciseDetailFragment
     
-    // PROGRAMS
+    //endregion
+    
+    //region PROGRAMS
     
     @ContributesAndroidInjector
     abstract fun contributePrograms_ChooseProgramFragment(): Programs_ChooseProgramFragment
@@ -92,7 +96,9 @@ abstract class FragmentBuildersModule {
     @ContributesAndroidInjector
     abstract fun contributePrograms_AddExerciseFragment(): Programs_AddExerciseFragment
 
-    // TRAININGS
+    //endregion
+    
+    //region TRAININGS
     
     @ContributesAndroidInjector
     abstract fun contributeTrainingsFragment(): TrainingsFragment
@@ -124,8 +130,12 @@ abstract class FragmentBuildersModule {
     @ContributesAndroidInjector
     abstract fun contributeTrainings_AddExerciseFragment(): Trainings_AddExerciseFragment
 
-    // MEASUREMENTS
+    //endregion
+    
+    //region MEASUREMENTS
     
     @ContributesAndroidInjector
     abstract fun contributeMeasurementsFragment(): MeasurementsFragment
+    
+    //endregion
 }
