@@ -25,6 +25,7 @@ data class ProgramDayExercise(
         val program_day_id: Long,
         val exercise_id: Long,
         val num: Int,
+        val rest: Int,
         val strategy: String? = null,
         @Embedded(prefix = "measure_") val measures: ExerciseMeasures = ExerciseMeasures()
 ) : HasId

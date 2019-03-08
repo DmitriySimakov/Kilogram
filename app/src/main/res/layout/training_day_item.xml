@@ -15,14 +15,32 @@
         android:layout_height="?attr/listPreferredItemHeight"
         app:cardUseCompatPadding="true">
         
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:paddingStart="?attr/listPreferredItemPaddingLeft"
-            android:paddingEnd="?attr/listPreferredItemPaddingRight"
-            android:text="@{day.name}"
-            tools:text="На массу"/>
+            android:layout_height="match_parent">
+    
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="?attr/listPreferredItemPaddingLeft"
+                android:textAppearance="?android:attr/textAppearanceListItem"
+                android:text="@{day.name}"
+                tools:text="На массу"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/drag_icon"/>
+    
+            <ImageView
+                android:id="@+id/drag_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="?android:attr/listPreferredItemPaddingLeft"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:src="@drawable/baseline_drag_indicator_black_18"/>
+            
+        </androidx.constraintlayout.widget.ConstraintLayout>
     
     </androidx.cardview.widget.CardView>
 

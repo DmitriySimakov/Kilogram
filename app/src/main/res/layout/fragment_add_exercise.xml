@@ -61,47 +61,55 @@
         
         <CheckBox
             android:id="@+id/weight_cb"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:checked="@={viewModel.exercise.measures.weight}"
             android:ellipsize="end"
             android:lines="1"
             android:text="@string/weight"
             android:textSize="12sp"
-            app:layout_constraintTop_toBottomOf="@id/measurements_label" />
+            app:layout_constraintTop_toBottomOf="@id/measurements_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/measurements_label"/>
     
         <CheckBox
             android:id="@+id/reps_cb"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:checked="@={viewModel.exercise.measures.reps}"
             android:ellipsize="end"
             android:lines="1"
             android:text="@string/reps"
             android:textSize="12sp"
-            app:layout_constraintTop_toBottomOf="@id/weight_cb" />
+            app:layout_constraintTop_toBottomOf="@id/weight_cb"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/measurements_label"/>
         
         <CheckBox
             android:id="@+id/time_cb"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:checked="@={viewModel.exercise.measures.time}"
             android:ellipsize="end"
             android:lines="1"
             android:text="@string/time"
             android:textSize="12sp"
-            app:layout_constraintTop_toBottomOf="@id/reps_cb" />
+            app:layout_constraintTop_toBottomOf="@id/reps_cb"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/measurements_label"/>
     
         <CheckBox
             android:id="@+id/distance_cb"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:checked="@={viewModel.exercise.measures.distance}"
             android:ellipsize="end"
             android:lines="1"
             android:text="@string/distance"
             android:textSize="12sp"
-            app:layout_constraintTop_toBottomOf="@id/time_cb" />
+            app:layout_constraintTop_toBottomOf="@id/time_cb"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/measurements_label"/>
         
         <TextView
             android:id="@+id/rest_label"
@@ -117,8 +125,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:inputType="number"
+            android:text="@={``+ viewModel.restTime}"
             app:layout_constraintTop_toBottomOf="@id/rest_label"
-            app:layout_constraintStart_toEndOf="@id/measurements_label"
+            app:layout_constraintStart_toStartOf="@id/rest_label"
             app:layout_constraintEnd_toEndOf="parent"/>
         
         <TextView
@@ -132,7 +141,7 @@
             android:id="@+id/execution_strategy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
+            android:inputType="textMultiLine"
             android:text="@={viewModel.strategy}"
             app:layout_constraintTop_toBottomOf="@id/strategy_label" />
 

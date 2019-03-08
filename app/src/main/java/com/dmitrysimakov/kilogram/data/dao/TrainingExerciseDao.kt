@@ -10,7 +10,7 @@ import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR
 interface TrainingExerciseDao {
 
     @Query("""
-        SELECT te._id AS _id, e._id AS exercise_id, e.name, te.num
+        SELECT te._id AS _id, e._id AS exercise_id, e.name, te.num, te.rest, te.strategy
         FROM training_exercise AS te
         LEFT JOIN exercise AS e
         ON te.exercise_id = e._id
@@ -41,8 +41,8 @@ interface TrainingExerciseDao {
     
     @Suppress("AndroidUnresolvedRoomSqlReference")
     @Query("""
-        INSERT INTO training_exercise (training_id, exercise_id, num, strategy, measure_weight, measure_reps, measure_time, measure_distance)
-        SELECT :trainingId, exercise_id, num, strategy, measure_weight, measure_reps, measure_time, measure_distance
+        INSERT INTO training_exercise (training_id, exercise_id, num, rest, strategy, measure_weight, measure_reps, measure_time, measure_distance)
+        SELECT :trainingId, exercise_id, num, rest, strategy, measure_weight, measure_reps, measure_time, measure_distance
         FROM program_day_exercise
         WHERE program_day_id = :programDayId
     """)
