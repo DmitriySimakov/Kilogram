@@ -35,7 +35,7 @@ interface ProgramDayExerciseDao {
     fun setNum(id: Long, num: Int)
     
     @Transaction
-    fun updateNums(exercises: Set<ProgramExerciseR>) {
+    fun updateNums(exercises: List<ProgramExerciseR>) {
         for (exercise in exercises) {
             setNum(exercise._id, exercise.num)
         }

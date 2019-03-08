@@ -61,7 +61,7 @@ class ProgramRepository @Inject constructor(
         }
     }
     
-    fun updateNums(items: Set<ProgramDay>) {
+    fun updateNums(items: List<ProgramDay>) {
         executors.diskIO().execute {
             programDayDao.updateNums(items)
         }
@@ -86,7 +86,7 @@ class ProgramRepository @Inject constructor(
         }
     }
     
-    fun updateNums2(items: Set<ProgramExerciseR>) {
+    fun updateNums2(items: List<ProgramExerciseR>) {
         executors.diskIO().execute {
             programDayExerciseDao.updateNums(items)
         }

@@ -29,7 +29,7 @@ class ChooseProgramDayViewModel @Inject constructor(private val repository: Prog
         repository.deleteProgramDay(day)
     }
     
-    fun updateNums(items: Set<ProgramDay>) {
+    fun updateNums(items: List<ProgramDay>) {
         repository.updateNums(items)
     }
 }

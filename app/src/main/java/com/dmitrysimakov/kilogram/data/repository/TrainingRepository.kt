@@ -92,10 +92,4 @@ class TrainingRepository @Inject constructor(
             trainingExerciseDao.fillTrainingWithProgramExercises(trainingId, programDayId)
         }
     }
-    
-    fun updateNums(items: Set<TrainingExerciseR>) {
-        executors.diskIO().execute {
-            trainingExerciseDao.updateNums(items)
-        }
-    }
 }

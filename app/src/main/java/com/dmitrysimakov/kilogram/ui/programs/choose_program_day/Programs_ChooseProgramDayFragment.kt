@@ -16,8 +16,6 @@ class Programs_ChooseProgramDayFragment : ChooseProgramDayFragment() {
     
     private val TAG = this::class.java.simpleName
     
-    private val draggedItems = HashSet<ProgramDay>()
-    
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
     
@@ -33,17 +31,7 @@ class Programs_ChooseProgramDayFragment : ChooseProgramDayFragment() {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
                 val startPos = viewHolder.adapterPosition
                 val targetPos = target.adapterPosition
-                
                 d(TAG, "$startPos $targetPos")
-                val startItem = adapter.get(startPos)
-                val targetItem = adapter.get(targetPos)
-                
-                startItem.num = targetPos
-                targetItem.num = startPos
-                
-                draggedItems.add(startItem)
-                draggedItems.add(targetItem)
-                
                 Collections.swap(viewModel.trainingDays.value, startPos, targetPos)
                 adapter.notifyItemMoved(startPos, targetPos)
                 return false
@@ -62,6 +50,10 @@ class Programs_ChooseProgramDayFragment : ChooseProgramDayFragment() {
     
     override fun onPause() {
         super.onPause()
-        viewModel.updateNums(draggedItems)
+        val list = mutableListOf<ProgramDay>()
+        for (i in 0 until adapter.itemCount) {
+            list.add(adapter.get(i).apply { num = i + 1 })
+        }
+        viewModel.updateNums(list)
     }
 }

@@ -32,8 +32,6 @@ class ProgramDayExercisesFragment : DaggerFragment() {
     
     protected lateinit var adapter: ProgramDayExerciseListAdapter
     
-    private val draggedItems = HashSet<ProgramExerciseR>()
-    
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_exercises, container, false)
     }
@@ -54,17 +52,7 @@ class ProgramDayExercisesFragment : DaggerFragment() {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
                 val startPos = viewHolder.adapterPosition
                 val targetPos = target.adapterPosition
-    
                 d(TAG, "$startPos $targetPos")
-                val startItem = adapter.get(startPos)
-                val targetItem = adapter.get(targetPos)
-    
-                startItem.num = targetPos
-                targetItem.num = startPos
-    
-                draggedItems.add(startItem)
-                draggedItems.add(targetItem)
-    
                 Collections.swap(viewModel.exercises.value, startPos, targetPos)
                 adapter.notifyItemMoved(startPos, targetPos)
                 return false
@@ -81,8 +69,12 @@ class ProgramDayExercisesFragment : DaggerFragment() {
         }
     }
     
-    override fun onStop() {
-        super.onStop()
-        viewModel.swap(draggedItems)
+    override fun onPause() {
+        super.onPause()
+        val list = mutableListOf<ProgramExerciseR>()
+        for (i in 0 until adapter.itemCount) {
+            list.add(adapter.get(i).apply { num = i + 1 })
+        }
+        viewModel.updateNums(list)
     }
 }

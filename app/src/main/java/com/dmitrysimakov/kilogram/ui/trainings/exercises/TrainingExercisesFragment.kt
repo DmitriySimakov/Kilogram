@@ -33,8 +33,6 @@ class TrainingExercisesFragment : DaggerFragment() {
     protected lateinit var adapter: TrainingExerciseListAdapter
     
     private lateinit var params: TrainingExercisesFragmentArgs
-    
-    private val draggedItems = HashSet<TrainingExerciseR>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_exercises, container, false)
@@ -56,23 +54,8 @@ class TrainingExercisesFragment : DaggerFragment() {
         viewModel.training.observe(this, Observer {  })
         viewModel.exercises.observe(this, Observer { adapter.submitList(it) })
     
-        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.RIGHT) {
+        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
-                val startPos = viewHolder.adapterPosition
-                val targetPos = target.adapterPosition
-    
-                Log.d(TAG, "$startPos $targetPos")
-                val startItem = adapter.get(startPos)
-                val targetItem = adapter.get(targetPos)
-    
-                startItem.num = targetPos
-                targetItem.num = startPos
-    
-                draggedItems.add(startItem)
-                draggedItems.add(targetItem)
-    
-                Collections.swap(viewModel.exercises.value, startPos, targetPos)
-                adapter.notifyItemMoved(startPos, targetPos)
                 return false
             }
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
@@ -105,10 +88,5 @@ class TrainingExercisesFragment : DaggerFragment() {
             }
         }
         return false
-    }
-    
-    override fun onPause() {
-        super.onPause()
-        viewModel.swap(draggedItems)
     }
 }

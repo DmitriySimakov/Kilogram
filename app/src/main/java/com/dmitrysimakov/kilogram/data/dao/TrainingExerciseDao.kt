@@ -47,14 +47,4 @@ interface TrainingExerciseDao {
         WHERE program_day_id = :programDayId
     """)
     fun fillTrainingWithProgramExercises(trainingId: Long, programDayId: Long)
-    
-    @Query("UPDATE training_exercise SET num = :num WHERE _id = :id")
-    fun setNum(id: Long, num: Int)
-    
-    @Transaction
-    fun updateNums(exercises: Set<TrainingExerciseR>) {
-        for (exercise in exercises) {
-            setNum(exercise._id, exercise.num)
-        }
-    }
 }

@@ -51,7 +51,7 @@ interface ProgramDayDao {
     fun setNum(id: Long, num: Int)
     
     @Transaction
-    fun updateNums(programDays: Set<ProgramDay>) {
+    fun updateNums(programDays: List<ProgramDay>) {
         for (day in programDays) {
             setNum(day._id, day.num)
         }

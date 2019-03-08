@@ -28,7 +28,7 @@ class ProgramDayExercisesViewModel @Inject constructor(private val repository: P
         repository.deleteExerciseFromProgramDay(exercise)
     }
     
-    fun swap(items: Set<ProgramExerciseR>) {
+    fun updateNums(items: List<ProgramExerciseR>) {
         repository.updateNums2(items)
     }
 }

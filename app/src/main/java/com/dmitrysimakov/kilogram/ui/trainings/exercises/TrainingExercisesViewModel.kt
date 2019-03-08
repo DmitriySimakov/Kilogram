@@ -35,8 +35,4 @@ class TrainingExercisesViewModel @Inject constructor(private val repository: Tra
             repository.updateTraining(it)
         }
     }
-    
-    fun swap(items: Set<TrainingExerciseR>) {
-        repository.updateNums(items)
-    }
 }
