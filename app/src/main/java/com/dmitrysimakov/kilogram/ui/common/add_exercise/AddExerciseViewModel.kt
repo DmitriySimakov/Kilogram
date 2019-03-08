@@ -27,14 +27,16 @@ class AddExerciseViewModel @Inject constructor(
         _exerciseId.setNewValue(id)
     }
     
+    val strategy = MutableLiveData<String>()
+    
     fun addExerciseToTraining(trainingId: Long, num: Int) {
-        exercise.value?.run { trainingExerciseRepository.addExercise(
-                TrainingExercise(0, trainingId, _id, num, null, measures)) }
+        exercise.value?.let { trainingExerciseRepository.addExercise(
+                TrainingExercise(0, trainingId, it._id, num, strategy.value, it.measures)) }
     }
     
     fun addExerciseToProgramDay(programDayId: Long, num: Int) {
-        exercise.value?.run { programDayExerciseRepository.addExerciseToProgramDay(
-                ProgramDayExercise(0, programDayId, _id, num, null, measures)) }
+        exercise.value?.let { programDayExerciseRepository.addExerciseToProgramDay(
+                ProgramDayExercise(0, programDayId, it._id, num, strategy.value, it.measures)) }
     }
     
     fun updateMeasures() {

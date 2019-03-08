@@ -19,7 +19,7 @@ interface ProgramDayExerciseDao {
     fun insert(programDayExercise: ProgramDayExercise)
     
     @Query("""
-        SELECT pde._id AS _id, e._id AS exercise_id, e.name, pde.num
+        SELECT pde._id AS _id, e._id AS exercise_id, e.name, pde.num, pde.strategy
         FROM program_day_exercise AS pde
         LEFT JOIN exercise AS e
         ON pde.exercise_id = e._id

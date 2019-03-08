@@ -6,5 +6,6 @@ data class ProgramExerciseR(
         override val _id: Long,
         val exercise_id: Long,
         val name: String,
-        var num: Int
+        var num: Int,
+        val strategy: String?
 ) : HasId

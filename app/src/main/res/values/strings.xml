@@ -65,7 +65,7 @@
     <string name="distance">Расстояние</string>
     <string name="choose_exercise">Выбрать упражнение</string>
     <string name="measures">Меры измерения</string>
-    <string name="rest_time_after">Время отдыха после ... , сек</string>
+    <string name="rest_time_after">Время отдыха, сек</string>
     <string name="after_warm_up_sets">разминочных подходов</string>
     <string name="after_work_sets">рабочих подходов</string>
     <string name="after_exercise">упражнения</string>

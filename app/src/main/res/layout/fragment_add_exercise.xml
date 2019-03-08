@@ -10,181 +10,132 @@
             type="com.dmitrysimakov.kilogram.ui.common.add_exercise.AddExerciseViewModel"/>
     </data>
     
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="?attr/dialogPreferredPadding"
         tools:context=".training_sessions.TrainingSessionExerciseDialog">
+    
+        <TextView
+            android:id="@+id/exercise_name"
+            style="@style/LabelStyle"
+            android:text="@{viewModel.exercise.name}"
+            tools:text="@string/exercise"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
         
-        <LinearLayout
-            android:id="@+id/chosen_exercise_ll"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/listPreferredItemHeight"
-            android:gravity="center"
-            android:orientation="horizontal">
-            
-            <ImageView
-                android:id="@+id/exercise_image"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                app:assetsImage='@{"exercises/"+ viewModel.exercise._id +"_1.jpeg"}'
-                tools:layout_width="?android:attr/listPreferredItemHeight"/>
-            
-            <TextView
-                android:id="@+id/exercise_name"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:paddingStart="?android:attr/listPreferredItemPaddingLeft"
-                android:paddingEnd="?android:attr/listPreferredItemPaddingRight"
-                android:text="@{viewModel.exercise.name}"
-                android:textAppearance="?android:attr/textAppearanceListItemSmall"
-                tools:text="Упражнение"/>
-        
-        </LinearLayout>
-        
-        <View style="@style/DividerStyle"/>
+        <ImageView
+            android:id="@+id/image_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/first_phase"
+            app:assetsImage='@{"exercises/"+ viewModel.exercise._id +"_1.jpeg"}'
+            app:layout_constraintEnd_toStartOf="@id/image_2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/exercise_name"
+            tools:src="@drawable/exercise_sample_1" />
+    
+        <ImageView
+            android:id="@+id/image_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/second_phase"
+            app:assetsImage='@{"exercises/"+ viewModel.exercise._id +"_2.jpeg"}'
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/image_1"
+            app:layout_constraintTop_toBottomOf="@id/exercise_name"
+            tools:src="@drawable/exercise_sample_2" />
         
         <TextView
+            android:id="@+id/measurements_label"
             style="@style/LabelStyle"
-            android:text="@string/measures"/>
+            android:layout_width="0dp"
+            android:text="@string/measures"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/rest_label"
+            app:layout_constraintTop_toBottomOf="@id/image_1" />
         
-        <LinearLayout
+        <CheckBox
+            android:id="@+id/weight_cb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            
-            <CheckBox
-                android:id="@+id/weight_cb"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:lines="1"
-                android:text="@string/weight"
-                android:textSize="12sp"
-                android:checked="@={viewModel.exercise.measures.weight}" />
-            
-            <CheckBox
-                android:id="@+id/time_cb"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:lines="1"
-                android:text="@string/time"
-                android:textSize="12sp"
-                android:checked="@={viewModel.exercise.measures.time}"/>
-        
-        </LinearLayout>
-        
-        <LinearLayout
+            android:checked="@={viewModel.exercise.measures.weight}"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@string/weight"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@id/measurements_label" />
+    
+        <CheckBox
+            android:id="@+id/reps_cb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            
-            <CheckBox
-                android:id="@+id/reps_cb"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:lines="1"
-                android:text="@string/reps"
-                android:textSize="12sp"
-                android:checked="@={viewModel.exercise.measures.reps}"/>
-            
-            <CheckBox
-                android:id="@+id/distance_cb"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:lines="1"
-                android:text="@string/distance"
-                android:textSize="12sp"
-                android:checked="@={viewModel.exercise.measures.distance}"/>
+            android:checked="@={viewModel.exercise.measures.reps}"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@string/reps"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@id/weight_cb" />
         
-        </LinearLayout>
-        
-        <View style="@style/DividerStyle"/>
+        <CheckBox
+            android:id="@+id/time_cb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="@={viewModel.exercise.measures.time}"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@string/time"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@id/reps_cb" />
+    
+        <CheckBox
+            android:id="@+id/distance_cb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="@={viewModel.exercise.measures.distance}"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@string/distance"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@id/time_cb" />
         
         <TextView
+            android:id="@+id/rest_label"
             style="@style/LabelStyle"
-            android:text="@string/rest_time_after"/>
+            android:layout_width="0dp"
+            android:text="@string/rest_time_after"
+            app:layout_constraintTop_toBottomOf="@id/image_2"
+            app:layout_constraintStart_toEndOf="@id/measurements_label"
+            app:layout_constraintEnd_toEndOf="parent" />
         
-        <LinearLayout
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/rest_et"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-            
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/after_warm_up_sets"
-                android:textSize="12sp"/>
-            
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/after_work_sets"
-                android:textSize="12sp"/>
-            
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/after_exercise"
-                android:textSize="12sp"/>
-        
-        </LinearLayout>
-        
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            
-            <EditText
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:inputType="number"/>
-            
-            <EditText
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:inputType="number"/>
-            
-            <EditText
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:inputType="number"/>
-        
-        </LinearLayout>
-        
-        <View style="@style/DividerStyle"/>
+            android:inputType="number"
+            app:layout_constraintTop_toBottomOf="@id/rest_label"
+            app:layout_constraintStart_toEndOf="@id/measurements_label"
+            app:layout_constraintEnd_toEndOf="parent"/>
         
         <TextView
+            android:id="@+id/strategy_label"
             style="@style/LabelStyle"
-            android:text="@string/execution_strategy"/>
+            android:text="@string/execution_strategy"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/distance_cb" />
         
         <EditText
             android:id="@+id/execution_strategy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"/>
-    
-    </LinearLayout>
+            android:inputType="text"
+            android:text="@={viewModel.strategy}"
+            app:layout_constraintTop_toBottomOf="@id/strategy_label" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
