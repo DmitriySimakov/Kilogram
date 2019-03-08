@@ -5,12 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.entity.ProgramDay
-import com.dmitrysimakov.kilogram.data.repository.ProgramRepository
+import com.dmitrysimakov.kilogram.data.repository.ProgramDayRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
 import javax.inject.Inject
 
-
-class ChooseProgramDayViewModel @Inject constructor(private val repository: ProgramRepository) : ViewModel() {
+class ChooseProgramDayViewModel @Inject constructor(
+        private val repository: ProgramDayRepository
+) : ViewModel() {
     
     private val TAG = this::class.java.simpleName
     

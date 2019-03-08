@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.ItemInsertedListener
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
 import com.dmitrysimakov.kilogram.data.entity.Training
-import com.dmitrysimakov.kilogram.data.repository.ProgramRepository
-import com.dmitrysimakov.kilogram.util.AbsentLiveData
+import com.dmitrysimakov.kilogram.data.repository.ProgramDayRepository
+import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
 import java.text.SimpleDateFormat
 import java.util.*
@@ -15,7 +15,8 @@ import javax.inject.Inject
 
 class CreateTrainingViewModel @Inject constructor(
         private val trainingRepository: TrainingRepository,
-        private val programRepository: ProgramRepository
+        private val trainingExerciseRepository: TrainingExerciseRepository,
+        private val programDayRepository: ProgramDayRepository
 ) : ViewModel() {
 
     val calendar: Calendar = Calendar.getInstance()
@@ -34,8 +35,8 @@ class CreateTrainingViewModel @Inject constructor(
     
     val programDay = Transformations.switchMap(_chosenProgramDayId) {
         when (it) {
-            0L -> programRepository.loadNextProgramDayR()
-            else -> programRepository.loadProgramDayR(it)
+            0L -> programDayRepository.loadNextProgramDayR()
+            else -> programDayRepository.loadProgramDayR(it)
         }
     }
     
@@ -49,6 +50,6 @@ class CreateTrainingViewModel @Inject constructor(
     }
     
     fun fillTrainingWithProgramExercises(trainingId: Long) {
-        programDay.value?.let { trainingRepository.fillTrainingWithProgramExercises(trainingId, it.program_day_id) }
+        programDay.value?.let { trainingExerciseRepository.fillTrainingWithProgramExercises(trainingId, it.program_day_id) }
     }
 }

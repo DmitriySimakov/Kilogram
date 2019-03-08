@@ -4,21 +4,24 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR
+import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
-import java.util.HashSet
 import javax.inject.Inject
 
-class TrainingExercisesViewModel @Inject constructor(private val repository: TrainingRepository) : ViewModel() {
+class TrainingExercisesViewModel @Inject constructor(
+        private val trainingRepository: TrainingRepository,
+        private val trainingExerciseRepository: TrainingExerciseRepository
+) : ViewModel() {
 
     private val _trainingId = MutableLiveData<Long>()
     
     val training = Transformations.switchMap(_trainingId) {
-        repository.loadTraining(it)
+        trainingRepository.loadTraining(it)
     }
     
     val exercises = Transformations.switchMap(_trainingId) {
-        repository.loadExercises(it)
+        trainingExerciseRepository.loadExercises(it)
     }
     
     fun setTraining(id: Long) {
@@ -26,13 +29,13 @@ class TrainingExercisesViewModel @Inject constructor(private val repository: Tra
     }
 
     fun deleteExercise(exercise: TrainingExerciseR) {
-        repository.deleteExercise(exercise)
+        trainingExerciseRepository.deleteExercise(exercise)
     }
     
     fun finishSession() {
         training.value?.let {
             it.duration = 10 // TODO
-            repository.updateTraining(it)
+            trainingRepository.updateTraining(it)
         }
     }
 }

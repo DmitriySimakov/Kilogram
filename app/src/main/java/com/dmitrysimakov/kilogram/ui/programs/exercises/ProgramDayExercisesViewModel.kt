@@ -5,11 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.relation.ProgramExerciseR
+import com.dmitrysimakov.kilogram.data.repository.ProgramDayExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.ProgramRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
 import javax.inject.Inject
 
-class ProgramDayExercisesViewModel @Inject constructor(private val repository: ProgramRepository) : ViewModel() {
+class ProgramDayExercisesViewModel @Inject constructor(
+        private val repository: ProgramDayExerciseRepository
+) : ViewModel() {
     
     private val TAG = this::class.java.simpleName
     
@@ -29,6 +32,6 @@ class ProgramDayExercisesViewModel @Inject constructor(private val repository: P
     }
     
     fun updateNums(items: List<ProgramExerciseR>) {
-        repository.updateNums2(items)
+        repository.updateNums(items)
     }
 }

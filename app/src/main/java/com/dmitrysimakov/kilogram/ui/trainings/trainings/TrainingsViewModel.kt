@@ -5,7 +5,6 @@ import com.dmitrysimakov.kilogram.data.entity.Training
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
 import javax.inject.Inject
 
-
 class TrainingsViewModel @Inject constructor(private val repository: TrainingRepository) : ViewModel() {
 
     val trainingList = repository.loadTrainingList()

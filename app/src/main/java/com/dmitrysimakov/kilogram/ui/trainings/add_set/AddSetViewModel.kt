@@ -4,13 +4,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.entity.TrainingExerciseSet
-import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
-import com.dmitrysimakov.kilogram.util.AbsentLiveData
+import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
+import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseSetRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
 import javax.inject.Inject
 
 class AddSetViewModel @Inject constructor(
-        private val repository: TrainingRepository
+        private val trainingExerciseRepository: TrainingExerciseRepository,
+        private val trainingExerciseSetRepository: TrainingExerciseSetRepository
 ) : ViewModel() {
 
     private val _setId = MutableLiveData<Long>()
@@ -19,12 +20,12 @@ class AddSetViewModel @Inject constructor(
     val set = Transformations.switchMap(_setId) {
         when (it) {
             0L -> MutableLiveData(TrainingExerciseSet(0, _trainingExerciseId.value!!, 0, 0, 0, 0, 0))
-            else -> repository.loadSet(it)
+            else -> trainingExerciseSetRepository.loadSet(it)
         }
     }
     
     val exerciseMeasures = Transformations.switchMap(_trainingExerciseId) {
-        repository.loadExerciseMeasures(it)
+        trainingExerciseRepository.loadExerciseMeasures(it)
     }
     
     fun setParams(setId: Long, trainingExerciseId: Long) {
@@ -33,11 +34,11 @@ class AddSetViewModel @Inject constructor(
     }
     
     fun addSet() {
-        set.value?.let { repository.insertSet(it) }
+        set.value?.let { trainingExerciseSetRepository.insertSet(it) }
     }
     
     fun updateSet() {
-        set.value?.let { repository.updateSet(it) }
+        set.value?.let { trainingExerciseSetRepository.updateSet(it) }
     }
     
     fun decreaseWeight() {

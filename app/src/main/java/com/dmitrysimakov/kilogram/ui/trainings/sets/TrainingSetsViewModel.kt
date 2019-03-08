@@ -4,21 +4,24 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.entity.TrainingExerciseSet
-import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
-import com.dmitrysimakov.kilogram.util.AbsentLiveData
+import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
+import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseSetRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
 import javax.inject.Inject
 
-class TrainingSetsViewModel @Inject constructor(private val repository: TrainingRepository) : ViewModel() {
+class TrainingSetsViewModel @Inject constructor(
+        private val trainingExerciseSetRepository: TrainingExerciseSetRepository,
+        private val trainingExerciseRepository: TrainingExerciseRepository
+) : ViewModel() {
 
     private val _trainingExerciseId = MutableLiveData<Long>()
 
     val sets = Transformations.switchMap(_trainingExerciseId) {
-        repository.loadSets(it)
+        trainingExerciseSetRepository.loadSets(it)
     }
     
     val exerciseMeasures = Transformations.switchMap(_trainingExerciseId) {
-        repository.loadExerciseMeasures(it)
+        trainingExerciseRepository.loadExerciseMeasures(it)
     }
 
     fun setTrainingExercise(id: Long) {
@@ -26,6 +29,6 @@ class TrainingSetsViewModel @Inject constructor(private val repository: Training
     }
 
     fun deleteSet(set: TrainingExerciseSet) {
-        repository.deleteSet(set)
+        trainingExerciseSetRepository.deleteSet(set)
     }
 }
