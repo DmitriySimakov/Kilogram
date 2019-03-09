@@ -13,6 +13,6 @@
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="3"
-        tools:listitem="@layout/choose_muscle_item"/>
+        tools:listitem="@layout/item_choose_muscle"/>
 
 </FrameLayout>

@@ -3,9 +3,7 @@ package com.dmitrysimakov.kilogram.ui.programs.create_program
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.util.Log.d
 import android.view.*
-import android.view.inputmethod.EditorInfo
 import androidx.annotation.MainThread
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
@@ -51,8 +49,6 @@ class CreateProgramDialog : DaggerAppCompatDialogFragment(), ItemInsertedListene
         return binding.root
     }
 
-    
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (dialog == null) {
@@ -60,9 +56,8 @@ class CreateProgramDialog : DaggerAppCompatDialogFragment(), ItemInsertedListene
             setHasOptionsMenu(true)
         }
         
-        name.setOnEditorActionListener { _, _, _ ->
-            createProgram()
-            true
+        descriptionET.setOnFocusChangeListener { _, hasFocus ->
+            descriptionTIL.isCounterEnabled = hasFocus
         }
         
         activity?.fab?.hide()
@@ -75,15 +70,21 @@ class CreateProgramDialog : DaggerAppCompatDialogFragment(), ItemInsertedListene
 
     override fun onOptionsItemSelected(item: MenuItem?) = when (item?.itemId) {
         R.id.ok -> {
-            createProgram()
+            if (validate()) {
+                hideKeyboard()
+                viewModel.createProgram(this)
+            }
             true
         }
         else -> false
     }
     
-    private fun createProgram() {
-        hideKeyboard()
-        viewModel.createProgram(this)
+    private fun validate():Boolean {
+        val nameIsEmpty = nameTIL.editText?.text.toString().trim().isEmpty()
+        if (nameIsEmpty) nameTIL.error = "Заполните поле"
+        nameTIL.isErrorEnabled = nameIsEmpty
+        
+        return !nameIsEmpty
     }
 
     @MainThread

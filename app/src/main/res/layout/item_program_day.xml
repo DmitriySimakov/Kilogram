@@ -25,7 +25,7 @@
                 android:layout_marginStart="?attr/listPreferredItemPaddingLeft"
                 android:textAppearance="?android:attr/textAppearanceListItem"
                 android:text="@{day.name}"
-                tools:text="На массу"
+                tools:text="Название дня тренировочной программы"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/drag_icon"/>
