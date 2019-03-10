@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     
     <data>
         <variable
@@ -14,21 +15,37 @@
         android:padding="?attr/dialogPreferredPadding"
         android:orientation="vertical"
         tools:context=".ui.trainings.create_training.CreateTrainingDialog">
-        
-        <EditText
-            android:id="@+id/name"
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/nameTIL"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@={viewModel.name}"
-            tools:text="Понедельник день тяжёлый"
-            android:inputType="text"/>
+            android:layout_height="wrap_content">
     
-        <EditText
-            android:id="@+id/description"
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={viewModel.name}"
+                android:hint="@string/name"
+                android:inputType="text"/>
+            
+        </com.google.android.material.textfield.TextInputLayout>
+    
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/descriptionTIL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Описание"
-            android:inputType="textMultiLine"/>
+            app:counterMaxLength="100">
+    
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/descriptionET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={viewModel.description}"
+                android:hint="@string/description"
+                android:inputType="textMultiLine"
+                android:maxLength="100"/>
+            
+        </com.google.android.material.textfield.TextInputLayout>
     
     </LinearLayout>
 

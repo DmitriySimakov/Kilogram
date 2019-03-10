@@ -37,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="?attr/listPreferredItemPaddingLeft"
                 android:paddingEnd="?attr/listPreferredItemPaddingRight"
+                android:text="@{program.description}"
                 tools:text="Описание"
                 app:layout_constraintTop_toBottomOf="@id/name"/>
             

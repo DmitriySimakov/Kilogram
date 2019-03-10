@@ -15,6 +15,7 @@ import com.dmitrysimakov.kilogram.util.getViewModel
 import com.dmitrysimakov.kilogram.util.hideKeyboard
 import dagger.android.support.DaggerAppCompatDialogFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.dialog_create_program_day.*
 import javax.inject.Inject
 
 class CreateProgramDayDialog : DaggerAppCompatDialogFragment(), ItemInsertedListener {
@@ -59,6 +60,10 @@ class CreateProgramDayDialog : DaggerAppCompatDialogFragment(), ItemInsertedList
             activity?.toolbar?.setNavigationIcon(R.drawable.baseline_close_white_24)
             setHasOptionsMenu(true)
         }
+    
+        descriptionET.setOnFocusChangeListener { _, hasFocus ->
+            descriptionTIL.isCounterEnabled = hasFocus
+        }
         
         activity?.fab?.hide()
     }
@@ -70,13 +75,23 @@ class CreateProgramDayDialog : DaggerAppCompatDialogFragment(), ItemInsertedList
 
     override fun onOptionsItemSelected(item: MenuItem?) = when (item?.itemId) {
         R.id.ok -> {
-            hideKeyboard()
-            viewModel.createProgramDay(params.num, this)
+            if (validate()) {
+                hideKeyboard()
+                viewModel.createProgramDay(params.num, this)
+            }
             true
         }
         else -> false
     }
-
+    
+    private fun validate():Boolean {
+        val nameIsEmpty = nameTIL.editText?.text.toString().trim().isEmpty()
+        if (nameIsEmpty) nameTIL.error = "Заполните поле"
+        nameTIL.isErrorEnabled = nameIsEmpty
+        
+        return !nameIsEmpty
+    }
+    
     @MainThread
     override fun onItemInserted(id: Long) {
         findNavController().navigate(CreateProgramDayDialogDirections.toExercisesFragment(id))

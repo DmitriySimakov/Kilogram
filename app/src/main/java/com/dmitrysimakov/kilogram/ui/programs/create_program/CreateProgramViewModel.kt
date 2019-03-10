@@ -15,9 +15,10 @@ class CreateProgramViewModel @Inject constructor(
         private val repository: ProgramRepository
 ) : ViewModel() {
 
-    val name = MutableLiveData<String>()
+    val name = MutableLiveData("")
+    val description = MutableLiveData("")
 
     fun createProgram(callback: ItemInsertedListener) {
-        name.value?.let { repository.insertProgram(Program(name = it), callback) }
+        repository.insertProgram(Program(0, name.value!!, description.value!!), callback)
     }
 }

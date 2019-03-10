@@ -40,9 +40,10 @@
                 android:id="@+id/descriptionET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@={viewModel.description}"
                 android:hint="@string/description"
-                android:maxLength="100"
-                android:inputType="textMultiLine"/>
+                android:inputType="textMultiLine"
+                android:maxLength="100" />
     
         </com.google.android.material.textfield.TextInputLayout>
     

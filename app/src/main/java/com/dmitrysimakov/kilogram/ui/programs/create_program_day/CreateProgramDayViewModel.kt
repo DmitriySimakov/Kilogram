@@ -12,7 +12,8 @@ class CreateProgramDayViewModel @Inject constructor(
         private val repository: ProgramDayRepository
 ) : ViewModel() {
 
-    val name = MutableLiveData<String>()
+    val name = MutableLiveData("")
+    val description = MutableLiveData("")
     
     private val _programId = MutableLiveData<Long>()
     
@@ -21,8 +22,8 @@ class CreateProgramDayViewModel @Inject constructor(
     }
     
     fun createProgramDay(num: Int, callback: ItemInsertedListener) {
-        if (name.value != null && _programId.value != null) {
-            repository.insertProgramDay(ProgramDay(0, name.value!!, num, _programId.value!!), callback)
+        _programId.value?.let {
+            repository.insertProgramDay(ProgramDay(0, it, num, name.value!!, description.value!!), callback)
         }
     }
 }

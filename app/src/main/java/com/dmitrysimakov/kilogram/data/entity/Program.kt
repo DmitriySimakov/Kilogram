@@ -7,5 +7,6 @@ import com.dmitrysimakov.kilogram.util.HasId
 @Entity(tableName = "program")
 data class Program(
         @PrimaryKey(autoGenerate = true) override val _id: Long = 0,
-        val name: String
+        val name: String,
+        val description: String = ""
 ) : HasId
