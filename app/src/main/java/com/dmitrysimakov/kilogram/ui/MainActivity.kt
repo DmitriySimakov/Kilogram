@@ -38,7 +38,7 @@ class MainActivity : DaggerAppCompatActivity() {
         super.onCreate(savedInstanceState)
         
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
         viewModel.timerIsRunning.observe(this, Observer { timerIsRunning = it })
         binding.viewModel = viewModel

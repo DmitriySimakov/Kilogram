@@ -6,14 +6,13 @@
     <data>
         
         <variable
-            name="viewModel"
+            name="vm"
             type="com.dmitrysimakov.kilogram.ui.trainings.exercises.TrainingExercisesViewModel" />
     </data>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.exercises.detail.ExerciseDetailFragment">
+        android:layout_height="match_parent">
     
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,33 +29,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_running_exercise"
+                tools:listitem="@layout/item_exercise_running"
                 tools:itemCount="1"/>
             
             <TextView
                 style="@style/LabelStyle"
                 android:text="Запланированные"
-                android:layout_marginLeft="?attr/listPreferredItemPaddingLeft"/>
+                android:layout_marginStart="?attr/listPreferredItemPaddingLeft"/>
             
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/plannedExercisesRV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_training_exercise"
+                tools:listitem="@layout/item_exercise_planned"
                 tools:itemCount="3"/>
             
             <TextView
                 style="@style/LabelStyle"
                 android:text="Выполненные"
-                android:layout_marginLeft="?attr/listPreferredItemPaddingLeft"/>
+                android:layout_marginStart="?attr/listPreferredItemPaddingLeft"/>
             
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/finishedExercisesRV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_finished_exercise"
+                tools:listitem="@layout/item_exercise_finished"
                 tools:itemCount="2"/>
             
         </LinearLayout>

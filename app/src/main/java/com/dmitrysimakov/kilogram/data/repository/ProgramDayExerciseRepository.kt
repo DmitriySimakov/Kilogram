@@ -3,6 +3,7 @@ package com.dmitrysimakov.kilogram.data.repository
 import com.dmitrysimakov.kilogram.data.dao.ProgramDayExerciseDao
 import com.dmitrysimakov.kilogram.data.entity.ProgramDayExercise
 import com.dmitrysimakov.kilogram.data.relation.ProgramExerciseR
+import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import javax.inject.Inject
 import javax.inject.Singleton

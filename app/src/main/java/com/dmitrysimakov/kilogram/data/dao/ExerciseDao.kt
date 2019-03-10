@@ -2,9 +2,8 @@ package com.dmitrysimakov.kilogram.data.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.dmitrysimakov.kilogram.data.relation.ExerciseMeasures
 import com.dmitrysimakov.kilogram.data.entity.Exercise
-import com.dmitrysimakov.kilogram.data.relation.ExerciseR
+import com.dmitrysimakov.kilogram.data.relation.DetailedExerciseR
 
 @Dao
 interface ExerciseDao {
@@ -31,7 +30,7 @@ interface ExerciseDao {
         FROM exercise AS ex
         WHERE _id = :id
     """)
-    fun getExerciseR(id: Long) : LiveData<ExerciseR>
+    fun getDetailedExerciseR(id: Long) : LiveData<DetailedExerciseR>
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(list: List<Exercise>)

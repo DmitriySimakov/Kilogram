@@ -13,7 +13,7 @@ class Trainings_ChooseMuscleFragment : ChooseMuscleFragment() {
         
         val params = Trainings_ChooseMuscleFragmentArgs.fromBundle(arguments!!)
         
-        adapter.setClickListener { muscle ->
+        adapter.clickCallback = { muscle ->
             findNavController().navigate(Trainings_ChooseMuscleFragmentDirections
                     .toChooseExerciseFragment(muscle._id, params.num, params.trainingId))
         }

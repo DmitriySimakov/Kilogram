@@ -13,16 +13,14 @@ class Programs_ChooseProgramFragment : ChooseProgramFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         
-        adapter.setClickListener { program ->
+        adapter.clickCallback = { program ->
             findNavController().navigate(Programs_ChooseProgramFragmentDirections.toChooseProgramDayFragment(program._id))
         }
     
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
-            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
-                return false
-            }
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean { return false }
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                viewModel.deleteProgram(adapter.get(viewHolder.adapterPosition))
+                viewModel.deleteProgram(adapter.getItem(viewHolder.adapterPosition))
             }
         }).attachToRecyclerView(recyclerView)
     

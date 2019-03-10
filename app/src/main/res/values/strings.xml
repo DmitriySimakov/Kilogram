@@ -18,7 +18,7 @@
     <string name="about">О приложении</string>
     
     <!-- Options menu -->
-    <string name="finish_session">Завершить тренировку</string>
+    <string name="finish_training">Завершить тренировку</string>
     <string name="delete_session">Удалить тренировку</string>
     
     <!-- ExerciseDescriptionFragment -->
@@ -79,5 +79,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="name">Название</string>
+    <string name="finish_exercise">Завершить упражнение</string>
 
 </resources>

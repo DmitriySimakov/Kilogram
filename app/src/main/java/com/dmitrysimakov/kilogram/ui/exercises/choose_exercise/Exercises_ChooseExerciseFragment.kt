@@ -12,7 +12,7 @@ class Exercises_ChooseExerciseFragment : ChooseExerciseFragment() {
         val params = Exercises_ChooseExerciseFragmentArgs.fromBundle(arguments!!)
         viewModel.setMuscle(params.muscleId)
         
-        adapter.setClickListener { exercise ->
+        adapter.clickCallback = { exercise ->
             findNavController().navigate(Exercises_ChooseExerciseFragmentDirections
                     .toExerciseDetailFragment(exercise._id))
         }

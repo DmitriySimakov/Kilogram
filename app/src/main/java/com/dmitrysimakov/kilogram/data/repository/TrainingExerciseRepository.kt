@@ -13,7 +13,9 @@ class TrainingExerciseRepository @Inject constructor(
         private val trainingExerciseDao: TrainingExerciseDao
 ) {
     
-    fun loadExercises(training_id: Long) = trainingExerciseDao.getExercises(training_id)
+    fun loadExercises(trainingId: Long) = trainingExerciseDao.getExercises(trainingId)
+    
+    fun loadExercise(id: Long) = trainingExerciseDao.getExercise(id)
     
     fun loadExerciseMeasures(trainingExerciseId: Long) = trainingExerciseDao.getExerciseMeasures(trainingExerciseId)
     
@@ -32,6 +34,18 @@ class TrainingExerciseRepository @Inject constructor(
     fun fillTrainingWithProgramExercises(trainingId: Long, programDayId: Long) {
         executors.diskIO().execute {
             trainingExerciseDao.fillTrainingWithProgramExercises(trainingId, programDayId)
+        }
+    }
+    
+    fun updateState(id: Long, state: Int) {
+        executors.diskIO().execute {
+            trainingExerciseDao.updateState(id, state)
+        }
+    }
+    
+    fun finishTrainingExercises(trainingId: Long) {
+        executors.diskIO().execute {
+            trainingExerciseDao.finishTrainingExercises(trainingId, TrainingExercise.FINISHED, TrainingExercise.RUNNING)
         }
     }
 }

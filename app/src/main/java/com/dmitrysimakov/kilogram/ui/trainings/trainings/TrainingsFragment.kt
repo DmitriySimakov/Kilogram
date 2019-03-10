@@ -45,11 +45,9 @@ class TrainingsFragment : DaggerFragment() {
         viewModel.trainingList.observe(this, Observer { adapter.submitList(it) })
 
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
-            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
-                return false
-            }
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean { return false }
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                val training = adapter.get(viewHolder.adapterPosition)
+                val training = adapter.getItem(viewHolder.adapterPosition)
                 viewModel.deleteTraining(training)
                 val mainViewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
                 mainViewModel.onTrainingSessionFinished()

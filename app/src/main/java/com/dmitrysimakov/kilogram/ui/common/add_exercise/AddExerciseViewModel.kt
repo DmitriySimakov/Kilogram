@@ -33,7 +33,7 @@ class AddExerciseViewModel @Inject constructor(
     
     fun addExerciseToTraining(trainingId: Long, num: Int) {
         exercise.value?.let { trainingExerciseRepository.addExercise(
-                TrainingExercise(0, trainingId, it._id, num, restTime.value?: 3*60, strategy.value, it.measures)) }
+                TrainingExercise(0, trainingId, it._id, num, restTime.value?: 3*60, strategy.value, TrainingExercise.PLANNED, it.measures)) }
     }
     
     fun addExerciseToProgramDay(programDayId: Long, num: Int) {

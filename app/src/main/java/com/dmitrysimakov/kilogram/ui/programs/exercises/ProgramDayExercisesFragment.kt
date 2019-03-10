@@ -58,7 +58,7 @@ class ProgramDayExercisesFragment : DaggerFragment() {
                 return false
             }
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                viewModel.deleteExercise(adapter.get(viewHolder.adapterPosition))
+                viewModel.deleteExercise(adapter.getItem(viewHolder.adapterPosition))
             }
         }).attachToRecyclerView(recyclerView)
     
@@ -73,7 +73,7 @@ class ProgramDayExercisesFragment : DaggerFragment() {
         super.onPause()
         val list = mutableListOf<ProgramExerciseR>()
         for (i in 0 until adapter.itemCount) {
-            list.add(adapter.get(i).apply { num = i + 1 })
+            list.add(adapter.getItem(i).apply { num = i + 1 })
         }
         viewModel.updateNums(list)
     }

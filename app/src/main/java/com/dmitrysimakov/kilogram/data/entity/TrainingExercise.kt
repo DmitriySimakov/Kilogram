@@ -24,5 +24,12 @@ data class TrainingExercise(
         val num: Int,
         val rest: Int,
         val strategy: String? = null,
+        val state: Int = PLANNED,
         @Embedded(prefix = "measure_") val measures: ExerciseMeasures = ExerciseMeasures()
-) : HasId
+) : HasId {
+    companion object {
+        const val PLANNED = 0
+        const val RUNNING = 1
+        const val FINISHED = 2
+    }
+}

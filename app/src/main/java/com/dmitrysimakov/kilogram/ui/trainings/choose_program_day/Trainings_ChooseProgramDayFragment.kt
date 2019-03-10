@@ -16,7 +16,7 @@ class Trainings_ChooseProgramDayFragment : ChooseProgramDayFragment() {
         val params = Trainings_ChooseProgramDayFragmentArgs.fromBundle(arguments!!)
         viewModel.setProgram(params.programId)
         
-        adapter.setClickListener { programDay ->
+        adapter.clickCallback = { programDay ->
             val mainViewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
             mainViewModel.programDayId.value = programDay._id
             findNavController().popBackStack(R.id.createTrainingFragment, false)

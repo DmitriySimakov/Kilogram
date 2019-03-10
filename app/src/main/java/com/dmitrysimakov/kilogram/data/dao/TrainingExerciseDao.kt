@@ -10,14 +10,23 @@ import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR
 interface TrainingExerciseDao {
 
     @Query("""
-        SELECT te._id AS _id, e._id AS exercise_id, e.name, te.num, te.rest, te.strategy
+        SELECT te._id AS _id, e._id AS exercise_id, e.name, te.num, te.rest, te.strategy, te.state
         FROM training_exercise AS te
-        LEFT JOIN exercise AS e
+        INNER JOIN exercise AS e
         ON te.exercise_id = e._id
         WHERE te.training_id = :training_id
         ORDER BY te.num
     """)
     fun getExercises(training_id: Long): LiveData<List<TrainingExerciseR>>
+    
+    @Query("""
+        SELECT te._id, e._id AS exercise_id, e.name, te.num, te.rest, te.strategy, te.state
+        FROM training_exercise AS te
+        INNER JOIN exercise AS e
+        ON te.exercise_id = e._id
+        WHERE te._id = :id
+    """)
+    fun getExercise(id: Long): LiveData<TrainingExerciseR>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(list: List<TrainingExercise>)
@@ -41,10 +50,19 @@ interface TrainingExerciseDao {
     
     @Suppress("AndroidUnresolvedRoomSqlReference")
     @Query("""
-        INSERT INTO training_exercise (training_id, exercise_id, num, rest, strategy, measure_weight, measure_reps, measure_time, measure_distance)
-        SELECT :trainingId, exercise_id, num, rest, strategy, measure_weight, measure_reps, measure_time, measure_distance
+        INSERT INTO training_exercise (training_id, exercise_id, num, rest, strategy, state, measure_weight, measure_reps, measure_time, measure_distance)
+        SELECT :trainingId, exercise_id, num, rest, strategy, 0, measure_weight, measure_reps, measure_time, measure_distance
         FROM program_day_exercise
         WHERE program_day_id = :programDayId
     """)
     fun fillTrainingWithProgramExercises(trainingId: Long, programDayId: Long)
+    
+    @Query("UPDATE training_exercise SET state = :state WHERE _id = :id")
+    fun updateState(id: Long, state: Int)
+    
+    @Query("""
+        UPDATE training_exercise
+        SET state = :finished
+        WHERE training_id = :trainingId AND state = :running""")
+    fun finishTrainingExercises(trainingId: Long, finished: Int, running: Int)
 }

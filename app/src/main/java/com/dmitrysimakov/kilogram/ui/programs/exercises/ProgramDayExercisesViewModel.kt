@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.relation.ProgramExerciseR
+import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayExerciseRepository
-import com.dmitrysimakov.kilogram.data.repository.ProgramRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
 import javax.inject.Inject
 
@@ -19,7 +19,7 @@ class ProgramDayExercisesViewModel @Inject constructor(
     private val _programDayId = MutableLiveData<Long>()
     
     val exercises = Transformations.switchMap(_programDayId) {
-        d(TAG, "exercises load")
+        d(TAG, "plannedExercises load")
         repository.loadExercises(it)
     }
     

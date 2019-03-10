@@ -1,7 +1,7 @@
 package com.dmitrysimakov.kilogram.ui.trainings.exercises
 
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR
+import com.dmitrysimakov.kilogram.databinding.FragmentTrainingExercisesBinding
 import com.dmitrysimakov.kilogram.ui.MainViewModel
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.util.getViewModel
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.fragment_exercises.*
 import java.util.*
 import javax.inject.Inject
 
@@ -24,69 +24,103 @@ class TrainingExercisesFragment : DaggerFragment() {
     
     private val TAG = this::class.java.simpleName
     
+    @Inject lateinit var executors: AppExecutors
+    
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    @Inject lateinit var executors: AppExecutors
-
-    protected lateinit var viewModel: TrainingExercisesViewModel
-
-    protected lateinit var adapter: TrainingExerciseListAdapter
+    private val viewModel by lazy { getViewModel<TrainingExercisesViewModel>(viewModelFactory) }
     
-    private lateinit var params: TrainingExercisesFragmentArgs
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_exercises, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    private val params by lazy { TrainingExercisesFragmentArgs.fromBundle(arguments!!) }
     
-        setHasOptionsMenu(true)
-        params = TrainingExercisesFragmentArgs.fromBundle(arguments!!)
+    private lateinit var binding: FragmentTrainingExercisesBinding
     
-        adapter = TrainingExerciseListAdapter(executors) {
-            findNavController().navigate(TrainingExercisesFragmentDirections.toTrainingSetsFragment(it._id))
-        }
-        recyclerView.adapter = adapter
+    private val exerciseRunningListAdapter by lazy {
+        ExerciseRunningListAdapter(executors, { toSetsFragment(it) }, { viewModel.finishExercise(it) }) }
+    private val exercisePlannedListAdapter by lazy { ExercisePlannedListAdapter(executors) { toSetsFragment(it) } }
+    private val exerciseFinishedListAdapter by lazy { ExerciseFinishedListAdapter(executors) { toSetsFragment(it) } }
     
-        viewModel = getViewModel(viewModelFactory)
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
         viewModel.setTraining(params.trainingId)
         viewModel.training.observe(this, Observer {  })
-        viewModel.exercises.observe(this, Observer { adapter.submitList(it) })
+        viewModel.runningExercises.observe(this, Observer { exerciseRunningListAdapter.submitList(it) })
+        viewModel.plannedExercises.observe(this, Observer { exercisePlannedListAdapter.submitList(it) })
+        viewModel.finishedExercises.observe(this, Observer { exerciseFinishedListAdapter.submitList(it) })
+    }
     
-        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
-            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
-                return false
-            }
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                viewModel.deleteExercise(adapter.get(viewHolder.adapterPosition))
-            }
-        }).attachToRecyclerView(recyclerView)
-        
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = FragmentTrainingExercisesBinding.inflate(inflater)
+        binding.lifecycleOwner = this
+        binding.vm = viewModel
+    
+        setHasOptionsMenu(true)
+        setupAdapters()
+    
         activity?.fab?.show()
         activity?.fab?.setOnClickListener{
             findNavController().navigate(TrainingExercisesFragmentDirections
-                    .toChooseMuscleFragment(adapter.itemCount + 1 ,params.trainingId))
+                    .toChooseMuscleFragment(exercisePlannedListAdapter.itemCount + 1 ,params.trainingId))
         }
+        
+        return binding.root
+    }
+    
+    private fun setupAdapters() {
+        with(binding) {
+            runningExercisesRV.adapter = exerciseRunningListAdapter
+            plannedExercisesRV.adapter = exercisePlannedListAdapter
+            finishedExercisesRV.adapter = exerciseFinishedListAdapter
+        
+            ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+                override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean { return false }
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
+                    viewModel.deleteExercise(exerciseRunningListAdapter.getItem(viewHolder.adapterPosition))
+                }
+            }).attachToRecyclerView(runningExercisesRV)
+        
+            ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.RIGHT) {
+                override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+                    val startPos = viewHolder.adapterPosition
+                    val targetPos = target.adapterPosition
+                    Collections.swap(viewModel.plannedExercises.value, startPos, targetPos)
+                    exercisePlannedListAdapter.notifyItemMoved(startPos, targetPos)
+                    return false
+                }
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
+                    viewModel.deleteExercise(exercisePlannedListAdapter.getItem(viewHolder.adapterPosition))
+                }
+            }).attachToRecyclerView(plannedExercisesRV)
+        
+            ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+                override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean { return false }
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
+                    viewModel.deleteExercise(exerciseFinishedListAdapter.getItem(viewHolder.adapterPosition))
+                }
+            }).attachToRecyclerView(finishedExercisesRV)
+        }
+    }
+    
+    private fun toSetsFragment(exercise: TrainingExerciseR) {
+        findNavController().navigate(TrainingExercisesFragmentDirections
+                .toTrainingSetsFragment(exercise._id, exercise.state))
     }
     
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         super.onCreateOptionsMenu(menu, inflater)
-        if (params.trainingIsRunning) {
-            inflater?.inflate(R.menu.active_training, menu);
+        inflater?.inflate(R.menu.training_exercises, menu)
+        if (!params.trainingIsRunning) {
+            menu?.removeItem(R.id.finish_training)
         }
     }
     
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-            R.id.finish_session -> {
-                viewModel.finishSession()
-                val mainViewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
-                mainViewModel.onTrainingSessionFinished()
-                findNavController().popBackStack()
-                return true
-            }
+    override fun onOptionsItemSelected(item: MenuItem?) = when (item?.itemId) {
+        R.id.finish_training -> {
+            viewModel.finishTraining()
+            val mainViewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
+            mainViewModel.onTrainingSessionFinished()
+            findNavController().popBackStack()
+            true
         }
-        return false
+        else -> false
     }
 }

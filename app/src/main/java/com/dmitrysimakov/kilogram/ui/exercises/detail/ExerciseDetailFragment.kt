@@ -22,11 +22,10 @@ class ExerciseDetailFragment : DaggerFragment() {
         val args = ExerciseDetailFragmentArgs.fromBundle(arguments!!)
         viewModel.setExercise(args.exerciseId)
         
-        FragmentExerciseDetailBinding.inflate(inflater).apply {
-            vm = viewModel
-            lifecycleOwner = this@ExerciseDetailFragment
-            return root
-        }
+        val binding = FragmentExerciseDetailBinding.inflate(inflater)
+        binding.vm = viewModel
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

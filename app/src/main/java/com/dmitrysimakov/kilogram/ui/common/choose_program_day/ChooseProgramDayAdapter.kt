@@ -13,10 +13,8 @@ class ChooseProgramDayAdapter(
 ) : DataBoundListAdapter<ProgramDay, ItemProgramDayBinding>(appExecutors, clickCallback) {
  
     
-    override fun createBinding(parent: ViewGroup) = ItemProgramDayBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false).apply {
-        root.setOnClickListener { day?.run { clickCallback?.invoke(this) } }
-    }
+    override fun createBinding(parent: ViewGroup) = ItemProgramDayBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
 
     override fun bind(binding: ItemProgramDayBinding, item: ProgramDay) {
         binding.day = item

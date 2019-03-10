@@ -7,6 +7,6 @@ data class ProgramExerciseR(
         val exercise_id: Long,
         val name: String,
         var num: Int,
-        var rest: Int,
+        val rest: Int,
         val strategy: String?
 ) : HasId

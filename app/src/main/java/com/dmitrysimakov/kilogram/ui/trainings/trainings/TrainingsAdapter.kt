@@ -12,10 +12,8 @@ class TrainingsAdapter(
         clickCallback: ((Training) -> Unit)?
 ) : DataBoundListAdapter<Training, ItemTrainingBinding>(appExecutors, clickCallback) {
 
-    override fun createBinding(parent: ViewGroup) = ItemTrainingBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false).apply {
-        root.setOnClickListener { training?.run { clickCallback?.invoke(this) } }
-    }
+    override fun createBinding(parent: ViewGroup) = ItemTrainingBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
 
     override fun bind(binding: ItemTrainingBinding, item: Training) {
         binding.training = item

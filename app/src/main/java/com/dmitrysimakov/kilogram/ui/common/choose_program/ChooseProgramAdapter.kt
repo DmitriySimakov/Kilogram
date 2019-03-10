@@ -12,10 +12,8 @@ class ChooseProgramAdapter(
         clickCallback: ((Program) -> Unit)? = null
 ) : DataBoundListAdapter<Program, ItemProgramBinding>(appExecutors, clickCallback) {
 
-    override fun createBinding(parent: ViewGroup) = ItemProgramBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false).apply {
-        root.setOnClickListener { program?.run { clickCallback?.invoke(this) } }
-    }
+    override fun createBinding(parent: ViewGroup) = ItemProgramBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
 
     override fun bind(binding: ItemProgramBinding, item: Program) {
         binding.program = item

@@ -10,7 +10,7 @@ class Trainings_ChooseProgramFragment : ChooseProgramFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
     
-        adapter.setClickListener { program ->
+        adapter.clickCallback = { program ->
             findNavController().navigate(Trainings_ChooseProgramFragmentDirections
                     .toChooseProgramDayFragment(program._id))
         }

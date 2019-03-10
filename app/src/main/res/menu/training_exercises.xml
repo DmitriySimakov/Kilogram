@@ -4,9 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     
     <item
-        android:id="@+id/finish_session"
+        android:id="@+id/finish_training"
         android:orderInCategory="1"
-        android:title="@string/finish_session"
+        android:title="@string/finish_training"
         android:icon="@drawable/baseline_flag_white_24"
         app:showAsAction="ifRoom" />
 

@@ -11,7 +11,7 @@ class Exercises_ChooseMuscleFragment : ChooseMuscleFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         
-        adapter.setClickListener { muscle ->
+        adapter.clickCallback = { muscle ->
             findNavController().navigate(Exercises_ChooseMuscleFragmentDirections
                     .toChooseExerciseFragment(muscle._id))
         }

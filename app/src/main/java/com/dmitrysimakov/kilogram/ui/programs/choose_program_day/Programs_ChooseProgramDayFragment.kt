@@ -10,7 +10,6 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_choose_program_day.*
 import java.util.*
 import com.dmitrysimakov.kilogram.data.entity.ProgramDay
-import kotlin.collections.HashSet
 
 class Programs_ChooseProgramDayFragment : ChooseProgramDayFragment() {
     
@@ -22,7 +21,7 @@ class Programs_ChooseProgramDayFragment : ChooseProgramDayFragment() {
         val params = Programs_ChooseProgramDayFragmentArgs.fromBundle(arguments!!)
         viewModel.setProgram(params.programId)
         
-        adapter.setClickListener { programDay ->
+        adapter.clickCallback = { programDay ->
             findNavController().navigate(Programs_ChooseProgramDayFragmentDirections
                     .toExercisesFragment(programDay._id))
         }
@@ -37,7 +36,7 @@ class Programs_ChooseProgramDayFragment : ChooseProgramDayFragment() {
                 return false
             }
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                viewModel.deleteTrainingDay(adapter.get(viewHolder.adapterPosition))
+                viewModel.deleteTrainingDay(adapter.getItem(viewHolder.adapterPosition))
             }
         }).attachToRecyclerView(recyclerView)
     
@@ -52,7 +51,7 @@ class Programs_ChooseProgramDayFragment : ChooseProgramDayFragment() {
         super.onPause()
         val list = mutableListOf<ProgramDay>()
         for (i in 0 until adapter.itemCount) {
-            list.add(adapter.get(i).apply { num = i + 1 })
+            list.add(adapter.getItem(i).apply { num = i + 1 })
         }
         viewModel.updateNums(list)
     }

@@ -14,7 +14,7 @@ class ExerciseRepository @Inject constructor(
 
     fun loadExercise(id: Long) = exerciseDao.getExercise(id)
     
-    fun loadExerciseR(id: Long) = exerciseDao.getExerciseR(id)
+    fun loadDetailedExerciseR(id: Long) = exerciseDao.getDetailedExerciseR(id)
     
     fun updateExercise(exercise: Exercise) {
         executors.diskIO().execute {

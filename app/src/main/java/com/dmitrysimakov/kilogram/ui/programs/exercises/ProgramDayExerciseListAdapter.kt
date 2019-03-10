@@ -12,10 +12,8 @@ class ProgramDayExerciseListAdapter(
         clickCallback: ((ProgramExerciseR) -> Unit)? = null
 ) : DataBoundListAdapter<ProgramExerciseR, ItemProgramExerciseBinding>(appExecutors, clickCallback) {
 
-    override fun createBinding(parent: ViewGroup) = ItemProgramExerciseBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false).apply {
-        root.setOnClickListener { exercise?.run { clickCallback?.invoke(this) } }
-    }
+    override fun createBinding(parent: ViewGroup) = ItemProgramExerciseBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
 
     override fun bind(binding: ItemProgramExerciseBinding, item: ProgramExerciseR) {
         binding.exercise = item

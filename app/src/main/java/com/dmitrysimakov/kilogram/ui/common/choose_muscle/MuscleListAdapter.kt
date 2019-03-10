@@ -12,10 +12,8 @@ class MuscleListAdapter(
         clickCallback: ((Muscle) -> Unit)? = null
 ) : DataBoundListAdapter<Muscle, ItemChooseMuscleBinding>(appExecutors, clickCallback) {
 
-    override fun createBinding(parent: ViewGroup) = ItemChooseMuscleBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false).apply {
-        root.setOnClickListener { muscle?.run { clickCallback?.invoke(this) } }
-    }
+    override fun createBinding(parent: ViewGroup) = ItemChooseMuscleBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
 
     override fun bind(binding: ItemChooseMuscleBinding, item: Muscle) {
         binding.muscle = item

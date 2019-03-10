@@ -12,18 +12,15 @@ import com.dmitrysimakov.kilogram.util.DataBoundViewHolder
 class TrainingSetsAdapter(
         appExecutors: AppExecutors,
         private val exerciseMeasures: ExerciseMeasures,
-        clickCallback: ((TrainingExerciseSet) -> Unit)?
+        clickCallback: ((TrainingExerciseSet) -> Unit)
 ) : DataBoundListAdapter<TrainingExerciseSet, ItemSetBinding>(appExecutors, clickCallback) {
 
-    override fun createBinding(parent: ViewGroup) = ItemSetBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false).apply {
-        root.setOnClickListener { set?.run { clickCallback?.invoke(this) } }
-    }
+    override fun createBinding(parent: ViewGroup) = ItemSetBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
 
     override fun onBindViewHolder(holder: DataBoundViewHolder<ItemSetBinding>, position: Int) {
         holder.binding.num.text = (position + 1).toString()
-        bind(holder.binding, getItem(position))
-        holder.binding.executePendingBindings()
+        super.onBindViewHolder(holder, position)
     }
 
     override fun bind(binding: ItemSetBinding, item: TrainingExerciseSet) {

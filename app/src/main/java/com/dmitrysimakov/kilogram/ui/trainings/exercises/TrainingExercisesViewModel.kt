@@ -3,6 +3,7 @@ package com.dmitrysimakov.kilogram.ui.trainings.exercises
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import com.dmitrysimakov.kilogram.data.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
@@ -20,8 +21,20 @@ class TrainingExercisesViewModel @Inject constructor(
         trainingRepository.loadTraining(it)
     }
     
-    val exercises = Transformations.switchMap(_trainingId) {
+    private val exercises = Transformations.switchMap(_trainingId) {
         trainingExerciseRepository.loadExercises(it)
+    }
+    
+    val runningExercises = Transformations.map(exercises) { exercise ->
+        exercise.filter { it.state == TrainingExercise.RUNNING }
+    }
+    
+    val plannedExercises = Transformations.map(exercises) { exercise ->
+        exercise.filter { it.state == TrainingExercise.PLANNED }
+    }
+    
+    val finishedExercises = Transformations.map(exercises) { exercise ->
+        exercise.filter { it.state == TrainingExercise.FINISHED }
     }
     
     fun setTraining(id: Long) {
@@ -32,10 +45,15 @@ class TrainingExercisesViewModel @Inject constructor(
         trainingExerciseRepository.deleteExercise(exercise)
     }
     
-    fun finishSession() {
+    fun finishTraining() {
         training.value?.let {
             it.duration = 10 // TODO
             trainingRepository.updateTraining(it)
+            trainingExerciseRepository.finishTrainingExercises(it._id)
         }
+    }
+    
+    fun finishExercise(exercise: TrainingExerciseR) {
+        trainingExerciseRepository.updateState(exercise._id, TrainingExercise.FINISHED)
     }
 }

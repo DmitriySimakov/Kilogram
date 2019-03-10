@@ -12,10 +12,8 @@ class MeasurementsAdapter (
         clickCallback: ((MeasurementR) -> Unit)?
 ) : DataBoundListAdapter<MeasurementR, ItemMeasurementBinding>(appExecutors, clickCallback) {
 
-    override fun createBinding(parent: ViewGroup) = ItemMeasurementBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false).apply {
-        root.setOnClickListener { measurement?.run { clickCallback?.invoke(this) } }
-    }
+    override fun createBinding(parent: ViewGroup) = ItemMeasurementBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
 
     override fun bind(binding: ItemMeasurementBinding, item: MeasurementR) {
         binding.measurement = item

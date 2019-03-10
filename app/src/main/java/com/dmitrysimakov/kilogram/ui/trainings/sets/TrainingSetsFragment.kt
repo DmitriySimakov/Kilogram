@@ -1,14 +1,14 @@
 package com.dmitrysimakov.kilogram.ui.trainings.sets
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.dmitrysimakov.kilogram.R
+import com.dmitrysimakov.kilogram.data.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.databinding.FragmentTrainingSetsBinding
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.util.getViewModel
@@ -23,23 +23,26 @@ class TrainingSetsFragment : DaggerFragment() {
     
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var viewModel: TrainingSetsViewModel
+    private val viewModel by lazy { getViewModel<TrainingSetsViewModel>(viewModelFactory) }
+    
+    private val params by lazy { TrainingSetsFragmentArgs.fromBundle(arguments!!) }
     
     private lateinit var binding: FragmentTrainingSetsBinding
     
     private lateinit var adapter: TrainingSetsAdapter
-
+    
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentTrainingSetsBinding.inflate(inflater)
         binding.lifecycleOwner = this
+        
+        setHasOptionsMenu(true)
+        
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = getViewModel(viewModelFactory)
-        val params = TrainingSetsFragmentArgs.fromBundle(arguments!!)
         viewModel.setTrainingExercise(params.trainingExerciseId)
         
         viewModel.exerciseMeasures.observe(this, Observer { measures ->
@@ -51,14 +54,16 @@ class TrainingSetsFragment : DaggerFragment() {
             }
             recyclerView.adapter = adapter
     
+    
             viewModel.sets.observe(this, Observer { adapter.submitList(it) })
+            viewModel.state.observe(this, Observer { state ->
+                activity?.toolbar?.menu?.findItem(R.id.finish_exercise)?.isVisible = state == TrainingExercise.RUNNING
+            })
             
             ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
-                override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
-                    return false
-                }
+                override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean { return false }
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                    val set = adapter.get(viewHolder.adapterPosition)
+                    val set = adapter.getItem(viewHolder.adapterPosition)
                     viewModel.deleteSet(set)
                 }
             }).attachToRecyclerView(recyclerView)
@@ -69,5 +74,19 @@ class TrainingSetsFragment : DaggerFragment() {
             findNavController().navigate(TrainingSetsFragmentDirections
                     .toAddSetDialog(0, params.trainingExerciseId))
         }
+    }
+    
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater?.inflate(R.menu.training_sets, menu)
+    }
+    
+    override fun onOptionsItemSelected(item: MenuItem?) = when (item?.itemId) {
+        R.id.finish_exercise -> {
+            viewModel.finishExercise(params.trainingExerciseId)
+            findNavController().popBackStack()
+            true
+        }
+        else -> false
     }
 }
