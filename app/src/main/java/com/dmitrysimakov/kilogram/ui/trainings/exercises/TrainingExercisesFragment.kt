@@ -29,13 +29,14 @@ class TrainingExercisesFragment : DaggerFragment() {
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val viewModel by lazy { getViewModel<TrainingExercisesViewModel>(viewModelFactory) }
+    private val mainViewModel by lazy { ViewModelProviders.of(activity!!).get(MainViewModel::class.java) }
     
     private val params by lazy { TrainingExercisesFragmentArgs.fromBundle(arguments!!) }
     
     private lateinit var binding: FragmentTrainingExercisesBinding
     
     private val exerciseRunningListAdapter by lazy {
-        ExerciseRunningListAdapter(executors, { toSetsFragment(it) }, { viewModel.finishExercise(it) }) }
+        ExerciseRunningListAdapter(mainViewModel, this, executors, { toSetsFragment(it) }, { viewModel.finishExercise(it) }) }
     private val exercisePlannedListAdapter by lazy { ExercisePlannedListAdapter(executors) { toSetsFragment(it) } }
     private val exerciseFinishedListAdapter by lazy { ExerciseFinishedListAdapter(executors) { toSetsFragment(it) } }
     
@@ -102,7 +103,7 @@ class TrainingExercisesFragment : DaggerFragment() {
     
     private fun toSetsFragment(exercise: TrainingExerciseR) {
         findNavController().navigate(TrainingExercisesFragmentDirections
-                .toTrainingSetsFragment(exercise._id, exercise.state))
+                .toTrainingSetsFragment(exercise._id))
     }
     
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -116,7 +117,6 @@ class TrainingExercisesFragment : DaggerFragment() {
     override fun onOptionsItemSelected(item: MenuItem?) = when (item?.itemId) {
         R.id.finish_training -> {
             viewModel.finishTraining()
-            val mainViewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
             mainViewModel.onTrainingSessionFinished()
             findNavController().popBackStack()
             true

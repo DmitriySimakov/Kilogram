@@ -5,6 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools">
     
     <data>
+        <import type="com.dmitrysimakov.kilogram.util.Converter"/>
+        
+        <variable
+            name="vm"
+            type="com.dmitrysimakov.kilogram.ui.MainViewModel"/>
+        
         <variable
             name="exercise"
             type="com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR"/>
@@ -62,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 tools:text="120"
-                android:text="@{exercise.rest +``}"
+                android:text="@{Converter.toTimeFormat(exercise.rest - vm.restTime)}"
                 android:drawableTop="@drawable/baseline_timer_black_18"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
