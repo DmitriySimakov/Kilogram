@@ -59,5 +59,6 @@ class MainViewModel @Inject constructor(private val preferences: SharedPreferenc
     
     fun onSetCompleted() {
         restStartMillis = System.currentTimeMillis()
+        preferences.edit().putLong(PreferencesKeys.REST_START_MILLIS, restStartMillis).apply()
     }
 }

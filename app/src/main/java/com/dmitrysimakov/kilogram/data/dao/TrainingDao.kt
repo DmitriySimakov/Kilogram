@@ -7,7 +7,7 @@ import com.dmitrysimakov.kilogram.data.entity.Training
 @Dao
 interface TrainingDao {
     
-    @Query("SELECT * FROM training ORDER BY date_time DESC")
+    @Query("SELECT * FROM training ORDER BY start_time DESC")
     fun getTrainingList() : LiveData<List<Training>>
     
     @Query("SELECT * FROM training WHERE _id = :id")

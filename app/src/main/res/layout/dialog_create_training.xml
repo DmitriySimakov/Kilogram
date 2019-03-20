@@ -5,6 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools">
     
     <data>
+        <import type="com.dmitrysimakov.kilogram.util.Converter"/>
+        
         <variable
             name="viewModel"
             type="com.dmitrysimakov.kilogram.ui.trainings.create_training.CreateTrainingViewModel"/>
@@ -22,7 +24,7 @@
             android:layout_width="0dp"
             android:layout_height="?attr/listPreferredItemHeightSmall"
             android:gravity="center_vertical"
-            android:text="@{viewModel.date}"
+            android:text="@{Converter.calendarToDateFormat(viewModel.calendar)}"
             app:layout_constraintEnd_toStartOf="@id/time_tv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -33,7 +35,7 @@
             android:layout_width="0dp"
             android:layout_height="?attr/listPreferredItemHeightSmall"
             android:gravity="center_vertical"
-            android:text="@{viewModel.time}"
+            android:text="@{Converter.calendarToTimeFormat(viewModel.calendar)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/date_tv"
             app:layout_constraintTop_toTopOf="parent"

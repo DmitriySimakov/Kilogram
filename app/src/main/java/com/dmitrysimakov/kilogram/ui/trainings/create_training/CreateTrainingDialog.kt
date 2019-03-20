@@ -21,7 +21,6 @@ import com.dmitrysimakov.kilogram.util.hideKeyboard
 import dagger.android.support.DaggerAppCompatDialogFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.dialog_create_training.*
-import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
@@ -61,14 +60,15 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
 
     private fun setDatePickerDialog() {
         binding.dateTv.setOnClickListener {
-            val calendar = viewModel.calendar
+            val calendar = viewModel.calendar.value!!
             val curYear = calendar.get(Calendar.YEAR)
             val curMonthOfYear = calendar.get(Calendar.MONTH)
             val curDay = calendar.get(Calendar.DAY_OF_MONTH)
             DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                val c = Calendar.getInstance()
-                c.set(year, monthOfYear, dayOfMonth)
-                viewModel.date.value = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(c.time)
+                calendar.set(Calendar.YEAR, year)
+                calendar.set(Calendar.MONTH, monthOfYear)
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                viewModel.updateCalendar()
             }, curYear, curMonthOfYear, curDay).apply {
                 datePicker.minDate = 0
                 val millisecondsPerMonth = 30.toLong() * 24 * 60 * 60 * 1000
@@ -80,13 +80,13 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
 
     private fun setTimePickerDialog() {
         binding.timeTv.setOnClickListener{
-            val calendar = viewModel.calendar
+            val calendar = viewModel.calendar.value!!
             val curHourOfDay = calendar.get(Calendar.HOUR_OF_DAY)
             val curMinute = calendar.get(Calendar.MINUTE)
             val dialog = TimePickerDialog(context, { _, hourOfDay, minute ->
-                val c = Calendar.getInstance()
-                c.set(1970, 0, 1, hourOfDay, minute)
-                viewModel.time.value = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(c.time)
+                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                calendar.set(Calendar.MINUTE, minute)
+                viewModel.updateCalendar()
             }, curHourOfDay, curMinute, true)
             dialog.show()
         }
