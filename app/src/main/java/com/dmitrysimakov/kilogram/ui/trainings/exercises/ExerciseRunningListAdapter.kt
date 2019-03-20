@@ -5,15 +5,13 @@ import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR
 import com.dmitrysimakov.kilogram.databinding.ItemExerciseRunningBinding
-import com.dmitrysimakov.kilogram.ui.MainViewModel
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.util.DataBoundListAdapter
 
 class ExerciseRunningListAdapter(
-        private val restTime: LiveData<Int>,
+        private val sessionTime: LiveData<Int>,
         private val lifecycleOwner: LifecycleOwner,
         appExecutors: AppExecutors,
         clickCallback: ((TrainingExerciseR) -> Unit),
@@ -24,8 +22,8 @@ class ExerciseRunningListAdapter(
             .inflate(LayoutInflater.from(parent.context), parent, false)
 
     override fun bind(binding: ItemExerciseRunningBinding, item: TrainingExerciseR) {
-        restTime.observe(lifecycleOwner, Observer {
-            val rest = item.rest - it
+        sessionTime.observe(lifecycleOwner, Observer {
+            val rest = it - item.secs_since_start
             binding.rest = if (rest > 0) rest else 0
         })
         binding.lifecycleOwner = lifecycleOwner

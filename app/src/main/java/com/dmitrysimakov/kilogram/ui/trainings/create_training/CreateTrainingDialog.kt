@@ -50,7 +50,7 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewModel = getViewModel(viewModelFactory)
-        binding.viewModel = viewModel
+        binding.vm = viewModel
         binding.lifecycleOwner = this
 
         setDatePickerDialog()

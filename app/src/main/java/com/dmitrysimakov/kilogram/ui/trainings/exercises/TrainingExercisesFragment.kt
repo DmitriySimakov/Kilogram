@@ -36,7 +36,7 @@ class TrainingExercisesFragment : DaggerFragment() {
     private lateinit var binding: FragmentTrainingExercisesBinding
     
     private val exerciseRunningListAdapter by lazy {
-        ExerciseRunningListAdapter(mainViewModel.restTime, this, executors, { toSetsFragment(it) }, { viewModel.finishExercise(it) }) }
+        ExerciseRunningListAdapter(mainViewModel.sessionTime, this, executors, { toSetsFragment(it) }, { viewModel.finishExercise(it) }) }
     private val exercisePlannedListAdapter by lazy { ExercisePlannedListAdapter(executors) { toSetsFragment(it) } }
     private val exerciseFinishedListAdapter by lazy { ExerciseFinishedListAdapter(executors) { toSetsFragment(it) } }
     

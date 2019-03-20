@@ -8,7 +8,7 @@
         <import type="com.dmitrysimakov.kilogram.util.Converter"/>
         
         <variable
-            name="viewModel"
+            name="vm"
             type="com.dmitrysimakov.kilogram.ui.trainings.create_training.CreateTrainingViewModel"/>
     </data>
     
@@ -24,7 +24,7 @@
             android:layout_width="0dp"
             android:layout_height="?attr/listPreferredItemHeightSmall"
             android:gravity="center_vertical"
-            android:text="@{Converter.calendarToDateFormat(viewModel.calendar)}"
+            android:text="@{Converter.calendarToDateFormat(vm.calendar)}"
             app:layout_constraintEnd_toStartOf="@id/time_tv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -35,7 +35,7 @@
             android:layout_width="0dp"
             android:layout_height="?attr/listPreferredItemHeightSmall"
             android:gravity="center_vertical"
-            android:text="@{Converter.calendarToTimeFormat(viewModel.calendar)}"
+            android:text="@{Converter.calendarToTimeFormat(vm.calendar)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/date_tv"
             app:layout_constraintTop_toTopOf="parent"
@@ -62,7 +62,7 @@
             android:id="@+id/program_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="@={viewModel.byProgram}"
+            android:checked="@={vm.byProgram}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/program_label"
             app:layout_constraintTop_toBottomOf="@id/divider1"/>
@@ -72,8 +72,8 @@
             android:layout_width="0dp"
             android:layout_height="?attr/listPreferredItemHeightSmall"
             android:gravity="center_vertical"
-            android:text="@{viewModel.programDay.program}"
-            app:invisibleUnless="@{viewModel.byProgram}"
+            android:text="@{vm.programDay.program}"
+            app:invisibleUnless="@{vm.byProgram}"
             app:layout_constraintEnd_toStartOf="@id/programDayTV"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/program_label"
@@ -84,8 +84,8 @@
             android:layout_width="0dp"
             android:layout_height="?attr/listPreferredItemHeightSmall"
             android:gravity="center_vertical"
-            android:text='@{viewModel.programDay != null ? viewModel.programDay.program_day : "Выбрать" }'
-            app:invisibleUnless="@{viewModel.byProgram}"
+            android:text='@{vm.programDay != null ? vm.programDay.program_day : "Выбрать" }'
+            app:invisibleUnless="@{vm.byProgram}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/program_tv"
             app:layout_constraintTop_toBottomOf="@id/program_label"

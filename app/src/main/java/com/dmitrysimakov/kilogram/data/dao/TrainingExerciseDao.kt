@@ -10,7 +10,9 @@ import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR
 interface TrainingExerciseDao {
 
     @Query("""
-        SELECT te._id AS _id, e._id AS exercise_id, e.name, te.num, te.rest, te.strategy, te.state
+        SELECT te._id AS _id, e._id AS exercise_id, e.name, te.num, te.rest,
+        (SELECT secs_since_start FROM training_exercise_set WHERE training_exercise_id = te._id ORDER BY secs_since_start DESC LIMIT 1) AS secs_since_start,
+        te.strategy, te.state
         FROM training_exercise AS te
         INNER JOIN exercise AS e
         ON te.exercise_id = e._id
@@ -20,7 +22,9 @@ interface TrainingExerciseDao {
     fun getExercises(training_id: Long): LiveData<List<TrainingExerciseR>>
     
     @Query("""
-        SELECT te._id, e._id AS exercise_id, e.name, te.num, te.rest, te.strategy, te.state
+        SELECT te._id, e._id AS exercise_id, e.name, te.num, te.rest,
+        (SELECT secs_since_start FROM training_exercise_set WHERE training_exercise_id = te._id ORDER BY secs_since_start DESC LIMIT 1) AS secs_since_start,
+        te.strategy, te.state
         FROM training_exercise AS te
         INNER JOIN exercise AS e
         ON te.exercise_id = e._id

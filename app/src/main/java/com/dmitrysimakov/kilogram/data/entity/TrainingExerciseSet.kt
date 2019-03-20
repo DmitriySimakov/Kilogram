@@ -20,7 +20,7 @@ import com.dmitrysimakov.kilogram.util.HasId
 class TrainingExerciseSet(
         @PrimaryKey(autoGenerate = true) override val _id: Long = 0,
         val training_exercise_id: Long,
-        val secs_since_start: Int? = null,
+        var secs_since_start: Int? = null,
         weight: Int? = null,
         reps: Int? = null,
         time: Int? = null,

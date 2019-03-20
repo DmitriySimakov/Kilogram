@@ -18,10 +18,11 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import javax.inject.Inject
 
 class AddSetDialog : DaggerAppCompatDialogFragment() {
-
-    private lateinit var viewModel: AddSetViewModel
-
+    
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val viewModel by lazy { getViewModel<AddSetViewModel>(viewModelFactory) }
+    private val mainViewModel by lazy { ViewModelProviders.of(activity!!).get(MainViewModel::class.java) }
 
     private lateinit var binding: DialogAddSetBinding
 
@@ -42,9 +43,8 @@ class AddSetDialog : DaggerAppCompatDialogFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewModel = getViewModel(viewModelFactory)
         binding.viewModel = viewModel
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
 
         params = AddSetDialogArgs.fromBundle(arguments!!)
         viewModel.setParams(params.setId, params.trainingExerciseId)
@@ -72,8 +72,7 @@ class AddSetDialog : DaggerAppCompatDialogFragment() {
             R.id.ok -> {
                 hideKeyboard()
                 if (params.setId == 0L) {
-                    viewModel.addSet()
-                    val mainViewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
+                    viewModel.addSet(mainViewModel.sessionTime.value ?: 0)
                     mainViewModel.onSetCompleted()
                 } else {
                     viewModel.updateSet()

@@ -34,8 +34,9 @@ class AddSetViewModel @Inject constructor(
         _setId.setNewValue(setId)
     }
     
-    fun addSet() {
+    fun addSet(sessionTime: Int) {
         set.value?.let {
+            it.secs_since_start = sessionTime
             trainingExerciseSetRepository.insertSet(it)
             trainingExerciseRepository.updateState(_trainingExerciseId.value!!, TrainingExercise.RUNNING)
         }

@@ -9,6 +9,7 @@ data class TrainingExerciseR(
         val name: String,
         var num: Int,
         val rest: Int,
+        val secs_since_start: Int,
         val strategy: String?,
         val state: Int = TrainingExercise.PLANNED
 ) : HasId
