@@ -21,9 +21,9 @@ abstract class ChooseExerciseFragment : DaggerFragment() {
 
     @Inject lateinit var executors: AppExecutors
 
-    protected lateinit var viewModel: ChooseExerciseViewModel
+    protected val viewModel by lazy { getViewModel<ChooseExerciseViewModel>(viewModelFactory) }
 
-    protected lateinit var adapter: ExerciseListAdapter
+    protected val adapter by lazy { ExerciseListAdapter(executors) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_choose_exercise, container, false)
@@ -32,10 +32,8 @@ abstract class ChooseExerciseFragment : DaggerFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
     
-        adapter = ExerciseListAdapter(executors)
         recyclerView.adapter = adapter
     
-        viewModel = getViewModel(viewModelFactory)
         viewModel.exerciseList.observe(this, Observer { adapter.submitList(it) })
         
         activity?.fab?.hide()

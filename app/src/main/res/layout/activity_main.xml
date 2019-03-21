@@ -6,7 +6,7 @@
     
     <data>
         <variable
-            name="viewModel"
+            name="vm"
             type="com.dmitrysimakov.kilogram.ui.MainViewModel"/>
     </data>
     
@@ -21,7 +21,7 @@
             layout="@layout/app_bar_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:viewModel="@{viewModel}"/>
+            app:vm="@{vm}"/>
         
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/nav_view"

@@ -21,9 +21,9 @@ abstract class ChooseMuscleFragment : DaggerFragment() {
 
     @Inject lateinit var executors: AppExecutors
 
-    protected lateinit var viewModel: ChooseMuscleViewModel
+    protected val viewModel by lazy { getViewModel<ChooseMuscleViewModel>(viewModelFactory) }
 
-    protected lateinit var adapter: MuscleListAdapter
+    protected val adapter by lazy { MuscleListAdapter(executors) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_choose_muscle, container, false)
@@ -32,10 +32,8 @@ abstract class ChooseMuscleFragment : DaggerFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
     
-        adapter = MuscleListAdapter(executors)
         recyclerView.adapter = adapter
     
-        viewModel = getViewModel(viewModelFactory)
         viewModel.muscleList.observe(this, Observer { adapter.submitList(it) })
         
         activity?.fab?.hide()

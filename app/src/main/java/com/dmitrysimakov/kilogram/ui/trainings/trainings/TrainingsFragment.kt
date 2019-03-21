@@ -25,9 +25,12 @@ class TrainingsFragment : DaggerFragment() {
 
     @Inject lateinit var executors: AppExecutors
 
-    private lateinit var viewModel: TrainingsViewModel
+    private val viewModel by lazy { getViewModel<TrainingsViewModel>(viewModelFactory) }
 
-    private lateinit var adapter: TrainingsAdapter
+    private val adapter by lazy { TrainingsAdapter(executors) {training ->
+        findNavController().navigate(TrainingsFragmentDirections
+            .toExercisesFragment(training._id, training.duration == null))
+    }}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_trainings, container, false)
@@ -36,11 +39,6 @@ class TrainingsFragment : DaggerFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = getViewModel(viewModelFactory)
-        adapter = TrainingsAdapter(executors) { training ->
-            findNavController().navigate(TrainingsFragmentDirections
-                    .toExercisesFragment(training._id, training.duration == null))
-        }
         trainings_rv.adapter = adapter
         viewModel.trainingList.observe(this, Observer { adapter.submitList(it) })
 
@@ -49,8 +47,7 @@ class TrainingsFragment : DaggerFragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
                 val training = adapter.getItem(viewHolder.adapterPosition)
                 viewModel.deleteTraining(training)
-                val mainViewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
-                mainViewModel.onTrainingSessionFinished()
+                getViewModel(activity!!, viewModelFactory).onTrainingSessionFinished()
             }
         }).attachToRecyclerView(trainings_rv)
 

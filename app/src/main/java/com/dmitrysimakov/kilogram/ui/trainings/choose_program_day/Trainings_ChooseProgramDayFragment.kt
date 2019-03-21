@@ -6,6 +6,7 @@ import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.MainViewModel
 import com.dmitrysimakov.kilogram.ui.common.choose_program_day.ChooseProgramDayFragment
+import com.dmitrysimakov.kilogram.util.getViewModel
 import kotlinx.android.synthetic.main.app_bar_main.*
 
 class Trainings_ChooseProgramDayFragment : ChooseProgramDayFragment() {
@@ -17,7 +18,7 @@ class Trainings_ChooseProgramDayFragment : ChooseProgramDayFragment() {
         viewModel.setProgram(params.programId)
         
         adapter.clickCallback = { programDay ->
-            val mainViewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
+            val mainViewModel = getViewModel(activity!!, viewModelFactory)
             mainViewModel.programDayId.value = programDay._id
             findNavController().popBackStack(R.id.createTrainingFragment, false)
         }

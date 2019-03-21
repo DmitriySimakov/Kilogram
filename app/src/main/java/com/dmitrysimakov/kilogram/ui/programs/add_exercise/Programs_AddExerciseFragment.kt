@@ -11,13 +11,12 @@ import com.dmitrysimakov.kilogram.util.hideKeyboard
 
 class Programs_AddExerciseFragment : AddExerciseFragment() {
     
-    private lateinit var params : Programs_AddExerciseFragmentArgs
+    private val params by lazy { Programs_AddExerciseFragmentArgs.fromBundle(arguments!!) }
     
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setHasOptionsMenu(true)
         
-        params = Programs_AddExerciseFragmentArgs.fromBundle(arguments!!)
         viewModel.setExercise(params.exerciseId)
     }
     

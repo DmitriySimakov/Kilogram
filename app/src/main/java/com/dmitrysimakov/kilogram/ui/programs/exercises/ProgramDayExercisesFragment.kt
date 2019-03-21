@@ -28,9 +28,9 @@ class ProgramDayExercisesFragment : DaggerFragment() {
     
     @Inject lateinit var executors: AppExecutors
     
-    protected lateinit var viewModel: ProgramDayExercisesViewModel
+    private val viewModel by lazy { getViewModel<ProgramDayExercisesViewModel>(viewModelFactory) }
     
-    protected lateinit var adapter: ProgramDayExerciseListAdapter
+    private val adapter by lazy { ProgramDayExerciseListAdapter(executors) }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_exercises, container, false)
@@ -41,10 +41,8 @@ class ProgramDayExercisesFragment : DaggerFragment() {
     
         val params = ProgramDayExercisesFragmentArgs.fromBundle(arguments!!)
     
-        adapter = ProgramDayExerciseListAdapter(executors)
         recyclerView.adapter = adapter
     
-        viewModel = getViewModel(viewModelFactory)
         viewModel.setProgramDay(params.programDayId)
         viewModel.exercises.observe(this, Observer { adapter.submitList(it) })
     

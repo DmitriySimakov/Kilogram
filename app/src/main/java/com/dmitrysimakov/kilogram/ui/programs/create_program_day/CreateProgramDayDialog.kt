@@ -26,9 +26,9 @@ class CreateProgramDayDialog : DaggerAppCompatDialogFragment(), ItemInsertedList
 
     private lateinit var binding: DialogCreateProgramDayBinding
     
-    private lateinit var params: CreateProgramDayDialogArgs
+    private val params by lazy { CreateProgramDayDialogArgs.fromBundle(arguments!!) }
     
-    private lateinit var viewModel: CreateProgramDayViewModel
+    private val viewModel by lazy { getViewModel<CreateProgramDayViewModel>(viewModelFactory) }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -45,8 +45,6 @@ class CreateProgramDayDialog : DaggerAppCompatDialogFragment(), ItemInsertedList
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewModel = getViewModel(viewModelFactory)
-        params = CreateProgramDayDialogArgs.fromBundle(arguments!!)
         viewModel.setProgram(params.programId)
         
         binding.viewModel = viewModel

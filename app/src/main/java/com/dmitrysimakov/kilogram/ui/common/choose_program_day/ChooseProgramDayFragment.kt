@@ -22,9 +22,9 @@ abstract class ChooseProgramDayFragment : DaggerFragment() {
     
     @Inject lateinit var executors: AppExecutors
     
-    protected lateinit var viewModel: ChooseProgramDayViewModel
+    protected val viewModel by lazy { getViewModel<ChooseProgramDayViewModel>(viewModelFactory) }
     
-    protected lateinit var adapter: ChooseProgramDayAdapter
+    protected val adapter by lazy { ChooseProgramDayAdapter(executors) }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_choose_program_day, container, false)
@@ -33,9 +33,6 @@ abstract class ChooseProgramDayFragment : DaggerFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         
-        viewModel = getViewModel(viewModelFactory)
-        
-        adapter = ChooseProgramDayAdapter(executors)
         recyclerView.adapter = adapter
         viewModel.trainingDays.observe(this, Observer { adapter.submitList(it) })
     }

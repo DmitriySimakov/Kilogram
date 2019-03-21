@@ -8,7 +8,7 @@
         <import type="com.dmitrysimakov.kilogram.util.Converter"/>
         
         <variable
-            name="viewModel"
+            name="vm"
             type="com.dmitrysimakov.kilogram.ui.MainViewModel"/>
     </data>
     
@@ -46,39 +46,52 @@
                 app:layout_constraintBottom_toTopOf="@id/duration"
                 app:layout_constraintTop_toTopOf="parent"
                 app:navGraph="@navigation/main"/>
-            
+    
             <TextView
                 android:id="@+id/duration"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:padding="8dp"
+                android:padding="4dp"
+                android:text="@{Converter.secondsToTimeFormat(vm.elapsedSessionTime)}"
+                app:goneUnless="@{vm.elapsedSessionTime != null}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/rest"
                 app:layout_constraintStart_toStartOf="parent"
-                app:goneUnless="@{viewModel.timerIsRunning}"
-                android:text="@{Converter.secondsToTimeFormat(viewModel.sessionTime)}"
-                tools:text="32:30"/>
+                tools:text="32:30" />
             
             <TextView
                 android:id="@+id/rest"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:padding="8dp"
+                android:padding="4dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/duration"
-                app:goneUnless="@{viewModel.timerIsRunning &amp;&amp; viewModel.restTime != null}"
-                android:text="@{Converter.secondsToTimeFormat(viewModel.restTime)}"
-                tools:text="2:05"/>
+                app:layout_constraintEnd_toStartOf="@id/restLeft"
+                app:invisibleUnless="@{vm.elapsedRestTime != null}"
+                android:text="@{Converter.secondsToTimeFormat(vm.elapsedRestTime)}"
+                tools:text="1:05"/>
+    
+            <TextView
+                android:id="@+id/restLeft"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/rest"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:invisibleUnless="@{vm.elapsedRestTime != null}"
+                android:text="@{vm.restTime - vm.elapsedRestTime > 0 ? Converter.secondsToTimeFormat(vm.restTime - vm.elapsedRestTime) : `Жги сын`}"
+                tools:text="1:55"/>
             
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/fab_margin"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/duration"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@android:drawable/ic_dialog_email"/>
         

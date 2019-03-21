@@ -22,7 +22,7 @@ class TrainingExercisesViewModel @Inject constructor(
     }
     
     private val exercises = Transformations.switchMap(_trainingId) {
-        trainingExerciseRepository.loadExercises(it)
+        trainingExerciseRepository.loadTrainingExerciseRs(it)
     }
     
     val runningExercises = Transformations.map(exercises) { exercise ->

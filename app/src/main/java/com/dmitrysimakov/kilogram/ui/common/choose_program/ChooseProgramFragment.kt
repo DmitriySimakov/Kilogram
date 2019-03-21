@@ -19,9 +19,9 @@ abstract class ChooseProgramFragment : DaggerFragment() {
     
     @Inject lateinit var executors: AppExecutors
     
-    protected lateinit var viewModel: ChooseProgramViewModel
+    protected val viewModel by lazy {  getViewModel<ChooseProgramViewModel>(viewModelFactory) }
     
-    protected lateinit var adapter: ChooseProgramAdapter
+    protected val adapter by lazy { ChooseProgramAdapter(executors) }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_choose_program, container, false)
@@ -30,8 +30,6 @@ abstract class ChooseProgramFragment : DaggerFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         
-        viewModel = getViewModel(viewModelFactory)
-        adapter = ChooseProgramAdapter(executors)
         recyclerView.adapter = adapter
         viewModel.programList.observe(this, Observer { adapter.submitList(it) })
     }

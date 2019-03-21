@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -22,11 +23,11 @@ class AddSetDialog : DaggerAppCompatDialogFragment() {
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val viewModel by lazy { getViewModel<AddSetViewModel>(viewModelFactory) }
-    private val mainViewModel by lazy { ViewModelProviders.of(activity!!).get(MainViewModel::class.java) }
+    private val mainViewModel by lazy { getViewModel(activity!!, viewModelFactory) }
 
     private lateinit var binding: DialogAddSetBinding
 
-    private lateinit var params: AddSetDialogArgs
+    private val params by lazy { AddSetDialogArgs.fromBundle(arguments!!) }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -46,8 +47,9 @@ class AddSetDialog : DaggerAppCompatDialogFragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        params = AddSetDialogArgs.fromBundle(arguments!!)
-        viewModel.setParams(params.setId, params.trainingExerciseId)
+        viewModel.setTrainingExercise(params.trainingExerciseId)
+        viewModel.setSet(params.setId)
+        viewModel.trainingExercise.observe(this, Observer {  })
 
         return binding.root
     }
@@ -72,8 +74,8 @@ class AddSetDialog : DaggerAppCompatDialogFragment() {
             R.id.ok -> {
                 hideKeyboard()
                 if (params.setId == 0L) {
-                    viewModel.addSet(mainViewModel.sessionTime.value ?: 0)
-                    mainViewModel.onSetCompleted()
+                    viewModel.addSet(mainViewModel.elapsedSessionTime.value ?: 0)
+                    mainViewModel.onSetCompleted(viewModel.trainingExercise.value?.rest ?: 0)
                 } else {
                     viewModel.updateSet()
                 }

@@ -11,7 +11,7 @@ import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.util.DataBoundListAdapter
 
 class ExerciseRunningListAdapter(
-        private val sessionTime: LiveData<Int>,
+        private val sessionTime: LiveData<Int?>,
         private val lifecycleOwner: LifecycleOwner,
         appExecutors: AppExecutors,
         clickCallback: ((TrainingExerciseR) -> Unit),
@@ -23,8 +23,10 @@ class ExerciseRunningListAdapter(
 
     override fun bind(binding: ItemExerciseRunningBinding, item: TrainingExerciseR) {
         sessionTime.observe(lifecycleOwner, Observer {
-            val rest = it - item.secs_since_start
-            binding.rest = if (rest > 0) rest else 0
+            if (it != null) {
+                val rest = it - item.secs_since_start
+                binding.rest = if (rest > 0) rest else 0
+            }
         })
         binding.lifecycleOwner = lifecycleOwner
         binding.exercise = item

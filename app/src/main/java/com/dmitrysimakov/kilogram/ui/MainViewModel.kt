@@ -1,12 +1,11 @@
 package com.dmitrysimakov.kilogram.ui
 
 import android.content.SharedPreferences
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.util.PreferencesKeys
+import com.dmitrysimakov.kilogram.util.setNewValue
 import java.util.*
-import java.util.concurrent.Executors
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(private val preferences: SharedPreferences) : ViewModel() {
@@ -21,18 +20,20 @@ class MainViewModel @Inject constructor(private val preferences: SharedPreferenc
     
     var restStartMillis = 0L
     
-    val sessionTime = MutableLiveData<Int>()
+    val elapsedSessionTime = MutableLiveData<Int?>()
     
-    val restTime = MutableLiveData<Int>()
+    val elapsedRestTime = MutableLiveData<Int?>()
+    
+    val restTime = MutableLiveData<Int?>()
     
     fun startTimer() {
         timer = Timer()
         val task = object : TimerTask() {
             override fun run() {
                 val now = System.currentTimeMillis()
-                sessionTime.postValue(((now - sessionStartMillis)/1000).toInt())
+                elapsedSessionTime.postValue(((now - sessionStartMillis)/1000).toInt())
                 if (restStartMillis != 0L) {
-                    restTime.postValue(((now - restStartMillis) / 1000).toInt())
+                    elapsedRestTime.postValue(((now - restStartMillis) / 1000).toInt())
                 }
             }
         }
@@ -46,19 +47,37 @@ class MainViewModel @Inject constructor(private val preferences: SharedPreferenc
     
     fun onTrainingSessionStarted() {
         sessionStartMillis = System.currentTimeMillis()
-        restStartMillis = 0L
-        
         timerIsRunning.value = true
         startTimer()
-        preferences.edit().putLong(PreferencesKeys.SESSION_START_MILLIS, sessionStartMillis).apply()
+        
+        preferences.edit()
+                .putBoolean(PreferencesKeys.TIMER_IS_RUNNING, true)
+                .putLong(PreferencesKeys.SESSION_START_MILLIS, sessionStartMillis)
+                .apply()
     }
     
     fun onTrainingSessionFinished() {
+        stopTimer()
         timerIsRunning.value = false
+        elapsedSessionTime.value = null
+        elapsedRestTime.value = null
+        restTime.value = null
+        
+        preferences.edit()
+                .putBoolean(PreferencesKeys.TIMER_IS_RUNNING, false)
+                .remove(PreferencesKeys.SESSION_START_MILLIS)
+                .remove(PreferencesKeys.REST_START_MILLIS)
+                .remove(PreferencesKeys.REST_TIME)
+                .apply()
     }
     
-    fun onSetCompleted() {
+    fun onSetCompleted(rest: Int) {
         restStartMillis = System.currentTimeMillis()
-        preferences.edit().putLong(PreferencesKeys.REST_START_MILLIS, restStartMillis).apply()
+        restTime.value = rest
+        
+        preferences.edit()
+                .putLong(PreferencesKeys.REST_START_MILLIS, restStartMillis)
+                .putInt(PreferencesKeys.REST_TIME, rest)
+                .apply()
     }
 }

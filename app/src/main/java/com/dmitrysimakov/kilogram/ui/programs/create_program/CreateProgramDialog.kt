@@ -26,7 +26,7 @@ class CreateProgramDialog : DaggerAppCompatDialogFragment(), ItemInsertedListene
 
     private lateinit var binding: DialogCreateProgramBinding
 
-    private lateinit var viewModel: CreateProgramViewModel
+    private val viewModel by lazy { getViewModel<CreateProgramViewModel>(viewModelFactory) }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -43,7 +43,6 @@ class CreateProgramDialog : DaggerAppCompatDialogFragment(), ItemInsertedListene
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewModel = getViewModel(viewModelFactory)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         return binding.root

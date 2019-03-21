@@ -30,9 +30,9 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
 
     private lateinit var binding: DialogCreateTrainingBinding
 
-    private lateinit var viewModel: CreateTrainingViewModel
+    private val viewModel by lazy { getViewModel<CreateTrainingViewModel>(viewModelFactory) }
     
-    private lateinit var mainViewModel: MainViewModel
+    private val mainViewModel by lazy { getViewModel(activity!!, viewModelFactory) }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -49,7 +49,6 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewModel = getViewModel(viewModelFactory)
         binding.vm = viewModel
         binding.lifecycleOwner = this
 
@@ -95,7 +94,6 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         
-        mainViewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
         mainViewModel.programDayId.observe(this, Observer {
             viewModel.setProgramDay(it)
             mainViewModel.programDayId.removeObservers(this)

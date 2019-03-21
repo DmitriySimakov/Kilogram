@@ -17,20 +17,17 @@ abstract class AddExerciseFragment: DaggerFragment() {
 
     protected lateinit var binding: FragmentAddExerciseBinding
     
-    protected lateinit var viewModel: AddExerciseViewModel
+    protected val viewModel by lazy { getViewModel<AddExerciseViewModel>(viewModelFactory) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentAddExerciseBinding.inflate(inflater)
+        binding.viewModel = viewModel
         binding.lifecycleOwner = this
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-    
-        viewModel = getViewModel(viewModelFactory)
-        binding.viewModel = viewModel
-        
         activity?.fab?.hide()
     }
 }

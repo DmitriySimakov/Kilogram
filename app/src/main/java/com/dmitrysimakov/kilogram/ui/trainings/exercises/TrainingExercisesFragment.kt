@@ -29,14 +29,14 @@ class TrainingExercisesFragment : DaggerFragment() {
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val viewModel by lazy { getViewModel<TrainingExercisesViewModel>(viewModelFactory) }
-    private val mainViewModel by lazy { ViewModelProviders.of(activity!!).get(MainViewModel::class.java) }
+    private val mainViewModel by lazy { getViewModel(activity!!, viewModelFactory) }
     
     private val params by lazy { TrainingExercisesFragmentArgs.fromBundle(arguments!!) }
     
     private lateinit var binding: FragmentTrainingExercisesBinding
     
     private val exerciseRunningListAdapter by lazy {
-        ExerciseRunningListAdapter(mainViewModel.sessionTime, this, executors, { toSetsFragment(it) }, { viewModel.finishExercise(it) }) }
+        ExerciseRunningListAdapter(mainViewModel.elapsedSessionTime, this, executors, { toSetsFragment(it) }, { viewModel.finishExercise(it) }) }
     private val exercisePlannedListAdapter by lazy { ExercisePlannedListAdapter(executors) { toSetsFragment(it) } }
     private val exerciseFinishedListAdapter by lazy { ExerciseFinishedListAdapter(executors) { toSetsFragment(it) } }
     

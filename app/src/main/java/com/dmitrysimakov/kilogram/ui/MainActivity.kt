@@ -15,6 +15,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.ActivityMainBinding
 import com.dmitrysimakov.kilogram.util.PreferencesKeys
+import com.dmitrysimakov.kilogram.util.getViewModel
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -22,33 +23,31 @@ import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
     
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
-    
-    private lateinit var viewModel: MainViewModel
-    
-    private lateinit var binding: ActivityMainBinding
-    
     @Inject lateinit var preferences: SharedPreferences
     
-    private lateinit var navController: NavController
+    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+    
+    private val viewModel by lazy { getViewModel(this, viewModelFactory) }
+    
+    private val binding by lazy { DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main) }
+    
+    private val navController by lazy { findNavController(R.id.fragment_container) }
     
     private var timerIsRunning = false
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
         viewModel.timerIsRunning.observe(this, Observer { timerIsRunning = it })
-        binding.viewModel = viewModel
+        binding.vm = viewModel
         
         viewModel.timerIsRunning.value = preferences.getBoolean(PreferencesKeys.TIMER_IS_RUNNING, false)
         viewModel.sessionStartMillis = preferences.getLong(PreferencesKeys.SESSION_START_MILLIS, 0)
         viewModel.restStartMillis = preferences.getLong(PreferencesKeys.REST_START_MILLIS, 0)
+        viewModel.restTime.value = preferences.getInt(PreferencesKeys.REST_TIME, 0).takeIf { it > 0 }
         
         setSupportActionBar(toolbar)
-        navController = findNavController(R.id.fragment_container)
         NavigationUI.setupActionBarWithNavController(this, navController, drawer_layout)
 
         nav_view.setupWithNavController(navController)
@@ -62,7 +61,6 @@ class MainActivity : DaggerAppCompatActivity() {
     override fun onStop() {
         super.onStop()
         if (timerIsRunning) viewModel.stopTimer()
-        preferences.edit().putBoolean(PreferencesKeys.TIMER_IS_RUNNING, timerIsRunning).apply()
     }
 
     override fun onSupportNavigateUp(): Boolean {

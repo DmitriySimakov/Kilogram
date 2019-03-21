@@ -13,9 +13,11 @@ class TrainingExerciseRepository @Inject constructor(
         private val trainingExerciseDao: TrainingExerciseDao
 ) {
     
-    fun loadExercises(trainingId: Long) = trainingExerciseDao.getExercises(trainingId)
+    fun loadTrainingExerciseRs(trainingId: Long) = trainingExerciseDao.getTrainingExerciseRs(trainingId)
     
-    fun loadExercise(id: Long) = trainingExerciseDao.getExercise(id)
+    fun loadTrainingExerciseR(id: Long) = trainingExerciseDao.getTrainingExerciseR(id)
+    
+    fun loadTrainingExercise(id: Long) = trainingExerciseDao.getTrainingExercise(id)
     
     fun loadExerciseMeasures(trainingExerciseId: Long) = trainingExerciseDao.getExerciseMeasures(trainingExerciseId)
     

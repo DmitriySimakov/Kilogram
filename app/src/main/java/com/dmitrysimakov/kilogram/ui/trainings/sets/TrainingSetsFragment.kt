@@ -45,10 +45,10 @@ class TrainingSetsFragment : DaggerFragment() {
 
         viewModel.setTrainingExercise(params.trainingExerciseId)
         
-        viewModel.exerciseMeasures.observe(this, Observer { measures ->
-            binding.exerciseMeasures = measures
+        viewModel.exercise.observe(this, Observer { exercise ->
+            binding.exerciseMeasures = exercise.measures
             
-            adapter = TrainingSetsAdapter(executors, measures) { set ->
+            adapter = TrainingSetsAdapter(executors, exercise.measures) { set ->
                 findNavController().navigate(TrainingSetsFragmentDirections
                         .toAddSetDialog(set._id, params.trainingExerciseId))
             }
@@ -56,9 +56,7 @@ class TrainingSetsFragment : DaggerFragment() {
     
     
             viewModel.sets.observe(this, Observer { adapter.submitList(it) })
-            viewModel.state.observe(this, Observer { state ->
-                activity?.toolbar?.menu?.findItem(R.id.finish_exercise)?.isVisible = state == TrainingExercise.RUNNING
-            })
+            activity?.toolbar?.menu?.findItem(R.id.finish_exercise)?.isVisible = exercise.state == TrainingExercise.RUNNING
             
             ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
                 override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean { return false }

@@ -5,13 +5,19 @@ import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.dmitrysimakov.kilogram.ui.MainViewModel
 
 inline fun <reified T : ViewModel> Fragment.getViewModel(factory: ViewModelProvider.Factory) : T {
     return ViewModelProviders.of(this, factory).get(T::class.java)
+}
+
+fun getViewModel(activity: FragmentActivity, factory: ViewModelProvider.Factory): MainViewModel {
+    return ViewModelProviders.of(activity, factory).get(MainViewModel::class.java)
 }
 
 fun Fragment.hideKeyboard() {
