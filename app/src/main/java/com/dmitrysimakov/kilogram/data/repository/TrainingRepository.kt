@@ -15,6 +15,8 @@ class TrainingRepository @Inject constructor(
 
     fun loadTrainingList() = trainingDao.getTrainingList()
     
+    fun loadTrainingRList() = trainingDao.getTrainingRList()
+    
     fun loadTraining(id: Long) = trainingDao.getTraining(id)
 
     fun insertTraining(training: Training, callback: ItemInsertedListener? = null) {
@@ -32,9 +34,9 @@ class TrainingRepository @Inject constructor(
         }
     }
     
-    fun deleteTraining(training: Training) {
+    fun deleteTraining(id: Long) {
         executors.diskIO().execute{
-            trainingDao.delete(training)
+            trainingDao.delete(id)
         }
     }
 }

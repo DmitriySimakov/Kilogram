@@ -48,6 +48,9 @@ class MainViewModel @Inject constructor(private val preferences: SharedPreferenc
     fun onTrainingSessionStarted() {
         sessionStartMillis = System.currentTimeMillis()
         timerIsRunning.value = true
+        elapsedSessionTime.value = null
+        elapsedRestTime.value = null
+        restTime.value = null
         startTimer()
         
         preferences.edit()
@@ -59,9 +62,6 @@ class MainViewModel @Inject constructor(private val preferences: SharedPreferenc
     fun onTrainingSessionFinished() {
         stopTimer()
         timerIsRunning.value = false
-        elapsedSessionTime.value = null
-        elapsedRestTime.value = null
-        restTime.value = null
         
         preferences.edit()
                 .putBoolean(PreferencesKeys.TIMER_IS_RUNNING, false)

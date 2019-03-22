@@ -5,14 +5,12 @@ import android.os.Bundle
 import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR
 import com.dmitrysimakov.kilogram.databinding.FragmentTrainingExercisesBinding
-import com.dmitrysimakov.kilogram.ui.MainViewModel
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.util.getViewModel
 import dagger.android.support.DaggerFragment
@@ -116,7 +114,7 @@ class TrainingExercisesFragment : DaggerFragment() {
     
     override fun onOptionsItemSelected(item: MenuItem?) = when (item?.itemId) {
         R.id.finish_training -> {
-            viewModel.finishTraining()
+            viewModel.finishTraining(mainViewModel.elapsedSessionTime.value ?: 0)
             mainViewModel.onTrainingSessionFinished()
             findNavController().popBackStack()
             true

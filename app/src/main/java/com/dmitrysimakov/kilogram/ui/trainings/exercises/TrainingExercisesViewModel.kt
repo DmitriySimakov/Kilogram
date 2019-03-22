@@ -45,9 +45,9 @@ class TrainingExercisesViewModel @Inject constructor(
         trainingExerciseRepository.deleteExercise(exercise)
     }
     
-    fun finishTraining() {
+    fun finishTraining(duration: Int) {
         training.value?.let {
-            it.duration = 10 // TODO
+            it.duration = duration
             trainingRepository.updateTraining(it)
             trainingExerciseRepository.finishTrainingExercises(it._id)
         }

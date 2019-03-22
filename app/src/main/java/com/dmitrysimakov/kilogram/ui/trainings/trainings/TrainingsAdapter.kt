@@ -2,20 +2,30 @@ package com.dmitrysimakov.kilogram.ui.trainings.trainings
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.dmitrysimakov.kilogram.data.entity.Training
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import com.dmitrysimakov.kilogram.data.relation.TrainingR
 import com.dmitrysimakov.kilogram.databinding.ItemTrainingBinding
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.util.DataBoundListAdapter
 
 class TrainingsAdapter(
+        private val sessionTime: LiveData<Int?>,
+        private val lifecycleOwner: LifecycleOwner,
         appExecutors: AppExecutors,
-        clickCallback: ((Training) -> Unit)?
-) : DataBoundListAdapter<Training, ItemTrainingBinding>(appExecutors, clickCallback) {
+        clickCallback: ((TrainingR) -> Unit)?
+) : DataBoundListAdapter<TrainingR, ItemTrainingBinding>(appExecutors, clickCallback) {
 
     override fun createBinding(parent: ViewGroup) = ItemTrainingBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
 
-    override fun bind(binding: ItemTrainingBinding, item: Training) {
+    override fun bind(binding: ItemTrainingBinding, item: TrainingR) {
+        sessionTime.observe(lifecycleOwner, Observer {
+            if (it != null) {
+                binding.duration = it
+            }
+        })
         binding.training = item
     }
 }

@@ -7,9 +7,9 @@ import javax.inject.Inject
 
 class TrainingsViewModel @Inject constructor(private val repository: TrainingRepository) : ViewModel() {
 
-    val trainingList = repository.loadTrainingList()
+    val trainingList = repository.loadTrainingRList()
 
-    fun deleteTraining(training: Training) {
-        repository.deleteTraining(training)
+    fun deleteTraining(id: Long) {
+        repository.deleteTraining(id)
     }
 }
