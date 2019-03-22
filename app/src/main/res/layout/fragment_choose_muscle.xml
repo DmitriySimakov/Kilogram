@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.exercises.choose_muscle.Exercises_ChooseMuscleFragment">
+    android:background="@color/grey100"
+    tools:context=".ui.exercises.choose_muscle.Exercises_ChooseMuscleFragment"
+    android:padding="2dp">
     
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

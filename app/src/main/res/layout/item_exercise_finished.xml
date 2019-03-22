@@ -10,41 +10,36 @@
             type="com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR"/>
     </data>
     
-    <com.google.android.material.card.MaterialCardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardUseCompatPadding="true">
+        android:layout_height="wrap_content">
         
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="?attr/listPreferredItemHeight"
-                android:layout_height="?attr/listPreferredItemHeight"
-                android:scaleType="centerCrop"
-                app:assetsImage='@{"exercises/"+ exercise.exercise_id +"_1.jpeg"}'
-                tools:src="@drawable/exercise_sample_1"
-                tools:layout_width="?android:attr/listPreferredItemHeight"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
-            
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:paddingStart="?android:attr/listPreferredItemPaddingLeft"
-                android:paddingEnd="?android:attr/listPreferredItemPaddingRight"
-                tools:text="Упражнение"
-                android:text="@{exercise.name}"
-                android:textAppearance="?android:attr/textAppearanceListItemSmall"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/image"
-                app:layout_constraintEnd_toEndOf="parent"/>
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="?attr/listPreferredItemHeight"
+            android:layout_height="?attr/listPreferredItemHeight"
+            android:layout_margin="4dp"
+            android:scaleType="centerCrop"
+            app:assetsImage='@{"exercises/"+ exercise.exercise_id +"_1.jpeg"}'
+            tools:src="@drawable/exercise_sample_1"
+            tools:layout_width="?android:attr/listPreferredItemHeight"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
         
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="?android:attr/listPreferredItemPaddingLeft"
+            android:paddingEnd="?android:attr/listPreferredItemPaddingRight"
+            tools:text="Упражнение"
+            android:text="@{exercise.name}"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/image"
+            app:layout_constraintEnd_toEndOf="parent"/>
     
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    
 </layout>

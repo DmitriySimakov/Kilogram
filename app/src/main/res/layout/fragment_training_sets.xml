@@ -75,7 +75,7 @@
         
         <View
             android:id="@+id/divider"
-            style="@style/DividerStyle"
+            style="@style/VerticalDividerStyle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/header_num"/>
         

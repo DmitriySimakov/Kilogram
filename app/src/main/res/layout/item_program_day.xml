@@ -10,48 +10,42 @@
             type="com.dmitrysimakov.kilogram.data.entity.ProgramDay"/>
     </data>
     
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/listPreferredItemHeight"
-        app:cardUseCompatPadding="true">
-        
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-    
-            <TextView
-                android:id="@+id/nameTV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="?attr/listPreferredItemPaddingLeft"
-                android:layout_marginEnd="?attr/listPreferredItemPaddingLeft"
-                android:textAppearance="?android:attr/textAppearanceListItem"
-                android:text="@{day.name}"
-                tools:text="@string/name"
-                app:layout_constraintTop_toTopOf="parent"/>
-    
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="?attr/listPreferredItemPaddingLeft"
-                android:text="@{day.description}"
-                tools:text="@string/description"
-                app:layout_constraintTop_toBottomOf="@id/nameTV"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/drag_icon"/>
-    
-            <ImageView
-                android:id="@+id/drag_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="?android:attr/listPreferredItemPaddingLeft"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:src="@drawable/baseline_drag_indicator_black_18"/>
-            
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    
-    </androidx.cardview.widget.CardView>
+        android:background="@color/white">
 
+        <TextView
+            android:id="@+id/nameTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="?attr/listPreferredItemPaddingLeft"
+            android:layout_marginEnd="?attr/listPreferredItemPaddingLeft"
+            android:textAppearance="?android:attr/textAppearanceListItem"
+            android:text="@{day.name}"
+            tools:text="@string/name"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="?attr/listPreferredItemPaddingLeft"
+            android:text="@{day.description}"
+            tools:text="@string/description"
+            app:layout_constraintTop_toBottomOf="@id/nameTV"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/drag_icon"/>
+
+        <ImageView
+            android:id="@+id/drag_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="?android:attr/listPreferredItemPaddingLeft"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/baseline_drag_indicator_black_18"/>
+        
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    
 </layout>

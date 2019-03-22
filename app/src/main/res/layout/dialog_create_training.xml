@@ -43,7 +43,7 @@
         
         <View
             android:id="@+id/divider1"
-            style="@style/DividerStyle"
+            style="@style/VerticalDividerStyle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/date_tv"/>
         

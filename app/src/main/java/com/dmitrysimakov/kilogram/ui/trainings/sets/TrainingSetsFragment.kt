@@ -5,6 +5,7 @@ import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
@@ -47,12 +48,13 @@ class TrainingSetsFragment : DaggerFragment() {
         
         viewModel.exercise.observe(this, Observer { exercise ->
             binding.exerciseMeasures = exercise.measures
-            
+        
             adapter = TrainingSetsAdapter(executors, exercise.measures) { set ->
                 findNavController().navigate(TrainingSetsFragmentDirections
                         .toAddSetDialog(set._id, params.trainingExerciseId))
             }
             recyclerView.adapter = adapter
+            recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
     
     
             viewModel.sets.observe(this, Observer { adapter.submitList(it) })

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
@@ -42,6 +43,7 @@ class ProgramDayExercisesFragment : DaggerFragment() {
         val params = ProgramDayExercisesFragmentArgs.fromBundle(arguments!!)
     
         recyclerView.adapter = adapter
+        recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
     
         viewModel.setProgramDay(params.programDayId)
         viewModel.exercises.observe(this, Observer { adapter.submitList(it) })

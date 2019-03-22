@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.util.getViewModel
@@ -33,6 +35,7 @@ abstract class ChooseExerciseFragment : DaggerFragment() {
         super.onActivityCreated(savedInstanceState)
     
         recyclerView.adapter = adapter
+        recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
     
         viewModel.exerciseList.observe(this, Observer { adapter.submitList(it) })
         

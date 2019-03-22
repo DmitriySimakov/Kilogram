@@ -64,7 +64,7 @@
                 android:text="@{vm.exercise.main_muscle}"
                 tools:text="@string/main_muscle"/>
             
-            <View style="@style/DividerStyle"/>
+            <View style="@style/VerticalDividerStyle"/>
             
             <TextView
                 style="@style/LabelStyle"
@@ -76,7 +76,7 @@
                 android:text="@{vm.exercise.targeted_muscles}"
                 tools:text="@string/targeted_muscles"/>
             
-            <View style="@style/DividerStyle"/>
+            <View style="@style/VerticalDividerStyle"/>
             
             <TextView
                 style="@style/LabelStyle"
@@ -88,7 +88,7 @@
                 android:text="@{vm.exercise.mechanics_type}"
                 tools:text="@string/mechanics_type"/>
             
-            <View style="@style/DividerStyle"/>
+            <View style="@style/VerticalDividerStyle"/>
             
             <TextView
                 style="@style/LabelStyle"
@@ -100,7 +100,7 @@
                 android:text="@{vm.exercise.exercise_type}"
                 tools:text="@string/exercise_type"/>
             
-            <View style="@style/DividerStyle"/>
+            <View style="@style/VerticalDividerStyle"/>
             
             <TextView
                 style="@style/LabelStyle"
@@ -112,7 +112,7 @@
                 android:text="@{vm.exercise.equipment}"
                 tools:text="@string/equipment"/>
             
-            <View style="@style/DividerStyle"/>
+            <View style="@style/VerticalDividerStyle"/>
             
             <TextView
                 style="@style/LabelStyle"

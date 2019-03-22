@@ -121,7 +121,7 @@
             app:layout_constraintEnd_toEndOf="parent" />
         
         <EditText
-            android:id="@+id/rest_et"
+            android:id="@+id/restET"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:inputType="number"
@@ -130,20 +130,24 @@
             app:layout_constraintStart_toStartOf="@id/rest_label"
             app:layout_constraintEnd_toEndOf="parent"/>
         
-        <TextView
-            android:id="@+id/strategy_label"
-            style="@style/LabelStyle"
-            android:text="@string/execution_strategy"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/distance_cb" />
-        
-        <EditText
-            android:id="@+id/execution_strategy"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/executionStrategyTIL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:text="@={viewModel.strategy}"
-            app:layout_constraintTop_toBottomOf="@id/strategy_label" />
+            app:layout_constraintTop_toBottomOf="@id/distance_cb"
+            app:errorEnabled="true"
+            app:counterMaxLength="100">
+    
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/executionStrategyET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/execution_strategy"
+                android:text="@={viewModel.strategy}"
+                android:inputType="textMultiLine"
+                android:maxLength="100"/>
+            
+        </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

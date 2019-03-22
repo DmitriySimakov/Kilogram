@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.util.getViewModel
@@ -29,8 +31,9 @@ abstract class ChooseProgramFragment : DaggerFragment() {
     
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        
+    
         recyclerView.adapter = adapter
+        recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
         viewModel.programList.observe(this, Observer { adapter.submitList(it) })
     }
 }

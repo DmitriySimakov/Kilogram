@@ -10,37 +10,32 @@
             type="com.dmitrysimakov.kilogram.data.entity.Exercise"/>
     </data>
     
-    <com.google.android.material.card.MaterialCardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/listPreferredItemHeight"
-        app:cardUseCompatPadding="true">
+        android:background="@color/white">
         
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            
-            <ImageView
-                android:id="@+id/exercise_image"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                app:assetsImage='@{"exercises/"+ exercise._id +"_1.jpeg"}'
-                tools:src="@drawable/exercise_sample_1"
-                tools:layout_width="?android:attr/listPreferredItemHeight"/>
-            
-            <TextView
-                android:id="@+id/exercise_name"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:paddingStart="?android:attr/listPreferredItemPaddingLeft"
-                android:paddingEnd="?android:attr/listPreferredItemPaddingRight"
-                android:text="@{exercise.name}"
-                android:textAppearance="?android:attr/textAppearanceListItemSmall"
-                tools:text="Упражнение"/>
+        <ImageView
+            android:id="@+id/exercise_image"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            app:assetsImage='@{"exercises/"+ exercise._id +"_1.jpeg"}'
+            tools:src="@drawable/exercise_sample_1"
+            tools:layout_width="?android:attr/listPreferredItemHeight"/>
         
-        </LinearLayout>
+        <TextView
+            android:id="@+id/exercise_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingStart="?android:attr/listPreferredItemPaddingLeft"
+            android:paddingEnd="?android:attr/listPreferredItemPaddingRight"
+            android:text="@{exercise.name}"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            tools:text="Упражнение"/>
     
-    </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+    
 </layout>

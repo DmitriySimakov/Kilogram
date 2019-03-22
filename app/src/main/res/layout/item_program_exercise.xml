@@ -10,73 +10,67 @@
             type="com.dmitrysimakov.kilogram.data.relation.ProgramExerciseR"/>
     </data>
     
-    <com.google.android.material.card.MaterialCardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardUseCompatPadding="true">
+        android:background="@color/white">
         
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="wrap_content"
-                android:layout_height="?attr/listPreferredItemHeight"
-                android:adjustViewBounds="true"
-                app:assetsImage='@{"exercises/"+ exercise.exercise_id +"_1.jpeg"}'
-                tools:src="@drawable/exercise_sample_1"
-                tools:layout_width="?android:attr/listPreferredItemHeight"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
-            
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="?android:attr/listPreferredItemPaddingLeft"
-                tools:text="Упражнение"
-                android:text="@{exercise.name}"
-                android:textAppearance="?android:attr/textAppearanceListItem"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/image"
-                app:layout_constraintEnd_toStartOf="@id/drag_icon"/>
-            
-            <TextView
-                android:id="@+id/strategy"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="?android:attr/listPreferredItemPaddingLeft"
-                android:gravity="center_vertical"
-                tools:text="Стратегия"
-                android:text="@{exercise.strategy}"
-                app:layout_constraintTop_toBottomOf="@id/name"
-                app:layout_constraintStart_toEndOf="@id/image"
-                app:layout_constraintEnd_toStartOf="@id/rest_time"/>
-            
-            <TextView
-                android:id="@+id/rest_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="3:00"
-                android:text="@{exercise.rest +``}"
-                android:drawableEnd="@drawable/baseline_timer_black_18"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/drag_icon"/>
-            
-            <ImageView
-                android:id="@+id/drag_icon"
-                android:layout_width="@dimen/min_touch_size"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:src="@drawable/baseline_drag_indicator_black_18"/>
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="?attr/listPreferredItemHeight"
+            android:adjustViewBounds="true"
+            app:assetsImage='@{"exercises/"+ exercise.exercise_id +"_1.jpeg"}'
+            tools:src="@drawable/exercise_sample_1"
+            tools:layout_width="?android:attr/listPreferredItemHeight"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
         
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="?android:attr/listPreferredItemPaddingLeft"
+            tools:text="Упражнение"
+            android:text="@{exercise.name}"
+            android:textAppearance="?android:attr/textAppearanceListItem"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/image"
+            app:layout_constraintEnd_toStartOf="@id/drag_icon"/>
+        
+        <TextView
+            android:id="@+id/strategy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="?android:attr/listPreferredItemPaddingLeft"
+            android:gravity="center_vertical"
+            tools:text="Стратегия"
+            android:text="@{exercise.strategy}"
+            app:layout_constraintTop_toBottomOf="@id/name"
+            app:layout_constraintStart_toEndOf="@id/image"
+            app:layout_constraintEnd_toStartOf="@id/rest_time"/>
+        
+        <TextView
+            android:id="@+id/rest_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="3:00"
+            android:text="@{exercise.rest +``}"
+            android:drawableEnd="@drawable/baseline_timer_black_18"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/drag_icon"/>
+        
+        <ImageView
+            android:id="@+id/drag_icon"
+            android:layout_width="@dimen/min_touch_size"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/baseline_drag_indicator_black_18"/>
     
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
     
 </layout>

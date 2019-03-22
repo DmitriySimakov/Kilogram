@@ -6,6 +6,7 @@ import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
@@ -66,6 +67,11 @@ class TrainingExercisesFragment : DaggerFragment() {
     
     private fun setupAdapters() {
         with(binding) {
+            val divider = DividerItemDecoration(context, RecyclerView.VERTICAL)
+            runningExercisesRV.addItemDecoration(divider)
+            plannedExercisesRV.addItemDecoration(divider)
+            finishedExercisesRV.addItemDecoration(divider)
+            
             runningExercisesRV.adapter = exerciseRunningListAdapter
             plannedExercisesRV.adapter = exercisePlannedListAdapter
             finishedExercisesRV.adapter = exerciseFinishedListAdapter

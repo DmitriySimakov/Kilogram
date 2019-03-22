@@ -15,26 +15,10 @@ class Programs_AddExerciseFragment : AddExerciseFragment() {
     
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setHasOptionsMenu(true)
-        
         viewModel.setExercise(params.exerciseId)
     }
     
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.dialog, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-    
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-            R.id.ok -> {
-                hideKeyboard()
-                viewModel.addExerciseToProgramDay(params.programDayId, params.num)
-                viewModel.updateMeasures()
-                findNavController().popBackStack(R.id.programDayExercisesFragment, false)
-                return true
-            }
-        }
-        return false
+    override fun addExercise() {
+        viewModel.addExerciseToProgramDay(params.programDayId, params.num)
     }
 }

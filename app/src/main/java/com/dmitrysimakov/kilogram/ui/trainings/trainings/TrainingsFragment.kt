@@ -8,6 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
@@ -38,8 +39,9 @@ class TrainingsFragment : DaggerFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+    
         trainings_rv.adapter = adapter
+        trainings_rv.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
         viewModel.trainingList.observe(this, Observer { adapter.submitList(it) })
 
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {

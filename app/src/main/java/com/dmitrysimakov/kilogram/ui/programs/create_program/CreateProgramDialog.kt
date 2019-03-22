@@ -80,9 +80,7 @@ class CreateProgramDialog : DaggerAppCompatDialogFragment(), ItemInsertedListene
     
     private fun validate():Boolean {
         val nameIsEmpty = nameTIL.editText?.text.toString().trim().isEmpty()
-        if (nameIsEmpty) nameTIL.error = "Заполните поле"
-        nameTIL.isErrorEnabled = nameIsEmpty
-        
+        nameTIL.error = "Заполните поле".takeIf { nameIsEmpty }
         return !nameIsEmpty
     }
 
