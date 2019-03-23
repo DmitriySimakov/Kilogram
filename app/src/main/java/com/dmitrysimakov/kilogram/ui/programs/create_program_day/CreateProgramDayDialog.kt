@@ -13,6 +13,7 @@ import com.dmitrysimakov.kilogram.data.ItemInsertedListener
 import com.dmitrysimakov.kilogram.databinding.DialogCreateProgramDayBinding
 import com.dmitrysimakov.kilogram.util.getViewModel
 import com.dmitrysimakov.kilogram.util.hideKeyboard
+import com.dmitrysimakov.kilogram.util.runCircularRevealAnimation
 import dagger.android.support.DaggerAppCompatDialogFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.dialog_create_program_day.*
@@ -45,8 +46,8 @@ class CreateProgramDayDialog : DaggerAppCompatDialogFragment(), ItemInsertedList
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        runCircularRevealAnimation(activity!!.fab, binding.root, R.color.grey200, R.color.white)
         viewModel.setProgram(params.programId)
-        
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         return binding.root

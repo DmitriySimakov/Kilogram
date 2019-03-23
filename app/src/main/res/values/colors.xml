@@ -18,6 +18,7 @@
     <color name="grey100">#F5F5F5</color>
     <color name="grey50">#FAFAFA</color>
 
+    <!-- DARK THEME COLORS -->
     <color name="darkPrimaryDark">#27272f</color>
     <color name="darkPrimary">#33333d</color>
     <color name="darkBackground">#373740</color>

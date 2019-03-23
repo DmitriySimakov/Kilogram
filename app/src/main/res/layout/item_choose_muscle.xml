@@ -11,37 +11,30 @@
             type="com.dmitrysimakov.kilogram.data.entity.Muscle"/>
     </data>
     
-    <com.google.android.material.card.MaterialCardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="0dp"
-        android:layout_margin="2dp"
-        app:cardUseCompatPadding="true">
+        android:orientation="horizontal"
+        android:background="@color/white">
         
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:paddingTop="4dp"
-                app:assetsImage='@{"muscles/"+ muscle._id +".png"}'
-                tools:src="@drawable/chest"/>
-            
-            <TextView
-                android:id="@+id/muscle_name"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center"
-                android:padding="4dp"
-                android:text="@{muscle.name}"
-                tools:text="@string/exercise"/>
+        <ImageView
+            android:layout_width="?attr/listPreferredItemHeight"
+            android:layout_height="?attr/listPreferredItemHeight"
+            app:assetsImage='@{"muscles/"+ muscle._id +".png"}'
+            tools:src="@drawable/chest"/>
         
-        </LinearLayout>
+        <TextView
+            android:id="@+id/muscle_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingStart="?android:attr/listPreferredItemPaddingLeft"
+            android:paddingEnd="?android:attr/listPreferredItemPaddingRight"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            android:text="@{muscle.name}"
+            tools:text="@string/exercise"/>
     
-    </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
 
 </layout>

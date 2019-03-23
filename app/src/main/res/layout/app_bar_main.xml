@@ -42,7 +42,7 @@
                 android:layout_height="0dp"
                 app:defaultNavHost="true"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/timer_panel"
+                app:layout_constraintBottom_toTopOf="@id/timer_panel"
                 app:navGraph="@navigation/main"/>
     
             <com.google.android.material.card.MaterialCardView

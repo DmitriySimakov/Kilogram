@@ -5,16 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey100"
-    tools:context=".ui.exercises.choose_muscle.Exercises_ChooseMuscleFragment"
-    android:padding="2dp">
+    tools:context=".ui.exercises.choose_muscle.Exercises_ChooseMuscleFragment">
     
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="3"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_choose_muscle"/>
 
 </FrameLayout>

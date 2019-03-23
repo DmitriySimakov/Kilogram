@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.util.getViewModel
+import com.dmitrysimakov.kilogram.util.runCircularRevealAnimation
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_choose_muscle.*
@@ -24,8 +26,8 @@ abstract class ChooseMuscleFragment : DaggerFragment() {
     protected val viewModel by lazy { getViewModel<ChooseMuscleViewModel>(viewModelFactory) }
 
     protected val adapter by lazy { MuscleListAdapter(executors) }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_choose_muscle, container, false)
     }
 
@@ -33,7 +35,7 @@ abstract class ChooseMuscleFragment : DaggerFragment() {
         super.onActivityCreated(savedInstanceState)
     
         recyclerView.adapter = adapter
-    
+        recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
         viewModel.muscleList.observe(this, Observer { adapter.submitList(it) })
         
         activity?.fab?.hide()

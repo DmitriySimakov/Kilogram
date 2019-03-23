@@ -50,7 +50,7 @@ class MainActivity : DaggerAppCompatActivity() {
         setSupportActionBar(toolbar)
         NavigationUI.setupActionBarWithNavController(this, navController, drawer_layout)
 
-        nav_view.setupWithNavController(navController)
+        binding.navView.setupWithNavController(navController)
     }
     
     override fun onStart() {

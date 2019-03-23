@@ -13,6 +13,7 @@ import com.dmitrysimakov.kilogram.databinding.DialogAddSetBinding
 import com.dmitrysimakov.kilogram.util.getIntValue
 import com.dmitrysimakov.kilogram.util.getViewModel
 import com.dmitrysimakov.kilogram.util.hideKeyboard
+import com.dmitrysimakov.kilogram.util.runCircularRevealAnimation
 import dagger.android.support.DaggerAppCompatDialogFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import javax.inject.Inject
@@ -43,6 +44,9 @@ class AddSetDialog : DaggerAppCompatDialogFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        if (params.setId == 0L)
+            runCircularRevealAnimation(activity!!.fab, binding.root, R.color.grey200, R.color.white)
+        
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 

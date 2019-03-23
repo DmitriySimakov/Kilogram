@@ -13,6 +13,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.dmitrysimakov.kilogram.ui.MainViewModel
 import java.lang.Exception
+import android.R.attr.data
+import android.R
+import android.util.TypedValue
+
+
 
 inline fun <reified T : ViewModel> Fragment.getViewModel(factory: ViewModelProvider.Factory) : T {
     return ViewModelProviders.of(this, factory).get(T::class.java)
@@ -43,4 +48,10 @@ fun <T> MutableLiveData<T>.setNewValue(newValue: T?) {
 
 fun EditText.getIntValue(): Int {
     return try { text.toString().toInt() } catch (e: Exception) { 0 }
+}
+
+fun Fragment.getAttrColor(id: Int): Int {
+    val typedValue = TypedValue()
+    context!!.theme.resolveAttribute(id, typedValue, true)
+    return typedValue.data
 }
