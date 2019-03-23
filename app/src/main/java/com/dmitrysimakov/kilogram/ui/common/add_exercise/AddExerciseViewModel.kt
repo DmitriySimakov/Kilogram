@@ -1,5 +1,6 @@
 package com.dmitrysimakov.kilogram.ui.common.add_exercise
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
@@ -27,18 +28,20 @@ class AddExerciseViewModel @Inject constructor(
         _exerciseId.setNewValue(id)
     }
     
-    val restTime = MutableLiveData(3*60)
+    private val _restTime = MutableLiveData(3*60)
+    val restTime: LiveData<Int>
+        get() = _restTime
     
     val strategy = MutableLiveData<String>()
     
-    fun addExerciseToTraining(trainingId: Long, num: Int) {
+    fun addExerciseToTraining(trainingId: Long, num: Int, rest: Int) {
         exercise.value?.let { trainingExerciseRepository.addExercise(
-                TrainingExercise(0, trainingId, it._id, num, restTime.value ?: 3*60, strategy.value, TrainingExercise.PLANNED, it.measures)) }
+                TrainingExercise(0, trainingId, it._id, num, rest, strategy.value, TrainingExercise.PLANNED, it.measures)) }
     }
     
-    fun addExerciseToProgramDay(programDayId: Long, num: Int) {
+    fun addExerciseToProgramDay(programDayId: Long, num: Int, rest: Int) {
         exercise.value?.let { programDayExerciseRepository.addExerciseToProgramDay(
-                ProgramDayExercise(0, programDayId, it._id, num, restTime.value ?: 3*60, strategy.value, it.measures)) }
+                ProgramDayExercise(0, programDayId, it._id, num, rest, strategy.value, it.measures)) }
     }
     
     fun updateMeasures() {

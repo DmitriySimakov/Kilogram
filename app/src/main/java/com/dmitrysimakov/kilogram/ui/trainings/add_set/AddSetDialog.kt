@@ -7,11 +7,10 @@ import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.DialogAddSetBinding
-import com.dmitrysimakov.kilogram.ui.MainViewModel
+import com.dmitrysimakov.kilogram.util.getIntValue
 import com.dmitrysimakov.kilogram.util.getViewModel
 import com.dmitrysimakov.kilogram.util.hideKeyboard
 import dagger.android.support.DaggerAppCompatDialogFragment
@@ -49,6 +48,7 @@ class AddSetDialog : DaggerAppCompatDialogFragment() {
 
         viewModel.setTrainingExercise(params.trainingExerciseId)
         viewModel.setSet(params.setId)
+        viewModel.set.observe(this, Observer {  })
         viewModel.trainingExercise.observe(this, Observer {  })
 
         return binding.root
@@ -73,6 +73,14 @@ class AddSetDialog : DaggerAppCompatDialogFragment() {
         when (item?.itemId) {
             R.id.ok -> {
                 hideKeyboard()
+                
+                viewModel.set.value?.run {
+                    weight = binding.weightET.getIntValue()
+                    reps = binding.repsET.getIntValue()
+                    time = binding.timeET.getIntValue()
+                    distance = binding.distanceET.getIntValue()
+                }
+                
                 if (params.setId == 0L) {
                     viewModel.addSet(mainViewModel.elapsedSessionTime.value ?: 0)
                     mainViewModel.onSetCompleted(viewModel.trainingExercise.value?.rest ?: 0)

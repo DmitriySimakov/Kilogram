@@ -19,6 +19,7 @@
             android:id="@+id/exercise_image"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_margin="4dp"
             android:adjustViewBounds="true"
             app:assetsImage='@{"exercises/"+ exercise._id +"_1.jpeg"}'
             tools:src="@drawable/exercise_sample_1"

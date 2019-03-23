@@ -1,10 +1,9 @@
 package com.dmitrysimakov.kilogram.ui.common.add_exercise
 
 import android.os.Bundle
-import android.text.TextWatcher
 import android.view.*
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.NavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.FragmentAddExerciseBinding
 import com.dmitrysimakov.kilogram.util.getViewModel
@@ -13,7 +12,6 @@ import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_add_exercise.*
 import javax.inject.Inject
-import android.text.Editable
 
 abstract class AddExerciseFragment: DaggerFragment() {
     
@@ -22,7 +20,7 @@ abstract class AddExerciseFragment: DaggerFragment() {
     protected lateinit var binding: FragmentAddExerciseBinding
     
     protected val viewModel by lazy { getViewModel<AddExerciseViewModel>(viewModelFactory) }
-
+    
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentAddExerciseBinding.inflate(inflater)
         binding.viewModel = viewModel
@@ -51,11 +49,13 @@ abstract class AddExerciseFragment: DaggerFragment() {
             hideKeyboard()
             addExercise()
             viewModel.updateMeasures()
-            findNavController().popBackStack(R.id.programDayExercisesFragment, false)
+            popBack()
             true
         }
         else -> false
     }
     
     abstract fun addExercise()
+    
+    abstract fun popBack()
 }

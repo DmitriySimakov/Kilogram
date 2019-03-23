@@ -125,7 +125,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:text="@={``+ viewModel.restTime}"
+            android:selectAllOnFocus="true"
+            app:notEmpty="@{true}"
+            android:text="@{``+ viewModel.restTime}"
             app:layout_constraintTop_toBottomOf="@id/rest_label"
             app:layout_constraintStart_toStartOf="@id/rest_label"
             app:layout_constraintEnd_toEndOf="parent"/>

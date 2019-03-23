@@ -1,13 +1,10 @@
 package com.dmitrysimakov.kilogram.ui.programs.add_exercise
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.common.add_exercise.AddExerciseFragment
-import com.dmitrysimakov.kilogram.util.hideKeyboard
+import com.dmitrysimakov.kilogram.util.getIntValue
 
 class Programs_AddExerciseFragment : AddExerciseFragment() {
     
@@ -19,6 +16,10 @@ class Programs_AddExerciseFragment : AddExerciseFragment() {
     }
     
     override fun addExercise() {
-        viewModel.addExerciseToProgramDay(params.programDayId, params.num)
+        viewModel.addExerciseToProgramDay(params.programDayId, params.num, binding.restET.getIntValue())
+    }
+    
+    override fun popBack() {
+        findNavController().popBackStack(R.id.programDayExercisesFragment, false)
     }
 }

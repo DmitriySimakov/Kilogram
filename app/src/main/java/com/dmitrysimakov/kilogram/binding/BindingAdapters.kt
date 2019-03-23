@@ -2,7 +2,9 @@ package com.dmitrysimakov.kilogram.binding
 
 import android.graphics.drawable.Drawable
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import java.io.IOException
 
@@ -25,6 +27,17 @@ object BindingAdapters {
             setImageDrawable(Drawable.createFromStream(inputStream, null))
         } catch (e: IOException) {
             e.printStackTrace()
+        }
+    }
+    
+    @BindingAdapter("notEmpty")
+    @JvmStatic fun EditText.notEmpty(isNotEmpty: Boolean) {
+        if (isNotEmpty) {
+            onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+                if (!hasFocus and text.isEmpty()) {
+                    setText("0")
+                }
+            }
         }
     }
 }

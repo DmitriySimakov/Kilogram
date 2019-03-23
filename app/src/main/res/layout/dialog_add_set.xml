@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     
     <data>
+        <import type="com.dmitrysimakov.kilogram.util.Converter"/>
         
         <variable
             name="viewModel"
@@ -37,13 +38,15 @@
                 app:errorEnabled="true">
                 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/weightET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:inputType="numberDecimal"
+                    android:inputType="number"
                     android:selectAllOnFocus="true"
                     android:hint="@string/weight_kg"
-                    android:text="@={`` + viewModel.set.weight}"/>
+                    app:notEmpty="@{true}"
+                    android:text="@{`` + viewModel.set.weight}"/>
                 
             </com.google.android.material.textfield.TextInputLayout>
             
@@ -77,13 +80,15 @@
                 app:errorEnabled="true">
         
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/repsET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:inputType="number"
                     android:selectAllOnFocus="true"
                     android:hint="@string/reps"
-                    android:text="@={`` + viewModel.set.reps}"/>
+                    app:notEmpty="@{true}"
+                    android:text="@{`` + viewModel.set.reps}"/>
     
             </com.google.android.material.textfield.TextInputLayout>
             
@@ -117,13 +122,15 @@
                 app:errorEnabled="true">
         
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timeET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:inputType="number"
                     android:selectAllOnFocus="true"
                     android:hint="@string/time_sec"
-                    android:text="@={`` + viewModel.set.time}"/>
+                    app:notEmpty="@{true}"
+                    android:text="@{`` + viewModel.set.time}"/>
     
             </com.google.android.material.textfield.TextInputLayout>
             
@@ -157,13 +164,15 @@
                 app:errorEnabled="true">
         
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/distanceET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:inputType="number"
                     android:selectAllOnFocus="true"
                     android:hint="@string/distance_metres"
-                    android:text="@={`` + viewModel.set.distance}"/>
+                    app:notEmpty="@{true}"
+                    android:text="@{`` + viewModel.set.distance}"/>
     
             </com.google.android.material.textfield.TextInputLayout>
             
