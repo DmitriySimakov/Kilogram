@@ -62,7 +62,7 @@
             android:id="@+id/program_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="@={vm.byProgram}"
+            android:checked="@={Converter.unbox(vm.byProgram)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/program_label"
             app:layout_constraintTop_toBottomOf="@id/divider1"/>
@@ -73,7 +73,7 @@
             android:layout_height="?attr/listPreferredItemHeightSmall"
             android:gravity="center_vertical"
             android:text="@{vm.programDay.program}"
-            app:invisibleUnless="@{vm.byProgram}"
+            app:invisibleUnless="@{Converter.unbox(vm.byProgram)}"
             app:layout_constraintEnd_toStartOf="@id/programDayTV"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/program_label"
@@ -85,7 +85,7 @@
             android:layout_height="?attr/listPreferredItemHeightSmall"
             android:gravity="center_vertical"
             android:text='@{vm.programDay != null ? vm.programDay.program_day : "Выбрать" }'
-            app:invisibleUnless="@{vm.byProgram}"
+            app:invisibleUnless="@{Converter.unbox(vm.byProgram)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/program_tv"
             app:layout_constraintTop_toBottomOf="@id/program_label"

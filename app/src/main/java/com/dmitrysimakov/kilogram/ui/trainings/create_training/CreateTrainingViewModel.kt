@@ -5,7 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.ItemInsertedListener
+import com.dmitrysimakov.kilogram.data.entity.ProgramDay
 import com.dmitrysimakov.kilogram.data.entity.Training
+import com.dmitrysimakov.kilogram.data.relation.ProgramDayR
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
@@ -18,28 +20,21 @@ class CreateTrainingViewModel @Inject constructor(
         private val trainingExerciseRepository: TrainingExerciseRepository,
         private val programDayRepository: ProgramDayRepository
 ) : ViewModel() {
-
+    
     private val _calendar = MutableLiveData<Calendar>(Calendar.getInstance())
+    fun updateCalendar() { _calendar.value = _calendar.value }
     val calendar: LiveData<Calendar>
         get() = _calendar
     
-    fun updateCalendar() {
-        _calendar.value = _calendar.value
-    }
+    val byProgram = MutableLiveData(false)
     
-    val byProgram = MutableLiveData(true)
-
-    private val _chosenProgramDayId = MutableLiveData<Long>()
-    
-    val programDay = Transformations.switchMap(_chosenProgramDayId) {
+    fun setProgramDay(id: Long) { _programDayId.setNewValue(id) }
+    private val _programDayId = MutableLiveData<Long>()
+    val programDay = Transformations.switchMap(_programDayId) {
         when (it) {
             0L -> programDayRepository.loadNextProgramDayR()
             else -> programDayRepository.loadProgramDayR(it)
         }
-    }
-    
-    fun setProgramDay(id: Long) {
-        _chosenProgramDayId.setNewValue(id)
     }
 
     fun createTraining(callback: ItemInsertedListener) {

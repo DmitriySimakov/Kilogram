@@ -33,8 +33,7 @@
         </action>
         <action
             android:id="@+id/to_chooseProgramFragment"
-            app:destination="@id/trainings_ChooseProgramFragment"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            app:destination="@id/trainings_ChooseProgramFragment" />
     </fragment>
     <fragment
         android:id="@+id/trainings_ChooseProgramFragment"
@@ -67,8 +66,7 @@
             app:argType="boolean" />
         <action
             android:id="@+id/to_chooseMuscleFragment"
-            app:destination="@id/trainings_ChooseMuscleFragment"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            app:destination="@id/trainings_ChooseMuscleFragment" />
         <action
             android:id="@+id/to_trainingSetsFragment"
             app:destination="@id/trainingSetsFragment" />

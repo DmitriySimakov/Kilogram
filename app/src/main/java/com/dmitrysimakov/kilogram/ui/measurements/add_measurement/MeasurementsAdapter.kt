@@ -9,7 +9,7 @@ import com.dmitrysimakov.kilogram.util.DataBoundListAdapter
 
 class MeasurementsAdapter (
         appExecutors: AppExecutors,
-        clickCallback: ((MeasurementR) -> Unit)?
+        clickCallback: ((MeasurementR) -> Unit)? = null
 ) : DataBoundListAdapter<MeasurementR, ItemMeasurementBinding>(appExecutors, clickCallback) {
 
     override fun createBinding(parent: ViewGroup) = ItemMeasurementBinding

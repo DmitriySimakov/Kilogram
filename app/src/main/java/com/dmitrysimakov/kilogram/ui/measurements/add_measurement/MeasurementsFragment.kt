@@ -35,9 +35,7 @@ class MeasurementsFragment : DaggerFragment() {
         viewModel = getViewModel(viewModelFactory)
         viewModel.measurementList.observe(this, Observer { adapter.submitList(it) })
 
-        adapter = MeasurementsAdapter(executors) { measurement ->
-
-        }
+        adapter = MeasurementsAdapter(executors)
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
     }

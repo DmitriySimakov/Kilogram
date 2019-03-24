@@ -4,11 +4,13 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.dmitrysimakov.kilogram.BR
 import com.dmitrysimakov.kilogram.util.HasId
 
 @Entity(tableName = "training_exercise_set",
+        indices = [Index(value = ["training_exercise_id"])],
         foreignKeys = [
             ForeignKey(
                     entity = TrainingExercise::class,

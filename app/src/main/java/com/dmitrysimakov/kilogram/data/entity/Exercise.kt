@@ -1,13 +1,11 @@
 package com.dmitrysimakov.kilogram.data.entity
 
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 import com.dmitrysimakov.kilogram.data.relation.ExerciseMeasures
 import com.dmitrysimakov.kilogram.util.HasId
 
 @Entity(tableName = "exercise",
+        indices = [Index(value = ["main_muscle_id"]), Index(value = ["mechanics_type_id"]), Index(value = ["exercise_type_id"]), Index(value = ["equipment_id"])],
         foreignKeys = [
             ForeignKey(
                     entity = Muscle::class,

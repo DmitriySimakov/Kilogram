@@ -93,7 +93,7 @@
                         android:gravity="center"
                         android:padding="4dp"
                         app:invisibleUnless="@{vm.elapsedRestTime != null}"
-                        android:text="@{vm.restTime - vm.elapsedRestTime > 0 ? Converter.secondsToTimeFormat(vm.restTime - vm.elapsedRestTime) : `Жги сын`}"
+                        android:text="@{safeUnbox(vm.restTime) - safeUnbox(vm.elapsedRestTime) > 0 ? Converter.secondsToTimeFormat(safeUnbox(vm.restTime) - safeUnbox(vm.elapsedRestTime)) : `Жги сын`}"
                         tools:text="1:55"/>
                     
                 </LinearLayout>

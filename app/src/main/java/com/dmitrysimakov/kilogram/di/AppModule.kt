@@ -1,6 +1,7 @@
 package com.dmitrysimakov.kilogram.di
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -18,7 +19,9 @@ class AppModule {
     
     @Singleton
     @Provides
-    fun provideSharedPreferences(app: KilogramApp) = app.getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
+    fun provideSharedPreferences(app: KilogramApp): SharedPreferences {
+        return app.getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
+    }
     
     @Singleton
     @Provides

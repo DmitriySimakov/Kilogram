@@ -5,6 +5,7 @@ import com.dmitrysimakov.kilogram.data.relation.ExerciseMeasures
 import com.dmitrysimakov.kilogram.util.HasId
 
 @Entity(tableName = "training_exercise",
+        indices = [Index(value = ["training_id"]), Index(value = ["exercise_id"])],
         foreignKeys = [
             ForeignKey(
                     entity = Training::class,

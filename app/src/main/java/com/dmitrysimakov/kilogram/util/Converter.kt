@@ -3,8 +3,15 @@ package com.dmitrysimakov.kilogram.util
 
 import java.text.SimpleDateFormat
 import java.util.*
+import androidx.databinding.InverseMethod
 
-fun secondsToTimeFormat(seconds: Int): String {
+fun unbox(b: Boolean?): Boolean = b ?: false
+
+@InverseMethod("unbox")
+fun box(b: Boolean): Boolean? = b
+
+fun secondsToTimeFormat(seconds: Int?): String {
+    if (seconds == null) return ""
     val millis = seconds * 1000L
     var pattern = "ss"
     if (seconds >= 60) pattern = "mm:$pattern"

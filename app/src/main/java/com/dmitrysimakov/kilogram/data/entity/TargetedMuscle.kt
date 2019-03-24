@@ -2,8 +2,10 @@ package com.dmitrysimakov.kilogram.data.entity
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 
 @Entity(tableName = "targeted_muscle",
+        indices = [Index(value = ["muscle_id"])],
         primaryKeys = ["exercise_id", "muscle_id"],
         foreignKeys = [
             ForeignKey(

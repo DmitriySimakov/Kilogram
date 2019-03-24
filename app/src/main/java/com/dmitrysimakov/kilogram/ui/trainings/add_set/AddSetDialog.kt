@@ -44,9 +44,6 @@ class AddSetDialog : DaggerAppCompatDialogFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        if (params.setId == 0L)
-            runCircularRevealAnimation(activity!!.fab, binding.root, R.color.grey200, R.color.white)
-        
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 

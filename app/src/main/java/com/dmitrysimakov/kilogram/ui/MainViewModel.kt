@@ -80,7 +80,7 @@ class MainViewModel @Inject constructor(private val preferences: SharedPreferenc
                 .apply()
     }
     
-    fun clearValues() {
+    private fun clearValues() {
         elapsedSessionTime.value = null
         elapsedRestTime.value = null
         restTime.value = null

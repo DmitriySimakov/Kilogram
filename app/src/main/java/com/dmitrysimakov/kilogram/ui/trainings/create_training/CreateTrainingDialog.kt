@@ -17,6 +17,7 @@ import com.dmitrysimakov.kilogram.databinding.DialogCreateTrainingBinding
 import com.dmitrysimakov.kilogram.util.getViewModel
 import com.dmitrysimakov.kilogram.util.hideKeyboard
 import com.dmitrysimakov.kilogram.util.runCircularRevealAnimation
+import com.dmitrysimakov.kilogram.util.setNewValue
 import dagger.android.support.DaggerAppCompatDialogFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.dialog_create_training.*
@@ -33,8 +34,17 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
     
     private val mainViewModel by lazy { getViewModel(activity!!, viewModelFactory) }
 
+    private var wasPopped = false
+    
     override fun onAttach(context: Context?) {
         super.onAttach(context)
+        
+        mainViewModel.programDayId.observe(this, Observer { viewModel.setProgramDay(it) })
+        viewModel.byProgram.observe(this, Observer {  })
+        viewModel.programDay.observe(this, Observer {
+            if (it != null) viewModel.byProgram.setNewValue(true)
+        })
+        
         binding = DialogCreateTrainingBinding.inflate(LayoutInflater.from(context))
     }
 
@@ -48,7 +58,7 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        runCircularRevealAnimation(activity!!.fab, binding.root, R.color.grey200, R.color.white)
+        if (!wasPopped) runCircularRevealAnimation(activity!!.fab, binding.root, R.color.grey200, R.color.white)
         
         binding.vm = viewModel
         binding.lifecycleOwner = this
@@ -71,7 +81,7 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
                 viewModel.updateCalendar()
             }, curYear, curMonthOfYear, curDay).apply {
                 datePicker.minDate = 0
-                val millisecondsPerMonth = 30.toLong() * 24 * 60 * 60 * 1000
+                val millisecondsPerMonth = 30L * 24 * 60 * 60 * 1000
                 datePicker.maxDate = Date().time + millisecondsPerMonth
                 show()
             }
@@ -95,24 +105,24 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         
-        mainViewModel.programDayId.observe(this, Observer {
-            viewModel.setProgramDay(it)
-            mainViewModel.programDayId.removeObservers(this)
-            mainViewModel.programDayId.value = 0L
-        })
-        
         if (dialog == null) {
             activity?.toolbar?.setNavigationIcon(R.drawable.baseline_close_white_24)
             setHasOptionsMenu(true)
         }
     
-        programDayTV.setOnClickListener {
+        binding.programDayTV.setOnClickListener {
+            wasPopped = true
             findNavController().navigate(CreateTrainingDialogDirections.toChooseProgramFragment())
         }
 
         activity?.fab?.hide()
     }
-
+    
+    override fun onDestroy() {
+        mainViewModel.programDayId.value = 0L
+        super.onDestroy()
+    }
+    
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater?.inflate(R.menu.dialog, menu)
         super.onCreateOptionsMenu(menu, inflater)
