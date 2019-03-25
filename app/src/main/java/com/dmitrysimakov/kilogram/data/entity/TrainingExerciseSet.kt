@@ -31,25 +31,25 @@ class TrainingExerciseSet(
     
     @get:Bindable var weight = weight
         set(value) {
-            field = value
+            field = value?.coerceIn(0, 10000)
             notifyPropertyChanged(BR.weight)
         }
     
     @get:Bindable var reps = reps
         set(value) {
-            field = value
+            field = value?.coerceIn(0, 1000)
             notifyPropertyChanged(BR.reps)
         }
     
     @get:Bindable var time = time
         set(value) {
-            field = value
+            field = value?.coerceIn(0, 24*60*60)
             notifyPropertyChanged(BR.time)
         }
     
     @get:Bindable var distance = distance
         set(value) {
-            field = value
+            field = value?.coerceIn(0, 100000)
             notifyPropertyChanged(BR.distance)
         }
 }

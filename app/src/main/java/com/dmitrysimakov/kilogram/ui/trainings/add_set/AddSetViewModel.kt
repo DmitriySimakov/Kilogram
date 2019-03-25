@@ -46,35 +46,19 @@ class AddSetViewModel @Inject constructor(
         set.value?.let { trainingExerciseSetRepository.updateSet(it) }
     }
     
-    fun decreaseWeight() {
-        set.value?.weight = set.value?.weight?.minus(5)?.coerceAtLeast(0)
-    }
+    fun decreaseWeight() { set.value?.weight = (set.value?.weight ?: 0) - 5 }
     
-    fun increaseWeight() {
-        set.value?.weight = set.value?.weight?.plus(5)
-    }
+    fun increaseWeight() { set.value?.weight = (set.value?.weight ?: 0) + 5 }
     
-    fun decreaseReps() {
-        set.value?.reps = set.value?.reps?.minus(1)?.coerceAtLeast(0)
-    }
+    fun decreaseReps() { set.value?.reps = (set.value?.reps ?: 0) - 1 }
     
-    fun increaseReps() {
-        set.value?.reps = set.value?.reps?.plus(1)
-    }
+    fun increaseReps() { set.value?.reps = (set.value?.reps ?: 0) + 1 }
     
-    fun decreaseTime() {
-        set.value?.time = set.value?.time?.minus(15)?.coerceAtLeast(0)
-    }
+    fun decreaseTime() { set.value?.time = (set.value?.time ?: 0) - 15 }
     
-    fun increaseTime() {
-        set.value?.time = set.value?.time?.plus(15)
-    }
+    fun increaseTime() { set.value?.time = (set.value?.time ?: 0) + 15 }
     
-    fun decreaseDistance() {
-        set.value?.distance = set.value?.distance?.minus(1)?.coerceAtLeast(0)
-    }
+    fun decreaseDistance() { set.value?.distance = (set.value?.distance ?: 0) - 100 }
     
-    fun increaseDistance() {
-        set.value?.distance = set.value?.distance?.plus(1)
-    }
+    fun increaseDistance() { set.value?.distance = (set.value?.distance ?: 0) + 100 }
 }

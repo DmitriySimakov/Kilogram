@@ -44,9 +44,9 @@
                     android:gravity="center"
                     android:inputType="number"
                     android:selectAllOnFocus="true"
-                    android:hint="@string/weight_kg"
                     app:notEmpty="@{true}"
-                    android:text="@{`` + viewModel.set.weight}"/>
+                    android:hint="@string/weight_kg"
+                    android:text="@={Converter.intToString(viewModel.set.weight)}"/>
                 
             </com.google.android.material.textfield.TextInputLayout>
             
@@ -86,9 +86,9 @@
                     android:gravity="center"
                     android:inputType="number"
                     android:selectAllOnFocus="true"
-                    android:hint="@string/reps"
                     app:notEmpty="@{true}"
-                    android:text="@{`` + viewModel.set.reps}"/>
+                    android:hint="@string/reps"
+                    android:text="@={Converter.intToString(viewModel.set.reps)}"/>
     
             </com.google.android.material.textfield.TextInputLayout>
             
@@ -128,9 +128,9 @@
                     android:gravity="center"
                     android:inputType="number"
                     android:selectAllOnFocus="true"
-                    android:hint="@string/time_sec"
                     app:notEmpty="@{true}"
-                    android:text="@{`` + viewModel.set.time}"/>
+                    android:hint="@string/time_sec"
+                    android:text="@={Converter.intToString(viewModel.set.time)}"/>
     
             </com.google.android.material.textfield.TextInputLayout>
             
@@ -170,9 +170,9 @@
                     android:gravity="center"
                     android:inputType="number"
                     android:selectAllOnFocus="true"
-                    android:hint="@string/distance_metres"
                     app:notEmpty="@{true}"
-                    android:text="@{`` + viewModel.set.distance}"/>
+                    android:hint="@string/distance_metres"
+                    android:text="@={Converter.intToString(viewModel.set.distance)}"/>
     
             </com.google.android.material.textfield.TextInputLayout>
             

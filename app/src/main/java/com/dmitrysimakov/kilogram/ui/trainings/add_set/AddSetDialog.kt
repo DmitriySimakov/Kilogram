@@ -75,13 +75,6 @@ class AddSetDialog : DaggerAppCompatDialogFragment() {
             R.id.ok -> {
                 hideKeyboard()
                 
-                viewModel.set.value?.run {
-                    weight = binding.weightET.getIntValue()
-                    reps = binding.repsET.getIntValue()
-                    time = binding.timeET.getIntValue()
-                    distance = binding.distanceET.getIntValue()
-                }
-                
                 if (params.setId == 0L) {
                     viewModel.addSet(mainViewModel.elapsedSessionTime.value ?: 0)
                     mainViewModel.onSetCompleted(viewModel.trainingExercise.value?.rest ?: 0)

@@ -10,6 +10,11 @@ fun unbox(b: Boolean?): Boolean = b ?: false
 @InverseMethod("unbox")
 fun box(b: Boolean): Boolean? = b
 
+fun intToString(value: Int?) = value?.toString() ?: ""
+
+@InverseMethod("intToString")
+fun stringToInt(string: String) = try { string.toInt() } catch (e: Exception) { null }
+
 fun secondsToTimeFormat(seconds: Int?): String {
     if (seconds == null) return ""
     val millis = seconds * 1000L
