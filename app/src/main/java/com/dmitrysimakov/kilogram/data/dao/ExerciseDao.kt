@@ -41,4 +41,10 @@ interface ExerciseDao {
     
     @Update
     fun updateExercise(exercise: Exercise)
+    
+    @Query("UPDATE exercise SET executions_cnt = executions_cnt + 1 WHERE _id = :id")
+    fun increaseExecutionsCnt(id: Long)
+    
+    @Query("UPDATE exercise SET executions_cnt = executions_cnt - 1 WHERE _id = :id")
+    fun decreaseExecutionsCnt(id: Long)
 }

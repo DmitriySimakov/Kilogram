@@ -23,7 +23,7 @@
             
             <TextView
                 android:id="@+id/exercise_name"
-                style="@style/FieldStyle"
+                style="@style/Field"
                 android:text="@{vm.exercise.name}"
                 tools:text="@string/exercise_name"/>
             
@@ -55,72 +55,72 @@
             </LinearLayout>
             
             <TextView
-                style="@style/LabelStyle"
+                style="@style/Label"
                 android:text="@string/main_muscle"/>
             
             <TextView
                 android:id="@+id/main_muscle"
-                style="@style/FieldStyle"
+                style="@style/Field"
                 android:text="@{vm.exercise.main_muscle}"
                 tools:text="@string/main_muscle"/>
             
-            <View style="@style/VerticalDividerStyle"/>
+            <View style="@style/VerticalDivider"/>
             
             <TextView
-                style="@style/LabelStyle"
+                style="@style/Label"
                 android:text="@string/targeted_muscles"/>
             
             <TextView
                 android:id="@+id/targeted_muscles"
-                style="@style/FieldStyle"
+                style="@style/Field"
                 android:text="@{vm.exercise.targeted_muscles}"
                 tools:text="@string/targeted_muscles"/>
             
-            <View style="@style/VerticalDividerStyle"/>
+            <View style="@style/VerticalDivider"/>
             
             <TextView
-                style="@style/LabelStyle"
+                style="@style/Label"
                 android:text="@string/mechanics_type"/>
             
             <TextView
                 android:id="@+id/mechanics_type"
-                style="@style/FieldStyle"
+                style="@style/Field"
                 android:text="@{vm.exercise.mechanics_type}"
                 tools:text="@string/mechanics_type"/>
             
-            <View style="@style/VerticalDividerStyle"/>
+            <View style="@style/VerticalDivider"/>
             
             <TextView
-                style="@style/LabelStyle"
+                style="@style/Label"
                 android:text="@string/exercise_type"/>
             
             <TextView
                 android:id="@+id/exercise_type"
-                style="@style/FieldStyle"
+                style="@style/Field"
                 android:text="@{vm.exercise.exercise_type}"
                 tools:text="@string/exercise_type"/>
             
-            <View style="@style/VerticalDividerStyle"/>
+            <View style="@style/VerticalDivider"/>
             
             <TextView
-                style="@style/LabelStyle"
+                style="@style/Label"
                 android:text="@string/equipment"/>
             
             <TextView
                 android:id="@+id/equipment"
-                style="@style/FieldStyle"
+                style="@style/Field"
                 android:text="@{vm.exercise.equipment}"
                 tools:text="@string/equipment"/>
             
-            <View style="@style/VerticalDividerStyle"/>
+            <View style="@style/VerticalDivider"/>
             
             <TextView
-                style="@style/LabelStyle"
+                style="@style/Label"
                 android:text="@string/description"/>
             
             <TextView
                 android:id="@+id/description"
-                style="@style/FieldStyle"
+                style="@style/Field"
                 android:text="@{vm.exercise.description}"
                 tools:text="@string/description"/>
         

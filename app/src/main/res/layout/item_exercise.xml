@@ -6,6 +6,10 @@
     
     <data>
         <variable
+            name="vm"
+            type="com.dmitrysimakov.kilogram.ui.common.choose_exercise.ChooseExerciseViewModel"/>
+        
+        <variable
             name="exercise"
             type="com.dmitrysimakov.kilogram.data.entity.Exercise"/>
     </data>
@@ -37,6 +41,16 @@
             android:text="@{exercise.name}"
             android:textAppearance="?android:attr/textAppearanceListItemSmall"
             tools:text="Упражнение"/>
+        
+        <ToggleButton
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="?attr/listPreferredItemPaddingRight"
+            android:background="@drawable/favorite_toggle"
+            android:checked="@{exercise._favorite}"
+            android:onCheckedChanged="@{(view, isChecked) -> vm.setFavorite(exercise, isChecked)}"
+            style="@style/ImageToggleButton" />
     
     </LinearLayout>
     

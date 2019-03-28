@@ -8,53 +8,57 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
-import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.data.entity.Equipment
-import com.dmitrysimakov.kilogram.data.entity.ExerciseType
-import com.dmitrysimakov.kilogram.data.entity.MechanicsType
-import com.dmitrysimakov.kilogram.data.entity.Muscle
-import com.dmitrysimakov.kilogram.util.*
+import com.dmitrysimakov.kilogram.databinding.FragmentChooseExerciseBinding
+import com.dmitrysimakov.kilogram.util.AppExecutors
+import com.dmitrysimakov.kilogram.util.ChipGroupFilterAdapter
+import com.dmitrysimakov.kilogram.util.getViewModel
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.fragment_choose_exercise.*
 import javax.inject.Inject
 
 abstract class ChooseExerciseFragment : DaggerFragment() {
 
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
-
     @Inject lateinit var executors: AppExecutors
+    
+    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     protected val viewModel by lazy { getViewModel<ChooseExerciseViewModel>(viewModelFactory) }
 
-    protected val exerciseAdapter by lazy { ExerciseListAdapter(executors) }
+    protected lateinit var binding: FragmentChooseExerciseBinding
+    
+    protected val exerciseAdapter by lazy { ExerciseListAdapter(executors, viewModel) }
 
     protected lateinit var muscleAdapter: ChipGroupFilterAdapter
     protected lateinit var mechanicsTypeAdapter: ChipGroupFilterAdapter
     protected lateinit var exerciseTypeAdapter: ChipGroupFilterAdapter
     protected lateinit var equipmentAdapter: ChipGroupFilterAdapter
     
+    protected var wasPopped = false
+    
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_choose_exercise, container, false)
+        binding = FragmentChooseExerciseBinding.inflate(inflater)
+        binding.vm = viewModel
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         
-        recyclerView.adapter = exerciseAdapter
-        recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
+        binding.recyclerView.adapter = exerciseAdapter
+        binding.recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
     
-        muscleAdapter = ChipGroupFilterAdapter(musclesCG) { id, isChecked ->
-            viewModel.filter.value?.setMuscleChecked(id, isChecked)
+        muscleAdapter = ChipGroupFilterAdapter(binding.musclesCG) { id, isChecked ->
+            viewModel.filter.setMuscleChecked(id, isChecked)
         }
-        mechanicsTypeAdapter = ChipGroupFilterAdapter(mechanicsTypeCG) { id, isChecked ->
-            viewModel.filter.value?.setMechanicsTypeChecked(id, isChecked)
+        mechanicsTypeAdapter = ChipGroupFilterAdapter(binding.mechanicsTypeCG) { id, isChecked ->
+            viewModel.filter.setMechanicsTypeChecked(id, isChecked)
         }
-        exerciseTypeAdapter = ChipGroupFilterAdapter(exerciseTypeCG) { id, isChecked ->
-            viewModel.filter.value?.setExerciseTypeChecked(id, isChecked)
+        exerciseTypeAdapter = ChipGroupFilterAdapter(binding.exerciseTypeCG) { id, isChecked ->
+            viewModel.filter.setExerciseTypeChecked(id, isChecked)
         }
-        equipmentAdapter = ChipGroupFilterAdapter(equipmentCG) { id, isChecked ->
-            viewModel.filter.value?.setEquipmentChecked(id, isChecked)
+        equipmentAdapter = ChipGroupFilterAdapter(binding.equipmentCG) { id, isChecked ->
+            viewModel.filter.setEquipmentChecked(id, isChecked)
         }
         
         viewModel.exerciseList.observe(this, Observer { exerciseAdapter.submitList(it) })

@@ -13,13 +13,16 @@ class Programs_ChooseExerciseFragment : ChooseExerciseFragment() {
         val params = Programs_ChooseExerciseFragmentArgs.fromBundle(arguments!!)
         
         exerciseAdapter.clickCallback = { exercise ->
+            wasPopped = true
             findNavController().navigate(Programs_ChooseExerciseFragmentDirections
                     .toAddExerciseFragment(exercise._id, params.num, params.programDayId))
         }
     
-        muscleAdapter.notification.observe(this, Observer {
-            muscleAdapter.setChecked(params.muscleId.toInt(), true)
-        })
+        if (!wasPopped) {
+            muscleAdapter.notification.observe(this, Observer {
+                muscleAdapter.setChecked(params.muscleId.toInt(), true)
+            })
+        }
     }
     
     

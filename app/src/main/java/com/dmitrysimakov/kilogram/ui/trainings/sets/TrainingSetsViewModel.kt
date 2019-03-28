@@ -5,6 +5,7 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.entity.TrainingExerciseSet
+import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseSetRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
@@ -12,7 +13,8 @@ import javax.inject.Inject
 
 class TrainingSetsViewModel @Inject constructor(
         private val trainingExerciseSetRepository: TrainingExerciseSetRepository,
-        private val trainingExerciseRepository: TrainingExerciseRepository
+        private val trainingExerciseRepository: TrainingExerciseRepository,
+        private val exerciseRepository: ExerciseRepository
 ) : ViewModel() {
 
     private val _trainingExerciseId = MutableLiveData<Long>()
@@ -34,5 +36,6 @@ class TrainingSetsViewModel @Inject constructor(
     
     fun finishExercise(trainingExerciseId: Long) {
         trainingExerciseRepository.updateState(trainingExerciseId, TrainingExercise.FINISHED)
+        exercise.value?.let { exerciseRepository.increaseExecutionsCnt(it.exercise_id) }
     }
 }

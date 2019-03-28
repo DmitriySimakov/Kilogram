@@ -12,6 +12,7 @@ class Exercises_ChooseExerciseFragment : ChooseExerciseFragment() {
         super.onAttach(context)
         
         exerciseAdapter.clickCallback = { exercise ->
+            wasPopped = true
             findNavController().navigate(Exercises_ChooseExerciseFragmentDirections
                     .toExerciseDetailFragment(exercise._id))
         }
@@ -21,8 +22,10 @@ class Exercises_ChooseExerciseFragment : ChooseExerciseFragment() {
         super.onActivityCreated(savedInstanceState)
         val params = Exercises_ChooseExerciseFragmentArgs.fromBundle(arguments!!)
     
-        muscleAdapter.notification.observe(this, Observer {
-            muscleAdapter.setChecked(params.muscleId.toInt(), true)
-        })
+        if (!wasPopped) {
+            muscleAdapter.notification.observe(this, Observer {
+                muscleAdapter.setChecked(params.muscleId.toInt(), true)
+            })
+        }
     }
 }

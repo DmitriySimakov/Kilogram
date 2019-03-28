@@ -34,11 +34,11 @@
                     android:orientation="vertical">
     
                     <TextView
-                        style="@style/LabelStyle"
+                        style="@style/Label"
                         android:text="Выполняющиеся"
                         android:layout_marginStart="?attr/listPreferredItemPaddingLeft"/>
     
-                    <View style="@style/VerticalDividerStyle"/>
+                    <View style="@style/VerticalDivider"/>
                     
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/runningExercisesRV"
@@ -65,11 +65,11 @@
                     android:orientation="vertical">
             
                     <TextView
-                        style="@style/LabelStyle"
+                        style="@style/Label"
                         android:text="Запланированные"
                         android:layout_marginStart="?attr/listPreferredItemPaddingLeft"/>
     
-                    <View style="@style/VerticalDividerStyle"/>
+                    <View style="@style/VerticalDivider"/>
                     
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/plannedExercisesRV"
@@ -96,11 +96,11 @@
                     android:orientation="vertical">
             
                     <TextView
-                        style="@style/LabelStyle"
+                        style="@style/Label"
                         android:text="Выполненные"
                         android:layout_marginStart="?attr/listPreferredItemPaddingLeft"/>
     
-                    <View style="@style/VerticalDividerStyle"/>
+                    <View style="@style/VerticalDivider"/>
                     
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/finishedExercisesRV"

@@ -19,7 +19,7 @@
     
         <TextView
             android:id="@+id/exercise_name"
-            style="@style/LabelStyle"
+            style="@style/Label"
             android:text="@{viewModel.exercise.name}"
             tools:text="@string/exercise"
             app:layout_constraintTop_toTopOf="parent"
@@ -52,7 +52,7 @@
         
         <TextView
             android:id="@+id/measurements_label"
-            style="@style/LabelStyle"
+            style="@style/Label"
             android:layout_width="0dp"
             android:text="@string/measures"
             app:layout_constraintStart_toStartOf="parent"
@@ -113,7 +113,7 @@
         
         <TextView
             android:id="@+id/rest_label"
-            style="@style/LabelStyle"
+            style="@style/Label"
             android:layout_width="0dp"
             android:text="@string/rest_time_after"
             app:layout_constraintTop_toBottomOf="@id/image_2"

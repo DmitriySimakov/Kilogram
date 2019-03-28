@@ -64,7 +64,7 @@
                     android:text="@{Converter.secondsToTimeFormat(vm.elapsedSessionTime)}"
                     tools:text="32:30" />
 
-                <View style="@style/HorizontalDividerStyle"
+                <View style="@style/HorizontalDivider"
                     app:invisibleUnless="@{vm.elapsedRestTime != null}"/>
                 
                 <TextView
@@ -78,7 +78,7 @@
                     android:text="@{Converter.secondsToTimeFormat(vm.elapsedRestTime)}"
                     tools:text="1:05"/>
 
-                <View style="@style/HorizontalDividerStyle"
+                <View style="@style/HorizontalDivider"
                     app:invisibleUnless="@{vm.elapsedRestTime != null}"/>
                 
                 <TextView

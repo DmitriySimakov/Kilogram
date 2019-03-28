@@ -19,11 +19,10 @@ class ChipGroupFilterAdapter(private val group: ChipGroup, callback: ((Int, Bool
         }
     }
     
-    fun submitList(newList: List<FilterParameter>) {
+    fun submitList(newList: List<HasName>) {
         for (item in newList) {
             val chip = LayoutInflater.from(group.context).inflate(R.layout.chip_filter, group, false) as Chip
             chip.text = item.name
-            chip.isChecked = item.isChecked
             chip.setOnCheckedChangeListener(checkedChangeListener)
             list.add(chip)
             group.addView(chip)
@@ -35,5 +34,3 @@ class ChipGroupFilterAdapter(private val group: ChipGroup, callback: ((Int, Bool
         if (id <= list.size) list[id - 1].isChecked = isChecked
     }
 }
-
-data class FilterParameter(val _id: Int, val name: String, var isChecked: Boolean)

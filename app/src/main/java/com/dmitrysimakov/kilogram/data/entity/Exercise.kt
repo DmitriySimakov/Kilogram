@@ -29,7 +29,7 @@ import com.dmitrysimakov.kilogram.util.HasId
                     onDelete = ForeignKey.SET_NULL)
         ]
 )
-class Exercise(
+data class Exercise(
         @PrimaryKey(autoGenerate = true) override val _id: Long = 0,
         val name: String,
         val main_muscle_id: Long? = null,
@@ -37,5 +37,7 @@ class Exercise(
         val exercise_type_id: Long? = null,
         val equipment_id: Long? = null,
         val description: String? = null,
+        val executions_cnt: Long = 0,
+        var is_favorite: Boolean = false,
         @Embedded(prefix = "measure_") val measures: ExerciseMeasures = ExerciseMeasures()
 ) : HasId

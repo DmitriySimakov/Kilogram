@@ -80,5 +80,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="name">Название</string>
     <string name="finish_exercise">Завершить упражнение</string>
+    <string name="added_to_favorite">Добавленные в избранное</string>
+    <string name="performed_earlier">Выполняемые ранее</string>
 
 </resources>

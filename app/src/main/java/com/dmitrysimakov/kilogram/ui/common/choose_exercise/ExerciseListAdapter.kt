@@ -9,6 +9,7 @@ import com.dmitrysimakov.kilogram.util.DataBoundListAdapter
 
 class ExerciseListAdapter(
         appExecutors: AppExecutors,
+        private val viewModel: ChooseExerciseViewModel,
         clickCallback: ((Exercise) -> Unit)? = null
 ) : DataBoundListAdapter<Exercise, ItemExerciseBinding>(appExecutors, clickCallback) {
 
@@ -17,5 +18,6 @@ class ExerciseListAdapter(
 
     override fun bind(binding: ItemExerciseBinding, item: Exercise) {
         binding.exercise = item
+        binding.vm = viewModel
     }
 }

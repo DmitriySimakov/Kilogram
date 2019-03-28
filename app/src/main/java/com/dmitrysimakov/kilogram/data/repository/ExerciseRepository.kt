@@ -29,6 +29,18 @@ class ExerciseRepository @Inject constructor(
         }
     }
     
+    fun increaseExecutionsCnt(id: Long) {
+        executors.diskIO().execute {
+            exerciseDao.increaseExecutionsCnt(id)
+        }
+    }
+    
+    fun decreaseExecutionsCnt(id: Long) {
+        executors.diskIO().execute {
+            exerciseDao.decreaseExecutionsCnt(id)
+        }
+    }
+    
     
     fun loadMechanicsTypeList() = mechanicsTypeDao.getList()
     
