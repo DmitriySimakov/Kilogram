@@ -1,6 +1,7 @@
 package com.dmitrysimakov.kilogram.ui.programs.choose_exercise
 
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.ui.common.choose_exercise.ChooseExerciseFragment
 
@@ -10,11 +11,16 @@ class Programs_ChooseExerciseFragment : ChooseExerciseFragment() {
         super.onActivityCreated(savedInstanceState)
         
         val params = Programs_ChooseExerciseFragmentArgs.fromBundle(arguments!!)
-        viewModel.setMuscle(params.muscleId)
         
-        adapter.clickCallback = { exercise ->
+        exerciseAdapter.clickCallback = { exercise ->
             findNavController().navigate(Programs_ChooseExerciseFragmentDirections
                     .toAddExerciseFragment(exercise._id, params.num, params.programDayId))
         }
+    
+        muscleAdapter.notification.observe(this, Observer {
+            muscleAdapter.setChecked(params.muscleId.toInt(), true)
+        })
     }
+    
+    
 }

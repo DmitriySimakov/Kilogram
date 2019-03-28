@@ -4,7 +4,7 @@
 
     <style name="AppThemeLight" parent="BaseAppThemeLight"/>
 
-    <style name="BaseAppThemeLight" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="BaseAppThemeLight" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:windowBackground">@color/white</item>
         <item name="colorPrimary">@color/red600</item>
         <item name="colorPrimaryDark">@color/red800</item>
@@ -22,18 +22,18 @@
         <item name="android:buttonStyle">@style/Widget.AppCompat.Button.Borderless.Colored</item>
     </style>
 
-    <style name="AppThemeLight.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppThemeLight.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
 
-    <style name="AppThemeLight.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppThemeLight.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 
-    <style name="DialogThemeLight" parent="Theme.AppCompat.Light.Dialog">
+    <style name="DialogThemeLight" parent="Theme.MaterialComponents.Light.Dialog">
         <item name="colorAccent">@color/red600</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
     <!-- DARK THEME -->
 
-    <style name="BaseAppThemeDark" parent="Theme.AppCompat.NoActionBar">
+    <style name="BaseAppThemeDark" parent="Theme.MaterialComponents.NoActionBar">
         <item name="android:windowBackground">@color/darkBackground</item>
         <item name="colorPrimary">@color/darkPrimary</item>
         <item name="colorPrimaryDark">@color/darkPrimaryDark</item>
@@ -50,9 +50,9 @@
 
     <style name="AppThemeDark" parent="BaseAppThemeDark"/>
 
-    <style name="AppThemeDark.PopupOverlay" parent="ThemeOverlay.AppCompat" />
+    <style name="AppThemeDark.PopupOverlay" parent="ThemeOverlay.MaterialComponents" />
 
-    <style name="DialogThemeDark" parent="Theme.AppCompat.Dialog">
+    <style name="DialogThemeDark" parent="Theme.MaterialComponents.Dialog">
         <item name="colorAccent">@color/red500</item>
         <item name="android:background">@color/darkBackground</item>
         <item name="android:textColor">@color/white</item>

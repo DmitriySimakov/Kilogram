@@ -14,24 +14,20 @@ class AddSetViewModel @Inject constructor(
         private val trainingExerciseRepository: TrainingExerciseRepository,
         private val trainingExerciseSetRepository: TrainingExerciseSetRepository
 ) : ViewModel() {
-
+    
+    fun setTrainingExercise(id: Long) { _trainingExerciseId.setNewValue(id) }
     private val _trainingExerciseId = MutableLiveData<Long>()
     val trainingExercise = Transformations.switchMap(_trainingExerciseId) {
         trainingExerciseRepository.loadTrainingExercise(it)
     }
-    fun setTrainingExercise(id: Long) {
-        _trainingExerciseId.setNewValue(id)
-    }
     
+    fun setSet(id: Long) { _setId.setNewValue(id) }
     private val _setId = MutableLiveData<Long>()
     val set = Transformations.switchMap(_setId) {
         when (it) {
             0L -> MutableLiveData(TrainingExerciseSet(0, _trainingExerciseId.value!!, 0, 0, 0, 0, 0))
             else -> trainingExerciseSetRepository.loadSet(it)
         }
-    }
-    fun setSet(id: Long) {
-        _setId.setNewValue(id)
     }
     
     fun addSet(secsSinceStart: Int) {

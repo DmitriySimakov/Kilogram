@@ -2,6 +2,7 @@ package com.dmitrysimakov.kilogram.data.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.dmitrysimakov.kilogram.data.entity.Exercise
 import com.dmitrysimakov.kilogram.data.relation.DetailedExerciseR
 
@@ -10,6 +11,9 @@ interface ExerciseDao {
 
     @Query("SELECT * FROM exercise")
     fun getExerciseList() : LiveData<List<Exercise>>
+    
+    @RawQuery(observedEntities = [Exercise::class])
+    fun getExerciseList(query: SupportSQLiteQuery) : LiveData<List<Exercise>>
 
     @Query("SELECT * FROM exercise WHERE main_muscle_id = :muscleId")
     fun getExerciseList(muscleId: Long) : LiveData<List<Exercise>>

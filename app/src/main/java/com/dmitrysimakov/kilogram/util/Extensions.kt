@@ -7,17 +7,10 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.dmitrysimakov.kilogram.ui.MainViewModel
 import java.lang.Exception
-import android.R.attr.data
-import android.R
 import android.util.TypedValue
-
-
+import androidx.lifecycle.*
 
 inline fun <reified T : ViewModel> Fragment.getViewModel(factory: ViewModelProvider.Factory) : T {
     return ViewModelProviders.of(this, factory).get(T::class.java)
@@ -54,4 +47,13 @@ fun Fragment.getAttrColor(id: Int): Int {
     val typedValue = TypedValue()
     context!!.theme.resolveAttribute(id, typedValue, true)
     return typedValue.data
+}
+
+fun <T> MutableLiveData<T>.notifyObservers() {
+    value = value
+}
+
+inline fun <T> List<T>.findIndex(predicate: (T) -> Boolean): Int? {
+    for (i in 0 until this.size) if (predicate(get(i))) return i
+    return null
 }
