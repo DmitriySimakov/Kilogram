@@ -82,5 +82,7 @@
     <string name="finish_exercise">Завершить упражнение</string>
     <string name="added_to_favorite">Добавленные в избранное</string>
     <string name="performed_earlier">Выполняемые ранее</string>
+    <string name="sort">Сортировка</string>
+    <string name="filter">Фильтр</string>
 
 </resources>

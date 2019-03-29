@@ -1,10 +1,7 @@
 package com.dmitrysimakov.kilogram.data.repository
 
 import androidx.sqlite.db.SupportSQLiteQuery
-import com.dmitrysimakov.kilogram.data.dao.EquipmentDao
-import com.dmitrysimakov.kilogram.data.dao.ExerciseDao
-import com.dmitrysimakov.kilogram.data.dao.ExerciseTypeDao
-import com.dmitrysimakov.kilogram.data.dao.MechanicsTypeDao
+import com.dmitrysimakov.kilogram.data.dao.*
 import com.dmitrysimakov.kilogram.data.entity.Exercise
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import javax.inject.Inject
@@ -12,6 +9,7 @@ import javax.inject.Inject
 class ExerciseRepository @Inject constructor(
         private val executors: AppExecutors,
         private val exerciseDao: ExerciseDao,
+        private val muscleDao: MuscleDao,
         private val mechanicsTypeDao: MechanicsTypeDao,
         private val exerciseTypeDao: ExerciseTypeDao,
         private val equipmentDao: EquipmentDao
@@ -42,9 +40,11 @@ class ExerciseRepository @Inject constructor(
     }
     
     
-    fun loadMechanicsTypeList() = mechanicsTypeDao.getList()
+    fun loadMuscleParams() = muscleDao.getParams()
     
-    fun loadExerciseTypeList() = exerciseTypeDao.getList()
+    fun loadMechanicsTypeParams() = mechanicsTypeDao.getParams()
     
-    fun loadEquipmentList() = equipmentDao.getList()
+    fun loadExerciseTypeParams() = exerciseTypeDao.getParams()
+    
+    fun loadEquipmentParams() = equipmentDao.getParams()
 }

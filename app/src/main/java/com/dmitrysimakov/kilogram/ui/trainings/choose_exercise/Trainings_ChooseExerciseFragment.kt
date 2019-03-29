@@ -17,9 +17,9 @@ class Trainings_ChooseExerciseFragment : ChooseExerciseFragment() {
             findNavController().navigate(Trainings_ChooseExerciseFragmentDirections
                     .toAddExerciseFragment(exercise._id, params.num, params.trainingId))
         }
-    
+        
         if (!wasPopped) {
-            muscleAdapter.notification.observe(this, Observer {
+            muscleAdapter.dataWasChanged.observe(this, Observer {
                 muscleAdapter.setChecked(params.muscleId.toInt(), true)
             })
         }

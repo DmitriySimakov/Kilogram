@@ -6,12 +6,13 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.dmitrysimakov.kilogram.data.entity.ExerciseType
+import com.dmitrysimakov.kilogram.data.relation.FilterParam
 
 @Dao
 interface ExerciseTypeDao {
     
-    @Query("SELECT * FROM exercise_type ORDER BY _id")
-    fun getList(): LiveData<List<ExerciseType>>
+    @Query("SELECT _id, name FROM exercise_type ORDER BY _id")
+    fun getParams(): LiveData<List<FilterParam>>
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(list: List<ExerciseType>)

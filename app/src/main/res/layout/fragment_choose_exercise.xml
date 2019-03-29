@@ -36,18 +36,18 @@
         
                 <androidx.appcompat.widget.AppCompatCheckBox
                     android:text="@string/added_to_favorite"
-                    android:checked="@={vm.filter.addedToFavorite}"
+                    android:checked="@={vm.addedToFavorite}"
                     style="@style/Label" />
         
                 <androidx.appcompat.widget.AppCompatCheckBox
                     android:text="@string/performed_earlier"
-                    android:checked="@={vm.filter.performedEarlier}"
+                    android:checked="@={vm.performedEarlier}"
                     style="@style/Label" />
                 
                 <TextView
                     android:text="@string/main_muscle"
                     style="@style/Label" />
-        
+                
                 <com.google.android.material.chip.ChipGroup
                     android:id="@+id/musclesCG"
                     android:layout_width="match_parent"

@@ -23,7 +23,7 @@ class Exercises_ChooseExerciseFragment : ChooseExerciseFragment() {
         val params = Exercises_ChooseExerciseFragmentArgs.fromBundle(arguments!!)
     
         if (!wasPopped) {
-            muscleAdapter.notification.observe(this, Observer {
+            muscleAdapter.dataWasChanged.observe(this, Observer {
                 muscleAdapter.setChecked(params.muscleId.toInt(), true)
             })
         }

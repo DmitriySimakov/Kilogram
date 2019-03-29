@@ -4,6 +4,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.ListAdapter
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * A generic RecyclerView exercisePlannedListAdapter that uses Data Binding & DiffUtil.
@@ -14,7 +15,7 @@ import android.view.ViewGroup
 abstract class DataBoundListAdapter<I : HasId, B : ViewDataBinding>(
         appExecutors: AppExecutors,
         var clickCallback: ((I) -> Unit)? = null
-) : ListAdapter<I, DataBoundViewHolder<B>>(
+) : ListAdapter<I, DataBoundListAdapter.DataBoundViewHolder<B>>(
         AsyncDifferConfig.Builder(IdDiffCallback<I>())
                 .setBackgroundThreadExecutor(appExecutors.diskIO())
                 .build()
@@ -36,4 +37,10 @@ abstract class DataBoundListAdapter<I : HasId, B : ViewDataBinding>(
     protected abstract fun bind(binding: B, item: I)
     
     public override fun getItem(position: Int) : I = super.getItem(position)
+    
+    /**
+     * A generic ViewHolder that works with a [ViewDataBinding].
+     * @param <T> The type of the ViewDataBinding.
+    </T> */
+    class DataBoundViewHolder<out T : ViewDataBinding>(val binding: T): RecyclerView.ViewHolder(binding.root)
 }

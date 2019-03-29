@@ -1,33 +1,29 @@
-package com.dmitrysimakov.kilogram.util
+package com.dmitrysimakov.kilogram.ui.common.choose_exercise
 
 import android.view.LayoutInflater
-import android.widget.CompoundButton
 import androidx.lifecycle.MutableLiveData
 import com.dmitrysimakov.kilogram.R
+import com.dmitrysimakov.kilogram.data.relation.FilterParam
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 
-class ChipGroupFilterAdapter(private val group: ChipGroup, callback: ((Int, Boolean) -> Unit)) {
+class ChipGroupFilterAdapter(private val group: ChipGroup, private val callback: ((Long, Boolean) -> Unit)) {
     
-    val notification = MutableLiveData<Boolean>()
+    val dataWasChanged = MutableLiveData<Boolean>()
     
     private val list = mutableListOf<Chip>()
     
-    private val checkedChangeListener = CompoundButton.OnCheckedChangeListener { view, isChecked ->
-        list.findIndex {it.id == view.id}?.let { index ->
-            callback.invoke(index + 1, isChecked)
-        }
-    }
-    
-    fun submitList(newList: List<HasName>) {
+    fun submitList(newList: List<FilterParam>) {
+        group.removeAllViews()
         for (item in newList) {
             val chip = LayoutInflater.from(group.context).inflate(R.layout.chip_filter, group, false) as Chip
             chip.text = item.name
-            chip.setOnCheckedChangeListener(checkedChangeListener)
+            chip.isChecked = item.isActive
+            chip.setOnCheckedChangeListener{ _, isChecked -> callback(item._id, isChecked) }
             list.add(chip)
             group.addView(chip)
         }
-        notification.value = true
+        dataWasChanged.value = true
     }
     
     fun setChecked(id: Int, isChecked: Boolean) {

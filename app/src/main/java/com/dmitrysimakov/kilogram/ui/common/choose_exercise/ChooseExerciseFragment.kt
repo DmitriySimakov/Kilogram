@@ -1,16 +1,15 @@
 package com.dmitrysimakov.kilogram.ui.common.choose_exercise
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.core.view.GravityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.FragmentChooseExerciseBinding
 import com.dmitrysimakov.kilogram.util.AppExecutors
-import com.dmitrysimakov.kilogram.util.ChipGroupFilterAdapter
 import com.dmitrysimakov.kilogram.util.getViewModel
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -36,6 +35,7 @@ abstract class ChooseExerciseFragment : DaggerFragment() {
     protected var wasPopped = false
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        setHasOptionsMenu(true)
         binding = FragmentChooseExerciseBinding.inflate(inflater)
         binding.vm = viewModel
         binding.lifecycleOwner = this
@@ -47,18 +47,18 @@ abstract class ChooseExerciseFragment : DaggerFragment() {
         
         binding.recyclerView.adapter = exerciseAdapter
         binding.recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
-    
+        
         muscleAdapter = ChipGroupFilterAdapter(binding.musclesCG) { id, isChecked ->
-            viewModel.filter.setMuscleChecked(id, isChecked)
+            viewModel.setChecked(viewModel.muscleList, id, isChecked)
         }
         mechanicsTypeAdapter = ChipGroupFilterAdapter(binding.mechanicsTypeCG) { id, isChecked ->
-            viewModel.filter.setMechanicsTypeChecked(id, isChecked)
+            viewModel.setChecked(viewModel.mechanicsTypeList, id, isChecked)
         }
         exerciseTypeAdapter = ChipGroupFilterAdapter(binding.exerciseTypeCG) { id, isChecked ->
-            viewModel.filter.setExerciseTypeChecked(id, isChecked)
+            viewModel.setChecked(viewModel.exerciseTypeList, id, isChecked)
         }
         equipmentAdapter = ChipGroupFilterAdapter(binding.equipmentCG) { id, isChecked ->
-            viewModel.filter.setEquipmentChecked(id, isChecked)
+            viewModel.setChecked(viewModel.equipmentList, id, isChecked)
         }
         
         viewModel.exerciseList.observe(this, Observer { exerciseAdapter.submitList(it) })
@@ -68,5 +68,26 @@ abstract class ChooseExerciseFragment : DaggerFragment() {
         viewModel.equipmentList.observe(this, Observer { equipmentAdapter.submitList(it) })
         
         activity?.fab?.hide()
+    }
+    
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater?.inflate(R.menu.sort_filter, menu)
+    }
+    
+    override fun onOptionsItemSelected(item: MenuItem?) = when (item?.itemId) {
+        R.id.sort -> {
+            
+            true
+        }
+        R.id.filter -> {
+            if (binding.drawerLayout.isDrawerOpen(GravityCompat.END)) {
+                binding.drawerLayout.closeDrawer(GravityCompat.END)
+            } else {
+                binding.drawerLayout.openDrawer(GravityCompat.END)
+            }
+            true
+        }
+        else -> false
     }
 }

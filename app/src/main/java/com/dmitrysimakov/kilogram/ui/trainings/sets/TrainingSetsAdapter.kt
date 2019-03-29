@@ -7,7 +7,6 @@ import com.dmitrysimakov.kilogram.data.relation.ExerciseMeasures
 import com.dmitrysimakov.kilogram.databinding.ItemSetBinding
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.util.DataBoundListAdapter
-import com.dmitrysimakov.kilogram.util.DataBoundViewHolder
 
 class TrainingSetsAdapter(
         appExecutors: AppExecutors,
