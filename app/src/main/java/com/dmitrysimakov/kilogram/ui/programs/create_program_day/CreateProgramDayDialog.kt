@@ -6,11 +6,13 @@ import android.os.Bundle
 import android.view.*
 import androidx.annotation.MainThread
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.data.ItemInsertedListener
 import com.dmitrysimakov.kilogram.databinding.DialogCreateProgramDayBinding
+import com.dmitrysimakov.kilogram.ui.common.ChipGroupFilterAdapter
 import com.dmitrysimakov.kilogram.util.getViewModel
 import com.dmitrysimakov.kilogram.util.hideKeyboard
 import com.dmitrysimakov.kilogram.util.runCircularRevealAnimation
@@ -26,6 +28,8 @@ class CreateProgramDayDialog : DaggerAppCompatDialogFragment(), ItemInsertedList
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var binding: DialogCreateProgramDayBinding
+    
+    private lateinit var muscleAdapter: ChipGroupFilterAdapter
     
     private val params by lazy { CreateProgramDayDialogArgs.fromBundle(arguments!!) }
     
@@ -63,6 +67,11 @@ class CreateProgramDayDialog : DaggerAppCompatDialogFragment(), ItemInsertedList
         descriptionET.setOnFocusChangeListener { _, hasFocus ->
             descriptionTIL.isCounterEnabled = hasFocus
         }
+    
+        muscleAdapter = ChipGroupFilterAdapter(binding.musclesCG) { id, isChecked ->
+            viewModel.muscleList.value?.find{ it._id == id }?.is_active = isChecked
+        }
+        viewModel.muscleList.observe(this, Observer { muscleAdapter.submitList(it) })
         
         activity?.fab?.hide()
     }
@@ -91,6 +100,7 @@ class CreateProgramDayDialog : DaggerAppCompatDialogFragment(), ItemInsertedList
     
     @MainThread
     override fun onItemInserted(id: Long) {
+        viewModel.saveMuscles(id)
         findNavController().navigate(CreateProgramDayDialogDirections.toExercisesFragment(id))
     }
 }

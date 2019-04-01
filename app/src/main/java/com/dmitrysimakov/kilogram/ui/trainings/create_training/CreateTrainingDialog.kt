@@ -14,13 +14,13 @@ import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.data.ItemInsertedListener
 import com.dmitrysimakov.kilogram.databinding.DialogCreateTrainingBinding
+import com.dmitrysimakov.kilogram.ui.common.ChipGroupFilterAdapter
 import com.dmitrysimakov.kilogram.util.getViewModel
 import com.dmitrysimakov.kilogram.util.hideKeyboard
 import com.dmitrysimakov.kilogram.util.runCircularRevealAnimation
 import com.dmitrysimakov.kilogram.util.setNewValue
 import dagger.android.support.DaggerAppCompatDialogFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.dialog_create_training.*
 import java.util.*
 import javax.inject.Inject
 
@@ -33,13 +33,15 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
     private val viewModel by lazy { getViewModel<CreateTrainingViewModel>(viewModelFactory) }
     
     private val mainViewModel by lazy { getViewModel(activity!!, viewModelFactory) }
-
+    
+    private lateinit var muscleAdapter: ChipGroupFilterAdapter
+    
     private var wasPopped = false
     
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         
-        mainViewModel.programDayId.observe(this, Observer { viewModel.setProgramDay(it) })
+        mainViewModel.programDayId.observe(this, Observer { if (it != null) viewModel.setProgramDay(it) })
         viewModel.byProgram.observe(this, Observer {  })
         viewModel.programDay.observe(this, Observer {
             if (it != null) viewModel.byProgram.setNewValue(true)
@@ -109,12 +111,17 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
             activity?.toolbar?.setNavigationIcon(R.drawable.baseline_close_white_24)
             setHasOptionsMenu(true)
         }
-    
+        
         binding.programDayTV.setOnClickListener {
             wasPopped = true
             findNavController().navigate(CreateTrainingDialogDirections.toChooseProgramFragment())
         }
-
+    
+        muscleAdapter = ChipGroupFilterAdapter(binding.musclesCG) { id, isChecked ->
+            viewModel.muscleList.value?.find{ it._id == id }?.is_active = isChecked
+        }
+        viewModel.muscleList.observe(this, Observer { muscleAdapter.submitList(it) })
+        
         activity?.fab?.hide()
     }
     
@@ -145,6 +152,7 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
         if (viewModel.byProgram.value!!) {
             viewModel.fillTrainingWithProgramExercises(id)
         }
+        viewModel.saveMuscles(id)
         findNavController().navigate(CreateTrainingDialogDirections.toExercisesFragment(id))
     }
 }

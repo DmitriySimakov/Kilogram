@@ -7,26 +7,56 @@ import androidx.sqlite.db.SupportSQLiteQuery
 import com.dmitrysimakov.kilogram.data.entity.Exercise
 import com.dmitrysimakov.kilogram.data.relation.FilterParam
 import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
-import com.dmitrysimakov.kilogram.data.repository.MuscleRepository
+import com.dmitrysimakov.kilogram.data.repository.ProgramDayMuscleRepository
+import com.dmitrysimakov.kilogram.data.repository.TrainingMuscleRepository
+import com.dmitrysimakov.kilogram.util.setNewValue
 import javax.inject.Inject
 
 class ChooseExerciseViewModel @Inject constructor(
-        private val exerciseRepository: ExerciseRepository
+        private val exerciseRepo: ExerciseRepository,
+        private val trainingMuscleRepo: TrainingMuscleRepository,
+        private val programDayMuscleRepo: ProgramDayMuscleRepository
 ) : ViewModel() {
     
     private val query = MediatorLiveData<SupportSQLiteQuery>()
     
-    val addedToFavorite = MutableLiveData(false)
-    val performedEarlier = MutableLiveData(false)
+    val addedToFavorite = MutableLiveData<Boolean>()
+    val performedEarlier = MutableLiveData<Boolean>()
     
-    val muscleList = exerciseRepository.loadMuscleParams()
-    val mechanicsTypeList = exerciseRepository.loadMechanicsTypeParams()
-    val exerciseTypeList = exerciseRepository.loadExerciseTypeParams()
-    val equipmentList = exerciseRepository.loadEquipmentParams()
+    fun setMuscle(id: Long) { muscleId.setNewValue(id) }
+    private val muscleId = MutableLiveData<Long>()
+    private val exercisesMuscles = Transformations.switchMap(muscleId) {
+        Transformations.map(exerciseRepo.loadMuscleParams()) { list ->
+            list[muscleId.value!!.toInt() - 1].is_active = true
+            list
+        }
+    }
+    
+    fun setProgramDay(id: Long) { programDayId.setNewValue(id) }
+    private val programDayId = MutableLiveData<Long>()
+    private val programMuscles = Transformations.switchMap(programDayId)  {
+        programDayMuscleRepo.loadParams(it)
+    }
+    
+    fun setTraining(id: Long) { trainingId.setNewValue(id) }
+    private val trainingId = MutableLiveData<Long>()
+    private val trainingMuscles = Transformations.switchMap(trainingId) {
+        trainingMuscleRepo.loadParams(it)
+    }
+    
+    val muscleList = MediatorLiveData<List<FilterParam>>()
+    val mechanicsTypeList = exerciseRepo.loadMechanicsTypeParams()
+    val exerciseTypeList = exerciseRepo.loadExerciseTypeParams()
+    val equipmentList = exerciseRepo.loadEquipmentParams()
     
     init {
+        muscleList.addSource(exercisesMuscles) { muscleList.value = it }
+        muscleList.addSource(programMuscles) { muscleList.value = it }
+        muscleList.addSource(trainingMuscles) { muscleList.value = it }
+        
         query.addSource(addedToFavorite) { query.value = getQuery() }
         query.addSource(performedEarlier) { query.value = getQuery() }
+        query.addSource(muscleList) { query.value = getQuery() }
     }
     
     private fun getQuery(): SupportSQLiteQuery {
@@ -42,23 +72,24 @@ class ChooseExerciseViewModel @Inject constructor(
         if (mechanicsTypeIds.isNotEmpty()) sb.append(" AND mechanics_type_id IN ($mechanicsTypeIds)")
         if (exerciseTypeIds.isNotEmpty()) sb.append(" AND exercise_type_id IN ($exerciseTypeIds)")
         if (equipmentIds.isNotEmpty()) sb.append(" AND equipment_id IN ($equipmentIds)")
+        sb.append(" ORDER BY executions_cnt DESC")
         val res = sb.toString()
         d("QUERY = ", res)
         return SimpleSQLiteQuery(res)
     }
     
     val exerciseList = Transformations.switchMap(query) {
-        exerciseRepository.loadExerciseList(it)
+        exerciseRepo.loadExerciseList(it)
     }
     
     fun setFavorite(exercise: Exercise, isChecked: Boolean) {
         val updated = exercise.copy()
         updated.is_favorite = isChecked
-        exerciseRepository.updateExercise(updated)
+        exerciseRepo.updateExercise(updated)
     }
     
     fun setChecked(data: LiveData<List<FilterParam>>, id: Long, isChecked: Boolean) {
-        data.value?.find{ it._id == id }?.isActive = isChecked
+        data.value?.find{ it._id == id }?.is_active = isChecked
         query.value = getQuery()
     }
     
@@ -67,7 +98,7 @@ class ChooseExerciseViewModel @Inject constructor(
         value?.let {
             var separator = ""
             for (item in it) {
-                if (item.isActive) {
+                if (item.is_active) {
                     sb.append(separator)
                     separator = ", "
                     sb.append(item._id)

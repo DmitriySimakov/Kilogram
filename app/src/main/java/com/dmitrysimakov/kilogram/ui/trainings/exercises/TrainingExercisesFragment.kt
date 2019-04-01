@@ -60,7 +60,7 @@ class TrainingExercisesFragment : DaggerFragment() {
         activity?.fab?.show()
         activity?.fab?.setOnClickListener{
             findNavController().navigate(TrainingExercisesFragmentDirections
-                    .toChooseMuscleFragment(exercisePlannedListAdapter.itemCount + 1 ,params.trainingId))
+                    .toChooseExerciseFragment(exercisePlannedListAdapter.itemCount + 1 ,params.trainingId))
         }
         
         return binding.root

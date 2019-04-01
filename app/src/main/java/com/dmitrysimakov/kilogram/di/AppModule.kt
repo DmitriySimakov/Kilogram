@@ -64,6 +64,10 @@ class AppModule {
     
     @Singleton
     @Provides
+    fun provideProgramDayMuscleDao(db: KilogramDb) = db.programDayMuscleDao()
+    
+    @Singleton
+    @Provides
     fun provideProgramDayExerciseDao(db: KilogramDb) = db.programDayExerciseDao()
 
     @Singleton
@@ -73,6 +77,10 @@ class AppModule {
     @Singleton
     @Provides
     fun provideTrainingDao(db: KilogramDb) = db.trainingDao()
+    
+    @Singleton
+    @Provides
+    fun provideTrainingMuscleDao(db: KilogramDb) = db.trainingMuscleDao()
 
     @Singleton
     @Provides

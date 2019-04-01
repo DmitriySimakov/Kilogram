@@ -10,22 +10,13 @@ class Exercises_ChooseExerciseFragment : ChooseExerciseFragment() {
     
     override fun onAttach(context: Context?) {
         super.onAttach(context)
+    
+        val params = Exercises_ChooseExerciseFragmentArgs.fromBundle(arguments!!)
+        viewModel.setMuscle(params.muscleId)
         
         exerciseAdapter.clickCallback = { exercise ->
-            wasPopped = true
             findNavController().navigate(Exercises_ChooseExerciseFragmentDirections
                     .toExerciseDetailFragment(exercise._id))
-        }
-    }
-    
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        val params = Exercises_ChooseExerciseFragmentArgs.fromBundle(arguments!!)
-    
-        if (!wasPopped) {
-            muscleAdapter.dataWasChanged.observe(this, Observer {
-                muscleAdapter.setChecked(params.muscleId.toInt(), true)
-            })
         }
     }
 }

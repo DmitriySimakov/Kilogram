@@ -11,7 +11,7 @@ import com.dmitrysimakov.kilogram.data.relation.FilterParam
 @Dao
 interface EquipmentDao {
     
-    @Query("SELECT _id, name FROM equipment ORDER BY _id")
+    @Query("SELECT _id, name, 0 AS is_active FROM equipment ORDER BY _id")
     fun getParams(): LiveData<List<FilterParam>>
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)

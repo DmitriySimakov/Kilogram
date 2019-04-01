@@ -17,6 +17,6 @@ interface MuscleDao {
     @Query("SELECT * FROM muscle ORDER BY _id")
     fun getMuscleList() : LiveData<List<Muscle>>
     
-    @Query("SELECT _id, name FROM muscle ORDER BY _id")
+    @Query("SELECT _id, name, 0 AS is_active FROM muscle ORDER BY _id")
     fun getParams() : LiveData<List<FilterParam>>
 }

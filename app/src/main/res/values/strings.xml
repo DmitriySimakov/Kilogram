@@ -84,5 +84,6 @@
     <string name="performed_earlier">Выполняемые ранее</string>
     <string name="sort">Сортировка</string>
     <string name="filter">Фильтр</string>
+    <string name="trained_muscles">Тренируемые мышцы</string>
 
 </resources>

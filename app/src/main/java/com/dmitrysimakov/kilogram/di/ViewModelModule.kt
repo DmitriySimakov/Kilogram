@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.dmitrysimakov.kilogram.ui.MainViewModel
 import com.dmitrysimakov.kilogram.ui.common.add_exercise.AddExerciseViewModel
 import com.dmitrysimakov.kilogram.ui.common.choose_exercise.ChooseExerciseViewModel
-import com.dmitrysimakov.kilogram.ui.common.choose_muscle.ChooseMuscleViewModel
+import com.dmitrysimakov.kilogram.ui.exercises.choose_muscle.ChooseMuscleViewModel
 import com.dmitrysimakov.kilogram.ui.exercises.detail.ExerciseDetailViewModel
 import com.dmitrysimakov.kilogram.ui.measurements.add_measurement.MeasurementsViewModel
 import com.dmitrysimakov.kilogram.ui.programs.create_program.CreateProgramViewModel

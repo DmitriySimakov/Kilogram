@@ -4,7 +4,6 @@ import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.util.PreferencesKeys
-import com.dmitrysimakov.kilogram.util.setNewValue
 import java.util.*
 import javax.inject.Inject
 

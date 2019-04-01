@@ -65,23 +65,8 @@
             android:name="training_is_running"
             app:argType="boolean" />
         <action
-            android:id="@+id/to_chooseMuscleFragment"
-            app:destination="@id/trainings_ChooseMuscleFragment" />
-        <action
             android:id="@+id/to_trainingSetsFragment"
             app:destination="@id/trainingSetsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/trainings_ChooseMuscleFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.trainings.choose_muscle.Trainings_ChooseMuscleFragment"
-        android:label="@string/exercises"
-        tools:layout="@layout/fragment_choose_muscle">
-        <argument
-            android:name="num"
-            app:argType="integer" />
-        <argument
-            android:name="training_id"
-            app:argType="long" />
         <action
             android:id="@+id/to_chooseExerciseFragment"
             app:destination="@id/trainings_ChooseExerciseFragment" />
@@ -91,9 +76,6 @@
         android:name="com.dmitrysimakov.kilogram.ui.trainings.choose_exercise.Trainings_ChooseExerciseFragment"
         android:label="@string/exercises"
         tools:layout="@layout/fragment_exercises">
-        <argument
-            android:name="muscle_id"
-            app:argType="long" />
         <argument
             android:name="num"
             app:argType="integer" />

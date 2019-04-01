@@ -16,9 +16,11 @@ import com.dmitrysimakov.kilogram.data.entity.*
             Muscle::class,
             Program::class,
             ProgramDay::class,
+            ProgramDayMuscle::class,
             ProgramDayExercise::class,
             TargetedMuscle::class,
             Training::class,
+            TrainingMuscle::class,
             TrainingExercise::class,
             TrainingExerciseSet::class
         ],
@@ -36,9 +38,11 @@ abstract class KilogramDb : RoomDatabase() {
     abstract fun muscleDao(): MuscleDao
     abstract fun programDao(): ProgramDao
     abstract fun programDayDao(): ProgramDayDao
+    abstract fun programDayMuscleDao(): ProgramDayMuscleDao
     abstract fun programDayExerciseDao(): ProgramDayExerciseDao
     abstract fun targetedMuscleDao(): TargetedMuscleDao
     abstract fun trainingDao(): TrainingDao
+    abstract fun trainingMuscleDao(): TrainingMuscleDao
     abstract fun trainingExerciseDao(): TrainingExerciseDao
     abstract fun trainingExerciseSetDao(): TrainingExerciseSetDao
 }

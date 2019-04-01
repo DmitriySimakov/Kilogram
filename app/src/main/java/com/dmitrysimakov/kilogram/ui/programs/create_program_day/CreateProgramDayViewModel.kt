@@ -4,12 +4,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.ItemInsertedListener
 import com.dmitrysimakov.kilogram.data.entity.ProgramDay
+import com.dmitrysimakov.kilogram.data.entity.ProgramDayMuscle
+import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
+import com.dmitrysimakov.kilogram.data.repository.ProgramDayMuscleRepository
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
 import javax.inject.Inject
 
 class CreateProgramDayViewModel @Inject constructor(
-        private val repository: ProgramDayRepository
+        private val programDayRepo: ProgramDayRepository,
+        private val exerciseRepo: ExerciseRepository,
+        private val programDayMuscleRepo: ProgramDayMuscleRepository
 ) : ViewModel() {
 
     val name = MutableLiveData("")
@@ -23,7 +28,17 @@ class CreateProgramDayViewModel @Inject constructor(
     
     fun createProgramDay(num: Int, callback: ItemInsertedListener) {
         _programId.value?.let {
-            repository.insertProgramDay(ProgramDay(0, it, num, name.value!!, description.value!!), callback)
+            programDayRepo.insertProgramDay(ProgramDay(0, it, num, name.value!!, description.value!!), callback)
         }
+    }
+    
+    val muscleList = exerciseRepo.loadMuscleParams()
+    
+    fun saveMuscles(trainingId: Long) {
+        val list = mutableListOf<ProgramDayMuscle>()
+        for (muscle in muscleList.value!!) {
+            if (muscle.is_active) list.add(ProgramDayMuscle(trainingId, muscle._id))
+        }
+        programDayMuscleRepo.insert(list)
     }
 }

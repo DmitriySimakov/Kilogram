@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.FragmentChooseExerciseBinding
+import com.dmitrysimakov.kilogram.ui.common.ChipGroupFilterAdapter
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.util.getViewModel
 import dagger.android.support.DaggerFragment
@@ -31,8 +32,6 @@ abstract class ChooseExerciseFragment : DaggerFragment() {
     protected lateinit var mechanicsTypeAdapter: ChipGroupFilterAdapter
     protected lateinit var exerciseTypeAdapter: ChipGroupFilterAdapter
     protected lateinit var equipmentAdapter: ChipGroupFilterAdapter
-    
-    protected var wasPopped = false
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
@@ -62,7 +61,7 @@ abstract class ChooseExerciseFragment : DaggerFragment() {
         }
         
         viewModel.exerciseList.observe(this, Observer { exerciseAdapter.submitList(it) })
-        viewModel.muscleList.observe(this, Observer { muscleAdapter.submitList(it) })
+        viewModel.muscleList.observe(this, Observer { if (it != null) muscleAdapter.submitList(it) })
         viewModel.mechanicsTypeList.observe(this, Observer { mechanicsTypeAdapter.submitList(it) })
         viewModel.exerciseTypeList.observe(this, Observer { exerciseTypeAdapter.submitList(it) })
         viewModel.equipmentList.observe(this, Observer { equipmentAdapter.submitList(it) })

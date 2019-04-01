@@ -49,6 +49,17 @@
             
         </com.google.android.material.textfield.TextInputLayout>
     
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/trained_muscles"
+            style="@style/Label"/>
+        
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/musclesCG"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    
     </LinearLayout>
 
 </layout>

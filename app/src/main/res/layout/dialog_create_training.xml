@@ -91,6 +91,20 @@
             app:layout_constraintTop_toBottomOf="@id/program_label"
             tools:text="День ног"/>
     
+        <TextView
+            android:id="@+id/musclesLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/trained_muscles"
+            app:layout_constraintTop_toBottomOf="@id/program_tv"
+            style="@style/Label"/>
+        
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/musclesCG"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/musclesLabel" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

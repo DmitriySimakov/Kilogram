@@ -5,20 +5,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.ItemInsertedListener
-import com.dmitrysimakov.kilogram.data.entity.ProgramDay
 import com.dmitrysimakov.kilogram.data.entity.Training
-import com.dmitrysimakov.kilogram.data.relation.ProgramDayR
-import com.dmitrysimakov.kilogram.data.repository.ProgramDayRepository
-import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
-import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
+import com.dmitrysimakov.kilogram.data.entity.TrainingMuscle
+import com.dmitrysimakov.kilogram.data.repository.*
 import com.dmitrysimakov.kilogram.util.setNewValue
 import java.util.*
 import javax.inject.Inject
 
 class CreateTrainingViewModel @Inject constructor(
-        private val trainingRepository: TrainingRepository,
-        private val trainingExerciseRepository: TrainingExerciseRepository,
-        private val programDayRepository: ProgramDayRepository
+        private val trainingRepo: TrainingRepository,
+        private val trainingExerciseRepo: TrainingExerciseRepository,
+        private val programDayRepo: ProgramDayRepository,
+        private val exerciseRepo: ExerciseRepository,
+        private val trainingMuscleRepo: TrainingMuscleRepository
 ) : ViewModel() {
     
     private val _calendar = MutableLiveData<Calendar>(Calendar.getInstance())
@@ -32,17 +31,28 @@ class CreateTrainingViewModel @Inject constructor(
     private val _programDayId = MutableLiveData<Long>()
     val programDay = Transformations.switchMap(_programDayId) {
         when (it) {
-            0L -> programDayRepository.loadNextProgramDayR()
-            else -> programDayRepository.loadProgramDayR(it)
+            0L -> programDayRepo.loadNextProgramDayR()
+            else -> programDayRepo.loadProgramDayR(it)
         }
     }
-
+    
     fun createTraining(callback: ItemInsertedListener) {
         val programDayId = if (byProgram.value!!) programDay.value?.program_day_id else null
-        trainingRepository.insertTraining(Training(0,programDayId, calendar.value!!.timeInMillis), callback)
+        trainingRepo.insertTraining(Training(0,programDayId, calendar.value!!.timeInMillis), callback)
     }
     
     fun fillTrainingWithProgramExercises(trainingId: Long) {
-        programDay.value?.let { trainingExerciseRepository.fillTrainingWithProgramExercises(trainingId, it.program_day_id) }
+        programDay.value?.let { trainingExerciseRepo.fillTrainingWithProgramExercises(trainingId, it.program_day_id) }
+    }
+    
+    
+    val muscleList = exerciseRepo.loadMuscleParams()
+    
+    fun saveMuscles(trainingId: Long) {
+        val list = mutableListOf<TrainingMuscle>()
+        for (muscle in muscleList.value!!) {
+            if (muscle.is_active) list.add(TrainingMuscle(trainingId, muscle._id))
+        }
+        trainingMuscleRepo.insert(list)
     }
 }

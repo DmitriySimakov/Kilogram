@@ -65,7 +65,7 @@ class ProgramDayExercisesFragment : DaggerFragment() {
         activity?.fab?.show()
         activity?.fab?.setOnClickListener{
             findNavController().navigate(ProgramDayExercisesFragmentDirections
-                    .toChooseMuscleFragment(adapter.itemCount + 1, params.programDayId))
+                    .toChooseExerciseFragment(adapter.itemCount + 1, params.programDayId))
         }
     }
     

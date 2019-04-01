@@ -68,20 +68,6 @@
             android:name="program_day_id"
             app:argType="long" />
         <action
-            android:id="@+id/to_chooseMuscleFragment"
-            app:destination="@id/programs_ChooseMuscleFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/programs_ChooseMuscleFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.programs.choose_muscle.Programs_ChooseMuscleFragment"
-        android:label="Programs_ChooseMuscleFragment" >
-        <argument
-            android:name="num"
-            app:argType="integer" />
-        <argument
-            android:name="program_day_id"
-            app:argType="long" />
-        <action
             android:id="@+id/to_chooseExerciseFragment"
             app:destination="@id/programs_ChooseExerciseFragment" />
     </fragment>
@@ -89,9 +75,6 @@
         android:id="@+id/programs_ChooseExerciseFragment"
         android:name="com.dmitrysimakov.kilogram.ui.programs.choose_exercise.Programs_ChooseExerciseFragment"
         android:label="Programs_ChooseExerciseFragment" >
-        <argument
-            android:name="muscle_id"
-            app:argType="long" />
         <argument
             android:name="num"
             app:argType="integer" />

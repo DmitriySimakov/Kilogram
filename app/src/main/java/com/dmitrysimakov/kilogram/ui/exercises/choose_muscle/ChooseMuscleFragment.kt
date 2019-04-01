@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.common.choose_muscle
+package com.dmitrysimakov.kilogram.ui.exercises.choose_muscle
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,18 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.util.getViewModel
-import com.dmitrysimakov.kilogram.util.runCircularRevealAnimation
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_choose_muscle.*
 import javax.inject.Inject
 
-abstract class ChooseMuscleFragment : DaggerFragment() {
+class ChooseMuscleFragment : DaggerFragment() {
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -34,6 +34,9 @@ abstract class ChooseMuscleFragment : DaggerFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
     
+        adapter.clickCallback = { muscle ->
+            findNavController().navigate(ChooseMuscleFragmentDirections.toChooseExerciseFragment(muscle._id))
+        }
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
         viewModel.muscleList.observe(this, Observer { adapter.submitList(it) })
