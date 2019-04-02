@@ -44,7 +44,7 @@
             android:textAppearance="?android:attr/textAppearanceListItemSmall"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/image"
-            app:layout_constraintEnd_toStartOf="@id/finish_icon"/>
+            app:layout_constraintEnd_toStartOf="@id/rest_time"/>
         
         <TextView
             android:id="@+id/strategy"

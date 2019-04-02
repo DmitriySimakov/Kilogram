@@ -14,6 +14,8 @@
         android:layout_height="match_parent"
         android:padding="?attr/dialogPreferredPadding"
         android:orientation="vertical"
+        android:elevation="1dp"
+        android:background="@color/white"
         tools:context=".ui.trainings.create_training.CreateTrainingDialog">
      
         <com.google.android.material.textfield.TextInputLayout

@@ -60,8 +60,6 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        if (!wasPopped) runCircularRevealAnimation(activity!!.fab, binding.root, R.color.grey200, R.color.white)
-        
         binding.vm = viewModel
         binding.lifecycleOwner = this
 

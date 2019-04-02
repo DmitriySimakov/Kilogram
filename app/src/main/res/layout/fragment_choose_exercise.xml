@@ -13,6 +13,8 @@
         android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:elevation="1dp"
+        android:background="@color/white"
         tools:openDrawer="end">
         
         <androidx.recyclerview.widget.RecyclerView

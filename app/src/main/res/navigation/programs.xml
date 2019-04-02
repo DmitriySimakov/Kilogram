@@ -13,7 +13,9 @@
         <action
             android:id="@+id/to_createProgramDialog"
             app:destination="@id/createProgramDialog"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            app:enterAnim="@anim/fab_to_fragment"
+            app:exitAnim="@anim/exit"
+            app:popExitAnim="@anim/fragment_to_fab" />
         <action
             android:id="@+id/to_chooseProgramDayFragment"
             app:destination="@id/programs_chooseProgramDayFragment" />
@@ -39,7 +41,9 @@
         <action
             android:id="@+id/to_createProgramDayDialog"
             app:destination="@id/createProgramDayDialog"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            app:enterAnim="@anim/fab_to_fragment"
+            app:exitAnim="@anim/exit"
+            app:popExitAnim="@anim/fragment_to_fab" />
         <action
             android:id="@+id/to_exercisesFragment"
             app:destination="@id/programDayExercisesFragment" />
@@ -69,7 +73,10 @@
             app:argType="long" />
         <action
             android:id="@+id/to_chooseExerciseFragment"
-            app:destination="@id/programs_ChooseExerciseFragment" />
+            app:destination="@id/programs_ChooseExerciseFragment"
+            app:enterAnim="@anim/fab_to_fragment_slow"
+            app:exitAnim="@anim/exit_slow"
+            app:popExitAnim="@anim/fragment_to_fab" />
     </fragment>
     <fragment
         android:id="@+id/programs_ChooseExerciseFragment"

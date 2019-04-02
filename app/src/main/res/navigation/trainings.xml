@@ -13,7 +13,9 @@
         <action
             android:id="@+id/to_createTrainingFragment"
             app:destination="@id/createTrainingFragment"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            app:enterAnim="@anim/fab_to_fragment"
+            app:exitAnim="@anim/exit"
+            app:popExitAnim="@anim/fragment_to_fab" />
         <action
             android:id="@+id/to_exercisesFragment"
             app:destination="@id/trainingExercisesFragment" />
@@ -33,7 +35,8 @@
         </action>
         <action
             android:id="@+id/to_chooseProgramFragment"
-            app:destination="@id/trainings_ChooseProgramFragment" />
+            app:destination="@id/trainings_ChooseProgramFragment"
+            app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/trainings_ChooseProgramFragment"
@@ -69,7 +72,10 @@
             app:destination="@id/trainingSetsFragment" />
         <action
             android:id="@+id/to_chooseExerciseFragment"
-            app:destination="@id/trainings_ChooseExerciseFragment" />
+            app:destination="@id/trainings_ChooseExerciseFragment"
+            app:enterAnim="@anim/fab_to_fragment_slow"
+            app:exitAnim="@anim/exit_slow"
+            app:popExitAnim="@anim/fragment_to_fab" />
     </fragment>
     <fragment
         android:id="@+id/trainings_ChooseExerciseFragment"

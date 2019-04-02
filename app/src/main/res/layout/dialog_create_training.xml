@@ -17,6 +17,8 @@
         android:layout_height="match_parent"
         android:paddingLeft="?attr/dialogPreferredPadding"
         android:paddingRight="?attr/dialogPreferredPadding"
+        android:elevation="1dp"
+        android:background="@color/white"
         tools:context=".ui.trainings.create_training.CreateTrainingDialog">
         
         <TextView
