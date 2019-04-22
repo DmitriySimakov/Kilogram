@@ -20,6 +20,9 @@ class ChooseExerciseViewModel @Inject constructor(
     
     private val query = MediatorLiveData<SupportSQLiteQuery>()
     
+    fun setSearchText(newString: String?) { searchText.setNewValue(newString) }
+    private val searchText = MutableLiveData<String>()
+    
     val addedToFavorite = MutableLiveData<Boolean>()
     val performedEarlier = MutableLiveData<Boolean>()
     
@@ -54,6 +57,7 @@ class ChooseExerciseViewModel @Inject constructor(
         muscleList.addSource(programMuscles) { muscleList.value = it }
         muscleList.addSource(trainingMuscles) { muscleList.value = it }
         
+        query.addSource(searchText) { query.value = getQuery() }
         query.addSource(addedToFavorite) { query.value = getQuery() }
         query.addSource(performedEarlier) { query.value = getQuery() }
         query.addSource(muscleList) { query.value = getQuery() }
@@ -66,6 +70,7 @@ class ChooseExerciseViewModel @Inject constructor(
         val equipmentIds = equipmentList.getActiveIds()
         
         val sb = StringBuilder("SELECT * FROM exercise WHERE _id != 0")
+        if (searchText.value != null && searchText.value != "") sb.append(" AND name LIKE '%${searchText.value}%'")
         if (addedToFavorite.value == true) sb.append(" AND is_favorite == 1")
         if (performedEarlier.value == true) sb.append(" AND executions_cnt > 0")
         if (muscleIds.isNotEmpty()) sb.append(" AND main_muscle_id IN ($muscleIds)")

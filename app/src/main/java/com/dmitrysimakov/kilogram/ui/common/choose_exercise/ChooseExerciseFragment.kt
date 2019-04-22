@@ -2,6 +2,7 @@ package com.dmitrysimakov.kilogram.ui.common.choose_exercise
 
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -71,14 +72,23 @@ abstract class ChooseExerciseFragment : DaggerFragment() {
     
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater?.inflate(R.menu.sort_filter, menu)
+        inflater?.inflate(R.menu.search_filter, menu)
+        menu?.let {
+            val searchItem = menu.findItem(R.id.search)
+            val searchView = searchItem.actionView as SearchView
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return false
+                }
+                override fun onQueryTextChange(newText: String?): Boolean{
+                    viewModel.setSearchText(newText)
+                    return true
+                }
+            })
+        }
     }
     
     override fun onOptionsItemSelected(item: MenuItem?) = when (item?.itemId) {
-        R.id.sort -> {
-            
-            true
-        }
         R.id.filter -> {
             if (binding.drawerLayout.isDrawerOpen(GravityCompat.END)) {
                 binding.drawerLayout.closeDrawer(GravityCompat.END)
