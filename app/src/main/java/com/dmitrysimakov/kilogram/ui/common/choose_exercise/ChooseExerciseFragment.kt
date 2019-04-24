@@ -15,6 +15,7 @@ import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.util.getViewModel
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.nav_header_main.view.*
 import javax.inject.Inject
 
 abstract class ChooseExerciseFragment : DaggerFragment() {
@@ -76,6 +77,12 @@ abstract class ChooseExerciseFragment : DaggerFragment() {
         menu?.let {
             val searchItem = menu.findItem(R.id.search)
             val searchView = searchItem.actionView as SearchView
+            
+            viewModel.searchText.value?.let { query ->
+                if (query.isNotEmpty()) searchView.setQuery(query, false)
+                searchView.isIconified = false
+            }
+            
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     return false

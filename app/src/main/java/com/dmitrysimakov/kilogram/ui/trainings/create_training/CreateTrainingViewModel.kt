@@ -46,7 +46,12 @@ class CreateTrainingViewModel @Inject constructor(
     }
     
     
-    val muscleList = exerciseRepo.loadMuscleParams()
+    val muscleList = Transformations.switchMap(_programDayId) {
+        when (it) {
+            0L -> exerciseRepo.loadMuscleParams()
+            else -> exerciseRepo.loadMuscleParams(it)
+        }
+    }
     
     fun saveMuscles(trainingId: Long) {
         val list = mutableListOf<TrainingMuscle>()

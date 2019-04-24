@@ -42,6 +42,8 @@ class ExerciseRepository @Inject constructor(
     
     fun loadMuscleParams() = muscleDao.getParams()
     
+    fun loadMuscleParams(id: Long) = muscleDao.getProgramParams(id)
+    
     fun loadMechanicsTypeParams() = mechanicsTypeDao.getParams()
     
     fun loadExerciseTypeParams() = exerciseTypeDao.getParams()
