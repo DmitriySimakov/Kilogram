@@ -37,7 +37,7 @@ class CreateProgramDialog : DaggerAppCompatDialogFragment(), ItemInsertedListene
         return AlertDialog.Builder(activity!!)
                 .setView(binding.root)
                 .setTitle("Тренировочная программа")
-                .setPositiveButton("Создать", null)
+                .setPositiveButton("Создать") { _, _ -> submit() }
                 .setNegativeButton("Отмена") { dialog, _ -> dialog.cancel() }
                 .create()
     }
@@ -61,7 +61,12 @@ class CreateProgramDialog : DaggerAppCompatDialogFragment(), ItemInsertedListene
         
         activity?.fab?.hide()
     }
-
+    
+    override fun onDestroy() {
+        hideKeyboard()
+        super.onDestroy()
+    }
+    
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater?.inflate(R.menu.dialog, menu)
         super.onCreateOptionsMenu(menu, inflater)
@@ -69,13 +74,16 @@ class CreateProgramDialog : DaggerAppCompatDialogFragment(), ItemInsertedListene
 
     override fun onOptionsItemSelected(item: MenuItem?) = when (item?.itemId) {
         R.id.ok -> {
-            if (validate()) {
-                hideKeyboard()
-                viewModel.createProgram(this)
-            }
+            submit()
             true
         }
         else -> false
+    }
+    
+    private fun submit() {
+        if (validate()) {
+            viewModel.createProgram(this)
+        }
     }
     
     private fun validate():Boolean {

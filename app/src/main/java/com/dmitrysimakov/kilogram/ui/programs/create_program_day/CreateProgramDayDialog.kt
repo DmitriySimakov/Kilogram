@@ -43,7 +43,7 @@ class CreateProgramDayDialog : DaggerAppCompatDialogFragment(), ItemInsertedList
         return AlertDialog.Builder(activity!!)
                 .setView(binding.root)
                 .setTitle("День тренировочной программы")
-                .setPositiveButton("Создать", null)
+                .setPositiveButton("Создать") { _, _ -> submit() }
                 .setNegativeButton("Отмена") { dialog, _ -> dialog.cancel() }
                 .create()
     }
@@ -73,7 +73,12 @@ class CreateProgramDayDialog : DaggerAppCompatDialogFragment(), ItemInsertedList
         
         activity?.fab?.hide()
     }
-
+    
+    override fun onDestroy() {
+        hideKeyboard()
+        super.onDestroy()
+    }
+    
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater?.inflate(R.menu.dialog, menu)
         super.onCreateOptionsMenu(menu, inflater)
@@ -81,13 +86,16 @@ class CreateProgramDayDialog : DaggerAppCompatDialogFragment(), ItemInsertedList
 
     override fun onOptionsItemSelected(item: MenuItem?) = when (item?.itemId) {
         R.id.ok -> {
-            if (validate()) {
-                hideKeyboard()
-                viewModel.createProgramDay(params.num, this)
-            }
+            submit()
             true
         }
         else -> false
+    }
+    
+    private fun submit() {
+        if (validate()) {
+            viewModel.createProgramDay(params.num, this)
+        }
     }
     
     private fun validate():Boolean {

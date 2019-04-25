@@ -6,7 +6,8 @@
     <item
         android:id="@+id/ok"
         android:orderInCategory="1"
-        android:title="ok"
+        android:title="@string/ok"
+        android:icon="@drawable/baseline_done_white_24"
         app:showAsAction="always" />
 
 </menu>

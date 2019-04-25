@@ -39,6 +39,11 @@ abstract class AddExerciseFragment: DaggerFragment() {
         activity?.fab?.hide()
     }
     
+    override fun onDestroy() {
+        hideKeyboard()
+        super.onDestroy()
+    }
+    
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater?.inflate(R.menu.dialog, menu)
         super.onCreateOptionsMenu(menu, inflater)
@@ -46,7 +51,6 @@ abstract class AddExerciseFragment: DaggerFragment() {
     
     override fun onOptionsItemSelected(item: MenuItem?) = when (item?.itemId) {
         R.id.ok -> {
-            hideKeyboard()
             addExercise()
             viewModel.updateMeasures()
             popBack()

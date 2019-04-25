@@ -36,7 +36,7 @@ class AddSetDialog : DaggerAppCompatDialogFragment() {
         return AlertDialog.Builder(activity!!)
                 .setView(binding.root)
                 .setTitle("Добавить подход")
-                .setPositiveButton("Добавить", null)
+                .setPositiveButton("Добавить") { _, _ -> submit() }
                 .setNegativeButton("Отмена") { dialog, _ -> dialog.cancel() }
                 .create()
     }
@@ -62,27 +62,32 @@ class AddSetDialog : DaggerAppCompatDialogFragment() {
 
         activity?.fab?.hide()
     }
-
+    
+    override fun onDestroy() {
+        hideKeyboard()
+        super.onDestroy()
+    }
+    
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater?.inflate(R.menu.dialog, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-            R.id.ok -> {
-                hideKeyboard()
-                
-                if (params.setId == 0L) {
-                    viewModel.addSet(mainViewModel.elapsedSessionTime.value ?: 0)
-                    mainViewModel.onSetCompleted(viewModel.trainingExercise.value?.rest ?: 0)
-                } else {
-                    viewModel.updateSet()
-                }
-                findNavController().popBackStack()
-                return true
-            }
+    override fun onOptionsItemSelected(item: MenuItem?) = when (item?.itemId) {
+        R.id.ok -> {
+            submit()
+            true
         }
-        return false
+        else -> false
+    }
+    
+    private fun submit() {
+        if (params.setId == 0L) {
+            viewModel.addSet(mainViewModel.elapsedSessionTime.value ?: 0)
+            mainViewModel.onSetCompleted(viewModel.trainingExercise.value?.rest ?: 0)
+        } else {
+            viewModel.updateSet()
+        }
+        findNavController().popBackStack()
     }
 }

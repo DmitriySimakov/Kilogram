@@ -54,7 +54,7 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
         return AlertDialog.Builder(activity!!)
                 .setView(binding.root)
                 .setTitle("Тренировка")
-                .setPositiveButton("Начать", null)
+                .setPositiveButton("Начать") { _, _ -> submit() }
                 .setNegativeButton("Отмена") { dialog, _ -> dialog.cancel() }
                 .create()
     }
@@ -124,6 +124,7 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
     }
     
     override fun onDestroy() {
+        hideKeyboard()
         mainViewModel.programDayId.value = 0L
         super.onDestroy()
     }
@@ -133,16 +134,17 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-            R.id.ok -> {
-                hideKeyboard()
-                viewModel.createTraining(this)
-                mainViewModel.onTrainingSessionStarted()
-                return true
-            }
+    override fun onOptionsItemSelected(item: MenuItem?) = when (item?.itemId) {
+        R.id.ok -> {
+            submit()
+            true
         }
-        return false
+        else -> false
+    }
+    
+    private fun submit() {
+        viewModel.createTraining(this)
+        mainViewModel.onTrainingSessionStarted()
     }
 
     @MainThread
