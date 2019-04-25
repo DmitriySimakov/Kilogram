@@ -86,6 +86,7 @@
     <string name="filter">Фильтр</string>
     <string name="trained_muscles">Тренируемые мышцы</string>
     <string name="search">Найти</string>
-    <string name="ok">ok</string>
+    <string name="ok">OK</string>
+    <string name="favorite">Избранное</string>
 
 </resources>

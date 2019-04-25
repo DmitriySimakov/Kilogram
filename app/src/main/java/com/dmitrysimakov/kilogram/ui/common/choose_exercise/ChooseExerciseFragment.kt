@@ -75,8 +75,7 @@ abstract class ChooseExerciseFragment : DaggerFragment() {
         super.onCreateOptionsMenu(menu, inflater)
         inflater?.inflate(R.menu.search_filter, menu)
         menu?.let {
-            val searchItem = menu.findItem(R.id.search)
-            val searchView = searchItem.actionView as SearchView
+            val searchView = menu.findItem(R.id.search).actionView as SearchView
             
             viewModel.searchText.value?.let { query ->
                 if (query.isNotEmpty()) searchView.setQuery(query, false)

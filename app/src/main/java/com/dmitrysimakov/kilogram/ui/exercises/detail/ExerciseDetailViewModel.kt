@@ -18,4 +18,10 @@ class ExerciseDetailViewModel @Inject constructor(private val repository: Exerci
     fun setExercise(id: Long?) {
         _exerciseId.setNewValue(id)
     }
+    
+    fun setFavorite(isChecked: Boolean) {
+        exercise.value?.let {
+            repository.setFavorite(it._id, isChecked)
+        }
+    }
 }

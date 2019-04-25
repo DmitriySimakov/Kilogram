@@ -43,8 +43,8 @@
             tools:text="Упражнение"/>
         
         <ToggleButton
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_gravity="center"
             android:layout_marginEnd="?attr/listPreferredItemPaddingRight"
             android:background="@drawable/favorite_toggle"

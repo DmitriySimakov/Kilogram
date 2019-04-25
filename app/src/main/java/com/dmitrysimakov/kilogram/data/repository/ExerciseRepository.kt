@@ -27,6 +27,12 @@ class ExerciseRepository @Inject constructor(
         }
     }
     
+    fun setFavorite(id: Long, isFavorite: Boolean) {
+        executors.diskIO().execute {
+            exerciseDao.setFavorite(id, isFavorite)
+        }
+    }
+    
     fun increaseExecutionsCnt(id: Long) {
         executors.diskIO().execute {
             exerciseDao.increaseExecutionsCnt(id)

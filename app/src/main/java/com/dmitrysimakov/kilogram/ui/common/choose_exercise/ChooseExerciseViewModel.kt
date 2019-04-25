@@ -90,9 +90,7 @@ class ChooseExerciseViewModel @Inject constructor(
     }
     
     fun setFavorite(exercise: Exercise, isChecked: Boolean) {
-        val updated = exercise.copy()
-        updated.is_favorite = isChecked
-        exerciseRepo.updateExercise(updated)
+        exerciseRepo.setFavorite(exercise._id, isChecked)
     }
     
     fun setChecked(data: LiveData<List<FilterParam>>, id: Long, isChecked: Boolean) {

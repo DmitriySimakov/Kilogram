@@ -22,7 +22,7 @@ interface ExerciseDao {
     fun getExercise(id: Long) : LiveData<Exercise>
 
     @Query("""
-        SELECT _id, name, description,
+        SELECT _id, name, description, is_favorite,
         (SELECT name FROM muscle WHERE _id = main_muscle_id ) AS main_muscle,
         (SELECT group_concat(m.name, ', ')
             FROM  targeted_muscle  AS tm LEFT JOIN muscle AS m
@@ -41,6 +41,9 @@ interface ExerciseDao {
     
     @Update
     fun updateExercise(exercise: Exercise)
+    
+    @Query("UPDATE exercise SET is_favorite = :isFavorite WHERE _id = :id")
+    fun setFavorite(id: Long, isFavorite: Boolean)
     
     @Query("UPDATE exercise SET executions_cnt = executions_cnt + 1 WHERE _id = :id")
     fun increaseExecutionsCnt(id: Long)
