@@ -17,6 +17,9 @@ class TrainingExerciseRepository @Inject constructor(
     
     fun loadTrainingExerciseR(id: Long) = trainingExerciseDao.getTrainingExerciseR(id)
     
+    fun loadPrevTrainingExerciseInfo(trainingId: Long, exerciseId: Long)
+            = trainingExerciseDao.getPrevTrainingExerciseInfo(trainingId, exerciseId)
+    
     fun loadTrainingExercise(id: Long) = trainingExerciseDao.getTrainingExercise(id)
     
     fun loadExerciseMeasures(trainingExerciseId: Long) = trainingExerciseDao.getExerciseMeasures(trainingExerciseId)

@@ -7,7 +7,6 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.dmitrysimakov.kilogram.BR
-import com.dmitrysimakov.kilogram.util.HasId
 
 @Entity(tableName = "training_exercise_set",
         indices = [Index(value = ["training_exercise_id"])],
@@ -20,14 +19,14 @@ import com.dmitrysimakov.kilogram.util.HasId
         ]
 )
 class TrainingExerciseSet(
-        @PrimaryKey(autoGenerate = true) override val _id: Long = 0,
+        @PrimaryKey(autoGenerate = true) val _id: Long = 0,
         val training_exercise_id: Long,
         var secs_since_start: Int? = null,
         weight: Int? = null,
         reps: Int? = null,
         time: Int? = null,
         distance: Int? = null
-) : BaseObservable(), HasId {
+) : BaseObservable() {
     
     @get:Bindable var weight = weight
         set(value) {

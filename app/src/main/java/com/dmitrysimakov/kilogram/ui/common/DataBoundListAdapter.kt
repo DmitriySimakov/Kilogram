@@ -1,24 +1,25 @@
-package com.dmitrysimakov.kilogram.util
+package com.dmitrysimakov.kilogram.ui.common
 
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.ListAdapter
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.dmitrysimakov.kilogram.util.AppExecutors
 
 /**
  * A generic RecyclerView exercisePlannedListAdapter that uses Data Binding & DiffUtil.
  *
  * @param <T> Type of the items in the list
- * @param <V> The type of the ViewDataBinding
-</V></T> */
-abstract class DataBoundListAdapter<I : HasId, B : ViewDataBinding>(
+ * @param <B> The type of the ViewDataBinding
+</B></T> */
+abstract class DataBoundListAdapter<T, B : ViewDataBinding>(
         appExecutors: AppExecutors,
-        var clickCallback: ((I) -> Unit)? = null
-) : ListAdapter<I, DataBoundListAdapter.DataBoundViewHolder<B>>(
-        AsyncDifferConfig.Builder(IdDiffCallback<I>())
-                .setBackgroundThreadExecutor(appExecutors.diskIO())
-                .build()
+        var clickCallback: ((T) -> Unit)?,
+        diffCallback: DiffUtil.ItemCallback<T>
+) : ListAdapter<T, DataBoundListAdapter.DataBoundViewHolder<B>>(
+        AsyncDifferConfig.Builder(diffCallback).setBackgroundThreadExecutor(appExecutors.diskIO()).build()
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             DataBoundViewHolder(createBinding(parent))
@@ -34,9 +35,9 @@ abstract class DataBoundListAdapter<I : HasId, B : ViewDataBinding>(
         }
     }
     
-    protected abstract fun bind(binding: B, item: I)
+    protected abstract fun bind(binding: B, item: T)
     
-    public override fun getItem(position: Int) : I = super.getItem(position)
+    public override fun getItem(position: Int) : T = super.getItem(position)
     
     /**
      * A generic ViewHolder that works with a [ViewDataBinding].

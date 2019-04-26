@@ -4,7 +4,6 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.dmitrysimakov.kilogram.util.HasId
 
 @Entity(tableName = "training",
         indices = [Index(value = ["program_day_id"])],
@@ -17,8 +16,8 @@ import com.dmitrysimakov.kilogram.util.HasId
         ]
 )
 data class Training(
-        @PrimaryKey(autoGenerate = true) override val _id: Long = 0,
+        @PrimaryKey(autoGenerate = true) val _id: Long = 0,
         var program_day_id: Long? = null,
         val start_time: Long,
         var duration: Int? = null
-) : HasId
+)

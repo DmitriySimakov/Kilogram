@@ -2,7 +2,6 @@ package com.dmitrysimakov.kilogram.data.entity
 
 import androidx.room.*
 import com.dmitrysimakov.kilogram.data.relation.ExerciseMeasures
-import com.dmitrysimakov.kilogram.util.HasId
 
 @Entity(tableName = "training_exercise",
         indices = [Index(value = ["training_id"]), Index(value = ["exercise_id"])],
@@ -19,7 +18,7 @@ import com.dmitrysimakov.kilogram.util.HasId
                     onDelete = ForeignKey.CASCADE)
         ])
 data class TrainingExercise(
-        @PrimaryKey(autoGenerate = true) override val _id: Long = 0,
+        @PrimaryKey(autoGenerate = true) val _id: Long = 0,
         val training_id: Long,
         val exercise_id: Long,
         val num: Int,
@@ -27,7 +26,7 @@ data class TrainingExercise(
         val strategy: String? = null,
         val state: Int = PLANNED,
         @Embedded(prefix = "measure_") val measures: ExerciseMeasures = ExerciseMeasures()
-) : HasId {
+) {
     companion object {
         const val PLANNED = 0
         const val RUNNING = 1

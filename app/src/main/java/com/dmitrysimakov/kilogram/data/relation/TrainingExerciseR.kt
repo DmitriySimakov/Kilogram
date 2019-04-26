@@ -1,10 +1,9 @@
 package com.dmitrysimakov.kilogram.data.relation
 
 import com.dmitrysimakov.kilogram.data.entity.TrainingExercise
-import com.dmitrysimakov.kilogram.util.HasId
 
 data class TrainingExerciseR(
-        override val _id: Long,
+        val _id: Long,
         val exercise_id: Long,
         val name: String,
         var num: Int,
@@ -12,4 +11,4 @@ data class TrainingExerciseR(
         val secs_since_start: Int,
         val strategy: String?,
         val state: Int = TrainingExercise.PLANNED
-) : HasId
+)

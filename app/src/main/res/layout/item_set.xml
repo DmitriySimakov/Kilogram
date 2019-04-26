@@ -11,57 +11,131 @@
         
         <variable
             name="set"
-            type="com.dmitrysimakov.kilogram.data.entity.TrainingExerciseSet"/>
+            type="com.dmitrysimakov.kilogram.data.relation.TrainingExerciseSetR"/>
     </data>
     
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/listPreferredItemHeightSmall"
-        android:orientation="horizontal">
+        android:layout_height="?attr/listPreferredItemHeightSmall">
         
         <TextView
             android:id="@+id/num"
-            android:layout_width="50dp"
+            android:layout_width="24dp"
             android:layout_height="match_parent"
-            android:gravity="center"
-            tools:text="1"/>
+            android:gravity="end|center_vertical"
+            android:textColor="@{set.weight != null || set.reps != null || set.time != null || set.distance != null ? @color/black : @color/grey500}"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="1" />
         
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@{`` + set.weight}"
+            android:id="@+id/weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{set.weight != null ? ``+set.weight : ``+set.prev_weight}"
+            android:textColor="@{set.weight != null ? @color/black : @color/grey500}"
+            android:textSize="18sp"
             app:goneUnless="@{exercise_measures.weight}"
-            tools:text="150"/>
-        
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@{`` + set.reps}"
-            app:goneUnless="@{exercise_measures.reps}"
-            tools:text="8"/>
-        
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@{`` + set.time}"
-            app:goneUnless="@{exercise_measures.time}"
-            tools:text="120"/>
-        
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@{`` + set.distance}"
-            app:goneUnless="@{exercise_measures.distance}"
-            tools:text="100"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/num"
+            app:layout_constraintEnd_toStartOf="@id/reps"
+            tools:text="150" />
     
-    </LinearLayout>
+        <TextView
+            android:id="@+id/diffWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@{set.weight > set.prev_weight ? `+`+(set.weight - set.prev_weight) : ``+(set.weight - set.prev_weight)}"
+            android:textColor="@{set.weight > set.prev_weight ? @color/green500 : @color/red500}"
+            android:textSize="12sp"
+            app:goneUnless="@{exercise_measures.weight &amp;&amp; set.weight != null &amp;&amp; set.prev_weight != null &amp;&amp; set.weight != set.prev_weight}"
+            app:layout_constraintTop_toTopOf="@id/weight"
+            app:layout_constraintStart_toEndOf="@id/weight"
+            tools:text="+10" />
+    
+        <TextView
+            android:id="@+id/reps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{set.reps != null ? ``+set.reps : ``+set.prev_reps}"
+            android:textColor="@{set.reps != null ? @color/black : @color/grey500}"
+            android:textSize="18sp"
+            app:goneUnless="@{exercise_measures.reps}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/weight"
+            app:layout_constraintEnd_toStartOf="@id/time"
+            tools:text="150" />
+    
+        <TextView
+            android:id="@+id/diffReps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@{set.reps > set.prev_reps ? `+`+(set.reps - set.prev_reps) : ``+(set.reps - set.prev_reps)}"
+            android:textColor="@{set.reps > set.prev_reps ? @color/green500 : @color/red500}"
+            android:textSize="12sp"
+            app:goneUnless="@{exercise_measures.reps &amp;&amp; set.reps != null &amp;&amp; set.prev_reps != null &amp;&amp; set.reps != set.prev_reps}"
+            app:layout_constraintTop_toTopOf="@id/reps"
+            app:layout_constraintStart_toEndOf="@id/reps"
+            tools:text="+10" />
+    
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{set.time != null ? ``+set.time : ``+set.prev_time}"
+            android:textColor="@{set.time != null ? @color/black : @color/grey500}"
+            android:textSize="18sp"
+            app:goneUnless="@{exercise_measures.time}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/reps"
+            app:layout_constraintEnd_toStartOf="@id/distance"
+            tools:text="150" />
+    
+        <TextView
+            android:id="@+id/diffTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@{set.time > set.prev_time ? `+`+(set.time - set.prev_time) : ``+(set.time - set.prev_time)}"
+            android:textColor="@{set.time > set.prev_time ? @color/green500 : @color/red500}"
+            android:textSize="12sp"
+            app:goneUnless="@{exercise_measures.time &amp;&amp; set.time != null &amp;&amp; set.prev_time != null &amp;&amp; set.time != set.prev_time}"
+            app:layout_constraintTop_toTopOf="@id/time"
+            app:layout_constraintStart_toEndOf="@id/time"
+            tools:text="+10" />
+    
+        <TextView
+            android:id="@+id/distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{set.distance != null ? ``+set.distance : ``+set.distance}"
+            android:textColor="@{set.distance != null ? @color/black : @color/grey500}"
+            android:textSize="18sp"
+            app:goneUnless="@{exercise_measures.distance}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/time"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="150" />
+    
+        <TextView
+            android:id="@+id/diffDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@{set.distance > set.prev_distance ? `+`+(set.distance - set.prev_distance) : ``+(set.distance - set.prev_distance)}"
+            android:textColor="@{set.distance > set.prev_distance ? @color/green500 : @color/red500}"
+            android:textSize="12sp"
+            app:goneUnless="@{exercise_measures.distance &amp;&amp; set.distance != null &amp;&amp; set.prev_distance != null &amp;&amp; set.distance != set.prev_distance}"
+            app:layout_constraintTop_toTopOf="@id/distance"
+            app:layout_constraintStart_toEndOf="@id/distance"
+            tools:text="+10" />
+    
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

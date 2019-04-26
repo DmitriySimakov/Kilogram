@@ -13,7 +13,7 @@ class TrainingExerciseSetRepository @Inject constructor(
 ) {
 
     fun loadSets(training_exercise_id: Long) = trainingExerciseSetDao.getSets(training_exercise_id)
-
+    
     fun loadSet(id: Long) = trainingExerciseSetDao.getSet(id)
     
     fun insertSet(set: TrainingExerciseSet) {
@@ -25,6 +25,12 @@ class TrainingExerciseSetRepository @Inject constructor(
     fun deleteSet(set: TrainingExerciseSet) {
         executors.diskIO().execute{
             trainingExerciseSetDao.delete(set)
+        }
+    }
+    
+    fun deleteSet(id: Long) {
+        executors.diskIO().execute{
+            trainingExerciseSetDao.delete(id)
         }
     }
     

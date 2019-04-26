@@ -2,7 +2,6 @@ package com.dmitrysimakov.kilogram.data.entity
 
 import androidx.room.*
 import com.dmitrysimakov.kilogram.data.relation.ExerciseMeasures
-import com.dmitrysimakov.kilogram.util.HasId
 
 @Entity(tableName = "exercise",
         indices = [Index(value = ["main_muscle_id"]), Index(value = ["mechanics_type_id"]), Index(value = ["exercise_type_id"]), Index(value = ["equipment_id"])],
@@ -30,7 +29,7 @@ import com.dmitrysimakov.kilogram.util.HasId
         ]
 )
 data class Exercise(
-        @PrimaryKey(autoGenerate = true) override val _id: Long = 0,
+        @PrimaryKey(autoGenerate = true) val _id: Long = 0,
         val name: String,
         val main_muscle_id: Long? = null,
         val mechanics_type_id: Long? = null,
@@ -40,4 +39,4 @@ data class Exercise(
         val executions_cnt: Long = 0,
         var is_favorite: Boolean = false,
         @Embedded(prefix = "measure_") val measures: ExerciseMeasures = ExerciseMeasures()
-) : HasId
+)

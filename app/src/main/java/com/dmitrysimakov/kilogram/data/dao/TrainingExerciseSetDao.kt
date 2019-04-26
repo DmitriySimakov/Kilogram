@@ -22,6 +22,9 @@ interface TrainingExerciseSetDao {
     @Delete
     fun delete(set: TrainingExerciseSet)
     
+    @Query("DELETE FROM training_exercise_set WHERE _id = :id")
+    fun delete(id: Long)
+    
     @Update
     fun update(set: TrainingExerciseSet)
 }

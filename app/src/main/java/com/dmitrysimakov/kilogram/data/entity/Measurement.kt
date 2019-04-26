@@ -4,7 +4,6 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.dmitrysimakov.kilogram.util.HasId
 
 @Entity(tableName = "measurement",
         indices = [Index(value = ["param_id"])],
@@ -17,8 +16,8 @@ import com.dmitrysimakov.kilogram.util.HasId
         ]
 )
 data class Measurement(
-        @PrimaryKey(autoGenerate = true) override val _id: Long = 0,
+        @PrimaryKey(autoGenerate = true) val _id: Long = 0,
         val date: String,
         val param_id: Long,
         val value: Double
-) : HasId
+)

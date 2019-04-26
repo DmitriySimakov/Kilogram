@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.dmitrysimakov.kilogram.data.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.relation.ExerciseMeasures
+import com.dmitrysimakov.kilogram.data.relation.PrevTrainingExerciseInfo
 import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR
 
 @Dao
@@ -30,6 +31,18 @@ interface TrainingExerciseDao {
     """)
     fun getTrainingExerciseR(id: Long): LiveData<TrainingExerciseR>
 
+    @Query("""
+        SELECT te._id AS training_exercise_id, t._id AS training_id, t.start_time
+        FROM training_exercise AS te
+        INNER JOIN training AS t
+        ON te.training_id = t._id
+        WHERE te.exercise_id = :exercise_id
+        AND t.start_time < (SELECT start_time FROM training WHERE _id = :training_id)
+        ORDER BY t.start_time DESC
+        LIMIT 1
+    """)
+    fun getPrevTrainingExerciseInfo(training_id: Long, exercise_id: Long): LiveData<PrevTrainingExerciseInfo>
+    
     @Query("SELECT * FROM training_exercise WHERE _id = :id")
     fun getTrainingExercise(id: Long): LiveData<TrainingExercise>
     
