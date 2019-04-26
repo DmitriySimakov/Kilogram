@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        kotlin_version = '1.3.21' // WAITING for a later version than 1.3.30 (current version does not work with the dagger)
+        kotlin_version = '1.3.31'
         navigation_version = '1.0.0'
     }
 
