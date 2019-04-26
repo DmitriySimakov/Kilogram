@@ -46,7 +46,7 @@ class AddSetDialog : DaggerAppCompatDialogFragment() {
         binding.lifecycleOwner = this
 
         viewModel.setTrainingExercise(params.trainingExerciseId)
-        viewModel.setSet(params.setId)
+        viewModel.setSet(params.setId, params.weight, params.reps, params.time, params.distance)
         viewModel.set.observe(this, Observer {  })
         viewModel.trainingExercise.observe(this, Observer {  })
 

@@ -1,7 +1,6 @@
 package com.dmitrysimakov.kilogram.ui.trainings.sets
 
 import android.os.Bundle
-import android.util.Log.d
 import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -53,7 +52,8 @@ class TrainingSetsFragment : DaggerFragment() {
         
             adapter = TrainingSetsAdapter(executors, exercise.measures) { set ->
                 findNavController().navigate(TrainingSetsFragmentDirections
-                        .toAddSetDialog(set._id, params.trainingExerciseId, params.trainingId))
+                        .toAddSetDialog(params.trainingId, params.trainingExerciseId, set._id,
+                                set.prev_weight ?: 0, set.prev_reps ?: 0, set.prev_time ?: 0, set.prev_distance ?: 0))
             }
             recyclerView.adapter = adapter
             recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
@@ -73,8 +73,25 @@ class TrainingSetsFragment : DaggerFragment() {
         
         activity?.fab?.show()
         activity?.fab?.setOnClickListener{
+            var weight = 0
+            var reps = 0
+            var time = 0
+            var distance = 0
+            val currLast = try {viewModel.currSets.value?.last()} catch (e: Exception) {null}
+            val prevLast = try {viewModel.prevSets.value?.last()} catch (e: Exception) {null}
+            if (currLast != null) {
+                weight = currLast.weight ?: 0
+                reps = currLast.reps ?: 0
+                time = currLast.time ?: 0
+                distance = currLast.distance ?: 0
+            } else if (prevLast != null) {
+                weight = prevLast.weight ?: 0
+                reps = prevLast.reps ?: 0
+                time = prevLast.time ?: 0
+                distance = prevLast.distance ?: 0
+            }
             findNavController().navigate(TrainingSetsFragmentDirections
-                    .toAddSetDialog(0, params.trainingExerciseId, params.trainingId))
+                    .toAddSetDialog(params.trainingId, params.trainingExerciseId, 0, weight, reps, time, distance))
         }
     }
     

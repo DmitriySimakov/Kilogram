@@ -108,7 +108,7 @@ class TrainingExercisesFragment : DaggerFragment() {
     
     private fun toSetsFragment(exercise: TrainingExerciseR) {
         findNavController().navigate(TrainingExercisesFragmentDirections
-                .toTrainingSetsFragment(exercise._id, params.trainingId))
+                .toTrainingSetsFragment(params.trainingId, exercise._id))
     }
     
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {

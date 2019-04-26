@@ -113,10 +113,10 @@
         android:label="TrainingSetsFragment"
         tools:layout="@layout/fragment_training_sets">
         <argument
-            android:name="training_exercise_id"
+            android:name="training_id"
             app:argType="long" />
         <argument
-            android:name="training_id"
+            android:name="training_exercise_id"
             app:argType="long" />
         <action
             android:id="@+id/to_addSetDialog"
@@ -128,13 +128,25 @@
         android:label="Добавить подход"
         tools:layout="@layout/dialog_add_set">
         <argument
-            android:name="set_id"
+            android:name="training_id"
             app:argType="long" />
         <argument
             android:name="training_exercise_id"
             app:argType="long" />
         <argument
-            android:name="training_id"
+            android:name="set_id"
             app:argType="long" />
+        <argument
+            android:name="weight"
+            app:argType="integer" />
+        <argument
+            android:name="reps"
+            app:argType="integer" />
+        <argument
+            android:name="time"
+            app:argType="integer" />
+        <argument
+            android:name="distance"
+            app:argType="integer" />
     </fragment>
 </navigation>
