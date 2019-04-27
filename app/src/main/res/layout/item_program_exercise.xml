@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             tools:text="3:00"
             android:text="@{exercise.rest +``}"
-            android:drawableEnd="@drawable/baseline_timer_black_18"
+            android:drawableEnd="@drawable/baseline_timer_24"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/drag_icon"/>
@@ -70,7 +70,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:src="@drawable/baseline_drag_indicator_black_18"/>
+            android:src="@drawable/baseline_drag_indicator_24"/>
     
     </androidx.constraintlayout.widget.ConstraintLayout>
     

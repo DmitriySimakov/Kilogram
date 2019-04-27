@@ -39,9 +39,9 @@ abstract class AddExerciseFragment: DaggerFragment() {
         activity?.fab?.hide()
     }
     
-    override fun onDestroy() {
+    override fun onStop() {
         hideKeyboard()
-        super.onDestroy()
+        super.onStop()
     }
     
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {

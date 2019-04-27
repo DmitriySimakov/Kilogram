@@ -7,7 +7,7 @@
         android:id="@+id/search"
         android:orderInCategory="1"
         android:title="@string/search"
-        android:icon="@drawable/baseline_search_white_24"
+        android:icon="@drawable/baseline_search_24"
         app:showAsAction="always"
         app:actionViewClass="androidx.appcompat.widget.SearchView" />
     
@@ -15,7 +15,7 @@
         android:id="@+id/filter"
         android:orderInCategory="2"
         android:title="@string/filter"
-        android:icon="@drawable/baseline_filter_list_white_24"
+        android:icon="@drawable/baseline_filter_list_24"
         app:showAsAction="ifRoom" />
 
 </menu>

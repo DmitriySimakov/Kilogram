@@ -56,16 +56,16 @@ class AddSetDialog : DaggerAppCompatDialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (dialog == null) {
-            activity?.toolbar?.setNavigationIcon(R.drawable.baseline_close_white_24)
+            activity?.toolbar?.setNavigationIcon(R.drawable.baseline_close_24)
             setHasOptionsMenu(true)
         }
 
         activity?.fab?.hide()
     }
     
-    override fun onDestroy() {
+    override fun onStop() {
         hideKeyboard()
-        super.onDestroy()
+        super.onStop()
     }
     
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {

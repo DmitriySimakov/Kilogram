@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             tools:text="20"
             android:text="@{Converter.secondsToTimeFormat(rest)}"
-            android:drawableEnd="@drawable/baseline_timer_black_18"
+            android:drawableEnd="@drawable/baseline_timer_24"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/finish_icon"/>
@@ -76,7 +76,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:src="@drawable/baseline_flag_black_24"/>
+            android:src="@drawable/baseline_flag_24"/>
     
     </androidx.constraintlayout.widget.ConstraintLayout>
     

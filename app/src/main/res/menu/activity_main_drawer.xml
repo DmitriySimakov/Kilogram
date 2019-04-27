@@ -8,7 +8,7 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/mainFragment"
-            android:icon="@drawable/baseline_home_black_24"
+            android:icon="@drawable/baseline_home_24"
             android:title="@string/main"/>
     </group>
 
@@ -17,19 +17,19 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/exercises"
-            android:icon="@drawable/round_fitness_center_black_24"
+            android:icon="@drawable/round_fitness_center_24"
             android:title="@string/exercises" />
         <item
             android:id="@+id/programs"
-            android:icon="@drawable/ic_clipboard_text_outline"
+            android:icon="@drawable/outline_assignment_24"
             android:title="@string/training_programs" />
         <item
             android:id="@+id/trainings"
-            android:icon="@drawable/ic_calendar_multiselect"
+            android:icon="@drawable/baseline_calendar_multiselect_24"
             android:title="@string/training_sessions" />
         <item
             android:id="@+id/measurements"
-            android:icon="@drawable/baseline_straighten_black_24"
+            android:icon="@drawable/baseline_straighten_24"
             android:title="@string/measurements" />
     </group>
 
@@ -37,12 +37,12 @@
         android:id="@+id/group3"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_settings"
+            android:id="@+id/settings"
             android:icon="@drawable/baseline_settings_black_24"
             android:title="@string/settings" />
         <item
-            android:id="@+id/nav_info"
-            android:icon="@drawable/baseline_info_black_24"
+            android:id="@+id/info"
+            android:icon="@drawable/baseline_info_24"
             android:title="@string/about" />
     </group>
 

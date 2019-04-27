@@ -106,7 +106,7 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
         super.onActivityCreated(savedInstanceState)
         
         if (dialog == null) {
-            activity?.toolbar?.setNavigationIcon(R.drawable.baseline_close_white_24)
+            activity?.toolbar?.setNavigationIcon(R.drawable.baseline_close_24)
             setHasOptionsMenu(true)
         }
         
@@ -123,10 +123,10 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
         activity?.fab?.hide()
     }
     
-    override fun onDestroy() {
+    override fun onStop() {
         hideKeyboard()
         mainViewModel.programDayId.value = 0L
-        super.onDestroy()
+        super.onStop()
     }
     
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {

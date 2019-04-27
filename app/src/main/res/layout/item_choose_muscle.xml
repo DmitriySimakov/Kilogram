@@ -22,7 +22,7 @@
             android:layout_height="?attr/listPreferredItemHeight"
             android:layout_margin="4dp"
             app:assetsImage='@{"muscles/"+ muscle._id +".png"}'
-            tools:src="@drawable/chest"/>
+            tools:src="@drawable/muscle_sample"/>
         
         <TextView
             android:id="@+id/muscle_name"
