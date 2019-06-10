@@ -1,10 +1,7 @@
 package com.dmitrysimakov.kilogram.ui.exercises.detail
 
 import android.os.Bundle
-import android.util.Log.d
 import android.view.*
-import android.widget.ToggleButton
-import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.dmitrysimakov.kilogram.R

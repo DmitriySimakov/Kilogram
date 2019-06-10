@@ -1,7 +1,6 @@
 package com.dmitrysimakov.kilogram.ui.programs.exercises
 
 import android.os.Bundle
-import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,12 +17,11 @@ import com.dmitrysimakov.kilogram.util.getViewModel
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_exercises.*
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
 class ProgramDayExercisesFragment : DaggerFragment() {
-    
-    private val TAG = this::class.java.simpleName
     
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     
@@ -52,7 +50,7 @@ class ProgramDayExercisesFragment : DaggerFragment() {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
                 val startPos = viewHolder.adapterPosition
                 val targetPos = target.adapterPosition
-                d(TAG, "$startPos $targetPos")
+                Timber.d("$startPos $targetPos")
                 Collections.swap(viewModel.exercises.value, startPos, targetPos)
                 adapter.notifyItemMoved(startPos, targetPos)
                 return false

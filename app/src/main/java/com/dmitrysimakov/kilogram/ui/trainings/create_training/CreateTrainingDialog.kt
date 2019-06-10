@@ -36,8 +36,6 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
     
     private lateinit var muscleAdapter: ChipGroupFilterAdapter
     
-    private var wasPopped = false
-    
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         
@@ -111,7 +109,6 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
         }
         
         binding.programDayTV.setOnClickListener {
-            wasPopped = true
             findNavController().navigate(CreateTrainingDialogDirections.toChooseProgramFragment())
         }
     

@@ -1,6 +1,5 @@
 package com.dmitrysimakov.kilogram.ui.common.choose_exercise
 
-import android.util.Log.d
 import androidx.lifecycle.*
 import androidx.sqlite.db.SimpleSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteQuery
@@ -10,6 +9,7 @@ import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayMuscleRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingMuscleRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
+import timber.log.Timber
 import javax.inject.Inject
 
 class ChooseExerciseViewModel @Inject constructor(
@@ -81,7 +81,7 @@ class ChooseExerciseViewModel @Inject constructor(
         if (equipmentIds.isNotEmpty()) sb.append(" AND equipment_id IN ($equipmentIds)")
         sb.append(" ORDER BY executions_cnt DESC")
         val res = sb.toString()
-        d("QUERY = ", res)
+        Timber.d("QUERY = $res")
         return SimpleSQLiteQuery(res)
     }
     

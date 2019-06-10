@@ -1,19 +1,17 @@
 package com.dmitrysimakov.kilogram.ui.programs.choose_program_day
 
 import android.os.Bundle
-import android.util.Log.d
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.dmitrysimakov.kilogram.data.entity.ProgramDay
 import com.dmitrysimakov.kilogram.ui.common.choose_program_day.ChooseProgramDayFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_choose_program_day.*
+import timber.log.Timber
 import java.util.*
-import com.dmitrysimakov.kilogram.data.entity.ProgramDay
 
 class Programs_ChooseProgramDayFragment : ChooseProgramDayFragment() {
-    
-    private val TAG = this::class.java.simpleName
     
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -30,7 +28,7 @@ class Programs_ChooseProgramDayFragment : ChooseProgramDayFragment() {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
                 val startPos = viewHolder.adapterPosition
                 val targetPos = target.adapterPosition
-                d(TAG, "$startPos $targetPos")
+                Timber.d("$startPos $targetPos")
                 Collections.swap(viewModel.trainingDays.value, startPos, targetPos)
                 adapter.notifyItemMoved(startPos, targetPos)
                 return false

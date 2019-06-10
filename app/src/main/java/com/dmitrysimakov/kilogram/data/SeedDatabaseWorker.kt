@@ -1,19 +1,17 @@
 package com.dmitrysimakov.kilogram.data
 
 import android.content.Context
-import android.util.Log
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.dmitrysimakov.kilogram.di.worker_injection.AndroidWorkerInjection
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
+import timber.log.Timber
 import javax.inject.Inject
 
 class SeedDatabaseWorker(val context: Context, workerParams: WorkerParameters) : Worker(context, workerParams) {
-
-    private val TAG = this::class.java.simpleName
-
+    
     @Inject lateinit var database: KilogramDb
 
     override fun doWork(): Result {
@@ -32,7 +30,7 @@ class SeedDatabaseWorker(val context: Context, workerParams: WorkerParameters) :
             }
             Result.success()
         } catch (e: Exception) {
-            Log.e(TAG, "Error seeding database", e)
+            Timber.e(e, "Error seeding database")
             Result.failure()
         }
     }

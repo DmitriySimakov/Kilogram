@@ -8,6 +8,9 @@ import com.dmitrysimakov.kilogram.di.worker_injection.HasWorkerInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import javax.inject.Inject
+import timber.log.Timber
+
+
 
 class KilogramApp : Application(), HasActivityInjector, HasWorkerInjector {
 
@@ -18,6 +21,10 @@ class KilogramApp : Application(), HasActivityInjector, HasWorkerInjector {
     override fun onCreate() {
         DaggerAppComponent.builder().create(this).inject(this)
         super.onCreate()
+    
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
     }
 
     override fun activityInjector() = activityInjector

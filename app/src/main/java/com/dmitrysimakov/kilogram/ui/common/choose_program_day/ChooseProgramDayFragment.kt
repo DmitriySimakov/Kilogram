@@ -1,7 +1,6 @@
 package com.dmitrysimakov.kilogram.ui.common.choose_program_day
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,8 +16,6 @@ import kotlinx.android.synthetic.main.fragment_choose_program_day.*
 import javax.inject.Inject
 
 abstract class ChooseProgramDayFragment : DaggerFragment() {
-    
-    private val TAG = this::class.java.simpleName
     
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     

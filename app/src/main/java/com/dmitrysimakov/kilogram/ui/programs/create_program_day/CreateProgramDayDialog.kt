@@ -21,9 +21,7 @@ import kotlinx.android.synthetic.main.dialog_create_program_day.*
 import javax.inject.Inject
 
 class CreateProgramDayDialog : DaggerAppCompatDialogFragment(), ItemInsertedListener {
-
-    private val TAG = this::class.java.simpleName
-
+    
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var binding: DialogCreateProgramDayBinding

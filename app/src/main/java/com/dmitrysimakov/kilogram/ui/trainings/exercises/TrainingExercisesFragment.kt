@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -21,8 +20,6 @@ import java.util.*
 import javax.inject.Inject
 
 class TrainingExercisesFragment : DaggerFragment() {
-    
-    private val TAG = this::class.java.simpleName
     
     @Inject lateinit var executors: AppExecutors
     
