@@ -1,17 +1,14 @@
 package com.dmitrysimakov.kilogram.ui
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import androidx.core.app.ShareCompat
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.ActivityMainBinding
 import com.dmitrysimakov.kilogram.util.PreferencesKeys
@@ -29,7 +26,7 @@ class MainActivity : DaggerAppCompatActivity() {
     
     private val viewModel by lazy { getViewModel(this, viewModelFactory) }
     
-    private val binding by lazy { DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main) }
+    private val b by lazy { DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main) }
     
     private val navController by lazy { findNavController(R.id.fragment_container) }
     
@@ -38,9 +35,14 @@ class MainActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
-        binding.lifecycleOwner = this
+        fun getShareIntent() = ShareCompat.IntentBuilder.from(this)
+                .setText("Kilogram - крутой фитнес трекер. Переходи по ссылке и тренируйся вместе со мной.")
+                .setType("text/plain")
+                .intent
+        
+        b.lifecycleOwner = this
         viewModel.timerIsRunning.observe(this, Observer { timerIsRunning = it })
-        binding.vm = viewModel
+        b.vm = viewModel
         
         viewModel.timerIsRunning.value = preferences.getBoolean(PreferencesKeys.TIMER_IS_RUNNING, false)
         viewModel.sessionStartMillis = preferences.getLong(PreferencesKeys.SESSION_START_MILLIS, 0)
@@ -48,9 +50,18 @@ class MainActivity : DaggerAppCompatActivity() {
         viewModel.restTime.value = preferences.getInt(PreferencesKeys.REST_TIME, 0).takeIf { it > 0 }
         
         setSupportActionBar(toolbar)
-        NavigationUI.setupActionBarWithNavController(this, navController, drawer_layout)
-
-        binding.navView.setupWithNavController(navController)
+        NavigationUI.setupActionBarWithNavController(this, navController, b.drawerLayout)
+        NavigationUI.setupWithNavController(b.navView, navController)
+        
+        val shareItem = b.navView.menu.findItem(R.id.share)
+        if (getShareIntent().resolveActivity(packageManager) == null) {
+            shareItem.isVisible = false
+        } else {
+            shareItem.setOnMenuItemClickListener {
+                startActivity(getShareIntent())
+                true
+            }
+        }
     }
     
     override fun onStart() {
@@ -64,12 +75,12 @@ class MainActivity : DaggerAppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return NavigationUI.navigateUp(navController, drawer_layout)
+        return NavigationUI.navigateUp(navController, b.drawerLayout)
     }
 
     override fun onBackPressed() {
-        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-            drawer_layout.closeDrawer(GravityCompat.START)
+        if (b.drawerLayout.isDrawerOpen(b.navView)) {
+            b.drawerLayout.closeDrawer(b.navView)
         } else {
             super.onBackPressed()
         }

@@ -89,5 +89,6 @@
     <string name="ok">OK</string>
     <string name="favorite">Избранное</string>
     <string name="calendar">Календарь</string>
+    <string name="share">Поделиться</string>
 
 </resources>
