@@ -90,9 +90,18 @@ dependencies {
     
     implementation 'com.jakewharton.timber:timber:4.7.1'
     
+    //region Firebase
+    implementation 'com.google.firebase:firebase-core:17.0.0'
+    implementation 'com.google.firebase:firebase-auth:18.0.0'
+    implementation 'com.firebaseui:firebase-ui-auth:5.0.0'
+    implementation 'com.google.firebase:firebase-database:18.0.0'
+    //endregion Firebase
+    
     //region Testing dependencies
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     testImplementation 'junit:junit:4.12'
     //endregion Testing dependencies
 }
+
+apply plugin: 'com.google.gms.google-services'

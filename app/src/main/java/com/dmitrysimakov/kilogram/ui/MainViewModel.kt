@@ -9,6 +9,8 @@ import javax.inject.Inject
 
 class MainViewModel @Inject constructor(private val preferences: SharedPreferences) : ViewModel() {
     
+    val username = MutableLiveData<String?>()
+    
     val programDayId = MutableLiveData(0L)
     
     private var timer: Timer? = null

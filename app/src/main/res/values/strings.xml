@@ -90,5 +90,7 @@
     <string name="favorite">Избранное</string>
     <string name="calendar">Календарь</string>
     <string name="share">Поделиться</string>
+    <string name="sign_in">Войти</string>
+    <string name="sign_out">Выйти</string>
 
 </resources>
