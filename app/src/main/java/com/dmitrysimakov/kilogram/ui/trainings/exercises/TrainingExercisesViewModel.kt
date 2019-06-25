@@ -60,4 +60,8 @@ class TrainingExercisesViewModel @Inject constructor(
         trainingExerciseRepository.updateState(exercise._id, TrainingExercise.FINISHED)
         exerciseRepository.increaseExecutionsCnt(exercise.exercise_id)
     }
+    
+    fun updateNums(items: List<TrainingExerciseR>) {
+        trainingExerciseRepository.updateNums(items)
+    }
 }

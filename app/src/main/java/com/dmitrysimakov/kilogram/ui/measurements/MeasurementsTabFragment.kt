@@ -1,18 +1,18 @@
 package com.dmitrysimakov.kilogram.ui.measurements
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.measurements.add_measurement.MeasurementsFragment
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_measurements_tab.*
 
-class MeasurementsTabFragment : Fragment() {
+class MeasurementsTabFragment : DaggerFragment() {
 
     private val CALCULATOR_POS = 0
     private val ADD_MEASUREMENT_POS = 1
@@ -27,16 +27,16 @@ class MeasurementsTabFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewPager.adapter = MeasurementsPagerAdapter(childFragmentManager)
         tabLayout.setupWithViewPager(viewPager)
-        viewPager.currentItem = ADD_MEASUREMENT_POS;
+        viewPager.currentItem = ADD_MEASUREMENT_POS
     }
 
-    inner class MeasurementsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+    inner class MeasurementsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
         override fun getItem(position: Int) = when (position) {
             CALCULATOR_POS ->  MeasurementsFragment()
             ADD_MEASUREMENT_POS ->  MeasurementsFragment()
             HISTORY_POS ->  MeasurementsFragment()
-            else -> null
+            else -> Fragment()
         }
 
         override fun getCount() = 3
@@ -45,7 +45,7 @@ class MeasurementsTabFragment : Fragment() {
             CALCULATOR_POS ->  getString(R.string.calculator)
             ADD_MEASUREMENT_POS ->  getString(R.string.add_measurement)
             HISTORY_POS ->  getString(R.string.measurement_history)
-            else -> null
+            else -> ""
         }
     }
 }

@@ -29,7 +29,7 @@ class Programs_ChooseProgramDayFragment : ChooseProgramDayFragment() {
                 val startPos = viewHolder.adapterPosition
                 val targetPos = target.adapterPosition
                 Timber.d("$startPos $targetPos")
-                Collections.swap(viewModel.trainingDays.value, startPos, targetPos)
+                Collections.swap(viewModel.trainingDays.value!!, startPos, targetPos)
                 adapter.notifyItemMoved(startPos, targetPos)
                 return false
             }

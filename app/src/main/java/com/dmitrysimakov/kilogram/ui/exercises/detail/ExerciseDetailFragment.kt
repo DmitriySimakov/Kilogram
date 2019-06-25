@@ -36,9 +36,9 @@ class ExerciseDetailFragment : DaggerFragment() {
         activity?.fab?.hide()
     }
     
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.exercise_detail, menu)
-        menu?.let {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.exercise_detail, menu)
+        menu.let {
             viewModel.exercise.observe(this, Observer { exercise ->
                 val item = menu.findItem(R.id.addToFavorite)
                 item.isChecked = exercise.is_favorite
@@ -48,7 +48,7 @@ class ExerciseDetailFragment : DaggerFragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
     
-    override fun onOptionsItemSelected(item: MenuItem?) = when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.addToFavorite -> {
             item.isChecked = !item.isChecked
             viewModel.setFavorite(item.isChecked)

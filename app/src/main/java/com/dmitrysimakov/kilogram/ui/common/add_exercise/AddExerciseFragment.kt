@@ -44,12 +44,12 @@ abstract class AddExerciseFragment: DaggerFragment() {
         super.onStop()
     }
     
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.dialog, menu)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.dialog, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
     
-    override fun onOptionsItemSelected(item: MenuItem?) = when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.ok -> {
             addExercise()
             viewModel.updateMeasures()

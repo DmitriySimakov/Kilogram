@@ -7,7 +7,7 @@ import com.dmitrysimakov.kilogram.util.hideKeyboard
 
 class Exercises_ChooseExerciseFragment : ChooseExerciseFragment() {
     
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
     
         val params = Exercises_ChooseExerciseFragmentArgs.fromBundle(arguments!!)

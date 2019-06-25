@@ -69,12 +69,12 @@ class TrainingsFragment : DaggerFragment() {
         }
     }
     
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.calendar, menu)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.calendar, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
     
-    override fun onOptionsItemSelected(item: MenuItem?) = when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.calendar -> {
             val calendar = Calendar.getInstance()
             val curYear = calendar.get(Calendar.YEAR)

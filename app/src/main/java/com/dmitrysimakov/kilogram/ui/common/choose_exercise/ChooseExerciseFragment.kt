@@ -71,10 +71,10 @@ abstract class ChooseExerciseFragment : DaggerFragment() {
         activity?.fab?.hide()
     }
     
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater?.inflate(R.menu.search_filter, menu)
-        menu?.let {
+        inflater.inflate(R.menu.search_filter, menu)
+        menu.let {
             val searchView = menu.findItem(R.id.search).actionView as SearchView
             
             viewModel.searchText.value?.let { query ->
@@ -94,7 +94,7 @@ abstract class ChooseExerciseFragment : DaggerFragment() {
         }
     }
     
-    override fun onOptionsItemSelected(item: MenuItem?) = when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.filter -> {
             if (binding.drawerLayout.isDrawerOpen(GravityCompat.END)) {
                 binding.drawerLayout.closeDrawer(GravityCompat.END)

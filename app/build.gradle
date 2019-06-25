@@ -38,11 +38,11 @@ dependencies {
     //implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$rootProject.kotlin_version"
     implementation 'androidx.core:core-ktx:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
     
     //region Support Library
     def support_library_version = '1.0.0'
-    implementation "androidx.appcompat:appcompat:1.0.2"
+    implementation "androidx.appcompat:appcompat:1.1.0-beta01"
     implementation "androidx.cardview:cardview:$support_library_version"
     implementation "com.google.android.material:material:$support_library_version"
     implementation "androidx.recyclerview:recyclerview:$support_library_version"
@@ -66,7 +66,7 @@ dependencies {
     //endregion navigation
     
     //region room
-    def room_version = '2.1.0-rc01'
+    def room_version = '2.1.0'
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     //endregion room
@@ -86,7 +86,7 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
     //endregion Dagger 2
     
-    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.google.code.gson:gson:2.8.5'
     
     implementation 'com.jakewharton.timber:timber:4.7.1'
     

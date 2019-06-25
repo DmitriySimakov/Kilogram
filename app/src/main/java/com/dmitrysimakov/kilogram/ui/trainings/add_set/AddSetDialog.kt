@@ -27,7 +27,7 @@ class AddSetDialog : DaggerAppCompatDialogFragment() {
 
     private val params by lazy { AddSetDialogArgs.fromBundle(arguments!!) }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         binding = DialogAddSetBinding.inflate(LayoutInflater.from(context))
     }
@@ -68,12 +68,12 @@ class AddSetDialog : DaggerAppCompatDialogFragment() {
         super.onStop()
     }
     
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.dialog, menu)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.dialog, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?) = when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.ok -> {
             submit()
             true

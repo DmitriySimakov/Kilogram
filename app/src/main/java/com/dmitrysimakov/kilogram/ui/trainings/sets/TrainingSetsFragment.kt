@@ -95,12 +95,12 @@ class TrainingSetsFragment : DaggerFragment() {
         }
     }
     
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.training_sets, menu)
         super.onCreateOptionsMenu(menu, inflater)
-        inflater?.inflate(R.menu.training_sets, menu)
     }
     
-    override fun onOptionsItemSelected(item: MenuItem?) = when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.finish_exercise -> {
             viewModel.finishExercise(params.trainingExerciseId)
             findNavController().popBackStack()

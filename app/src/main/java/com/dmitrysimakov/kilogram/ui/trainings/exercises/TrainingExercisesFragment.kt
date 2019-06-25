@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
+import com.dmitrysimakov.kilogram.data.relation.ProgramExerciseR
 import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR
 import com.dmitrysimakov.kilogram.databinding.FragmentTrainingExercisesBinding
 import com.dmitrysimakov.kilogram.util.AppExecutors
@@ -37,7 +38,7 @@ class TrainingExercisesFragment : DaggerFragment() {
     private val exercisePlannedListAdapter by lazy { ExercisePlannedListAdapter(executors) { toSetsFragment(it) } }
     private val exerciseFinishedListAdapter by lazy { ExerciseFinishedListAdapter(executors) { toSetsFragment(it) } }
     
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         viewModel.setTraining(params.trainingId)
         viewModel.training.observe(this, Observer {  })
@@ -85,7 +86,7 @@ class TrainingExercisesFragment : DaggerFragment() {
                 override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
                     val startPos = viewHolder.adapterPosition
                     val targetPos = target.adapterPosition
-                    Collections.swap(viewModel.plannedExercises.value, startPos, targetPos)
+                    Collections.swap(viewModel.plannedExercises.value!!, startPos, targetPos)
                     exercisePlannedListAdapter.notifyItemMoved(startPos, targetPos)
                     return false
                 }
@@ -108,15 +109,15 @@ class TrainingExercisesFragment : DaggerFragment() {
                 .toTrainingSetsFragment(params.trainingId, exercise._id))
     }
     
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater?.inflate(R.menu.training_exercises, menu)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.training_exercises, menu)
         if (!params.trainingIsRunning) {
-            menu?.removeItem(R.id.finish_training)
+            menu.removeItem(R.id.finish_training)
         }
+        super.onCreateOptionsMenu(menu, inflater)
     }
     
-    override fun onOptionsItemSelected(item: MenuItem?) = when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.finish_training -> {
             viewModel.finishTraining(mainViewModel.elapsedSessionTime.value ?: 0)
             mainViewModel.onTrainingSessionFinished()
@@ -124,5 +125,14 @@ class TrainingExercisesFragment : DaggerFragment() {
             true
         }
         else -> false
+    }
+    
+    override fun onPause() {
+        super.onPause()
+        val list = mutableListOf<TrainingExerciseR>()
+        for (i in 0 until exercisePlannedListAdapter.itemCount) {
+            list.add(exercisePlannedListAdapter.getItem(i).apply { num = i + 1 })
+        }
+        viewModel.updateNums(list)
     }
 }

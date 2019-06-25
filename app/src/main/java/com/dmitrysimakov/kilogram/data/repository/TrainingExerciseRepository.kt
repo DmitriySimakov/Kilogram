@@ -2,6 +2,7 @@ package com.dmitrysimakov.kilogram.data.repository
 
 import com.dmitrysimakov.kilogram.data.dao.TrainingExerciseDao
 import com.dmitrysimakov.kilogram.data.entity.TrainingExercise
+import com.dmitrysimakov.kilogram.data.relation.ProgramExerciseR
 import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import javax.inject.Inject
@@ -45,6 +46,12 @@ class TrainingExerciseRepository @Inject constructor(
     fun updateState(id: Long, state: Int) {
         executors.diskIO().execute {
             trainingExerciseDao.updateState(id, state)
+        }
+    }
+    
+    fun updateNums(items: List<TrainingExerciseR>) {
+        executors.diskIO().execute {
+            trainingExerciseDao.updateNums(items)
         }
     }
     

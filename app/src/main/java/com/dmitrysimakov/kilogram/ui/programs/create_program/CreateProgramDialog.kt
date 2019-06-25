@@ -26,7 +26,7 @@ class CreateProgramDialog : DaggerAppCompatDialogFragment(), ItemInsertedListene
 
     private val viewModel by lazy { getViewModel<CreateProgramViewModel>(viewModelFactory) }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         binding = DialogCreateProgramBinding.inflate(LayoutInflater.from(context))
     }
@@ -65,12 +65,12 @@ class CreateProgramDialog : DaggerAppCompatDialogFragment(), ItemInsertedListene
         super.onStop()
     }
     
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.dialog, menu)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.dialog, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?) = when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.ok -> {
             submit()
             true

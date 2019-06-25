@@ -78,6 +78,16 @@ interface TrainingExerciseDao {
     @Query("UPDATE training_exercise SET state = :state WHERE _id = :id")
     fun updateState(id: Long, state: Int)
     
+    @Query("UPDATE training_exercise SET num = :num WHERE _id = :id")
+    fun setNum(id: Long, num: Int)
+    
+    @Transaction
+    fun updateNums(exercises: List<TrainingExerciseR>) {
+        for (exercise in exercises) {
+            setNum(exercise._id, exercise.num)
+        }
+    }
+    
     @Query("""
         UPDATE training_exercise
         SET state = :finished

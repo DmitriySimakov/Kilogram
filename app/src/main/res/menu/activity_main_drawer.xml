@@ -38,7 +38,7 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/settings"
-            android:icon="@drawable/baseline_settings_black_24"
+            android:icon="@drawable/baseline_settings_24"
             android:title="@string/settings" />
         <item
             android:id="@+id/info"

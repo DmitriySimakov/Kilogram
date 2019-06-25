@@ -51,7 +51,7 @@ class ProgramDayExercisesFragment : DaggerFragment() {
                 val startPos = viewHolder.adapterPosition
                 val targetPos = target.adapterPosition
                 Timber.d("$startPos $targetPos")
-                Collections.swap(viewModel.exercises.value, startPos, targetPos)
+                Collections.swap(viewModel.exercises.value!!, startPos, targetPos)
                 adapter.notifyItemMoved(startPos, targetPos)
                 return false
             }
