@@ -44,7 +44,9 @@ class ProgramDayExercisesFragment : DaggerFragment() {
         recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
     
         viewModel.setProgramDay(params.programDayId)
-        viewModel.exercises.observe(this, Observer { adapter.submitList(it) })
+        viewModel.exercises.observe(this, Observer {
+            Timber.d("observed")
+            adapter.submitList(it) })
     
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.RIGHT) {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
@@ -68,11 +70,7 @@ class ProgramDayExercisesFragment : DaggerFragment() {
     }
     
     override fun onPause() {
+        viewModel.updateNums()
         super.onPause()
-        val list = mutableListOf<ProgramExerciseR>()
-        for (i in 0 until adapter.itemCount) {
-            list.add(adapter.getItem(i).apply { num = i + 1 })
-        }
-        viewModel.updateNums(list)
     }
 }

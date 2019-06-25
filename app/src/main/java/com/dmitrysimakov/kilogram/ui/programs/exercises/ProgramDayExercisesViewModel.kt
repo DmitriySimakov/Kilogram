@@ -28,7 +28,10 @@ class ProgramDayExercisesViewModel @Inject constructor(
         repository.deleteExerciseFromProgramDay(exercise)
     }
     
-    fun updateNums(items: List<ProgramExerciseR>) {
-        repository.updateNums(items)
+    fun updateNums() {
+        exercises.value?.let { list ->
+            list.forEachIndexed { index, exercise -> exercise.num = index + 1 }
+            repository.updateNums(list)
+        }
     }
 }

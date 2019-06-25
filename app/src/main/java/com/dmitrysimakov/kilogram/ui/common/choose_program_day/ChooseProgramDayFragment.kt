@@ -34,6 +34,6 @@ abstract class ChooseProgramDayFragment : DaggerFragment() {
     
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
-        viewModel.trainingDays.observe(this, Observer { adapter.submitList(it) })
+        viewModel.programDays.observe(this, Observer { adapter.submitList(it) })
     }
 }

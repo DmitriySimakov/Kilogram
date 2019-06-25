@@ -29,7 +29,7 @@ class Programs_ChooseProgramDayFragment : ChooseProgramDayFragment() {
                 val startPos = viewHolder.adapterPosition
                 val targetPos = target.adapterPosition
                 Timber.d("$startPos $targetPos")
-                Collections.swap(viewModel.trainingDays.value!!, startPos, targetPos)
+                Collections.swap(viewModel.programDays.value!!, startPos, targetPos)
                 adapter.notifyItemMoved(startPos, targetPos)
                 return false
             }
@@ -46,11 +46,7 @@ class Programs_ChooseProgramDayFragment : ChooseProgramDayFragment() {
     }
     
     override fun onPause() {
+        viewModel.updateNums()
         super.onPause()
-        val list = mutableListOf<ProgramDay>()
-        for (i in 0 until adapter.itemCount) {
-            list.add(adapter.getItem(i).apply { num = i + 1 })
-        }
-        viewModel.updateNums(list)
     }
 }

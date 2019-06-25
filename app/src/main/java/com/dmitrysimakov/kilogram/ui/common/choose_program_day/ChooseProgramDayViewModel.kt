@@ -15,8 +15,8 @@ class ChooseProgramDayViewModel @Inject constructor(
     
     private val _programId = MutableLiveData<Long>()
     
-    val trainingDays = Transformations.switchMap(_programId) {
-        Timber.d("trainingDays load")
+    val programDays = Transformations.switchMap(_programId) {
+        Timber.d("programDays load")
         repository.loadTrainingDays(it)
     }
     
@@ -28,7 +28,10 @@ class ChooseProgramDayViewModel @Inject constructor(
         repository.deleteProgramDay(day)
     }
     
-    fun updateNums(items: List<ProgramDay>) {
-        repository.updateNums(items)
+    fun updateNums() {
+        programDays.value?.let { list ->
+            list.forEachIndexed { index, exercise -> exercise.num = index + 1 }
+            repository.updateNums(list)
+        }
     }
 }

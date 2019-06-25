@@ -128,11 +128,7 @@ class TrainingExercisesFragment : DaggerFragment() {
     }
     
     override fun onPause() {
+        viewModel.updateNums()
         super.onPause()
-        val list = mutableListOf<TrainingExerciseR>()
-        for (i in 0 until exercisePlannedListAdapter.itemCount) {
-            list.add(exercisePlannedListAdapter.getItem(i).apply { num = i + 1 })
-        }
-        viewModel.updateNums(list)
     }
 }
