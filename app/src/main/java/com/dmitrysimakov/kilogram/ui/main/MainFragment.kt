@@ -25,11 +25,8 @@ import javax.inject.Inject
 class MainFragment : DaggerFragment() {
     
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
-    private val mainViewModel by lazy { getViewModel(activity!!, viewModelFactory) }
     
-    private val firebaseDb = FirebaseDatabase.getInstance()
-    private val messagesRef = firebaseDb.reference.child("messages")
-    private var msgListener: ChildEventListener? = null
+    private val mainViewModel by lazy { getViewModel(activity!!, viewModelFactory) }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
@@ -43,54 +40,13 @@ class MainFragment : DaggerFragment() {
         programsBtn.setOnClickListener { navController.navigate(MainFragmentDirections.toPrograms()) }
         trainingsBtn.setOnClickListener { navController.navigate(MainFragmentDirections.toTrainings()) }
         measurementsBtn.setOnClickListener { navController.navigate(MainFragmentDirections.toMeasurements()) }
+        messagesBtn.setOnClickListener { navController.navigate(MainFragmentDirections.toMessages()) }
         
-        sendBtn.setOnClickListener {
-            val msg = FriendlyMessage("${messageET.text}", mainViewModel.username.value ?: "")
-            messagesRef.push().setValue(msg)
-            messageET.setText("")
-        }
-    
-        mainViewModel.username.observe(this, Observer { username ->
-            if (username != null) {
-                attachMsgListener()
-                messageET.visibility = View.VISIBLE
-                sendBtn.visibility = View.VISIBLE
-            } else {
-                detachMsgListener()
-                messageET.visibility = View.GONE
-                sendBtn.visibility = View.GONE
-            }
-        })
+        mainViewModel.username.observe(this, Observer { messagesBtn.isEnabled = it != null })
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         activity?.fab?.hide()
-    }
-    
-    override fun onPause() {
-        detachMsgListener()
-        super.onPause()
-    }
-    
-    private fun attachMsgListener() {
-        msgListener = object : ChildEventListener {
-            override fun onCancelled(error: DatabaseError) {}
-            override fun onChildMoved(data: DataSnapshot, s: String?) {}
-            override fun onChildChanged(data: DataSnapshot, s: String?) {}
-            override fun onChildAdded(data: DataSnapshot, s: String?) {
-                val msg = data.getValue(FriendlyMessage::class.java)
-                Timber.d(msg?.text)
-            }
-            override fun onChildRemoved(data: DataSnapshot) {}
-        }
-        messagesRef.addChildEventListener(msgListener!!)
-    }
-    
-    private fun detachMsgListener() {
-        msgListener?.let {
-            messagesRef.removeEventListener(it)
-            msgListener = null
-        }
     }
 }

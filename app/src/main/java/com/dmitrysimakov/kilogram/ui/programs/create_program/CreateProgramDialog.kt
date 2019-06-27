@@ -49,7 +49,7 @@ class CreateProgramDialog : DaggerAppCompatDialogFragment(), ItemInsertedListene
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (dialog == null) {
-            activity?.toolbar?.setNavigationIcon(R.drawable.baseline_close_24)
+            activity?.toolbar?.setNavigationIcon(R.drawable.ic_close_24dp)
             setHasOptionsMenu(true)
         }
         

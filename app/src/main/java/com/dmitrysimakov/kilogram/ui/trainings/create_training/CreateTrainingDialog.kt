@@ -17,7 +17,6 @@ import com.dmitrysimakov.kilogram.databinding.DialogCreateTrainingBinding
 import com.dmitrysimakov.kilogram.ui.common.ChipGroupFilterAdapter
 import com.dmitrysimakov.kilogram.util.getViewModel
 import com.dmitrysimakov.kilogram.util.hideKeyboard
-import com.dmitrysimakov.kilogram.util.runCircularRevealAnimation
 import com.dmitrysimakov.kilogram.util.setNewValue
 import dagger.android.support.DaggerAppCompatDialogFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -104,7 +103,7 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
         super.onActivityCreated(savedInstanceState)
         
         if (dialog == null) {
-            activity?.toolbar?.setNavigationIcon(R.drawable.baseline_close_24)
+            activity?.toolbar?.setNavigationIcon(R.drawable.ic_close_24dp)
             setHasOptionsMenu(true)
         }
         

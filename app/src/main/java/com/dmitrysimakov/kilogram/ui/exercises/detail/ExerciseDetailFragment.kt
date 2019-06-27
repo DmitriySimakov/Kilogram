@@ -60,9 +60,9 @@ class ExerciseDetailFragment : DaggerFragment() {
     
     private fun updateFavoriteButton(item: MenuItem) {
         if (item.isChecked) {
-            item.setIcon(R.drawable.baseline_favorite_24)
+            item.setIcon(R.drawable.ic_favorite_24dp)
         } else {
-            item.setIcon(R.drawable.baseline_favorite_border_24)
+            item.setIcon(R.drawable.ic_favorite_border_24dp)
         }
     }
 }

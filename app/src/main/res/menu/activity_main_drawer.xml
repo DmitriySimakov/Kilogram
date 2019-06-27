@@ -8,7 +8,7 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/mainFragment"
-            android:icon="@drawable/baseline_home_24"
+            android:icon="@drawable/ic_home_24dp"
             android:title="@string/main"/>
     </group>
 
@@ -17,37 +17,46 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/exercises"
-            android:icon="@drawable/round_fitness_center_24"
+            android:icon="@drawable/ic_fitness_center_24dp"
             android:title="@string/exercises" />
         <item
             android:id="@+id/programs"
-            android:icon="@drawable/outline_assignment_24"
+            android:icon="@drawable/ic_assignment_24dp"
             android:title="@string/training_programs" />
         <item
             android:id="@+id/trainings"
-            android:icon="@drawable/baseline_calendar_multiselect_24"
+            android:icon="@drawable/ic_calendar_multiselect_24dp"
             android:title="@string/training_sessions" />
         <item
             android:id="@+id/measurements"
-            android:icon="@drawable/baseline_straighten_24"
+            android:icon="@drawable/ic_straighten_24dp"
             android:title="@string/measurements" />
     </group>
-
+    
     <group
         android:id="@+id/group3"
         android:checkableBehavior="single">
         <item
+            android:id="@+id/messages"
+            android:icon="@drawable/ic_message_black_24dp"
+            android:title="@string/messages"/>
+    </group>
+
+    <group
+        android:id="@+id/group4"
+        android:checkableBehavior="single">
+        <item
             android:id="@+id/settings"
-            android:icon="@drawable/baseline_settings_24"
+            android:icon="@drawable/ic_settings_24dp"
             android:title="@string/settings" />
         <item
             android:id="@+id/info"
-            android:icon="@drawable/baseline_info_24"
+            android:icon="@drawable/ic_info_24dp"
             android:title="@string/about"
             android:checkable="false"/>
         <item
             android:id="@+id/share"
-            android:icon="@drawable/baseline_share_24"
+            android:icon="@drawable/ic_share_24dp"
             android:title="@string/share"
             android:checkable="false"/>
     </group>

@@ -7,7 +7,7 @@
         android:id="@+id/finish_exercise"
         android:orderInCategory="1"
         android:title="@string/finish_exercise"
-        android:icon="@drawable/baseline_flag_24"
+        android:icon="@drawable/ic_flag_24dp"
         android:visible="false"
         app:showAsAction="ifRoom" />
 

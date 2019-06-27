@@ -9,6 +9,7 @@ import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.dmitrysimakov.kilogram.R
@@ -40,7 +41,9 @@ class MainActivity : DaggerAppCompatActivity() {
     
     private val auth = FirebaseAuth.getInstance()
     private val authStateListener by lazy { FirebaseAuth.AuthStateListener {
-        viewModel.username.value = auth.currentUser?.displayName
+        val user = auth.currentUser
+        viewModel.username.value = user?.displayName
+        binding.navView.menu.findItem(R.id.messages).isEnabled = user != null
     }}
     
     private var timerIsRunning = false
@@ -92,6 +95,9 @@ class MainActivity : DaggerAppCompatActivity() {
                         RC_SIGN_IN)
             } else {
                 AuthUI.getInstance().signOut(this)
+                if (navController.currentDestination?.id == R.id.messagesFragment) {
+                    navController.popBackStack(R.id.mainFragment, true)
+                }
             }
         }
     }

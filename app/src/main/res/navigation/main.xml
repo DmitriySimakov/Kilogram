@@ -21,14 +21,15 @@
         <action
             android:id="@+id/to_measurements"
             app:destination="@id/measurements" />
+        <action
+            android:id="@+id/to_messages"
+            app:destination="@id/messages" />
     </fragment>
     
     <include app:graph="@navigation/exercises" />
-    
     <include app:graph="@navigation/programs" />
-    
     <include app:graph="@navigation/trainings" />
-    
     <include app:graph="@navigation/measurements" />
-
+    <include app:graph="@navigation/messages" />
+    
 </navigation>
