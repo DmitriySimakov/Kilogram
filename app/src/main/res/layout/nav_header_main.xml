@@ -17,54 +17,64 @@
         android:gravity="bottom"
         android:orientation="vertical"
         android:padding="@dimen/activity_vertical_margin"
-        android:theme="?attr/toolbarOverlay">
-        
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/nav_header_title"
-            android:textColor="@color/white"
-            android:textSize="32sp"
+        android:theme="?attr/toolbarOverlay"
+        tools:layout_width="300dp">
+    
+        <androidx.cardview.widget.CardView
+            android:id="@+id/avatarCV"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_marginBottom="@dimen/nav_header_vertical_spacing"
+            app:cardCornerRadius="36dp"
+            app:invisibleUnless="@{vm.user != null}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        
-        <ImageView
-            android:id="@+id/avatarIV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/nav_header_desc"
-            app:invisibleUnless="@{vm.username != null}"
-            app:srcCompat="@mipmap/ic_launcher_round"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintBottom_toTopOf="@id/usernameTV">
+            <ImageView
+                android:id="@+id/avatarIV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/user_photo"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{vm.user.photoUrl.toString()}">
+            </ImageView>
+        </androidx.cardview.widget.CardView>
         
         <TextView
             android:id="@+id/usernameTV"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:text="@{vm.username}"
+            android:layout_marginBottom="@dimen/nav_header_vertical_spacing"
+            android:text="@{vm.user.displayName}"
             android:textColor="@color/white"
-            android:textSize="18sp"
-            app:invisibleUnless="@{vm.username != null}"
-            app:layout_constraintBottom_toBottomOf="@+id/avatarIV"
-            app:layout_constraintEnd_toStartOf="@+id/authBtn"
-            app:layout_constraintStart_toEndOf="@id/avatarIV"
-            app:layout_constraintTop_toTopOf="@+id/avatarIV"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:invisibleUnless="@{vm.user != null}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/emailTV"
             tools:text="Username"/>
+    
+        <TextView
+            android:id="@+id/emailTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{vm.user.email}"
+            android:textColor="@color/white"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:invisibleUnless="@{vm.user != null}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@string/nav_header_subtitle" />
         
         <Button
             android:id="@+id/authBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="@{vm.username != null ? @string/sign_out : @string/sign_in}"
-            app:layout_constraintBottom_toBottomOf="@+id/avatarIV"
+            android:text="@{vm.user != null ? @string/sign_out : @string/sign_in}"
+            app:layout_constraintBottom_toBottomOf="@+id/avatarCV"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/avatarIV"
+            app:layout_constraintTop_toTopOf="@+id/avatarCV"
             tools:text="@string/sign_out"/>
     
     </androidx.constraintlayout.widget.ConstraintLayout>
+    
 </layout>

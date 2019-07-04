@@ -4,12 +4,13 @@ import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.util.PreferencesKeys
+import com.google.firebase.auth.FirebaseUser
 import java.util.*
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(private val preferences: SharedPreferences) : ViewModel() {
     
-    val username = MutableLiveData<String?>()
+    val user = MutableLiveData<FirebaseUser?>()
     
     val programDayId = MutableLiveData(0L)
     

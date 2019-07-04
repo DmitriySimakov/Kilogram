@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentActivity
 import com.dmitrysimakov.kilogram.ui.MainViewModel
 import java.lang.Exception
 import android.util.TypedValue
+import android.widget.Toast
 import androidx.lifecycle.*
 
 inline fun <reified T : ViewModel> Fragment.getViewModel(factory: ViewModelProvider.Factory) : T {
@@ -56,4 +57,8 @@ fun <T> MutableLiveData<T>.notifyObservers() {
 inline fun <T> List<T>.findIndex(predicate: (T) -> Boolean): Int? {
     for (i in 0 until this.size) if (predicate(get(i))) return i
     return null
+}
+
+fun Context.toast(message: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this, message, duration).show()
 }

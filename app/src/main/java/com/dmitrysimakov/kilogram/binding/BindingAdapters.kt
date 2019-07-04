@@ -6,6 +6,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import java.io.IOException
+import com.bumptech.glide.Glide
 
 object BindingAdapters {
     
@@ -26,6 +27,13 @@ object BindingAdapters {
             setImageDrawable(Drawable.createFromStream(inputStream, null))
         } catch (e: IOException) {
             e.printStackTrace()
+        }
+    }
+    
+    @BindingAdapter("imageUrl")
+    @JvmStatic fun ImageView.imageUrl(url: String?) {
+        if (!url.isNullOrEmpty()) {
+            Glide.with(context).load(url).into(this)
         }
     }
     

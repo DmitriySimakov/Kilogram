@@ -1,8 +1,6 @@
 package com.dmitrysimakov.kilogram.ui.main
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,16 +8,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.data.FriendlyMessage
 import com.dmitrysimakov.kilogram.util.getViewModel
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_main.*
-import timber.log.Timber
 import javax.inject.Inject
 
 class MainFragment : DaggerFragment() {
@@ -42,7 +34,7 @@ class MainFragment : DaggerFragment() {
         measurementsBtn.setOnClickListener { navController.navigate(MainFragmentDirections.toMeasurements()) }
         messagesBtn.setOnClickListener { navController.navigate(MainFragmentDirections.toMessages()) }
         
-        mainViewModel.username.observe(this, Observer { messagesBtn.isEnabled = it != null })
+        mainViewModel.user.observe(this, Observer { messagesBtn.isEnabled = it != null })
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

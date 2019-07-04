@@ -3,12 +3,12 @@
     <!-- LIGHT THEME -->
 
     <style name="AppThemeLight" parent="BaseAppThemeLight"/>
-
+    
     <style name="BaseAppThemeLight" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:windowBackground">@color/white</item>
-        <item name="colorPrimary">@color/red600</item>
-        <item name="colorPrimaryDark">@color/red800</item>
-        <item name="colorAccent">@color/red600</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColor">@color/black</item>
         <item name="colorControlNormal">@color/black</item>
 

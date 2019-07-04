@@ -1,12 +1,13 @@
 <resources>
     <string name="app_name">Kilogram</string>
+    <string name="facebook_application_id">379491969582169</string>
+    <string name="facebook_login_protocol_scheme">fb379491969582169</string>
     
     <!-- NavigationView -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Kilogram</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
     
     <!-- NavigationView items -->
     <string name="main">На главную</string>
@@ -93,5 +94,7 @@
     <string name="sign_in">Войти</string>
     <string name="sign_out">Выйти</string>
     <string name="messages">Сообщения</string>
+    <string name="user_photo">Фотография пользователя</string>
+    <string name="verification_message_sent">Сообщение отправлено по адресу %1$s. Подтвердите ваш email и возвращайтесь в приложение.</string>
 
 </resources>

@@ -13,23 +13,34 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_message"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/sendBtn"/>
+        app:layout_constraintBottom_toTopOf="@id/messageET"/>
+    
+    <ImageButton
+        android:id="@+id/photoPickerBtn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:drawable/ic_menu_gallery"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintTop_toTopOf="@id/messageET"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
     
     <EditText
         android:id="@+id/messageET"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/sendBtn"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@id/photoPickerBtn"
+        app:layout_constraintEnd_toStartOf="@+id/sendBtn" />
     
-    <Button
+    <ImageButton
         android:id="@+id/sendBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/ok"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:drawable/ic_menu_send"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/messageET" />
+        app:layout_constraintTop_toTopOf="@id/messageET"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
