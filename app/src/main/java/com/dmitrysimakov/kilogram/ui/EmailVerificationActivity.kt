@@ -1,5 +1,6 @@
 package com.dmitrysimakov.kilogram.ui
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.dmitrysimakov.kilogram.R
@@ -31,7 +32,10 @@ class EmailVerificationActivity : AppCompatActivity() {
             override fun run() {
                 user?.run {
                     reload()
-                    if (isEmailVerified) finish()
+                    if (isEmailVerified) {
+                        setResult(Activity.RESULT_OK)
+                        finish()
+                    }
                 }
             }
         }

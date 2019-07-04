@@ -17,7 +17,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeLight"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.EmailVerificationActivity"></activity>
         <activity
             android:name=".ui.MainActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -25,10 +24,10 @@
             android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-    
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.EmailVerificationActivity" />
     </application>
 
 </manifest>
