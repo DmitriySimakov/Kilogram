@@ -24,9 +24,9 @@ import kotlinx.android.synthetic.main.fragment_exercises.recyclerView
 import kotlinx.android.synthetic.main.fragment_messages.*
 import javax.inject.Inject
 
+private const val RC_PHOTO_PICKER = 1
+
 class MessagesFragment : DaggerFragment() {
-    
-    val RC_PHOTO_PICKER = 2
     
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     
@@ -41,6 +41,9 @@ class MessagesFragment : DaggerFragment() {
     private val firebaseStorage = FirebaseStorage.getInstance()
     private val messagesRef = firebaseDb.reference.child("messages")
     private val msgImagesRef = firebaseStorage.reference.child("message_images")
+    
+//    private val firestore = FirebaseFirestore.getInstance()
+//    private val messagesDoc = firestore.document("messages")
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_messages, container, false)

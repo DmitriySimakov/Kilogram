@@ -12,12 +12,12 @@ import com.dmitrysimakov.kilogram.ui.measurements.add_measurement.MeasurementsFr
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_measurements_tab.*
 
+private const val CALCULATOR_POS = 0
+private const val ADD_MEASUREMENT_POS = 1
+private const val HISTORY_POS = 2
+
 class MeasurementsTabFragment : DaggerFragment() {
-
-    private val CALCULATOR_POS = 0
-    private val ADD_MEASUREMENT_POS = 1
-    private val HISTORY_POS = 2
-
+    
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_measurements_tab, container, false)

@@ -15,7 +15,6 @@ import com.dmitrysimakov.kilogram.databinding.ActivityMainBinding
 import com.dmitrysimakov.kilogram.databinding.NavHeaderMainBinding
 import com.dmitrysimakov.kilogram.util.PreferencesKeys
 import com.dmitrysimakov.kilogram.util.getViewModel
-import com.dmitrysimakov.kilogram.util.toast
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import dagger.android.support.DaggerAppCompatActivity
@@ -23,10 +22,9 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import timber.log.Timber
 import javax.inject.Inject
 
+private const val RC_SIGN_IN = 1
+
 class MainActivity : DaggerAppCompatActivity() {
-    
-    val RC_SIGN_IN = 1
-    val RC_VERIFICATION = 2
     
     @Inject lateinit var preferences: SharedPreferences
     
@@ -40,28 +38,22 @@ class MainActivity : DaggerAppCompatActivity() {
     private val navController by lazy { findNavController(R.id.fragment_container) }
     
     private val auth = FirebaseAuth.getInstance()
-    private val authStateListener by lazy { FirebaseAuth.AuthStateListener {
-        val user = auth.currentUser
-        Timber.d("Auth state changed. New user is $user")
-        viewModel.user.value = user
-        binding.navView.menu.findItem(R.id.messages).isEnabled = user != null
+    private val authStateListener by lazy { FirebaseAuth.AuthStateListener { auth ->
+        viewModel.user.value = auth.currentUser?.takeIf { it.isEmailVerified }
     }}
     
     private var timerIsRunning = false
     
     override fun onCreate(savedInstanceState: Bundle?) {
+        Timber.d("onCreate")
         super.onCreate(savedInstanceState)
-        
-        fun getShareIntent() = ShareCompat.IntentBuilder.from(this)
-                .setText("Kilogram - крутой фитнес трекер. Переходи по ссылке и тренируйся вместе со мной.")
-                .setType("text/plain")
-                .intent
         
         binding.lifecycleOwner = this
         binding.vm = viewModel
         navBinding.lifecycleOwner = this
         navBinding.vm = viewModel
-        
+    
+        viewModel.user.observe(this, Observer { binding.navView.menu.findItem(R.id.messages).isVisible = it != null })
         viewModel.timerIsRunning.observe(this, Observer { timerIsRunning = it })
         
         viewModel.timerIsRunning.value = preferences.getBoolean(PreferencesKeys.TIMER_IS_RUNNING, false)
@@ -73,12 +65,16 @@ class MainActivity : DaggerAppCompatActivity() {
         NavigationUI.setupActionBarWithNavController(this, navController, binding.drawerLayout)
         NavigationUI.setupWithNavController(binding.navView, navController)
         
+        val shareIntent = ShareCompat.IntentBuilder.from(this)
+                .setText("Kilogram - крутой фитнес трекер. Переходи по ссылке и тренируйся вместе со мной.")
+                .setType("text/plain")
+                .intent
         val shareItem = binding.navView.menu.findItem(R.id.share)
-        if (getShareIntent().resolveActivity(packageManager) == null) {
+        if (shareIntent.resolveActivity(packageManager) == null) {
             shareItem.isVisible = false
         } else {
             shareItem.setOnMenuItemClickListener {
-                startActivity(getShareIntent())
+                startActivity(shareIntent)
                 true
             }
         }
@@ -92,8 +88,7 @@ class MainActivity : DaggerAppCompatActivity() {
                                 AuthUI.IdpConfig.GoogleBuilder().build(),
                                 AuthUI.IdpConfig.FacebookBuilder().build()))
                         .setLogo(R.mipmap.ic_launcher_round)
-                        .build(),
-                        RC_SIGN_IN)
+                        .build(), RC_SIGN_IN)
             } else {
                 AuthUI.getInstance().signOut(this)
                 if (navController.currentDestination?.id == R.id.messagesFragment) {
@@ -101,26 +96,32 @@ class MainActivity : DaggerAppCompatActivity() {
                 }
             }
         }
+    
+        requestEmailVerification()
     }
     
     override fun onStart() {
+        Timber.d("onStart")
         super.onStart()
         if (viewModel.timerIsRunning.value!!) viewModel.startTimer()
     }
     
     override fun onResume() {
+        Timber.d("onResume")
         super.onResume()
         auth.addAuthStateListener(authStateListener)
     }
     
     override fun onPause() {
+        Timber.d("onPause")
         auth.removeAuthStateListener(authStateListener)
         super.onPause()
     }
     
     override fun onStop() {
-        super.onStop()
+        Timber.d("onStop")
         if (timerIsRunning) viewModel.stopTimer()
+        super.onStop()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -138,12 +139,13 @@ class MainActivity : DaggerAppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN && resultCode == Activity.RESULT_OK) {
-            if (auth.currentUser?.isEmailVerified == false) {
-                startActivityForResult(Intent(this, EmailVerificationActivity::class.java), RC_VERIFICATION)
-            }
+            requestEmailVerification()
         }
-        if (requestCode == RC_VERIFICATION && resultCode == Activity.RESULT_CANCELED) {
-            AuthUI.getInstance().delete(this)
+    }
+    
+    private fun requestEmailVerification() {
+        if (auth.currentUser?.isEmailVerified == false) {
+            startActivity(Intent(this, EmailVerificationActivity::class.java))
         }
     }
 }

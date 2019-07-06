@@ -32,9 +32,9 @@ class MainFragment : DaggerFragment() {
         programsBtn.setOnClickListener { navController.navigate(MainFragmentDirections.toPrograms()) }
         trainingsBtn.setOnClickListener { navController.navigate(MainFragmentDirections.toTrainings()) }
         measurementsBtn.setOnClickListener { navController.navigate(MainFragmentDirections.toMeasurements()) }
-        messagesBtn.setOnClickListener { navController.navigate(MainFragmentDirections.toMessages()) }
+        messagesBtn.setOnClickListener {  navController.navigate(MainFragmentDirections.toMessages()) }
         
-        mainViewModel.user.observe(this, Observer { messagesBtn.isEnabled = it != null })
+        mainViewModel.user.observe(this, Observer { messagesBtn.visibility = if(it != null) View.VISIBLE else View.GONE })
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
