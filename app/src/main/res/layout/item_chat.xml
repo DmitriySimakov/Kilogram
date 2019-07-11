@@ -8,69 +8,71 @@
         <import type="com.dmitrysimakov.kilogram.util.Converter"/>
         
         <variable
-            name="message"
-            type="com.dmitrysimakov.kilogram.data.Message"/>
+            name="currentUserId"
+            type="String" />
+        <variable
+            name="chat"
+            type="com.dmitrysimakov.kilogram.data.Chat"/>
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:background="@color/white">
+        android:layout_height="?attr/listPreferredItemHeightLarge"
+        android:padding="8dp">
     
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/photoCIV"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            app:imageUrl="@{message.sender.photoUrl}"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:imageUrl="@{chat.photoUrl}"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:src="@tools:sample/avatars"/>
         
         <TextView
             android:id="@+id/name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:textAppearance="?android:attr/textAppearanceListItem"
-            android:text="@{message.sender.name}"
+            android:layout_marginStart="8dp"
+            android:text="@{chat.name}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/photoCIV"
+            app:layout_constraintEnd_toStartOf="@id/timestamp"
             tools:text="@tools:sample/full_names" />
     
         <TextView
             android:id="@+id/timestamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{Converter.dateToRelativeTimeSpan(message.timestamp.toDate())}"
-            android:layout_marginStart="8dp"
-            app:layout_constraintBaseline_toBaselineOf="@id/name"
-            app:layout_constraintStart_toEndOf="@id/name"
+            android:text="@{Converter.dateToRelativeTimeSpan(chat.lastMessage.timestamp.toDate())}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:text="@tools:sample/date/hhmm" />
+    
+        <TextView
+            android:id="@+id/you"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/you"
+            app:goneUnless="@{currentUserId.equals(chat.lastMessage.senderId)}"
+            app:layout_constraintTop_toBottomOf="@id/name"
+            app:layout_constraintStart_toStartOf="@id/name" />
         
         <TextView
-            android:id="@+id/text"
+            android:id="@+id/lastMessage"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@{message.text}"
+            android:layout_height="0dp"
+            android:text="@{chat.lastMessage.text}"
+            android:ellipsize="end"
+            android:maxLines="2"
             app:layout_constraintTop_toBottomOf="@id/name"
-            app:layout_constraintStart_toStartOf="@id/name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/you"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="@tools:sample/lorem" />
-        
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:scaleType="fitEnd"
-            android:layout_marginTop="4dp"
-            app:layout_constraintHeight_max="300dp"
-            app:layout_constraintTop_toBottomOf="@id/name"
-            app:layout_constraintStart_toStartOf="@id/name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:goneUnless="@{message.imageUrl != null}"
-            app:imageUrl="@{message.imageUrl}"/>
+            tools:text="@tools:sample/lorem/random" />
         
     </androidx.constraintlayout.widget.ConstraintLayout>
-    
+
 </layout>

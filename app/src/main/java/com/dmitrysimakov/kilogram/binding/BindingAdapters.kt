@@ -4,9 +4,12 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import java.io.IOException
 import com.bumptech.glide.Glide
+import com.dmitrysimakov.kilogram.R
+import java.io.IOException
+import java.util.*
 
 object BindingAdapters {
     
@@ -32,9 +35,7 @@ object BindingAdapters {
     
     @BindingAdapter("imageUrl")
     @JvmStatic fun ImageView.imageUrl(url: String?) {
-        if (!url.isNullOrEmpty()) {
-            Glide.with(context).load(url).into(this)
-        }
+        Glide.with(context).load(url).placeholder(R.drawable.no_photo).into(this)
     }
     
     @BindingAdapter("notEmpty")

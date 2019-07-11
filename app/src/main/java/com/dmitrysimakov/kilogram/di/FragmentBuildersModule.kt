@@ -9,6 +9,7 @@ import com.dmitrysimakov.kilogram.ui.exercises.choose_exercise.Exercises_ChooseE
 import com.dmitrysimakov.kilogram.ui.exercises.detail.ExerciseDetailFragment
 import com.dmitrysimakov.kilogram.ui.main.MainFragment
 import com.dmitrysimakov.kilogram.ui.measurements.add_measurement.MeasurementsFragment
+import com.dmitrysimakov.kilogram.ui.messages.ChatsFragment
 import com.dmitrysimakov.kilogram.ui.messages.MessagesFragment
 import com.dmitrysimakov.kilogram.ui.programs.add_exercise.Programs_AddExerciseFragment
 import com.dmitrysimakov.kilogram.ui.programs.choose_exercise.Programs_ChooseExerciseFragment
@@ -129,6 +130,9 @@ abstract class FragmentBuildersModule {
     //endregion
     
     //region MESSAGES
+    
+    @ContributesAndroidInjector
+    abstract fun contributeChatsFragment(): ChatsFragment
     
     @ContributesAndroidInjector
     abstract fun contributeMessagesFragment(): MessagesFragment

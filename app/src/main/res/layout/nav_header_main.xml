@@ -20,24 +20,16 @@
         android:theme="?attr/toolbarOverlay"
         tools:layout_width="300dp">
     
-        <androidx.cardview.widget.CardView
-            android:id="@+id/avatarCV"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/photoCIV"
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_marginBottom="@dimen/nav_header_vertical_spacing"
-            app:cardCornerRadius="36dp"
+            app:imageUrl="@{vm.user.photoUrl.toString()}"
             app:invisibleUnless="@{vm.user != null}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/usernameTV">
-            <ImageView
-                android:id="@+id/avatarIV"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/user_photo"
-                android:scaleType="centerCrop"
-                app:imageUrl="@{vm.user.photoUrl.toString()}">
-            </ImageView>
-        </androidx.cardview.widget.CardView>
+            app:layout_constraintBottom_toTopOf="@id/usernameTV"
+            tools:src="@tools:sample/avatars"/>
         
         <TextView
             android:id="@+id/usernameTV"
@@ -50,7 +42,7 @@
             app:invisibleUnless="@{vm.user != null}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@id/emailTV"
-            tools:text="Username"/>
+            tools:text="@tools:sample/full_names"/>
     
         <TextView
             android:id="@+id/emailTV"
@@ -62,7 +54,7 @@
             app:invisibleUnless="@{vm.user != null}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="@string/nav_header_subtitle" />
+            tools:text="android.studio@android.com" />
         
         <Button
             android:id="@+id/authBtn"
@@ -70,9 +62,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:text="@{vm.user != null ? @string/sign_out : @string/sign_in}"
-            app:layout_constraintBottom_toBottomOf="@+id/avatarCV"
+            app:layout_constraintBottom_toBottomOf="@+id/photoCIV"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/avatarCV"
+            app:layout_constraintTop_toTopOf="@+id/photoCIV"
             tools:text="@string/sign_out"/>
     
     </androidx.constraintlayout.widget.ConstraintLayout>

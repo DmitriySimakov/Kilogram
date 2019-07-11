@@ -10,18 +10,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.dmitrysimakov.kilogram.R
+import com.dmitrysimakov.kilogram.data.Chat
 import com.dmitrysimakov.kilogram.data.Message
-import com.dmitrysimakov.kilogram.util.AppExecutors
-import com.dmitrysimakov.kilogram.util.getViewModel
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.storage.FirebaseStorage
+import com.dmitrysimakov.kilogram.data.User
+import com.dmitrysimakov.kilogram.util.*
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.Source
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.fragment_exercises.recyclerView
 import kotlinx.android.synthetic.main.fragment_messages.*
+import timber.log.Timber
 import javax.inject.Inject
 
 private const val RC_PHOTO_PICKER = 1
@@ -36,14 +34,9 @@ class MessagesFragment : DaggerFragment() {
     
     private val adapter by lazy { MessagesListAdapter(executors) }
     
-    private val messages = mutableListOf<Message>()
-    private val firebaseDb = FirebaseDatabase.getInstance()
-    private val firebaseStorage = FirebaseStorage.getInstance()
-    private val messagesRef = firebaseDb.reference.child("messages")
-    private val msgImagesRef = firebaseStorage.reference.child("message_images")
+    private val params by lazy { MessagesFragmentArgs.fromBundle(arguments!!) }
     
-//    private val firestore = FirebaseFirestore.getInstance()
-//    private val messagesDoc = firestore.document("messages")
+    private val messagesCollection by lazy { chatsCollection.document(params.id).collection("messages") }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_messages, container, false)
@@ -54,19 +47,25 @@ class MessagesFragment : DaggerFragment() {
         
         recyclerView.adapter = adapter
     
-        messagesRef.addChildEventListener(object : ChildEventListener {
-            override fun onCancelled(error: DatabaseError) {}
-            override fun onChildMoved(data: DataSnapshot, s: String?) {}
-            override fun onChildChanged(data: DataSnapshot, s: String?) {}
-            override fun onChildAdded(data: DataSnapshot, s: String?) {
-                val msg = data.getValue(Message::class.java)
-                msg?.let {
-                    messages.add(it)
-                    adapter.submitList(messages)
+        chatsCollection.document(params.id).get(Source.CACHE).addOnSuccessListener { chatDoc ->
+            val chat = chatDoc.toObject(Chat::class.java)?.also { it.id = chatDoc.id }
+            chat?.let { messagesCollection.orderBy("timestamp").addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    Timber.w(e, "Listen failed.")
+                    return@addSnapshotListener
                 }
-            }
-            override fun onChildRemoved(data: DataSnapshot) {}
-        })
+                snapshot?.let {
+                    adapter.submitList(snapshot.documents.map { doc ->
+                        doc.toObject(Message::class.java)?.also { msg ->
+                            msg.id = doc.id
+                            val sender = chat.members.find { it.id == msg.sender.id }
+                            msg.sender.name = sender?.name ?: ""
+                            msg.sender.photoUrl = sender?.photoUrl
+                        }
+                    })
+                }
+            }}
+        }
         
         photoPickerBtn.setOnClickListener {
             val intent = Intent(Intent.ACTION_GET_CONTENT)
@@ -84,8 +83,7 @@ class MessagesFragment : DaggerFragment() {
         })
         
         sendBtn.setOnClickListener {
-            val msg = Message(mainViewModel.user.value?.displayName ?: "", "${messageET.text}")
-            messagesRef.push().setValue(msg)
+            sendMessage(messageET.text.toString(), null)
             messageET.setText("")
         }
         
@@ -98,11 +96,16 @@ class MessagesFragment : DaggerFragment() {
             val uri = data.data!!
             val imageRef = msgImagesRef.child(uri.lastPathSegment!!)
             imageRef.putFile(uri).addOnSuccessListener {
-                imageRef.downloadUrl.addOnSuccessListener { downloadUri ->
-                    messagesRef.push().setValue(
-                            Message(mainViewModel.user.value?.displayName ?: "", "", downloadUri.toString()))
-                }
+                imageRef.downloadUrl.addOnSuccessListener { sendMessage(null, it.toString()) }
             }
         }
+    }
+    
+    private fun sendMessage(text: String?, imageUrl: String?) {
+        firestore.batch()
+                .set(messagesCollection.document(), Message(Message.Sender(currentUserUid), text, imageUrl, Timestamp.now()))
+                .update(chatsCollection.document(params.id), "lastMessage",
+                        Chat.LastMessage(currentUserUid ?: "", text ?: "Фотография", Timestamp.now()))
+                .commit()
     }
 }

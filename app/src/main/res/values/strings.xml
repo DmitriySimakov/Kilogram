@@ -6,8 +6,6 @@
     <!-- NavigationView -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Kilogram</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
     
     <!-- NavigationView items -->
     <string name="main">На главную</string>
@@ -96,5 +94,6 @@
     <string name="messages">Сообщения</string>
     <string name="user_photo">Фотография пользователя</string>
     <string name="verification_message_sent">Сообщение отправлено по адресу %1$s. Подтвердите ваш email и возвращайтесь в приложение.</string>
+    <string name="you">Вы: \u0020</string>
 
 </resources>

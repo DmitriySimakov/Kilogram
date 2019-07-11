@@ -1,9 +1,10 @@
 @file:JvmName("Converter")
 package com.dmitrysimakov.kilogram.util
 
+import android.text.format.DateUtils
+import androidx.databinding.InverseMethod
 import java.text.SimpleDateFormat
 import java.util.*
-import androidx.databinding.InverseMethod
 
 fun unbox(b: Boolean?): Boolean = b ?: false
 
@@ -28,6 +29,11 @@ fun secondsToTimeFormat(seconds: Int?): String {
 
 fun millisToDateTimeFormat(milliseconds: Long): String {
     return SimpleDateFormat("EE. dd MMMM yyyy г. HH:mm", Locale.getDefault()).format(Date(milliseconds))
+}
+
+fun dateToRelativeTimeSpan(date: Date?): String {
+    return if (date == null) ""
+    else DateUtils.getRelativeTimeSpanString(date.time, System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS).toString()
 }
 
 fun calendarToDateFormat(calendar: Calendar): String {

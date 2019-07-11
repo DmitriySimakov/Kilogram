@@ -11,9 +11,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.dmitrysimakov.kilogram.R
+import com.dmitrysimakov.kilogram.data.User
 import com.dmitrysimakov.kilogram.databinding.ActivityMainBinding
 import com.dmitrysimakov.kilogram.databinding.NavHeaderMainBinding
 import com.dmitrysimakov.kilogram.util.PreferencesKeys
+import com.dmitrysimakov.kilogram.util.auth
+import com.dmitrysimakov.kilogram.util.currentUserDocument
 import com.dmitrysimakov.kilogram.util.getViewModel
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
@@ -37,7 +40,6 @@ class MainActivity : DaggerAppCompatActivity() {
     
     private val navController by lazy { findNavController(R.id.fragment_container) }
     
-    private val auth = FirebaseAuth.getInstance()
     private val authStateListener by lazy { FirebaseAuth.AuthStateListener { auth ->
         viewModel.user.value = auth.currentUser?.takeIf { it.isEmailVerified }
     }}
@@ -139,6 +141,15 @@ class MainActivity : DaggerAppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN && resultCode == Activity.RESULT_OK) {
+            Timber.d("Result OK")
+            currentUserDocument.get().addOnSuccessListener {
+                Timber.d("success")
+                if (!it.exists()) {
+                    Timber.d("not exist")
+                    val user = auth.currentUser
+                    currentUserDocument.set(User(user?.displayName ?: "", user?.photoUrl.toString()))
+                }
+            }
             requestEmailVerification()
         }
     }
