@@ -23,13 +23,48 @@
             app:destination="@id/measurements" />
         <action
             android:id="@+id/to_messages"
-            app:destination="@id/messages" />
+            app:destination="@id/chatsFragment" />
+        <action
+            android:id="@+id/to_people"
+            app:destination="@id/peopleFragment" />
     </fragment>
     
     <include app:graph="@navigation/exercises" />
     <include app:graph="@navigation/programs" />
     <include app:graph="@navigation/trainings" />
     <include app:graph="@navigation/measurements" />
-    <include app:graph="@navigation/messages" />
+    
+    <!--region Messages-->
+    <fragment
+        android:id="@+id/chatsFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.messages.ChatsFragment"
+        android:label="@string/messages"
+        tools:layout="@layout/fragment_chats" >
+        <action
+            android:id="@+id/to_messagesFragment"
+            app:destination="@id/messagesFragment" />
+    </fragment>
+    
+    <fragment
+        android:id="@+id/messagesFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.messages.MessagesFragment"
+        tools:layout="@layout/fragment_messages" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
+    <!--endregion-->
+    
+    <!--region People-->
+    <fragment
+        android:id="@+id/peopleFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.people.PeopleFragment"
+        android:label="@string/people"
+        tools:layout="@layout/fragment_people" >
+        <action
+            android:id="@+id/to_messagesFragment"
+            app:destination="@id/messagesFragment" />
+    </fragment>
+    <!--endregion-->
     
 </navigation>

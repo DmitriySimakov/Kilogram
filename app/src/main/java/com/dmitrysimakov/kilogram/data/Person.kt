@@ -4,8 +4,9 @@ import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.IgnoreExtraProperties
 
 @IgnoreExtraProperties
-data class User(
-        @get:Exclude var id: String = "",
+data class Person(
         var name: String = "",
-        var photoUrl: String? = null
+        var photoUrl: String? = null,
+        val registrationTokens: MutableList<String> = mutableListOf(),
+        @get:Exclude var id: String = ""
 )

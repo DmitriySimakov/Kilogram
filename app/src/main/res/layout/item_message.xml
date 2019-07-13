@@ -42,7 +42,7 @@
             android:id="@+id/timestamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{Converter.dateToRelativeTimeSpan(message.timestamp.toDate())}"
+            android:text="@{Converter.dateToRelativeTimeSpan(message.timestamp)}"
             android:layout_marginStart="8dp"
             app:layout_constraintBaseline_toBaselineOf="@id/name"
             app:layout_constraintStart_toEndOf="@id/name"

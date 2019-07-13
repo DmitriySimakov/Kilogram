@@ -12,9 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.data.Chat
 import com.dmitrysimakov.kilogram.data.Message
-import com.dmitrysimakov.kilogram.data.User
 import com.dmitrysimakov.kilogram.util.*
-import com.google.firebase.Timestamp
 import com.google.firebase.firestore.Source
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -49,21 +47,15 @@ class MessagesFragment : DaggerFragment() {
     
         chatsCollection.document(params.id).get(Source.CACHE).addOnSuccessListener { chatDoc ->
             val chat = chatDoc.toObject(Chat::class.java)?.also { it.id = chatDoc.id }
-            chat?.let { messagesCollection.orderBy("timestamp").addSnapshotListener { snapshot, e ->
-                if (e != null) {
-                    Timber.w(e, "Listen failed.")
-                    return@addSnapshotListener
-                }
-                snapshot?.let {
-                    adapter.submitList(snapshot.documents.map { doc ->
-                        doc.toObject(Message::class.java)?.also { msg ->
-                            msg.id = doc.id
-                            val sender = chat.members.find { it.id == msg.sender.id }
-                            msg.sender.name = sender?.name ?: ""
-                            msg.sender.photoUrl = sender?.photoUrl
-                        }
-                    })
-                }
+            chat?.let { messagesCollection.orderBy("timestamp").addSnapshotListener { snapshot, _ ->
+                adapter.submitList(snapshot?.documents?.map { doc ->
+                    doc.toObject(Message::class.java)?.also { msg ->
+                        msg.id = doc.id
+                        val sender = chat.members.find { it.id == msg.sender.id }
+                        msg.sender.name = sender?.name ?: ""
+                        msg.sender.photoUrl = sender?.photoUrl
+                    }
+                })
             }}
         }
         
@@ -103,9 +95,9 @@ class MessagesFragment : DaggerFragment() {
     
     private fun sendMessage(text: String?, imageUrl: String?) {
         firestore.batch()
-                .set(messagesCollection.document(), Message(Message.Sender(currentUserUid), text, imageUrl, Timestamp.now()))
+                .set(messagesCollection.document(), Message(Message.Sender(user!!.uid), text, imageUrl))
                 .update(chatsCollection.document(params.id), "lastMessage",
-                        Chat.LastMessage(currentUserUid ?: "", text ?: "Фотография", Timestamp.now()))
+                        Chat.LastMessage(user!!.uid, text ?: "Фотография"))
                 .commit()
     }
 }

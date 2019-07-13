@@ -11,15 +11,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.data.User
+import com.dmitrysimakov.kilogram.data.Person
 import com.dmitrysimakov.kilogram.databinding.ActivityMainBinding
 import com.dmitrysimakov.kilogram.databinding.NavHeaderMainBinding
-import com.dmitrysimakov.kilogram.util.PreferencesKeys
-import com.dmitrysimakov.kilogram.util.auth
-import com.dmitrysimakov.kilogram.util.currentUserDocument
-import com.dmitrysimakov.kilogram.util.getViewModel
+import com.dmitrysimakov.kilogram.util.*
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.iid.FirebaseInstanceId
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.app_bar_main.*
 import timber.log.Timber
@@ -55,7 +53,7 @@ class MainActivity : DaggerAppCompatActivity() {
         navBinding.lifecycleOwner = this
         navBinding.vm = viewModel
     
-        viewModel.user.observe(this, Observer { binding.navView.menu.findItem(R.id.messages).isVisible = it != null })
+        viewModel.user.observe(this, Observer { binding.navView.menu.findItem(R.id.chatsFragment).isVisible = it != null })
         viewModel.timerIsRunning.observe(this, Observer { timerIsRunning = it })
         
         viewModel.timerIsRunning.value = preferences.getBoolean(PreferencesKeys.TIMER_IS_RUNNING, false)
@@ -141,21 +139,39 @@ class MainActivity : DaggerAppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN && resultCode == Activity.RESULT_OK) {
-            Timber.d("Result OK")
-            currentUserDocument.get().addOnSuccessListener {
-                Timber.d("success")
-                if (!it.exists()) {
-                    Timber.d("not exist")
-                    val user = auth.currentUser
-                    currentUserDocument.set(User(user?.displayName ?: "", user?.photoUrl.toString()))
+            userDocument.get().addOnSuccessListener { doc ->
+                FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener{ result ->
+                    val token = result.token
+                    if (!doc.exists()) {
+                        createNewPersonWith(token)
+                    } else {
+                        addTokenToPerson(token, doc.toObject(Person::class.java)!!)
+                    }
                 }
             }
+    
             requestEmailVerification()
         }
     }
     
+    private fun createNewPersonWith(token: String) {
+        userDocument.set(Person(
+                user?.displayName ?: "",
+                user?.photoUrl.toString(),
+                mutableListOf(token)
+        ))
+    }
+    
+    private fun addTokenToPerson(token: String, person: Person) {
+        val tokens = person.registrationTokens
+        if (!tokens.contains(token)) {
+            tokens.add(token)
+            userDocument.update(mapOf("registrationTokens" to tokens))
+        }
+    }
+    
     private fun requestEmailVerification() {
-        if (auth.currentUser?.isEmailVerified == false) {
+        if (user?.isEmailVerified == false) {
             startActivity(Intent(this, EmailVerificationActivity::class.java))
         }
     }

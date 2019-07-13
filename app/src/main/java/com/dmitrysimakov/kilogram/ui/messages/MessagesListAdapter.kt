@@ -13,7 +13,7 @@ class MessagesListAdapter(
 ) : DataBoundListAdapter<Message, ItemMessageBinding>(appExecutors, null,
         object : DiffUtil.ItemCallback<Message>() {
             override fun areItemsTheSame(oldItem: Message, newItem: Message) =
-                    false //TODO
+                    oldItem.id == newItem.id
             override fun areContentsTheSame(oldItem: Message, newItem: Message) =
                     oldItem == newItem
         }) {

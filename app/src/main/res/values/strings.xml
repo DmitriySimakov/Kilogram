@@ -95,5 +95,6 @@
     <string name="user_photo">Фотография пользователя</string>
     <string name="verification_message_sent">Сообщение отправлено по адресу %1$s. Подтвердите ваш email и возвращайтесь в приложение.</string>
     <string name="you">Вы: \u0020</string>
+    <string name="people">Люди</string>
 
 </resources>

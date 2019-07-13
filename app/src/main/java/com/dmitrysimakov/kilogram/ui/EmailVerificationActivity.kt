@@ -3,16 +3,14 @@ package com.dmitrysimakov.kilogram.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.util.auth
-import com.dmitrysimakov.kilogram.util.currentUserDocument
 import com.dmitrysimakov.kilogram.util.toast
+import com.dmitrysimakov.kilogram.util.user
+import com.dmitrysimakov.kilogram.util.userDocument
 import kotlinx.android.synthetic.main.activity_email_verification.*
 import timber.log.Timber
 import java.util.*
 
 class EmailVerificationActivity : AppCompatActivity() {
-    
-    private val user = auth.currentUser
     
     private val timer = Timer()
     private val task = object : TimerTask() {
@@ -56,8 +54,8 @@ class EmailVerificationActivity : AppCompatActivity() {
         Timber.d("onDestroy")
         if (user?.isEmailVerified == false) {
             Timber.d("delete")
-            user.delete()
-            currentUserDocument.delete()
+            user?.delete()
+            userDocument.delete()
         }
         super.onDestroy()
     }

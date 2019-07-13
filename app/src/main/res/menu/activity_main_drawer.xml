@@ -37,9 +37,13 @@
         android:id="@+id/group3"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/messages"
+            android:id="@+id/chatsFragment"
             android:icon="@drawable/ic_message_black_24dp"
             android:title="@string/messages"/>
+        <item
+            android:id="@+id/peopleFragment"
+            android:icon="@drawable/ic_people_black_24dp"
+            android:title="@string/people"/>
     </group>
 
     <group
