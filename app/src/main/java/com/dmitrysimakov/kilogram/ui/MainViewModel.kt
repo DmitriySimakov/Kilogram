@@ -3,17 +3,74 @@ package com.dmitrysimakov.kilogram.ui
 import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.dmitrysimakov.kilogram.data.FirebaseDao
+import com.dmitrysimakov.kilogram.data.Person
 import com.dmitrysimakov.kilogram.util.PreferencesKeys
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.iid.FirebaseInstanceId
 import java.util.*
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(private val preferences: SharedPreferences) : ViewModel() {
-    
-    val user = MutableLiveData<FirebaseUser?>()
+class MainViewModel @Inject constructor(
+        private val preferences: SharedPreferences,
+        private val firebase: FirebaseDao
+) : ViewModel() {
     
     val programDayId = MutableLiveData(0L)
     
+    //region Firebase
+    val user = MutableLiveData<FirebaseUser?>()
+    
+    private val authStateListener by lazy { FirebaseAuth.AuthStateListener { auth ->
+        user.value = auth.currentUser?.takeIf { it.isEmailVerified }
+    }}
+    
+    fun addAuthStateListener() {
+        firebase.auth.addAuthStateListener(authStateListener)
+    }
+    
+    fun removeAuthStateListener() {
+        firebase.auth.removeAuthStateListener(authStateListener)
+    }
+    
+    fun initUser() {
+        firebase.userDocument.get().addOnSuccessListener { doc ->
+            FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener{ result ->
+                val token = result.token
+                if (!doc.exists()) {
+                    createNewPersonWith(token)
+                } else {
+                    addTokenToPerson(token, doc.toObject(Person::class.java)!!)
+                }
+            }
+        }
+    }
+    
+    fun requestEmailVerification(callback: (()-> Unit)) {
+        if (firebase.user?.isEmailVerified == false) {
+            callback()
+        }
+    }
+    
+    private fun createNewPersonWith(token: String) {
+        firebase.userDocument.set(Person(
+                firebase.user?.displayName ?: "",
+                firebase.user?.photoUrl.toString(),
+                mutableListOf(token)
+        ))
+    }
+    
+    private fun addTokenToPerson(token: String, person: Person) {
+        val tokens = person.registrationTokens
+        if (!tokens.contains(token)) {
+            tokens.add(token)
+            firebase.userDocument.update(mapOf("registrationTokens" to tokens))
+        }
+    }
+    //endregion
+    
+    //region Timer
     private var timer: Timer? = null
     
     val timerIsRunning = MutableLiveData(false)
@@ -87,4 +144,5 @@ class MainViewModel @Inject constructor(private val preferences: SharedPreferenc
         elapsedRestTime.value = null
         restTime.value = null
     }
+    //endregion
 }

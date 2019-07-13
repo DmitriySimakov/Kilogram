@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
@@ -22,7 +23,7 @@ class PeopleFragment : DaggerFragment() {
     
     @Inject lateinit var executors: AppExecutors
     
-    private val mainViewModel by lazy { getViewModel(activity!!, viewModelFactory) }
+    private val viewModel by lazy { getViewModel<PeopleViewModel>(viewModelFactory) }
     
     private val adapter by lazy { PeopleListAdapter(executors, { navigateToChatWith(it) }) }
     
@@ -35,34 +36,14 @@ class PeopleFragment : DaggerFragment() {
         
         recyclerView.adapter = adapter
         
-        usersCollection.addSnapshotListener{ snapshot, _ ->
-            adapter.submitList(snapshot?.documents
-                    ?.map { doc -> doc.toObject(Person::class.java)?.also { it.id = doc.id } }
-                    ?.filter { it?.id != user!!.uid }
-            )
-        }
+        viewModel.people.observe(this, Observer { adapter.submitList(it) })
         
         activity?.fab?.hide()
     }
     
     private fun navigateToChatWith(person: Person) {
-        val curUserDirectsDocument = userDocument.collection("directChats").document("directChats")
-        curUserDirectsDocument.get().addOnSuccessListener { doc ->
-            val chatId = doc.get(person.id) as String?
-            if (chatId == null) {
-                val me = mainViewModel.user.value!!
-                chatsCollection.add(Chat(
-                        listOf(
-                                Chat.Member(me.uid, me.displayName ?: "", me.photoUrl.toString()),
-                                Chat.Member(person.id, person.name, person.photoUrl)),
-                        listOf(me.uid, person.id))
-                ).addOnSuccessListener { chatDoc ->
-                    curUserDirectsDocument.set(hashMapOf(person.id to chatDoc.id), SetOptions.merge())
-                    findNavController().navigate(PeopleFragmentDirections.toMessagesFragment(chatDoc.id))
-                }
-            } else {
-                findNavController().navigate(PeopleFragmentDirections.toMessagesFragment(chatId))
-            }
+        viewModel.getChatWith(person) { chatId ->
+            findNavController().navigate(PeopleFragmentDirections.toMessagesFragment(chatId))
         }
     }
 }

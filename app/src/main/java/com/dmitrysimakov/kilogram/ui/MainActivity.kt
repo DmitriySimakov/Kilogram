@@ -11,13 +11,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.data.Person
 import com.dmitrysimakov.kilogram.databinding.ActivityMainBinding
 import com.dmitrysimakov.kilogram.databinding.NavHeaderMainBinding
-import com.dmitrysimakov.kilogram.util.*
+import com.dmitrysimakov.kilogram.util.PreferencesKeys
+import com.dmitrysimakov.kilogram.util.getViewModel
 import com.firebase.ui.auth.AuthUI
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.iid.FirebaseInstanceId
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.app_bar_main.*
 import timber.log.Timber
@@ -38,12 +36,6 @@ class MainActivity : DaggerAppCompatActivity() {
     
     private val navController by lazy { findNavController(R.id.fragment_container) }
     
-    private val authStateListener by lazy { FirebaseAuth.AuthStateListener { auth ->
-        viewModel.user.value = auth.currentUser?.takeIf { it.isEmailVerified }
-    }}
-    
-    private var timerIsRunning = false
-    
     override fun onCreate(savedInstanceState: Bundle?) {
         Timber.d("onCreate")
         super.onCreate(savedInstanceState)
@@ -54,7 +46,7 @@ class MainActivity : DaggerAppCompatActivity() {
         navBinding.vm = viewModel
     
         viewModel.user.observe(this, Observer { binding.navView.menu.findItem(R.id.chatsFragment).isVisible = it != null })
-        viewModel.timerIsRunning.observe(this, Observer { timerIsRunning = it })
+        viewModel.timerIsRunning.observe(this, Observer { })
         
         viewModel.timerIsRunning.value = preferences.getBoolean(PreferencesKeys.TIMER_IS_RUNNING, false)
         viewModel.sessionStartMillis = preferences.getLong(PreferencesKeys.SESSION_START_MILLIS, 0)
@@ -103,24 +95,24 @@ class MainActivity : DaggerAppCompatActivity() {
     override fun onStart() {
         Timber.d("onStart")
         super.onStart()
-        if (viewModel.timerIsRunning.value!!) viewModel.startTimer()
+        if (viewModel.timerIsRunning.value == true) viewModel.startTimer()
     }
     
     override fun onResume() {
         Timber.d("onResume")
         super.onResume()
-        auth.addAuthStateListener(authStateListener)
+        viewModel.addAuthStateListener()
     }
     
     override fun onPause() {
         Timber.d("onPause")
-        auth.removeAuthStateListener(authStateListener)
+        viewModel.removeAuthStateListener()
         super.onPause()
     }
     
     override fun onStop() {
         Timber.d("onStop")
-        if (timerIsRunning) viewModel.stopTimer()
+        if (viewModel.timerIsRunning.value == true) viewModel.stopTimer()
         super.onStop()
     }
 
@@ -139,39 +131,13 @@ class MainActivity : DaggerAppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN && resultCode == Activity.RESULT_OK) {
-            userDocument.get().addOnSuccessListener { doc ->
-                FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener{ result ->
-                    val token = result.token
-                    if (!doc.exists()) {
-                        createNewPersonWith(token)
-                    } else {
-                        addTokenToPerson(token, doc.toObject(Person::class.java)!!)
-                    }
-                }
-            }
-    
+            viewModel.initUser()
             requestEmailVerification()
         }
     }
     
-    private fun createNewPersonWith(token: String) {
-        userDocument.set(Person(
-                user?.displayName ?: "",
-                user?.photoUrl.toString(),
-                mutableListOf(token)
-        ))
-    }
-    
-    private fun addTokenToPerson(token: String, person: Person) {
-        val tokens = person.registrationTokens
-        if (!tokens.contains(token)) {
-            tokens.add(token)
-            userDocument.update(mapOf("registrationTokens" to tokens))
-        }
-    }
-    
     private fun requestEmailVerification() {
-        if (user?.isEmailVerified == false) {
+        viewModel.requestEmailVerification {
             startActivity(Intent(this, EmailVerificationActivity::class.java))
         }
     }

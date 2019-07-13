@@ -2,12 +2,13 @@ package com.dmitrysimakov.kilogram.di
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.dmitrysimakov.kilogram.KilogramApp
+import com.dmitrysimakov.kilogram.data.FirebaseDao
 import com.dmitrysimakov.kilogram.data.KilogramDb
 import com.dmitrysimakov.kilogram.data.SeedDatabaseWorker
 import dagger.Module
@@ -16,6 +17,10 @@ import javax.inject.Singleton
 
 @Module(includes = [ViewModelModule::class])
 class AppModule {
+    
+    @Singleton
+    @Provides
+    fun provideFirebase() = FirebaseDao()
     
     @Singleton
     @Provides

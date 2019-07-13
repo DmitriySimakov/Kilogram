@@ -1,0 +1,62 @@
+package com.dmitrysimakov.kilogram.ui.messages
+
+import android.net.Uri
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
+import com.dmitrysimakov.kilogram.data.Chat
+import com.dmitrysimakov.kilogram.data.FirebaseDao
+import com.dmitrysimakov.kilogram.data.Message
+import com.dmitrysimakov.kilogram.util.*
+import com.dmitrysimakov.kilogram.util.live_data.liveData
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentReference
+import javax.inject.Inject
+
+class MessagesViewModel @Inject constructor(private val firebase: FirebaseDao) : ViewModel() {
+    
+    private val userId = firebase.user!!.uid
+    
+    private lateinit var chatDocument: DocumentReference
+    private lateinit var messagesCollection: CollectionReference
+    
+    private val _chat = MutableLiveData<Chat>()
+    val chat: LiveData<Chat>
+        get() = _chat
+    
+    fun setChatId(id: String) {
+        chatDocument = firebase.chatsCollection.document(id)
+        messagesCollection = chatDocument.collection("messages")
+        chatDocument.get().addOnSuccessListener { chatDoc ->
+            _chat.setNewValue(chatDoc.toObject(Chat::class.java)?.also { it.id = id })
+        }
+    }
+    
+    val messages = Transformations.switchMap(_chat) {
+        messagesCollection.orderBy("timestamp").liveData { doc ->
+            doc.toObject(Message::class.java)?.also { msg ->
+                msg.id = doc.id
+                val sender = _chat.value!!.members.find { member -> member.id == msg.sender.id }
+                msg.sender.name = sender?.name ?: ""
+                msg.sender.photoUrl = sender?.photoUrl
+            }
+        }
+    }
+    
+    fun sendMessage(text: String?, imageUrl: String?) {
+        _chat.value?.let {
+            firebase.firestore.batch()
+                    .set(messagesCollection.document(), Message(Message.Sender(userId), text, imageUrl))
+                    .update(chatDocument, "lastMessage", Chat.LastMessage(userId, text ?: "Фотография"))
+                    .commit()
+        }
+    }
+    
+    fun sendImage(uri: Uri) {
+        val imageRef = firebase.msgImagesRef.child(uri.lastPathSegment!!)
+        imageRef.putFile(uri).addOnSuccessListener {
+            imageRef.downloadUrl.addOnSuccessListener { sendMessage(null, it.toString()) }
+        }
+    }
+}

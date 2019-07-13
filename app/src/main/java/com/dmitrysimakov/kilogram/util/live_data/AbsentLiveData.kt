@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.util
+package com.dmitrysimakov.kilogram.util.live_data
 
 import androidx.lifecycle.LiveData
 

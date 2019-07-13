@@ -13,6 +13,9 @@ import com.dmitrysimakov.kilogram.ui.programs.create_program_day.CreateProgramDa
 import com.dmitrysimakov.kilogram.ui.programs.exercises.ProgramDayExercisesViewModel
 import com.dmitrysimakov.kilogram.ui.common.choose_program_day.ChooseProgramDayViewModel
 import com.dmitrysimakov.kilogram.ui.common.choose_program.ChooseProgramViewModel
+import com.dmitrysimakov.kilogram.ui.messages.ChatsViewModel
+import com.dmitrysimakov.kilogram.ui.messages.MessagesViewModel
+import com.dmitrysimakov.kilogram.ui.people.PeopleViewModel
 import com.dmitrysimakov.kilogram.ui.trainings.add_set.AddSetViewModel
 import com.dmitrysimakov.kilogram.ui.trainings.create_training.CreateTrainingViewModel
 import com.dmitrysimakov.kilogram.ui.trainings.exercises.TrainingExercisesViewModel
@@ -36,7 +39,6 @@ abstract class ViewModelModule {
     abstract fun bindMainViewModel(viewModel: MainViewModel): ViewModel
     
     //region COMMON
-    
     @Binds
     @IntoMap
     @ViewModelKey(ChooseMuscleViewModel::class)
@@ -61,20 +63,16 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ChooseProgramDayViewModel::class)
     abstract fun bindChooseProgramDayViewModel(viewModel: ChooseProgramDayViewModel): ViewModel
-    
     //endregion
     
     //region EXERCISES
-
     @Binds
     @IntoMap
     @ViewModelKey(ExerciseDetailViewModel::class)
     abstract fun bindExerciseDetailViewModel(viewModel: ExerciseDetailViewModel): ViewModel
-    
     //endregion
     
     //region PROGRAMS
-    
     @Binds
     @IntoMap
     @ViewModelKey(CreateProgramViewModel::class)
@@ -89,11 +87,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ProgramDayExercisesViewModel::class)
     abstract fun bindProgramDayExercisesViewModel(viewModel: ProgramDayExercisesViewModel): ViewModel
-    
     //endregion
     
     //region TRAININGS
-    
     @Binds
     @IntoMap
     @ViewModelKey(TrainingsViewModel::class)
@@ -118,15 +114,31 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(AddSetViewModel::class)
     abstract fun bindAddSetViewModel(viewModel: AddSetViewModel): ViewModel
-    
     //endregion
     
     //region MEASUREMENTS
-
     @Binds
     @IntoMap
     @ViewModelKey(MeasurementsViewModel::class)
     abstract fun bindMeasurementsViewModel(viewModel: MeasurementsViewModel): ViewModel
+    //endregion
     
+    //region MESSAGES
+    @Binds
+    @IntoMap
+    @ViewModelKey(ChatsViewModel::class)
+    abstract fun bindChatsViewModel(viewModel: ChatsViewModel): ViewModel
+    
+    @Binds
+    @IntoMap
+    @ViewModelKey(MessagesViewModel::class)
+    abstract fun bindMessagesViewModel(viewModel: MessagesViewModel): ViewModel
+    //endregion
+    
+    //region MESSAGES
+    @Binds
+    @IntoMap
+    @ViewModelKey(PeopleViewModel::class)
+    abstract fun bindPeopleViewModel(viewModel: PeopleViewModel): ViewModel
     //endregion
 }
