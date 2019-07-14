@@ -3,7 +3,6 @@ package com.dmitrysimakov.kilogram.ui.measurements.add_measurement
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import com.dmitrysimakov.kilogram.data.entity.Measurement
 import com.dmitrysimakov.kilogram.data.relation.MeasurementR
 import com.dmitrysimakov.kilogram.databinding.ItemMeasurementBinding
 import com.dmitrysimakov.kilogram.util.AppExecutors

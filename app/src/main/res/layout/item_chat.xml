@@ -12,7 +12,7 @@
             type="String" />
         <variable
             name="chat"
-            type="com.dmitrysimakov.kilogram.data.Chat"/>
+            type="com.dmitrysimakov.kilogram.data.remote.Chat"/>
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -3,7 +3,7 @@ package com.dmitrysimakov.kilogram.ui.common.choose_exercise
 import androidx.lifecycle.*
 import androidx.sqlite.db.SimpleSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteQuery
-import com.dmitrysimakov.kilogram.data.entity.Exercise
+import com.dmitrysimakov.kilogram.data.local.entity.Exercise
 import com.dmitrysimakov.kilogram.data.relation.FilterParam
 import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayMuscleRepository

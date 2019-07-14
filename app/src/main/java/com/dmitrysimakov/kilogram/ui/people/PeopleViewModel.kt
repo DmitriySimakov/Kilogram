@@ -2,14 +2,10 @@ package com.dmitrysimakov.kilogram.ui.people
 
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.dmitrysimakov.kilogram.data.Chat
-import com.dmitrysimakov.kilogram.data.FirebaseDao
-import com.dmitrysimakov.kilogram.data.Person
-import com.dmitrysimakov.kilogram.util.*
+import com.dmitrysimakov.kilogram.data.remote.Chat
+import com.dmitrysimakov.kilogram.data.remote.FirebaseDao
+import com.dmitrysimakov.kilogram.data.remote.Person
 import com.dmitrysimakov.kilogram.util.live_data.liveData
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.SetOptions
 import javax.inject.Inject
 
@@ -28,7 +24,8 @@ class PeopleViewModel @Inject constructor(private val firebase: FirebaseDao) : V
             if (chatId == null) {
                 firebase.chatsCollection.add(Chat(
                         listOf(
-                                Chat.Member(user.uid, user.displayName ?: "", user.photoUrl.toString()),
+                                Chat.Member(user.uid, user.displayName
+                                        ?: "", user.photoUrl.toString()),
                                 Chat.Member(person.id, person.name, person.photoUrl)),
                         listOf(user.uid, person.id))
                 ).addOnSuccessListener { chatDoc ->

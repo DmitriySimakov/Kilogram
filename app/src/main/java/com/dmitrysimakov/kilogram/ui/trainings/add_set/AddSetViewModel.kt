@@ -3,8 +3,8 @@ package com.dmitrysimakov.kilogram. ui.trainings.add_set
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.dmitrysimakov.kilogram.data.entity.TrainingExercise
-import com.dmitrysimakov.kilogram.data.entity.TrainingExerciseSet
+import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
+import com.dmitrysimakov.kilogram.data.local.entity.TrainingExerciseSet
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseSetRepository
 import com.dmitrysimakov.kilogram.util.setNewValue

@@ -8,9 +8,9 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.dmitrysimakov.kilogram.KilogramApp
-import com.dmitrysimakov.kilogram.data.FirebaseDao
-import com.dmitrysimakov.kilogram.data.KilogramDb
-import com.dmitrysimakov.kilogram.data.SeedDatabaseWorker
+import com.dmitrysimakov.kilogram.data.remote.FirebaseDao
+import com.dmitrysimakov.kilogram.data.local.KilogramDb
+import com.dmitrysimakov.kilogram.worker.SeedDatabaseWorker
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

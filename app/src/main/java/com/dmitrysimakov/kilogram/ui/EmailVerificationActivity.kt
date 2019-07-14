@@ -2,7 +2,7 @@ package com.dmitrysimakov.kilogram.ui
 
 import android.os.Bundle
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.data.FirebaseDao
+import com.dmitrysimakov.kilogram.data.remote.FirebaseDao
 import com.dmitrysimakov.kilogram.util.toast
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_email_verification.*

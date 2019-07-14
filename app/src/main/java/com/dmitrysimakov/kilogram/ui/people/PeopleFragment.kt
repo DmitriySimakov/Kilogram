@@ -8,10 +8,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.data.Chat
-import com.dmitrysimakov.kilogram.data.Person
+import com.dmitrysimakov.kilogram.data.remote.Person
 import com.dmitrysimakov.kilogram.util.*
-import com.google.firebase.firestore.SetOptions
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_people.*

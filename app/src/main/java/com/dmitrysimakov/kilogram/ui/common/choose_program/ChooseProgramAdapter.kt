@@ -3,7 +3,7 @@ package com.dmitrysimakov.kilogram.ui.common.choose_program
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import com.dmitrysimakov.kilogram.data.entity.Program
+import com.dmitrysimakov.kilogram.data.local.entity.Program
 import com.dmitrysimakov.kilogram.databinding.ItemProgramBinding
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter

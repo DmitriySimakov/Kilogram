@@ -1,6 +1,6 @@
 package com.dmitrysimakov.kilogram.data.repository
 
-import com.dmitrysimakov.kilogram.data.dao.MuscleDao
+import com.dmitrysimakov.kilogram.data.local.dao.MuscleDao
 import javax.inject.Inject
 import javax.inject.Singleton
 

@@ -4,12 +4,10 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.*
-import androidx.annotation.MainThread
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.data.ItemInsertedListener
 import com.dmitrysimakov.kilogram.databinding.DialogCreateProgramBinding
 import com.dmitrysimakov.kilogram.util.getViewModel
 import com.dmitrysimakov.kilogram.util.hideKeyboard
@@ -18,7 +16,7 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.dialog_create_program.*
 import javax.inject.Inject
 
-class CreateProgramDialog : DaggerAppCompatDialogFragment(), ItemInsertedListener {
+class CreateProgramDialog : DaggerAppCompatDialogFragment() {
     
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -80,7 +78,9 @@ class CreateProgramDialog : DaggerAppCompatDialogFragment(), ItemInsertedListene
     
     private fun submit() {
         if (validate()) {
-            viewModel.createProgram(this)
+            viewModel.createProgram { id ->
+                findNavController().navigate(CreateProgramDialogDirections.toChooseProgramDayFragment(id))
+            }
         }
     }
     
@@ -88,10 +88,5 @@ class CreateProgramDialog : DaggerAppCompatDialogFragment(), ItemInsertedListene
         val nameIsEmpty = nameTIL.editText?.text.toString().trim().isEmpty()
         nameTIL.error = "Заполните поле".takeIf { nameIsEmpty }
         return !nameIsEmpty
-    }
-
-    @MainThread
-    override fun onItemInserted(id: Long) {
-        findNavController().navigate(CreateProgramDialogDirections.toChooseProgramDayFragment(id))
     }
 }

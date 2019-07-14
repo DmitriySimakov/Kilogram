@@ -7,7 +7,7 @@
     <data>
         <variable
             name="person"
-            type="com.dmitrysimakov.kilogram.data.Person"/>
+            type="com.dmitrysimakov.kilogram.data.remote.Person"/>
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout

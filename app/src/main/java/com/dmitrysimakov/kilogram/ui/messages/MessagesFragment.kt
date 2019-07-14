@@ -11,14 +11,10 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.data.Chat
-import com.dmitrysimakov.kilogram.data.Message
 import com.dmitrysimakov.kilogram.util.*
-import com.google.firebase.firestore.Source
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_messages.*
-import timber.log.Timber
 import javax.inject.Inject
 
 private const val RC_PHOTO_PICKER = 1

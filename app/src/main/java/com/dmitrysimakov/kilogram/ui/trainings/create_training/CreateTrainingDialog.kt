@@ -6,13 +6,11 @@ import android.app.TimePickerDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.*
-import androidx.annotation.MainThread
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.data.ItemInsertedListener
 import com.dmitrysimakov.kilogram.databinding.DialogCreateTrainingBinding
 import com.dmitrysimakov.kilogram.ui.common.ChipGroupFilterAdapter
 import com.dmitrysimakov.kilogram.util.getViewModel
@@ -23,7 +21,7 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import java.util.*
 import javax.inject.Inject
 
-class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListener {
+class CreateTrainingDialog : DaggerAppCompatDialogFragment() {
     
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -139,16 +137,13 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment(), ItemInsertedListen
     }
     
     private fun submit() {
-        viewModel.createTraining(this)
-        mainViewModel.onTrainingSessionStarted()
-    }
-
-    @MainThread
-    override fun onItemInserted(id: Long) {
-        if (viewModel.byProgram.value!!) {
-            viewModel.fillTrainingWithProgramExercises(id)
+        viewModel.createTraining { id ->
+            if (viewModel.byProgram.value!!) {
+                viewModel.fillTrainingWithProgramExercises(id)
+            }
+            viewModel.saveMuscles(id)
+            findNavController().navigate(CreateTrainingDialogDirections.toExercisesFragment(id))
         }
-        viewModel.saveMuscles(id)
-        findNavController().navigate(CreateTrainingDialogDirections.toExercisesFragment(id))
+        mainViewModel.onTrainingSessionStarted()
     }
 }

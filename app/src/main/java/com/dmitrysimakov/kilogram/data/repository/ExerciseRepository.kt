@@ -1,8 +1,8 @@
 package com.dmitrysimakov.kilogram.data.repository
 
 import androidx.sqlite.db.SupportSQLiteQuery
-import com.dmitrysimakov.kilogram.data.dao.*
-import com.dmitrysimakov.kilogram.data.entity.Exercise
+import com.dmitrysimakov.kilogram.data.local.dao.*
+import com.dmitrysimakov.kilogram.data.local.entity.Exercise
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import javax.inject.Inject
 

@@ -7,7 +7,7 @@
     <data>
         <variable
             name="program"
-            type="com.dmitrysimakov.kilogram.data.entity.Program"/>
+            type="com.dmitrysimakov.kilogram.data.local.entity.Program"/>
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,7 +1,7 @@
 package com.dmitrysimakov.kilogram.di.worker_injection
 
 import androidx.work.Worker
-import com.dmitrysimakov.kilogram.data.SeedDatabaseWorker
+import com.dmitrysimakov.kilogram.worker.SeedDatabaseWorker
 import dagger.Binds
 import dagger.Module
 import dagger.android.AndroidInjector

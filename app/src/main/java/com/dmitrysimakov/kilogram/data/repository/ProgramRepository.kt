@@ -1,8 +1,7 @@
 package com.dmitrysimakov.kilogram.data.repository
 
-import com.dmitrysimakov.kilogram.data.ItemInsertedListener
-import com.dmitrysimakov.kilogram.data.dao.ProgramDao
-import com.dmitrysimakov.kilogram.data.entity.Program
+import com.dmitrysimakov.kilogram.data.local.dao.ProgramDao
+import com.dmitrysimakov.kilogram.data.local.entity.Program
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -15,11 +14,11 @@ class ProgramRepository @Inject constructor(
     
     fun loadProgramList() = programDao.getProgramList()
     
-    fun insertProgram(program: Program, callback: ItemInsertedListener? = null) {
+    fun insertProgram(program: Program, callback: ((Long) -> Unit)? = null) {
         executors.diskIO().execute {
             val id = programDao.insert(program)
             executors.mainThread().execute {
-                callback?.onItemInserted(id)
+                callback?.invoke(id)
             }
         }
     }

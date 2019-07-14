@@ -2,8 +2,8 @@ package com.dmitrysimakov.kilogram.ui.messages
 
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.dmitrysimakov.kilogram.data.Chat
-import com.dmitrysimakov.kilogram.data.FirebaseDao
+import com.dmitrysimakov.kilogram.data.remote.Chat
+import com.dmitrysimakov.kilogram.data.remote.FirebaseDao
 import com.dmitrysimakov.kilogram.util.live_data.liveData
 import javax.inject.Inject
 

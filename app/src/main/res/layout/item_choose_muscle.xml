@@ -8,7 +8,7 @@
     <data>
         <variable
             name="muscle"
-            type="com.dmitrysimakov.kilogram.data.entity.Muscle"/>
+            type="com.dmitrysimakov.kilogram.data.local.entity.Muscle"/>
     </data>
     
     <LinearLayout

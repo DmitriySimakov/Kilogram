@@ -4,9 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.dmitrysimakov.kilogram.data.ItemInsertedListener
-import com.dmitrysimakov.kilogram.data.entity.Training
-import com.dmitrysimakov.kilogram.data.entity.TrainingMuscle
+import com.dmitrysimakov.kilogram.data.local.entity.Training
+import com.dmitrysimakov.kilogram.data.local.entity.TrainingMuscle
 import com.dmitrysimakov.kilogram.data.repository.*
 import com.dmitrysimakov.kilogram.util.setNewValue
 import java.util.*
@@ -36,7 +35,7 @@ class CreateTrainingViewModel @Inject constructor(
         }
     }
     
-    fun createTraining(callback: ItemInsertedListener) {
+    fun createTraining(callback: ((Long) -> Unit)) {
         val programDayId = if (byProgram.value!!) programDay.value?.program_day_id else null
         trainingRepo.insertTraining(Training(0,programDayId, calendar.value!!.timeInMillis), callback)
     }

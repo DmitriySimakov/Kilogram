@@ -3,8 +3,8 @@ package com.dmitrysimakov.kilogram.ui
 import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dmitrysimakov.kilogram.data.FirebaseDao
-import com.dmitrysimakov.kilogram.data.Person
+import com.dmitrysimakov.kilogram.data.remote.FirebaseDao
+import com.dmitrysimakov.kilogram.data.remote.Person
 import com.dmitrysimakov.kilogram.util.PreferencesKeys
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser

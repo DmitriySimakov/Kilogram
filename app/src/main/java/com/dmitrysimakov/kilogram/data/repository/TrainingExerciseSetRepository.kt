@@ -1,7 +1,7 @@
 package com.dmitrysimakov.kilogram.data.repository
 
-import com.dmitrysimakov.kilogram.data.dao.TrainingExerciseSetDao
-import com.dmitrysimakov.kilogram.data.entity.TrainingExerciseSet
+import com.dmitrysimakov.kilogram.data.local.dao.TrainingExerciseSetDao
+import com.dmitrysimakov.kilogram.data.local.entity.TrainingExerciseSet
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import javax.inject.Inject
 import javax.inject.Singleton

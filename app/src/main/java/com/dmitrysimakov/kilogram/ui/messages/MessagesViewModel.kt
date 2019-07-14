@@ -5,9 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.dmitrysimakov.kilogram.data.Chat
-import com.dmitrysimakov.kilogram.data.FirebaseDao
-import com.dmitrysimakov.kilogram.data.Message
+import com.dmitrysimakov.kilogram.data.remote.Chat
+import com.dmitrysimakov.kilogram.data.remote.FirebaseDao
+import com.dmitrysimakov.kilogram.data.remote.Message
 import com.dmitrysimakov.kilogram.util.*
 import com.dmitrysimakov.kilogram.util.live_data.liveData
 import com.google.firebase.firestore.CollectionReference

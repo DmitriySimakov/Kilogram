@@ -4,13 +4,11 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.*
-import androidx.annotation.MainThread
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.data.ItemInsertedListener
 import com.dmitrysimakov.kilogram.databinding.DialogCreateProgramDayBinding
 import com.dmitrysimakov.kilogram.ui.common.ChipGroupFilterAdapter
 import com.dmitrysimakov.kilogram.util.getViewModel
@@ -20,7 +18,7 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.dialog_create_program_day.*
 import javax.inject.Inject
 
-class CreateProgramDayDialog : DaggerAppCompatDialogFragment(), ItemInsertedListener {
+class CreateProgramDayDialog : DaggerAppCompatDialogFragment() {
     
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -92,7 +90,10 @@ class CreateProgramDayDialog : DaggerAppCompatDialogFragment(), ItemInsertedList
     
     private fun submit() {
         if (validate()) {
-            viewModel.createProgramDay(params.num, this)
+            viewModel.createProgramDay(params.num) { id ->
+                viewModel.saveMuscles(id)
+                findNavController().navigate(CreateProgramDayDialogDirections.toExercisesFragment(id))
+            }
         }
     }
     
@@ -100,11 +101,5 @@ class CreateProgramDayDialog : DaggerAppCompatDialogFragment(), ItemInsertedList
         val nameIsEmpty = nameTIL.editText?.text.toString().trim().isEmpty()
         nameTIL.error = "Заполните поле".takeIf { nameIsEmpty }
         return !nameIsEmpty
-    }
-    
-    @MainThread
-    override fun onItemInserted(id: Long) {
-        viewModel.saveMuscles(id)
-        findNavController().navigate(CreateProgramDayDialogDirections.toExercisesFragment(id))
     }
 }

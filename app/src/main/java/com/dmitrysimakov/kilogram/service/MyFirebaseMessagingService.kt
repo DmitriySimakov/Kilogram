@@ -1,18 +1,25 @@
 package com.dmitrysimakov.kilogram.service
 
-import com.dmitrysimakov.kilogram.data.Person
-import com.google.firebase.auth.FirebaseAuth
+import com.dmitrysimakov.kilogram.data.remote.FirebaseDao
+import com.dmitrysimakov.kilogram.data.remote.Person
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import dagger.android.AndroidInjection
 import timber.log.Timber
+import javax.inject.Inject
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
     
-    private val user = FirebaseAuth.getInstance().currentUser
+    @Inject lateinit var firebase: FirebaseDao
+    
+    override fun onCreate() {
+        AndroidInjection.inject(this)
+        super.onCreate()
+    }
     
     override fun onNewToken(token: String?) {
-        user?.let { sendRegistrationToServer(token) }
+        firebase.user?.let { sendRegistrationToServer(token) }
     }
     
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
@@ -28,7 +35,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     private fun sendRegistrationToServer(token: String?) {
         if (token == null) throw NullPointerException("FCM token is null.")
     
-        val userDocument = FirebaseFirestore.getInstance().document("users/${user!!.uid}")
+        val userDocument = FirebaseFirestore.getInstance().document("users/${firebase.user!!.uid}")
         userDocument.get().addOnSuccessListener {
             val user = it.toObject(Person::class.java)!!
             val tokens = user.registrationTokens

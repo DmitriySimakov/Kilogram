@@ -1,8 +1,7 @@
 package com.dmitrysimakov.kilogram.data.repository
 
-import com.dmitrysimakov.kilogram.data.ItemInsertedListener
-import com.dmitrysimakov.kilogram.data.dao.ProgramDayDao
-import com.dmitrysimakov.kilogram.data.entity.ProgramDay
+import com.dmitrysimakov.kilogram.data.local.dao.ProgramDayDao
+import com.dmitrysimakov.kilogram.data.local.entity.ProgramDay
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -15,11 +14,11 @@ class ProgramDayRepository @Inject constructor(
     
     fun loadTrainingDays(programId: Long) = programDayDao.getTrainingDays(programId)
     
-    fun insertProgramDay(day: ProgramDay, callback: ItemInsertedListener? = null) {
+    fun insertProgramDay(day: ProgramDay, callback: ((Long) -> Unit)? = null) {
         executors.diskIO().execute {
             val id = programDayDao.insert(day)
             executors.mainThread().execute{
-                callback?.onItemInserted(id)
+                callback?.invoke(id)
             }
         }
     }

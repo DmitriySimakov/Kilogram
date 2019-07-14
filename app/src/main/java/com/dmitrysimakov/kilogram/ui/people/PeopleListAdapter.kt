@@ -3,7 +3,7 @@ package com.dmitrysimakov.kilogram.ui.people
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import com.dmitrysimakov.kilogram.data.Person
+import com.dmitrysimakov.kilogram.data.remote.Person
 import com.dmitrysimakov.kilogram.databinding.ItemPersonBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 import com.dmitrysimakov.kilogram.util.AppExecutors

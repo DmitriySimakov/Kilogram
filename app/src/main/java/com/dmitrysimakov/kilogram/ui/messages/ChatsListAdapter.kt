@@ -3,7 +3,7 @@ package com.dmitrysimakov.kilogram.ui.messages
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import com.dmitrysimakov.kilogram.data.Chat
+import com.dmitrysimakov.kilogram.data.remote.Chat
 import com.dmitrysimakov.kilogram.databinding.ItemChatBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 import com.dmitrysimakov.kilogram.util.AppExecutors

@@ -3,7 +3,7 @@ package com.dmitrysimakov.kilogram.ui.common.choose_exercise
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import com.dmitrysimakov.kilogram.data.entity.Exercise
+import com.dmitrysimakov.kilogram.data.local.entity.Exercise
 import com.dmitrysimakov.kilogram.databinding.ItemExerciseBinding
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter

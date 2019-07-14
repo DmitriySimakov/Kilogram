@@ -3,7 +3,7 @@ package com.dmitrysimakov.kilogram.ui.exercises.choose_muscle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import com.dmitrysimakov.kilogram.data.entity.Muscle
+import com.dmitrysimakov.kilogram.data.local.entity.Muscle
 import com.dmitrysimakov.kilogram.databinding.ItemChooseMuscleBinding
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter

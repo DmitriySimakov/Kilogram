@@ -1,6 +1,6 @@
 package com.dmitrysimakov.kilogram.data.relation
 
-import com.dmitrysimakov.kilogram.data.entity.TrainingExercise
+import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 
 data class TrainingExerciseR(
         val _id: Long,

@@ -3,7 +3,6 @@ package com.dmitrysimakov.kilogram.ui.trainings.exercises
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import com.dmitrysimakov.kilogram.data.entity.Exercise
 import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR
 import com.dmitrysimakov.kilogram.databinding.ItemExerciseFinishedBinding
 import com.dmitrysimakov.kilogram.util.AppExecutors

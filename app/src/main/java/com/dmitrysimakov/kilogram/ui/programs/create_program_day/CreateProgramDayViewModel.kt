@@ -2,9 +2,8 @@ package com.dmitrysimakov.kilogram.ui.programs.create_program_day
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dmitrysimakov.kilogram.data.ItemInsertedListener
-import com.dmitrysimakov.kilogram.data.entity.ProgramDay
-import com.dmitrysimakov.kilogram.data.entity.ProgramDayMuscle
+import com.dmitrysimakov.kilogram.data.local.entity.ProgramDay
+import com.dmitrysimakov.kilogram.data.local.entity.ProgramDayMuscle
 import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayMuscleRepository
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayRepository
@@ -26,7 +25,7 @@ class CreateProgramDayViewModel @Inject constructor(
         _programId.setNewValue(id)
     }
     
-    fun createProgramDay(num: Int, callback: ItemInsertedListener) {
+    fun createProgramDay(num: Int, callback: ((Long) -> Unit)) {
         _programId.value?.let {
             programDayRepo.insertProgramDay(ProgramDay(0, it, num, name.value!!, description.value!!), callback)
         }
