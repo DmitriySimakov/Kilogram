@@ -2,11 +2,11 @@ package com.dmitrysimakov.kilogram.data.local.entity
 
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
+import androidx.databinding.library.baseAdapters.BR
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.dmitrysimakov.kilogram.BR
 
 @Entity(tableName = "training_exercise_set",
         indices = [Index(value = ["training_exercise_id"])],

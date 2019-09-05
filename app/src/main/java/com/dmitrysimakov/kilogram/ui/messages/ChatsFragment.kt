@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.util.getViewModel
+import com.dmitrysimakov.kilogram.util.user
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_exercises.*
@@ -23,7 +24,7 @@ class ChatsFragment : DaggerFragment() {
     
     private val viewModel by lazy { getViewModel<ChatsViewModel>(viewModelFactory) }
     
-    private val adapter by lazy { ChatsListAdapter(executors, viewModel.userId) { findNavController()
+    private val adapter by lazy { ChatsListAdapter(executors, user!!.uid) { findNavController()
             .navigate(ChatsFragmentDirections.toMessagesFragment(it.id)) } }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

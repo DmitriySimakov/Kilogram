@@ -1,25 +1,21 @@
 package com.dmitrysimakov.kilogram.ui
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.data.remote.FirebaseDao
 import com.dmitrysimakov.kilogram.util.toast
-import dagger.android.support.DaggerAppCompatActivity
+import com.dmitrysimakov.kilogram.util.user
+import com.dmitrysimakov.kilogram.util.userDocument
 import kotlinx.android.synthetic.main.activity_email_verification.*
 import timber.log.Timber
 import java.util.*
-import javax.inject.Inject
 
-class EmailVerificationActivity : DaggerAppCompatActivity() {
-    
-    @Inject lateinit var firebase: FirebaseDao
-    
-    private val user by lazy { firebase.user!! }
+class EmailVerificationActivity : AppCompatActivity() {
     
     private val timer = Timer()
     private val task = object : TimerTask() {
         override fun run() {
-            user.run {
+            user?.run {
                 reload()
                 if (isEmailVerified) finish()
             }
@@ -31,11 +27,11 @@ class EmailVerificationActivity : DaggerAppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_email_verification)
         
-        textView.text = resources.getString(R.string.verification_message_sent, user.email)
+        textView.text = resources.getString(R.string.verification_message_sent, user?.email)
         
-        user.sendEmailVerification()
+        user?.sendEmailVerification()
         resendBtn.setOnClickListener {
-            user.sendEmailVerification().addOnCompleteListener {
+            user?.sendEmailVerification()?.addOnCompleteListener {
                 if (it.isSuccessful) toast("Сообщение отправлено.")
                 else toast("Не удалось отправить сообщение.")
             }
@@ -56,10 +52,10 @@ class EmailVerificationActivity : DaggerAppCompatActivity() {
     
     override fun onDestroy() {
         Timber.d("onDestroy")
-        if (!user.isEmailVerified) {
+        if (user?.isEmailVerified == false) {
             Timber.d("delete")
-            user.delete()
-            firebase.userDocument.delete()
+            user?.delete()
+            userDocument.delete()
         }
         super.onDestroy()
     }

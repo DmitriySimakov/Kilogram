@@ -11,7 +11,4 @@ abstract class ActivityBuildersModule {
 
     @ContributesAndroidInjector(modules = [FragmentBuildersModule::class])
     abstract fun contributeMainActivity(): MainActivity
-    
-    @ContributesAndroidInjector
-    abstract fun contributeEmailVerificationActivity(): EmailVerificationActivity
 }

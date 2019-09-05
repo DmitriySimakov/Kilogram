@@ -3,18 +3,17 @@ package com.dmitrysimakov.kilogram.ui.messages
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.remote.Chat
-import com.dmitrysimakov.kilogram.data.remote.FirebaseDao
+import com.dmitrysimakov.kilogram.util.chatsCollection
 import com.dmitrysimakov.kilogram.util.live_data.liveData
+import com.dmitrysimakov.kilogram.util.user
 import javax.inject.Inject
 
-class ChatsViewModel @Inject constructor(firebase: FirebaseDao) : ViewModel() {
+class ChatsViewModel @Inject constructor() : ViewModel() {
     
-    val userId = firebase.user!!.uid
-    
-    private val unsortedChats = firebase.chatsCollection.whereArrayContains("membersIds", userId).liveData { doc ->
+    private val unsortedChats = chatsCollection.whereArrayContains("membersIds", user!!.uid).liveData { doc ->
         doc.toObject(Chat::class.java)!!.also { chat ->
             chat.id = doc.id
-            val others = chat.members.filter { it.id != userId }
+            val others = chat.members.filter { it.id != user!!.uid }
             if (chat.name == null) {
                 chat.name = others.joinToString(", ") { it.name }
             }

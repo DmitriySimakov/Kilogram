@@ -15,8 +15,7 @@ import javax.inject.Singleton
     AndroidWorkerInjectionModule::class,
     WorkerModule::class,
     AppModule::class,
-    ActivityBuildersModule::class,
-    ServiceBuildersModule::class
+    ActivityBuildersModule::class
 ])
 interface AppComponent : AndroidInjector<KilogramApp> {
     @Component.Builder

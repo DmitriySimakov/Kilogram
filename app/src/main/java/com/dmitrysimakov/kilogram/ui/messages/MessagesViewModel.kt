@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.remote.Chat
-import com.dmitrysimakov.kilogram.data.remote.FirebaseDao
 import com.dmitrysimakov.kilogram.data.remote.Message
 import com.dmitrysimakov.kilogram.util.*
 import com.dmitrysimakov.kilogram.util.live_data.liveData
@@ -14,9 +13,9 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import javax.inject.Inject
 
-class MessagesViewModel @Inject constructor(private val firebase: FirebaseDao) : ViewModel() {
+class MessagesViewModel @Inject constructor() : ViewModel() {
     
-    private val userId = firebase.user!!.uid
+    private val userId = user!!.uid
     
     private lateinit var chatDocument: DocumentReference
     private lateinit var messagesCollection: CollectionReference
@@ -26,7 +25,7 @@ class MessagesViewModel @Inject constructor(private val firebase: FirebaseDao) :
         get() = _chat
     
     fun setChatId(id: String) {
-        chatDocument = firebase.chatsCollection.document(id)
+        chatDocument = chatsCollection.document(id)
         messagesCollection = chatDocument.collection("messages")
         chatDocument.get().addOnSuccessListener { chatDoc ->
             _chat.setNewValue(chatDoc.toObject(Chat::class.java)?.also { it.id = id })
@@ -46,7 +45,7 @@ class MessagesViewModel @Inject constructor(private val firebase: FirebaseDao) :
     
     fun sendMessage(text: String?, imageUrl: String?) {
         _chat.value?.let {
-            firebase.firestore.batch()
+            firestore.batch()
                     .set(messagesCollection.document(), Message(Message.Sender(userId), text, imageUrl))
                     .update(chatDocument, "lastMessage", Chat.LastMessage(userId, text ?: "Фотография"))
                     .commit()
@@ -54,7 +53,7 @@ class MessagesViewModel @Inject constructor(private val firebase: FirebaseDao) :
     }
     
     fun sendImage(uri: Uri) {
-        val imageRef = firebase.msgImagesRef.child(uri.lastPathSegment!!)
+        val imageRef = msgImagesRef.child(uri.lastPathSegment!!)
         imageRef.putFile(uri).addOnSuccessListener {
             imageRef.downloadUrl.addOnSuccessListener { sendMessage(null, it.toString()) }
         }

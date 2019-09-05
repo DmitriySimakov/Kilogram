@@ -1,8 +1,8 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'androidx.navigation.safeargs'
+apply plugin: "com.android.application"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android-extensions"
+apply plugin: "kotlin-kapt"
+apply plugin: "androidx.navigation.safeargs"
 
 android {
     compileSdkVersion 28
@@ -19,7 +19,7 @@ android {
     buildTypes {
         release {
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
     
@@ -37,13 +37,13 @@ dependencies {
     
     //implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$rootProject.kotlin_version"
-    implementation 'androidx.core:core-ktx:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
+    implementation "androidx.core:core-ktx:1.0.2"
+    implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta2"
     
     //region UI
     
     //region Support Library
-    def support_library_version = '1.0.0'
+    def support_library_version = "1.0.0"
     implementation "androidx.appcompat:appcompat:1.1.0-rc01"
     implementation "androidx.cardview:cardview:$support_library_version"
     implementation "com.google.android.material:material:$support_library_version"
@@ -52,24 +52,23 @@ dependencies {
     //endregion Support Library
     
     //region Glide
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    kapt 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation "com.github.bumptech.glide:glide:4.9.0"
+    implementation "androidx.legacy:legacy-support-v4:1.0.0"
+    kapt "com.github.bumptech.glide:compiler:4.9.0"
     //endregion Glide
     
-    implementation 'de.hdodenhof:circleimageview:3.0.0'
+    implementation "de.hdodenhof:circleimageview:3.0.1"
     
     //endregion UI
     
     //region Architecture components
     
     //region lifecycle
-    def lifecycle_version = '2.2.0-alpha02'
-    implementation "androidx.lifecycle:lifecycle-runtime:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    def lifecycle_version = "2.2.0-alpha03"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-runtime:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     //endregion lifecycle
     
     //region navigation
@@ -78,19 +77,19 @@ dependencies {
     //endregion navigation
     
     //region room
-    def room_version = '2.1.0'
+    def room_version = "2.1.0"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     //endregion room
     
     //region work manager
-    implementation 'android.arch.work:work-runtime-ktx:1.0.1'
+    implementation "android.arch.work:work-runtime-ktx:1.0.1"
     //endregion work manager
     
     //endregion Architecture components
     
     //region Dagger 2
-    def dagger_version = '2.16'
+    def dagger_version = "2.16"
     implementation "com.google.dagger:dagger:$dagger_version"
     implementation "com.google.dagger:dagger-android:$dagger_version"
     implementation "com.google.dagger:dagger-android-support:$dagger_version"
@@ -98,26 +97,26 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
     //endregion Dagger 2
     
-    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation "com.google.code.gson:gson:2.8.5"
     
-    implementation 'com.jakewharton.timber:timber:4.7.1'
+    implementation "com.jakewharton.timber:timber:4.7.1"
     
     //region Firebase
-    implementation 'com.google.firebase:firebase-auth:18.0.0'
-    implementation 'com.google.firebase:firebase-core:17.0.0'
-    implementation 'com.google.firebase:firebase-database:18.0.0'
-    implementation 'com.google.firebase:firebase-firestore-ktx:20.1.0'
-    implementation 'com.google.firebase:firebase-messaging:19.0.1'
-    implementation 'com.google.firebase:firebase-storage:18.0.0'
-    implementation 'com.firebaseui:firebase-ui-auth:5.0.0'
-    implementation 'com.facebook.android:facebook-android-sdk:5.0.0'
+    implementation "com.google.firebase:firebase-auth:19.0.0"
+    implementation "com.google.firebase:firebase-core:17.2.0"
+    implementation "com.google.firebase:firebase-database:19.0.0"
+    implementation "com.google.firebase:firebase-firestore-ktx:21.0.0"
+    implementation "com.google.firebase:firebase-messaging:20.0.0"
+    implementation "com.google.firebase:firebase-storage:19.0.0"
+    implementation "com.firebaseui:firebase-ui-auth:5.0.0"
+    implementation "com.facebook.android:facebook-android-sdk:5.0.0"
     //endregion Firebase
     
     //region Testing dependencies
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    testImplementation 'junit:junit:4.12'
+    androidTestImplementation "androidx.test:runner:1.2.0"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.2.0"
+    testImplementation "junit:junit:4.12"
     //endregion Testing dependencies
 }
 
-apply plugin: 'com.google.gms.google-services'
+apply plugin: "com.google.gms.google-services"
