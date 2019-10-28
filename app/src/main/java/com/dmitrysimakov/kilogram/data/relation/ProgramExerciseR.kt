@@ -6,5 +6,5 @@ data class ProgramExerciseR(
         val name: String,
         var num: Int,
         val rest: Int,
-        val strategy: String?
+        val strategy: String? = ""
 )

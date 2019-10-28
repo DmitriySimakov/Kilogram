@@ -16,6 +16,6 @@ interface ProgramDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(program: Program) : Long
     
-    @Delete
-    fun delete(program: Program)
+    @Query("DELETE FROM program WHERE _id = :id")
+    fun delete(id: Long)
 }

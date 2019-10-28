@@ -14,10 +14,7 @@ interface ExerciseDao {
     
     @RawQuery(observedEntities = [Exercise::class])
     fun getExerciseList(query: SupportSQLiteQuery) : LiveData<List<Exercise>>
-
-    @Query("SELECT * FROM exercise WHERE main_muscle_id = :muscleId")
-    fun getExerciseList(muscleId: Long) : LiveData<List<Exercise>>
-
+    
     @Query("SELECT * FROM exercise WHERE _id = :id")
     fun getExercise(id: Long) : LiveData<Exercise>
 
@@ -40,7 +37,7 @@ interface ExerciseDao {
     fun insert(list: List<Exercise>)
     
     @Update
-    fun updateExercise(exercise: Exercise)
+    fun update(exercise: Exercise)
     
     @Query("UPDATE exercise SET is_favorite = :isFavorite WHERE _id = :id")
     fun setFavorite(id: Long, isFavorite: Boolean)

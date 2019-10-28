@@ -26,5 +26,5 @@ interface MuscleDao {
         LEFT JOIN program_day_muscle AS pdm
         ON m._id = pdm.muscle_id AND pdm.program_day_id = :id
         ORDER BY m._id""")
-    fun getProgramParams(id: Long) : LiveData<List<FilterParam>>
+    fun getProgramDayParams(id: Long) : LiveData<List<FilterParam>>
 }

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.relation.ExerciseMeasures
-import com.dmitrysimakov.kilogram.data.relation.PrevTrainingExerciseInfo
+import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseInfo
 import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR
 
 @Dao
@@ -41,7 +41,10 @@ interface TrainingExerciseDao {
         ORDER BY t.start_time DESC
         LIMIT 1
     """)
-    fun getPrevTrainingExerciseInfo(training_id: Long, exercise_id: Long): LiveData<PrevTrainingExerciseInfo>
+    fun getPrevTrainingExerciseInfo(training_id: Long, exercise_id: Long): LiveData<TrainingExerciseInfo>
+    
+    @Query("SELECT * FROM training_exercise WHERE training_id = :training_id ORDER BY num")
+    fun getTrainingExercises(training_id: Long): LiveData<List<TrainingExercise>>
     
     @Query("SELECT * FROM training_exercise WHERE _id = :id")
     fun getTrainingExercise(id: Long): LiveData<TrainingExercise>
@@ -55,18 +58,6 @@ interface TrainingExerciseDao {
     @Query("DELETE FROM training_exercise WHERE _id = :id")
     fun deleteExerciseFromTraining(id: Long)
     
-    @Query("""
-        SELECT
-        measure_weight AS weight,
-        measure_reps AS reps,
-        measure_time AS time,
-        measure_distance AS distance
-        FROM training_exercise
-        WHERE _id = :trainingExerciseId
-        """)
-    fun getExerciseMeasures(trainingExerciseId: Long): LiveData<ExerciseMeasures>
-    
-    @Suppress("AndroidUnresolvedRoomSqlReference")
     @Query("""
         INSERT INTO training_exercise (training_id, exercise_id, num, rest, strategy, state, measure_weight, measure_reps, measure_time, measure_distance)
         SELECT :trainingId, exercise_id, num, rest, strategy, 0, measure_weight, measure_reps, measure_time, measure_distance

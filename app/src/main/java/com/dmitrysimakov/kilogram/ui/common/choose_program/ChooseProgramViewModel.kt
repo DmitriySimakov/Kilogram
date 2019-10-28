@@ -10,7 +10,7 @@ class ChooseProgramViewModel @Inject constructor(private val repository: Program
 
     val programList = repository.loadProgramList()
 
-    fun deleteProgram(program: Program) {
-        repository.deleteProgram(program)
+    fun deleteProgram(id: Long) {
+        repository.deleteProgram(id)
     }
 }

@@ -8,7 +8,7 @@ data class TrainingExerciseR(
         val name: String,
         var num: Int,
         val rest: Int,
-        val secs_since_start: Int,
-        val strategy: String?,
+        val secs_since_start: Int = 0,
+        val strategy: String? = null,
         val state: Int = TrainingExercise.PLANNED
 )

@@ -23,7 +23,7 @@ class ExerciseRepository @Inject constructor(
     
     fun updateExercise(exercise: Exercise) {
         executors.diskIO().execute {
-            exerciseDao.updateExercise(exercise)
+            exerciseDao.update(exercise)
         }
     }
     
@@ -48,7 +48,7 @@ class ExerciseRepository @Inject constructor(
     
     fun loadMuscleParams() = muscleDao.getParams()
     
-    fun loadMuscleParams(id: Long) = muscleDao.getProgramParams(id)
+    fun loadMuscleParams(id: Long) = muscleDao.getProgramDayParams(id)
     
     fun loadMechanicsTypeParams() = mechanicsTypeDao.getParams()
     

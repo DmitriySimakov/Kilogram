@@ -1,6 +1,6 @@
 package com.dmitrysimakov.kilogram.data.relation
 
-class PrevTrainingExerciseInfo(
+data class TrainingExerciseInfo(
         val training_exercise_id: Long,
         val training_id: Long?,
         val start_time: Long?

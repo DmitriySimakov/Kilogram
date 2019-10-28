@@ -23,9 +23,9 @@ class ProgramRepository @Inject constructor(
         }
     }
     
-    fun deleteProgram(program: Program) {
+    fun deleteProgram(id: Long) {
         executors.diskIO().execute{
-            programDao.delete(program)
+            programDao.delete(id)
         }
     }
 }
