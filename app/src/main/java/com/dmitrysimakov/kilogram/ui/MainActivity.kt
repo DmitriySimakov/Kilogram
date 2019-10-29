@@ -4,32 +4,29 @@ import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.ActivityMainBinding
 import com.dmitrysimakov.kilogram.databinding.NavHeaderMainBinding
 import com.dmitrysimakov.kilogram.util.PreferencesKeys
-import com.dmitrysimakov.kilogram.util.getViewModel
 import com.firebase.ui.auth.AuthUI
-import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.app_bar_main.*
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
-import javax.inject.Inject
 
 private const val RC_SIGN_IN = 1
 
-class MainActivity : DaggerAppCompatActivity() {
+class MainActivity : AppCompatActivity() {
     
-    @Inject lateinit var preferences: SharedPreferences
+    private val preferences: SharedPreferences by inject()
     
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
-    
-    private val viewModel by lazy { getViewModel(this, viewModelFactory) }
+    private val vm: SharedViewModel by viewModel()
     
     private val binding by lazy { DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main) }
     private val navBinding by lazy { NavHeaderMainBinding.bind(binding.navView.getHeaderView(0)) }
@@ -41,17 +38,17 @@ class MainActivity : DaggerAppCompatActivity() {
         super.onCreate(savedInstanceState)
         
         binding.lifecycleOwner = this
-        binding.vm = viewModel
+        binding.vm = vm
         navBinding.lifecycleOwner = this
-        navBinding.vm = viewModel
+        navBinding.vm = vm
     
-        viewModel.user.observe(this, Observer { binding.navView.menu.findItem(R.id.chatsFragment).isVisible = it != null })
-        viewModel.timerIsRunning.observe(this, Observer { })
+        vm.user.observe(this, Observer { binding.navView.menu.findItem(R.id.chatsFragment).isVisible = it != null })
+        vm.timerIsRunning.observe(this, Observer { })
         
-        viewModel.timerIsRunning.value = preferences.getBoolean(PreferencesKeys.TIMER_IS_RUNNING, false)
-        viewModel.sessionStartMillis = preferences.getLong(PreferencesKeys.SESSION_START_MILLIS, 0)
-        viewModel.restStartMillis = preferences.getLong(PreferencesKeys.REST_START_MILLIS, 0)
-        viewModel.restTime.value = preferences.getInt(PreferencesKeys.REST_TIME, 0).takeIf { it > 0 }
+        vm.timerIsRunning.value = preferences.getBoolean(PreferencesKeys.TIMER_IS_RUNNING, false)
+        vm.sessionStartMillis = preferences.getLong(PreferencesKeys.SESSION_START_MILLIS, 0)
+        vm.restStartMillis = preferences.getLong(PreferencesKeys.REST_START_MILLIS, 0)
+        vm.restTime.value = preferences.getInt(PreferencesKeys.REST_TIME, 0).takeIf { it > 0 }
         
         setSupportActionBar(toolbar)
         NavigationUI.setupActionBarWithNavController(this, navController, binding.drawerLayout)
@@ -72,7 +69,7 @@ class MainActivity : DaggerAppCompatActivity() {
         }
         
         navBinding.authBtn.setOnClickListener {
-            if (viewModel.user.value == null) {
+            if (vm.user.value == null) {
                 startActivityForResult(AuthUI.getInstance()
                         .createSignInIntentBuilder()
                         .setAvailableProviders(listOf(
@@ -95,24 +92,24 @@ class MainActivity : DaggerAppCompatActivity() {
     override fun onStart() {
         Timber.d("onStart")
         super.onStart()
-        if (viewModel.timerIsRunning.value == true) viewModel.startTimer()
+        if (vm.timerIsRunning.value == true) vm.startTimer()
     }
     
     override fun onResume() {
         Timber.d("onResume")
         super.onResume()
-        viewModel.addAuthStateListener()
+        vm.addAuthStateListener()
     }
     
     override fun onPause() {
         Timber.d("onPause")
-        viewModel.removeAuthStateListener()
+        vm.removeAuthStateListener()
         super.onPause()
     }
     
     override fun onStop() {
         Timber.d("onStop")
-        if (viewModel.timerIsRunning.value == true) viewModel.stopTimer()
+        if (vm.timerIsRunning.value == true) vm.stopTimer()
         super.onStop()
     }
 
@@ -131,13 +128,13 @@ class MainActivity : DaggerAppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN && resultCode == Activity.RESULT_OK) {
-            viewModel.initUser()
+            vm.initUser()
             requestEmailVerification()
         }
     }
     
     private fun requestEmailVerification() {
-        viewModel.requestEmailVerification {
+        vm.requestEmailVerification {
             startActivity(Intent(this, EmailVerificationActivity::class.java))
         }
     }

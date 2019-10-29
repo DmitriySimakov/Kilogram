@@ -4,25 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.util.AppExecutors
-import com.dmitrysimakov.kilogram.util.getViewModel
 import com.dmitrysimakov.kilogram.util.user
-import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_exercises.*
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ChatsFragment : DaggerFragment() {
+class ChatsFragment : Fragment() {
     
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+    private val executors: AppExecutors by inject()
     
-    @Inject lateinit var executors: AppExecutors
-    
-    private val viewModel by lazy { getViewModel<ChatsViewModel>(viewModelFactory) }
+    private val vm: ChatsViewModel by viewModel()
     
     private val adapter by lazy { ChatsListAdapter(executors, user!!.uid) { findNavController()
             .navigate(ChatsFragmentDirections.toMessagesFragment(it.id)) } }
@@ -36,7 +33,7 @@ class ChatsFragment : DaggerFragment() {
         
         recyclerView.adapter = adapter
         
-        viewModel.chats.observe(this, Observer { adapter.submitList(it) })
+        vm.chats.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
         
         activity?.fab?.hide()
     }

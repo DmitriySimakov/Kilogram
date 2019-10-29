@@ -4,24 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.util.AppExecutors
-import com.dmitrysimakov.kilogram.util.getViewModel
-import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_choose_program.*
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-abstract class ChooseProgramFragment : DaggerFragment() {
+abstract class ChooseProgramFragment : Fragment() {
     
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+    protected val executors: AppExecutors by inject()
     
-    @Inject lateinit var executors: AppExecutors
-    
-    protected val viewModel by lazy {  getViewModel<ChooseProgramViewModel>(viewModelFactory) }
+    protected val vm: ChooseProgramViewModel by viewModel()
     
     protected val adapter by lazy { ChooseProgramAdapter(executors) }
     
@@ -34,6 +31,6 @@ abstract class ChooseProgramFragment : DaggerFragment() {
     
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
-        viewModel.programList.observe(this, Observer { adapter.submitList(it) })
+        vm.programList.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
     }
 }

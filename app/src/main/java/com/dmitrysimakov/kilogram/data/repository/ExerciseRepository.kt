@@ -4,9 +4,8 @@ import androidx.sqlite.db.SupportSQLiteQuery
 import com.dmitrysimakov.kilogram.data.local.dao.*
 import com.dmitrysimakov.kilogram.data.local.entity.Exercise
 import com.dmitrysimakov.kilogram.util.AppExecutors
-import javax.inject.Inject
 
-class ExerciseRepository @Inject constructor(
+class ExerciseRepository(
         private val executors: AppExecutors,
         private val exerciseDao: ExerciseDao,
         private val muscleDao: MuscleDao,

@@ -8,9 +8,8 @@ import com.dmitrysimakov.kilogram.data.local.entity.TrainingExerciseSet
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseSetRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
-import javax.inject.Inject
 
-class AddSetViewModel @Inject constructor(
+class AddSetViewModel(
         private val trainingExerciseRepository: TrainingExerciseRepository,
         private val trainingExerciseSetRepository: TrainingExerciseSetRepository
 ) : ViewModel() {

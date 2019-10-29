@@ -3,9 +3,8 @@ package com.dmitrysimakov.kilogram.ui.trainings.trainings
 import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
 import java.util.*
-import javax.inject.Inject
 
-class TrainingsViewModel @Inject constructor(private val repository: TrainingRepository) : ViewModel() {
+class TrainingsViewModel (private val repository: TrainingRepository) : ViewModel() {
 
     val trainingList = repository.loadTrainingRList()
 

@@ -20,7 +20,7 @@ class Programs_ChooseProgramFragment : ChooseProgramFragment() {
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean { return false }
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                viewModel.deleteProgram(adapter.getItem(viewHolder.adapterPosition)._id)
+                vm.deleteProgram(adapter.getItem(viewHolder.adapterPosition)._id)
             }
         }).attachToRecyclerView(recyclerView)
     

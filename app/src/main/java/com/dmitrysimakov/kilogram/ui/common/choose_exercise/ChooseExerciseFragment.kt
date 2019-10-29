@@ -4,31 +4,27 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.FragmentChooseExerciseBinding
 import com.dmitrysimakov.kilogram.ui.common.ChipGroupFilterAdapter
 import com.dmitrysimakov.kilogram.util.AppExecutors
-import com.dmitrysimakov.kilogram.util.getViewModel
-import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.nav_header_main.view.*
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-abstract class ChooseExerciseFragment : DaggerFragment() {
+abstract class ChooseExerciseFragment : Fragment() {
 
-    @Inject lateinit var executors: AppExecutors
+    protected val executors: AppExecutors by inject()
     
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    protected val viewModel by lazy { getViewModel<ChooseExerciseViewModel>(viewModelFactory) }
+    protected val vm: ChooseExerciseViewModel by viewModel()
 
     protected lateinit var binding: FragmentChooseExerciseBinding
     
-    protected val exerciseAdapter by lazy { ExerciseListAdapter(executors, viewModel) }
+    protected val exerciseAdapter by lazy { ExerciseListAdapter(executors, vm) }
 
     protected lateinit var muscleAdapter: ChipGroupFilterAdapter
     protected lateinit var mechanicsTypeAdapter: ChipGroupFilterAdapter
@@ -38,7 +34,7 @@ abstract class ChooseExerciseFragment : DaggerFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
         binding = FragmentChooseExerciseBinding.inflate(inflater)
-        binding.vm = viewModel
+        binding.vm = vm
         binding.lifecycleOwner = this
         return binding.root
     }
@@ -50,23 +46,23 @@ abstract class ChooseExerciseFragment : DaggerFragment() {
         binding.recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
         
         muscleAdapter = ChipGroupFilterAdapter(binding.musclesCG) { id, isChecked ->
-            viewModel.setChecked(viewModel.muscleList, id, isChecked)
+            vm.setChecked(vm.muscleList, id, isChecked)
         }
         mechanicsTypeAdapter = ChipGroupFilterAdapter(binding.mechanicsTypeCG) { id, isChecked ->
-            viewModel.setChecked(viewModel.mechanicsTypeList, id, isChecked)
+            vm.setChecked(vm.mechanicsTypeList, id, isChecked)
         }
         exerciseTypeAdapter = ChipGroupFilterAdapter(binding.exerciseTypeCG) { id, isChecked ->
-            viewModel.setChecked(viewModel.exerciseTypeList, id, isChecked)
+            vm.setChecked(vm.exerciseTypeList, id, isChecked)
         }
         equipmentAdapter = ChipGroupFilterAdapter(binding.equipmentCG) { id, isChecked ->
-            viewModel.setChecked(viewModel.equipmentList, id, isChecked)
+            vm.setChecked(vm.equipmentList, id, isChecked)
         }
         
-        viewModel.exerciseList.observe(this, Observer { exerciseAdapter.submitList(it) })
-        viewModel.muscleList.observe(this, Observer { if (it != null) muscleAdapter.submitList(it) })
-        viewModel.mechanicsTypeList.observe(this, Observer { mechanicsTypeAdapter.submitList(it) })
-        viewModel.exerciseTypeList.observe(this, Observer { exerciseTypeAdapter.submitList(it) })
-        viewModel.equipmentList.observe(this, Observer { equipmentAdapter.submitList(it) })
+        vm.exerciseList.observe(viewLifecycleOwner, Observer { exerciseAdapter.submitList(it) })
+        vm.muscleList.observe(viewLifecycleOwner, Observer { if (it != null) muscleAdapter.submitList(it) })
+        vm.mechanicsTypeList.observe(viewLifecycleOwner, Observer { mechanicsTypeAdapter.submitList(it) })
+        vm.exerciseTypeList.observe(viewLifecycleOwner, Observer { exerciseTypeAdapter.submitList(it) })
+        vm.equipmentList.observe(viewLifecycleOwner, Observer { equipmentAdapter.submitList(it) })
         
         activity?.fab?.hide()
     }
@@ -77,7 +73,7 @@ abstract class ChooseExerciseFragment : DaggerFragment() {
         menu.let {
             val searchView = menu.findItem(R.id.search).actionView as SearchView
             
-            viewModel.searchText.value?.let { query ->
+            vm.searchText.value?.let { query ->
                 if (query.isNotEmpty()) searchView.setQuery(query, false)
                 searchView.isIconified = false
             }
@@ -87,7 +83,7 @@ abstract class ChooseExerciseFragment : DaggerFragment() {
                     return false
                 }
                 override fun onQueryTextChange(newText: String?): Boolean{
-                    viewModel.setSearchText(newText)
+                    vm.setSearchText(newText)
                     return true
                 }
             })

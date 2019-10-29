@@ -9,14 +9,13 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.measurements.add_measurement.MeasurementsFragment
-import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_measurements_tab.*
 
 private const val CALCULATOR_POS = 0
 private const val ADD_MEASUREMENT_POS = 1
 private const val HISTORY_POS = 2
 
-class MeasurementsTabFragment : DaggerFragment() {
+class MeasurementsTabFragment : Fragment() {
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

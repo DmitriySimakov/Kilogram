@@ -4,32 +4,31 @@ import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
+import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.util.AppExecutors
-import com.dmitrysimakov.kilogram.util.getViewModel
-import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_trainings.*
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
-import javax.inject.Inject
 
-class TrainingsFragment : DaggerFragment() {
+class TrainingsFragment : Fragment() {
 
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+    private val executors: AppExecutors by inject()
 
-    @Inject lateinit var executors: AppExecutors
+    private val vm: TrainingsViewModel by viewModel()
+    private val sharedVM: SharedViewModel by sharedViewModel()
 
-    private val viewModel by lazy { getViewModel<TrainingsViewModel>(viewModelFactory) }
-    private val mainViewModel by lazy { getViewModel(activity!!, viewModelFactory) }
-
-    private val adapter by lazy { TrainingsAdapter(mainViewModel.elapsedSessionTime, this, executors) {training ->
+    private val adapter by lazy { TrainingsAdapter(sharedVM.elapsedSessionTime, this, executors) { training ->
         findNavController().navigate(TrainingsFragmentDirections
             .toExercisesFragment(training._id, training.duration == null))
     }}
@@ -44,20 +43,20 @@ class TrainingsFragment : DaggerFragment() {
     
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
-        viewModel.trainingList.observe(this, Observer { adapter.submitList(it) })
+        vm.trainingList.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
 
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean { return false }
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
                 val training = adapter.getItem(viewHolder.adapterPosition)
-                viewModel.deleteTraining(training._id)
-                getViewModel(activity!!, viewModelFactory).onTrainingSessionFinished()
+                vm.deleteTraining(training._id)
+                sharedVM.onTrainingSessionFinished()
             }
         }).attachToRecyclerView(recyclerView)
 
         activity?.fab?.show()
         activity?.fab?.setOnClickListener{
-            if (mainViewModel.timerIsRunning.value!!) {
+            if (sharedVM.timerIsRunning.value!!) {
                 AlertDialog.Builder(activity!!)
                         .setTitle("Завершите начатую тренировку")
                         .setNegativeButton("ОК") { dialog, _ -> dialog.cancel() }
@@ -85,7 +84,7 @@ class TrainingsFragment : DaggerFragment() {
                 calendar.set(Calendar.MONTH, monthOfYear)
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 (recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(
-                        viewModel.findPositionInTrainingList(calendar), 0)
+                        vm.findPositionInTrainingList(calendar), 0)
             }, curYear, curMonthOfYear, curDay).apply {
                 datePicker.minDate = 0
                 val millisecondsPerMonth = 30L * 24 * 60 * 60 * 1000

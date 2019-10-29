@@ -5,9 +5,8 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
-import javax.inject.Inject
 
-class ExerciseDetailViewModel @Inject constructor(private val repository: ExerciseRepository) : ViewModel() {
+class ExerciseDetailViewModel (private val repository: ExerciseRepository) : ViewModel() {
 
     private val _exerciseId = MutableLiveData<Long>()
 

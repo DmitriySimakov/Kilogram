@@ -10,11 +10,9 @@ import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseSetRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
-import java.lang.Exception
-import javax.inject.Inject
 import kotlin.math.max
 
-class TrainingSetsViewModel @Inject constructor(
+class TrainingSetsViewModel(
         private val trainingExerciseSetRepository: TrainingExerciseSetRepository,
         private val trainingExerciseRepository: TrainingExerciseRepository,
         private val exerciseRepository: ExerciseRepository

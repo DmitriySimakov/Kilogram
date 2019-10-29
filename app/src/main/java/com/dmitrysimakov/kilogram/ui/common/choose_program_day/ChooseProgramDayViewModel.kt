@@ -7,11 +7,8 @@ import com.dmitrysimakov.kilogram.data.local.entity.ProgramDay
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
 import timber.log.Timber
-import javax.inject.Inject
 
-class ChooseProgramDayViewModel @Inject constructor(
-        private val repository: ProgramDayRepository
-) : ViewModel() {
+class ChooseProgramDayViewModel (private val repository: ProgramDayRepository) : ViewModel() {
     
     private val _programId = MutableLiveData<Long>()
     

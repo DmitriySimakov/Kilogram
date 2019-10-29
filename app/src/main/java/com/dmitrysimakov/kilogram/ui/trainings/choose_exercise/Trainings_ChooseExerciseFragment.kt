@@ -1,7 +1,6 @@
 package com.dmitrysimakov.kilogram.ui.trainings.choose_exercise
 
 import android.content.Context
-import android.os.Bundle
 import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.ui.common.choose_exercise.ChooseExerciseFragment
 import com.dmitrysimakov.kilogram.util.hideKeyboard
@@ -12,7 +11,7 @@ class Trainings_ChooseExerciseFragment : ChooseExerciseFragment() {
         super.onAttach(context)
         
         val params = Trainings_ChooseExerciseFragmentArgs.fromBundle(arguments!!)
-        viewModel.setTraining(params.trainingId)
+        vm.setTraining(params.trainingId)
     
         exerciseAdapter.clickCallback = { exercise ->
             hideKeyboard()

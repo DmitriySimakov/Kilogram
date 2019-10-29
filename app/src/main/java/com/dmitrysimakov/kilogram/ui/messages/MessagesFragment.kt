@@ -8,24 +8,22 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.util.*
-import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_messages.*
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private const val RC_PHOTO_PICKER = 1
 
-class MessagesFragment : DaggerFragment() {
+class MessagesFragment : Fragment() {
     
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+    private val executors: AppExecutors by inject()
     
-    @Inject lateinit var executors: AppExecutors
-    
-    private val viewModel by lazy { getViewModel<MessagesViewModel>(viewModelFactory) }
+    private val vm: MessagesViewModel by viewModel()
     
     private val adapter by lazy { MessagesListAdapter(executors) }
     
@@ -40,8 +38,8 @@ class MessagesFragment : DaggerFragment() {
         
         recyclerView.adapter = adapter
     
-        viewModel.setChatId(params.id)
-        viewModel.messages.observe(this, Observer { adapter.submitList(it) })
+        vm.setChatId(params.id)
+        vm.messages.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
         
         photoPickerBtn.setOnClickListener {
             val intent = Intent(Intent.ACTION_GET_CONTENT)
@@ -59,7 +57,7 @@ class MessagesFragment : DaggerFragment() {
         })
         
         sendBtn.setOnClickListener {
-            viewModel.sendMessage(messageET.text.toString(), null)
+            vm.sendMessage(messageET.text.toString(), null)
             messageET.setText("")
         }
         
@@ -69,7 +67,7 @@ class MessagesFragment : DaggerFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_PHOTO_PICKER && resultCode == RESULT_OK && data?.data != null) {
-            viewModel.sendImage(data.data!!)
+            vm.sendImage(data.data!!)
         }
     }
 }

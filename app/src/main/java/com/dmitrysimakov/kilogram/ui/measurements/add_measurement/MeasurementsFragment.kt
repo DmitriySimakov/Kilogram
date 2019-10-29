@@ -4,26 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.util.AppExecutors
-import com.dmitrysimakov.kilogram.util.getViewModel
-import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_measurements.*
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MeasurementsFragment : DaggerFragment() {
+class MeasurementsFragment : Fragment() {
 
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+    private val executors: AppExecutors by inject()
 
-    @Inject lateinit var executors: AppExecutors
+    private val vm: MeasurementsViewModel by viewModel()
 
-    private lateinit var viewModel: MeasurementsViewModel
-
-    private lateinit var adapter: MeasurementsAdapter
+    private val adapter by lazy { MeasurementsAdapter(executors) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -32,10 +29,8 @@ class MeasurementsFragment : DaggerFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = getViewModel(viewModelFactory)
-        viewModel.measurementList.observe(this, Observer { adapter.submitList(it) })
+        vm.measurementList.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
 
-        adapter = MeasurementsAdapter(executors)
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
     }

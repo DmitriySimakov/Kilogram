@@ -3,9 +3,8 @@ package com.dmitrysimakov.kilogram.data.repository
 import com.dmitrysimakov.kilogram.data.local.dao.ProgramDayMuscleDao
 import com.dmitrysimakov.kilogram.data.local.entity.ProgramDayMuscle
 import com.dmitrysimakov.kilogram.util.AppExecutors
-import javax.inject.Inject
 
-class ProgramDayMuscleRepository @Inject constructor(
+class ProgramDayMuscleRepository(
         private val executors: AppExecutors,
         private val dao: ProgramDayMuscleDao
 ) {

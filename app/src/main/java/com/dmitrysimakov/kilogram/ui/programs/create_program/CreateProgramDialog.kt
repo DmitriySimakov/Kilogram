@@ -5,24 +5,20 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.ViewModelProvider
+import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.DialogCreateProgramBinding
-import com.dmitrysimakov.kilogram.util.getViewModel
 import com.dmitrysimakov.kilogram.util.hideKeyboard
-import dagger.android.support.DaggerAppCompatDialogFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.dialog_create_program.*
-import javax.inject.Inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CreateProgramDialog : DaggerAppCompatDialogFragment() {
+class CreateProgramDialog : AppCompatDialogFragment() {
     
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
-
     private lateinit var binding: DialogCreateProgramBinding
 
-    private val viewModel by lazy { getViewModel<CreateProgramViewModel>(viewModelFactory) }
+    private val vm: CreateProgramViewModel by viewModel()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -39,7 +35,7 @@ class CreateProgramDialog : DaggerAppCompatDialogFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding.viewModel = viewModel
+        binding.viewModel = vm
         binding.lifecycleOwner = this
         return binding.root
     }
@@ -78,7 +74,7 @@ class CreateProgramDialog : DaggerAppCompatDialogFragment() {
     
     private fun submit() {
         if (validate()) {
-            viewModel.createProgram { id ->
+            vm.createProgram { id ->
                 findNavController().navigate(CreateProgramDialogDirections.toChooseProgramDayFragment(id))
             }
         }

@@ -7,11 +7,8 @@ import com.dmitrysimakov.kilogram.data.relation.ProgramExerciseR
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayExerciseRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
 import timber.log.Timber
-import javax.inject.Inject
 
-class ProgramDayExercisesViewModel @Inject constructor(
-        private val repository: ProgramDayExerciseRepository
-) : ViewModel() {
+class ProgramDayExercisesViewModel (private val repository: ProgramDayExerciseRepository) : ViewModel() {
     
     private val _programDayId = MutableLiveData<Long>()
     

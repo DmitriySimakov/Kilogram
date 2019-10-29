@@ -8,9 +8,8 @@ import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayMuscleRepository
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
-import javax.inject.Inject
 
-class CreateProgramDayViewModel @Inject constructor(
+class CreateProgramDayViewModel(
         private val programDayRepo: ProgramDayRepository,
         private val exerciseRepo: ExerciseRepository,
         private val programDayMuscleRepo: ProgramDayMuscleRepository

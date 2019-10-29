@@ -88,14 +88,9 @@ dependencies {
     
     //endregion Architecture components
     
-    //region Dagger 2
-    def dagger_version = "2.16"
-    implementation "com.google.dagger:dagger:$dagger_version"
-    implementation "com.google.dagger:dagger-android:$dagger_version"
-    implementation "com.google.dagger:dagger-android-support:$dagger_version"
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
-    kapt "com.google.dagger:dagger-android-processor:$dagger_version"
-    //endregion Dagger 2
+    def koin_version = "2.0.1"
+    implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
     
     implementation "com.google.code.gson:gson:2.8.5"
     

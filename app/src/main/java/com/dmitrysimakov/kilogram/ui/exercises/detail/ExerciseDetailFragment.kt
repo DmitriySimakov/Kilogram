@@ -2,27 +2,23 @@ package com.dmitrysimakov.kilogram.ui.exercises.detail
 
 import android.os.Bundle
 import android.view.*
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.FragmentExerciseDetailBinding
-import com.dmitrysimakov.kilogram.util.getViewModel
-import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
-import javax.inject.Inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ExerciseDetailFragment : DaggerFragment() {
+class ExerciseDetailFragment : Fragment() {
 
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
-    
-    private val viewModel by lazy { getViewModel<ExerciseDetailViewModel>(viewModelFactory) }
+    private val vm: ExerciseDetailViewModel by viewModel()
     
     private lateinit var binding: FragmentExerciseDetailBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
         binding = FragmentExerciseDetailBinding.inflate(inflater)
-        binding.vm = viewModel
+        binding.vm = vm
         binding.lifecycleOwner = this
         return binding.root
     }
@@ -31,7 +27,7 @@ class ExerciseDetailFragment : DaggerFragment() {
         super.onActivityCreated(savedInstanceState)
         
         val params = ExerciseDetailFragmentArgs.fromBundle(arguments!!)
-        viewModel.setExercise(params.exerciseId)
+        vm.setExercise(params.exerciseId)
         
         activity?.fab?.hide()
     }
@@ -39,7 +35,7 @@ class ExerciseDetailFragment : DaggerFragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.exercise_detail, menu)
         menu.let {
-            viewModel.exercise.observe(this, Observer { exercise ->
+            vm.exercise.observe(viewLifecycleOwner, Observer { exercise ->
                 val item = menu.findItem(R.id.addToFavorite)
                 item.isChecked = exercise.is_favorite
                 updateFavoriteButton(item)
@@ -51,7 +47,7 @@ class ExerciseDetailFragment : DaggerFragment() {
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.addToFavorite -> {
             item.isChecked = !item.isChecked
-            viewModel.setFavorite(item.isChecked)
+            vm.setFavorite(item.isChecked)
             updateFavoriteButton(item)
             true
         }

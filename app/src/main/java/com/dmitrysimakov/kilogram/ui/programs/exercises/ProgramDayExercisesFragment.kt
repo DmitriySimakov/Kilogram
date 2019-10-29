@@ -4,29 +4,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.util.AppExecutors
-import com.dmitrysimakov.kilogram.util.getViewModel
-import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_exercises.*
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import java.util.*
-import javax.inject.Inject
 
-class ProgramDayExercisesFragment : DaggerFragment() {
+class ProgramDayExercisesFragment : Fragment() {
     
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+    private val executors: AppExecutors by inject()
     
-    @Inject lateinit var executors: AppExecutors
-    
-    private val viewModel by lazy { getViewModel<ProgramDayExercisesViewModel>(viewModelFactory) }
+    private val vm: ProgramDayExercisesViewModel by viewModel()
     
     private val adapter by lazy { ProgramDayExerciseListAdapter(executors) }
     
@@ -42,20 +39,20 @@ class ProgramDayExercisesFragment : DaggerFragment() {
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
     
-        viewModel.setProgramDay(params.programDayId)
-        viewModel.exercises.observe(this, Observer { adapter.submitList(it) })
+        vm.setProgramDay(params.programDayId)
+        vm.exercises.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
     
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.RIGHT) {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
                 val startPos = viewHolder.adapterPosition
                 val targetPos = target.adapterPosition
                 Timber.d("$startPos $targetPos")
-                Collections.swap(viewModel.exercises.value!!, startPos, targetPos)
+                Collections.swap(vm.exercises.value!!, startPos, targetPos)
                 adapter.notifyItemMoved(startPos, targetPos)
                 return false
             }
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                viewModel.deleteExercise(adapter.getItem(viewHolder.adapterPosition))
+                vm.deleteExercise(adapter.getItem(viewHolder.adapterPosition))
             }
         }).attachToRecyclerView(recyclerView)
     
@@ -67,7 +64,7 @@ class ProgramDayExercisesFragment : DaggerFragment() {
     }
     
     override fun onPause() {
-        viewModel.updateNums()
+        vm.updateNums()
         super.onPause()
     }
 }

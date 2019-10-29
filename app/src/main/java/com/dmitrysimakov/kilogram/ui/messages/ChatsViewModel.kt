@@ -6,9 +6,8 @@ import com.dmitrysimakov.kilogram.data.remote.Chat
 import com.dmitrysimakov.kilogram.util.chatsCollection
 import com.dmitrysimakov.kilogram.util.live_data.liveData
 import com.dmitrysimakov.kilogram.util.user
-import javax.inject.Inject
 
-class ChatsViewModel @Inject constructor() : ViewModel() {
+class ChatsViewModel : ViewModel() {
     
     private val unsortedChats = chatsCollection.whereArrayContains("membersIds", user!!.uid).liveData { doc ->
         doc.toObject(Chat::class.java)!!.also { chat ->

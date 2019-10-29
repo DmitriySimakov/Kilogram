@@ -11,9 +11,8 @@ import com.dmitrysimakov.kilogram.util.*
 import com.dmitrysimakov.kilogram.util.live_data.liveData
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
-import javax.inject.Inject
 
-class MessagesViewModel @Inject constructor() : ViewModel() {
+class MessagesViewModel : ViewModel() {
     
     private val userId = user!!.uid
     

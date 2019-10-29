@@ -6,20 +6,10 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import com.dmitrysimakov.kilogram.ui.MainViewModel
 import java.lang.Exception
 import android.util.TypedValue
 import android.widget.Toast
 import androidx.lifecycle.*
-
-inline fun <reified T : ViewModel> Fragment.getViewModel(factory: ViewModelProvider.Factory) : T {
-    return ViewModelProviders.of(this, factory).get(T::class.java)
-}
-
-fun getViewModel(activity: FragmentActivity, factory: ViewModelProvider.Factory): MainViewModel {
-    return ViewModelProviders.of(activity, factory).get(MainViewModel::class.java)
-}
 
 fun Fragment.hideKeyboard() {
     view?.let { activity?.hideKeyboard(it) }

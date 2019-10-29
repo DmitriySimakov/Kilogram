@@ -5,30 +5,26 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.DialogCreateProgramDayBinding
 import com.dmitrysimakov.kilogram.ui.common.ChipGroupFilterAdapter
-import com.dmitrysimakov.kilogram.util.getViewModel
 import com.dmitrysimakov.kilogram.util.hideKeyboard
-import dagger.android.support.DaggerAppCompatDialogFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.dialog_create_program_day.*
-import javax.inject.Inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CreateProgramDayDialog : DaggerAppCompatDialogFragment() {
+class CreateProgramDayDialog : AppCompatDialogFragment() {
     
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
-
     private lateinit var binding: DialogCreateProgramDayBinding
     
     private lateinit var muscleAdapter: ChipGroupFilterAdapter
     
     private val params by lazy { CreateProgramDayDialogArgs.fromBundle(arguments!!) }
     
-    private val viewModel by lazy { getViewModel<CreateProgramDayViewModel>(viewModelFactory) }
+    private val vm: CreateProgramDayViewModel by viewModel()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -45,8 +41,8 @@ class CreateProgramDayDialog : DaggerAppCompatDialogFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewModel.setProgram(params.programId)
-        binding.viewModel = viewModel
+        vm.setProgram(params.programId)
+        binding.viewModel = vm
         binding.lifecycleOwner = this
         return binding.root
     }
@@ -63,9 +59,9 @@ class CreateProgramDayDialog : DaggerAppCompatDialogFragment() {
         }
     
         muscleAdapter = ChipGroupFilterAdapter(binding.musclesCG) { id, isChecked ->
-            viewModel.muscleList.value?.find{ it._id == id }?.is_active = isChecked
+            vm.muscleList.value?.find{ it._id == id }?.is_active = isChecked
         }
-        viewModel.muscleList.observe(this, Observer { muscleAdapter.submitList(it) })
+        vm.muscleList.observe(viewLifecycleOwner, Observer { muscleAdapter.submitList(it) })
         
         activity?.fab?.hide()
     }
@@ -90,8 +86,8 @@ class CreateProgramDayDialog : DaggerAppCompatDialogFragment() {
     
     private fun submit() {
         if (validate()) {
-            viewModel.createProgramDay(params.num) { id ->
-                viewModel.saveMuscles(id)
+            vm.createProgramDay(params.num) { id ->
+                vm.saveMuscles(id)
                 findNavController().navigate(CreateProgramDayDialogDirections.toExercisesFragment(id))
             }
         }

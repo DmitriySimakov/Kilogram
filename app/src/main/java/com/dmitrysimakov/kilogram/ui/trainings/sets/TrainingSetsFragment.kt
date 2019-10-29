@@ -2,8 +2,8 @@ package com.dmitrysimakov.kilogram.ui.trainings.sets
 
 import android.os.Bundle
 import android.view.*
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -12,19 +12,16 @@ import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.databinding.FragmentTrainingSetsBinding
 import com.dmitrysimakov.kilogram.util.AppExecutors
-import com.dmitrysimakov.kilogram.util.getViewModel
-import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_training_sets.*
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class TrainingSetsFragment : DaggerFragment() {
+class TrainingSetsFragment : Fragment() {
     
-    @Inject lateinit var executors: AppExecutors
+    private val executors: AppExecutors by inject()
     
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private val viewModel by lazy { getViewModel<TrainingSetsViewModel>(viewModelFactory) }
+    private val vm: TrainingSetsViewModel by viewModel()
     
     private val params by lazy { TrainingSetsFragmentArgs.fromBundle(arguments!!) }
     
@@ -44,10 +41,10 @@ class TrainingSetsFragment : DaggerFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel.trainingId = params.trainingId
-        viewModel.setTrainingExercise(params.trainingExerciseId)
+        vm.trainingId = params.trainingId
+        vm.setTrainingExercise(params.trainingExerciseId)
         
-        viewModel.exercise.observe(this, Observer { exercise ->
+        vm.exercise.observe(viewLifecycleOwner, Observer { exercise ->
             binding.exerciseMeasures = exercise.measures
         
             adapter = TrainingSetsAdapter(executors, exercise.measures) { set ->
@@ -59,14 +56,14 @@ class TrainingSetsFragment : DaggerFragment() {
             recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
     
     
-            viewModel.sets.observe(this, Observer { adapter.submitList(it) })
+            vm.sets.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
             activity?.toolbar?.menu?.findItem(R.id.finish_exercise)?.isVisible = exercise.state == TrainingExercise.RUNNING
             
             ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
                 override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean { return false }
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
                     val set = adapter.getItem(viewHolder.adapterPosition)
-                    viewModel.deleteSet(set._id)
+                    vm.deleteSet(set._id)
                 }
             }).attachToRecyclerView(recyclerView)
         })
@@ -77,8 +74,8 @@ class TrainingSetsFragment : DaggerFragment() {
             var reps = 0
             var time = 0
             var distance = 0
-            val currLast = try {viewModel.currSets.value?.last()} catch (e: Exception) {null}
-            val prevLast = try {viewModel.prevSets.value?.last()} catch (e: Exception) {null}
+            val currLast = try {vm.currSets.value?.last()} catch (e: Exception) {null}
+            val prevLast = try {vm.prevSets.value?.last()} catch (e: Exception) {null}
             if (currLast != null) {
                 weight = currLast.weight ?: 0
                 reps = currLast.reps ?: 0
@@ -102,7 +99,7 @@ class TrainingSetsFragment : DaggerFragment() {
     
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.finish_exercise -> {
-            viewModel.finishExercise(params.trainingExerciseId)
+            vm.finishExercise(params.trainingExerciseId)
             findNavController().popBackStack()
             true
         }

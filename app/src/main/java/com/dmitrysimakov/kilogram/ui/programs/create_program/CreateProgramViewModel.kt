@@ -4,11 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.local.entity.Program
 import com.dmitrysimakov.kilogram.data.repository.ProgramRepository
-import javax.inject.Inject
 
-class CreateProgramViewModel @Inject constructor(
-        private val repository: ProgramRepository
-) : ViewModel() {
+class CreateProgramViewModel (private val repository: ProgramRepository) : ViewModel() {
 
     val name = MutableLiveData("")
     val description = MutableLiveData("")

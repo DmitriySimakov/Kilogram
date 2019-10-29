@@ -5,23 +5,21 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.DialogAddSetBinding
-import com.dmitrysimakov.kilogram.util.getViewModel
+import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.util.hideKeyboard
-import dagger.android.support.DaggerAppCompatDialogFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
-import javax.inject.Inject
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class AddSetDialog : DaggerAppCompatDialogFragment() {
+class AddSetDialog : AppCompatDialogFragment() {
     
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private val viewModel by lazy { getViewModel<AddSetViewModel>(viewModelFactory) }
-    private val mainViewModel by lazy { getViewModel(activity!!, viewModelFactory) }
+    private val vm: AddSetViewModel by viewModel()
+    private val sharedVM: SharedViewModel by sharedViewModel()
 
     private lateinit var binding: DialogAddSetBinding
 
@@ -42,13 +40,13 @@ class AddSetDialog : DaggerAppCompatDialogFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding.viewModel = viewModel
+        binding.viewModel = vm
         binding.lifecycleOwner = this
 
-        viewModel.setTrainingExercise(params.trainingExerciseId)
-        viewModel.setSet(params.setId, params.weight, params.reps, params.time, params.distance)
-        viewModel.set.observe(this, Observer {  })
-        viewModel.trainingExercise.observe(this, Observer {  })
+        vm.setTrainingExercise(params.trainingExerciseId)
+        vm.setSet(params.setId, params.weight, params.reps, params.time, params.distance)
+        vm.set.observe(viewLifecycleOwner, Observer {  })
+        vm.trainingExercise.observe(viewLifecycleOwner, Observer {  })
 
         return binding.root
     }
@@ -83,10 +81,10 @@ class AddSetDialog : DaggerAppCompatDialogFragment() {
     
     private fun submit() {
         if (params.setId == 0L) {
-            viewModel.addSet(mainViewModel.elapsedSessionTime.value ?: 0)
-            mainViewModel.onSetCompleted(viewModel.trainingExercise.value?.rest ?: 0)
+            vm.addSet(sharedVM.elapsedSessionTime.value ?: 0)
+            sharedVM.onSetCompleted(vm.trainingExercise.value?.rest ?: 0)
         } else {
-            viewModel.updateSet()
+            vm.updateSet()
         }
         findNavController().popBackStack()
     }

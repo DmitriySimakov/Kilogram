@@ -7,39 +7,37 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.DialogCreateTrainingBinding
+import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.ui.common.ChipGroupFilterAdapter
-import com.dmitrysimakov.kilogram.util.getViewModel
 import com.dmitrysimakov.kilogram.util.hideKeyboard
 import com.dmitrysimakov.kilogram.util.setNewValue
-import dagger.android.support.DaggerAppCompatDialogFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
-import javax.inject.Inject
 
-class CreateTrainingDialog : DaggerAppCompatDialogFragment() {
+class CreateTrainingDialog : AppCompatDialogFragment() {
     
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
-
     private lateinit var binding: DialogCreateTrainingBinding
 
-    private val viewModel by lazy { getViewModel<CreateTrainingViewModel>(viewModelFactory) }
+    private val vm: CreateTrainingViewModel by viewModel()
     
-    private val mainViewModel by lazy { getViewModel(activity!!, viewModelFactory) }
+    private val sharedVM: SharedViewModel by sharedViewModel()
     
     private lateinit var muscleAdapter: ChipGroupFilterAdapter
     
     override fun onAttach(context: Context) {
         super.onAttach(context)
         
-        mainViewModel.programDayId.observe(this, Observer { if (it != null) viewModel.setProgramDay(it) })
-        viewModel.byProgram.observe(this, Observer {  })
-        viewModel.programDay.observe(this, Observer {
-            if (it != null) viewModel.byProgram.setNewValue(true)
+        sharedVM.programDayId.observe(this, Observer { if (it != null) vm.setProgramDay(it) })
+        vm.byProgram.observe(this, Observer {  })
+        vm.programDay.observe(this, Observer {
+            if (it != null) vm.byProgram.setNewValue(true)
         })
         
         binding = DialogCreateTrainingBinding.inflate(LayoutInflater.from(context))
@@ -55,7 +53,7 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding.vm = viewModel
+        binding.vm = vm
         binding.lifecycleOwner = this
 
         setDatePickerDialog()
@@ -65,7 +63,7 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment() {
 
     private fun setDatePickerDialog() {
         binding.dateTv.setOnClickListener {
-            val calendar = viewModel.calendar.value!!
+            val calendar = vm.calendar.value!!
             val curYear = calendar.get(Calendar.YEAR)
             val curMonthOfYear = calendar.get(Calendar.MONTH)
             val curDay = calendar.get(Calendar.DAY_OF_MONTH)
@@ -73,7 +71,7 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment() {
                 calendar.set(Calendar.YEAR, year)
                 calendar.set(Calendar.MONTH, monthOfYear)
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                viewModel.updateCalendar()
+                vm.updateCalendar()
             }, curYear, curMonthOfYear, curDay).apply {
                 datePicker.minDate = 0
                 val millisecondsPerMonth = 30L * 24 * 60 * 60 * 1000
@@ -85,13 +83,13 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment() {
 
     private fun setTimePickerDialog() {
         binding.timeTv.setOnClickListener{
-            val calendar = viewModel.calendar.value!!
+            val calendar = vm.calendar.value!!
             val curHourOfDay = calendar.get(Calendar.HOUR_OF_DAY)
             val curMinute = calendar.get(Calendar.MINUTE)
             val dialog = TimePickerDialog(context, { _, hourOfDay, minute ->
                 calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
                 calendar.set(Calendar.MINUTE, minute)
-                viewModel.updateCalendar()
+                vm.updateCalendar()
             }, curHourOfDay, curMinute, true)
             dialog.show()
         }
@@ -110,16 +108,16 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment() {
         }
     
         muscleAdapter = ChipGroupFilterAdapter(binding.musclesCG) { id, isChecked ->
-            viewModel.muscleList.value?.find{ it._id == id }?.is_active = isChecked
+            vm.muscleList.value?.find{ it._id == id }?.is_active = isChecked
         }
-        viewModel.muscleList.observe(this, Observer { muscleAdapter.submitList(it) })
+        vm.muscleList.observe(viewLifecycleOwner, Observer { muscleAdapter.submitList(it) })
         
         activity?.fab?.hide()
     }
     
     override fun onStop() {
         hideKeyboard()
-        mainViewModel.programDayId.value = 0L
+        sharedVM.programDayId.value = 0L
         super.onStop()
     }
     
@@ -137,13 +135,13 @@ class CreateTrainingDialog : DaggerAppCompatDialogFragment() {
     }
     
     private fun submit() {
-        viewModel.createTraining { id ->
-            if (viewModel.byProgram.value!!) {
-                viewModel.fillTrainingWithProgramExercises(id)
+        vm.createTraining { id ->
+            if (vm.byProgram.value!!) {
+                vm.fillTrainingWithProgramExercises(id)
             }
-            viewModel.saveMuscles(id)
+            vm.saveMuscles(id)
             findNavController().navigate(CreateTrainingDialogDirections.toExercisesFragment(id))
         }
-        mainViewModel.onTrainingSessionStarted()
+        sharedVM.onTrainingSessionStarted()
     }
 }

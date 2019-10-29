@@ -3,11 +3,8 @@ package com.dmitrysimakov.kilogram.data.repository
 import com.dmitrysimakov.kilogram.data.local.dao.ProgramDayDao
 import com.dmitrysimakov.kilogram.data.local.entity.ProgramDay
 import com.dmitrysimakov.kilogram.util.AppExecutors
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class ProgramDayRepository @Inject constructor(
+class ProgramDayRepository(
         private val executors: AppExecutors,
         private val programDayDao: ProgramDayDao
 ) {

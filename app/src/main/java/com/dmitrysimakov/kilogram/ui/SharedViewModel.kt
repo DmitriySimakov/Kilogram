@@ -11,9 +11,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.iid.FirebaseInstanceId
 import java.util.*
-import javax.inject.Inject
 
-class MainViewModel @Inject constructor(private val preferences: SharedPreferences) : ViewModel() {
+class SharedViewModel(private val preferences: SharedPreferences) : ViewModel() {
     
     val programDayId = MutableLiveData(0L)
     

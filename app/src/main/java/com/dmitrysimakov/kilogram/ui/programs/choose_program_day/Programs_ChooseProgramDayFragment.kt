@@ -16,7 +16,7 @@ class Programs_ChooseProgramDayFragment : ChooseProgramDayFragment() {
         super.onActivityCreated(savedInstanceState)
     
         val params = Programs_ChooseProgramDayFragmentArgs.fromBundle(arguments!!)
-        viewModel.setProgram(params.programId)
+        vm.setProgram(params.programId)
         
         adapter.clickCallback = { programDay ->
             findNavController().navigate(Programs_ChooseProgramDayFragmentDirections
@@ -28,12 +28,12 @@ class Programs_ChooseProgramDayFragment : ChooseProgramDayFragment() {
                 val startPos = viewHolder.adapterPosition
                 val targetPos = target.adapterPosition
                 Timber.d("$startPos $targetPos")
-                Collections.swap(viewModel.programDays.value!!, startPos, targetPos)
+                Collections.swap(vm.programDays.value!!, startPos, targetPos)
                 adapter.notifyItemMoved(startPos, targetPos)
                 return false
             }
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                viewModel.deleteTrainingDay(adapter.getItem(viewHolder.adapterPosition))
+                vm.deleteTrainingDay(adapter.getItem(viewHolder.adapterPosition))
             }
         }).attachToRecyclerView(recyclerView)
     
@@ -45,7 +45,7 @@ class Programs_ChooseProgramDayFragment : ChooseProgramDayFragment() {
     }
     
     override fun onPause() {
-        viewModel.updateNums()
+        vm.updateNums()
         super.onPause()
     }
 }

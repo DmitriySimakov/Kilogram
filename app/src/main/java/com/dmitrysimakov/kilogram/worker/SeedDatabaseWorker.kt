@@ -4,20 +4,19 @@ import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.dmitrysimakov.kilogram.data.local.KilogramDb
-import com.dmitrysimakov.kilogram.di.worker_injection.AndroidWorkerInjection
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 import timber.log.Timber
-import javax.inject.Inject
 
-class SeedDatabaseWorker(val context: Context, workerParams: WorkerParameters) : Worker(context, workerParams) {
+class SeedDatabaseWorker(val context: Context, workerParams: WorkerParameters) : Worker(context, workerParams), KoinComponent {
     
-    @Inject lateinit var database: KilogramDb
+    private val database: KilogramDb by inject()
 
     override fun doWork(): Result {
-        AndroidWorkerInjection.inject(this)
-
+        
         return try {
             with(database) {
                 equipmentDao().insert(listFromJson("equipment.json"))

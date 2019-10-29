@@ -11,7 +11,7 @@ class Programs_ChooseExerciseFragment : ChooseExerciseFragment() {
         super.onActivityCreated(savedInstanceState)
         
         val params = Programs_ChooseExerciseFragmentArgs.fromBundle(arguments!!)
-        viewModel.setProgramDay(params.programDayId)
+        vm.setProgramDay(params.programDayId)
         
         exerciseAdapter.clickCallback = { exercise ->
             hideKeyboard()

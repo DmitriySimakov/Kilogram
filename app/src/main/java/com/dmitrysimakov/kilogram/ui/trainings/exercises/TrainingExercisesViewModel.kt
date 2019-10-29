@@ -9,9 +9,8 @@ import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
-import javax.inject.Inject
 
-class TrainingExercisesViewModel @Inject constructor(
+class TrainingExercisesViewModel(
         private val trainingRepository: TrainingRepository,
         private val trainingExerciseRepository: TrainingExerciseRepository,
         private val exerciseRepository: ExerciseRepository

@@ -12,11 +12,11 @@ class Programs_AddExerciseFragment : AddExerciseFragment() {
     
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.setExercise(params.exerciseId)
+        vm.setExercise(params.exerciseId)
     }
     
     override fun addExercise() {
-        viewModel.addExerciseToProgramDay(params.programDayId, params.num, binding.restET.getIntValue())
+        vm.addExerciseToProgramDay(params.programDayId, params.num, binding.restET.getIntValue())
     }
     
     override fun popBack() {

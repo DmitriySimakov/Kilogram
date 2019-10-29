@@ -4,11 +4,8 @@ import com.dmitrysimakov.kilogram.data.local.dao.TrainingExerciseDao
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR
 import com.dmitrysimakov.kilogram.util.AppExecutors
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class TrainingExerciseRepository @Inject constructor(
+class TrainingExerciseRepository(
         private val executors: AppExecutors,
         private val trainingExerciseDao: TrainingExerciseDao
 ) {

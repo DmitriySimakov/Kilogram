@@ -10,9 +10,8 @@ import com.dmitrysimakov.kilogram.util.user
 import com.dmitrysimakov.kilogram.util.userDocument
 import com.dmitrysimakov.kilogram.util.usersCollection
 import com.google.firebase.firestore.SetOptions
-import javax.inject.Inject
 
-class PeopleViewModel @Inject constructor() : ViewModel() {
+class PeopleViewModel : ViewModel() {
     
     val people = Transformations.map(usersCollection.liveData { doc ->
         doc.toObject(Person::class.java)!!.also { person -> person.id = doc.id }

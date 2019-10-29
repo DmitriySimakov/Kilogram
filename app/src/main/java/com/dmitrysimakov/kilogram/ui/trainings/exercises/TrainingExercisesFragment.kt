@@ -3,8 +3,8 @@ package com.dmitrysimakov.kilogram.ui.trainings.exercises
 import android.content.Context
 import android.os.Bundle
 import android.view.*
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -12,44 +12,43 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR
 import com.dmitrysimakov.kilogram.databinding.FragmentTrainingExercisesBinding
+import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.util.AppExecutors
-import com.dmitrysimakov.kilogram.util.getViewModel
-import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
-import javax.inject.Inject
 
-class TrainingExercisesFragment : DaggerFragment() {
+class TrainingExercisesFragment : Fragment() {
     
-    @Inject lateinit var executors: AppExecutors
+    private val executors: AppExecutors by inject()
     
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private val viewModel by lazy { getViewModel<TrainingExercisesViewModel>(viewModelFactory) }
-    private val mainViewModel by lazy { getViewModel(activity!!, viewModelFactory) }
+    private val vm: TrainingExercisesViewModel by viewModel()
+    private val sharedVM: SharedViewModel by sharedViewModel()
     
     private val params by lazy { TrainingExercisesFragmentArgs.fromBundle(arguments!!) }
     
     private lateinit var binding: FragmentTrainingExercisesBinding
     
     private val exerciseRunningListAdapter by lazy {
-        ExerciseRunningListAdapter(mainViewModel.elapsedSessionTime, this, executors, { toSetsFragment(it) }, { viewModel.finishExercise(it) }) }
+        ExerciseRunningListAdapter(sharedVM.elapsedSessionTime, this, executors, { toSetsFragment(it) }, { vm.finishExercise(it) }) }
     private val exercisePlannedListAdapter by lazy { ExercisePlannedListAdapter(executors) { toSetsFragment(it) } }
     private val exerciseFinishedListAdapter by lazy { ExerciseFinishedListAdapter(executors) { toSetsFragment(it) } }
     
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        viewModel.setTraining(params.trainingId)
-        viewModel.training.observe(this, Observer {  })
-        viewModel.runningExercises.observe(this, Observer { exerciseRunningListAdapter.submitList(it) })
-        viewModel.plannedExercises.observe(this, Observer { exercisePlannedListAdapter.submitList(it) })
-        viewModel.finishedExercises.observe(this, Observer { exerciseFinishedListAdapter.submitList(it) })
+        vm.setTraining(params.trainingId)
+        vm.training.observe(viewLifecycleOwner, Observer {  })
+        vm.runningExercises.observe(viewLifecycleOwner, Observer { exerciseRunningListAdapter.submitList(it) })
+        vm.plannedExercises.observe(viewLifecycleOwner, Observer { exercisePlannedListAdapter.submitList(it) })
+        vm.finishedExercises.observe(viewLifecycleOwner, Observer { exerciseFinishedListAdapter.submitList(it) })
     }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentTrainingExercisesBinding.inflate(inflater)
         binding.lifecycleOwner = this
-        binding.vm = viewModel
+        binding.vm = vm
     
         setHasOptionsMenu(true)
         setupAdapters()
@@ -77,7 +76,7 @@ class TrainingExercisesFragment : DaggerFragment() {
             ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
                 override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean { return false }
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                    viewModel.deleteExercise(exerciseRunningListAdapter.getItem(viewHolder.adapterPosition))
+                    vm!!.deleteExercise(exerciseRunningListAdapter.getItem(viewHolder.adapterPosition))
                 }
             }).attachToRecyclerView(runningExercisesRV)
         
@@ -85,19 +84,19 @@ class TrainingExercisesFragment : DaggerFragment() {
                 override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
                     val startPos = viewHolder.adapterPosition
                     val targetPos = target.adapterPosition
-                    Collections.swap(viewModel.plannedExercises.value!!, startPos, targetPos)
+                    Collections.swap(vm!!.plannedExercises.value!!, startPos, targetPos)
                     exercisePlannedListAdapter.notifyItemMoved(startPos, targetPos)
                     return false
                 }
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                    viewModel.deleteExercise(exercisePlannedListAdapter.getItem(viewHolder.adapterPosition))
+                    vm!!.deleteExercise(exercisePlannedListAdapter.getItem(viewHolder.adapterPosition))
                 }
             }).attachToRecyclerView(plannedExercisesRV)
         
             ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
                 override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean { return false }
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                    viewModel.deleteExercise(exerciseFinishedListAdapter.getItem(viewHolder.adapterPosition))
+                    vm!!.deleteExercise(exerciseFinishedListAdapter.getItem(viewHolder.adapterPosition))
                 }
             }).attachToRecyclerView(finishedExercisesRV)
         }
@@ -118,8 +117,8 @@ class TrainingExercisesFragment : DaggerFragment() {
     
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.finish_training -> {
-            viewModel.finishTraining(mainViewModel.elapsedSessionTime.value ?: 0)
-            mainViewModel.onTrainingSessionFinished()
+            vm.finishTraining(sharedVM.elapsedSessionTime.value ?: 0)
+            sharedVM.onTrainingSessionFinished()
             findNavController().popBackStack()
             true
         }
@@ -127,7 +126,7 @@ class TrainingExercisesFragment : DaggerFragment() {
     }
     
     override fun onPause() {
-        viewModel.updateNums()
+        vm.updateNums()
         super.onPause()
     }
 }

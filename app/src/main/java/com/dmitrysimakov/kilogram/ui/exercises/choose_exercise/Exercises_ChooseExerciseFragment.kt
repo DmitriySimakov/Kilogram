@@ -11,7 +11,7 @@ class Exercises_ChooseExerciseFragment : ChooseExerciseFragment() {
         super.onAttach(context)
     
         val params = Exercises_ChooseExerciseFragmentArgs.fromBundle(arguments!!)
-        viewModel.setMuscle(params.muscleId)
+        vm.setMuscle(params.muscleId)
         
         exerciseAdapter.clickCallback = { exercise ->
             hideKeyboard()
