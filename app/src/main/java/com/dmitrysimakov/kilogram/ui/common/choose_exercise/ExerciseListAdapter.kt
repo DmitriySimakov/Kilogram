@@ -15,7 +15,7 @@ class ExerciseListAdapter(
 ) : DataBoundListAdapter<Exercise, ItemExerciseBinding>(appExecutors, clickCallback,
         object : DiffUtil.ItemCallback<Exercise>() {
             override fun areItemsTheSame(oldItem: Exercise, newItem: Exercise) =
-                    oldItem._id == newItem._id
+                    oldItem.name == newItem.name
             override fun areContentsTheSame(oldItem: Exercise, newItem: Exercise) =
                     oldItem == newItem
         }

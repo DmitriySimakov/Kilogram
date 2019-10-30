@@ -11,7 +11,7 @@
         
         <variable
             name="set"
-            type="com.dmitrysimakov.kilogram.data.relation.TrainingExerciseSetR"/>
+            type="com.dmitrysimakov.kilogram.data.relation.SetWithPreviousResults"/>
     </data>
     
     <LinearLayout

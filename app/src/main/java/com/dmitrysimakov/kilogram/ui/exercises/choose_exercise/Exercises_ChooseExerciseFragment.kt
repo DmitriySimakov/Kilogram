@@ -11,12 +11,12 @@ class Exercises_ChooseExerciseFragment : ChooseExerciseFragment() {
         super.onAttach(context)
     
         val params = Exercises_ChooseExerciseFragmentArgs.fromBundle(arguments!!)
-        vm.setMuscle(params.muscleId)
+        vm.setMuscle(params.muscle)
         
         exerciseAdapter.clickCallback = { exercise ->
             hideKeyboard()
             findNavController().navigate(Exercises_ChooseExerciseFragmentDirections
-                    .toExerciseDetailFragment(exercise._id))
+                    .toExerciseDetailFragment(exercise.name))
         }
     }
 }

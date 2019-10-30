@@ -1,6 +1,6 @@
 package com.dmitrysimakov.kilogram.data.relation
 
-data class MeasurementR(
+data class MeasurementWithPreviousResults(
         val _id: Long,
         val param: String,
         val value: Double?,

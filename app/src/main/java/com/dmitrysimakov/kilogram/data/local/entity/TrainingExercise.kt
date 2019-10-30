@@ -4,7 +4,7 @@ import androidx.room.*
 import com.dmitrysimakov.kilogram.data.relation.ExerciseMeasures
 
 @Entity(tableName = "training_exercise",
-        indices = [Index(value = ["training_id"]), Index(value = ["exercise_id"])],
+        indices = [Index(value = ["training_id"]), Index(value = ["exercise"])],
         foreignKeys = [
             ForeignKey(
                     entity = Training::class,
@@ -13,15 +13,15 @@ import com.dmitrysimakov.kilogram.data.relation.ExerciseMeasures
                     onDelete = ForeignKey.CASCADE),
             ForeignKey(
                     entity = Exercise::class,
-                    parentColumns = ["_id"],
-                    childColumns = ["exercise_id"],
+                    parentColumns = ["name"],
+                    childColumns = ["exercise"],
                     onDelete = ForeignKey.CASCADE)
         ])
 data class TrainingExercise(
         @PrimaryKey(autoGenerate = true) val _id: Long = 0,
         val training_id: Long,
-        val exercise_id: Long,
-        val num: Int,
+        val exercise: String,
+        var indexNumber: Int,
         val rest: Int,
         val strategy: String? = null,
         val state: Int = PLANNED,

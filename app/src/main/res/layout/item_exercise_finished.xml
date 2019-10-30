@@ -7,7 +7,7 @@
     <data>
         <variable
             name="exercise"
-            type="com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR"/>
+            type="com.dmitrysimakov.kilogram.data.relation.DetailedTrainingExercise"/>
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +20,7 @@
             android:layout_height="?attr/listPreferredItemHeight"
             android:layout_margin="4dp"
             android:scaleType="centerCrop"
-            app:assetsImage='@{"exercises/"+ exercise.exercise_id +"_1.jpeg"}'
+            app:assetsImage='@{"exercises/"+ exercise.exercise +"_1.jpeg"}'
             tools:src="@drawable/exercise_sample_1"
             tools:layout_width="?android:attr/listPreferredItemHeight"
             app:layout_constraintTop_toTopOf="parent"
@@ -34,7 +34,7 @@
             android:paddingStart="?android:attr/listPreferredItemPaddingLeft"
             android:paddingEnd="?android:attr/listPreferredItemPaddingRight"
             tools:text="Упражнение"
-            android:text="@{exercise.name}"
+            android:text="@{exercise.exercise}"
             android:textAppearance="?android:attr/textAppearanceListItemSmall"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/image"

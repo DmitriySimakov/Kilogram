@@ -1,6 +1,6 @@
 package com.dmitrysimakov.kilogram.data.relation
 
-data class TrainingExerciseSetR(
+data class SetWithPreviousResults(
         val _id: Long,
         val weight: Int?,
         val reps: Int?,

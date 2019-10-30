@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.dmitrysimakov.kilogram.data.local.entity.Measurement
-import com.dmitrysimakov.kilogram.data.relation.MeasurementR
+import com.dmitrysimakov.kilogram.data.relation.MeasurementWithPreviousResults
 
 @Dao
 interface MeasurementDao {
@@ -15,20 +15,20 @@ interface MeasurementDao {
     fun insert(list: List<Measurement>)
 
     @Query("""
-        SELECT _id, name AS param,
+        SELECT _id, param AS param,
         (SELECT value FROM measurement
-            WHERE param_id = bmp._id
+            WHERE param = bmp.param
             ORDER BY date DESC LIMIT 0, 1) AS value,
         (SELECT value FROM measurement
-            WHERE param_id = bmp._id
+            WHERE param = bmp.param
             ORDER BY date DESC LIMIT 1, 1) AS prevValue,
         (SELECT date FROM measurement
-            WHERE param_id = bmp._id
+            WHERE param = bmp.param
             ORDER BY date DESC LIMIT 0, 1) AS date,
         (SELECT date FROM measurement
-            WHERE param_id = bmp._id
+            WHERE param = bmp.param
             ORDER BY date DESC LIMIT 1, 1) AS prevDate
-        FROM measurement_param AS bmp ORDER BY _id
+        FROM measurement AS bmp
     """)
-    fun getMeasurements() : LiveData<List<MeasurementR>>
+    fun getMeasurementWithPreviousResultList() : LiveData<List<MeasurementWithPreviousResults>>
 }

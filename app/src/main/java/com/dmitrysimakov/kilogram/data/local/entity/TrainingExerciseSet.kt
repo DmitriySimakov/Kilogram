@@ -7,6 +7,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import java.util.*
 
 @Entity(tableName = "training_exercise_set",
         indices = [Index(value = ["training_exercise_id"])],
@@ -21,11 +22,11 @@ import androidx.room.PrimaryKey
 class TrainingExerciseSet(
         @PrimaryKey(autoGenerate = true) val _id: Long = 0,
         val training_exercise_id: Long,
-        var secs_since_start: Int? = null,
         weight: Int? = null,
         reps: Int? = null,
         time: Int? = null,
-        distance: Int? = null
+        distance: Int? = null,
+        var secs_since_start: Int? = null
 ) : BaseObservable() {
     
     @get:Bindable var weight = weight

@@ -9,7 +9,7 @@ class ProgramDayRepository(
         private val programDayDao: ProgramDayDao
 ) {
     
-    fun loadTrainingDays(programId: Long) = programDayDao.getTrainingDays(programId)
+    fun loadTrainingDays(programId: Long) = programDayDao.getProgramDayList(programId)
     
     fun insertProgramDay(day: ProgramDay, callback: ((Long) -> Unit)? = null) {
         executors.diskIO().execute {
@@ -20,25 +20,19 @@ class ProgramDayRepository(
         }
     }
     
-    fun update(programDay: ProgramDay) {
+    fun deleteProgramDay(id: Long) {
         executors.diskIO().execute {
-            programDayDao.update(programDay)
+            programDayDao.delete(id)
         }
     }
     
-    fun deleteProgramDay(day: ProgramDay) {
+    fun update(items: List<ProgramDay>) {
         executors.diskIO().execute {
-            programDayDao.delete(day)
+            programDayDao.update(items)
         }
     }
     
-    fun updateNums(items: List<ProgramDay>) {
-        executors.diskIO().execute {
-            programDayDao.updateNums(items)
-        }
-    }
+    fun loadNextProgramDayAndProgram() = programDayDao.getNextProgramDay()
     
-    fun loadNextProgramDayR() = programDayDao.getNextProgramDayR()
-    
-    fun loadProgramDayR(id: Long) = programDayDao.getProgramDayR(id)
+    fun loadProgramDayAndProgram(id: Long) = programDayDao.getProgramDayAndProgram(id)
 }

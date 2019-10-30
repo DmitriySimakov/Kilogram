@@ -2,7 +2,6 @@ package com.dmitrysimakov.kilogram.data.repository
 
 import com.dmitrysimakov.kilogram.data.local.dao.ProgramDayExerciseDao
 import com.dmitrysimakov.kilogram.data.local.entity.ProgramDayExercise
-import com.dmitrysimakov.kilogram.data.relation.ProgramExerciseR
 import com.dmitrysimakov.kilogram.util.AppExecutors
 
 class ProgramDayExerciseRepository(
@@ -10,7 +9,8 @@ class ProgramDayExerciseRepository(
         private val programDayExerciseDao: ProgramDayExerciseDao
 ) {
    
-    fun loadExercises(programDayId: Long) = programDayExerciseDao.getExercises(programDayId)
+    fun loadProgramDayExerciseList(programDayId: Long) =
+            programDayExerciseDao.getProgramDayExerciseList(programDayId)
     
     fun addExerciseToProgramDay(exercise: ProgramDayExercise) {
         executors.diskIO().execute {
@@ -18,15 +18,15 @@ class ProgramDayExerciseRepository(
         }
     }
     
-    fun deleteExerciseFromProgramDay(exercise: ProgramExerciseR) {
+    fun deleteExerciseFromProgramDay(exercise: ProgramDayExercise) {
         executors.diskIO().execute {
-            programDayExerciseDao.delete(exercise._id)
+            programDayExerciseDao.delete(exercise)
         }
     }
     
-    fun updateNums(items: List<ProgramExerciseR>) {
+    fun update(list: List<ProgramDayExercise>) {
         executors.diskIO().execute {
-            programDayExerciseDao.updateNums(items)
+            programDayExerciseDao.update(list)
         }
     }
 }

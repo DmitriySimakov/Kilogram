@@ -43,7 +43,7 @@ class TrainingsFragment : Fragment() {
     
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
-        vm.trainingList.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
+        vm.detailedTrainings.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
 
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean { return false }

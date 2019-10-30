@@ -7,13 +7,13 @@
     <data>
         <variable
             name="vm"
-            type="com.dmitrysimakov.kilogram.ui.exercises.detail.ExerciseDetailViewModel"/>
+            type="com.dmitrysimakov.kilogram.ui.exercises.detail.DetailedExerciseViewModel"/>
     </data>
     
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.exercises.detail.ExerciseDetailFragment">
+        tools:context=".ui.exercises.detail.DetailedExerciseFragment">
         
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,7 +39,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/first_phase"
-                    app:assetsImage='@{"exercises/"+ vm.exercise._id +"_1.jpeg"}'
+                    app:assetsImage='@{"exercises/"+ vm.exercise.name +"_1.jpeg"}'
                     tools:src="@drawable/exercise_sample_1"/>
                 
                 <ImageView
@@ -49,7 +49,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/second_phase"
-                    app:assetsImage='@{"exercises/"+ vm.exercise._id +"_2.jpeg"}'
+                    app:assetsImage='@{"exercises/"+ vm.exercise.name +"_2.jpeg"}'
                     tools:src="@drawable/exercise_sample_2"/>
             
             </LinearLayout>
@@ -73,7 +73,7 @@
             <TextView
                 android:id="@+id/targeted_muscles"
                 style="@style/Field"
-                android:text="@{vm.exercise.targeted_muscles}"
+                android:text="TODO"
                 tools:text="@string/targeted_muscles"/>
             
             <View style="@style/VerticalDivider"/>

@@ -58,8 +58,8 @@ class CreateProgramDayDialog : AppCompatDialogFragment() {
             descriptionTIL.isCounterEnabled = hasFocus
         }
     
-        muscleAdapter = ChipGroupFilterAdapter(binding.musclesCG) { id, isChecked ->
-            vm.muscleList.value?.find{ it._id == id }?.is_active = isChecked
+        muscleAdapter = ChipGroupFilterAdapter(binding.musclesCG) { name, isChecked ->
+            vm.muscleList.value?.find{ it.name == name }?.is_active = isChecked
         }
         vm.muscleList.observe(viewLifecycleOwner, Observer { muscleAdapter.submitList(it) })
         

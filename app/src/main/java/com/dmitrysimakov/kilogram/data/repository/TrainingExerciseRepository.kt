@@ -2,7 +2,7 @@ package com.dmitrysimakov.kilogram.data.repository
 
 import com.dmitrysimakov.kilogram.data.local.dao.TrainingExerciseDao
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
-import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR
+import com.dmitrysimakov.kilogram.data.relation.DetailedTrainingExercise
 import com.dmitrysimakov.kilogram.util.AppExecutors
 
 class TrainingExerciseRepository(
@@ -10,12 +10,10 @@ class TrainingExerciseRepository(
         private val trainingExerciseDao: TrainingExerciseDao
 ) {
     
-    fun loadTrainingExerciseRs(trainingId: Long) = trainingExerciseDao.getTrainingExerciseRs(trainingId)
+    fun loadDetailedTrainingExerciseList(trainingId: Long) = trainingExerciseDao.getDetailedTrainingExerciseList(trainingId)
     
-    fun loadTrainingExerciseR(id: Long) = trainingExerciseDao.getTrainingExerciseR(id)
-    
-    fun loadPrevTrainingExerciseInfo(trainingId: Long, exerciseId: Long)
-            = trainingExerciseDao.getPrevTrainingExerciseInfo(trainingId, exerciseId)
+    fun loadPrevTrainingExercise(trainingId: Long, exercise: String)
+            = trainingExerciseDao.getPrevTrainingExercise(trainingId, exercise)
     
     fun loadTrainingExercise(id: Long) = trainingExerciseDao.getTrainingExercise(id)
     
@@ -25,7 +23,7 @@ class TrainingExerciseRepository(
         }
     }
 
-    fun deleteExercise(exercise: TrainingExerciseR) {
+    fun deleteExercise(exercise: DetailedTrainingExercise) {
         executors.diskIO().execute{
             trainingExerciseDao.deleteExerciseFromTraining(exercise._id)
         }
@@ -43,9 +41,9 @@ class TrainingExerciseRepository(
         }
     }
     
-    fun updateNums(items: List<TrainingExerciseR>) {
+    fun updateIndexNumbers(items: List<DetailedTrainingExercise>) {
         executors.diskIO().execute {
-            trainingExerciseDao.updateNums(items)
+            trainingExerciseDao.updateIndexNumbers(items)
         }
     }
     

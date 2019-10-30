@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
-import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR
+import com.dmitrysimakov.kilogram.data.relation.DetailedTrainingExercise
 import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
@@ -23,7 +23,7 @@ class TrainingExercisesViewModel(
     }
     
     private val exercises = Transformations.switchMap(_trainingId) {
-        trainingExerciseRepository.loadTrainingExerciseRs(it)
+        trainingExerciseRepository.loadDetailedTrainingExerciseList(it)
     }
     
     val runningExercises = Transformations.map(exercises) { exercise ->
@@ -42,9 +42,9 @@ class TrainingExercisesViewModel(
         _trainingId.setNewValue(id)
     }
 
-    fun deleteExercise(exercise: TrainingExerciseR) {
+    fun deleteExercise(exercise: DetailedTrainingExercise) {
         trainingExerciseRepository.deleteExercise(exercise)
-        exerciseRepository.decreaseExecutionsCnt(exercise.exercise_id)
+        exerciseRepository.decreaseExecutionsCnt(exercise.exercise)
     }
     
     fun finishTraining(duration: Int) {
@@ -55,15 +55,15 @@ class TrainingExercisesViewModel(
         }
     }
     
-    fun finishExercise(exercise: TrainingExerciseR) {
+    fun finishExercise(exercise: DetailedTrainingExercise) {
         trainingExerciseRepository.updateState(exercise._id, TrainingExercise.FINISHED)
-        exerciseRepository.increaseExecutionsCnt(exercise.exercise_id)
+        exerciseRepository.increaseExecutionsCnt(exercise.exercise)
     }
     
     fun updateNums() {
         plannedExercises.value?.let { list ->
-            list.forEachIndexed { index, exercise -> exercise.num = index + 1 }
-            trainingExerciseRepository.updateNums(list)
+            list.forEachIndexed { index, exercise -> exercise.indexNumber = index + 1 }
+            trainingExerciseRepository.updateIndexNumbers(list)
         }
     }
 }

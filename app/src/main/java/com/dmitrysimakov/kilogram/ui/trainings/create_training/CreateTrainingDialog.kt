@@ -33,13 +33,6 @@ class CreateTrainingDialog : AppCompatDialogFragment() {
     
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        
-        sharedVM.programDayId.observe(this, Observer { if (it != null) vm.setProgramDay(it) })
-        vm.byProgram.observe(this, Observer {  })
-        vm.programDay.observe(this, Observer {
-            if (it != null) vm.byProgram.setNewValue(true)
-        })
-        
         binding = DialogCreateTrainingBinding.inflate(LayoutInflater.from(context))
     }
 
@@ -60,6 +53,8 @@ class CreateTrainingDialog : AppCompatDialogFragment() {
         setTimePickerDialog()
         return binding.root
     }
+    
+    
 
     private fun setDatePickerDialog() {
         binding.dateTv.setOnClickListener {
@@ -102,13 +97,19 @@ class CreateTrainingDialog : AppCompatDialogFragment() {
             activity?.toolbar?.setNavigationIcon(R.drawable.ic_close_24dp)
             setHasOptionsMenu(true)
         }
+    
+        sharedVM.programDayId.observe(viewLifecycleOwner, Observer { if (it != null) vm.setProgramDay(it) })
+        vm.byProgram.observe(viewLifecycleOwner, Observer {  })
+        vm.programDay.observe(viewLifecycleOwner, Observer {
+            if (it != null) vm.byProgram.setNewValue(true)
+        })
         
         binding.programDayTV.setOnClickListener {
             findNavController().navigate(CreateTrainingDialogDirections.toChooseProgramFragment())
         }
     
-        muscleAdapter = ChipGroupFilterAdapter(binding.musclesCG) { id, isChecked ->
-            vm.muscleList.value?.find{ it._id == id }?.is_active = isChecked
+        muscleAdapter = ChipGroupFilterAdapter(binding.musclesCG) { name, isChecked ->
+            vm.muscleList.value?.find{ it.name == name }?.is_active = isChecked
         }
         vm.muscleList.observe(viewLifecycleOwner, Observer { muscleAdapter.submitList(it) })
         

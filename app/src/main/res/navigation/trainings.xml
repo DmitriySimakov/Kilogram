@@ -98,8 +98,8 @@
         android:label="@string/addExercise"
         tools:layout="@layout/fragment_add_exercise">
         <argument
-            android:name="exercise_id"
-            app:argType="long" />
+            android:name="exercise"
+            app:argType="string" />
         <argument
             android:name="num"
             app:argType="integer" />

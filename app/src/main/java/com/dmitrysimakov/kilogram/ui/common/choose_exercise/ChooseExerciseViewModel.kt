@@ -19,25 +19,27 @@ class ChooseExerciseViewModel (
     
     private val query = MediatorLiveData<SupportSQLiteQuery>()
     
-    fun setSearchText(newString: String?) { _searchText.setNewValue(newString) }
     private val _searchText = MutableLiveData<String>()
     val searchText: LiveData<String>
         get() = _searchText
+    fun setSearchText(newString: String?) { _searchText.setNewValue(newString) }
     
     val addedToFavorite = MutableLiveData<Boolean>()
     val performedEarlier = MutableLiveData<Boolean>()
     
-    fun setMuscle(id: Long) { muscleId.setNewValue(id) }
-    private val muscleId = MutableLiveData<Long>()
-    private val exercisesMuscles = Transformations.switchMap(muscleId) {
+    private val muscleName = MutableLiveData<String>()
+    fun setMuscle(name: String) { muscleName.setNewValue(name) }
+    
+    private val exercisesMuscles = Transformations.switchMap(muscleName) { muscleName ->
         Transformations.map(exerciseRepo.loadMuscleParams()) { list ->
-            list[muscleId.value!!.toInt() - 1].is_active = true
+            list.find { it.name == muscleName }?.is_active = true
             list
         }
     }
     
-    fun setProgramDay(id: Long) { programDayId.setNewValue(id) }
     private val programDayId = MutableLiveData<Long>()
+    fun setProgramDay(id: Long) { programDayId.setNewValue(id) }
+    
     private val programMuscles = Transformations.switchMap(programDayId)  {
         programDayMuscleRepo.loadParams(it)
     }
@@ -65,19 +67,19 @@ class ChooseExerciseViewModel (
     }
     
     private fun getQuery(): SupportSQLiteQuery {
-        val muscleIds = muscleList.getActiveIds()
-        val mechanicsTypeIds = mechanicsTypeList.getActiveIds()
-        val exerciseTypeIds = exerciseTypeList.getActiveIds()
-        val equipmentIds = equipmentList.getActiveIds()
+        val muscles = muscleList.getActiveParamsString()
+        val mechanicsTypes = mechanicsTypeList.getActiveParamsString()
+        val exerciseTypes = exerciseTypeList.getActiveParamsString()
+        val equipments = equipmentList.getActiveParamsString()
         
-        val sb = StringBuilder("SELECT * FROM exercise WHERE _id != 0")
+        val sb = StringBuilder("SELECT * FROM exercise WHERE name IS NOT NULL")
         _searchText.value?.let { if (it.isNotEmpty()) sb.append(" AND name LIKE '%$it%'") }
         if (addedToFavorite.value == true) sb.append(" AND is_favorite == 1")
         if (performedEarlier.value == true) sb.append(" AND executions_cnt > 0")
-        if (muscleIds.isNotEmpty()) sb.append(" AND main_muscle_id IN ($muscleIds)")
-        if (mechanicsTypeIds.isNotEmpty()) sb.append(" AND mechanics_type_id IN ($mechanicsTypeIds)")
-        if (exerciseTypeIds.isNotEmpty()) sb.append(" AND exercise_type_id IN ($exerciseTypeIds)")
-        if (equipmentIds.isNotEmpty()) sb.append(" AND equipment_id IN ($equipmentIds)")
+        if (muscles.isNotEmpty()) sb.append(" AND main_muscle IN ($muscles)")
+        if (mechanicsTypes.isNotEmpty()) sb.append(" AND mechanics_type IN ($mechanicsTypes)")
+        if (exerciseTypes.isNotEmpty()) sb.append(" AND exercise_type IN ($exerciseTypes)")
+        if (equipments.isNotEmpty()) sb.append(" AND equipment IN ($equipments)")
         sb.append(" ORDER BY executions_cnt DESC")
         val res = sb.toString()
         Timber.d("QUERY = $res")
@@ -89,26 +91,14 @@ class ChooseExerciseViewModel (
     }
     
     fun setFavorite(exercise: Exercise, isChecked: Boolean) {
-        exerciseRepo.setFavorite(exercise._id, isChecked)
+        exerciseRepo.setFavorite(exercise.name, isChecked)
     }
     
-    fun setChecked(data: LiveData<List<FilterParam>>, id: Long, isChecked: Boolean) {
-        data.value?.find{ it._id == id }?.is_active = isChecked
+    fun setChecked(data: LiveData<List<FilterParam>>, name: String, isChecked: Boolean) {
+        data.value?.find{ it.name == name }?.is_active = isChecked
         query.value = getQuery()
     }
     
-    private fun LiveData<List<FilterParam>>.getActiveIds(): String {
-        val sb = StringBuilder("")
-        value?.let {
-            var separator = ""
-            for (item in it) {
-                if (item.is_active) {
-                    sb.append(separator)
-                    separator = ", "
-                    sb.append(item._id)
-                }
-            }
-        }
-        return sb.toString()
-    }
+    private fun LiveData<List<FilterParam>>.getActiveParamsString() =
+            value?.filter { it.is_active }?.joinToString(", ") { "'${it.name}'" } ?: ""
 }

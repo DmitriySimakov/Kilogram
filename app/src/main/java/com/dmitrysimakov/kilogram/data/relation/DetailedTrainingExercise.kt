@@ -2,11 +2,10 @@ package com.dmitrysimakov.kilogram.data.relation
 
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 
-data class TrainingExerciseR(
+data class DetailedTrainingExercise(
         val _id: Long,
-        val exercise_id: Long,
-        val name: String,
-        var num: Int,
+        val exercise: String,
+        var indexNumber: Int,
         val rest: Int,
         val secs_since_start: Int = 0,
         val strategy: String? = null,

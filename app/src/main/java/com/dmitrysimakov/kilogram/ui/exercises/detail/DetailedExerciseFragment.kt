@@ -5,19 +5,19 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.databinding.FragmentExerciseDetailBinding
+import com.dmitrysimakov.kilogram.databinding.FragmentDetailedExerciseBinding
 import kotlinx.android.synthetic.main.app_bar_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ExerciseDetailFragment : Fragment() {
+class DetailedExerciseFragment : Fragment() {
 
-    private val vm: ExerciseDetailViewModel by viewModel()
+    private val vm: DetailedExerciseViewModel by viewModel()
     
-    private lateinit var binding: FragmentExerciseDetailBinding
+    private lateinit var binding: FragmentDetailedExerciseBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
-        binding = FragmentExerciseDetailBinding.inflate(inflater)
+        binding = FragmentDetailedExerciseBinding.inflate(inflater)
         binding.vm = vm
         binding.lifecycleOwner = this
         return binding.root
@@ -26,8 +26,8 @@ class ExerciseDetailFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         
-        val params = ExerciseDetailFragmentArgs.fromBundle(arguments!!)
-        vm.setExercise(params.exerciseId)
+        val params = DetailedExerciseFragmentArgs.fromBundle(arguments!!)
+        vm.setExerciseName(params.exercise)
         
         activity?.fab?.hide()
     }

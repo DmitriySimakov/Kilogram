@@ -6,11 +6,11 @@ import java.util.*
 
 class TrainingsViewModel (private val repository: TrainingRepository) : ViewModel() {
 
-    val trainingList = repository.loadTrainingRList()
+    val detailedTrainings = repository.loadDetailedTrainingList()
 
     fun findPositionInTrainingList(calendar: Calendar): Int {
         val ms = calendar.time.time
-        val pos = trainingList.value?.indexOfFirst { it.start_time < ms }
+        val pos = detailedTrainings.value?.indexOfFirst { it.start_time < ms }
         return if (pos == null || pos == -1) 0 else pos
     }
     

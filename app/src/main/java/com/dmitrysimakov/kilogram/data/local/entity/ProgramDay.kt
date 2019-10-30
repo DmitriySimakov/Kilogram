@@ -18,7 +18,7 @@ import androidx.room.PrimaryKey
 data class ProgramDay(
         @PrimaryKey(autoGenerate = true) val _id: Long = 0,
         val program_id: Long,
-        var num: Int,
+        var indexNumber: Int,
         val name: String,
         val description: String = ""
 )

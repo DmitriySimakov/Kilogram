@@ -29,18 +29,18 @@ class CreateTrainingViewModel(
     private val _programDayId = MutableLiveData<Long>()
     val programDay = Transformations.switchMap(_programDayId) {
         when (it) {
-            0L -> programDayRepo.loadNextProgramDayR()
-            else -> programDayRepo.loadProgramDayR(it)
+            0L -> programDayRepo.loadNextProgramDayAndProgram()
+            else -> programDayRepo.loadProgramDayAndProgram(it)
         }
     }
     
     fun createTraining(callback: ((Long) -> Unit)) {
-        val programDayId = if (byProgram.value!!) programDay.value?.program_day_id else null
-        trainingRepo.insertTraining(Training(0,programDayId, calendar.value!!.timeInMillis), callback)
+        val programDayId = if (byProgram.value == true) _programDayId.value else null
+        trainingRepo.insertTraining(Training(0, calendar.value!!.timeInMillis, programDayId), callback)
     }
     
     fun fillTrainingWithProgramExercises(trainingId: Long) {
-        programDay.value?.let { trainingExerciseRepo.fillTrainingWithProgramExercises(trainingId, it.program_day_id) }
+        _programDayId.value?.let { trainingExerciseRepo.fillTrainingWithProgramExercises(trainingId, it) }
     }
     
     
@@ -54,7 +54,7 @@ class CreateTrainingViewModel(
     fun saveMuscles(trainingId: Long) {
         val list = mutableListOf<TrainingMuscle>()
         for (muscle in muscleList.value!!) {
-            if (muscle.is_active) list.add(TrainingMuscle(trainingId, muscle._id))
+            if (muscle.is_active) list.add(TrainingMuscle(trainingId, muscle.name))
         }
         trainingMuscleRepo.insert(list)
     }

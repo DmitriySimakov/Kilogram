@@ -11,14 +11,15 @@ class ExerciseRepository(
         private val muscleDao: MuscleDao,
         private val mechanicsTypeDao: MechanicsTypeDao,
         private val exerciseTypeDao: ExerciseTypeDao,
-        private val equipmentDao: EquipmentDao
+        private val equipmentDao: EquipmentDao,
+        private val targetedMuscleDao: TargetedMuscleDao
 ) {
 
     fun loadExerciseList(query: SupportSQLiteQuery) = exerciseDao.getExerciseList(query)
 
-    fun loadExercise(id: Long) = exerciseDao.getExercise(id)
+    fun loadExercise(name: String) = exerciseDao.getExercise(name)
     
-    fun loadDetailedExerciseR(id: Long) = exerciseDao.getDetailedExerciseR(id)
+    fun loadTargetedMuscles(exerciseName: String) = targetedMuscleDao.getTargetedMuscles(exerciseName)
     
     fun updateExercise(exercise: Exercise) {
         executors.diskIO().execute {
@@ -26,32 +27,32 @@ class ExerciseRepository(
         }
     }
     
-    fun setFavorite(id: Long, isFavorite: Boolean) {
+    fun setFavorite(name: String, isFavorite: Boolean) {
         executors.diskIO().execute {
-            exerciseDao.setFavorite(id, isFavorite)
+            exerciseDao.setFavorite(name, isFavorite)
         }
     }
     
-    fun increaseExecutionsCnt(id: Long) {
+    fun increaseExecutionsCnt(name: String) {
         executors.diskIO().execute {
-            exerciseDao.increaseExecutionsCnt(id)
+            exerciseDao.increaseExecutionsCnt(name)
         }
     }
     
-    fun decreaseExecutionsCnt(id: Long) {
+    fun decreaseExecutionsCnt(name: String) {
         executors.diskIO().execute {
-            exerciseDao.decreaseExecutionsCnt(id)
+            exerciseDao.decreaseExecutionsCnt(name)
         }
     }
     
     
-    fun loadMuscleParams() = muscleDao.getParams()
+    fun loadMuscleParams() = muscleDao.getParamList()
     
-    fun loadMuscleParams(id: Long) = muscleDao.getProgramDayParams(id)
+    fun loadMuscleParams(id: Long) = muscleDao.getProgramDayParamList(id)
     
-    fun loadMechanicsTypeParams() = mechanicsTypeDao.getParams()
+    fun loadMechanicsTypeParams() = mechanicsTypeDao.getParamList()
     
-    fun loadExerciseTypeParams() = exerciseTypeDao.getParams()
+    fun loadExerciseTypeParams() = exerciseTypeDao.getParamList()
     
-    fun loadEquipmentParams() = equipmentDao.getParams()
+    fun loadEquipmentParams() = equipmentDao.getParamList()
 }

@@ -32,7 +32,7 @@ class MessagesViewModel : ViewModel() {
     }
     
     val messages = Transformations.switchMap(_chat) {
-        messagesCollection.orderBy("timestamp").liveData { doc ->
+        messagesCollection.orderBy("start_time").liveData { doc ->
             doc.toObject(Message::class.java)?.also { msg ->
                 msg.id = doc.id
                 val sender = _chat.value!!.members.find { member -> member.id == msg.sender.id }

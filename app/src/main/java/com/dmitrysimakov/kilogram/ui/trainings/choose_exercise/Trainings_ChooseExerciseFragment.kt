@@ -16,7 +16,7 @@ class Trainings_ChooseExerciseFragment : ChooseExerciseFragment() {
         exerciseAdapter.clickCallback = { exercise ->
             hideKeyboard()
             findNavController().navigate(Trainings_ChooseExerciseFragmentDirections
-                    .toAddExerciseFragment(exercise._id, params.num, params.trainingId))
+                    .toAddExerciseFragment(exercise.name, params.num, params.trainingId))
         }
     }
 }

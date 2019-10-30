@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR
+import com.dmitrysimakov.kilogram.data.relation.DetailedTrainingExercise
 import com.dmitrysimakov.kilogram.databinding.FragmentTrainingExercisesBinding
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.util.AppExecutors
@@ -36,15 +36,6 @@ class TrainingExercisesFragment : Fragment() {
     private val exercisePlannedListAdapter by lazy { ExercisePlannedListAdapter(executors) { toSetsFragment(it) } }
     private val exerciseFinishedListAdapter by lazy { ExerciseFinishedListAdapter(executors) { toSetsFragment(it) } }
     
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        vm.setTraining(params.trainingId)
-        vm.training.observe(viewLifecycleOwner, Observer {  })
-        vm.runningExercises.observe(viewLifecycleOwner, Observer { exerciseRunningListAdapter.submitList(it) })
-        vm.plannedExercises.observe(viewLifecycleOwner, Observer { exercisePlannedListAdapter.submitList(it) })
-        vm.finishedExercises.observe(viewLifecycleOwner, Observer { exerciseFinishedListAdapter.submitList(it) })
-    }
-    
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentTrainingExercisesBinding.inflate(inflater)
         binding.lifecycleOwner = this
@@ -60,6 +51,15 @@ class TrainingExercisesFragment : Fragment() {
         }
         
         return binding.root
+    }
+    
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        vm.setTraining(params.trainingId)
+        vm.training.observe(viewLifecycleOwner, Observer {  })
+        vm.runningExercises.observe(viewLifecycleOwner, Observer { exerciseRunningListAdapter.submitList(it) })
+        vm.plannedExercises.observe(viewLifecycleOwner, Observer { exercisePlannedListAdapter.submitList(it) })
+        vm.finishedExercises.observe(viewLifecycleOwner, Observer { exerciseFinishedListAdapter.submitList(it) })
     }
     
     private fun setupAdapters() {
@@ -102,7 +102,7 @@ class TrainingExercisesFragment : Fragment() {
         }
     }
     
-    private fun toSetsFragment(exercise: TrainingExerciseR) {
+    private fun toSetsFragment(exercise: DetailedTrainingExercise) {
         findNavController().navigate(TrainingExercisesFragmentDirections
                 .toTrainingSetsFragment(params.trainingId, exercise._id))
     }

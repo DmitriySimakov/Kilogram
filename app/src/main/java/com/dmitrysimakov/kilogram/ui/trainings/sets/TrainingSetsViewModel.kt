@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
-import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseSetR
+import com.dmitrysimakov.kilogram.data.relation.SetWithPreviousResults
 import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseSetRepository
@@ -30,7 +30,7 @@ class TrainingSetsViewModel(
     }
     
     val prevExercise = Transformations.switchMap(exercise) {
-        trainingExerciseRepository.loadPrevTrainingExerciseInfo(trainingId, it.exercise_id)
+        trainingExerciseRepository.loadPrevTrainingExercise(trainingId, it.exercise)
     }
     
     val currSets = Transformations.switchMap(exercise) {
@@ -42,15 +42,15 @@ class TrainingSetsViewModel(
         else MutableLiveData(emptyList())
     }
     
-    val sets = MediatorLiveData<List<TrainingExerciseSetR>>()
+    val sets = MediatorLiveData<List<SetWithPreviousResults>>()
     
     init {
         fun joinSets() {
-            val res = mutableListOf<TrainingExerciseSetR>()
+            val res = mutableListOf<SetWithPreviousResults>()
             for (i in 0 until max(currSets.value?.size ?: 0, prevSets.value?.size ?: 0)) {
                 val curr = try { currSets.value?.get(i) } catch (e: Exception) {null}
                 val prev = try {prevSets.value?.get(i) } catch (e: Exception) {null}
-                res.add(TrainingExerciseSetR(curr?._id ?: 0L, curr?.weight, curr?.reps, curr?.time, curr?.distance,
+                res.add(SetWithPreviousResults(curr?._id ?: 0L, curr?.weight, curr?.reps, curr?.time, curr?.distance,
                         prev?._id ?: 0L, prev?.weight, prev?.reps, prev?.time, prev?.distance))
             }
             sets.value = res
@@ -66,6 +66,6 @@ class TrainingSetsViewModel(
     
     fun finishExercise(trainingExerciseId: Long) {
         trainingExerciseRepository.updateState(trainingExerciseId, TrainingExercise.FINISHED)
-        exercise.value?.let { exerciseRepository.increaseExecutionsCnt(it.exercise_id) }
+        exercise.value?.let { exerciseRepository.increaseExecutionsCnt(it.exercise) }
     }
 }

@@ -42,12 +42,6 @@ class AddSetDialog : AppCompatDialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding.viewModel = vm
         binding.lifecycleOwner = this
-
-        vm.setTrainingExercise(params.trainingExerciseId)
-        vm.setSet(params.setId, params.weight, params.reps, params.time, params.distance)
-        vm.set.observe(viewLifecycleOwner, Observer {  })
-        vm.trainingExercise.observe(viewLifecycleOwner, Observer {  })
-
         return binding.root
     }
 
@@ -57,6 +51,11 @@ class AddSetDialog : AppCompatDialogFragment() {
             activity?.toolbar?.setNavigationIcon(R.drawable.ic_close_24dp)
             setHasOptionsMenu(true)
         }
+    
+        vm.setTrainingExercise(params.trainingExerciseId)
+        vm.setSet(params.setId, params.weight, params.reps, params.time, params.distance)
+        vm.set.observe(viewLifecycleOwner, Observer {  })
+        vm.trainingExercise.observe(viewLifecycleOwner, Observer {  })
 
         activity?.fab?.hide()
     }

@@ -12,7 +12,7 @@ class Programs_AddExerciseFragment : AddExerciseFragment() {
     
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        vm.setExercise(params.exerciseId)
+        vm.setExercise(params.exercise)
     }
     
     override fun addExercise() {

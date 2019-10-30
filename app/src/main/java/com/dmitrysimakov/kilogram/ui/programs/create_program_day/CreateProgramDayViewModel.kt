@@ -35,7 +35,7 @@ class CreateProgramDayViewModel(
     fun saveMuscles(trainingId: Long) {
         val list = mutableListOf<ProgramDayMuscle>()
         for (muscle in muscleList.value!!) {
-            if (muscle.is_active) list.add(ProgramDayMuscle(trainingId, muscle._id))
+            if (muscle.is_active) list.add(ProgramDayMuscle(trainingId, muscle.name))
         }
         programDayMuscleRepo.insert(list)
     }

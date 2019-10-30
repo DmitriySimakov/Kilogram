@@ -3,19 +3,19 @@ package com.dmitrysimakov.kilogram.ui.measurements.add_measurement
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import com.dmitrysimakov.kilogram.data.relation.MeasurementR
+import com.dmitrysimakov.kilogram.data.relation.MeasurementWithPreviousResults
 import com.dmitrysimakov.kilogram.databinding.ItemMeasurementBinding
 import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 
 class MeasurementsAdapter (
         appExecutors: AppExecutors,
-        clickCallback: ((MeasurementR) -> Unit)? = null
-) : DataBoundListAdapter<MeasurementR, ItemMeasurementBinding>(appExecutors, clickCallback,
-        object : DiffUtil.ItemCallback<MeasurementR>() {
-            override fun areItemsTheSame(oldItem: MeasurementR, newItem: MeasurementR) =
+        clickCallback: ((MeasurementWithPreviousResults) -> Unit)? = null
+) : DataBoundListAdapter<MeasurementWithPreviousResults, ItemMeasurementBinding>(appExecutors, clickCallback,
+        object : DiffUtil.ItemCallback<MeasurementWithPreviousResults>() {
+            override fun areItemsTheSame(oldItem: MeasurementWithPreviousResults, newItem: MeasurementWithPreviousResults) =
                     oldItem._id == newItem._id
-            override fun areContentsTheSame(oldItem: MeasurementR, newItem: MeasurementR) =
+            override fun areContentsTheSame(oldItem: MeasurementWithPreviousResults, newItem: MeasurementWithPreviousResults) =
                     oldItem == newItem
         }
 ) {
@@ -23,7 +23,7 @@ class MeasurementsAdapter (
     override fun createBinding(parent: ViewGroup) = ItemMeasurementBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
 
-    override fun bind(binding: ItemMeasurementBinding, item: MeasurementR) {
+    override fun bind(binding: ItemMeasurementBinding, item: MeasurementWithPreviousResults) {
         binding.measurement = item
     }
 }

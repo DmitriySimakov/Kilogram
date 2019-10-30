@@ -33,7 +33,7 @@ class Programs_ChooseProgramDayFragment : ChooseProgramDayFragment() {
                 return false
             }
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                vm.deleteTrainingDay(adapter.getItem(viewHolder.adapterPosition))
+                vm.deleteTrainingDay(adapter.getItem(viewHolder.adapterPosition)._id)
             }
         }).attachToRecyclerView(recyclerView)
     

@@ -8,10 +8,8 @@ class TrainingRepository(
         private val executors: AppExecutors,
         private val trainingDao: TrainingDao
 ) {
-
-    fun loadTrainingList() = trainingDao.getTrainingList()
     
-    fun loadTrainingRList() = trainingDao.getTrainingRList()
+    fun loadDetailedTrainingList() = trainingDao.getDetailedTrainingList()
     
     fun loadTraining(id: Long) = trainingDao.getTraining(id)
 

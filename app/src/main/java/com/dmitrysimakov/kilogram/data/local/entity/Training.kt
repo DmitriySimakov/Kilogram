@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import java.util.*
 
 @Entity(tableName = "training",
         indices = [Index(value = ["program_day_id"])],
@@ -17,7 +18,7 @@ import androidx.room.PrimaryKey
 )
 data class Training(
         @PrimaryKey(autoGenerate = true) val _id: Long = 0,
-        var program_day_id: Long? = null,
         val start_time: Long,
+        var program_day_id: Long? = null,
         var duration: Int? = null
 )

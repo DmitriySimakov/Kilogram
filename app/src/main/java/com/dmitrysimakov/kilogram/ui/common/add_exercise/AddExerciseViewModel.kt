@@ -17,30 +17,29 @@ class AddExerciseViewModel (
         private val programDayExerciseRepository: ProgramDayExerciseRepository
 ) : ViewModel() {
     
-    private val _exerciseId = MutableLiveData<Long>()
+    private val _exerciseName = MutableLiveData<String>()
+    fun setExercise(name: String) {
+        _exerciseName.setNewValue(name)
+    }
     
-    val exercise = Transformations.switchMap(_exerciseId) {
+    val exercise = Transformations.switchMap(_exerciseName) {
         exerciseRepository.loadExercise(it)
     }
     
-    fun setExercise(id: Long) {
-        _exerciseId.setNewValue(id)
-    }
-    
-    private val _restTime = MutableLiveData(3*60)
+    private val _restTime = MutableLiveData(3*60) //TODO
     val restTime: LiveData<Int>
         get() = _restTime
     
     val strategy = MutableLiveData<String>()
     
-    fun addExerciseToTraining(trainingId: Long, num: Int, rest: Int) {
+    fun addExerciseToTraining(trainingId: Long, num: Int, rest: Int) { //TODO
         exercise.value?.let { trainingExerciseRepository.addExercise(
-                TrainingExercise(0, trainingId, it._id, num, rest, strategy.value, TrainingExercise.PLANNED, it.measures)) }
+                TrainingExercise(0, trainingId, it.name, num, rest, strategy.value, TrainingExercise.PLANNED, it.measures)) }
     }
     
-    fun addExerciseToProgramDay(programDayId: Long, num: Int, rest: Int) {
+    fun addExerciseToProgramDay(programDayId: Long, num: Int, rest: Int) { //TODO
         exercise.value?.let { programDayExerciseRepository.addExerciseToProgramDay(
-                ProgramDayExercise(0, programDayId, it._id, num, rest, strategy.value, it.measures)) }
+                ProgramDayExercise(0, programDayId, it.name, num, rest, strategy.value, it.measures)) }
     }
     
     fun updateMeasures() {

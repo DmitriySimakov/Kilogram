@@ -32,7 +32,7 @@ class ChooseMuscleFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
     
         adapter.clickCallback = { muscle ->
-            findNavController().navigate(ChooseMuscleFragmentDirections.toChooseExerciseFragment(muscle._id))
+            findNavController().navigate(ChooseMuscleFragmentDirections.toChooseExerciseFragment(muscle.name))
         }
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))

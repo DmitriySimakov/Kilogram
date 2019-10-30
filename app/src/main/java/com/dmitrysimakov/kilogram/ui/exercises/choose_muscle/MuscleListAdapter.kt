@@ -14,7 +14,7 @@ class MuscleListAdapter(
 ) : DataBoundListAdapter<Muscle, ItemChooseMuscleBinding>(appExecutors, clickCallback,
         object : DiffUtil.ItemCallback<Muscle>() {
             override fun areItemsTheSame(oldItem: Muscle, newItem: Muscle) =
-                    oldItem._id == newItem._id
+                    oldItem.name == newItem.name
             override fun areContentsTheSame(oldItem: Muscle, newItem: Muscle) =
                     oldItem == newItem
         }

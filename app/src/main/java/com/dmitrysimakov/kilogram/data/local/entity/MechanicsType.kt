@@ -4,7 +4,4 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "mechanics_type")
-data class MechanicsType(
-        @PrimaryKey(autoGenerate = true) val _id: Long = 0,
-        val name: String
-)
+data class MechanicsType(@PrimaryKey val name: String)

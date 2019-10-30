@@ -21,15 +21,15 @@
             android:id="@+id/to_exerciseDetailFragment"
             app:destination="@id/exerciseDetailFragment" />
         <argument
-            android:name="muscle_id"
-            app:argType="long" />
+            android:name="muscle"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/exerciseDetailFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.exercises.detail.ExerciseDetailFragment"
-        tools:layout="@layout/fragment_exercise_detail">
+        android:name="com.dmitrysimakov.kilogram.ui.exercises.detail.DetailedExerciseFragment"
+        tools:layout="@layout/fragment_detailed_exercise">
         <argument
-            android:name="exercise_id"
-            app:argType="long" />
+            android:name="exercise"
+            app:argType="string" />
     </fragment>
 </navigation>
