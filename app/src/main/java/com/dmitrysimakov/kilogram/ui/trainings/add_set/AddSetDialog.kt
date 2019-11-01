@@ -8,6 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.DialogAddSetBinding
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
@@ -18,12 +19,12 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddSetDialog : AppCompatDialogFragment() {
     
+    private val args: AddSetDialogArgs by navArgs()
+    
     private val vm: AddSetViewModel by viewModel()
     private val sharedVM: SharedViewModel by sharedViewModel()
 
     private lateinit var binding: DialogAddSetBinding
-
-    private val params by lazy { AddSetDialogArgs.fromBundle(arguments!!) }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -52,8 +53,8 @@ class AddSetDialog : AppCompatDialogFragment() {
             setHasOptionsMenu(true)
         }
     
-        vm.setTrainingExercise(params.trainingExerciseId)
-        vm.setSet(params.setId, params.weight, params.reps, params.time, params.distance)
+        vm.setTrainingExercise(args.trainingExerciseId)
+        vm.setSet(args.setId, args.weight, args.reps, args.time, args.distance)
         vm.set.observe(viewLifecycleOwner, Observer {  })
         vm.trainingExercise.observe(viewLifecycleOwner, Observer {  })
 
@@ -79,7 +80,7 @@ class AddSetDialog : AppCompatDialogFragment() {
     }
     
     private fun submit() {
-        if (params.setId == 0L) {
+        if (args.setId == 0L) {
             vm.addSet(sharedVM.elapsedSessionTime.value ?: 0)
             sharedVM.onSetCompleted(vm.trainingExercise.value?.rest ?: 0)
         } else {

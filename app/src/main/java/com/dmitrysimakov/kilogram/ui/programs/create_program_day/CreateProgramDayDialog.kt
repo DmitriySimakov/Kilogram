@@ -8,6 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.DialogCreateProgramDayBinding
 import com.dmitrysimakov.kilogram.ui.common.ChipGroupFilterAdapter
@@ -22,7 +23,7 @@ class CreateProgramDayDialog : AppCompatDialogFragment() {
     
     private lateinit var muscleAdapter: ChipGroupFilterAdapter
     
-    private val params by lazy { CreateProgramDayDialogArgs.fromBundle(arguments!!) }
+    private val args: CreateProgramDayDialogArgs by navArgs()
     
     private val vm: CreateProgramDayViewModel by viewModel()
 
@@ -41,7 +42,7 @@ class CreateProgramDayDialog : AppCompatDialogFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        vm.setProgram(params.programId)
+        vm.setProgram(args.programId)
         binding.viewModel = vm
         binding.lifecycleOwner = this
         return binding.root
@@ -86,7 +87,7 @@ class CreateProgramDayDialog : AppCompatDialogFragment() {
     
     private fun submit() {
         if (validate()) {
-            vm.createProgramDay(params.num) { id ->
+            vm.createProgramDay(args.num) { id ->
                 vm.saveMuscles(id)
                 findNavController().navigate(CreateProgramDayDialogDirections.toExercisesFragment(id))
             }

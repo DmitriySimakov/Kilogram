@@ -5,6 +5,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -19,10 +20,10 @@ import java.util.*
 
 class TrainingExercisesFragment : Fragment() {
     
+    private val args: TrainingExercisesFragmentArgs by navArgs()
+    
     private val vm: TrainingExercisesViewModel by viewModel()
     private val sharedVM: SharedViewModel by sharedViewModel()
-    
-    private val params by lazy { TrainingExercisesFragmentArgs.fromBundle(arguments!!) }
     
     private lateinit var binding: FragmentTrainingExercisesBinding
     
@@ -42,7 +43,7 @@ class TrainingExercisesFragment : Fragment() {
         activity?.fab?.show()
         activity?.fab?.setOnClickListener{
             findNavController().navigate(TrainingExercisesFragmentDirections
-                    .toChooseExerciseFragment(exercisePlannedListAdapter.itemCount + 1 ,params.trainingId))
+                    .toChooseExerciseFragment(exercisePlannedListAdapter.itemCount + 1 ,args.trainingId))
         }
         
         return binding.root
@@ -50,7 +51,7 @@ class TrainingExercisesFragment : Fragment() {
     
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        vm.setTraining(params.trainingId)
+        vm.setTraining(args.trainingId)
         vm.training.observe(viewLifecycleOwner, Observer {  })
         vm.runningExercises.observe(viewLifecycleOwner, Observer { exerciseRunningListAdapter.submitList(it) })
         vm.plannedExercises.observe(viewLifecycleOwner, Observer { exercisePlannedListAdapter.submitList(it) })
@@ -99,12 +100,12 @@ class TrainingExercisesFragment : Fragment() {
     
     private fun toSetsFragment(exercise: DetailedTrainingExercise) {
         findNavController().navigate(TrainingExercisesFragmentDirections
-                .toTrainingSetsFragment(params.trainingId, exercise._id))
+                .toTrainingSetsFragment(args.trainingId, exercise._id))
     }
     
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.training_exercises, menu)
-        if (!params.trainingIsRunning) {
+        if (!args.trainingIsRunning) {
             menu.removeItem(R.id.finish_training)
         }
         super.onCreateOptionsMenu(menu, inflater)

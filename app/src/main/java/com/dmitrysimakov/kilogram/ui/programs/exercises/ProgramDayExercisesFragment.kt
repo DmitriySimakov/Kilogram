@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,8 @@ import java.util.*
 
 class ProgramDayExercisesFragment : Fragment() {
     
+    private val args: ProgramDayExercisesFragmentArgs by navArgs()
+    
     private val vm: ProgramDayExercisesViewModel by viewModel()
     
     private val adapter by lazy { ProgramDayExerciseListAdapter() }
@@ -30,12 +33,10 @@ class ProgramDayExercisesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
     
-        val params = ProgramDayExercisesFragmentArgs.fromBundle(arguments!!)
-    
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
     
-        vm.setProgramDay(params.programDayId)
+        vm.setProgramDay(args.programDayId)
         vm.exercises.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
     
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.RIGHT) {
@@ -55,7 +56,7 @@ class ProgramDayExercisesFragment : Fragment() {
         activity?.fab?.show()
         activity?.fab?.setOnClickListener{
             findNavController().navigate(ProgramDayExercisesFragmentDirections
-                    .toChooseExerciseFragment(adapter.itemCount + 1, params.programDayId))
+                    .toChooseExerciseFragment(adapter.itemCount + 1, args.programDayId))
         }
     }
     

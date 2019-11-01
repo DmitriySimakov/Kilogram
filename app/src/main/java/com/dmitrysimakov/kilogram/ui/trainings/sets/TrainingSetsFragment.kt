@@ -5,6 +5,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -17,9 +18,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TrainingSetsFragment : Fragment() {
     
-    private val vm: TrainingSetsViewModel by viewModel()
+    private val args: TrainingSetsFragmentArgs by navArgs()
     
-    private val params by lazy { TrainingSetsFragmentArgs.fromBundle(arguments!!) }
+    private val vm: TrainingSetsViewModel by viewModel()
     
     private lateinit var binding: FragmentTrainingSetsBinding
     
@@ -37,15 +38,15 @@ class TrainingSetsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        vm.trainingId = params.trainingId
-        vm.setTrainingExercise(params.trainingExerciseId)
+        vm.trainingId = args.trainingId
+        vm.setTrainingExercise(args.trainingExerciseId)
         
         vm.exercise.observe(viewLifecycleOwner, Observer { exercise ->
             binding.exerciseMeasures = exercise.measures
         
             adapter = TrainingSetsAdapter(exercise.measures) { set ->
                 findNavController().navigate(TrainingSetsFragmentDirections
-                        .toAddSetDialog(params.trainingId, params.trainingExerciseId, set._id,
+                        .toAddSetDialog(args.trainingId, args.trainingExerciseId, set._id,
                                 set.prev_weight ?: 0, set.prev_reps ?: 0, set.prev_time ?: 0, set.prev_distance ?: 0))
             }
             recyclerView.adapter = adapter
@@ -84,7 +85,7 @@ class TrainingSetsFragment : Fragment() {
                 distance = prevLast.distance ?: 0
             }
             findNavController().navigate(TrainingSetsFragmentDirections
-                    .toAddSetDialog(params.trainingId, params.trainingExerciseId, 0, weight, reps, time, distance))
+                    .toAddSetDialog(args.trainingId, args.trainingExerciseId, 0, weight, reps, time, distance))
         }
     }
     
@@ -95,7 +96,7 @@ class TrainingSetsFragment : Fragment() {
     
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.finish_exercise -> {
-            vm.finishExercise(params.trainingExerciseId)
+            vm.finishExercise(args.trainingExerciseId)
             findNavController().popBackStack()
             true
         }

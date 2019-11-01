@@ -4,13 +4,16 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.FragmentDetailedExerciseBinding
 import kotlinx.android.synthetic.main.app_bar_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailedExerciseFragment : Fragment() {
-
+    
+    private val args: DetailedExerciseFragmentArgs by navArgs()
+    
     private val vm: DetailedExerciseViewModel by viewModel()
     
     private lateinit var binding: FragmentDetailedExerciseBinding
@@ -26,8 +29,7 @@ class DetailedExerciseFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         
-        val params = DetailedExerciseFragmentArgs.fromBundle(arguments!!)
-        vm.setExerciseName(params.exercise)
+        vm.setExerciseName(args.exercise)
         
         activity?.fab?.hide()
     }
