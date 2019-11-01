@@ -1,9 +1,9 @@
-package com.dmitrysimakov.kilogram.data.local
+package com.dmitrysimakov.kilogram.util
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
-import com.dmitrysimakov.kilogram.util.*
+import com.dmitrysimakov.kilogram.data.local.KilogramDb
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule

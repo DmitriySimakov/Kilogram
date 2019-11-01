@@ -1,7 +1,7 @@
-package com.dmitrysimakov.kilogram.data.local
+package com.dmitrysimakov.kilogram.data.local.dao
 
 import androidx.test.espresso.matcher.ViewMatchers.assertThat
-import com.dmitrysimakov.kilogram.data.local.dao.TrainingMuscleDao
+import com.dmitrysimakov.kilogram.util.DbTest
 import com.dmitrysimakov.kilogram.data.relation.FilterParam
 import com.dmitrysimakov.kilogram.util.getValue
 import com.dmitrysimakov.kilogram.util.testMuscles
@@ -17,13 +17,13 @@ class TrainingMuscleDaoTest : DbTest() {
         dao = db.trainingMuscleDao()
     }
     
-    @Test fun getParams() {
-        val params = getValue(dao.getParams(2))
+    @Test fun getParamList() {
+        val params = getValue(dao.getParamList(2))
         assertThat(params.size, equalTo(testMuscles.size))
         
         // Ensure list is sorted by id
-        assertThat(params[0], equalTo(FilterParam(testMuscles[0]._id, testMuscles[0].name, false)))
-        assertThat(params[3], equalTo(FilterParam(testMuscles[3]._id, testMuscles[3].name, true)))
-        assertThat(params[7], equalTo(FilterParam(testMuscles[7]._id, testMuscles[7].name, true)))
+        assertThat(params[0], equalTo(FilterParam(testMuscles[0].name, false)))
+        assertThat(params[3], equalTo(FilterParam(testMuscles[3].name, true)))
+        assertThat(params[6], equalTo(FilterParam(testMuscles[6].name, true)))
     }
 }

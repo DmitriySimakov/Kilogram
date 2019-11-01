@@ -36,7 +36,7 @@ class CreateTrainingViewModel(
     
     fun createTraining(callback: ((Long) -> Unit)) {
         val programDayId = if (byProgram.value == true) _programDayId.value else null
-        trainingRepo.insertTraining(Training(0, calendar.value!!.timeInMillis, programDayId), callback)
+        trainingRepo.insertTraining(Training(0, calendar.value!!.timeInMillis, null, programDayId), callback)
     }
     
     fun fillTrainingWithProgramExercises(trainingId: Long) {

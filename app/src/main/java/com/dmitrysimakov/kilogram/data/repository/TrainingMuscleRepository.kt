@@ -9,7 +9,7 @@ class TrainingMuscleRepository(
         private val trainingMuscleDao: TrainingMuscleDao
 ) {
     
-    fun loadParams(trainingId: Long) = trainingMuscleDao.getParams(trainingId)
+    fun loadParams(trainingId: Long) = trainingMuscleDao.getParamList(trainingId)
     
     fun insert(list: List<TrainingMuscle>) {
         executors.diskIO().execute {

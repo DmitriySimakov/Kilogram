@@ -1,12 +1,9 @@
-package com.dmitrysimakov.kilogram.data.local
+package com.dmitrysimakov.kilogram.data.local.dao
 
-import android.util.Log
 import androidx.test.espresso.matcher.ViewMatchers.assertThat
-import com.dmitrysimakov.kilogram.data.local.dao.TrainingExerciseDao
-import com.dmitrysimakov.kilogram.data.local.entity.Training
-import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
+import com.dmitrysimakov.kilogram.util.DbTest
+import com.dmitrysimakov.kilogram.data.relation.DetailedTrainingExercise
 import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseInfo
-import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseR
 import com.dmitrysimakov.kilogram.util.getValue
 import com.dmitrysimakov.kilogram.util.testExercises
 import com.dmitrysimakov.kilogram.util.testProgramDayExercises
@@ -23,32 +20,23 @@ class TrainingExerciseDaoTest : DbTest() {
         dao = db.trainingExerciseDao()
     }
     
-    @Test fun getTrainingExerciseRs() {
-        val list = getValue(dao.getTrainingExerciseRs(1))
+    @Test fun getDetailedTrainingExerciseList() {
+        val list = getValue(dao.getDetailedTrainingExerciseList(1))
         
         val exercisesSample = testTrainingExercises
                 .filter { it.training_id == 1L }
-                .map { it.relation() }
-                .sortedBy { it.num }
+                .map { DetailedTrainingExercise(it._id, it.exercise, it.indexNumber, it.rest, 0) }
+                .sortedBy { it.indexNumber }
         
         assertThat(list.size, equalTo(exercisesSample.size))
         
-        exercisesSample.forEachIndexed { i, trainingExerciseR ->
-            assertThat(list[i], equalTo(trainingExerciseR))
+        exercisesSample.forEachIndexed { i, detailedTrainingExercise ->
+            assertThat(list[i], equalTo(detailedTrainingExercise))
         }
     }
     
-    @Test fun getTrainingExerciseR() {
-        val exercise = getValue(dao.getTrainingExerciseR(1))
-        
-        val exerciseSample = testTrainingExercises
-                .find { it._id == 1L }!!
-                .relation()
-        assertThat(exercise, equalTo(exerciseSample))
-    }
-    
-    @Test fun getPrevTrainingExerciseInfo() {
-        val exerciseInfo = getValue(dao.getPrevTrainingExerciseInfo(2, 1))
+    @Test fun getPrevTrainingExercise() {
+        val exerciseInfo = getValue(dao.getPrevTrainingExercise(2, testExercises[0].name))
         
         val exerciseInfoSample = TrainingExerciseInfo(1, 1, 0)
         
@@ -60,15 +48,10 @@ class TrainingExerciseDaoTest : DbTest() {
         val exercises = getValue(dao.getTrainingExercises(3))
         val exercisesToFill = testProgramDayExercises
                 .filter { it.program_day_id == 1L }
-                .sortedBy { it.num }
+                .sortedBy { it.indexNumber }
         assertThat(exercises.size, equalTo(exercisesToFill.size))
         exercises.forEachIndexed { i, exercise ->
-            assertThat(exercise.exercise_id, equalTo(exercisesToFill[i].exercise_id))
+            assertThat(exercise.exercise, equalTo(exercisesToFill[i].exercise))
         }
-    }
-    
-    fun TrainingExercise.relation() : TrainingExerciseR {
-        val name = testExercises.find { it._id == exercise_id }!!.name
-        return TrainingExerciseR(_id, exercise_id, name, num, rest, 0)
     }
 }

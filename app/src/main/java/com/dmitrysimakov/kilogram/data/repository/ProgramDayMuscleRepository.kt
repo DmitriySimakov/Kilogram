@@ -9,7 +9,7 @@ class ProgramDayMuscleRepository(
         private val dao: ProgramDayMuscleDao
 ) {
     
-    fun loadParams(programId: Long) = dao.getParams(programId)
+    fun loadParams(programId: Long) = dao.getParamList(programId)
     
     fun insert(list: List<ProgramDayMuscle>) {
         executors.diskIO().execute {

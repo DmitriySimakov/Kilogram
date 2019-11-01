@@ -1,7 +1,7 @@
-package com.dmitrysimakov.kilogram.data.local
+package com.dmitrysimakov.kilogram.data.local.dao
 
 import androidx.test.espresso.matcher.ViewMatchers.assertThat
-import com.dmitrysimakov.kilogram.data.local.dao.MuscleDao
+import com.dmitrysimakov.kilogram.util.DbTest
 import com.dmitrysimakov.kilogram.data.local.entity.Program
 import com.dmitrysimakov.kilogram.data.local.entity.ProgramDay
 import com.dmitrysimakov.kilogram.data.local.entity.ProgramDayMuscle
@@ -20,30 +20,30 @@ class MuscleDaoTest : DbTest() {
         dao = db.muscleDao()
     }
     
-    @Test fun getParams() {
-        val params = getValue(dao.getParams())
+    @Test fun getParamList() {
+        val params = getValue(dao.getParamList())
         assertThat(params.size, equalTo(testMuscles.size))
         
         // Ensure list is sorted by id
         for (i in 0..testMuscles.lastIndex) {
-            assertThat(params[i], equalTo(FilterParam(testMuscles[i]._id, testMuscles[i].name, false)))
+            assertThat(params[i], equalTo(FilterParam(testMuscles[i].name, false)))
         }
     }
     
-    @Test fun getProgramDayParams() {
+    @Test fun getProgramDayParamList() {
         val programId = db.programDao().insert(Program(0, "PPL"))
         val programDayId = db.programDayDao().insert(ProgramDay(0, programId, 3, "Push"))
         db.programDayMuscleDao().insert(listOf(
-                ProgramDayMuscle(programDayId, 3),
-                ProgramDayMuscle(programDayId, 1)
+                ProgramDayMuscle(programDayId, testMuscles[2].name),
+                ProgramDayMuscle(programDayId, testMuscles[0].name)
         ))
         
-        val params = getValue(dao.getProgramDayParams(programDayId))
+        val params = getValue(dao.getProgramDayParamList(programDayId))
         assertThat(params.size, equalTo(testMuscles.size))
     
         // Ensure list is sorted by id
-        assertThat(params[0], equalTo(FilterParam(1, testMuscles[0].name, true)))
-        assertThat(params[1], equalTo(FilterParam(2, testMuscles[1].name, false)))
-        assertThat(params[2], equalTo(FilterParam(3, testMuscles[2].name, true)))
+        assertThat(params[0], equalTo(FilterParam(testMuscles[0].name, true)))
+        assertThat(params[1], equalTo(FilterParam(testMuscles[1].name, false)))
+        assertThat(params[2], equalTo(FilterParam(testMuscles[2].name, true)))
     }
 }

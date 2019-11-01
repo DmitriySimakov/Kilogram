@@ -19,6 +19,6 @@ import java.util.*
 data class Training(
         @PrimaryKey(autoGenerate = true) val _id: Long = 0,
         val start_time: Long,
-        var program_day_id: Long? = null,
-        var duration: Int? = null
+        var duration: Int? = null,
+        var program_day_id: Long? = null
 )

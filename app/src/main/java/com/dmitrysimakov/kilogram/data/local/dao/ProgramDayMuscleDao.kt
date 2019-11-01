@@ -14,10 +14,10 @@ interface ProgramDayMuscleDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(list: List<ProgramDayMuscle>)
     
-    @Query("""SELECT name, CASE WHEN pdm.program_day_id IS NULL THEN 0 ELSE 1 END AS is_active
+    @Query("""SELECT m.name, CASE WHEN pdm.program_day_id IS NULL THEN 0 ELSE 1 END AS is_active
         FROM muscle AS m
         LEFT JOIN program_day_muscle AS pdm
         ON pdm.program_day_id = :programId AND pdm.muscle = m.name
     """)
-    fun getParams(programId: Long): LiveData<List<FilterParam>>
+    fun getParamList(programId: Long): LiveData<List<FilterParam>>
 }
