@@ -45,7 +45,7 @@ class Programs_ChooseProgramDayFragment : ChooseProgramDayFragment() {
     }
     
     override fun onPause() {
-        vm.updateNums()
+        vm.updateIndexNumbers()
         super.onPause()
     }
 }

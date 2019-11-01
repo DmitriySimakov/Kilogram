@@ -1,13 +1,11 @@
 package com.dmitrysimakov.kilogram.ui.trainings.create_training
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.local.entity.Training
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingMuscle
 import com.dmitrysimakov.kilogram.data.repository.*
 import com.dmitrysimakov.kilogram.util.setNewValue
+import kotlinx.coroutines.launch
 import java.util.*
 
 class CreateTrainingViewModel(
@@ -34,14 +32,14 @@ class CreateTrainingViewModel(
         }
     }
     
-    fun createTraining(callback: ((Long) -> Unit)) {
+    fun createTraining(callback: ((Long) -> Unit)) { viewModelScope.launch {
         val programDayId = if (byProgram.value == true) _programDayId.value else null
         trainingRepo.insertTraining(Training(0, calendar.value!!.timeInMillis, null, programDayId), callback)
-    }
+    }}
     
-    fun fillTrainingWithProgramExercises(trainingId: Long) {
+    fun fillTrainingWithProgramExercises(trainingId: Long) { viewModelScope.launch {
         _programDayId.value?.let { trainingExerciseRepo.fillTrainingWithProgramExercises(trainingId, it) }
-    }
+    }}
     
     
     val muscleList = Transformations.switchMap(_programDayId) {
@@ -51,11 +49,11 @@ class CreateTrainingViewModel(
         }
     }
     
-    fun saveMuscles(trainingId: Long) {
+    fun saveMuscles(trainingId: Long) { viewModelScope.launch {
         val list = mutableListOf<TrainingMuscle>()
         for (muscle in muscleList.value!!) {
             if (muscle.is_active) list.add(TrainingMuscle(trainingId, muscle.name))
         }
         trainingMuscleRepo.insert(list)
-    }
+    }}
 }

@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import com.dmitrysimakov.kilogram.data.local.entity.ProgramDay
 import com.dmitrysimakov.kilogram.databinding.ItemProgramDayBinding
-import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 
 class ChooseProgramDayAdapter(clickCallback: ((ProgramDay) -> Unit)? = null)

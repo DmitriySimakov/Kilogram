@@ -2,34 +2,22 @@ package com.dmitrysimakov.kilogram.data.repository
 
 import com.dmitrysimakov.kilogram.data.local.dao.ProgramDayDao
 import com.dmitrysimakov.kilogram.data.local.entity.ProgramDay
-import com.dmitrysimakov.kilogram.util.AppExecutors
 
-class ProgramDayRepository(
-        private val executors: AppExecutors,
-        private val programDayDao: ProgramDayDao
-) {
+class ProgramDayRepository(private val programDayDao: ProgramDayDao) {
     
     fun loadTrainingDays(programId: Long) = programDayDao.getProgramDayList(programId)
     
-    fun insertProgramDay(day: ProgramDay, callback: ((Long) -> Unit)? = null) {
-        executors.diskIO().execute {
-            val id = programDayDao.insert(day)
-            executors.mainThread().execute{
-                callback?.invoke(id)
-            }
-        }
+    suspend fun insertProgramDay(day: ProgramDay, callback: ((Long) -> Unit)? = null) {
+        val id = programDayDao.insert(day)
+        callback?.invoke(id)
     }
     
-    fun deleteProgramDay(id: Long) {
-        executors.diskIO().execute {
-            programDayDao.delete(id)
-        }
+    suspend fun deleteProgramDay(id: Long) {
+        programDayDao.delete(id)
     }
     
-    fun update(items: List<ProgramDay>) {
-        executors.diskIO().execute {
-            programDayDao.update(items)
-        }
+    suspend fun update(items: List<ProgramDay>) {
+        programDayDao.update(items)
     }
     
     fun loadNextProgramDayAndProgram() = programDayDao.getNextProgramDay()

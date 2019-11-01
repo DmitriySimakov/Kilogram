@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
 import com.dmitrysimakov.kilogram.data.local.KilogramDb
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -16,7 +17,7 @@ abstract class DbTest {
     val db: KilogramDb
         get() = _db
     
-    @Before fun createDb() {
+    @Before fun createDb() = runBlocking {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         _db = Room.inMemoryDatabaseBuilder(context, KilogramDb::class.java).build()
     

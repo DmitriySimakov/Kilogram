@@ -12,7 +12,7 @@ import com.dmitrysimakov.kilogram.data.relation.MeasurementWithPreviousResults
 interface MeasurementDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(list: List<Measurement>)
+    suspend fun insert(list: List<Measurement>)
 
     @Query("""
         SELECT _id, param AS param,

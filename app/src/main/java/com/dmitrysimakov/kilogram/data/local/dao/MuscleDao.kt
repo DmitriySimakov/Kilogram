@@ -12,7 +12,7 @@ import com.dmitrysimakov.kilogram.data.relation.FilterParam
 interface MuscleDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(list: List<Muscle>)
+    suspend fun insert(list: List<Muscle>)
 
     @Query("SELECT * FROM muscle")
     fun getMuscleList() : LiveData<List<Muscle>>

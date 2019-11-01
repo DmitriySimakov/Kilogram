@@ -24,13 +24,11 @@ import com.dmitrysimakov.kilogram.ui.trainings.create_training.CreateTrainingVie
 import com.dmitrysimakov.kilogram.ui.trainings.exercises.TrainingExercisesViewModel
 import com.dmitrysimakov.kilogram.ui.trainings.sets.TrainingSetsViewModel
 import com.dmitrysimakov.kilogram.ui.trainings.trainings.TrainingsViewModel
-import com.dmitrysimakov.kilogram.util.AppExecutors
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
-    single { AppExecutors() }
     single { provideSharedPreferences(androidContext()) }
     // Database
     single { provideDb(androidContext()) }
@@ -51,17 +49,17 @@ val appModule = module {
     single { get<KilogramDb>().trainingExerciseSetDao() }
     single { get<KilogramDb>().measurementDao() }
     // Repositories
-    single { ExerciseRepository(get(), get(), get(), get(), get(), get(), get()) }
+    single { ExerciseRepository(get(), get(), get(), get(), get(), get()) }
     single { MeasurementRepository(get()) }
     single { MuscleRepository(get()) }
-    single { ProgramDayRepository(get(), get()) }
-    single { ProgramDayExerciseRepository(get(), get()) }
-    single { ProgramDayMuscleRepository(get(), get()) }
-    single { ProgramRepository(get(), get()) }
-    single { TrainingExerciseRepository(get(), get()) }
-    single { TrainingExerciseSetRepository(get(), get()) }
-    single { TrainingMuscleRepository(get(), get()) }
-    single { TrainingRepository(get(), get()) }
+    single { ProgramDayRepository(get()) }
+    single { ProgramDayExerciseRepository(get()) }
+    single { ProgramDayMuscleRepository(get()) }
+    single { ProgramRepository(get()) }
+    single { TrainingExerciseRepository(get()) }
+    single { TrainingExerciseSetRepository(get()) }
+    single { TrainingMuscleRepository(get()) }
+    single { TrainingRepository(get()) }
     // ViewModels
     viewModel { SharedViewModel(get()) }
     viewModel { ChooseMuscleViewModel(get()) }

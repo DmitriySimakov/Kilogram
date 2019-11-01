@@ -2,27 +2,17 @@ package com.dmitrysimakov.kilogram.data.repository
 
 import com.dmitrysimakov.kilogram.data.local.dao.ProgramDao
 import com.dmitrysimakov.kilogram.data.local.entity.Program
-import com.dmitrysimakov.kilogram.util.AppExecutors
 
-class ProgramRepository(
-        private val executors: AppExecutors,
-        private val programDao: ProgramDao
-) {
+class ProgramRepository(private val programDao: ProgramDao) {
     
     fun loadProgramList() = programDao.getProgramList()
     
-    fun insertProgram(program: Program, callback: ((Long) -> Unit)? = null) {
-        executors.diskIO().execute {
-            val id = programDao.insert(program)
-            executors.mainThread().execute {
-                callback?.invoke(id)
-            }
-        }
+    suspend fun insertProgram(program: Program, callback: ((Long) -> Unit)? = null) {
+        val id = programDao.insert(program)
+        callback?.invoke(id)
     }
     
-    fun deleteProgram(id: Long) {
-        executors.diskIO().execute{
-            programDao.delete(id)
-        }
+    suspend fun deleteProgram(id: Long) {
+        programDao.delete(id)
     }
 }

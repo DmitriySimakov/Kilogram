@@ -9,7 +9,7 @@ import com.dmitrysimakov.kilogram.data.local.entity.Exercise
 interface ExerciseDao {
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(list: List<Exercise>)
+    suspend fun insert(list: List<Exercise>)
     
     @Query("SELECT * FROM exercise")
     fun getExerciseList() : LiveData<List<Exercise>>
@@ -21,14 +21,14 @@ interface ExerciseDao {
     fun getExercise(name: String) : LiveData<Exercise>
     
     @Update
-    fun update(exercise: Exercise)
+    suspend fun update(exercise: Exercise)
     
     @Query("UPDATE exercise SET is_favorite = :isFavorite WHERE name = :name")
-    fun setFavorite(name: String, isFavorite: Boolean)
+    suspend fun setFavorite(name: String, isFavorite: Boolean)
     
     @Query("UPDATE exercise SET executions_cnt = executions_cnt + 1 WHERE name = :name")
-    fun increaseExecutionsCnt(name: String)
+    suspend fun increaseExecutionsCnt(name: String)
     
     @Query("UPDATE exercise SET executions_cnt = executions_cnt - 1 WHERE name = :name")
-    fun decreaseExecutionsCnt(name: String)
+    suspend fun decreaseExecutionsCnt(name: String)
 }

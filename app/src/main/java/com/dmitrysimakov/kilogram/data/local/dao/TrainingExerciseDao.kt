@@ -10,10 +10,10 @@ import com.dmitrysimakov.kilogram.data.relation.DetailedTrainingExercise
 interface TrainingExerciseDao {
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(list: List<TrainingExercise>)
+    suspend fun insert(list: List<TrainingExercise>)
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(trainingExercise: TrainingExercise)
+    suspend fun insert(trainingExercise: TrainingExercise)
     
     @Query("""
         SELECT _id, exercise, indexNumber, rest,
@@ -44,7 +44,7 @@ interface TrainingExerciseDao {
     fun getTrainingExercise(id: Long): LiveData<TrainingExercise>
 
     @Query("DELETE FROM training_exercise WHERE _id = :id")
-    fun deleteExerciseFromTraining(id: Long)
+    suspend fun deleteExerciseFromTraining(id: Long)
     
     @Query("""
         INSERT INTO training_exercise (training_id, exercise, indexNumber, rest, strategy, state, measure_weight, measure_reps, measure_time, measure_distance)
@@ -52,16 +52,16 @@ interface TrainingExerciseDao {
         FROM program_day_exercise
         WHERE program_day_id = :programDayId
     """)
-    fun fillTrainingWithProgramExercises(trainingId: Long, programDayId: Long)
+    suspend fun fillTrainingWithProgramExercises(trainingId: Long, programDayId: Long)
     
     @Query("UPDATE training_exercise SET state = :state WHERE _id = :id")
-    fun updateState(id: Long, state: Int)
+    suspend fun updateState(id: Long, state: Int)
     
     @Query("UPDATE training_exercise SET indexNumber = :indexNumber WHERE _id = :id")
-    fun setIndexNumber(id: Long, indexNumber: Int)
+    suspend fun setIndexNumber(id: Long, indexNumber: Int)
     
     @Transaction
-    fun updateIndexNumbers(exercises: List<DetailedTrainingExercise>) {
+    suspend fun updateIndexNumbers(exercises: List<DetailedTrainingExercise>) {
         for (exercise in exercises) {
             setIndexNumber(exercise._id, exercise.indexNumber)
         }
@@ -71,5 +71,5 @@ interface TrainingExerciseDao {
         UPDATE training_exercise
         SET state = :finished
         WHERE training_id = :trainingId AND state = :running""")
-    fun finishTrainingExercises(trainingId: Long, finished: Int, running: Int)
+    suspend fun finishTrainingExercises(trainingId: Long, finished: Int, running: Int)
 }

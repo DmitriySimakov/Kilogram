@@ -3,12 +3,8 @@ package com.dmitrysimakov.kilogram.data.repository
 import com.dmitrysimakov.kilogram.data.local.dao.TrainingExerciseDao
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.relation.DetailedTrainingExercise
-import com.dmitrysimakov.kilogram.util.AppExecutors
 
-class TrainingExerciseRepository(
-        private val executors: AppExecutors,
-        private val trainingExerciseDao: TrainingExerciseDao
-) {
+class TrainingExerciseRepository(private val trainingExerciseDao: TrainingExerciseDao) {
     
     fun loadDetailedTrainingExerciseList(trainingId: Long) = trainingExerciseDao.getDetailedTrainingExerciseList(trainingId)
     
@@ -17,39 +13,27 @@ class TrainingExerciseRepository(
     
     fun loadTrainingExercise(id: Long) = trainingExerciseDao.getTrainingExercise(id)
     
-    fun addExercise(exercise: TrainingExercise) {
-        executors.diskIO().execute{
-            trainingExerciseDao.insert(exercise)
-        }
-    }
-
-    fun deleteExercise(exercise: DetailedTrainingExercise) {
-        executors.diskIO().execute{
-            trainingExerciseDao.deleteExerciseFromTraining(exercise._id)
-        }
+    suspend fun addExercise(exercise: TrainingExercise) {
+        trainingExerciseDao.insert(exercise)
     }
     
-    fun fillTrainingWithProgramExercises(trainingId: Long, programDayId: Long) {
-        executors.diskIO().execute {
-            trainingExerciseDao.fillTrainingWithProgramExercises(trainingId, programDayId)
-        }
+    suspend fun deleteExercise(exercise: DetailedTrainingExercise) {
+        trainingExerciseDao.deleteExerciseFromTraining(exercise._id)
     }
     
-    fun updateState(id: Long, state: Int) {
-        executors.diskIO().execute {
-            trainingExerciseDao.updateState(id, state)
-        }
+    suspend fun fillTrainingWithProgramExercises(trainingId: Long, programDayId: Long) {
+        trainingExerciseDao.fillTrainingWithProgramExercises(trainingId, programDayId)
     }
     
-    fun updateIndexNumbers(items: List<DetailedTrainingExercise>) {
-        executors.diskIO().execute {
-            trainingExerciseDao.updateIndexNumbers(items)
-        }
+    suspend fun updateState(id: Long, state: Int) {
+        trainingExerciseDao.updateState(id, state)
     }
     
-    fun finishTrainingExercises(trainingId: Long) {
-        executors.diskIO().execute {
-            trainingExerciseDao.finishTrainingExercises(trainingId, TrainingExercise.FINISHED, TrainingExercise.RUNNING)
-        }
+    suspend fun updateIndexNumbers(items: List<DetailedTrainingExercise>) {
+        trainingExerciseDao.updateIndexNumbers(items)
+    }
+    
+    suspend fun finishTrainingExercises(trainingId: Long) {
+        trainingExerciseDao.finishTrainingExercises(trainingId, TrainingExercise.FINISHED, TrainingExercise.RUNNING)
     }
 }

@@ -12,7 +12,7 @@ import com.dmitrysimakov.kilogram.data.relation.FilterParam
 interface ProgramDayMuscleDao {
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(list: List<ProgramDayMuscle>)
+    suspend fun insert(list: List<ProgramDayMuscle>)
     
     @Query("""SELECT m.name, CASE WHEN pdm.program_day_id IS NULL THEN 0 ELSE 1 END AS is_active
         FROM muscle AS m

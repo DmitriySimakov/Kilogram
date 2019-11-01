@@ -12,7 +12,7 @@ import com.dmitrysimakov.kilogram.data.relation.FilterParam
 interface ExerciseTypeDao {
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(list: List<ExerciseType>)
+    suspend fun insert(list: List<ExerciseType>)
     
     @Query("SELECT name, 0 AS is_active FROM exercise_type")
     fun getParamList(): LiveData<List<FilterParam>>

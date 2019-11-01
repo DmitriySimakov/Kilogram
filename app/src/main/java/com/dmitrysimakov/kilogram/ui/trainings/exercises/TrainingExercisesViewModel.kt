@@ -3,12 +3,14 @@ package com.dmitrysimakov.kilogram.ui.trainings.exercises
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.relation.DetailedTrainingExercise
 import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
+import kotlinx.coroutines.launch
 
 class TrainingExercisesViewModel(
         private val trainingRepository: TrainingRepository,
@@ -42,28 +44,28 @@ class TrainingExercisesViewModel(
         _trainingId.setNewValue(id)
     }
 
-    fun deleteExercise(exercise: DetailedTrainingExercise) {
+    fun deleteExercise(exercise: DetailedTrainingExercise) { viewModelScope.launch {
         trainingExerciseRepository.deleteExercise(exercise)
         exerciseRepository.decreaseExecutionsCnt(exercise.exercise)
-    }
+    }}
     
-    fun finishTraining(duration: Int) {
+    fun finishTraining(duration: Int) { viewModelScope.launch {
         training.value?.let {
             it.duration = duration
             trainingRepository.updateTraining(it)
             trainingExerciseRepository.finishTrainingExercises(it._id)
         }
-    }
+    }}
     
-    fun finishExercise(exercise: DetailedTrainingExercise) {
+    fun finishExercise(exercise: DetailedTrainingExercise) { viewModelScope.launch {
         trainingExerciseRepository.updateState(exercise._id, TrainingExercise.FINISHED)
         exerciseRepository.increaseExecutionsCnt(exercise.exercise)
-    }
+    }}
     
-    fun updateNums() {
+    fun updateIndexNumbers() { viewModelScope.launch {
         plannedExercises.value?.let { list ->
             list.forEachIndexed { index, exercise -> exercise.indexNumber = index + 1 }
             trainingExerciseRepository.updateIndexNumbers(list)
         }
-    }
+    }}
 }

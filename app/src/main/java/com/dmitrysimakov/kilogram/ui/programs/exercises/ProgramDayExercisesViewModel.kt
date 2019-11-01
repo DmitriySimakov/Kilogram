@@ -3,9 +3,11 @@ package com.dmitrysimakov.kilogram.ui.programs.exercises
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.dmitrysimakov.kilogram.data.local.entity.ProgramDayExercise
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayExerciseRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class ProgramDayExercisesViewModel (private val repository: ProgramDayExerciseRepository) : ViewModel() {
@@ -21,14 +23,14 @@ class ProgramDayExercisesViewModel (private val repository: ProgramDayExerciseRe
         _programDayId.setNewValue(id)
     }
 
-    fun deleteExercise(exercise: ProgramDayExercise) {
+    fun deleteExercise(exercise: ProgramDayExercise) { viewModelScope.launch {
         repository.deleteExerciseFromProgramDay(exercise)
-    }
+    }}
     
-    fun updateNums() {
+    fun updateIndexNumbers() { viewModelScope.launch {
         exercises.value?.let { list ->
             list.forEachIndexed { index, exercise -> exercise.indexNumber = index + 1 }
             repository.update(list)
         }
-    }
+    }}
 }

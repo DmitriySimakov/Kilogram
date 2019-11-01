@@ -9,10 +9,10 @@ import com.dmitrysimakov.kilogram.data.relation.ProgramDayAndProgram
 interface ProgramDayDao {
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(list: List<ProgramDay>)
+    suspend fun insert(list: List<ProgramDay>)
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(programDay: ProgramDay): Long
+    suspend fun insert(programDay: ProgramDay): Long
     
     @Query("SELECT * FROM program_day WHERE program_id = :programId ORDER BY indexNumber")
     fun getProgramDayList(programId: Long): LiveData<List<ProgramDay>>
@@ -42,8 +42,8 @@ interface ProgramDayDao {
     fun getNextProgramDay(): LiveData<ProgramDayAndProgram>
     
     @Update
-    fun update(programDayList: List<ProgramDay>)
+    suspend fun update(programDayList: List<ProgramDay>)
     
     @Query("DELETE FROM program_day WHERE _id = :id")
-    fun delete(id: Long)
+    suspend fun delete(id: Long)
 }

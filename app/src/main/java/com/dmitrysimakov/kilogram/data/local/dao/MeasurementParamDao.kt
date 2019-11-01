@@ -9,5 +9,5 @@ import com.dmitrysimakov.kilogram.data.local.entity.MeasurementParam
 interface MeasurementParamDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(list: List<MeasurementParam>)
+    suspend fun insert(list: List<MeasurementParam>)
 }

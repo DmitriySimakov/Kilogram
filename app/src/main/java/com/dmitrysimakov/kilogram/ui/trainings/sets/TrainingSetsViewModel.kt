@@ -1,15 +1,13 @@
 package com.dmitrysimakov.kilogram.ui.trainings.sets
 
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.relation.SetWithPreviousResults
 import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseSetRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
+import kotlinx.coroutines.launch
 import kotlin.math.max
 
 class TrainingSetsViewModel(
@@ -60,12 +58,12 @@ class TrainingSetsViewModel(
         sets.addSource(prevSets) { joinSets() }
     }
 
-    fun deleteSet(id: Long) {
+    fun deleteSet(id: Long) { viewModelScope.launch {
         trainingExerciseSetRepository.deleteSet(id)
-    }
+    }}
     
-    fun finishExercise(trainingExerciseId: Long) {
+    fun finishExercise(trainingExerciseId: Long) { viewModelScope.launch {
         trainingExerciseRepository.updateState(trainingExerciseId, TrainingExercise.FINISHED)
         exercise.value?.let { exerciseRepository.increaseExecutionsCnt(it.exercise) }
-    }
+    }}
 }

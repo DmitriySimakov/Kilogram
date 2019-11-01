@@ -8,10 +8,10 @@ import com.dmitrysimakov.kilogram.data.local.entity.ProgramDayExercise
 interface ProgramDayExerciseDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(programDayExercises: List<ProgramDayExercise>)
+    suspend fun insert(programDayExercises: List<ProgramDayExercise>)
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(programDayExercise: ProgramDayExercise)
+    suspend fun insert(programDayExercise: ProgramDayExercise)
     
     @Query("""
         SELECT * FROM program_day_exercise
@@ -21,8 +21,8 @@ interface ProgramDayExerciseDao {
     fun getProgramDayExerciseList(programDayId: Long) : LiveData<List<ProgramDayExercise>>
     
     @Update
-    fun update(programDayExercises: List<ProgramDayExercise>)
+    suspend fun update(programDayExercises: List<ProgramDayExercise>)
     
     @Delete
-    fun delete(programDayExercise: ProgramDayExercise)
+    suspend fun delete(programDayExercise: ProgramDayExercise)
 }

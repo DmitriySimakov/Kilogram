@@ -3,11 +3,13 @@ package com.dmitrysimakov.kilogram. ui.trainings.add_set
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExerciseSet
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseSetRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
+import kotlinx.coroutines.launch
 
 class AddSetViewModel(
         private val trainingExerciseRepository: TrainingExerciseRepository,
@@ -41,17 +43,17 @@ class AddSetViewModel(
         }
     }
     
-    fun addSet(secsSinceStart: Int) {
+    fun addSet(secsSinceStart: Int) { viewModelScope.launch {
         set.value?.let {
             it.secs_since_start = secsSinceStart
             trainingExerciseSetRepository.insertSet(it)
             trainingExerciseRepository.updateState(it.training_exercise_id, TrainingExercise.RUNNING)
         }
-    }
+    }}
     
-    fun updateSet() {
+    fun updateSet() { viewModelScope.launch {
         set.value?.let { trainingExerciseSetRepository.updateSet(it) }
-    }
+    }}
     
     fun decreaseWeight() { set.value?.weight = (set.value?.weight ?: 0) - 5 }
     

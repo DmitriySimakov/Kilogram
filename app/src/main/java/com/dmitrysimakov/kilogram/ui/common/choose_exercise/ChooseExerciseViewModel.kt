@@ -9,6 +9,7 @@ import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayMuscleRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingMuscleRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class ChooseExerciseViewModel (
@@ -90,14 +91,14 @@ class ChooseExerciseViewModel (
         exerciseRepo.loadExerciseList(it)
     }
     
-    fun setFavorite(exercise: Exercise, isChecked: Boolean) {
+    fun setFavorite(exercise: Exercise, isChecked: Boolean) { viewModelScope.launch {
         exerciseRepo.setFavorite(exercise.name, isChecked)
-    }
+    }}
     
-    fun setChecked(data: LiveData<List<FilterParam>>, name: String, isChecked: Boolean) {
+    fun setChecked(data: LiveData<List<FilterParam>>, name: String, isChecked: Boolean) { viewModelScope.launch {
         data.value?.find{ it.name == name }?.is_active = isChecked
         query.value = getQuery()
-    }
+    }}
     
     private fun LiveData<List<FilterParam>>.getActiveParamsString() =
             value?.filter { it.is_active }?.joinToString(", ") { "'${it.name}'" } ?: ""

@@ -8,14 +8,14 @@ import com.dmitrysimakov.kilogram.data.local.entity.Program
 interface ProgramDao {
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(list: List<Program>)
+    suspend fun insert(list: List<Program>)
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(program: Program) : Long
+    suspend fun insert(program: Program) : Long
     
     @Query("SELECT * FROM program ORDER BY _id DESC")
     fun getProgramList() : LiveData<List<Program>>
     
     @Query("DELETE FROM program WHERE _id = :id")
-    fun delete(id: Long)
+    suspend fun delete(id: Long)
 }

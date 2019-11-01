@@ -12,7 +12,7 @@ import com.dmitrysimakov.kilogram.data.relation.FilterParam
 interface TrainingMuscleDao {
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(list: List<TrainingMuscle>)
+    suspend fun insert(list: List<TrainingMuscle>)
 
     @Query("""SELECT m.name, CASE WHEN tm.training_id IS NULL THEN 0 ELSE 1 END AS is_active
         FROM muscle AS m

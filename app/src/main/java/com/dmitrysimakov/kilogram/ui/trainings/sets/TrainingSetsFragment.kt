@@ -11,10 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.databinding.FragmentTrainingSetsBinding
-import com.dmitrysimakov.kilogram.util.AppExecutors
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_training_sets.*
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TrainingSetsFragment : Fragment() {

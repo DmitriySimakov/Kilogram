@@ -3,10 +3,8 @@ package com.dmitrysimakov.kilogram.data.repository
 import androidx.sqlite.db.SupportSQLiteQuery
 import com.dmitrysimakov.kilogram.data.local.dao.*
 import com.dmitrysimakov.kilogram.data.local.entity.Exercise
-import com.dmitrysimakov.kilogram.util.AppExecutors
 
 class ExerciseRepository(
-        private val executors: AppExecutors,
         private val exerciseDao: ExerciseDao,
         private val muscleDao: MuscleDao,
         private val mechanicsTypeDao: MechanicsTypeDao,
@@ -21,28 +19,20 @@ class ExerciseRepository(
     
     fun loadTargetedMuscles(exerciseName: String) = targetedMuscleDao.getTargetedMuscles(exerciseName)
     
-    fun updateExercise(exercise: Exercise) {
-        executors.diskIO().execute {
-            exerciseDao.update(exercise)
-        }
+    suspend fun updateExercise(exercise: Exercise) {
+        exerciseDao.update(exercise)
     }
     
-    fun setFavorite(name: String, isFavorite: Boolean) {
-        executors.diskIO().execute {
-            exerciseDao.setFavorite(name, isFavorite)
-        }
+    suspend fun setFavorite(name: String, isFavorite: Boolean) {
+        exerciseDao.setFavorite(name, isFavorite)
     }
     
-    fun increaseExecutionsCnt(name: String) {
-        executors.diskIO().execute {
-            exerciseDao.increaseExecutionsCnt(name)
-        }
+    suspend fun increaseExecutionsCnt(name: String) {
+        exerciseDao.increaseExecutionsCnt(name)
     }
     
-    fun decreaseExecutionsCnt(name: String) {
-        executors.diskIO().execute {
-            exerciseDao.decreaseExecutionsCnt(name)
-        }
+    suspend fun decreaseExecutionsCnt(name: String) {
+        exerciseDao.decreaseExecutionsCnt(name)
     }
     
     

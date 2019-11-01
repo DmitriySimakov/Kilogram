@@ -3,8 +3,10 @@ package com.dmitrysimakov.kilogram.ui.common.choose_program_day
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class ChooseProgramDayViewModel (private val repository: ProgramDayRepository) : ViewModel() {
@@ -19,14 +21,14 @@ class ChooseProgramDayViewModel (private val repository: ProgramDayRepository) :
         repository.loadTrainingDays(it)
     }
 
-    fun deleteTrainingDay(id: Long) {
+    fun deleteTrainingDay(id: Long) { viewModelScope.launch {
         repository.deleteProgramDay(id)
-    }
+    } }
     
-    fun updateNums() {
+    fun updateIndexNumbers() { viewModelScope.launch {
         programDays.value?.let { list ->
             list.forEachIndexed { index, exercise -> exercise.indexNumber = index + 1 }
             repository.update(list)
         }
-    }
+    }}
 }
