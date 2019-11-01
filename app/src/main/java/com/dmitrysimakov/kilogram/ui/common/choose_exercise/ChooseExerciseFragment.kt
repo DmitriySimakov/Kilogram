@@ -11,20 +11,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.FragmentChooseExerciseBinding
 import com.dmitrysimakov.kilogram.ui.common.ChipGroupFilterAdapter
-import com.dmitrysimakov.kilogram.util.AppExecutors
 import kotlinx.android.synthetic.main.app_bar_main.*
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 abstract class ChooseExerciseFragment : Fragment() {
 
-    protected val executors: AppExecutors by inject()
-    
     protected val vm: ChooseExerciseViewModel by viewModel()
 
     protected lateinit var binding: FragmentChooseExerciseBinding
     
-    protected val exerciseAdapter by lazy { ExerciseListAdapter(executors, vm) }
+    protected val exerciseAdapter by lazy { ExerciseListAdapter(vm) }
 
     protected lateinit var muscleAdapter: ChipGroupFilterAdapter
     protected lateinit var mechanicsTypeAdapter: ChipGroupFilterAdapter

@@ -5,13 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import com.dmitrysimakov.kilogram.data.local.entity.Program
 import com.dmitrysimakov.kilogram.databinding.ItemProgramBinding
-import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 
-class ChooseProgramAdapter(
-        appExecutors: AppExecutors,
-        clickCallback: ((Program) -> Unit)? = null
-) : DataBoundListAdapter<Program, ItemProgramBinding>(appExecutors, clickCallback,
+class ChooseProgramAdapter(clickCallback: ((Program) -> Unit)? = null)
+    : DataBoundListAdapter<Program, ItemProgramBinding>(clickCallback,
         object : DiffUtil.ItemCallback<Program>() {
             override fun areItemsTheSame(oldItem: Program, newItem: Program) =
                     oldItem._id == newItem._id
@@ -20,7 +17,7 @@ class ChooseProgramAdapter(
         }
 ) {
 
-    override fun createBinding(parent: ViewGroup) = ItemProgramBinding
+    override fun createBinding(parent: ViewGroup): ItemProgramBinding = ItemProgramBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
 
     override fun bind(binding: ItemProgramBinding, item: Program) {

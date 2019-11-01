@@ -6,13 +6,11 @@ import androidx.recyclerview.widget.DiffUtil
 import com.dmitrysimakov.kilogram.data.remote.Person
 import com.dmitrysimakov.kilogram.databinding.ItemPersonBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
-import com.dmitrysimakov.kilogram.util.AppExecutors
 
 class PeopleListAdapter(
-        appExecutors: AppExecutors,
         private val sendMessageClickCallback: ((Person) -> Unit),
         clickCallback: ((Person) -> Unit)? = null
-) : DataBoundListAdapter<Person, ItemPersonBinding>(appExecutors, clickCallback,
+) : DataBoundListAdapter<Person, ItemPersonBinding>(clickCallback,
         object : DiffUtil.ItemCallback<Person>() {
             override fun areItemsTheSame(oldItem: Person, newItem: Person) =
                     oldItem.id == newItem.id

@@ -6,11 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import com.dmitrysimakov.kilogram.data.remote.Message
 import com.dmitrysimakov.kilogram.databinding.ItemMessageBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
-import com.dmitrysimakov.kilogram.util.AppExecutors
 
-class MessagesListAdapter(
-        appExecutors: AppExecutors
-) : DataBoundListAdapter<Message, ItemMessageBinding>(appExecutors, null,
+class MessagesListAdapter : DataBoundListAdapter<Message, ItemMessageBinding>(null,
         object : DiffUtil.ItemCallback<Message>() {
             override fun areItemsTheSame(oldItem: Message, newItem: Message) =
                     oldItem.id == newItem.id

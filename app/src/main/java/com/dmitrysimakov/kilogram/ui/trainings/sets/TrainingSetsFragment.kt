@@ -19,8 +19,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TrainingSetsFragment : Fragment() {
     
-    private val executors: AppExecutors by inject()
-    
     private val vm: TrainingSetsViewModel by viewModel()
     
     private val params by lazy { TrainingSetsFragmentArgs.fromBundle(arguments!!) }
@@ -47,7 +45,7 @@ class TrainingSetsFragment : Fragment() {
         vm.exercise.observe(viewLifecycleOwner, Observer { exercise ->
             binding.exerciseMeasures = exercise.measures
         
-            adapter = TrainingSetsAdapter(executors, exercise.measures) { set ->
+            adapter = TrainingSetsAdapter(exercise.measures) { set ->
                 findNavController().navigate(TrainingSetsFragmentDirections
                         .toAddSetDialog(params.trainingId, params.trainingExerciseId, set._id,
                                 set.prev_weight ?: 0, set.prev_reps ?: 0, set.prev_time ?: 0, set.prev_distance ?: 0))

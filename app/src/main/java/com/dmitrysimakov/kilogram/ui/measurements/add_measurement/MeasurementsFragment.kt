@@ -9,18 +9,14 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.util.AppExecutors
 import kotlinx.android.synthetic.main.fragment_measurements.*
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MeasurementsFragment : Fragment() {
-
-    private val executors: AppExecutors by inject()
-
+    
     private val vm: MeasurementsViewModel by viewModel()
 
-    private val adapter by lazy { MeasurementsAdapter(executors) }
+    private val adapter by lazy { MeasurementsAdapter() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

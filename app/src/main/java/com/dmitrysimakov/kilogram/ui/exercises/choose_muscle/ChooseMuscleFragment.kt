@@ -10,19 +10,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.util.AppExecutors
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_choose_muscle.*
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ChooseMuscleFragment : Fragment() {
-
-    protected val executors: AppExecutors by inject()
-
+    
     protected val vm: ChooseMuscleViewModel by viewModel()
 
-    protected val adapter by lazy { MuscleListAdapter(executors) }
+    protected val adapter by lazy { MuscleListAdapter() }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_choose_muscle, container, false)

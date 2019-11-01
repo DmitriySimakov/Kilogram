@@ -13,22 +13,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
-import com.dmitrysimakov.kilogram.util.AppExecutors
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_trainings.*
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 class TrainingsFragment : Fragment() {
-
-    private val executors: AppExecutors by inject()
-
+    
     private val vm: TrainingsViewModel by viewModel()
     private val sharedVM: SharedViewModel by sharedViewModel()
 
-    private val adapter by lazy { TrainingsAdapter(sharedVM.elapsedSessionTime, this, executors) { training ->
+    private val adapter by lazy { TrainingsAdapter(sharedVM.elapsedSessionTime, this) { training ->
         findNavController().navigate(TrainingsFragmentDirections
             .toExercisesFragment(training._id, training.duration == null))
     }}

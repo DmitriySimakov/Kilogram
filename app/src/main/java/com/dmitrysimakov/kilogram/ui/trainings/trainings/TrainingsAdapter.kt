@@ -8,15 +8,13 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DiffUtil
 import com.dmitrysimakov.kilogram.data.relation.DetailedTraining
 import com.dmitrysimakov.kilogram.databinding.ItemTrainingBinding
-import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 
 class TrainingsAdapter(
         private val sessionTime: LiveData<Int?>,
         private val lifecycleOwner: LifecycleOwner,
-        appExecutors: AppExecutors,
         clickCallback: ((DetailedTraining) -> Unit)?
-) : DataBoundListAdapter<DetailedTraining, ItemTrainingBinding>(appExecutors, clickCallback,
+) : DataBoundListAdapter<DetailedTraining, ItemTrainingBinding>(clickCallback,
         object : DiffUtil.ItemCallback<DetailedTraining>() {
             override fun areItemsTheSame(oldItem: DetailedTraining, newItem: DetailedTraining) =
                     oldItem._id == newItem._id
@@ -25,7 +23,7 @@ class TrainingsAdapter(
         }
 ) {
 
-    override fun createBinding(parent: ViewGroup) = ItemTrainingBinding
+    override fun createBinding(parent: ViewGroup): ItemTrainingBinding = ItemTrainingBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
 
     override fun bind(binding: ItemTrainingBinding, item: DetailedTraining) {

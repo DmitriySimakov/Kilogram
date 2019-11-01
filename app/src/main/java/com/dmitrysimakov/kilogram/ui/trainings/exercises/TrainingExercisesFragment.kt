@@ -1,6 +1,5 @@
 package com.dmitrysimakov.kilogram.ui.trainings.exercises
 
-import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -13,16 +12,12 @@ import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.data.relation.DetailedTrainingExercise
 import com.dmitrysimakov.kilogram.databinding.FragmentTrainingExercisesBinding
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
-import com.dmitrysimakov.kilogram.util.AppExecutors
 import kotlinx.android.synthetic.main.app_bar_main.*
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 class TrainingExercisesFragment : Fragment() {
-    
-    private val executors: AppExecutors by inject()
     
     private val vm: TrainingExercisesViewModel by viewModel()
     private val sharedVM: SharedViewModel by sharedViewModel()
@@ -32,9 +27,9 @@ class TrainingExercisesFragment : Fragment() {
     private lateinit var binding: FragmentTrainingExercisesBinding
     
     private val exerciseRunningListAdapter by lazy {
-        ExerciseRunningListAdapter(sharedVM.elapsedSessionTime, this, executors, { toSetsFragment(it) }, { vm.finishExercise(it) }) }
-    private val exercisePlannedListAdapter by lazy { ExercisePlannedListAdapter(executors) { toSetsFragment(it) } }
-    private val exerciseFinishedListAdapter by lazy { ExerciseFinishedListAdapter(executors) { toSetsFragment(it) } }
+        ExerciseRunningListAdapter(sharedVM.elapsedSessionTime, this, { toSetsFragment(it) }, { vm.finishExercise(it) }) }
+    private val exercisePlannedListAdapter by lazy { ExercisePlannedListAdapter { toSetsFragment(it) } }
+    private val exerciseFinishedListAdapter by lazy { ExerciseFinishedListAdapter { toSetsFragment(it) } }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentTrainingExercisesBinding.inflate(inflater)

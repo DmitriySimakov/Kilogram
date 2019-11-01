@@ -1,12 +1,10 @@
 package com.dmitrysimakov.kilogram.ui.common
 
-import androidx.databinding.ViewDataBinding
-import androidx.recyclerview.widget.AsyncDifferConfig
-import androidx.recyclerview.widget.ListAdapter
 import android.view.ViewGroup
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.dmitrysimakov.kilogram.util.AppExecutors
 
 /**
  * A generic RecyclerView exercisePlannedListAdapter that uses Data Binding & DiffUtil.
@@ -15,12 +13,9 @@ import com.dmitrysimakov.kilogram.util.AppExecutors
  * @param <B> The type of the ViewDataBinding
 </B></T> */
 abstract class DataBoundListAdapter<T, B : ViewDataBinding>(
-        appExecutors: AppExecutors,
         var clickCallback: ((T) -> Unit)?,
         diffCallback: DiffUtil.ItemCallback<T>
-) : ListAdapter<T, DataBoundListAdapter.DataBoundViewHolder<B>>(
-        AsyncDifferConfig.Builder(diffCallback).setBackgroundThreadExecutor(appExecutors.diskIO()).build()
-) {
+) : ListAdapter<T, DataBoundListAdapter.DataBoundViewHolder<B>>(diffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             DataBoundViewHolder(createBinding(parent))
     

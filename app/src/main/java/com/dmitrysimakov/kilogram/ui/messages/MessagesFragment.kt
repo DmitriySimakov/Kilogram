@@ -21,11 +21,9 @@ private const val RC_PHOTO_PICKER = 1
 
 class MessagesFragment : Fragment() {
     
-    private val executors: AppExecutors by inject()
-    
     private val vm: MessagesViewModel by viewModel()
     
-    private val adapter by lazy { MessagesListAdapter(executors) }
+    private val adapter by lazy { MessagesListAdapter() }
     
     private val params by lazy { MessagesFragmentArgs.fromBundle(arguments!!) }
     

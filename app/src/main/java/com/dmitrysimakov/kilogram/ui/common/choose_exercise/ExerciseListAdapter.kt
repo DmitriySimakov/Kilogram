@@ -5,14 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import com.dmitrysimakov.kilogram.data.local.entity.Exercise
 import com.dmitrysimakov.kilogram.databinding.ItemExerciseBinding
-import com.dmitrysimakov.kilogram.util.AppExecutors
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 
 class ExerciseListAdapter(
-        appExecutors: AppExecutors,
         private val viewModel: ChooseExerciseViewModel,
         clickCallback: ((Exercise) -> Unit)? = null
-) : DataBoundListAdapter<Exercise, ItemExerciseBinding>(appExecutors, clickCallback,
+) : DataBoundListAdapter<Exercise, ItemExerciseBinding>(clickCallback,
         object : DiffUtil.ItemCallback<Exercise>() {
             override fun areItemsTheSame(oldItem: Exercise, newItem: Exercise) =
                     oldItem.name == newItem.name
@@ -21,7 +19,7 @@ class ExerciseListAdapter(
         }
 ) {
 
-    override fun createBinding(parent: ViewGroup) = ItemExerciseBinding
+    override fun createBinding(parent: ViewGroup): ItemExerciseBinding = ItemExerciseBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
 
     override fun bind(binding: ItemExerciseBinding, item: Exercise) {

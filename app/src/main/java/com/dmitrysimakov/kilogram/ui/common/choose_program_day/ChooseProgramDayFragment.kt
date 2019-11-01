@@ -9,18 +9,14 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.util.AppExecutors
 import kotlinx.android.synthetic.main.fragment_choose_program_day.*
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 abstract class ChooseProgramDayFragment : Fragment() {
     
-    protected val executors: AppExecutors by inject()
-    
     protected val vm: ChooseProgramDayViewModel by viewModel()
     
-    protected val adapter by lazy { ChooseProgramDayAdapter(executors) }
+    protected val adapter by lazy { ChooseProgramDayAdapter() }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_choose_program_day, container, false)
