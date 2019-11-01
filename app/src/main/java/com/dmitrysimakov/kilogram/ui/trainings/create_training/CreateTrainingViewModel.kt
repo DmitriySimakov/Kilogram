@@ -17,9 +17,8 @@ class CreateTrainingViewModel(
 ) : ViewModel() {
     
     private val _calendar = MutableLiveData<Calendar>(Calendar.getInstance())
+    val calendar: LiveData<Calendar> = _calendar
     fun updateCalendar() { _calendar.value = _calendar.value }
-    val calendar: LiveData<Calendar>
-        get() = _calendar
     
     val byProgram = MutableLiveData(false)
     

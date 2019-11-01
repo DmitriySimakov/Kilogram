@@ -21,33 +21,33 @@ class ChooseExerciseViewModel (
     private val query = MediatorLiveData<SupportSQLiteQuery>()
     
     private val _searchText = MutableLiveData<String>()
-    val searchText: LiveData<String>
-        get() = _searchText
+    val searchText: LiveData<String> = _searchText
     fun setSearchText(newString: String?) { _searchText.setNewValue(newString) }
     
     val addedToFavorite = MutableLiveData<Boolean>()
     val performedEarlier = MutableLiveData<Boolean>()
     
-    private val muscleName = MutableLiveData<String>()
-    fun setMuscle(name: String) { muscleName.setNewValue(name) }
+    private val _muscleName = MutableLiveData<String>()
+    fun setMuscle(name: String) { _muscleName.setNewValue(name) }
     
-    private val exercisesMuscles = muscleName.switchMap { muscleName ->
+    private val exercisesMuscles = _muscleName.switchMap { muscleName ->
         exerciseRepo.loadMuscleParams().map { list ->
             list.find { it.name == muscleName }?.is_active = true
             list
         }
     }
     
-    private val programDayId = MutableLiveData<Long>()
-    fun setProgramDay(id: Long) { programDayId.setNewValue(id) }
+    private val _programDayId = MutableLiveData<Long>()
+    fun setProgramDay(id: Long) { _programDayId.setNewValue(id) }
     
-    private val programMuscles = programDayId.switchMap {
+    private val programMuscles = _programDayId.switchMap {
         programDayMuscleRepo.loadParams(it)
     }
     
-    fun setTraining(id: Long) { trainingId.setNewValue(id) }
-    private val trainingId = MutableLiveData<Long>()
-    private val trainingMuscles = trainingId.switchMap {
+    private val _trainingId = MutableLiveData<Long>()
+    fun setTraining(id: Long) { _trainingId.setNewValue(id) }
+    
+    private val trainingMuscles = _trainingId.switchMap {
         trainingMuscleRepo.loadParams(it)
     }
     

@@ -17,8 +17,7 @@ class MessagesViewModel : ViewModel() {
     private lateinit var messagesCollection: CollectionReference
     
     private val _chat = MutableLiveData<Chat>()
-    val chat: LiveData<Chat>
-        get() = _chat
+    val chat: LiveData<Chat> = _chat
     
     fun setChatId(id: String) {
         chatDocument = chatsCollection.document(id)
