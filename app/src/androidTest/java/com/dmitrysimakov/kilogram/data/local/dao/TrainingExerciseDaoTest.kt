@@ -8,6 +8,7 @@ import com.dmitrysimakov.kilogram.util.getValue
 import com.dmitrysimakov.kilogram.util.testExercises
 import com.dmitrysimakov.kilogram.util.testProgramDayExercises
 import com.dmitrysimakov.kilogram.util.testTrainingExercises
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Before
 import org.junit.Test
@@ -43,7 +44,7 @@ class TrainingExerciseDaoTest : DbTest() {
         assertThat(exerciseInfo, equalTo(exerciseInfoSample))
     }
     
-    @Test fun fillTrainingWithProgramExercises() {
+    @Test fun fillTrainingWithProgramExercises()  = runBlocking {
         dao.fillTrainingWithProgramExercises(3, 1)
         val exercises = getValue(dao.getTrainingExercises(3))
         val exercisesToFill = testProgramDayExercises

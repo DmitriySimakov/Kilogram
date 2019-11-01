@@ -8,6 +8,7 @@ import com.dmitrysimakov.kilogram.data.local.entity.ProgramDayMuscle
 import com.dmitrysimakov.kilogram.data.relation.FilterParam
 import com.dmitrysimakov.kilogram.util.getValue
 import com.dmitrysimakov.kilogram.util.testMuscles
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Before
 import org.junit.Test
@@ -30,7 +31,7 @@ class MuscleDaoTest : DbTest() {
         }
     }
     
-    @Test fun getProgramDayParamList() {
+    @Test fun getProgramDayParamList() = runBlocking {
         val programId = db.programDao().insert(Program(0, "PPL"))
         val programDayId = db.programDayDao().insert(ProgramDay(0, programId, 3, "Push"))
         db.programDayMuscleDao().insert(listOf(
