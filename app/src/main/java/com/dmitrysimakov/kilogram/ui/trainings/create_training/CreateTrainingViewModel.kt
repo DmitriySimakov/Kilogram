@@ -25,7 +25,7 @@ class CreateTrainingViewModel(
     
     fun setProgramDay(id: Long) { _programDayId.setNewValue(id) }
     private val _programDayId = MutableLiveData<Long>()
-    val programDay = Transformations.switchMap(_programDayId) {
+    val programDay = _programDayId.switchMap {
         when (it) {
             0L -> programDayRepo.loadNextProgramDayAndProgram()
             else -> programDayRepo.loadProgramDayAndProgram(it)
@@ -42,7 +42,7 @@ class CreateTrainingViewModel(
     }}
     
     
-    val muscleList = Transformations.switchMap(_programDayId) {
+    val muscleList = _programDayId.switchMap {
         when (it) {
             0L -> exerciseRepo.loadMuscleParams()
             else -> exerciseRepo.loadMuscleParams(it)

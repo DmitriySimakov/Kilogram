@@ -20,13 +20,11 @@ class AddExerciseViewModel (
         _exerciseName.setNewValue(name)
     }
     
-    val exercise = Transformations.switchMap(_exerciseName) {
+    val exercise = _exerciseName.switchMap {
         exerciseRepository.loadExercise(it)
     }
     
-    private val _restTime = MutableLiveData(3*60) //TODO
-    val restTime: LiveData<Int>
-        get() = _restTime
+    val restTime: LiveData<Int> = MutableLiveData(3*60)
     
     val strategy = MutableLiveData<String>()
     

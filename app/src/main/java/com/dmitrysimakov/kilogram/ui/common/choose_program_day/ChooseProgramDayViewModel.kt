@@ -1,9 +1,6 @@
 package com.dmitrysimakov.kilogram.ui.common.choose_program_day
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.coroutines.launch
@@ -16,7 +13,7 @@ class ChooseProgramDayViewModel (private val repository: ProgramDayRepository) :
         _programId.setNewValue(programId)
     }
     
-    val programDays = Transformations.switchMap(_programId) {
+    val programDays = _programId.switchMap {
         Timber.d("programDays load")
         repository.loadTrainingDays(it)
     }

@@ -1,7 +1,7 @@
 package com.dmitrysimakov.kilogram.ui.people
 
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
 import com.dmitrysimakov.kilogram.data.remote.Chat
 import com.dmitrysimakov.kilogram.data.remote.Person
 import com.dmitrysimakov.kilogram.util.chatsCollection
@@ -13,9 +13,9 @@ import com.google.firebase.firestore.SetOptions
 
 class PeopleViewModel : ViewModel() {
     
-    val people = Transformations.map(usersCollection.liveData { doc ->
+    val people = usersCollection.liveData { doc ->
         doc.toObject(Person::class.java)!!.also { person -> person.id = doc.id }
-    }) { it.filter { person -> person.id != user!!.uid } }
+    }.map { it.filter { person -> person.id != user!!.uid } }
     
     fun getChatWith(person: Person, callback: ((String) -> Unit)) {
         val curUserDirectsDocument = userDocument.collection("directChats").document("directChats")

@@ -23,21 +23,20 @@ class TrainingSetsViewModel(
         _trainingExerciseId.setNewValue(id)
     }
     
-    val exercise = Transformations.switchMap(_trainingExerciseId) {
+    val exercise = _trainingExerciseId.switchMap {
         trainingExerciseRepository.loadTrainingExercise(it)
     }
     
-    val prevExercise = Transformations.switchMap(exercise) {
+    val prevExercise = exercise.switchMap {
         trainingExerciseRepository.loadPrevTrainingExercise(trainingId, it.exercise)
     }
     
-    val currSets = Transformations.switchMap(exercise) {
+    val currSets = exercise.switchMap {
         trainingExerciseSetRepository.loadSets(it._id)
     }
     
-    val prevSets = Transformations.switchMap(prevExercise) {
-        if (it != null) trainingExerciseSetRepository.loadSets(it.training_exercise_id)
-        else MutableLiveData(emptyList())
+    val prevSets = prevExercise.switchMap {
+        trainingExerciseSetRepository.loadSets(it.training_exercise_id)
     }
     
     val sets = MediatorLiveData<List<SetWithPreviousResults>>()

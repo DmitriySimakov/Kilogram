@@ -1,9 +1,6 @@
 package com.dmitrysimakov.kilogram.ui.trainings.exercises
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.relation.DetailedTrainingExercise
 import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
@@ -20,23 +17,23 @@ class TrainingExercisesViewModel(
 
     private val _trainingId = MutableLiveData<Long>()
     
-    val training = Transformations.switchMap(_trainingId) {
+    val training = _trainingId.switchMap {
         trainingRepository.loadTraining(it)
     }
     
-    private val exercises = Transformations.switchMap(_trainingId) {
+    private val exercises = _trainingId.switchMap {
         trainingExerciseRepository.loadDetailedTrainingExerciseList(it)
     }
     
-    val runningExercises = Transformations.map(exercises) { exercise ->
+    val runningExercises = exercises.map { exercise ->
         exercise.filter { it.state == TrainingExercise.RUNNING }
     }
     
-    val plannedExercises = Transformations.map(exercises) { exercise ->
+    val plannedExercises = exercises.map { exercise ->
         exercise.filter { it.state == TrainingExercise.PLANNED }
     }
     
-    val finishedExercises = Transformations.map(exercises) { exercise ->
+    val finishedExercises = exercises.map { exercise ->
         exercise.filter { it.state == TrainingExercise.FINISHED }
     }
     

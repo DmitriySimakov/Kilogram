@@ -1,10 +1,7 @@
 package com.dmitrysimakov.kilogram.ui.messages
 
 import android.net.Uri
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.remote.Chat
 import com.dmitrysimakov.kilogram.data.remote.Message
 import com.dmitrysimakov.kilogram.util.*
@@ -31,7 +28,7 @@ class MessagesViewModel : ViewModel() {
         }
     }
     
-    val messages = Transformations.switchMap(_chat) {
+    val messages = _chat.switchMap {
         messagesCollection.orderBy("start_time").liveData { doc ->
             doc.toObject(Message::class.java)?.also { msg ->
                 msg.id = doc.id

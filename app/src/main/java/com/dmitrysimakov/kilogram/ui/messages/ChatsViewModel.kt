@@ -1,7 +1,7 @@
 package com.dmitrysimakov.kilogram.ui.messages
 
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
 import com.dmitrysimakov.kilogram.data.remote.Chat
 import com.dmitrysimakov.kilogram.util.chatsCollection
 import com.dmitrysimakov.kilogram.util.live_data.liveData
@@ -22,7 +22,7 @@ class ChatsViewModel : ViewModel() {
         }
     }
     
-    val chats = Transformations.map(unsortedChats) { chats ->
+    val chats = unsortedChats.map { chats ->
         chats.sortedByDescending { it.lastMessage.timestamp }
     }
 }

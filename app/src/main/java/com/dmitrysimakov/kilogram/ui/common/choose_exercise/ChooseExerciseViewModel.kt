@@ -31,8 +31,8 @@ class ChooseExerciseViewModel (
     private val muscleName = MutableLiveData<String>()
     fun setMuscle(name: String) { muscleName.setNewValue(name) }
     
-    private val exercisesMuscles = Transformations.switchMap(muscleName) { muscleName ->
-        Transformations.map(exerciseRepo.loadMuscleParams()) { list ->
+    private val exercisesMuscles = muscleName.switchMap { muscleName ->
+        exerciseRepo.loadMuscleParams().map { list ->
             list.find { it.name == muscleName }?.is_active = true
             list
         }
@@ -41,13 +41,13 @@ class ChooseExerciseViewModel (
     private val programDayId = MutableLiveData<Long>()
     fun setProgramDay(id: Long) { programDayId.setNewValue(id) }
     
-    private val programMuscles = Transformations.switchMap(programDayId)  {
+    private val programMuscles = programDayId.switchMap {
         programDayMuscleRepo.loadParams(it)
     }
     
     fun setTraining(id: Long) { trainingId.setNewValue(id) }
     private val trainingId = MutableLiveData<Long>()
-    private val trainingMuscles = Transformations.switchMap(trainingId) {
+    private val trainingMuscles = trainingId.switchMap {
         trainingMuscleRepo.loadParams(it)
     }
     
@@ -87,7 +87,7 @@ class ChooseExerciseViewModel (
         return SimpleSQLiteQuery(res)
     }
     
-    val exerciseList = Transformations.switchMap(query) {
+    val exerciseList = query.switchMap {
         exerciseRepo.loadExerciseList(it)
     }
     

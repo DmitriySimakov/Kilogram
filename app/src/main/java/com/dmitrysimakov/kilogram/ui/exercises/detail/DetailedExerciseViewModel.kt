@@ -1,8 +1,8 @@
 package com.dmitrysimakov.kilogram.ui.exercises.detail
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
@@ -15,11 +15,11 @@ class DetailedExerciseViewModel (private val repository: ExerciseRepository) : V
         _exerciseName.setNewValue(name)
     }
 
-    val exercise = Transformations.switchMap(_exerciseName) {
+    val exercise = _exerciseName.switchMap {
         repository.loadExercise(it)
     }
     
-    val targetedMuscles = Transformations.switchMap(_exerciseName) { // TODO
+    val targetedMuscles = _exerciseName.switchMap { // TODO
         repository.loadTargetedMuscles(it)
     }
     

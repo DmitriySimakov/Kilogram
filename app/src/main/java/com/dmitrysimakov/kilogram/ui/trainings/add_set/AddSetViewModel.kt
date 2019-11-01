@@ -1,9 +1,6 @@
 package com.dmitrysimakov.kilogram. ui.trainings.add_set
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExerciseSet
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
@@ -18,7 +15,7 @@ class AddSetViewModel(
     
     fun setTrainingExercise(id: Long) { _trainingExerciseId.setNewValue(id) }
     private val _trainingExerciseId = MutableLiveData<Long>()
-    val trainingExercise = Transformations.switchMap(_trainingExerciseId) {
+    val trainingExercise = _trainingExerciseId.switchMap {
         trainingExerciseRepository.loadTrainingExercise(it)
     }
     
@@ -36,7 +33,7 @@ class AddSetViewModel(
         _setId.setNewValue(id)
     }
     private val _setId = MutableLiveData<Long>()
-    val set = Transformations.switchMap(_setId) {
+    val set = _setId.switchMap {
         when (it) {
             0L -> MutableLiveData(TrainingExerciseSet(0, _trainingExerciseId.value!!, 0, weight, reps, time, distance))
             else -> trainingExerciseSetRepository.loadSet(it)
