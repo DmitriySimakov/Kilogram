@@ -35,7 +35,7 @@ interface TrainingExerciseDao {
         ORDER BY t.start_time DESC
         LIMIT 1
     """)
-    fun getPrevTrainingExercise(training_id: Long, exercise: String): LiveData<TrainingExerciseInfo>
+    fun getPrevTrainingExercise(training_id: Long, exercise: String): LiveData<TrainingExerciseInfo?>
     
     @Query("SELECT * FROM training_exercise WHERE training_id = :training_id ORDER BY indexNumber")
     fun getTrainingExercises(training_id: Long): LiveData<List<TrainingExercise>>

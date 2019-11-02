@@ -7,10 +7,7 @@ class ProgramDayRepository(private val programDayDao: ProgramDayDao) {
     
     fun loadTrainingDays(programId: Long) = programDayDao.getProgramDayList(programId)
     
-    suspend fun insertProgramDay(day: ProgramDay, callback: ((Long) -> Unit)? = null) {
-        val id = programDayDao.insert(day)
-        callback?.invoke(id)
-    }
+    suspend fun insertProgramDay(day: ProgramDay) = programDayDao.insert(day)
     
     suspend fun deleteProgramDay(id: Long) {
         programDayDao.delete(id)

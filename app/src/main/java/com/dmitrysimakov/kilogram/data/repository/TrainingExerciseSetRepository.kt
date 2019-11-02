@@ -13,15 +13,11 @@ class TrainingExerciseSetRepository(private val trainingExerciseSetDao: Training
         trainingExerciseSetDao.insert(set)
     }
     
-    suspend fun deleteSet(set: TrainingExerciseSet) {
-        trainingExerciseSetDao.delete(set)
+    suspend fun updateSet(set: TrainingExerciseSet) {
+        trainingExerciseSetDao.update(set)
     }
     
     suspend fun deleteSet(id: Long) {
         trainingExerciseSetDao.delete(id)
-    }
-    
-    suspend fun updateSet(set: TrainingExerciseSet) {
-        trainingExerciseSetDao.update(set)
     }
 }

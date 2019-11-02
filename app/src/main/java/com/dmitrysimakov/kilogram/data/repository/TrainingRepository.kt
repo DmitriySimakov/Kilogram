@@ -9,10 +9,7 @@ class TrainingRepository(private val trainingDao: TrainingDao) {
     
     fun loadTraining(id: Long) = trainingDao.getTraining(id)
     
-    suspend fun insertTraining(training: Training, callback: ((Long) -> Unit)? = null) {
-        val id = trainingDao.insert(training)
-        callback?.invoke(id)
-    }
+    suspend fun insertTraining(training: Training) = trainingDao.insert(training)
     
     suspend fun updateTraining(training: Training) {
         trainingDao.update(training)

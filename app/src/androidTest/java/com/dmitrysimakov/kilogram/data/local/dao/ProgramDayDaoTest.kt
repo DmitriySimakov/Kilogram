@@ -21,11 +21,13 @@ class ProgramDayDaoTest : DbTest() {
     @Test fun getNextProgramDay() {
         val day = getValue(dao.getNextProgramDay())
         val nextDay = testProgramDays[3]
-        assertThat(day, equalTo((ProgramDayAndProgram(nextDay.name, testPrograms[0].name))))
+        val sample = ProgramDayAndProgram(testProgramDays[0]._id, nextDay.name, testPrograms[0].name)
+        assertThat(day, equalTo(sample))
     }
     
     @Test fun getProgramDayAndProgram() {
         val day = getValue(dao.getProgramDayAndProgram(1))
-        assertThat(day, equalTo(ProgramDayAndProgram(testProgramDays[0].name, testPrograms[0].name)))
+        val sample = ProgramDayAndProgram(testProgramDays[0]._id, testProgramDays[0].name, testPrograms[0].name)
+        assertThat(day, equalTo(sample))
     }
 }

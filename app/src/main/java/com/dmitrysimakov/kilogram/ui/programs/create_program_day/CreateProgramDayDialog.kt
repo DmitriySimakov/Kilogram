@@ -15,6 +15,8 @@ import com.dmitrysimakov.kilogram.ui.common.ChipGroupFilterAdapter
 import com.dmitrysimakov.kilogram.util.hideKeyboard
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.dialog_create_program_day.*
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CreateProgramDayDialog : AppCompatDialogFragment() {
@@ -85,16 +87,18 @@ class CreateProgramDayDialog : AppCompatDialogFragment() {
         else -> false
     }
     
-    private fun submit() {
+    private fun submit() = MainScope().launch {
         if (validate()) {
-            vm.createProgramDay(args.num) { id ->
-                vm.saveMuscles(id)
-                findNavController().navigate(CreateProgramDayDialogDirections.toExercisesFragment(id))
+            vm.createProgramDay(args.num)?.let { programDayId ->
+                vm.saveMuscles(programDayId)
+                findNavController().navigate(
+                        CreateProgramDayDialogDirections.toExercisesFragment(programDayId))
             }
+            
         }
     }
     
-    private fun validate():Boolean {
+    private fun validate(): Boolean {
         val nameIsEmpty = nameTIL.editText?.text.toString().trim().isEmpty()
         nameTIL.error = "Заполните поле".takeIf { nameIsEmpty }
         return !nameIsEmpty

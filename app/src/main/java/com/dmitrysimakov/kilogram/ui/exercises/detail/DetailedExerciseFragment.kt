@@ -36,13 +36,11 @@ class DetailedExerciseFragment : Fragment() {
     
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.exercise_detail, menu)
-        menu.let {
-            vm.exercise.observe(viewLifecycleOwner, Observer { exercise ->
-                val item = menu.findItem(R.id.addToFavorite)
-                item.isChecked = exercise.is_favorite
-                updateFavoriteButton(item)
-            })
-        }
+        vm.exercise.observe(viewLifecycleOwner, Observer { exercise ->
+            val item = menu.findItem(R.id.addToFavorite)
+            item.isChecked = exercise.is_favorite
+            updateFavoriteButton(item)
+        })
         super.onCreateOptionsMenu(menu, inflater)
     }
     

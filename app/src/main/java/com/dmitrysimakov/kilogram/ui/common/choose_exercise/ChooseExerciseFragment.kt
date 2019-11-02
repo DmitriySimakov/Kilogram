@@ -64,26 +64,25 @@ abstract class ChooseExerciseFragment : Fragment() {
     }
     
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.search_filter, menu)
-        menu.let {
-            val searchView = menu.findItem(R.id.search).actionView as SearchView
-            
-            vm.searchText.value?.let { query ->
-                if (query.isNotEmpty()) searchView.setQuery(query, false)
-                searchView.isIconified = false
-            }
-            
-            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    return false
-                }
-                override fun onQueryTextChange(newText: String?): Boolean{
-                    vm.setSearchText(newText)
-                    return true
-                }
-            })
+        
+        val searchView = menu.findItem(R.id.search).actionView as SearchView
+        
+        vm.searchText.value?.let { query ->
+            if (query.isNotEmpty()) searchView.setQuery(query, false)
+            searchView.isIconified = false
         }
+        
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+            override fun onQueryTextChange(newText: String?): Boolean{
+                vm.setSearchText(newText)
+                return true
+            }
+        })
+        super.onCreateOptionsMenu(menu, inflater)
     }
     
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {

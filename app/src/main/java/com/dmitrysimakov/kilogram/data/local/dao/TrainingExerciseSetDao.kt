@@ -18,9 +18,6 @@ interface TrainingExerciseSetDao {
 
     @Query("SELECT * FROM training_exercise_set WHERE _id = :id")
     fun getSet(id: Long) : LiveData<TrainingExerciseSet>
-
-    @Delete
-    suspend fun delete(set: TrainingExerciseSet)
     
     @Query("DELETE FROM training_exercise_set WHERE _id = :id")
     suspend fun delete(id: Long)

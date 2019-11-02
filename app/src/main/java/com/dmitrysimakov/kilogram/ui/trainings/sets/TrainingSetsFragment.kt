@@ -54,7 +54,8 @@ class TrainingSetsFragment : Fragment() {
     
     
             vm.sets.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
-            activity?.toolbar?.menu?.findItem(R.id.finish_exercise)?.isVisible = exercise.state == TrainingExercise.RUNNING
+            val finishExerciseMenuItem = activity?.toolbar?.menu?.findItem(R.id.finish_exercise)
+            finishExerciseMenuItem?.isVisible = exercise.state == TrainingExercise.RUNNING
             
             ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
                 override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean { return false }

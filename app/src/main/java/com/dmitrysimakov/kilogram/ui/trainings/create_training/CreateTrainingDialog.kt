@@ -17,6 +17,10 @@ import com.dmitrysimakov.kilogram.ui.common.ChipGroupFilterAdapter
 import com.dmitrysimakov.kilogram.util.hideKeyboard
 import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
@@ -135,14 +139,11 @@ class CreateTrainingDialog : AppCompatDialogFragment() {
         else -> false
     }
     
-    private fun submit() {
-        vm.createTraining { id ->
-            if (vm.byProgram.value!!) {
-                vm.fillTrainingWithProgramExercises(id)
-            }
-            vm.saveMuscles(id)
-            findNavController().navigate(CreateTrainingDialogDirections.toExercisesFragment(id))
-        }
+    private fun submit() = MainScope().launch {
+        val trainingId = vm.createTraining()
+        if (vm.byProgram.value!!) vm.fillTrainingWithProgramExercises(trainingId)
+        vm.saveMuscles(trainingId)
+        findNavController().navigate(CreateTrainingDialogDirections.toExercisesFragment(trainingId))
         sharedVM.onTrainingSessionStarted()
     }
 }

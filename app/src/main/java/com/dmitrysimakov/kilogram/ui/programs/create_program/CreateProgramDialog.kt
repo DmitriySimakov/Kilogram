@@ -12,6 +12,8 @@ import com.dmitrysimakov.kilogram.databinding.DialogCreateProgramBinding
 import com.dmitrysimakov.kilogram.util.hideKeyboard
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.dialog_create_program.*
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CreateProgramDialog : AppCompatDialogFragment() {
@@ -72,11 +74,11 @@ class CreateProgramDialog : AppCompatDialogFragment() {
         else -> false
     }
     
-    private fun submit() {
+    private fun submit() = MainScope().launch {
         if (validate()) {
-            vm.createProgram { id ->
-                findNavController().navigate(CreateProgramDialogDirections.toChooseProgramDayFragment(id))
-            }
+            val programId = vm.createProgram()
+            findNavController().navigate(
+                    CreateProgramDialogDirections.toChooseProgramDayFragment(programId))
         }
     }
     

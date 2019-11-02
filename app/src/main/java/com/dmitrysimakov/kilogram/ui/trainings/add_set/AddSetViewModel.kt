@@ -1,12 +1,17 @@
 package com.dmitrysimakov.kilogram. ui.trainings.add_set
 
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.switchMap
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExerciseSet
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseSetRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class AddSetViewModel(
         private val trainingExerciseRepository: TrainingExerciseRepository,
@@ -35,20 +40,30 @@ class AddSetViewModel(
     private val _setId = MutableLiveData<Long>()
     val set = _setId.switchMap {
         when (it) {
-            0L -> MutableLiveData(TrainingExerciseSet(0, _trainingExerciseId.value!!, 0, weight, reps, time, distance))
+            0L -> MutableLiveData(TrainingExerciseSet(
+                    0,
+                    _trainingExerciseId.value!!,
+                    weight,
+                    reps,
+                    time,
+                    distance,
+                    0
+            ))
             else -> trainingExerciseSetRepository.loadSet(it)
         }
     }
     
-    fun addSet(secsSinceStart: Int) { viewModelScope.launch {
+    fun addSet(secsSinceStart: Int) { CoroutineScope(Dispatchers.IO).launch {
         set.value?.let {
             it.secs_since_start = secsSinceStart
             trainingExerciseSetRepository.insertSet(it)
-            trainingExerciseRepository.updateState(it.training_exercise_id, TrainingExercise.RUNNING)
+            if (trainingExercise.value?.state == TrainingExercise.PLANNED) {
+                trainingExerciseRepository.updateState(it.training_exercise_id, TrainingExercise.RUNNING)
+            }
         }
     }}
     
-    fun updateSet() { viewModelScope.launch {
+    fun updateSet() { CoroutineScope(Dispatchers.IO).launch {
         set.value?.let { trainingExerciseSetRepository.updateSet(it) }
     }}
     

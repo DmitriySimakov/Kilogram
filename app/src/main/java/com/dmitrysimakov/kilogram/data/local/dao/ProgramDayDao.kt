@@ -18,15 +18,15 @@ interface ProgramDayDao {
     fun getProgramDayList(programId: Long): LiveData<List<ProgramDay>>
     
     @Query("""
-        SELECT pd.name AS program_day, p.name AS program
+        SELECT pd._id AS program_day_id, pd.name AS program_day, p.name AS program
         FROM program_day AS pd
         INNER JOIN program AS p
         WHERE pd._id = :id
     """)
-    fun getProgramDayAndProgram(id: Long): LiveData<ProgramDayAndProgram>
+    fun getProgramDayAndProgram(id: Long): LiveData<ProgramDayAndProgram?>
     
     @Query("""
-        SELECT next.name AS program_day, p.name AS program
+        SELECT next._id AS program_day_id, next.name AS program_day, p.name AS program
         FROM (
             SELECT pd.program_id, pd.indexNumber
             FROM program_day AS pd
@@ -39,7 +39,7 @@ interface ProgramDayDao {
         INNER JOIN program AS p ON next.program_id = p._id
         ORDER BY next.indexNumber DESC
     """)
-    fun getNextProgramDay(): LiveData<ProgramDayAndProgram>
+    fun getNextProgramDay(): LiveData<ProgramDayAndProgram?>
     
     @Update
     suspend fun update(programDayList: List<ProgramDay>)

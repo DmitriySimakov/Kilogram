@@ -1,8 +1,9 @@
 package com.dmitrysimakov.kilogram.ui.trainings.trainings
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -16,7 +17,7 @@ class TrainingsViewModel (private val repository: TrainingRepository) : ViewMode
         return if (pos == null || pos == -1) 0 else pos
     }
     
-    fun deleteTraining(id: Long) { viewModelScope.launch {
+    fun deleteTraining(id: Long) { CoroutineScope(Dispatchers.IO).launch {
         repository.deleteTraining(id)
     }}
 }

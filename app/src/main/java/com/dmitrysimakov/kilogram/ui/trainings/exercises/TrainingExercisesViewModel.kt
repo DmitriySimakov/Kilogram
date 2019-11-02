@@ -1,12 +1,17 @@
 package com.dmitrysimakov.kilogram.ui.trainings.exercises
 
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
+import androidx.lifecycle.switchMap
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.relation.DetailedTrainingExercise
 import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class TrainingExercisesViewModel(
@@ -41,12 +46,12 @@ class TrainingExercisesViewModel(
         _trainingId.setNewValue(id)
     }
 
-    fun deleteExercise(exercise: DetailedTrainingExercise) { viewModelScope.launch {
+    fun deleteExercise(exercise: DetailedTrainingExercise) { CoroutineScope(Dispatchers.IO).launch {
         trainingExerciseRepository.deleteExercise(exercise)
         exerciseRepository.decreaseExecutionsCnt(exercise.exercise)
     }}
     
-    fun finishTraining(duration: Int) { viewModelScope.launch {
+    fun finishTraining(duration: Int) { CoroutineScope(Dispatchers.IO).launch {
         training.value?.let {
             it.duration = duration
             trainingRepository.updateTraining(it)
@@ -54,12 +59,12 @@ class TrainingExercisesViewModel(
         }
     }}
     
-    fun finishExercise(exercise: DetailedTrainingExercise) { viewModelScope.launch {
+    fun finishExercise(exercise: DetailedTrainingExercise) { CoroutineScope(Dispatchers.IO).launch {
         trainingExerciseRepository.updateState(exercise._id, TrainingExercise.FINISHED)
         exerciseRepository.increaseExecutionsCnt(exercise.exercise)
     }}
     
-    fun updateIndexNumbers() { viewModelScope.launch {
+    fun updateIndexNumbers() { CoroutineScope(Dispatchers.IO).launch {
         plannedExercises.value?.let { list ->
             list.forEachIndexed { index, exercise -> exercise.indexNumber = index + 1 }
             trainingExerciseRepository.updateIndexNumbers(list)
