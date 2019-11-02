@@ -105,11 +105,9 @@ class ChooseExerciseViewModel (
         exerciseRepo.setFavorite(exercise.name, isChecked)
     }}
     
-    fun setChecked(data: LiveData<List<FilterParam>>, name: String, isChecked: Boolean) {
-        CoroutineScope(Dispatchers.IO).launch {
-            data.value?.find{ it.name == name }?.is_active = isChecked
-            query.value = getQuery()
-        }
+    fun setChecked(filterParams: LiveData<List<FilterParam>>, name: String, isChecked: Boolean) {
+        filterParams.value?.find{ it.name == name }?.is_active = isChecked
+        query.value = getQuery()
     }
     
     private fun LiveData<List<FilterParam>>.getActiveParamsString() =

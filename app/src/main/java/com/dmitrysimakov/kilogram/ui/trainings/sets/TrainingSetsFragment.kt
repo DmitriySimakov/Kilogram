@@ -72,8 +72,8 @@ class TrainingSetsFragment : Fragment() {
             var reps = 0
             var time = 0
             var distance = 0
-            val currLast = try {vm.currSets.value?.last()} catch (e: Exception) {null}
-            val prevLast = try {vm.prevSets.value?.last()} catch (e: Exception) {null}
+            val currLast = try {vm.currentSets.value?.last()} catch (e: Exception) {null}
+            val prevLast = try {vm.previousSets.value?.last()} catch (e: Exception) {null}
             if (currLast != null) {
                 weight = currLast.weight ?: 0
                 reps = currLast.reps ?: 0

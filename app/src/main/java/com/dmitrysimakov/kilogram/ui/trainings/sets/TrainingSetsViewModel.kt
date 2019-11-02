@@ -36,11 +36,11 @@ class TrainingSetsViewModel(
         trainingExerciseRepository.loadPrevTrainingExercise(trainingId, it.exercise)
     }
     
-    val currSets = exercise.switchMap {
+    val currentSets = exercise.switchMap {
         trainingExerciseSetRepository.loadSets(it._id)
     }
     
-    val prevSets = prevExercise.switchMap {
+    val previousSets = prevExercise.switchMap {
         if (it != null) trainingExerciseSetRepository.loadSets(it.training_exercise_id)
         else MutableLiveData(emptyList())
     }
@@ -50,17 +50,32 @@ class TrainingSetsViewModel(
     init {
         fun joinSets() {
             val res = mutableListOf<SetWithPreviousResults>()
-            for (i in 0 until max(currSets.value?.size ?: 0, prevSets.value?.size ?: 0)) {
-                val curr = try { currSets.value?.get(i) } catch (e: Exception) {null}
-                val prev = try { prevSets.value?.get(i) } catch (e: Exception) {null}
-                res.add(SetWithPreviousResults(curr?._id ?: 0L, curr?.weight, curr?.reps, curr?.time, curr?.distance,
-                        prev?._id ?: 0L, prev?.weight, prev?.reps, prev?.time, prev?.distance))
+            val currSets = currentSets.value;
+            val prevSets = previousSets.value
+            if (currSets != null && prevSets != null) {
+                for (i in 0 until max(currSets.size, prevSets.size)) {
+                    val curr = try { currSets[i] } catch (e: Exception) { null }
+                    val prev = try { prevSets[i] } catch (e: Exception) { null }
+                    val set = SetWithPreviousResults(
+                            curr?._id ?: 0,
+                            curr?.weight,
+                            curr?.reps,
+                            curr?.time,
+                            curr?.distance,
+                            prev?._id ?: 0,
+                            prev?.weight,
+                            prev?.reps,
+                            prev?.time,
+                            prev?.distance
+                    )
+                    res.add(set)
+                }
             }
             sets.value = res
         }
         
-        sets.addSource(currSets) { joinSets() }
-        sets.addSource(prevSets) { joinSets() }
+        sets.addSource(currentSets) { joinSets() }
+        sets.addSource(previousSets) { joinSets() }
     }
 
     fun deleteSet(id: Long) { CoroutineScope(Dispatchers.IO).launch {
