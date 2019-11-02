@@ -49,9 +49,8 @@ val appModule = module {
     single { get<KilogramDb>().trainingExerciseSetDao() }
     single { get<KilogramDb>().measurementDao() }
     // Repositories
-    single { ExerciseRepository(get(), get(), get(), get(), get(), get()) }
+    single { ExerciseRepository(get()) }
     single { MeasurementRepository(get()) }
-    single { MuscleRepository(get()) }
     single { ProgramDayRepository(get()) }
     single { ProgramDayExerciseRepository(get()) }
     single { ProgramDayMuscleRepository(get()) }
@@ -63,11 +62,11 @@ val appModule = module {
     // ViewModels
     viewModel { SharedViewModel(get()) }
     viewModel { ChooseMuscleViewModel(get()) }
-    viewModel { ChooseExerciseViewModel(get(), get(), get()) }
+    viewModel { ChooseExerciseViewModel(get(), get(), get(), get(), get(), get(), get()) }
     viewModel { AddExerciseViewModel(get(), get(), get()) }
     viewModel { ChooseProgramViewModel(get()) }
     viewModel { ChooseProgramDayViewModel(get()) }
-    viewModel { DetailedExerciseViewModel(get()) }
+    viewModel { DetailedExerciseViewModel(get(), get()) }
     viewModel { CreateProgramViewModel(get()) }
     viewModel { CreateProgramDayViewModel(get(), get(), get()) }
     viewModel { ProgramDayExercisesViewModel(get()) }

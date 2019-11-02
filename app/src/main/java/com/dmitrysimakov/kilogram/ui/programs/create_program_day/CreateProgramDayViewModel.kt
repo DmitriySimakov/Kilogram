@@ -3,6 +3,7 @@ package com.dmitrysimakov.kilogram.ui.programs.create_program_day
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dmitrysimakov.kilogram.data.local.dao.MuscleDao
 import com.dmitrysimakov.kilogram.data.local.entity.ProgramDay
 import com.dmitrysimakov.kilogram.data.local.entity.ProgramDayMuscle
 import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
@@ -12,8 +13,8 @@ import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.coroutines.launch
 
 class CreateProgramDayViewModel(
+        muscleDao: MuscleDao,
         private val programDayRepo: ProgramDayRepository,
-        private val exerciseRepo: ExerciseRepository,
         private val programDayMuscleRepo: ProgramDayMuscleRepository
 ) : ViewModel() {
 
@@ -32,7 +33,7 @@ class CreateProgramDayViewModel(
         }
     }}
     
-    val muscleList = exerciseRepo.loadMuscleParams()
+    val muscleList = muscleDao.getParamList()
     
     fun saveMuscles(trainingId: Long) { viewModelScope.launch {
         val list = mutableListOf<ProgramDayMuscle>()

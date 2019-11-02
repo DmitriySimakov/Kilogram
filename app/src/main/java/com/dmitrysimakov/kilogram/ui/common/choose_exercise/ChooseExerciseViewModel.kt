@@ -3,6 +3,10 @@ package com.dmitrysimakov.kilogram.ui.common.choose_exercise
 import androidx.lifecycle.*
 import androidx.sqlite.db.SimpleSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteQuery
+import com.dmitrysimakov.kilogram.data.local.dao.EquipmentDao
+import com.dmitrysimakov.kilogram.data.local.dao.ExerciseTypeDao
+import com.dmitrysimakov.kilogram.data.local.dao.MechanicsTypeDao
+import com.dmitrysimakov.kilogram.data.local.dao.MuscleDao
 import com.dmitrysimakov.kilogram.data.local.entity.Exercise
 import com.dmitrysimakov.kilogram.data.relation.FilterParam
 import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
@@ -13,6 +17,10 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class ChooseExerciseViewModel (
+        mechanicsTypeDao: MechanicsTypeDao,
+        exerciseTypeDao: ExerciseTypeDao,
+        equipmentDao: EquipmentDao,
+        muscleDao: MuscleDao,
         private val exerciseRepo: ExerciseRepository,
         private val trainingMuscleRepo: TrainingMuscleRepository,
         private val programDayMuscleRepo: ProgramDayMuscleRepository
@@ -31,7 +39,7 @@ class ChooseExerciseViewModel (
     fun setMuscle(name: String) { _muscleName.setNewValue(name) }
     
     private val exercisesMuscles = _muscleName.switchMap { muscleName ->
-        exerciseRepo.loadMuscleParams().map { list ->
+        muscleDao.getParamList().map { list ->
             list.find { it.name == muscleName }?.is_active = true
             list
         }
@@ -52,9 +60,9 @@ class ChooseExerciseViewModel (
     }
     
     val muscleList = MediatorLiveData<List<FilterParam>>()
-    val mechanicsTypeList = exerciseRepo.loadMechanicsTypeParams()
-    val exerciseTypeList = exerciseRepo.loadExerciseTypeParams()
-    val equipmentList = exerciseRepo.loadEquipmentParams()
+    val mechanicsTypeList = mechanicsTypeDao.getParamList()
+    val exerciseTypeList = exerciseTypeDao.getParamList()
+    val equipmentList = equipmentDao.getParamList()
     
     init {
         muscleList.addSource(exercisesMuscles) { muscleList.value = it }

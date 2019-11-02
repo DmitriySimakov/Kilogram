@@ -1,6 +1,7 @@
 package com.dmitrysimakov.kilogram.ui.trainings.create_training
 
 import androidx.lifecycle.*
+import com.dmitrysimakov.kilogram.data.local.dao.MuscleDao
 import com.dmitrysimakov.kilogram.data.local.entity.Training
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingMuscle
 import com.dmitrysimakov.kilogram.data.repository.*
@@ -9,10 +10,10 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 class CreateTrainingViewModel(
+        muscleDao: MuscleDao,
         private val trainingRepo: TrainingRepository,
         private val trainingExerciseRepo: TrainingExerciseRepository,
         private val programDayRepo: ProgramDayRepository,
-        private val exerciseRepo: ExerciseRepository,
         private val trainingMuscleRepo: TrainingMuscleRepository
 ) : ViewModel() {
     
@@ -43,8 +44,8 @@ class CreateTrainingViewModel(
     
     val muscleList = _programDayId.switchMap {
         when (it) {
-            0L -> exerciseRepo.loadMuscleParams()
-            else -> exerciseRepo.loadMuscleParams(it)
+            0L -> muscleDao.getParamList()
+            else -> muscleDao.getProgramDayParamList(it)
         }
     }
     
