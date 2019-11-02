@@ -10,14 +10,7 @@ import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 class ExerciseListAdapter(
         private val viewModel: ChooseExerciseViewModel,
         clickCallback: ((Exercise) -> Unit)? = null
-) : DataBoundListAdapter<Exercise, ItemExerciseBinding>(clickCallback,
-        object : DiffUtil.ItemCallback<Exercise>() {
-            override fun areItemsTheSame(oldItem: Exercise, newItem: Exercise) =
-                    oldItem.name == newItem.name
-            override fun areContentsTheSame(oldItem: Exercise, newItem: Exercise) =
-                    oldItem == newItem
-        }
-) {
+) : DataBoundListAdapter<Exercise, ItemExerciseBinding>(clickCallback, ExerciseDiffCallback()) {
 
     override fun createBinding(parent: ViewGroup): ItemExerciseBinding = ItemExerciseBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
@@ -26,4 +19,11 @@ class ExerciseListAdapter(
         binding.exercise = item
         binding.vm = viewModel
     }
+}
+
+private class ExerciseDiffCallback : DiffUtil.ItemCallback<Exercise>() {
+    override fun areItemsTheSame(oldItem: Exercise, newItem: Exercise) =
+            oldItem.name == newItem.name
+    override fun areContentsTheSame(oldItem: Exercise, newItem: Exercise) =
+            oldItem == newItem
 }

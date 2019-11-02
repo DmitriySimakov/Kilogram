@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.DiffUtil
 import com.dmitrysimakov.kilogram.data.relation.DetailedTrainingExercise
 import com.dmitrysimakov.kilogram.databinding.ItemExerciseRunningBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
@@ -15,13 +14,10 @@ class ExerciseRunningListAdapter(
         private val lifecycleOwner: LifecycleOwner,
         clickCallback: ((DetailedTrainingExercise) -> Unit),
         private val finishIconClickCallback: ((DetailedTrainingExercise) -> Unit)
-) : DataBoundListAdapter<DetailedTrainingExercise, ItemExerciseRunningBinding>(clickCallback,
-        object : DiffUtil.ItemCallback<DetailedTrainingExercise>() {
-            override fun areItemsTheSame(oldItem: DetailedTrainingExercise, newItem: DetailedTrainingExercise) =
-                    oldItem._id == newItem._id
-            override fun areContentsTheSame(oldItem: DetailedTrainingExercise, newItem: DetailedTrainingExercise) =
-                    oldItem == newItem
-        }) {
+) : DataBoundListAdapter<DetailedTrainingExercise, ItemExerciseRunningBinding>(
+        clickCallback,
+        DetailedTrainingExerciseDiffCallback()
+) {
     
     override fun createBinding(parent: ViewGroup): ItemExerciseRunningBinding = ItemExerciseRunningBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)

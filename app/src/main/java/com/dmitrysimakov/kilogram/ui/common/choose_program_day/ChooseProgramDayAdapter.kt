@@ -8,13 +8,9 @@ import com.dmitrysimakov.kilogram.databinding.ItemProgramDayBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 
 class ChooseProgramDayAdapter(clickCallback: ((ProgramDay) -> Unit)? = null)
-    : DataBoundListAdapter<ProgramDay, ItemProgramDayBinding>(clickCallback,
-        object : DiffUtil.ItemCallback<ProgramDay>() {
-            override fun areItemsTheSame(oldItem: ProgramDay, newItem: ProgramDay) =
-                    oldItem._id == newItem._id
-            override fun areContentsTheSame(oldItem: ProgramDay, newItem: ProgramDay) =
-                    oldItem == newItem
-        }
+    : DataBoundListAdapter<ProgramDay, ItemProgramDayBinding>(
+        clickCallback,
+        ProgramDayDiffCallback()
 ) {
  
     
@@ -24,4 +20,11 @@ class ChooseProgramDayAdapter(clickCallback: ((ProgramDay) -> Unit)? = null)
     override fun bind(binding: ItemProgramDayBinding, item: ProgramDay) {
         binding.day = item
     }
+}
+
+private class ProgramDayDiffCallback : DiffUtil.ItemCallback<ProgramDay>() {
+    override fun areItemsTheSame(oldItem: ProgramDay, newItem: ProgramDay) =
+            oldItem._id == newItem._id
+    override fun areContentsTheSame(oldItem: ProgramDay, newItem: ProgramDay) =
+            oldItem == newItem
 }

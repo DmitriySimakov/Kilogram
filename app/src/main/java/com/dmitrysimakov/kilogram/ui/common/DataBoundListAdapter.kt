@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 abstract class DataBoundListAdapter<T, B : ViewDataBinding>(
         var clickCallback: ((T) -> Unit)?,
         diffCallback: DiffUtil.ItemCallback<T>
-) : ListAdapter<T, DataBoundListAdapter.DataBoundViewHolder<B>>(diffCallback) {
+) : ListAdapter<T, DataBoundViewHolder<B>>(diffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             DataBoundViewHolder(createBinding(parent))
     
@@ -34,9 +34,10 @@ abstract class DataBoundListAdapter<T, B : ViewDataBinding>(
     
     public override fun getItem(position: Int) : T = super.getItem(position)
     
-    /**
-     * A generic ViewHolder that works with a [ViewDataBinding].
-     * @param <T> The type of the ViewDataBinding.
-    </T> */
-    class DataBoundViewHolder<out T : ViewDataBinding>(val binding: T): RecyclerView.ViewHolder(binding.root)
 }
+
+/**
+ * A generic ViewHolder that works with a [ViewDataBinding].
+ * @param <T> The type of the ViewDataBinding.
+</T> */
+class DataBoundViewHolder<out T : ViewDataBinding>(val binding: T): RecyclerView.ViewHolder(binding.root)

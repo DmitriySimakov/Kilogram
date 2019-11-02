@@ -8,14 +8,7 @@ import com.dmitrysimakov.kilogram.databinding.ItemChooseMuscleBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 
 class MuscleListAdapter(clickCallback: ((Muscle) -> Unit)? = null)
-    : DataBoundListAdapter<Muscle, ItemChooseMuscleBinding>(clickCallback,
-        object : DiffUtil.ItemCallback<Muscle>() {
-            override fun areItemsTheSame(oldItem: Muscle, newItem: Muscle) =
-                    oldItem.name == newItem.name
-            override fun areContentsTheSame(oldItem: Muscle, newItem: Muscle) =
-                    oldItem == newItem
-        }
-) {
+    : DataBoundListAdapter<Muscle, ItemChooseMuscleBinding>(clickCallback, MuscleDiffCallback()) {
 
     override fun createBinding(parent: ViewGroup): ItemChooseMuscleBinding = ItemChooseMuscleBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
@@ -23,4 +16,11 @@ class MuscleListAdapter(clickCallback: ((Muscle) -> Unit)? = null)
     override fun bind(binding: ItemChooseMuscleBinding, item: Muscle) {
         binding.muscle = item
     }
+}
+
+private class MuscleDiffCallback : DiffUtil.ItemCallback<Muscle>() {
+    override fun areItemsTheSame(oldItem: Muscle, newItem: Muscle) =
+            oldItem.name == newItem.name
+    override fun areContentsTheSame(oldItem: Muscle, newItem: Muscle) =
+            oldItem == newItem
 }

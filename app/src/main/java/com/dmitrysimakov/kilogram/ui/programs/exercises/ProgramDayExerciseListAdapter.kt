@@ -8,13 +8,10 @@ import com.dmitrysimakov.kilogram.databinding.ItemProgramExerciseBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 
 class ProgramDayExerciseListAdapter(clickCallback: ((ProgramDayExercise) -> Unit)? = null)
-    : DataBoundListAdapter<ProgramDayExercise, ItemProgramExerciseBinding>(clickCallback,
-        object : DiffUtil.ItemCallback<ProgramDayExercise>() {
-            override fun areItemsTheSame(oldItem: ProgramDayExercise, newItem: ProgramDayExercise) =
-                    oldItem._id == newItem._id
-            override fun areContentsTheSame(oldItem: ProgramDayExercise, newItem: ProgramDayExercise) =
-                    oldItem == newItem
-        }) {
+    : DataBoundListAdapter<ProgramDayExercise, ItemProgramExerciseBinding>(
+        clickCallback,
+        ProgramDayExerciseDiffCallback()
+) {
 
     override fun createBinding(parent: ViewGroup): ItemProgramExerciseBinding = ItemProgramExerciseBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
@@ -22,4 +19,11 @@ class ProgramDayExerciseListAdapter(clickCallback: ((ProgramDayExercise) -> Unit
     override fun bind(binding: ItemProgramExerciseBinding, item: ProgramDayExercise) {
         binding.exercise = item
     }
+}
+
+private class ProgramDayExerciseDiffCallback : DiffUtil.ItemCallback<ProgramDayExercise>() {
+    override fun areItemsTheSame(oldItem: ProgramDayExercise, newItem: ProgramDayExercise) =
+            oldItem._id == newItem._id
+    override fun areContentsTheSame(oldItem: ProgramDayExercise, newItem: ProgramDayExercise) =
+            oldItem == newItem
 }

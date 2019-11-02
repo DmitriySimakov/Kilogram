@@ -14,13 +14,9 @@ class TrainingsAdapter(
         private val sessionTime: LiveData<Int?>,
         private val lifecycleOwner: LifecycleOwner,
         clickCallback: ((DetailedTraining) -> Unit)?
-) : DataBoundListAdapter<DetailedTraining, ItemTrainingBinding>(clickCallback,
-        object : DiffUtil.ItemCallback<DetailedTraining>() {
-            override fun areItemsTheSame(oldItem: DetailedTraining, newItem: DetailedTraining) =
-                    oldItem._id == newItem._id
-            override fun areContentsTheSame(oldItem: DetailedTraining, newItem: DetailedTraining) =
-                    oldItem == newItem
-        }
+) : DataBoundListAdapter<DetailedTraining, ItemTrainingBinding>(
+        clickCallback,
+        DetailedTrainingDiffCallback()
 ) {
 
     override fun createBinding(parent: ViewGroup): ItemTrainingBinding = ItemTrainingBinding
@@ -34,4 +30,11 @@ class TrainingsAdapter(
         })
         binding.training = item
     }
+}
+
+private class DetailedTrainingDiffCallback : DiffUtil.ItemCallback<DetailedTraining>() {
+    override fun areItemsTheSame(oldItem: DetailedTraining, newItem: DetailedTraining) =
+            oldItem._id == newItem._id
+    override fun areContentsTheSame(oldItem: DetailedTraining, newItem: DetailedTraining) =
+            oldItem == newItem
 }
