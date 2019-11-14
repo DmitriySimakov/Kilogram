@@ -16,7 +16,7 @@ fun Fragment.hideKeyboard() {
 }
 
 fun Activity.hideKeyboard() {
-    hideKeyboard(if (currentFocus == null) View(this) else currentFocus)
+    hideKeyboard(currentFocus ?: View(this))
 }
 
 fun Context.hideKeyboard(view: View) {
@@ -32,21 +32,6 @@ fun <T> MutableLiveData<T>.setNewValue(newValue: T?) {
 
 fun EditText.getIntValue(): Int {
     return try { text.toString().toInt() } catch (e: Exception) { 0 }
-}
-
-fun Fragment.getAttrColor(id: Int): Int {
-    val typedValue = TypedValue()
-    context!!.theme.resolveAttribute(id, typedValue, true)
-    return typedValue.data
-}
-
-fun <T> MutableLiveData<T>.notifyObservers() {
-    value = value
-}
-
-inline fun <T> List<T>.findIndex(predicate: (T) -> Boolean): Int? {
-    for (i in 0 until this.size) if (predicate(get(i))) return i
-    return null
 }
 
 fun Context.toast(message: CharSequence, duration: Int = Toast.LENGTH_SHORT) {

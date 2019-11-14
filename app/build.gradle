@@ -5,21 +5,15 @@ apply plugin: "kotlin-kapt"
 apply plugin: "androidx.navigation.safeargs"
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     
     defaultConfig {
         applicationId "com.dmitrysimakov.kilogram"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = ["room.incremental":"true"]
-            }
-        }
     }
     
     buildTypes {
@@ -108,8 +102,8 @@ dependencies {
     implementation "com.google.firebase:firebase-auth:19.1.0"
     implementation "com.google.firebase:firebase-core:17.2.1"
     implementation "com.google.firebase:firebase-database:19.2.0"
-    implementation "com.google.firebase:firebase-firestore-ktx:21.2.1"
-    implementation "com.google.firebase:firebase-messaging:20.0.0"
+    implementation "com.google.firebase:firebase-firestore-ktx:21.3.0"
+    implementation "com.google.firebase:firebase-messaging:20.0.1"
     implementation "com.google.firebase:firebase-storage:19.1.0"
     implementation "com.firebaseui:firebase-ui-auth:5.0.0"
     implementation "com.facebook.android:facebook-android-sdk:5.0.0"
