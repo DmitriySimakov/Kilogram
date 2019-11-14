@@ -1,13 +1,10 @@
 package com.dmitrysimakov.kilogram.ui.trainings.create_training
 
 import android.app.DatePickerDialog
-import android.app.Dialog
 import android.app.TimePickerDialog
-import android.content.Context
 import android.os.Bundle
 import android.view.*
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatDialogFragment
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
@@ -17,15 +14,13 @@ import com.dmitrysimakov.kilogram.ui.common.ChipGroupFilterAdapter
 import com.dmitrysimakov.kilogram.util.hideKeyboard
 import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
-class CreateTrainingDialog : AppCompatDialogFragment() {
+class CreateTrainingDialog : Fragment() {
     
     private lateinit var binding: DialogCreateTrainingBinding
 
@@ -35,21 +30,8 @@ class CreateTrainingDialog : AppCompatDialogFragment() {
     
     private lateinit var muscleAdapter: ChipGroupFilterAdapter
     
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        binding = DialogCreateTrainingBinding.inflate(LayoutInflater.from(context))
-    }
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return AlertDialog.Builder(activity!!)
-                .setView(binding.root)
-                .setTitle("Тренировка")
-                .setPositiveButton("Начать") { _, _ -> submit() }
-                .setNegativeButton("Отмена") { dialog, _ -> dialog.cancel() }
-                .create()
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = DialogCreateTrainingBinding.inflate(inflater)
         binding.vm = vm
         binding.lifecycleOwner = this
 
@@ -58,8 +40,6 @@ class CreateTrainingDialog : AppCompatDialogFragment() {
         return binding.root
     }
     
-    
-
     private fun setDatePickerDialog() {
         binding.dateTv.setOnClickListener {
             val calendar = vm.calendar.value!!
@@ -97,10 +77,8 @@ class CreateTrainingDialog : AppCompatDialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         
-        if (dialog == null) {
-            activity?.toolbar?.setNavigationIcon(R.drawable.ic_close_24dp)
-            setHasOptionsMenu(true)
-        }
+        activity?.toolbar?.setNavigationIcon(R.drawable.ic_close_24dp)
+        setHasOptionsMenu(true)
     
         sharedVM.programDayId.observe(viewLifecycleOwner, Observer { if (it != null) vm.setProgramDay(it) })
         vm.byProgram.observe(viewLifecycleOwner, Observer {  })

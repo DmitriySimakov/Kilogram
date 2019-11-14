@@ -1,11 +1,8 @@
 package com.dmitrysimakov.kilogram.ui.programs.create_program
 
-import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import android.view.*
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatDialogFragment
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.DialogCreateProgramBinding
@@ -16,27 +13,14 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CreateProgramDialog : AppCompatDialogFragment() {
+class CreateProgramDialog : Fragment() {
     
     private lateinit var binding: DialogCreateProgramBinding
 
     private val vm: CreateProgramViewModel by viewModel()
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        binding = DialogCreateProgramBinding.inflate(LayoutInflater.from(context))
-    }
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return AlertDialog.Builder(activity!!)
-                .setView(binding.root)
-                .setTitle("Тренировочная программа")
-                .setPositiveButton("Создать") { _, _ -> submit() }
-                .setNegativeButton("Отмена") { dialog, _ -> dialog.cancel() }
-                .create()
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = DialogCreateProgramBinding.inflate(inflater)
         binding.viewModel = vm
         binding.lifecycleOwner = this
         return binding.root
@@ -44,10 +28,9 @@ class CreateProgramDialog : AppCompatDialogFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        if (dialog == null) {
-            activity?.toolbar?.setNavigationIcon(R.drawable.ic_close_24dp)
-            setHasOptionsMenu(true)
-        }
+        
+        activity?.toolbar?.setNavigationIcon(R.drawable.ic_close_24dp)
+        setHasOptionsMenu(true)
         
         descriptionET.setOnFocusChangeListener { _, hasFocus ->
             descriptionTIL.isCounterEnabled = hasFocus

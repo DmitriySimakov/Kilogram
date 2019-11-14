@@ -1,11 +1,8 @@
 package com.dmitrysimakov.kilogram.ui.programs.create_program_day
 
-import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import android.view.*
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatDialogFragment
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -19,7 +16,7 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CreateProgramDayDialog : AppCompatDialogFragment() {
+class CreateProgramDayDialog : Fragment() {
     
     private lateinit var binding: DialogCreateProgramDayBinding
     
@@ -28,23 +25,9 @@ class CreateProgramDayDialog : AppCompatDialogFragment() {
     private val args: CreateProgramDayDialogArgs by navArgs()
     
     private val vm: CreateProgramDayViewModel by viewModel()
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        binding = DialogCreateProgramDayBinding.inflate(LayoutInflater.from(context))
-    }
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return AlertDialog.Builder(activity!!)
-                .setView(binding.root)
-                .setTitle("День тренировочной программы")
-                .setPositiveButton("Создать") { _, _ -> submit() }
-                .setNegativeButton("Отмена") { dialog, _ -> dialog.cancel() }
-                .create()
-    }
-
+    
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        vm.setProgram(args.programId)
+        binding = DialogCreateProgramDayBinding.inflate(inflater)
         binding.viewModel = vm
         binding.lifecycleOwner = this
         return binding.root
@@ -52,11 +35,12 @@ class CreateProgramDayDialog : AppCompatDialogFragment() {
     
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        if (dialog == null) {
-            activity?.toolbar?.setNavigationIcon(R.drawable.ic_close_24dp)
-            setHasOptionsMenu(true)
-        }
+        
+        activity?.toolbar?.setNavigationIcon(R.drawable.ic_close_24dp)
+        setHasOptionsMenu(true)
     
+        vm.setProgram(args.programId)
+        
         descriptionET.setOnFocusChangeListener { _, hasFocus ->
             descriptionTIL.isCounterEnabled = hasFocus
         }
@@ -94,7 +78,6 @@ class CreateProgramDayDialog : AppCompatDialogFragment() {
                 findNavController().navigate(
                         CreateProgramDayDialogDirections.toExercisesFragment(programDayId))
             }
-            
         }
     }
     
