@@ -4,7 +4,6 @@ import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import com.dmitrysimakov.kilogram.util.DbTest
 import com.dmitrysimakov.kilogram.data.relation.DetailedTrainingExercise
 import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseInfo
-import com.dmitrysimakov.kilogram.util.getValue
 import com.dmitrysimakov.kilogram.util.testExercises
 import com.dmitrysimakov.kilogram.util.testProgramDayExercises
 import com.dmitrysimakov.kilogram.util.testTrainingExercises

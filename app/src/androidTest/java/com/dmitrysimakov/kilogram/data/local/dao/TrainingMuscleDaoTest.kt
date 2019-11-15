@@ -3,8 +3,8 @@ package com.dmitrysimakov.kilogram.data.local.dao
 import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import com.dmitrysimakov.kilogram.util.DbTest
 import com.dmitrysimakov.kilogram.data.relation.FilterParam
-import com.dmitrysimakov.kilogram.util.getValue
 import com.dmitrysimakov.kilogram.util.testMuscles
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Before
 import org.junit.Test
@@ -17,8 +17,8 @@ class TrainingMuscleDaoTest : DbTest() {
         dao = db.trainingMuscleDao()
     }
     
-    @Test fun getParamList() {
-        val params = getValue(dao.getParamList(2))
+    @Test fun getParamList() = runBlocking {
+        val params = dao.getParamList(2)
         assertThat(params.size, equalTo(testMuscles.size))
         
         // Ensure list is sorted by id

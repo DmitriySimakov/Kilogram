@@ -6,7 +6,6 @@ import com.dmitrysimakov.kilogram.data.local.entity.Program
 import com.dmitrysimakov.kilogram.data.local.entity.ProgramDay
 import com.dmitrysimakov.kilogram.data.local.entity.ProgramDayMuscle
 import com.dmitrysimakov.kilogram.data.relation.FilterParam
-import com.dmitrysimakov.kilogram.util.getValue
 import com.dmitrysimakov.kilogram.util.testMuscles
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo
@@ -21,8 +20,8 @@ class MuscleDaoTest : DbTest() {
         dao = db.muscleDao()
     }
     
-    @Test fun getParamList() {
-        val params = getValue(dao.getParamList())
+    @Test fun getParamList() = runBlocking {
+        val params = dao.getParamList()
         assertThat(params.size, equalTo(testMuscles.size))
         
         // Ensure list is sorted by id
@@ -39,7 +38,7 @@ class MuscleDaoTest : DbTest() {
                 ProgramDayMuscle(programDayId, testMuscles[0].name)
         ))
         
-        val params = getValue(dao.getProgramDayParamList(programDayId))
+        val params = dao.getProgramDayParamList(programDayId)
         assertThat(params.size, equalTo(testMuscles.size))
     
         // Ensure list is sorted by id

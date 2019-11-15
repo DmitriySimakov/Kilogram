@@ -3,10 +3,10 @@ package com.dmitrysimakov.kilogram.data.local.dao
 import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import com.dmitrysimakov.kilogram.util.DbTest
 import com.dmitrysimakov.kilogram.data.relation.DetailedTraining
-import com.dmitrysimakov.kilogram.util.getValue
 import com.dmitrysimakov.kilogram.util.testProgramDays
 import com.dmitrysimakov.kilogram.util.testPrograms
 import com.dmitrysimakov.kilogram.util.testTrainings
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Before
 import org.junit.Test
@@ -19,8 +19,8 @@ class TrainingDaoTest : DbTest() {
         dao = db.trainingDao()
     }
     
-    @Test fun getDetailedTrainingList() {
-        val list = getValue(dao.getDetailedTrainingList())
+    @Test fun getDetailedTrainingList() = runBlocking {
+        val list = dao.getDetailedTrainingList()
         assertThat(list.size, equalTo(testTrainings.size))
         
         val sampleList  = testTrainings.map { training ->
