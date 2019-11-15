@@ -3,48 +3,39 @@ package com.dmitrysimakov.kilogram.data.repository
 import com.dmitrysimakov.kilogram.data.local.dao.TrainingExerciseDao
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.relation.DetailedTrainingExercise
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
-class TrainingExerciseRepository(
-        private val trainingExerciseDao: TrainingExerciseDao,
-        private val io: CoroutineDispatcher = Dispatchers.IO
-) {
+class TrainingExerciseRepository(private val trainingExerciseDao: TrainingExerciseDao) {
     
-    suspend fun loadDetailedTrainingExerciseList(trainingId: Long) = withContext(io) {
-        trainingExerciseDao.getDetailedTrainingExerciseList(trainingId)
-    }
+    suspend fun loadDetailedTrainingExerciseList(trainingId: Long) =
+            trainingExerciseDao.getDetailedTrainingExerciseList(trainingId)
     
-    suspend fun loadPrevTrainingExercise(trainingId: Long, exercise: String) = withContext(io) {
-        trainingExerciseDao.getPrevTrainingExercise(trainingId, exercise)
-    }
+    suspend fun loadPrevTrainingExercise(trainingId: Long, exercise: String) =
+            trainingExerciseDao.getPrevTrainingExercise(trainingId, exercise)
     
-    suspend fun loadTrainingExercise(id: Long) = withContext(io) {
-        trainingExerciseDao.getTrainingExercise(id)
-    }
+    suspend fun loadTrainingExercise(id: Long) =
+            trainingExerciseDao.getTrainingExercise(id)
     
-    suspend fun addExercise(exercise: TrainingExercise) = withContext(io) {
+    suspend fun addExercise(exercise: TrainingExercise) {
         trainingExerciseDao.insert(exercise)
     }
     
-    suspend fun deleteExercise(exercise: DetailedTrainingExercise) = withContext(io) {
+    suspend fun deleteExercise(exercise: DetailedTrainingExercise) {
         trainingExerciseDao.deleteExerciseFromTraining(exercise._id)
     }
     
-    suspend fun fillTrainingWithProgramExercises(trainingId: Long, programDayId: Long) = withContext(io) {
+    suspend fun fillTrainingWithProgramExercises(trainingId: Long, programDayId: Long) {
         trainingExerciseDao.fillTrainingWithProgramExercises(trainingId, programDayId)
     }
     
-    suspend fun updateState(id: Long, state: Int) = withContext(io) {
+    suspend fun updateState(id: Long, state: Int) {
         trainingExerciseDao.updateState(id, state)
     }
     
-    suspend fun updateIndexNumbers(items: List<DetailedTrainingExercise>) = withContext(io) {
+    suspend fun updateIndexNumbers(items: List<DetailedTrainingExercise>) {
         trainingExerciseDao.updateIndexNumbers(items)
     }
     
-    suspend fun finishTrainingExercises(trainingId: Long) = withContext(io) {
+    suspend fun finishTrainingExercises(trainingId: Long) {
         trainingExerciseDao.finishTrainingExercises(trainingId, TrainingExercise.FINISHED, TrainingExercise.RUNNING)
     }
 }

@@ -2,36 +2,27 @@ package com.dmitrysimakov.kilogram.data.repository
 
 import com.dmitrysimakov.kilogram.data.local.dao.ProgramDayDao
 import com.dmitrysimakov.kilogram.data.local.entity.ProgramDay
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
-class ProgramDayRepository(
-        private val programDayDao: ProgramDayDao,
-        private val io: CoroutineDispatcher = Dispatchers.IO
-) {
+class ProgramDayRepository(private val programDayDao: ProgramDayDao) {
     
-    suspend fun loadProgramDays(programId: Long)  = withContext(io) {
-        programDayDao.getProgramDayList(programId)
-    }
+    suspend fun loadProgramDays(programId: Long)  =
+            programDayDao.getProgramDayList(programId)
     
-    suspend fun loadNextProgramDayAndProgram() = withContext(io) {
-        programDayDao.getNextProgramDay()
-    }
+    suspend fun loadNextProgramDayAndProgram() =
+            programDayDao.getNextProgramDay()
     
-    suspend fun loadProgramDayAndProgram(id: Long)  = withContext(io) {
-        programDayDao.getProgramDayAndProgram(id)
-    }
+    suspend fun loadProgramDayAndProgram(id: Long)  =
+            programDayDao.getProgramDayAndProgram(id)
     
-    suspend fun insertProgramDay(day: ProgramDay) = withContext(io) {
+    suspend fun insertProgramDay(day: ProgramDay) {
         programDayDao.insert(day)
     }
     
-    suspend fun deleteProgramDay(id: Long) = withContext(io) {
+    suspend fun deleteProgramDay(id: Long) {
         programDayDao.delete(id)
     }
     
-    suspend fun update(items: List<ProgramDay>) = withContext(io) {
+    suspend fun update(items: List<ProgramDay>) {
         programDayDao.update(items)
     }
 }

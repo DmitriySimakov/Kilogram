@@ -1,34 +1,28 @@
 package com.dmitrysimakov.kilogram.data.repository
 
 import androidx.sqlite.db.SupportSQLiteQuery
-import com.dmitrysimakov.kilogram.data.local.dao.*
+import com.dmitrysimakov.kilogram.data.local.dao.ExerciseDao
 import com.dmitrysimakov.kilogram.data.local.entity.Exercise
-import kotlinx.coroutines.*
 
-class ExerciseRepository(
-        private val exerciseDao: ExerciseDao,
-        private val io: CoroutineDispatcher = Dispatchers.IO
-) {
+class ExerciseRepository(private val exerciseDao: ExerciseDao) {
 
     suspend fun loadExerciseList(query: SupportSQLiteQuery) =  exerciseDao.getExerciseList(query)
 
-    suspend fun loadExercise(name: String) = withContext(io) {
-        exerciseDao.getExercise(name)
-    }
+    suspend fun loadExercise(name: String) = exerciseDao.getExercise(name)
     
-    suspend fun updateExercise(exercise: Exercise) = withContext(io) {
+    suspend fun updateExercise(exercise: Exercise) {
         exerciseDao.update(exercise)
     }
     
-    suspend fun setFavorite(name: String, isFavorite: Boolean) = withContext(io) {
+    suspend fun setFavorite(name: String, isFavorite: Boolean) {
         exerciseDao.setFavorite(name, isFavorite)
     }
     
-    suspend fun increaseExecutionsCnt(name: String) = withContext(io) {
+    suspend fun increaseExecutionsCnt(name: String) {
         exerciseDao.increaseExecutionsCnt(name)
     }
     
-    suspend fun decreaseExecutionsCnt(name: String) = withContext(io) {
+    suspend fun decreaseExecutionsCnt(name: String) {
         exerciseDao.decreaseExecutionsCnt(name)
     }
 }
