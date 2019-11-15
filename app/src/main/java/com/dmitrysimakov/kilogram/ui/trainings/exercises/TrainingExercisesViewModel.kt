@@ -43,10 +43,10 @@ class TrainingExercisesViewModel(
         _finishedExercises.value = exercises.filter { it.state == TrainingExercise.FINISHED }
     }
     
-    fun deleteExercise(exercise: DetailedTrainingExercise) { CoroutineScope(Dispatchers.IO).launch {
+    fun deleteExercise(exercise: DetailedTrainingExercise) = viewModelScope.launch {
         trainingExerciseRepository.deleteExercise(exercise)
         exerciseRepository.decreaseExecutionsCnt(exercise.exercise)
-    }}
+    }
     
     fun finishTraining(duration: Int) = viewModelScope.launch {
         training.value?.let {
