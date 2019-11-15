@@ -1,9 +1,9 @@
 package com.dmitrysimakov.kilogram.ui.exercises.detail
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.switchMap
+import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.local.dao.TargetedMuscleDao
+import com.dmitrysimakov.kilogram.data.local.entity.Exercise
+import com.dmitrysimakov.kilogram.data.local.entity.TargetedMuscle
 import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.coroutines.CoroutineScope
@@ -11,26 +11,22 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class DetailedExerciseViewModel (
-        targetedMuscleDao: TargetedMuscleDao,
+        private val targetedMuscleDao: TargetedMuscleDao,
         private val repository: ExerciseRepository
 ) : ViewModel() {
     
-    private val _exerciseName = MutableLiveData<String>()
-    fun setExerciseName(name: String?) {
-        _exerciseName.setNewValue(name)
-    }
-
-    val exercise = _exerciseName.switchMap {
-        repository.loadExercise(it)
+    private val _exercise = MutableLiveData<Exercise>()
+    val exercise: LiveData<Exercise> = _exercise
+    
+    private val _targetedMuscles = MutableLiveData<String>()
+    val targetedMuscles: LiveData<String> = _targetedMuscles
+    
+    fun start(exerciseName: String) = viewModelScope.launch {
+        _exercise.value = repository.loadExercise(exerciseName)
+        _targetedMuscles.value = targetedMuscleDao.getTargetedMuscles(exerciseName).joinToString(", ")
     }
     
-    val targetedMuscles = _exerciseName.switchMap { // TODO
-        targetedMuscleDao.getTargetedMuscles(it)
+    fun setFavorite(isChecked: Boolean) = viewModelScope.launch {
+        exercise.value?.let { repository.setFavorite(it.name, isChecked) }
     }
-    
-    fun setFavorite(isChecked: Boolean) { CoroutineScope(Dispatchers.IO).launch {
-        exercise.value?.let {
-            repository.setFavorite(it.name, isChecked)
-        }
-    }}
 }

@@ -15,5 +15,5 @@ interface EquipmentDao {
     suspend fun insert(list: List<Equipment>)
     
     @Query("SELECT name, 0 AS is_active FROM equipment")
-    fun getParamList(): LiveData<List<FilterParam>>
+    suspend fun getParamList(): List<FilterParam>
 }

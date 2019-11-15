@@ -9,6 +9,7 @@ import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.DialogAddSetBinding
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
+import com.dmitrysimakov.kilogram.util.EventObserver
 import com.dmitrysimakov.kilogram.util.hideKeyboard
 import kotlinx.android.synthetic.main.app_bar_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -35,12 +36,20 @@ class AddSetDialog : Fragment() {
         
         activity?.toolbar?.setNavigationIcon(R.drawable.ic_close_24dp)
         setHasOptionsMenu(true)
-    
-        vm.setTrainingExercise(args.trainingExerciseId)
-        vm.setSet(args.setId, args.weight, args.reps, args.time, args.distance)
-        vm.set.observe(viewLifecycleOwner, Observer {  })
+        
+        vm.start(
+                args.trainingExerciseId,
+                args.setId,
+                args.weight,
+                args.reps,
+                args.time,
+                args.distance
+        )
+        
+        vm.trainingSet.observe(viewLifecycleOwner, Observer {  })
         vm.trainingExercise.observe(viewLifecycleOwner, Observer {  })
-
+        setupNavigation()
+        
         activity?.fab?.hide()
     }
     
@@ -69,6 +78,11 @@ class AddSetDialog : Fragment() {
         } else {
             vm.updateSet()
         }
-        findNavController().popBackStack()
+    }
+    
+    private fun setupNavigation() {
+        vm.trainingSetSavedEvent.observe(viewLifecycleOwner, EventObserver {
+            findNavController().popBackStack()
+        })
     }
 }

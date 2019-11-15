@@ -73,7 +73,7 @@
             <TextView
                 android:id="@+id/targeted_muscles"
                 style="@style/Field"
-                android:text="TODO"
+                android:text="@{vm.targetedMuscles}"
                 tools:text="@string/targeted_muscles"/>
             
             <View style="@style/VerticalDivider"/>

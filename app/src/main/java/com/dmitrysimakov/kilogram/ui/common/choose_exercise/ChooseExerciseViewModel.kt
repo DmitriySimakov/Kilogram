@@ -13,8 +13,6 @@ import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayMuscleRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingMuscleRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -22,7 +20,7 @@ class ChooseExerciseViewModel (
         mechanicsTypeDao: MechanicsTypeDao,
         exerciseTypeDao: ExerciseTypeDao,
         equipmentDao: EquipmentDao,
-        muscleDao: MuscleDao,
+        private val muscleDao: MuscleDao,
         private val exerciseRepo: ExerciseRepository,
         private val trainingMuscleRepo: TrainingMuscleRepository,
         private val programDayMuscleRepo: ProgramDayMuscleRepository
@@ -32,57 +30,50 @@ class ChooseExerciseViewModel (
     
     private val _searchText = MutableLiveData<String>()
     val searchText: LiveData<String> = _searchText
-    fun setSearchText(newString: String?) { _searchText.setNewValue(newString) }
+    
+    val exerciseList = query.switchMap { query ->
+        liveData { emit(exerciseRepo.loadExerciseList(query)) }
+    }
     
     val addedToFavorite = MutableLiveData<Boolean>()
     val performedEarlier = MutableLiveData<Boolean>()
     
-    private val _muscleName = MutableLiveData<String>()
-    fun setMuscle(name: String) { _muscleName.setNewValue(name) }
+    private val _muscleList = MutableLiveData<List<FilterParam>>()
+    val muscleList: LiveData<List<FilterParam>> = _muscleList
     
-    private val exercisesMuscles = _muscleName.switchMap { muscleName ->
-        muscleDao.getParamList().map { list ->
-            list.find { it.name == muscleName }?.is_active = true
-            list
+    val mechanicsTypeList = liveData { emit(mechanicsTypeDao.getParamList()) }
+    val exerciseTypeList = liveData { emit(exerciseTypeDao.getParamList()) }
+    val equipmentList = liveData { emit(equipmentDao.getParamList()) }
+    
+    init {
+        query.addSource(_searchText) { query.value = updateQuery() }
+        query.addSource(addedToFavorite) { query.value = updateQuery() }
+        query.addSource(performedEarlier) { query.value = updateQuery() }
+        query.addSource(muscleList) { query.value = updateQuery() }
+    }
+    
+    fun setSearchText(newString: String?) { _searchText.setNewValue(newString) }
+    
+    fun setMuscle(muscleName: String) = viewModelScope.launch {
+        _muscleList.value = muscleDao.getParamList().map { param ->
+            if (param.name == muscleName) param.apply { is_active = true } else param
         }
     }
     
-    private val _programDayId = MutableLiveData<Long>()
-    fun setProgramDay(id: Long) { _programDayId.setNewValue(id) }
-    
-    private val programMuscles = _programDayId.switchMap {
-        programDayMuscleRepo.loadParams(it)
+    fun setProgramDay(id: Long) = viewModelScope.launch {
+        _muscleList.value = programDayMuscleRepo.loadParams(id)
     }
     
-    private val _trainingId = MutableLiveData<Long>()
-    fun setTraining(id: Long) { _trainingId.setNewValue(id) }
-    
-    private val trainingMuscles = _trainingId.switchMap {
-        trainingMuscleRepo.loadParams(it)
+    fun setTraining(id: Long) = viewModelScope.launch {
+        _muscleList.value = trainingMuscleRepo.loadParams(id)
     }
     
-    val muscleList = MediatorLiveData<List<FilterParam>>()
-    val mechanicsTypeList = mechanicsTypeDao.getParamList()
-    val exerciseTypeList = exerciseTypeDao.getParamList()
-    val equipmentList = equipmentDao.getParamList()
-    
-    init {
-        muscleList.addSource(exercisesMuscles) { muscleList.value = it }
-        muscleList.addSource(programMuscles) { muscleList.value = it }
-        muscleList.addSource(trainingMuscles) { muscleList.value = it }
-        
-        query.addSource(_searchText) { query.value = getQuery() }
-        query.addSource(addedToFavorite) { query.value = getQuery() }
-        query.addSource(performedEarlier) { query.value = getQuery() }
-        query.addSource(muscleList) { query.value = getQuery() }
-    }
-    
-    private fun getQuery(): SupportSQLiteQuery {
+    private fun updateQuery(): SupportSQLiteQuery {
         val muscles = muscleList.getActiveParamsString()
         val mechanicsTypes = mechanicsTypeList.getActiveParamsString()
         val exerciseTypes = exerciseTypeList.getActiveParamsString()
         val equipments = equipmentList.getActiveParamsString()
-        
+
         val sb = StringBuilder("SELECT * FROM exercise WHERE name IS NOT NULL")
         _searchText.value?.let { if (it.isNotEmpty()) sb.append(" AND name LIKE '%$it%'") }
         if (addedToFavorite.value == true) sb.append(" AND is_favorite == 1")
@@ -97,17 +88,13 @@ class ChooseExerciseViewModel (
         return SimpleSQLiteQuery(res)
     }
     
-    val exerciseList = query.switchMap {
-        exerciseRepo.loadExerciseList(it)
-    }
-    
-    fun setFavorite(exercise: Exercise, isChecked: Boolean) { CoroutineScope(Dispatchers.IO).launch {
+    fun setFavorite(exercise: Exercise, isChecked: Boolean) = viewModelScope.launch {
         exerciseRepo.setFavorite(exercise.name, isChecked)
-    }}
+    }
     
     fun setChecked(filterParams: LiveData<List<FilterParam>>, name: String, isChecked: Boolean) {
         filterParams.value?.find{ it.name == name }?.is_active = isChecked
-        query.value = getQuery()
+        query.value = updateQuery()
     }
     
     private fun LiveData<List<FilterParam>>.getActiveParamsString() =

@@ -21,8 +21,8 @@ class TrainingExerciseDaoTest : DbTest() {
         dao = db.trainingExerciseDao()
     }
     
-    @Test fun getDetailedTrainingExerciseList() {
-        val list = getValue(dao.getDetailedTrainingExerciseList(1))
+    @Test fun getDetailedTrainingExerciseList() = runBlocking {
+        val list = dao.getDetailedTrainingExerciseList(1)
         
         val exercisesSample = testTrainingExercises
                 .filter { it.training_id == 1L }
@@ -36,8 +36,8 @@ class TrainingExerciseDaoTest : DbTest() {
         }
     }
     
-    @Test fun getPrevTrainingExercise() {
-        val exerciseInfo = getValue(dao.getPrevTrainingExercise(2, testExercises[0].name))
+    @Test fun getPrevTrainingExercise() = runBlocking {
+        val exerciseInfo = dao.getPrevTrainingExercise(2, testExercises[0].name)
         
         val exerciseInfoSample = TrainingExerciseInfo(1, 1, 0)
         
@@ -46,7 +46,7 @@ class TrainingExerciseDaoTest : DbTest() {
     
     @Test fun fillTrainingWithProgramExercises()  = runBlocking {
         dao.fillTrainingWithProgramExercises(3, 1)
-        val exercises = getValue(dao.getTrainingExercises(3))
+        val exercises = dao.getTrainingExercises(3)
         val exercisesToFill = testProgramDayExercises
                 .filter { it.program_day_id == 1L }
                 .sortedBy { it.indexNumber }

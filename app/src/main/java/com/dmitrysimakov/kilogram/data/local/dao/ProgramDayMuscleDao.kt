@@ -19,5 +19,5 @@ interface ProgramDayMuscleDao {
         LEFT JOIN program_day_muscle AS pdm
         ON pdm.program_day_id = :programId AND pdm.muscle = m.name
     """)
-    fun getParamList(programId: Long): LiveData<List<FilterParam>>
+    suspend fun getParamList(programId: Long): List<FilterParam>
 }

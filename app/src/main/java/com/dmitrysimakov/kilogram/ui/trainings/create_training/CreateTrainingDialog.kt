@@ -11,6 +11,7 @@ import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.DialogCreateTrainingBinding
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.ui.common.ChipGroupFilterAdapter
+import com.dmitrysimakov.kilogram.util.EventObserver
 import com.dmitrysimakov.kilogram.util.hideKeyboard
 import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -80,6 +81,7 @@ class CreateTrainingDialog : Fragment() {
         activity?.toolbar?.setNavigationIcon(R.drawable.ic_close_24dp)
         setHasOptionsMenu(true)
     
+        setupNavigation()
         sharedVM.programDayId.observe(viewLifecycleOwner, Observer { if (it != null) vm.setProgramDay(it) })
         vm.byProgram.observe(viewLifecycleOwner, Observer {  })
         vm.programDay.observe(viewLifecycleOwner, Observer {
@@ -117,11 +119,14 @@ class CreateTrainingDialog : Fragment() {
         else -> false
     }
     
-    private fun submit() = MainScope().launch {
-        val trainingId = vm.createTraining()
-        if (vm.byProgram.value!!) vm.fillTrainingWithProgramExercises(trainingId)
-        vm.saveMuscles(trainingId)
-        findNavController().navigate(CreateTrainingDialogDirections.toExercisesFragment(trainingId))
+    private fun submit() {
+        vm.createTraining()
         sharedVM.onTrainingSessionStarted()
+    }
+    
+    private fun setupNavigation() {
+        vm.trainingCreatedEvent.observe(viewLifecycleOwner, EventObserver{
+            findNavController().navigate(CreateTrainingDialogDirections.toExercisesFragment(it))
+        })
     }
 }

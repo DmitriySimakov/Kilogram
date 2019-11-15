@@ -18,7 +18,7 @@ interface ProgramDayExerciseDao {
         WHERE program_day_id = :programDayId
         ORDER BY indexNumber
     """)
-    fun getProgramDayExerciseList(programDayId: Long) : LiveData<List<ProgramDayExercise>>
+    suspend fun getProgramDayExerciseList(programDayId: Long) : List<ProgramDayExercise>
     
     @Update
     suspend fun update(programDayExercises: List<ProgramDayExercise>)

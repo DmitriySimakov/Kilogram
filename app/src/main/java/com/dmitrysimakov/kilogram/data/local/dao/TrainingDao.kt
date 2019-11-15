@@ -20,10 +20,10 @@ interface TrainingDao {
         LEFT JOIN program_day AS pd ON pd._id = t.program_day_id
         LEFT JOIN program AS p ON p._id = pd.program_id
         ORDER BY t.start_time DESC""")
-    fun getDetailedTrainingList() : LiveData<List<DetailedTraining>>
+    suspend fun getDetailedTrainingList() : List<DetailedTraining>
 
     @Query("SELECT * FROM training WHERE _id = :id")
-    fun getTraining(id: Long) : LiveData<Training>
+    suspend fun getTraining(id: Long) : Training
     
     @Update
     suspend fun update(training: Training)

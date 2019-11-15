@@ -23,7 +23,7 @@ interface TrainingExerciseDao {
         WHERE training_id = :training_id
         ORDER BY indexNumber
     """)
-    fun getDetailedTrainingExerciseList(training_id: Long): LiveData<List<DetailedTrainingExercise>>
+    suspend fun getDetailedTrainingExerciseList(training_id: Long): List<DetailedTrainingExercise>
     
     @Query("""
         SELECT te._id AS training_exercise_id, t._id AS training_id, t.start_time
@@ -35,13 +35,13 @@ interface TrainingExerciseDao {
         ORDER BY t.start_time DESC
         LIMIT 1
     """)
-    fun getPrevTrainingExercise(training_id: Long, exercise: String): LiveData<TrainingExerciseInfo?>
+    suspend fun getPrevTrainingExercise(training_id: Long, exercise: String): TrainingExerciseInfo?
     
     @Query("SELECT * FROM training_exercise WHERE training_id = :training_id ORDER BY indexNumber")
-    fun getTrainingExercises(training_id: Long): LiveData<List<TrainingExercise>>
+    suspend fun getTrainingExercises(training_id: Long): List<TrainingExercise>
 
     @Query("SELECT * FROM training_exercise WHERE _id = :id")
-    fun getTrainingExercise(id: Long): LiveData<TrainingExercise>
+    suspend fun getTrainingExercise(id: Long): TrainingExercise
 
     @Query("DELETE FROM training_exercise WHERE _id = :id")
     suspend fun deleteExerciseFromTraining(id: Long)

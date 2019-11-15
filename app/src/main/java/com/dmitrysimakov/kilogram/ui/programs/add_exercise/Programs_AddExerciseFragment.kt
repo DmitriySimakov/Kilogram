@@ -5,6 +5,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.common.add_exercise.AddExerciseFragment
+import com.dmitrysimakov.kilogram.util.EventObserver
 import com.dmitrysimakov.kilogram.util.getIntValue
 
 class Programs_AddExerciseFragment : AddExerciseFragment() {
@@ -13,14 +14,17 @@ class Programs_AddExerciseFragment : AddExerciseFragment() {
     
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        vm.setExercise(args.exercise)
+        vm.start(args.exercise)
+        setupNavigation()
     }
     
     override fun addExercise() {
         vm.addExerciseToProgramDay(args.programDayId, args.num, binding.restET.getIntValue())
     }
     
-    override fun popBack() {
-        findNavController().popBackStack(R.id.programDayExercisesFragment, false)
+    private fun setupNavigation() {
+        vm.exerciseAddedEvent.observe(viewLifecycleOwner, EventObserver{
+            findNavController().popBackStack(R.id.programDayExercisesFragment, false)
+        })
     }
 }

@@ -1,8 +1,6 @@
 package com.dmitrysimakov.kilogram.ui.programs.exercises
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.switchMap
+import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.local.entity.ProgramDayExercise
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayExerciseRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
@@ -13,20 +11,16 @@ import timber.log.Timber
 
 class ProgramDayExercisesViewModel (private val repository: ProgramDayExerciseRepository) : ViewModel() {
     
-    private val _programDayId = MutableLiveData<Long>()
+    private val _exercises = MutableLiveData<List<ProgramDayExercise>>()
+    val exercises: LiveData<List<ProgramDayExercise>> = _exercises
     
-    val exercises = _programDayId.switchMap {
-        Timber.d("plannedExercises load")
-        repository.loadProgramDayExerciseList(it)
-    }
-    
-    fun setProgramDay(id: Long) {
-        _programDayId.setNewValue(id)
+    fun start(programDayId: Long) = viewModelScope.launch {
+        _exercises.value = repository.loadProgramDayExerciseList(programDayId)
     }
 
-    fun deleteExercise(exercise: ProgramDayExercise) { CoroutineScope(Dispatchers.IO).launch {
+    fun deleteExercise(exercise: ProgramDayExercise) = viewModelScope.launch {
         repository.deleteExerciseFromProgramDay(exercise)
-    }}
+    }
     
     fun updateIndexNumbers() { CoroutineScope(Dispatchers.IO).launch {
         exercises.value?.let { list ->

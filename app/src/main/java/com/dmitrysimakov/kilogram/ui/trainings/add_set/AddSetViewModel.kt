@@ -1,85 +1,71 @@
 package com.dmitrysimakov.kilogram. ui.trainings.add_set
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.switchMap
+import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExerciseSet
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseSetRepository
-import com.dmitrysimakov.kilogram.util.setNewValue
+import com.dmitrysimakov.kilogram.util.Event
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class AddSetViewModel(
         private val trainingExerciseRepository: TrainingExerciseRepository,
         private val trainingExerciseSetRepository: TrainingExerciseSetRepository
 ) : ViewModel() {
     
-    fun setTrainingExercise(id: Long) { _trainingExerciseId.setNewValue(id) }
-    private val _trainingExerciseId = MutableLiveData<Long>()
-    val trainingExercise = _trainingExerciseId.switchMap {
-        trainingExerciseRepository.loadTrainingExercise(it)
-    }
+    private val _trainingExercise = MutableLiveData<TrainingExercise>()
+    val trainingExercise: LiveData<TrainingExercise> = _trainingExercise
     
-    private var weight = 0
-    private var reps = 0
-    private var time = 0
-    private var distance = 0
+    private val _trainingSet = MutableLiveData<TrainingExerciseSet>()
+    val trainingSet: LiveData<TrainingExerciseSet> = _trainingSet
     
-    fun setSet(id: Long, weight: Int, reps: Int, time: Int, distance: Int) {
-        this.weight = weight
-        this.reps = reps
-        this.time = time
-        this.distance = distance
-        
-        _setId.setNewValue(id)
-    }
-    private val _setId = MutableLiveData<Long>()
-    val set = _setId.switchMap {
-        when (it) {
-            0L -> MutableLiveData(TrainingExerciseSet(
-                    0,
-                    _trainingExerciseId.value!!,
-                    weight,
-                    reps,
-                    time,
-                    distance,
-                    0
-            ))
-            else -> trainingExerciseSetRepository.loadSet(it)
+    private val _trainingSetSavedEvent = MutableLiveData<Event<Unit>>()
+    val trainingSetSavedEvent: LiveData<Event<Unit>> = _trainingSetSavedEvent
+    
+    fun start(trainingExerciseId: Long, setId: Long, weight: Int, reps: Int, time: Int, distance: Int) {
+        viewModelScope.launch {
+            _trainingExercise.value = trainingExerciseRepository.loadTrainingExercise(trainingExerciseId)
+            _trainingSet.value = if (setId == 0L) {
+                TrainingExerciseSet(0, trainingExerciseId, weight, reps, time, distance)
+            } else {
+                trainingExerciseSetRepository.loadSet(setId)
+            }
         }
     }
     
-    fun addSet(secsSinceStart: Int) { CoroutineScope(Dispatchers.IO).launch {
-        set.value?.let {
+    fun addSet(secsSinceStart: Int) { viewModelScope.launch {
+        trainingSet.value?.let {
             it.secs_since_start = secsSinceStart
             trainingExerciseSetRepository.insertSet(it)
             if (trainingExercise.value?.state == TrainingExercise.PLANNED) {
                 trainingExerciseRepository.updateState(it.training_exercise_id, TrainingExercise.RUNNING)
             }
+            _trainingSetSavedEvent.value = Event(Unit)
         }
     }}
     
-    fun updateSet() { CoroutineScope(Dispatchers.IO).launch {
-        set.value?.let { trainingExerciseSetRepository.updateSet(it) }
+    fun updateSet() { viewModelScope.launch {
+        trainingSet.value?.let {
+            trainingExerciseSetRepository.updateSet(it)
+            _trainingSetSavedEvent.value = Event(Unit)
+        }
     }}
     
-    fun decreaseWeight() { set.value?.weight = (set.value?.weight ?: 0) - 5 }
+    fun decreaseWeight() { trainingSet.value?.weight = (trainingSet.value?.weight ?: 0) - 5 }
     
-    fun increaseWeight() { set.value?.weight = (set.value?.weight ?: 0) + 5 }
+    fun increaseWeight() { trainingSet.value?.weight = (trainingSet.value?.weight ?: 0) + 5 }
     
-    fun decreaseReps() { set.value?.reps = (set.value?.reps ?: 0) - 1 }
+    fun decreaseReps() { trainingSet.value?.reps = (trainingSet.value?.reps ?: 0) - 1 }
     
-    fun increaseReps() { set.value?.reps = (set.value?.reps ?: 0) + 1 }
+    fun increaseReps() { trainingSet.value?.reps = (trainingSet.value?.reps ?: 0) + 1 }
     
-    fun decreaseTime() { set.value?.time = (set.value?.time ?: 0) - 15 }
+    fun decreaseTime() { trainingSet.value?.time = (trainingSet.value?.time ?: 0) - 15 }
     
-    fun increaseTime() { set.value?.time = (set.value?.time ?: 0) + 15 }
+    fun increaseTime() { trainingSet.value?.time = (trainingSet.value?.time ?: 0) + 15 }
     
-    fun decreaseDistance() { set.value?.distance = (set.value?.distance ?: 0) - 100 }
+    fun decreaseDistance() { trainingSet.value?.distance = (trainingSet.value?.distance ?: 0) - 100 }
     
-    fun increaseDistance() { set.value?.distance = (set.value?.distance ?: 0) + 100 }
+    fun increaseDistance() { trainingSet.value?.distance = (trainingSet.value?.distance ?: 0) + 100 }
 }

@@ -13,6 +13,7 @@ import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.data.relation.DetailedTrainingExercise
 import com.dmitrysimakov.kilogram.databinding.FragmentTrainingExercisesBinding
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
+import com.dmitrysimakov.kilogram.util.EventObserver
 import kotlinx.android.synthetic.main.app_bar_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -51,7 +52,8 @@ class TrainingExercisesFragment : Fragment() {
     
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        vm.setTraining(args.trainingId)
+        vm.start(args.trainingId)
+        setupNavigation()
         vm.training.observe(viewLifecycleOwner, Observer {  })
         vm.runningExercises.observe(viewLifecycleOwner, Observer { exerciseRunningListAdapter.submitList(it) })
         vm.plannedExercises.observe(viewLifecycleOwner, Observer { exercisePlannedListAdapter.submitList(it) })
@@ -115,7 +117,6 @@ class TrainingExercisesFragment : Fragment() {
         R.id.finish_training -> {
             vm.finishTraining(sharedVM.elapsedSessionTime.value ?: 0)
             sharedVM.onTrainingSessionFinished()
-            findNavController().popBackStack()
             true
         }
         else -> false
@@ -124,5 +125,11 @@ class TrainingExercisesFragment : Fragment() {
     override fun onPause() {
         vm.updateIndexNumbers()
         super.onPause()
+    }
+    
+    private fun setupNavigation() {
+        vm.trainingFinishedEvent.observe(viewLifecycleOwner, EventObserver{
+            findNavController().popBackStack()
+        })
     }
 }

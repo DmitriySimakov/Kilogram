@@ -1,19 +1,16 @@
 package com.dmitrysimakov.kilogram.ui.programs.create_program_day
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.local.dao.MuscleDao
 import com.dmitrysimakov.kilogram.data.local.entity.ProgramDay
 import com.dmitrysimakov.kilogram.data.local.entity.ProgramDayMuscle
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayMuscleRepository
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayRepository
-import com.dmitrysimakov.kilogram.util.setNewValue
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import com.dmitrysimakov.kilogram.util.Event
 import kotlinx.coroutines.launch
 
 class CreateProgramDayViewModel(
-        muscleDao: MuscleDao,
+        private val muscleDao: MuscleDao,
         private val programDayRepo: ProgramDayRepository,
         private val programDayMuscleRepo: ProgramDayMuscleRepository
 ) : ViewModel() {
@@ -21,23 +18,30 @@ class CreateProgramDayViewModel(
     val name = MutableLiveData("")
     val description = MutableLiveData("")
     
-    private val _programId = MutableLiveData<Long>()
+    val muscleList = liveData { emit(muscleDao.getParamList()) }
     
-    fun setProgram(id: Long) {
-        _programId.setNewValue(id)
+    private val _programDayCreatedEvent = MutableLiveData<Event<Long>>()
+    val programDayCreatedEvent: LiveData<Event<Long>> = _programDayCreatedEvent
+    
+    private var programId: Long? = null
+    
+    fun start(programId: Long) {
+        this.programId = programId
     }
     
-    suspend fun createProgramDay(num: Int) = _programId.value?.let {
-        programDayRepo.insertProgramDay(ProgramDay(0, it, num, name.value!!, description.value!!))
+    fun createProgramDay(num: Int) = viewModelScope.launch {
+        val programDayId = programDayRepo.insertProgramDay(
+                ProgramDay(0, programId!!, num, name.value!!, description.value!!)
+        )
+        saveMuscles(programDayId)
+        _programDayCreatedEvent.value = Event(programDayId)
     }
     
-    val muscleList = muscleDao.getParamList()
-    
-    fun saveMuscles(trainingId: Long) { CoroutineScope(Dispatchers.IO).launch {
+    private suspend fun saveMuscles(programDayId: Long) {
         val list = mutableListOf<ProgramDayMuscle>()
         for (muscle in muscleList.value!!) {
-            if (muscle.is_active) list.add(ProgramDayMuscle(trainingId, muscle.name))
+            if (muscle.is_active) list.add(ProgramDayMuscle(programDayId, muscle.name))
         }
         programDayMuscleRepo.insert(list)
-    }}
+    }
 }

@@ -14,5 +14,5 @@ interface TargetedMuscleDao {
     suspend fun insert(list: List<TargetedMuscle>)
     
     @Query("SELECT muscle FROM targeted_muscle WHERE exercise = :exerciseName")
-    fun getTargetedMuscles(exerciseName: String) : LiveData<List<String>>
+    suspend fun getTargetedMuscles(exerciseName: String) : List<String>
 }

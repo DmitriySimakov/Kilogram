@@ -29,7 +29,7 @@ class DetailedExerciseFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         
-        vm.setExerciseName(args.exercise)
+        vm.start(args.exercise)
         
         activity?.fab?.hide()
     }

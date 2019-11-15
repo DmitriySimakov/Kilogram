@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.databinding.FragmentTrainingSetsBinding
+import com.dmitrysimakov.kilogram.util.EventObserver
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_training_sets.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -38,8 +39,8 @@ class TrainingSetsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        vm.trainingId = args.trainingId
-        vm.setTrainingExercise(args.trainingExerciseId)
+        vm.start(args.trainingExerciseId, args.trainingId)
+        setupNavigation()
         
         vm.exercise.observe(viewLifecycleOwner, Observer { exercise ->
             binding.exerciseMeasures = exercise.measures
@@ -98,9 +99,14 @@ class TrainingSetsFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.finish_exercise -> {
             vm.finishExercise(args.trainingExerciseId)
-            findNavController().popBackStack()
             true
         }
         else -> false
+    }
+    
+    private fun setupNavigation() {
+        vm.trainingExerciseFinishedEvent.observe(viewLifecycleOwner, EventObserver {
+            findNavController().popBackStack()
+        })
     }
 }

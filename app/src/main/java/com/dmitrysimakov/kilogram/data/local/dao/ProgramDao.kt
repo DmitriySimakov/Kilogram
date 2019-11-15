@@ -14,7 +14,7 @@ interface ProgramDao {
     suspend fun insert(program: Program) : Long
     
     @Query("SELECT * FROM program ORDER BY _id DESC")
-    fun getProgramList() : LiveData<List<Program>>
+    suspend fun getProgramList() : List<Program>
     
     @Query("DELETE FROM program WHERE _id = :id")
     suspend fun delete(id: Long)

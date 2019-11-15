@@ -9,6 +9,7 @@ import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.DialogCreateProgramDayBinding
 import com.dmitrysimakov.kilogram.ui.common.ChipGroupFilterAdapter
+import com.dmitrysimakov.kilogram.util.EventObserver
 import com.dmitrysimakov.kilogram.util.hideKeyboard
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.dialog_create_program_day.*
@@ -39,7 +40,8 @@ class CreateProgramDayDialog : Fragment() {
         activity?.toolbar?.setNavigationIcon(R.drawable.ic_close_24dp)
         setHasOptionsMenu(true)
     
-        vm.setProgram(args.programId)
+        vm.start(args.programId)
+        setupNavigation()
         
         descriptionET.setOnFocusChangeListener { _, hasFocus ->
             descriptionTIL.isCounterEnabled = hasFocus
@@ -73,11 +75,7 @@ class CreateProgramDayDialog : Fragment() {
     
     private fun submit() = MainScope().launch {
         if (validate()) {
-            vm.createProgramDay(args.num)?.let { programDayId ->
-                vm.saveMuscles(programDayId)
-                findNavController().navigate(
-                        CreateProgramDayDialogDirections.toExercisesFragment(programDayId))
-            }
+            vm.createProgramDay(args.num)
         }
     }
     
@@ -85,5 +83,13 @@ class CreateProgramDayDialog : Fragment() {
         val nameIsEmpty = nameTIL.editText?.text.toString().trim().isEmpty()
         nameTIL.error = "Заполните поле".takeIf { nameIsEmpty }
         return !nameIsEmpty
+    }
+    
+    private fun setupNavigation() {
+        vm.programDayCreatedEvent.observe(viewLifecycleOwner, EventObserver{
+            findNavController().navigate(
+                    CreateProgramDayDialogDirections.toExercisesFragment(it)
+            )
+        })
     }
 }

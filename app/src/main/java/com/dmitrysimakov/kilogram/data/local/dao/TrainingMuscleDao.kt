@@ -19,5 +19,5 @@ interface TrainingMuscleDao {
         LEFT JOIN training_muscle AS tm
         ON tm.training_id = :trainingId AND tm.muscle = m.name
     """)
-    fun getParamList(trainingId: Long): LiveData<List<FilterParam>>
+    suspend fun getParamList(trainingId: Long): List<FilterParam>
 }

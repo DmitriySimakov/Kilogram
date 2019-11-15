@@ -47,14 +47,10 @@ abstract class AddExerciseFragment: Fragment() {
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.ok -> {
             addExercise()
-            vm.updateMeasures()
-            popBack()
             true
         }
         else -> false
     }
     
     abstract fun addExercise()
-    
-    abstract fun popBack()
 }

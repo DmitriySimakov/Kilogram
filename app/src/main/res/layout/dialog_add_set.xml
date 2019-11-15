@@ -46,7 +46,7 @@
                     android:selectAllOnFocus="true"
                     app:notEmpty="@{true}"
                     android:hint="@string/weight_kg"
-                    android:text="@={Converter.intToString(viewModel.set.weight)}"/>
+                    android:text="@={Converter.intToString(viewModel.trainingSet.weight)}"/>
                 
             </com.google.android.material.textfield.TextInputLayout>
             
@@ -88,7 +88,7 @@
                     android:selectAllOnFocus="true"
                     app:notEmpty="@{true}"
                     android:hint="@string/reps"
-                    android:text="@={Converter.intToString(viewModel.set.reps)}"/>
+                    android:text="@={Converter.intToString(viewModel.trainingSet.reps)}"/>
     
             </com.google.android.material.textfield.TextInputLayout>
             
@@ -130,7 +130,7 @@
                     android:selectAllOnFocus="true"
                     app:notEmpty="@{true}"
                     android:hint="@string/time_sec"
-                    android:text="@={Converter.intToString(viewModel.set.time)}"/>
+                    android:text="@={Converter.intToString(viewModel.trainingSet.time)}"/>
     
             </com.google.android.material.textfield.TextInputLayout>
             
@@ -172,7 +172,7 @@
                     android:selectAllOnFocus="true"
                     app:notEmpty="@{true}"
                     android:hint="@string/distance_metres"
-                    android:text="@={Converter.intToString(viewModel.set.distance)}"/>
+                    android:text="@={Converter.intToString(viewModel.trainingSet.distance)}"/>
     
             </com.google.android.material.textfield.TextInputLayout>
             

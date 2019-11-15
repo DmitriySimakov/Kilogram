@@ -15,10 +15,10 @@ interface MuscleDao {
     suspend fun insert(list: List<Muscle>)
 
     @Query("SELECT * FROM muscle")
-    fun getMuscleList() : LiveData<List<Muscle>>
+    suspend fun getMuscleList() : List<Muscle>
     
     @Query("SELECT name, 0 AS is_active FROM muscle")
-    fun getParamList() : LiveData<List<FilterParam>>
+    suspend fun getParamList() : List<FilterParam>
     
     @Query("""SELECT m.name,
         CASE WHEN pdm.program_day_id IS NULL THEN 0 ELSE 1 END AS is_active
@@ -26,5 +26,5 @@ interface MuscleDao {
         LEFT JOIN program_day_muscle AS pdm
         ON m.name = pdm.muscle AND pdm.program_day_id = :programDayId
     """)
-    fun getProgramDayParamList(programDayId: Long) : LiveData<List<FilterParam>>
+    suspend fun getProgramDayParamList(programDayId: Long) : List<FilterParam>
 }

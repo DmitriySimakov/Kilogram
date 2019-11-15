@@ -11,14 +11,11 @@ interface ExerciseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(list: List<Exercise>)
     
-    @Query("SELECT * FROM exercise")
-    fun getExerciseList() : LiveData<List<Exercise>>
-    
     @RawQuery(observedEntities = [Exercise::class])
-    fun getExerciseList(query: SupportSQLiteQuery) : LiveData<List<Exercise>>
+    suspend fun getExerciseList(query: SupportSQLiteQuery) : List<Exercise>
     
     @Query("SELECT * FROM exercise WHERE name = :name")
-    fun getExercise(name: String) : LiveData<Exercise>
+    suspend fun getExercise(name: String) : Exercise
     
     @Update
     suspend fun update(exercise: Exercise)

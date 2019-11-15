@@ -30,5 +30,5 @@ interface MeasurementDao {
             ORDER BY date DESC LIMIT 1, 1) AS prevDate
         FROM measurement AS bmp
     """)
-    fun getMeasurementWithPreviousResultList() : LiveData<List<MeasurementWithPreviousResults>>
+    suspend fun getMeasurementWithPreviousResultList() : List<MeasurementWithPreviousResults>
 }
