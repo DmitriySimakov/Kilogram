@@ -5,27 +5,27 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import com.dmitrysimakov.kilogram.data.relation.ExerciseMeasures
 import com.dmitrysimakov.kilogram.data.relation.SetWithPreviousResults
-import com.dmitrysimakov.kilogram.databinding.ItemSetBinding
+import com.dmitrysimakov.kilogram.databinding.ItemTrainingSetBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 import com.dmitrysimakov.kilogram.ui.common.DataBoundViewHolder
 
 class TrainingSetsAdapter(
         private val exerciseMeasures: ExerciseMeasures,
         clickCallback: ((SetWithPreviousResults) -> Unit)
-) : DataBoundListAdapter<SetWithPreviousResults, ItemSetBinding>(
+) : DataBoundListAdapter<SetWithPreviousResults, ItemTrainingSetBinding>(
         clickCallback,
         SetWithPreviousResultsDiffCallback()
 ) {
 
-    override fun createBinding(parent: ViewGroup): ItemSetBinding = ItemSetBinding
+    override fun createBinding(parent: ViewGroup): ItemTrainingSetBinding = ItemTrainingSetBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
 
-    override fun onBindViewHolder(holder: DataBoundViewHolder<ItemSetBinding>, position: Int) {
+    override fun onBindViewHolder(holder: DataBoundViewHolder<ItemTrainingSetBinding>, position: Int) {
         holder.binding.num.text = (position + 1).toString()
         super.onBindViewHolder(holder, position)
     }
 
-    override fun bind(binding: ItemSetBinding, item: SetWithPreviousResults) {
+    override fun bind(binding: ItemTrainingSetBinding, item: SetWithPreviousResults) {
         binding.set = item
         binding.exerciseMeasures = exerciseMeasures
     }

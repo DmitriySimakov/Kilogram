@@ -1,27 +1,29 @@
 package com.dmitrysimakov.kilogram.data.local.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.dmitrysimakov.kilogram.data.local.entity.TrainingExerciseSet
+import com.dmitrysimakov.kilogram.data.local.entity.TrainingSet
 
 @Dao
 interface TrainingExerciseSetDao {
     
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(list: List<TrainingExerciseSet>)
-    
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(list: TrainingExerciseSet)
-    
-    @Query("SELECT * FROM training_exercise_set WHERE training_exercise_id = :training_exercise_id")
-    suspend fun getSets(training_exercise_id: Long) : List<TrainingExerciseSet>
+    @Query("SELECT * FROM training_set WHERE training_exercise_id = :trainingExerciseId")
+    suspend fun trainingSets(trainingExerciseId: Long) : List<TrainingSet>
 
-    @Query("SELECT * FROM training_exercise_set WHERE _id = :id")
-    suspend fun getSet(id: Long) : TrainingExerciseSet
+    @Query("SELECT * FROM training_set WHERE _id = :id")
+    suspend fun trainingSet(id: Long) : TrainingSet
     
-    @Query("DELETE FROM training_exercise_set WHERE _id = :id")
-    suspend fun delete(id: Long)
+    
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(trainingSets: List<TrainingSet>)
+    
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(trainingSet: TrainingSet)
+    
     
     @Update
-    suspend fun update(set: TrainingExerciseSet)
+    suspend fun update(trainingSet: TrainingSet)
+    
+    
+    @Query("DELETE FROM training_set WHERE _id = :id")
+    suspend fun delete(id: Long)
 }

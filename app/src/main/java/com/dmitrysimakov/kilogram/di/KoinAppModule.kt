@@ -19,7 +19,7 @@ import com.dmitrysimakov.kilogram.ui.people.PeopleViewModel
 import com.dmitrysimakov.kilogram.ui.programs.create_program.CreateProgramViewModel
 import com.dmitrysimakov.kilogram.ui.programs.create_program_day.CreateProgramDayViewModel
 import com.dmitrysimakov.kilogram.ui.programs.exercises.ProgramDayExercisesViewModel
-import com.dmitrysimakov.kilogram.ui.trainings.add_set.AddSetViewModel
+import com.dmitrysimakov.kilogram.ui.trainings.add_set.AddTrainingSetViewModel
 import com.dmitrysimakov.kilogram.ui.trainings.create_training.CreateTrainingViewModel
 import com.dmitrysimakov.kilogram.ui.trainings.exercises.TrainingExercisesViewModel
 import com.dmitrysimakov.kilogram.ui.trainings.sets.TrainingSetsViewModel
@@ -74,7 +74,7 @@ val appModule = module {
     viewModel { CreateTrainingViewModel(get(), get(), get(), get(), get()) }
     viewModel { TrainingExercisesViewModel(get(), get(), get()) }
     viewModel { TrainingSetsViewModel(get(), get(), get()) }
-    viewModel { AddSetViewModel(get(), get()) }
+    viewModel { AddTrainingSetViewModel(get(), get()) }
     viewModel { MeasurementsViewModel(get()) }
     viewModel { ChatsViewModel() }
     viewModel { MessagesViewModel() }

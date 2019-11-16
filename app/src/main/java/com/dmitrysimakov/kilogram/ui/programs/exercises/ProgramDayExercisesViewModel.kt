@@ -3,11 +3,9 @@ package com.dmitrysimakov.kilogram.ui.programs.exercises
 import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.local.entity.ProgramDayExercise
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayExerciseRepository
-import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class ProgramDayExercisesViewModel (private val repository: ProgramDayExerciseRepository) : ViewModel() {
     
@@ -15,11 +13,11 @@ class ProgramDayExercisesViewModel (private val repository: ProgramDayExerciseRe
     val exercises: LiveData<List<ProgramDayExercise>> = _exercises
     
     fun start(programDayId: Long) = viewModelScope.launch {
-        _exercises.value = repository.loadProgramDayExerciseList(programDayId)
+        _exercises.value = repository.programDayExercises(programDayId)
     }
 
-    fun deleteExercise(exercise: ProgramDayExercise) = viewModelScope.launch {
-        repository.deleteExerciseFromProgramDay(exercise)
+    fun deleteExercise(id: Long) = viewModelScope.launch {
+        repository.delete(id)
     }
     
     fun updateIndexNumbers() { CoroutineScope(Dispatchers.IO).launch {

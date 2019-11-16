@@ -5,9 +5,9 @@ import com.dmitrysimakov.kilogram.data.local.entity.TrainingMuscle
 
 class TrainingMuscleRepository(private val trainingMuscleDao: TrainingMuscleDao) {
     
-    suspend fun loadParams(trainingId: Long) = trainingMuscleDao.getParamList(trainingId)
+    suspend fun params(trainingId: Long) =
+            trainingMuscleDao.params(trainingId)
     
-    suspend fun insert(list: List<TrainingMuscle>) {
-        trainingMuscleDao.insert(list)
-    }
+    suspend fun insert(trainingMuscles: List<TrainingMuscle>) =
+            trainingMuscleDao.insert(trainingMuscles)
 }

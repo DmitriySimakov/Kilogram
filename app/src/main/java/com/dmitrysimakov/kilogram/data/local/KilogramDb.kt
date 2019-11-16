@@ -22,7 +22,7 @@ import com.dmitrysimakov.kilogram.data.local.entity.*
             Training::class,
             TrainingMuscle::class,
             TrainingExercise::class,
-            TrainingExerciseSet::class
+            TrainingSet::class
         ],
         version = 1,
         exportSchema = false

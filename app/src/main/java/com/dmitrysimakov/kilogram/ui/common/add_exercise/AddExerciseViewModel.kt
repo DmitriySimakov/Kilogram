@@ -8,9 +8,6 @@ import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.util.Event
-import com.dmitrysimakov.kilogram.util.setNewValue
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AddExerciseViewModel (
@@ -30,12 +27,12 @@ class AddExerciseViewModel (
     val exerciseAddedEvent: LiveData<Event<Unit>> = _exerciseAddedEvent
     
     fun start(exerciseName: String) = viewModelScope.launch {
-        _exercise.value = exerciseRepository.loadExercise(exerciseName)
+        _exercise.value = exerciseRepository.exercise(exerciseName)
     }
     
     fun addExerciseToTraining(trainingId: Long, num: Int, rest: Int) = viewModelScope.launch {
         exercise.value?.let {
-            trainingExerciseRepository.addExercise(
+            trainingExerciseRepository.insert(
                 TrainingExercise(
                     0,
                     trainingId,
@@ -54,7 +51,7 @@ class AddExerciseViewModel (
     
     fun addExerciseToProgramDay(programDayId: Long, num: Int, rest: Int) = viewModelScope.launch {
         exercise.value?.let {
-            programDayExerciseRepository.addExerciseToProgramDay(
+            programDayExerciseRepository.insert(
                 ProgramDayExercise(0, programDayId, it.name, num, rest, strategy.value, it.measures)
             )
             updateMeasures()
@@ -63,6 +60,6 @@ class AddExerciseViewModel (
     }
     
     private suspend fun updateMeasures() {
-        exercise.value?.let { exerciseRepository.updateExercise(it) }
+        exercise.value?.let { exerciseRepository.update(it) }
     }
 }

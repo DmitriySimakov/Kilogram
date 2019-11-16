@@ -18,7 +18,7 @@ class TrainingMuscleDaoTest : DbTest() {
     }
     
     @Test fun getParamList() = runBlocking {
-        val params = dao.getParamList(2)
+        val params = dao.params(2)
         assertThat(params.size, equalTo(testMuscles.size))
         
         // Ensure list is sorted by id

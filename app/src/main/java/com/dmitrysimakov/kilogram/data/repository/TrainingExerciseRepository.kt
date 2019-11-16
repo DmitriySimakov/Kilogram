@@ -6,36 +6,34 @@ import com.dmitrysimakov.kilogram.data.relation.DetailedTrainingExercise
 
 class TrainingExerciseRepository(private val trainingExerciseDao: TrainingExerciseDao) {
     
-    suspend fun loadDetailedTrainingExerciseList(trainingId: Long) =
-            trainingExerciseDao.getDetailedTrainingExerciseList(trainingId)
+    suspend fun detailedTrainingExercises(trainingId: Long) =
+            trainingExerciseDao.detailedTrainingExercises(trainingId)
     
-    suspend fun loadPrevTrainingExercise(trainingId: Long, exercise: String) =
-            trainingExerciseDao.getPrevTrainingExercise(trainingId, exercise)
+    suspend fun previousTrainingExercise(trainingId: Long, exercise: String) =
+            trainingExerciseDao.previousTrainingExercise(trainingId, exercise)
     
-    suspend fun loadTrainingExercise(id: Long) =
-            trainingExerciseDao.getTrainingExercise(id)
+    suspend fun trainingExercise(id: Long) =
+            trainingExerciseDao.trainingExercise(id)
     
-    suspend fun addExercise(exercise: TrainingExercise) {
-        trainingExerciseDao.insert(exercise)
-    }
+    suspend fun insert(exercise: TrainingExercise) =
+            trainingExerciseDao.insert(exercise)
     
-    suspend fun deleteExercise(exercise: DetailedTrainingExercise) {
-        trainingExerciseDao.deleteExerciseFromTraining(exercise._id)
-    }
+    suspend fun delete(id: Long) =
+            trainingExerciseDao.delete(id)
     
-    suspend fun fillTrainingWithProgramExercises(trainingId: Long, programDayId: Long) {
-        trainingExerciseDao.fillTrainingWithProgramExercises(trainingId, programDayId)
-    }
+    suspend fun fillTrainingWithProgramExercises(trainingId: Long, programDayId: Long) =
+            trainingExerciseDao.fillTrainingWithProgramExercises(trainingId, programDayId)
     
-    suspend fun updateState(id: Long, state: Int) {
-        trainingExerciseDao.updateState(id, state)
-    }
+    suspend fun updateState(id: Long, state: Int) =
+            trainingExerciseDao.updateState(id, state)
     
-    suspend fun updateIndexNumbers(items: List<DetailedTrainingExercise>) {
-        trainingExerciseDao.updateIndexNumbers(items)
-    }
+    suspend fun updateIndexNumbers(detailedTrainingExercises: List<DetailedTrainingExercise>) =
+            trainingExerciseDao.updateIndexNumbers(detailedTrainingExercises)
     
-    suspend fun finishTrainingExercises(trainingId: Long) {
-        trainingExerciseDao.finishTrainingExercises(trainingId, TrainingExercise.FINISHED, TrainingExercise.RUNNING)
-    }
+    suspend fun finishTrainingExercises(trainingId: Long) =
+            trainingExerciseDao.finishTrainingExercises(
+                    trainingId,
+                    TrainingExercise.FINISHED,
+                    TrainingExercise.RUNNING
+            )
 }

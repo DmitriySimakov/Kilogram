@@ -8,7 +8,6 @@ import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
 import com.dmitrysimakov.kilogram.util.Event
-import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -35,8 +34,8 @@ class TrainingExercisesViewModel(
     val trainingFinishedEvent: LiveData<Event<Unit>> = _trainingFinishedEvent
     
     fun start(trainingId: Long) = viewModelScope.launch {
-        _training.value = trainingRepository.loadTraining(trainingId)
-        val exercises = trainingExerciseRepository.loadDetailedTrainingExerciseList(trainingId)
+        _training.value = trainingRepository.training(trainingId)
+        val exercises = trainingExerciseRepository.detailedTrainingExercises(trainingId)
         
         _runningExercises.value = exercises.filter { it.state == TrainingExercise.RUNNING }
         _plannedExercises.value = exercises.filter { it.state == TrainingExercise.PLANNED }
@@ -44,14 +43,14 @@ class TrainingExercisesViewModel(
     }
     
     fun deleteExercise(exercise: DetailedTrainingExercise) = viewModelScope.launch {
-        trainingExerciseRepository.deleteExercise(exercise)
+        trainingExerciseRepository.delete(exercise._id)
         exerciseRepository.decreaseExecutionsCnt(exercise.exercise)
     }
     
     fun finishTraining(duration: Int) = viewModelScope.launch {
         training.value?.let {
             it.duration = duration
-            trainingRepository.updateTraining(it)
+            trainingRepository.update(it)
             trainingExerciseRepository.finishTrainingExercises(it._id)
             _trainingFinishedEvent.value = Event(Unit)
         }

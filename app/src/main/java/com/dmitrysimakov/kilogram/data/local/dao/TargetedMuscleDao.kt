@@ -10,9 +10,9 @@ import com.dmitrysimakov.kilogram.data.local.entity.TargetedMuscle
 @Dao
 interface TargetedMuscleDao {
     
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(list: List<TargetedMuscle>)
-    
     @Query("SELECT muscle FROM targeted_muscle WHERE exercise = :exerciseName")
-    suspend fun getTargetedMuscles(exerciseName: String) : List<String>
+    suspend fun targetedMuscles(exerciseName: String) : List<String>
+    
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(targetedMuscles: List<TargetedMuscle>)
 }

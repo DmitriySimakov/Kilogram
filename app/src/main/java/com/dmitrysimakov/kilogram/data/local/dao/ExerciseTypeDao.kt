@@ -11,9 +11,10 @@ import com.dmitrysimakov.kilogram.data.relation.FilterParam
 @Dao
 interface ExerciseTypeDao {
     
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(list: List<ExerciseType>)
-    
     @Query("SELECT name, 0 AS is_active FROM exercise_type")
-    suspend fun getParamList(): List<FilterParam>
+    suspend fun params(): List<FilterParam>
+    
+    
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(exerciseTypes: List<ExerciseType>)
 }

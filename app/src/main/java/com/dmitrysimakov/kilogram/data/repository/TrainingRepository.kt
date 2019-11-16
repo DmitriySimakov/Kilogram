@@ -5,21 +5,18 @@ import com.dmitrysimakov.kilogram.data.local.entity.Training
 
 class TrainingRepository(private val trainingDao: TrainingDao) {
     
-    suspend fun loadDetailedTrainingList() =
-            trainingDao.getDetailedTrainingList()
+    suspend fun detailedTrainings() =
+            trainingDao.detailedTrainings()
     
-    suspend fun loadTraining(id: Long) =
-            trainingDao.getTraining(id)
+    suspend fun training(id: Long) =
+            trainingDao.training(id)
     
-    suspend fun insertTraining(training: Training) {
-        trainingDao.insert(training)
-    }
+    suspend fun insert(training: Training) =
+            trainingDao.insert(training)
     
-    suspend fun updateTraining(training: Training) {
-        trainingDao.update(training)
-    }
+    suspend fun update(training: Training) =
+            trainingDao.update(training)
     
-    suspend fun deleteTraining(id: Long) {
-        trainingDao.delete(id)
-    }
+    suspend fun delete(id: Long) =
+            trainingDao.delete(id)
 }

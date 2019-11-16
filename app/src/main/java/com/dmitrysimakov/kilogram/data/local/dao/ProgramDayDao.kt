@@ -8,14 +8,8 @@ import com.dmitrysimakov.kilogram.data.relation.ProgramDayAndProgram
 @Dao
 interface ProgramDayDao {
     
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(list: List<ProgramDay>)
-    
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(programDay: ProgramDay): Long
-    
     @Query("SELECT * FROM program_day WHERE program_id = :programId ORDER BY indexNumber")
-    suspend fun getProgramDayList(programId: Long): List<ProgramDay>
+    suspend fun programDays(programId: Long): List<ProgramDay>
     
     @Query("""
         SELECT pd._id AS program_day_id, pd.name AS program_day, p.name AS program
@@ -23,7 +17,7 @@ interface ProgramDayDao {
         INNER JOIN program AS p
         WHERE pd._id = :id
     """)
-    suspend fun getProgramDayAndProgram(id: Long): ProgramDayAndProgram?
+    suspend fun programDayAndProgram(id: Long): ProgramDayAndProgram?
     
     @Query("""
         SELECT next._id AS program_day_id, next.name AS program_day, p.name AS program
@@ -39,10 +33,19 @@ interface ProgramDayDao {
         INNER JOIN program AS p ON next.program_id = p._id
         ORDER BY next.indexNumber DESC
     """)
-    suspend fun getNextProgramDay(): ProgramDayAndProgram?
+    suspend fun nextProgramDayAndProgram(): ProgramDayAndProgram?
+    
+    
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(programDays: List<ProgramDay>)
+    
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(programDay: ProgramDay): Long
+    
     
     @Update
     suspend fun update(programDayList: List<ProgramDay>)
+    
     
     @Query("DELETE FROM program_day WHERE _id = :id")
     suspend fun delete(id: Long)

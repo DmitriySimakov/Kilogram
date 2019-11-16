@@ -8,14 +8,16 @@ import com.dmitrysimakov.kilogram.data.local.entity.Exercise
 @Dao
 interface ExerciseDao {
     
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(list: List<Exercise>)
-    
     @RawQuery(observedEntities = [Exercise::class])
-    suspend fun getExerciseList(query: SupportSQLiteQuery) : List<Exercise>
+    suspend fun exercises(query: SupportSQLiteQuery) : List<Exercise>
     
     @Query("SELECT * FROM exercise WHERE name = :name")
-    suspend fun getExercise(name: String) : Exercise
+    suspend fun exercise(name: String) : Exercise
+    
+    
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(exercises: List<Exercise>)
+    
     
     @Update
     suspend fun update(exercise: Exercise)

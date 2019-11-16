@@ -9,7 +9,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import java.util.*
 
-@Entity(tableName = "training_exercise_set",
+@Entity(tableName = "training_set",
         indices = [Index(value = ["training_exercise_id"])],
         foreignKeys = [
             ForeignKey(
@@ -19,7 +19,7 @@ import java.util.*
                     onDelete = ForeignKey.CASCADE)
         ]
 )
-class TrainingExerciseSet(
+class TrainingSet(
         @PrimaryKey(autoGenerate = true) val _id: Long = 0,
         val training_exercise_id: Long,
         weight: Int? = null,

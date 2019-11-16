@@ -19,14 +19,14 @@ class ProgramDayDaoTest : DbTest() {
     }
     
     @Test fun getNextProgramDay() = runBlocking {
-        val day = dao.getNextProgramDay()
+        val day = dao.nextProgramDayAndProgram()
         val nextDay = testProgramDays[3]
         val sample = ProgramDayAndProgram(testProgramDays[3]._id, nextDay.name, testPrograms[0].name)
         assertThat(day, equalTo(sample))
     }
     
     @Test fun getProgramDayAndProgram() = runBlocking {
-        val day = dao.getProgramDayAndProgram(1)
+        val day = dao.programDayAndProgram(1)
         val sample = ProgramDayAndProgram(testProgramDays[0]._id, testProgramDays[0].name, testPrograms[0].name)
         assertThat(day, equalTo(sample))
     }

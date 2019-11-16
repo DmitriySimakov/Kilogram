@@ -7,7 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.databinding.DialogAddSetBinding
+import com.dmitrysimakov.kilogram.databinding.DialogAddTrainingSetBinding
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.util.EventObserver
 import com.dmitrysimakov.kilogram.util.hideKeyboard
@@ -15,17 +15,17 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class AddSetDialog : Fragment() {
+class AddTrainingSetDialog : Fragment() {
     
-    private val args: AddSetDialogArgs by navArgs()
+    private val args: AddTrainingSetDialogArgs by navArgs()
     
-    private val vm: AddSetViewModel by viewModel()
+    private val vm: AddTrainingSetViewModel by viewModel()
     private val sharedVM: SharedViewModel by sharedViewModel()
 
-    private lateinit var binding: DialogAddSetBinding
+    private lateinit var binding: DialogAddTrainingSetBinding
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DialogAddSetBinding.inflate(inflater)
+        binding = DialogAddTrainingSetBinding.inflate(inflater)
         binding.viewModel = vm
         binding.lifecycleOwner = this
         return binding.root

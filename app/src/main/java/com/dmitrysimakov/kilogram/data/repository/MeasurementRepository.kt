@@ -4,6 +4,6 @@ import com.dmitrysimakov.kilogram.data.local.dao.MeasurementDao
 
 class MeasurementRepository(private val measurementDao: MeasurementDao) {
     
-    suspend fun loadMeasurements() =
-            measurementDao.getMeasurementWithPreviousResultList()
+    suspend fun measurementsWithPreviousResults() =
+            measurementDao.measurementsWithPreviousResults()
 }

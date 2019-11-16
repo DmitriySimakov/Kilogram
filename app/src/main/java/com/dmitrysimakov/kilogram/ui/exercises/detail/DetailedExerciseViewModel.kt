@@ -3,11 +3,7 @@ package com.dmitrysimakov.kilogram.ui.exercises.detail
 import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.local.dao.TargetedMuscleDao
 import com.dmitrysimakov.kilogram.data.local.entity.Exercise
-import com.dmitrysimakov.kilogram.data.local.entity.TargetedMuscle
 import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
-import com.dmitrysimakov.kilogram.util.setNewValue
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class DetailedExerciseViewModel (
@@ -22,8 +18,8 @@ class DetailedExerciseViewModel (
     val targetedMuscles: LiveData<String> = _targetedMuscles
     
     fun start(exerciseName: String) = viewModelScope.launch {
-        _exercise.value = repository.loadExercise(exerciseName)
-        _targetedMuscles.value = targetedMuscleDao.getTargetedMuscles(exerciseName).joinToString(", ")
+        _exercise.value = repository.exercise(exerciseName)
+        _targetedMuscles.value = targetedMuscleDao.targetedMuscles(exerciseName).joinToString(", ")
     }
     
     fun setFavorite(isChecked: Boolean) = viewModelScope.launch {

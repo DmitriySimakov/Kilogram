@@ -1,24 +1,22 @@
 package com.dmitrysimakov.kilogram.data.repository
 
 import com.dmitrysimakov.kilogram.data.local.dao.TrainingExerciseSetDao
-import com.dmitrysimakov.kilogram.data.local.entity.TrainingExerciseSet
+import com.dmitrysimakov.kilogram.data.local.entity.TrainingSet
 
 class TrainingExerciseSetRepository(private val trainingExerciseSetDao: TrainingExerciseSetDao) {
 
-    suspend fun loadSets(training_exercise_id: Long) =
-            trainingExerciseSetDao.getSets(training_exercise_id)
+    suspend fun trainingSets(training_exercise_id: Long) =
+            trainingExerciseSetDao.trainingSets(training_exercise_id)
     
-    suspend fun loadSet(id: Long) =
-            trainingExerciseSetDao.getSet(id)
+    suspend fun trainingSet(id: Long) =
+            trainingExerciseSetDao.trainingSet(id)
     
-    suspend fun insertSet(set: TrainingExerciseSet) =
+    suspend fun insert(set: TrainingSet) =
             trainingExerciseSetDao.insert(set)
     
-    suspend fun updateSet(set: TrainingExerciseSet) {
-        trainingExerciseSetDao.update(set)
-    }
+    suspend fun update(set: TrainingSet) =
+            trainingExerciseSetDao.update(set)
     
-    suspend fun deleteSet(id: Long) {
-        trainingExerciseSetDao.delete(id)
-    }
+    suspend fun delete(id: Long) =
+            trainingExerciseSetDao.delete(id)
 }

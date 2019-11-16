@@ -6,23 +6,23 @@ import com.dmitrysimakov.kilogram.data.local.entity.ProgramDayExercise
 
 @Dao
 interface ProgramDayExerciseDao {
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(programDayExercises: List<ProgramDayExercise>)
-    
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(programDayExercise: ProgramDayExercise)
     
     @Query("""
         SELECT * FROM program_day_exercise
         WHERE program_day_id = :programDayId
         ORDER BY indexNumber
     """)
-    suspend fun getProgramDayExerciseList(programDayId: Long) : List<ProgramDayExercise>
+    suspend fun programDayExercises(programDayId: Long) : List<ProgramDayExercise>
+    
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(programDayExercises: List<ProgramDayExercise>)
+    
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(programDayExercise: ProgramDayExercise)
     
     @Update
     suspend fun update(programDayExercises: List<ProgramDayExercise>)
     
-    @Delete
-    suspend fun delete(programDayExercise: ProgramDayExercise)
+    @Query("DELETE FROM program_day_exercise WHERE _id = :id")
+    suspend fun delete(id: Long)
 }

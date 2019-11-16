@@ -5,24 +5,21 @@ import com.dmitrysimakov.kilogram.data.local.entity.ProgramDay
 
 class ProgramDayRepository(private val programDayDao: ProgramDayDao) {
     
-    suspend fun loadProgramDays(programId: Long)  =
-            programDayDao.getProgramDayList(programId)
+    suspend fun programDays(programId: Long)  =
+            programDayDao.programDays(programId)
     
-    suspend fun loadNextProgramDayAndProgram() =
-            programDayDao.getNextProgramDay()
+    suspend fun nextProgramDayAndProgram() =
+            programDayDao.nextProgramDayAndProgram()
     
-    suspend fun loadProgramDayAndProgram(id: Long)  =
-            programDayDao.getProgramDayAndProgram(id)
+    suspend fun programDayAndProgram(id: Long)  =
+            programDayDao.programDayAndProgram(id)
     
-    suspend fun insertProgramDay(day: ProgramDay) {
-        programDayDao.insert(day)
-    }
+    suspend fun insert(programDay: ProgramDay) =
+            programDayDao.insert(programDay)
     
-    suspend fun deleteProgramDay(id: Long) {
-        programDayDao.delete(id)
-    }
+    suspend fun delete(id: Long) =
+            programDayDao.delete(id)
     
-    suspend fun update(items: List<ProgramDay>) {
-        programDayDao.update(items)
-    }
+    suspend fun update(programDays: List<ProgramDay>) =
+            programDayDao.update(programDays)
 }

@@ -5,10 +5,9 @@ import com.dmitrysimakov.kilogram.data.local.entity.ProgramDayMuscle
 
 class ProgramDayMuscleRepository(private val dao: ProgramDayMuscleDao) {
     
-    suspend fun loadParams(programId: Long) =
-            dao.getParamList(programId)
+    suspend fun params(programId: Long) =
+            dao.params(programId)
     
-    suspend fun insert(list: List<ProgramDayMuscle>) {
-        dao.insert(list)
-    }
+    suspend fun insert(programDayMuscles: List<ProgramDayMuscle>) =
+            dao.insert(programDayMuscles)
 }

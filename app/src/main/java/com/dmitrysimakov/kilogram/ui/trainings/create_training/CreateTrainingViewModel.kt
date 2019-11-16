@@ -2,7 +2,6 @@ package com.dmitrysimakov.kilogram.ui.trainings.create_training
 
 import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.local.dao.MuscleDao
-import com.dmitrysimakov.kilogram.data.local.entity.ProgramDay
 import com.dmitrysimakov.kilogram.data.local.entity.Training
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingMuscle
 import com.dmitrysimakov.kilogram.data.relation.FilterParam
@@ -12,9 +11,6 @@ import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingMuscleRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
 import com.dmitrysimakov.kilogram.util.Event
-import com.dmitrysimakov.kilogram.util.setNewValue
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -43,21 +39,21 @@ class CreateTrainingViewModel(
     
     fun setProgramDay(programDayId: Long) = viewModelScope.launch {
         _programDay.value = if (programDayId == 0L) {
-            programDayRepo.loadNextProgramDayAndProgram()
+            programDayRepo.nextProgramDayAndProgram()
         } else {
-            programDayRepo.loadProgramDayAndProgram(programDayId)
+            programDayRepo.programDayAndProgram(programDayId)
         }
         
         _muscleList.value = if (programDayId == 0L) {
-            muscleDao.getParamList()
+            muscleDao.params()
         } else {
-            muscleDao.getProgramDayParamList(programDayId)
+            muscleDao.programDayParams(programDayId)
         }
     }
     
     fun createTraining() = viewModelScope.launch{
         val programDayId = byProgram.value?.let { programDay.value?.program_day_id }
-        val trainingId = trainingRepo.insertTraining(
+        val trainingId = trainingRepo.insert(
                 Training(0, calendar.value!!.timeInMillis, null, programDayId)
         )
         if (byProgram.value == true) fillTrainingWithProgramExercises(trainingId)

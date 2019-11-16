@@ -13,11 +13,11 @@ class ChooseProgramDayViewModel (private val repository: ProgramDayRepository) :
     val programDays: LiveData<List<ProgramDay>> = _programDays
     
     fun start(programId: Long) = viewModelScope.launch {
-        _programDays.value = repository.loadProgramDays(programId)
+        _programDays.value = repository.programDays(programId)
     }
     
     fun deleteTrainingDay(id: Long) = viewModelScope.launch {
-        repository.deleteProgramDay(id)
+        repository.delete(id)
     }
     
     fun updateIndexNumbers() { CoroutineScope(Dispatchers.IO).launch {

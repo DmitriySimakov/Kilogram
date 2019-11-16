@@ -32,7 +32,7 @@ class ChooseExerciseViewModel (
     val searchText: LiveData<String> = _searchText
     
     val exerciseList = query.switchMap { query ->
-        liveData { emit(exerciseRepo.loadExerciseList(query)) }
+        liveData { emit(exerciseRepo.exercises(query)) }
     }
     
     val addedToFavorite = MutableLiveData<Boolean>()
@@ -41,9 +41,9 @@ class ChooseExerciseViewModel (
     private val _muscleList = MutableLiveData<List<FilterParam>>()
     val muscleList: LiveData<List<FilterParam>> = _muscleList
     
-    val mechanicsTypeList = liveData { emit(mechanicsTypeDao.getParamList()) }
-    val exerciseTypeList = liveData { emit(exerciseTypeDao.getParamList()) }
-    val equipmentList = liveData { emit(equipmentDao.getParamList()) }
+    val mechanicsTypeList = liveData { emit(mechanicsTypeDao.params()) }
+    val exerciseTypeList = liveData { emit(exerciseTypeDao.params()) }
+    val equipmentList = liveData { emit(equipmentDao.params()) }
     
     init {
         query.addSource(_searchText) { query.value = updateQuery() }
@@ -55,17 +55,17 @@ class ChooseExerciseViewModel (
     fun setSearchText(newString: String?) { _searchText.setNewValue(newString) }
     
     fun setMuscle(muscleName: String) = viewModelScope.launch {
-        _muscleList.value = muscleDao.getParamList().map { param ->
+        _muscleList.value = muscleDao.params().map { param ->
             if (param.name == muscleName) param.apply { is_active = true } else param
         }
     }
     
     fun setProgramDay(id: Long) = viewModelScope.launch {
-        _muscleList.value = programDayMuscleRepo.loadParams(id)
+        _muscleList.value = programDayMuscleRepo.params(id)
     }
     
     fun setTraining(id: Long) = viewModelScope.launch {
-        _muscleList.value = trainingMuscleRepo.loadParams(id)
+        _muscleList.value = trainingMuscleRepo.params(id)
     }
     
     private fun updateQuery(): SupportSQLiteQuery {

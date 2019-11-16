@@ -10,10 +10,7 @@ import com.dmitrysimakov.kilogram.data.relation.MeasurementWithPreviousResults
 
 @Dao
 interface MeasurementDao {
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(list: List<Measurement>)
-
+    
     @Query("""
         SELECT _id, param AS param,
         (SELECT value FROM measurement
@@ -30,5 +27,9 @@ interface MeasurementDao {
             ORDER BY date DESC LIMIT 1, 1) AS prevDate
         FROM measurement AS bmp
     """)
-    suspend fun getMeasurementWithPreviousResultList() : List<MeasurementWithPreviousResults>
+    suspend fun measurementsWithPreviousResults() : List<MeasurementWithPreviousResults>
+
+    
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(measurements: List<Measurement>)
 }

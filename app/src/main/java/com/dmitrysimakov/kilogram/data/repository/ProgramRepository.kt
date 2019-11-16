@@ -5,14 +5,12 @@ import com.dmitrysimakov.kilogram.data.local.entity.Program
 
 class ProgramRepository(private val programDao: ProgramDao) {
     
-    suspend fun loadProgramList() =
-            programDao.getProgramList()
+    suspend fun programs() =
+            programDao.programs()
     
-    suspend fun insertProgram(program: Program) {
-        programDao.insert(program)
-    }
+    suspend fun insert(program: Program) =
+            programDao.insert(program)
     
-    suspend fun deleteProgram(id: Long) {
-        programDao.delete(id)
-    }
+    suspend fun delete(id: Long) =
+            programDao.delete(id)
 }

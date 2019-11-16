@@ -6,23 +6,21 @@ import com.dmitrysimakov.kilogram.data.local.entity.Exercise
 
 class ExerciseRepository(private val exerciseDao: ExerciseDao) {
 
-    suspend fun loadExerciseList(query: SupportSQLiteQuery) =  exerciseDao.getExerciseList(query)
+    suspend fun exercises(query: SupportSQLiteQuery) =
+            exerciseDao.exercises(query)
 
-    suspend fun loadExercise(name: String) = exerciseDao.getExercise(name)
+    suspend fun exercise(name: String) =
+            exerciseDao.exercise(name)
     
-    suspend fun updateExercise(exercise: Exercise) {
-        exerciseDao.update(exercise)
-    }
+    suspend fun update(exercise: Exercise) =
+            exerciseDao.update(exercise)
     
-    suspend fun setFavorite(name: String, isFavorite: Boolean) {
-        exerciseDao.setFavorite(name, isFavorite)
-    }
+    suspend fun setFavorite(name: String, isFavorite: Boolean)
+            = exerciseDao.setFavorite(name, isFavorite)
     
-    suspend fun increaseExecutionsCnt(name: String) {
-        exerciseDao.increaseExecutionsCnt(name)
-    }
+    suspend fun increaseExecutionsCnt(name: String) =
+            exerciseDao.increaseExecutionsCnt(name)
     
-    suspend fun decreaseExecutionsCnt(name: String) {
-        exerciseDao.decreaseExecutionsCnt(name)
-    }
+    suspend fun decreaseExecutionsCnt(name: String) =
+            exerciseDao.decreaseExecutionsCnt(name)
 }

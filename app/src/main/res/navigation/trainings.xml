@@ -124,9 +124,9 @@
     </fragment>
     <fragment
         android:id="@+id/addSetDialog"
-        android:name="com.dmitrysimakov.kilogram.ui.trainings.add_set.AddSetDialog"
+        android:name="com.dmitrysimakov.kilogram.ui.trainings.add_set.AddTrainingSetDialog"
         android:label="Добавить подход"
-        tools:layout="@layout/dialog_add_set">
+        tools:layout="@layout/dialog_add_training_set">
         <argument
             android:name="training_id"
             app:argType="long" />

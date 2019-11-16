@@ -20,7 +20,7 @@ class TrainingDaoTest : DbTest() {
     }
     
     @Test fun getDetailedTrainingList() = runBlocking {
-        val list = dao.getDetailedTrainingList()
+        val list = dao.detailedTrainings()
         assertThat(list.size, equalTo(testTrainings.size))
         
         val sampleList  = testTrainings.map { training ->

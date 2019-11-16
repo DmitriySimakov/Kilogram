@@ -2,15 +2,13 @@ package com.dmitrysimakov.kilogram. ui.trainings.add_set
 
 import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
-import com.dmitrysimakov.kilogram.data.local.entity.TrainingExerciseSet
+import com.dmitrysimakov.kilogram.data.local.entity.TrainingSet
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseSetRepository
 import com.dmitrysimakov.kilogram.util.Event
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AddSetViewModel(
+class AddTrainingSetViewModel(
         private val trainingExerciseRepository: TrainingExerciseRepository,
         private val trainingExerciseSetRepository: TrainingExerciseSetRepository
 ) : ViewModel() {
@@ -18,19 +16,19 @@ class AddSetViewModel(
     private val _trainingExercise = MutableLiveData<TrainingExercise>()
     val trainingExercise: LiveData<TrainingExercise> = _trainingExercise
     
-    private val _trainingSet = MutableLiveData<TrainingExerciseSet>()
-    val trainingSet: LiveData<TrainingExerciseSet> = _trainingSet
+    private val _trainingSet = MutableLiveData<TrainingSet>()
+    val trainingSet: LiveData<TrainingSet> = _trainingSet
     
     private val _trainingSetSavedEvent = MutableLiveData<Event<Unit>>()
     val trainingSetSavedEvent: LiveData<Event<Unit>> = _trainingSetSavedEvent
     
     fun start(trainingExerciseId: Long, setId: Long, weight: Int, reps: Int, time: Int, distance: Int) {
         viewModelScope.launch {
-            _trainingExercise.value = trainingExerciseRepository.loadTrainingExercise(trainingExerciseId)
+            _trainingExercise.value = trainingExerciseRepository.trainingExercise(trainingExerciseId)
             _trainingSet.value = if (setId == 0L) {
-                TrainingExerciseSet(0, trainingExerciseId, weight, reps, time, distance)
+                TrainingSet(0, trainingExerciseId, weight, reps, time, distance)
             } else {
-                trainingExerciseSetRepository.loadSet(setId)
+                trainingExerciseSetRepository.trainingSet(setId)
             }
         }
     }
@@ -38,7 +36,7 @@ class AddSetViewModel(
     fun addSet(secsSinceStart: Int) { viewModelScope.launch {
         trainingSet.value?.let {
             it.secs_since_start = secsSinceStart
-            trainingExerciseSetRepository.insertSet(it)
+            trainingExerciseSetRepository.insert(it)
             if (trainingExercise.value?.state == TrainingExercise.PLANNED) {
                 trainingExerciseRepository.updateState(it.training_exercise_id, TrainingExercise.RUNNING)
             }
@@ -48,7 +46,7 @@ class AddSetViewModel(
     
     fun updateSet() { viewModelScope.launch {
         trainingSet.value?.let {
-            trainingExerciseSetRepository.updateSet(it)
+            trainingExerciseSetRepository.update(it)
             _trainingSetSavedEvent.value = Event(Unit)
         }
     }}

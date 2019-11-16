@@ -18,7 +18,7 @@ class CreateProgramDayViewModel(
     val name = MutableLiveData("")
     val description = MutableLiveData("")
     
-    val muscleList = liveData { emit(muscleDao.getParamList()) }
+    val muscleList = liveData { emit(muscleDao.params()) }
     
     private val _programDayCreatedEvent = MutableLiveData<Event<Long>>()
     val programDayCreatedEvent: LiveData<Event<Long>> = _programDayCreatedEvent
@@ -30,7 +30,7 @@ class CreateProgramDayViewModel(
     }
     
     fun createProgramDay(num: Int) = viewModelScope.launch {
-        val programDayId = programDayRepo.insertProgramDay(
+        val programDayId = programDayRepo.insert(
                 ProgramDay(0, programId!!, num, name.value!!, description.value!!)
         )
         saveMuscles(programDayId)
