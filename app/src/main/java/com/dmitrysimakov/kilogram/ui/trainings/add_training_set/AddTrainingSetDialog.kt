@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.trainings.add_set
+package com.dmitrysimakov.kilogram.ui.trainings.add_training_set
 
 import android.os.Bundle
 import android.view.*

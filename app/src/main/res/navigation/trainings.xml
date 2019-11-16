@@ -109,7 +109,7 @@
     </fragment>
     <fragment
         android:id="@+id/trainingSetsFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.trainings.sets.TrainingSetsFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.trainings.training_sets.TrainingSetsFragment"
         android:label="TrainingSetsFragment"
         tools:layout="@layout/fragment_training_sets">
         <argument
@@ -124,7 +124,7 @@
     </fragment>
     <fragment
         android:id="@+id/addSetDialog"
-        android:name="com.dmitrysimakov.kilogram.ui.trainings.add_set.AddTrainingSetDialog"
+        android:name="com.dmitrysimakov.kilogram.ui.trainings.add_training_set.AddTrainingSetDialog"
         android:label="Добавить подход"
         tools:layout="@layout/dialog_add_training_set">
         <argument

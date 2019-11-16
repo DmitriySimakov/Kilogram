@@ -8,7 +8,7 @@
         
         <variable
             name="viewModel"
-            type="com.dmitrysimakov.kilogram.ui.trainings.add_set.AddTrainingSetViewModel" />
+            type="com.dmitrysimakov.kilogram.ui.trainings.add_training_set.AddTrainingSetViewModel" />
     </data>
     
     <LinearLayout
@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="?attr/dialogPreferredPadding"
-        tools:context="ui.trainings.add_set.AddTrainingSetDialog">
+        tools:context="ui.trainings.add_training_set.AddTrainingSetDialog">
         
         <LinearLayout
             android:layout_width="match_parent"
