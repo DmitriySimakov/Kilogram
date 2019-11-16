@@ -56,7 +56,7 @@ val appModule = module {
     single { ProgramDayMuscleRepository(get()) }
     single { ProgramRepository(get()) }
     single { TrainingExerciseRepository(get()) }
-    single { TrainingExerciseSetRepository(get()) }
+    single { TrainingSetRepository(get()) }
     single { TrainingMuscleRepository(get()) }
     single { TrainingRepository(get()) }
     // ViewModels

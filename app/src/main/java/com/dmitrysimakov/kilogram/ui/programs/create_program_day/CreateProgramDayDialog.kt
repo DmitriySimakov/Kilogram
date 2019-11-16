@@ -40,7 +40,6 @@ class CreateProgramDayDialog : Fragment() {
         activity?.toolbar?.setNavigationIcon(R.drawable.ic_close_24dp)
         setHasOptionsMenu(true)
     
-        vm.start(args.programId)
         setupNavigation()
         
         descriptionET.setOnFocusChangeListener { _, hasFocus ->
@@ -75,7 +74,7 @@ class CreateProgramDayDialog : Fragment() {
     
     private fun submit() = MainScope().launch {
         if (validate()) {
-            vm.createProgramDay(args.num)
+            vm.createProgramDay(args.programId, args.num)
         }
     }
     

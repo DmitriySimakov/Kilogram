@@ -5,8 +5,8 @@ import com.dmitrysimakov.kilogram.data.local.entity.Program
 
 class ProgramRepository(private val programDao: ProgramDao) {
     
-    suspend fun programs() =
-            programDao.programs()
+    fun programsFlow() =
+            programDao.programsFlow()
     
     suspend fun insert(program: Program) =
             programDao.insert(program)

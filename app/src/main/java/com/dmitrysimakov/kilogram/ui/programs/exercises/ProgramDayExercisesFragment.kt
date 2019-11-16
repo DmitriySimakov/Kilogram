@@ -36,7 +36,7 @@ class ProgramDayExercisesFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
     
-        vm.start(args.programDayId)
+        vm.setProgramDayId(args.programDayId)
         vm.exercises.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
     
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.RIGHT) {

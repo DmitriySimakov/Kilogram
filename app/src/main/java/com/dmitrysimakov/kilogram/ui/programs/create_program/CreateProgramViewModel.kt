@@ -10,8 +10,6 @@ class CreateProgramViewModel (private val repository: ProgramRepository) : ViewM
     val name = MutableLiveData("")
     val description = MutableLiveData("")
     
-    
-
     suspend fun createProgram() = repository.insert(
             Program(0, name.value!!, description.value!!))
 }

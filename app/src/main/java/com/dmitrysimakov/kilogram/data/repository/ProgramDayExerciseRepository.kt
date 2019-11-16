@@ -5,8 +5,8 @@ import com.dmitrysimakov.kilogram.data.local.entity.ProgramDayExercise
 
 class ProgramDayExerciseRepository(private val programDayExerciseDao: ProgramDayExerciseDao) {
    
-    suspend fun programDayExercises(programDayId: Long) =
-            programDayExerciseDao.programDayExercises(programDayId)
+    fun programDayExercisesFlow(programDayId: Long) =
+            programDayExerciseDao.programDayExercisesFlow(programDayId)
     
     suspend fun insert(programDayExercise: ProgramDayExercise) =
             programDayExerciseDao.insert(programDayExercise)

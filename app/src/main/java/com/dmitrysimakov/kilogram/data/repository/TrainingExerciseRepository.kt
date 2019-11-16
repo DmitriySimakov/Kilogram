@@ -6,11 +6,14 @@ import com.dmitrysimakov.kilogram.data.relation.DetailedTrainingExercise
 
 class TrainingExerciseRepository(private val trainingExerciseDao: TrainingExerciseDao) {
     
-    suspend fun detailedTrainingExercises(trainingId: Long) =
-            trainingExerciseDao.detailedTrainingExercises(trainingId)
+    fun detailedTrainingExercisesFlow(trainingId: Long) =
+            trainingExerciseDao.detailedTrainingExercisesFlow(trainingId)
     
     suspend fun previousTrainingExercise(trainingId: Long, exercise: String) =
             trainingExerciseDao.previousTrainingExercise(trainingId, exercise)
+    
+    fun trainingExerciseFlow(id: Long) =
+            trainingExerciseDao.trainingExerciseFlow(id)
     
     suspend fun trainingExercise(id: Long) =
             trainingExerciseDao.trainingExercise(id)

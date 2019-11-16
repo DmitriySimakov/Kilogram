@@ -1,15 +1,15 @@
 package com.dmitrysimakov.kilogram.data.local.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteQuery
 import com.dmitrysimakov.kilogram.data.local.entity.Exercise
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ExerciseDao {
     
     @RawQuery(observedEntities = [Exercise::class])
-    suspend fun exercises(query: SupportSQLiteQuery) : List<Exercise>
+    fun exercisesFlow(query: SupportSQLiteQuery) : Flow<List<Exercise>>
     
     @Query("SELECT * FROM exercise WHERE name = :name")
     suspend fun exercise(name: String) : Exercise

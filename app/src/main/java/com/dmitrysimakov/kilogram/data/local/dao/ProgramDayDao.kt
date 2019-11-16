@@ -1,15 +1,15 @@
 package com.dmitrysimakov.kilogram.data.local.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.dmitrysimakov.kilogram.data.local.entity.ProgramDay
 import com.dmitrysimakov.kilogram.data.relation.ProgramDayAndProgram
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ProgramDayDao {
     
     @Query("SELECT * FROM program_day WHERE program_id = :programId ORDER BY indexNumber")
-    suspend fun programDays(programId: Long): List<ProgramDay>
+    fun programDaysFlow(programId: Long): Flow<List<ProgramDay>>
     
     @Query("""
         SELECT pd._id AS program_day_id, pd.name AS program_day, p.name AS program

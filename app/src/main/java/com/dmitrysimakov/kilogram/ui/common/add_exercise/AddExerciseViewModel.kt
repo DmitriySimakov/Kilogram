@@ -1,13 +1,13 @@
 package com.dmitrysimakov.kilogram.ui.common.add_exercise
 
 import androidx.lifecycle.*
-import com.dmitrysimakov.kilogram.data.local.entity.Exercise
 import com.dmitrysimakov.kilogram.data.local.entity.ProgramDayExercise
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.util.Event
+import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.coroutines.launch
 
 class AddExerciseViewModel (
@@ -16,19 +16,18 @@ class AddExerciseViewModel (
         private val programDayExerciseRepository: ProgramDayExerciseRepository
 ) : ViewModel() {
     
+    private val _exerciseName = MutableLiveData<String>()
+    
+    val exercise = _exerciseName.switchMap { liveData { emit(exerciseRepository.exercise(it)) } }
+    
     val restTime: LiveData<Int> = MutableLiveData(3*60)
     
     val strategy = MutableLiveData<String>()
     
-    private val _exercise = MutableLiveData<Exercise>()
-    val exercise: LiveData<Exercise> = _exercise
-    
     private val _exerciseAddedEvent = MutableLiveData<Event<Unit>>()
     val exerciseAddedEvent: LiveData<Event<Unit>> = _exerciseAddedEvent
     
-    fun start(exerciseName: String) = viewModelScope.launch {
-        _exercise.value = exerciseRepository.exercise(exerciseName)
-    }
+    fun setExerciseName(name: String) = _exerciseName.setNewValue(name)
     
     fun addExerciseToTraining(trainingId: Long, num: Int, rest: Int) = viewModelScope.launch {
         exercise.value?.let {

@@ -5,8 +5,8 @@ import com.dmitrysimakov.kilogram.data.local.entity.Training
 
 class TrainingRepository(private val trainingDao: TrainingDao) {
     
-    suspend fun detailedTrainings() =
-            trainingDao.detailedTrainings()
+    fun detailedTrainingsFlow() =
+            trainingDao.detailedTrainingsFlow()
     
     suspend fun training(id: Long) =
             trainingDao.training(id)

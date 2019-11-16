@@ -12,7 +12,7 @@ class Programs_ChooseExerciseFragment : ChooseExerciseFragment() {
         super.onActivityCreated(savedInstanceState)
         
         val args: Programs_ChooseExerciseFragmentArgs by navArgs()
-        vm.setProgramDay(args.programDayId)
+        vm.setProgramDayId(args.programDayId)
         
         exerciseAdapter.clickCallback = { exercise ->
             hideKeyboard()

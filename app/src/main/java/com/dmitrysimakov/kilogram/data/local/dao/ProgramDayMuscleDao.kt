@@ -1,6 +1,5 @@
 package com.dmitrysimakov.kilogram.data.local.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -17,6 +16,7 @@ interface ProgramDayMuscleDao {
         ON pdm.program_day_id = :programId AND pdm.muscle = m.name
     """)
     suspend fun params(programId: Long): List<FilterParam>
+    
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(programDayMuscles: List<ProgramDayMuscle>)

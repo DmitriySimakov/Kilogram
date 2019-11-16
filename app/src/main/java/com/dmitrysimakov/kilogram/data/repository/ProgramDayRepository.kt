@@ -5,8 +5,8 @@ import com.dmitrysimakov.kilogram.data.local.entity.ProgramDay
 
 class ProgramDayRepository(private val programDayDao: ProgramDayDao) {
     
-    suspend fun programDays(programId: Long)  =
-            programDayDao.programDays(programId)
+    fun programDaysFlow(programId: Long)  =
+            programDayDao.programDaysFlow(programId)
     
     suspend fun nextProgramDayAndProgram() =
             programDayDao.nextProgramDayAndProgram()

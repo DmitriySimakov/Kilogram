@@ -13,7 +13,7 @@ class Exercises_ChooseExerciseFragment : ChooseExerciseFragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         
-        vm.setMuscle(args.muscle)
+        vm.setMuscleName(args.muscle)
         
         exerciseAdapter.clickCallback = { exercise ->
             hideKeyboard()

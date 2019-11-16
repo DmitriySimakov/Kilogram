@@ -1,6 +1,5 @@
 package com.dmitrysimakov.kilogram.data.local.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -12,6 +11,7 @@ interface TargetedMuscleDao {
     
     @Query("SELECT muscle FROM targeted_muscle WHERE exercise = :exerciseName")
     suspend fun targetedMuscles(exerciseName: String) : List<String>
+    
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(targetedMuscles: List<TargetedMuscle>)

@@ -3,10 +3,10 @@ package com.dmitrysimakov.kilogram.data.repository
 import com.dmitrysimakov.kilogram.data.local.dao.TrainingExerciseSetDao
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingSet
 
-class TrainingExerciseSetRepository(private val trainingExerciseSetDao: TrainingExerciseSetDao) {
+class TrainingSetRepository(private val trainingExerciseSetDao: TrainingExerciseSetDao) {
 
-    suspend fun trainingSets(training_exercise_id: Long) =
-            trainingExerciseSetDao.trainingSets(training_exercise_id)
+    fun trainingSetsFlow(training_exercise_id: Long) =
+            trainingExerciseSetDao.trainingSetsFlow(training_exercise_id)
     
     suspend fun trainingSet(id: Long) =
             trainingExerciseSetDao.trainingSet(id)

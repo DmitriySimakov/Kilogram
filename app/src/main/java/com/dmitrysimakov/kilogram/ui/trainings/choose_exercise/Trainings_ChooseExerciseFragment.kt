@@ -13,7 +13,7 @@ class Trainings_ChooseExerciseFragment : ChooseExerciseFragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         
-        vm.setTraining(args.trainingId)
+        vm.setTrainingId(args.trainingId)
     
         exerciseAdapter.clickCallback = { exercise ->
             hideKeyboard()

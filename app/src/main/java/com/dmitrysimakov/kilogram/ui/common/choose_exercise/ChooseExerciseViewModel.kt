@@ -31,9 +31,7 @@ class ChooseExerciseViewModel (
     private val _searchText = MutableLiveData<String>()
     val searchText: LiveData<String> = _searchText
     
-    val exerciseList = query.switchMap { query ->
-        liveData { emit(exerciseRepo.exercises(query)) }
-    }
+    val exerciseList = query.switchMap { query -> exerciseRepo.exercisesFlow(query).asLiveData() }
     
     val addedToFavorite = MutableLiveData<Boolean>()
     val performedEarlier = MutableLiveData<Boolean>()
@@ -46,29 +44,29 @@ class ChooseExerciseViewModel (
     val equipmentList = liveData { emit(equipmentDao.params()) }
     
     init {
-        query.addSource(_searchText) { query.value = updateQuery() }
-        query.addSource(addedToFavorite) { query.value = updateQuery() }
-        query.addSource(performedEarlier) { query.value = updateQuery() }
-        query.addSource(muscleList) { query.value = updateQuery() }
+        query.addSource(searchText) { updateQuery() }
+        query.addSource(addedToFavorite) { updateQuery() }
+        query.addSource(performedEarlier) { updateQuery() }
+        query.addSource(muscleList) { updateQuery() }
     }
     
-    fun setSearchText(newString: String?) { _searchText.setNewValue(newString) }
+    fun setSearchText(text: String?) = _searchText.setNewValue(text)
     
-    fun setMuscle(muscleName: String) = viewModelScope.launch {
+    fun setMuscleName(muscleName: String) = viewModelScope.launch {
         _muscleList.value = muscleDao.params().map { param ->
             if (param.name == muscleName) param.apply { is_active = true } else param
         }
     }
     
-    fun setProgramDay(id: Long) = viewModelScope.launch {
+    fun setProgramDayId(id: Long) = viewModelScope.launch {
         _muscleList.value = programDayMuscleRepo.params(id)
     }
     
-    fun setTraining(id: Long) = viewModelScope.launch {
+    fun setTrainingId(id: Long) = viewModelScope.launch {
         _muscleList.value = trainingMuscleRepo.params(id)
     }
     
-    private fun updateQuery(): SupportSQLiteQuery {
+    private fun updateQuery() {
         val muscles = muscleList.getActiveParamsString()
         val mechanicsTypes = mechanicsTypeList.getActiveParamsString()
         val exerciseTypes = exerciseTypeList.getActiveParamsString()
@@ -85,7 +83,7 @@ class ChooseExerciseViewModel (
         sb.append(" ORDER BY executions_cnt DESC")
         val res = sb.toString()
         Timber.d("QUERY = $res")
-        return SimpleSQLiteQuery(res)
+        query.value = SimpleSQLiteQuery(res)
     }
     
     fun setFavorite(exercise: Exercise, isChecked: Boolean) = viewModelScope.launch {
@@ -94,7 +92,7 @@ class ChooseExerciseViewModel (
     
     fun setChecked(filterParams: LiveData<List<FilterParam>>, name: String, isChecked: Boolean) {
         filterParams.value?.find{ it.name == name }?.is_active = isChecked
-        query.value = updateQuery()
+        updateQuery()
     }
     
     private fun LiveData<List<FilterParam>>.getActiveParamsString() =

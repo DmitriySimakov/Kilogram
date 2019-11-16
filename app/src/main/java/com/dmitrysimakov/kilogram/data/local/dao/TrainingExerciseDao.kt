@@ -1,10 +1,10 @@
 package com.dmitrysimakov.kilogram.data.local.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
-import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseInfo
 import com.dmitrysimakov.kilogram.data.relation.DetailedTrainingExercise
+import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseInfo
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TrainingExerciseDao {
@@ -17,7 +17,7 @@ interface TrainingExerciseDao {
         WHERE training_id = :trainingId
         ORDER BY indexNumber
     """)
-    suspend fun detailedTrainingExercises(trainingId: Long): List<DetailedTrainingExercise>
+    fun detailedTrainingExercisesFlow(trainingId: Long): Flow<List<DetailedTrainingExercise>>
     
     @Query("""
         SELECT te._id AS training_exercise_id, t._id AS training_id, t.start_time
@@ -33,9 +33,13 @@ interface TrainingExerciseDao {
     
     @Query("SELECT * FROM training_exercise WHERE training_id = :trainingId ORDER BY indexNumber")
     suspend fun trainingExercises(trainingId: Long): List<TrainingExercise>
-
+    
+    @Query("SELECT * FROM training_exercise WHERE _id = :id")
+    fun trainingExerciseFlow(id: Long): Flow<TrainingExercise>
+    
     @Query("SELECT * FROM training_exercise WHERE _id = :id")
     suspend fun trainingExercise(id: Long): TrainingExercise
+    
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(trainingExercises: List<TrainingExercise>)
@@ -50,6 +54,7 @@ interface TrainingExerciseDao {
         WHERE program_day_id = :programDayId
     """)
     suspend fun fillTrainingWithProgramExercises(trainingId: Long, programDayId: Long)
+    
     
     @Query("UPDATE training_exercise SET state = :state WHERE _id = :id")
     suspend fun updateState(id: Long, state: Int)
@@ -69,6 +74,7 @@ interface TrainingExerciseDao {
         SET state = :finished
         WHERE training_id = :trainingId AND state = :running""")
     suspend fun finishTrainingExercises(trainingId: Long, finished: Int, running: Int)
+    
     
     @Query("DELETE FROM training_exercise WHERE _id = :id")
     suspend fun delete(id: Long)

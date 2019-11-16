@@ -52,7 +52,7 @@ class TrainingExercisesFragment : Fragment() {
     
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        vm.start(args.trainingId)
+        vm.setTrainingId(args.trainingId)
         setupNavigation()
         vm.training.observe(viewLifecycleOwner, Observer {  })
         vm.runningExercises.observe(viewLifecycleOwner, Observer { exerciseRunningListAdapter.submitList(it) })
@@ -102,7 +102,7 @@ class TrainingExercisesFragment : Fragment() {
     
     private fun toSetsFragment(exercise: DetailedTrainingExercise) {
         findNavController().navigate(TrainingExercisesFragmentDirections
-                .toTrainingSetsFragment(args.trainingId, exercise._id))
+                .toTrainingSetsFragment(exercise._id))
     }
     
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

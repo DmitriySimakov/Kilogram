@@ -14,7 +14,7 @@ class Trainings_AddExerciseFragment : AddExerciseFragment() {
     
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        vm.start(args.exercise)
+        vm.setExerciseName(args.exercise)
         setupNavigation()
     }
     

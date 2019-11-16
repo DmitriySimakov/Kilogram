@@ -6,8 +6,8 @@ import com.dmitrysimakov.kilogram.data.local.entity.Exercise
 
 class ExerciseRepository(private val exerciseDao: ExerciseDao) {
 
-    suspend fun exercises(query: SupportSQLiteQuery) =
-            exerciseDao.exercises(query)
+    fun exercisesFlow(query: SupportSQLiteQuery) =
+            exerciseDao.exercisesFlow(query)
 
     suspend fun exercise(name: String) =
             exerciseDao.exercise(name)

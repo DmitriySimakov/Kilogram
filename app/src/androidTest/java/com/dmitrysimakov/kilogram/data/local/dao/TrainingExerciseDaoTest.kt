@@ -7,6 +7,7 @@ import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseInfo
 import com.dmitrysimakov.kilogram.util.testExercises
 import com.dmitrysimakov.kilogram.util.testProgramDayExercises
 import com.dmitrysimakov.kilogram.util.testTrainingExercises
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Before
@@ -21,7 +22,8 @@ class TrainingExerciseDaoTest : DbTest() {
     }
     
     @Test fun getDetailedTrainingExerciseList() = runBlocking {
-        val list = dao.detailedTrainingExercises(1)
+        var list = emptyList<DetailedTrainingExercise>()
+        dao.detailedTrainingExercisesFlow(1).collect{ list = it }
         
         val exercisesSample = testTrainingExercises
                 .filter { it.training_id == 1L }

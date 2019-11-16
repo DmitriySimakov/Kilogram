@@ -27,6 +27,6 @@ abstract class ChooseProgramFragment : Fragment() {
     
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
-        vm.programList.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
+        vm.programs.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
     }
 }

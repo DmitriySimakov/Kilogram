@@ -1,20 +1,18 @@
 package com.dmitrysimakov.kilogram.ui.programs.exercises
 
 import androidx.lifecycle.*
-import com.dmitrysimakov.kilogram.data.local.entity.ProgramDayExercise
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayExerciseRepository
+import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ProgramDayExercisesViewModel (private val repository: ProgramDayExerciseRepository) : ViewModel() {
     
-    private val _exercises = MutableLiveData<List<ProgramDayExercise>>()
-    val exercises: LiveData<List<ProgramDayExercise>> = _exercises
+    private val _programDayId = MutableLiveData<Long>()
+    val exercises = _programDayId.switchMap { repository.programDayExercisesFlow(it).asLiveData() }
     
-    fun start(programDayId: Long) = viewModelScope.launch {
-        _exercises.value = repository.programDayExercises(programDayId)
-    }
+    fun setProgramDayId(id: Long) = _programDayId.setNewValue(id)
 
     fun deleteExercise(id: Long) = viewModelScope.launch {
         repository.delete(id)

@@ -29,7 +29,7 @@ class DetailedExerciseFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         
-        vm.start(args.exercise)
+        vm.setExerciseName(args.exercise)
         
         activity?.fab?.hide()
     }
@@ -47,8 +47,8 @@ class DetailedExerciseFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.addToFavorite -> {
             item.isChecked = !item.isChecked
-            vm.setFavorite(item.isChecked)
             updateFavoriteButton(item)
+            vm.setFavorite(item.isChecked)
             true
         }
         else -> false

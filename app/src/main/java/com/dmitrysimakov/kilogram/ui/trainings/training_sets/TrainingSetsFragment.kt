@@ -39,16 +39,21 @@ class TrainingSetsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        vm.start(args.trainingExerciseId, args.trainingId)
+        vm.setTrainingExerciseId(args.trainingExerciseId)
         setupNavigation()
         
-        vm.exercise.observe(viewLifecycleOwner, Observer { exercise ->
+        vm.trainingExercise.observe(viewLifecycleOwner, Observer { exercise ->
             binding.exerciseMeasures = exercise.measures
         
             adapter = TrainingSetsAdapter(exercise.measures) { set ->
-                findNavController().navigate(TrainingSetsFragmentDirections
-                        .toAddSetDialog(args.trainingId, args.trainingExerciseId, set._id,
-                                set.prev_weight ?: 0, set.prev_reps ?: 0, set.prev_time ?: 0, set.prev_distance ?: 0))
+                findNavController().navigate(TrainingSetsFragmentDirections.toAddSetDialog(
+                        args.trainingExerciseId,
+                        set._id,
+                        set.prev_weight ?: 0,
+                        set.prev_reps ?: 0,
+                        set.prev_time ?: 0,
+                        set.prev_distance ?: 0
+                ))
             }
             recyclerView.adapter = adapter
             recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
@@ -69,25 +74,15 @@ class TrainingSetsFragment : Fragment() {
         
         activity?.fab?.show()
         activity?.fab?.setOnClickListener{
-            var weight = 0
-            var reps = 0
-            var time = 0
-            var distance = 0
-            val currLast = try {vm.currentSets.value?.last()} catch (e: Exception) {null}
-            val prevLast = try {vm.previousSets.value?.last()} catch (e: Exception) {null}
-            if (currLast != null) {
-                weight = currLast.weight ?: 0
-                reps = currLast.reps ?: 0
-                time = currLast.time ?: 0
-                distance = currLast.distance ?: 0
-            } else if (prevLast != null) {
-                weight = prevLast.weight ?: 0
-                reps = prevLast.reps ?: 0
-                time = prevLast.time ?: 0
-                distance = prevLast.distance ?: 0
-            }
-            findNavController().navigate(TrainingSetsFragmentDirections
-                    .toAddSetDialog(args.trainingId, args.trainingExerciseId, 0, weight, reps, time, distance))
+            val set = vm.currentSets.value?.lastOrNull() ?: vm.previousSets.value?.firstOrNull()
+            findNavController().navigate(TrainingSetsFragmentDirections.toAddSetDialog(
+                    args.trainingExerciseId,
+                    0,
+                    set?.weight ?: 0,
+                    set?.reps ?: 0,
+                    set?.time ?: 0,
+                    set?.distance ?: 0
+            ))
         }
     }
     

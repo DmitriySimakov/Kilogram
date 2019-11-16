@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.local.dao.TargetedMuscleDao
 import com.dmitrysimakov.kilogram.data.local.entity.Exercise
 import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
+import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.coroutines.launch
 
 class DetailedExerciseViewModel (
@@ -11,16 +12,15 @@ class DetailedExerciseViewModel (
         private val repository: ExerciseRepository
 ) : ViewModel() {
     
-    private val _exercise = MutableLiveData<Exercise>()
-    val exercise: LiveData<Exercise> = _exercise
+    private val _exerciseName = MutableLiveData<String>()
     
-    private val _targetedMuscles = MutableLiveData<String>()
-    val targetedMuscles: LiveData<String> = _targetedMuscles
+    val exercise = _exerciseName.switchMap { liveData { emit(repository.exercise(it)) } }
     
-    fun start(exerciseName: String) = viewModelScope.launch {
-        _exercise.value = repository.exercise(exerciseName)
-        _targetedMuscles.value = targetedMuscleDao.targetedMuscles(exerciseName).joinToString(", ")
+    val targetedMuscles = _exerciseName.switchMap { liveData {
+        emit(targetedMuscleDao.targetedMuscles(it).joinToString(", ")) }
     }
+    
+    fun setExerciseName(name: String) = _exerciseName.setNewValue(name)
     
     fun setFavorite(isChecked: Boolean) = viewModelScope.launch {
         exercise.value?.let { repository.setFavorite(it.name, isChecked) }

@@ -18,7 +18,7 @@ class Programs_ChooseProgramDayFragment : ChooseProgramDayFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         
-        vm.start(args.programId)
+        vm.setProgramId(args.programId)
         
         adapter.clickCallback = { programDay ->
             findNavController().navigate(Programs_ChooseProgramDayFragmentDirections

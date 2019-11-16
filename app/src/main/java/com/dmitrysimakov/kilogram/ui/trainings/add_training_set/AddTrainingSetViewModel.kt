@@ -4,13 +4,13 @@ import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingSet
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
-import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseSetRepository
+import com.dmitrysimakov.kilogram.data.repository.TrainingSetRepository
 import com.dmitrysimakov.kilogram.util.Event
 import kotlinx.coroutines.launch
 
 class AddTrainingSetViewModel(
         private val trainingExerciseRepository: TrainingExerciseRepository,
-        private val trainingExerciseSetRepository: TrainingExerciseSetRepository
+        private val trainingExerciseSetRepository: TrainingSetRepository
 ) : ViewModel() {
     
     private val _trainingExercise = MutableLiveData<TrainingExercise>()
