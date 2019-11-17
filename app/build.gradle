@@ -13,7 +13,6 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     
     buildTypes {
@@ -115,17 +114,6 @@ dependencies {
     implementation "com.firebaseui:firebase-ui-auth:5.0.0"
     implementation "com.facebook.android:facebook-android-sdk:5.0.0"
     //endregion Firebase
-    
-    //region Testing dependencies
-    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
-    androidTestImplementation "androidx.test.espresso:espresso-core:3.2.0"
-    androidTestImplementation "androidx.test:runner:1.2.0"
-    androidTestImplementation "androidx.test.ext:junit:1.1.1"
-    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
-    testImplementation "junit:junit:4.12"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
-    //endregion Testing dependencies
 }
 
 apply plugin: "com.google.gms.google-services"
