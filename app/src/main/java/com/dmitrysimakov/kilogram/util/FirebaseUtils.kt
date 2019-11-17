@@ -4,10 +4,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 
-val auth: FirebaseAuth = FirebaseAuth.getInstance()
-
 val user
-    get() = auth.currentUser
+    get() = FirebaseAuth.getInstance().currentUser
 
 val firestore : FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
 

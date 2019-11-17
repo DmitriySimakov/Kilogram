@@ -99,18 +99,6 @@ class MainActivity : AppCompatActivity() {
         if (vm.timerIsRunning.value == true) vm.startTimer()
     }
     
-    override fun onResume() {
-        Timber.d("onResume")
-        super.onResume()
-        vm.addAuthStateListener()
-    }
-    
-    override fun onPause() {
-        Timber.d("onPause")
-        vm.removeAuthStateListener()
-        super.onPause()
-    }
-    
     override fun onStop() {
         Timber.d("onStop")
         if (vm.timerIsRunning.value == true) vm.stopTimer()

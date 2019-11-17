@@ -4,11 +4,9 @@ import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.remote.Person
+import com.dmitrysimakov.kilogram.util.FirebaseUserLiveData
 import com.dmitrysimakov.kilogram.util.PreferencesKeys
-import com.dmitrysimakov.kilogram.util.auth
 import com.dmitrysimakov.kilogram.util.userDocument
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.iid.FirebaseInstanceId
 import java.util.*
 
@@ -17,19 +15,7 @@ class SharedViewModel(private val preferences: SharedPreferences) : ViewModel() 
     val programDayId = MutableLiveData(0L)
     
     //region Firebase
-    val user = MutableLiveData<FirebaseUser?>()
-    
-    private val authStateListener by lazy { FirebaseAuth.AuthStateListener { auth ->
-        user.value = auth.currentUser?.takeIf { it.isEmailVerified }
-    }}
-    
-    fun addAuthStateListener() {
-        auth.addAuthStateListener(authStateListener)
-    }
-    
-    fun removeAuthStateListener() {
-        auth.removeAuthStateListener(authStateListener)
-    }
+    val user = FirebaseUserLiveData()
     
     fun initUser() {
         userDocument.get().addOnSuccessListener { doc ->
