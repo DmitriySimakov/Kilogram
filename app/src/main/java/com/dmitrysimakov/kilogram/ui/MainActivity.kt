@@ -42,7 +42,11 @@ class MainActivity : AppCompatActivity() {
         navBinding.lifecycleOwner = this
         navBinding.vm = vm
     
-        vm.user.observe(this, Observer { binding.navView.menu.findItem(R.id.chatsFragment).isVisible = it != null })
+        vm.user.observe(this, Observer {user ->
+            listOf(R.id.chatsFragment, R.id.peopleFragment).forEach {
+                binding.navView.menu.findItem(it).isVisible = user != null
+            }
+        })
         vm.timerIsRunning.observe(this, Observer { })
         
         vm.timerIsRunning.value = preferences.getBoolean(PreferencesKeys.TIMER_IS_RUNNING, false)
