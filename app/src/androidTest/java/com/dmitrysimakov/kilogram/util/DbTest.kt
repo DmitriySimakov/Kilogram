@@ -4,14 +4,18 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
 import com.dmitrysimakov.kilogram.data.local.KilogramDb
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 
+@ExperimentalCoroutinesApi
 abstract class DbTest {
     
     @get:Rule var instantTaskExecutorRule = InstantTaskExecutorRule()
+    
+    @get:Rule val coroutineRule = MainCoroutineRule()
     
     private lateinit var _db: KilogramDb
     val db: KilogramDb

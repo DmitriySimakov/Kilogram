@@ -44,10 +44,8 @@ class ChooseExerciseViewModel (
     val equipmentList = liveData { emit(equipmentDao.params()) }
     
     init {
-        query.addSource(searchText) { updateQuery() }
-        query.addSource(addedToFavorite) { updateQuery() }
-        query.addSource(performedEarlier) { updateQuery() }
-        query.addSource(muscleList) { updateQuery() }
+        listOf(searchText, addedToFavorite, performedEarlier, muscleList)
+                .forEach { query.addSource(it) { updateQuery() } }
     }
     
     fun setSearchText(text: String?) = _searchText.setNewValue(text)

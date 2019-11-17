@@ -1,17 +1,21 @@
 package com.dmitrysimakov.kilogram.data.local.dao
 
+import androidx.lifecycle.asLiveData
 import androidx.test.espresso.matcher.ViewMatchers.assertThat
-import com.dmitrysimakov.kilogram.util.DbTest
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.dmitrysimakov.kilogram.data.relation.DetailedTraining
-import com.dmitrysimakov.kilogram.util.testProgramDays
-import com.dmitrysimakov.kilogram.util.testPrograms
-import com.dmitrysimakov.kilogram.util.testTrainings
+import com.dmitrysimakov.kilogram.util.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
 
+@ExperimentalCoroutinesApi
+@RunWith(AndroidJUnit4::class)
 class TrainingDaoTest : DbTest() {
     
     private lateinit var dao: TrainingDao
@@ -20,9 +24,8 @@ class TrainingDaoTest : DbTest() {
         dao = db.trainingDao()
     }
     
-    @Test fun getDetailedTrainingList() = runBlocking {
-        var list = emptyList<DetailedTraining>()
-        dao.detailedTrainingsFlow().collect{ list = it }
+    @Test fun getDetailedTrainingList() = runBlockingTest {
+        val list = getValue(dao.detailedTrainingsFlow().asLiveData())
         assertThat(list.size, equalTo(testTrainings.size))
         
         val sampleList  = testTrainings.map { training ->

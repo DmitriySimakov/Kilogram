@@ -1,18 +1,22 @@
 package com.dmitrysimakov.kilogram.data.local.dao
 
+import androidx.lifecycle.asLiveData
 import androidx.test.espresso.matcher.ViewMatchers.assertThat
-import com.dmitrysimakov.kilogram.util.DbTest
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.dmitrysimakov.kilogram.data.relation.DetailedTrainingExercise
 import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseInfo
-import com.dmitrysimakov.kilogram.util.testExercises
-import com.dmitrysimakov.kilogram.util.testProgramDayExercises
-import com.dmitrysimakov.kilogram.util.testTrainingExercises
+import com.dmitrysimakov.kilogram.util.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
 
+@ExperimentalCoroutinesApi
+@RunWith(AndroidJUnit4::class)
 class TrainingExerciseDaoTest : DbTest() {
     
     private lateinit var dao: TrainingExerciseDao
@@ -21,9 +25,8 @@ class TrainingExerciseDaoTest : DbTest() {
         dao = db.trainingExerciseDao()
     }
     
-    @Test fun getDetailedTrainingExerciseList() = runBlocking {
-        var list = emptyList<DetailedTrainingExercise>()
-        dao.detailedTrainingExercisesFlow(1).collect{ list = it }
+    @Test fun getDetailedTrainingExerciseList() = runBlockingTest {
+        val list = getValue(dao.detailedTrainingExercisesFlow(1).asLiveData())
         
         val exercisesSample = testTrainingExercises
                 .filter { it.training_id == 1L }
@@ -37,7 +40,7 @@ class TrainingExerciseDaoTest : DbTest() {
         }
     }
     
-    @Test fun getPrevTrainingExercise() = runBlocking {
+    @Test fun getPrevTrainingExercise() = runBlockingTest {
         val exerciseInfo = dao.previousTrainingExercise(2, testExercises[0].name)
         
         val exerciseInfoSample = TrainingExerciseInfo(1, 1, 0)
@@ -45,7 +48,7 @@ class TrainingExerciseDaoTest : DbTest() {
         assertThat(exerciseInfo, equalTo(exerciseInfoSample))
     }
     
-    @Test fun fillTrainingWithProgramExercises()  = runBlocking {
+    @Test fun fillTrainingWithProgramExercises()  = runBlockingTest {
         dao.fillTrainingWithProgramExercises(3, 1)
         val exercises = dao.trainingExercises(3)
         val exercisesToFill = testProgramDayExercises
