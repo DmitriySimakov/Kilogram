@@ -100,5 +100,14 @@
     <string name="catalogs">Справочники</string>
     <string name="community">Сообщество</string>
     <string name="menu">Меню</string>
+    <string name="common">Общие</string>
+    <string name="estimate_app">Оценить приложение</string>
+    <string name="timer">Таймер</string>
+    <string name="edit">Редактировать</string>
+    <string name="other">Другое</string>
+    <string name="darkTheme">Тёмная тема</string>
+    <string name="running">Выполняющиеся</string>
+    <string name="planned">Запланированные</string>
+    <string name="finished">Выполненные</string>
 
 </resources>

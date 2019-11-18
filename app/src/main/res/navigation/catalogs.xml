@@ -7,7 +7,7 @@
     app:startDestination="@id/chooseMuscleFragment">
     <fragment
         android:id="@+id/chooseMuscleFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.exercises.choose_muscle.ChooseMuscleFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.catalogs.exercises.choose_muscle.ChooseMuscleFragment"
         tools:layout="@layout/fragment_choose_muscle">
         <action
             android:id="@+id/to_chooseExerciseFragment"
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/exercises_ChooseExerciseFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.exercises.choose_exercise.Exercises_ChooseExerciseFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.catalogs.exercises.choose_exercise.Exercises_ChooseExerciseFragment"
         tools:layout="@layout/fragment_choose_exercise">
         <action
             android:id="@+id/to_exerciseDetailFragment"
@@ -26,7 +26,7 @@
     </fragment>
     <fragment
         android:id="@+id/exerciseDetailFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.exercises.detail.DetailedExerciseFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.catalogs.exercises.detail.DetailedExerciseFragment"
         tools:layout="@layout/fragment_detailed_exercise">
         <argument
             android:name="exercise"

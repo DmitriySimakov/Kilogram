@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.dmitrysimakov.kilogram.ui.programs.create_program.CreateProgramViewModel"/>
+            type="com.dmitrysimakov.kilogram.ui.catalogs.programs.create_program.CreateProgramViewModel" />
     </data>
     
     <LinearLayout
@@ -16,7 +16,7 @@
         android:orientation="vertical"
         android:elevation="1dp"
         android:background="@color/white"
-        tools:context=".ui.trainings.create_training.CreateTrainingDialog">
+        tools:context=".ui.diaries.trainings.create_training.CreateTrainingDialog">
      
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/nameTIL"

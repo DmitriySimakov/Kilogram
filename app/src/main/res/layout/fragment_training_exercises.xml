@@ -7,7 +7,7 @@
         
         <variable
             name="vm"
-            type="com.dmitrysimakov.kilogram.ui.trainings.exercises.TrainingExercisesViewModel" />
+            type="com.dmitrysimakov.kilogram.ui.diaries.trainings.exercises.TrainingExercisesViewModel" />
     </data>
 
     <ScrollView
@@ -35,7 +35,7 @@
     
                     <TextView
                         style="@style/Label"
-                        android:text="Выполняющиеся"
+                        android:text="@string/running"
                         android:layout_marginStart="?attr/listPreferredItemPaddingLeft"/>
     
                     <View style="@style/VerticalDivider"/>
@@ -66,7 +66,7 @@
             
                     <TextView
                         style="@style/Label"
-                        android:text="Запланированные"
+                        android:text="@string/planned"
                         android:layout_marginStart="?attr/listPreferredItemPaddingLeft"/>
     
                     <View style="@style/VerticalDivider"/>
@@ -97,7 +97,7 @@
             
                     <TextView
                         style="@style/Label"
-                        android:text="Выполненные"
+                        android:text="@string/finished"
                         android:layout_marginStart="?attr/listPreferredItemPaddingLeft"/>
     
                     <View style="@style/VerticalDivider"/>

@@ -18,7 +18,7 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-private const val RC_SIGN_IN = 1
+const val RC_SIGN_IN = 1
 
 class MainActivity : AppCompatActivity() {
     
@@ -49,38 +49,6 @@ class MainActivity : AppCompatActivity() {
             setupBottomNavigationBar()
         }
         
-//        val shareIntent = ShareCompat.IntentBuilder.from(this)
-//                .setText("Kilogram - крутой фитнес трекер. Переходи по ссылке и тренируйся вместе со мной.")
-//                .setType("text/plain")
-//                .intent
-//        val shareItem = binding.navView.menu.findItem(R.id.share)
-//        if (shareIntent.resolveActivity(packageManager) == null) {
-//            shareItem.isVisible = false
-//        } else {
-//            shareItem.setOnMenuItemClickListener {
-//                startActivity(shareIntent)
-//                true
-//            }
-//        }
-        
-//        navBinding.authBtn.setOnClickListener {
-//            if (vm.user.value == null) {
-//                startActivityForResult(AuthUI.getInstance()
-//                        .createSignInIntentBuilder()
-//                        .setAvailableProviders(listOf(
-//                                AuthUI.IdpConfig.EmailBuilder().build(),
-//                                AuthUI.IdpConfig.GoogleBuilder().build(),
-//                                AuthUI.IdpConfig.FacebookBuilder().build()))
-//                        .setLogo(R.mipmap.ic_launcher_round)
-//                        .build(), RC_SIGN_IN)
-//            } else {
-//                AuthUI.getInstance().signOut(this)
-//                if (navController.currentDestination?.id == R.id.messagesFragment) {
-//                    navController.popBackStack(R.id.mainFragment, true)
-//                }
-//            }
-//        }
-    
         requestEmailVerification()
     }
     
@@ -120,7 +88,7 @@ class MainActivity : AppCompatActivity() {
                 R.navigation.dieries,
                 R.navigation.catalogs,
                 R.navigation.community,
-                R.navigation.menu
+                R.navigation.other
         )
         val controller = binding.bottomNavView.setupWithNavController(
                 navGraphIds,

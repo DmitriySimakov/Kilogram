@@ -16,8 +16,8 @@
         android:title="@string/community"/>
     
     <item
-        android:id="@+id/menu"
+        android:id="@+id/other"
         android:icon="@drawable/ic_menu_24dp"
-        android:title="@string/menu"/>
+        android:title="@string/other" />
     
 </menu>

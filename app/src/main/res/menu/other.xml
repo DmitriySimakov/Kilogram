@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <group android:id="@+id/group4">
+        <item
+            android:id="@+id/info"
+            android:icon="@drawable/ic_info_24dp"
+            android:title="@string/about"
+            android:checkable="false" />
+        <item
+            android:id="@+id/share"
+            android:icon="@drawable/ic_share_24dp"
+            android:title="@string/share"
+            android:checkable="false" />
+        <item
+            android:id="@+id/estimate"
+            android:icon="@drawable/ic_favorite_24dp"
+            android:title="@string/estimate_app"
+            android:checkable="false" />
+    </group>
+    
+    <item android:title="@string/settings">
+        <menu>
+            <item
+                android:id="@+id/common"
+                android:icon="@drawable/ic_settings_24dp"
+                android:title="@string/common"
+                android:checkable="false" />
+            <item
+                android:id="@+id/training"
+                android:icon="@drawable/ic_fitness_center_24dp"
+                android:title="@string/training_session"
+                android:checkable="false" />
+            <item
+                android:id="@+id/timer"
+                android:icon="@drawable/ic_timer_24dp"
+                android:title="@string/timer"
+                android:checkable="false" />
+            <item
+                android:id="@+id/darkTheme"
+                android:icon="@drawable/ic_brightness_2_24dp"
+                android:title="@string/darkTheme"
+                android:checkable="false" />
+        </menu>
+    </item>
+
+
+</menu>

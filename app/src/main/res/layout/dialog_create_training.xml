@@ -9,7 +9,7 @@
         
         <variable
             name="vm"
-            type="com.dmitrysimakov.kilogram.ui.trainings.create_training.CreateTrainingViewModel"/>
+            type="com.dmitrysimakov.kilogram.ui.diaries.trainings.create_training.CreateTrainingViewModel" />
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +19,7 @@
         android:paddingRight="?attr/dialogPreferredPadding"
         android:elevation="1dp"
         android:background="@color/white"
-        tools:context=".ui.trainings.create_training.CreateTrainingDialog">
+        tools:context=".ui.diaries.trainings.create_training.CreateTrainingDialog">
         
         <TextView
             android:id="@+id/date_tv"
