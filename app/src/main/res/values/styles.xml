@@ -11,10 +11,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlNormal">@color/black</item>
 
-        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="popupTheme">@style/AppThemeLight.PopupOverlay</item>
         <item name="tabBackground">@color/white</item>
-        
         <item name="android:buttonStyle">@style/Widget.AppCompat.Button.Borderless.Colored</item>
     </style>
     
@@ -22,7 +20,9 @@
     
     
     <!-- DARK THEME -->
-
+    
+    <style name="AppThemeDark" parent="BaseAppThemeDark"/>
+    
     <style name="BaseAppThemeDark" parent="Theme.MaterialComponents">
         <item name="android:windowBackground">@color/darkBackground</item>
         <item name="colorPrimary">@color/darkPrimary</item>
@@ -34,8 +34,6 @@
         <item name="tabBackground">@color/darkBackground</item>
         <item name="android:buttonStyle">@style/Widget.AppCompat.Button.Borderless.Colored</item>
     </style>
-
-    <style name="AppThemeDark" parent="BaseAppThemeDark"/>
 
     <style name="AppThemeDark.PopupOverlay" parent="ThemeOverlay.MaterialComponents" />
     
