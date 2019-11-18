@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.FragmentChooseExerciseBinding
 import com.dmitrysimakov.kilogram.ui.common.ChipGroupFilterAdapter
-import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 abstract class ChooseExerciseFragment : Fragment() {

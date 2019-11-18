@@ -96,5 +96,9 @@
     <string name="verification_message_sent">Сообщение отправлено по адресу %1$s. Подтвердите ваш email и возвращайтесь в приложение.</string>
     <string name="you">Вы: \u0020</string>
     <string name="people">Люди</string>
+    <string name="dieries">Дневники</string>
+    <string name="catalogs">Справочники</string>
+    <string name="community">Сообщество</string>
+    <string name="menu">Меню</string>
 
 </resources>

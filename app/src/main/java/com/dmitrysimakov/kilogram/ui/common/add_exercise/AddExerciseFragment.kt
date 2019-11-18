@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.FragmentAddExerciseBinding
 import com.dmitrysimakov.kilogram.util.hideKeyboard
-import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_add_exercise.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

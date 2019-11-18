@@ -5,7 +5,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.ui.common.choose_program.ChooseProgramFragment
-import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_choose_program.*
 
 class Programs_ChooseProgramFragment : ChooseProgramFragment() {

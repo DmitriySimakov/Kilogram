@@ -11,7 +11,7 @@ import com.dmitrysimakov.kilogram.databinding.DialogCreateProgramDayBinding
 import com.dmitrysimakov.kilogram.ui.common.ChipGroupFilterAdapter
 import com.dmitrysimakov.kilogram.util.EventObserver
 import com.dmitrysimakov.kilogram.util.hideKeyboard
-import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_create_program_day.*
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch

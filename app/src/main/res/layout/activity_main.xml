@@ -5,33 +5,114 @@
     xmlns:tools="http://schemas.android.com/tools">
     
     <data>
+        <import type="com.dmitrysimakov.kilogram.util.Converter"/>
+        
         <variable
             name="vm"
             type="com.dmitrysimakov.kilogram.ui.SharedViewModel"/>
     </data>
     
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        tools:openDrawer="start">
-        
-        <include
-            layout="@layout/app_bar_main"
+        tools:context=".ui.MainActivity">
+    
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:vm="@{vm}"/>
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
         
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/nav_view"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:theme="?attr/toolbarOverlay"/>
+    
+        </com.google.android.material.appbar.AppBarLayout>
+    
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/nav_host_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/timer_panel"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+        
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/timer_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="0dp"
+            app:goneUnless="@{vm.elapsedSessionTime != null}"
+            app:layout_constraintBottom_toTopOf="@id/bottom_nav_view">
+        
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            
+                <TextView
+                    android:id="@+id/duration"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:text="@{Converter.secondsToTimeFormat(vm.elapsedSessionTime)}"
+                    tools:text="32:30" />
+            
+                <View style="@style/HorizontalDivider"
+                    app:invisibleUnless="@{vm.elapsedRestTime != null}"/>
+            
+                <TextView
+                    android:id="@+id/rest"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    app:invisibleUnless="@{vm.elapsedRestTime != null}"
+                    android:text="@{Converter.secondsToTimeFormat(vm.elapsedRestTime)}"
+                    tools:text="1:05"/>
+            
+                <View style="@style/HorizontalDivider"
+                    app:invisibleUnless="@{vm.elapsedRestTime != null}"/>
+            
+                <TextView
+                    android:id="@+id/restLeft"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    app:invisibleUnless="@{vm.elapsedRestTime != null}"
+                    android:text="@{safeUnbox(vm.restTime) - safeUnbox(vm.elapsedRestTime) > 0 ? Converter.secondsToTimeFormat(safeUnbox(vm.restTime) - safeUnbox(vm.elapsedRestTime)) : `Жги сын`}"
+                    tools:text="1:55"/>
+        
+            </LinearLayout>
+    
+        </com.google.android.material.card.MaterialCardView>
+        
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_nav_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
             app:headerLayout="@layout/nav_header_main"
-            app:menu="@menu/activity_main_drawer"/>
+            app:menu="@menu/bottom_nav"
+            app:labelVisibilityMode="unlabeled"
+            app:layout_constraintBottom_toBottomOf="parent"/>
     
-    </androidx.drawerlayout.widget.DrawerLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            app:layout_constraintBottom_toTopOf="@id/timer_panel"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:tint="@color/white"
+            app:srcCompat="@drawable/ic_add_24dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
     
 </layout>

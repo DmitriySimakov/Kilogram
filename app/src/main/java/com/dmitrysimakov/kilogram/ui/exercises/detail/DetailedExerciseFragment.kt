@@ -7,7 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.FragmentDetailedExerciseBinding
-import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailedExerciseFragment : Fragment() {

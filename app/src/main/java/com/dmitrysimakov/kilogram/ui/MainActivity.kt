@@ -5,17 +5,15 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
+import androidx.navigation.NavController
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.ActivityMainBinding
-import com.dmitrysimakov.kilogram.databinding.NavHeaderMainBinding
 import com.dmitrysimakov.kilogram.util.PreferencesKeys
-import com.firebase.ui.auth.AuthUI
-import kotlinx.android.synthetic.main.app_bar_main.*
+import com.dmitrysimakov.kilogram.util.setupWithNavController
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -29,9 +27,8 @@ class MainActivity : AppCompatActivity() {
     private val vm: SharedViewModel by viewModel()
     
     private val binding by lazy { DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main) }
-    private val navBinding by lazy { NavHeaderMainBinding.bind(binding.navView.getHeaderView(0)) }
     
-    private val navController by lazy { findNavController(R.id.fragment_container) }
+    private var currentNavController: LiveData<NavController>? = null
     
     override fun onCreate(savedInstanceState: Bundle?) {
         Timber.d("onCreate")
@@ -39,14 +36,7 @@ class MainActivity : AppCompatActivity() {
         
         binding.lifecycleOwner = this
         binding.vm = vm
-        navBinding.lifecycleOwner = this
-        navBinding.vm = vm
     
-        vm.user.observe(this, Observer {user ->
-            listOf(R.id.chatsFragment, R.id.peopleFragment).forEach {
-                binding.navView.menu.findItem(it).isVisible = user != null
-            }
-        })
         vm.timerIsRunning.observe(this, Observer { })
         
         vm.timerIsRunning.value = preferences.getBoolean(PreferencesKeys.TIMER_IS_RUNNING, false)
@@ -54,43 +44,49 @@ class MainActivity : AppCompatActivity() {
         vm.restStartMillis = preferences.getLong(PreferencesKeys.REST_START_MILLIS, 0)
         vm.restTime.value = preferences.getInt(PreferencesKeys.REST_TIME, 0).takeIf { it > 0 }
         
-        setSupportActionBar(toolbar)
-        NavigationUI.setupActionBarWithNavController(this, navController, binding.drawerLayout)
-        NavigationUI.setupWithNavController(binding.navView, navController)
-        
-        val shareIntent = ShareCompat.IntentBuilder.from(this)
-                .setText("Kilogram - крутой фитнес трекер. Переходи по ссылке и тренируйся вместе со мной.")
-                .setType("text/plain")
-                .intent
-        val shareItem = binding.navView.menu.findItem(R.id.share)
-        if (shareIntent.resolveActivity(packageManager) == null) {
-            shareItem.isVisible = false
-        } else {
-            shareItem.setOnMenuItemClickListener {
-                startActivity(shareIntent)
-                true
-            }
+        setSupportActionBar(binding.toolbar)
+        if (savedInstanceState == null) {
+            setupBottomNavigationBar()
         }
         
-        navBinding.authBtn.setOnClickListener {
-            if (vm.user.value == null) {
-                startActivityForResult(AuthUI.getInstance()
-                        .createSignInIntentBuilder()
-                        .setAvailableProviders(listOf(
-                                AuthUI.IdpConfig.EmailBuilder().build(),
-                                AuthUI.IdpConfig.GoogleBuilder().build(),
-                                AuthUI.IdpConfig.FacebookBuilder().build()))
-                        .setLogo(R.mipmap.ic_launcher_round)
-                        .build(), RC_SIGN_IN)
-            } else {
-                AuthUI.getInstance().signOut(this)
-                if (navController.currentDestination?.id == R.id.messagesFragment) {
-                    navController.popBackStack(R.id.mainFragment, true)
-                }
-            }
-        }
+//        val shareIntent = ShareCompat.IntentBuilder.from(this)
+//                .setText("Kilogram - крутой фитнес трекер. Переходи по ссылке и тренируйся вместе со мной.")
+//                .setType("text/plain")
+//                .intent
+//        val shareItem = binding.navView.menu.findItem(R.id.share)
+//        if (shareIntent.resolveActivity(packageManager) == null) {
+//            shareItem.isVisible = false
+//        } else {
+//            shareItem.setOnMenuItemClickListener {
+//                startActivity(shareIntent)
+//                true
+//            }
+//        }
+        
+//        navBinding.authBtn.setOnClickListener {
+//            if (vm.user.value == null) {
+//                startActivityForResult(AuthUI.getInstance()
+//                        .createSignInIntentBuilder()
+//                        .setAvailableProviders(listOf(
+//                                AuthUI.IdpConfig.EmailBuilder().build(),
+//                                AuthUI.IdpConfig.GoogleBuilder().build(),
+//                                AuthUI.IdpConfig.FacebookBuilder().build()))
+//                        .setLogo(R.mipmap.ic_launcher_round)
+//                        .build(), RC_SIGN_IN)
+//            } else {
+//                AuthUI.getInstance().signOut(this)
+//                if (navController.currentDestination?.id == R.id.messagesFragment) {
+//                    navController.popBackStack(R.id.mainFragment, true)
+//                }
+//            }
+//        }
     
         requestEmailVerification()
+    }
+    
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        setupBottomNavigationBar()
     }
     
     override fun onStart() {
@@ -103,18 +99,6 @@ class MainActivity : AppCompatActivity() {
         Timber.d("onStop")
         if (vm.timerIsRunning.value == true) vm.stopTimer()
         super.onStop()
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        return NavigationUI.navigateUp(navController, binding.drawerLayout)
-    }
-
-    override fun onBackPressed() {
-        if (binding.drawerLayout.isDrawerOpen(binding.navView)) {
-            binding.drawerLayout.closeDrawer(binding.navView)
-        } else {
-            super.onBackPressed()
-        }
     }
     
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -129,5 +113,29 @@ class MainActivity : AppCompatActivity() {
         vm.requestEmailVerification {
             startActivity(Intent(this, EmailVerificationActivity::class.java))
         }
+    }
+    
+    private fun setupBottomNavigationBar() {
+        val navGraphIds = listOf(
+                R.navigation.dieries,
+                R.navigation.catalogs,
+                R.navigation.community,
+                R.navigation.menu
+        )
+        val controller = binding.bottomNavView.setupWithNavController(
+                navGraphIds,
+                supportFragmentManager,
+                R.id.nav_host_fragment,
+                intent
+        )
+    
+        controller.observe(this, Observer { navController ->
+            setupActionBarWithNavController(navController)
+        })
+        currentNavController = controller
+    }
+    
+    override fun onSupportNavigateUp(): Boolean {
+        return currentNavController?.value?.navigateUp() ?: false
     }
 }

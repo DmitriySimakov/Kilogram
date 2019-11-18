@@ -13,7 +13,7 @@ import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.databinding.FragmentTrainingSetsBinding
 import com.dmitrysimakov.kilogram.util.EventObserver
-import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_training_sets.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

@@ -14,9 +14,7 @@ import com.dmitrysimakov.kilogram.ui.common.ChipGroupFilterAdapter
 import com.dmitrysimakov.kilogram.util.EventObserver
 import com.dmitrysimakov.kilogram.util.hideKeyboard
 import com.dmitrysimakov.kilogram.util.setNewValue
-import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
+import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*

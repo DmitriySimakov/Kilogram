@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <item
+        android:id="@+id/dieries"
+        android:icon="@drawable/ic_fitness_center_24dp"
+        android:title="@string/dieries" />
+    <item
+        android:id="@+id/catalogs"
+        android:icon="@drawable/ic_assignment_24dp"
+        android:title="@string/catalogs" />
+
+    <item
+        android:id="@+id/community"
+        android:icon="@drawable/ic_people_black_24dp"
+        android:title="@string/community"/>
+    
+    <item
+        android:id="@+id/menu"
+        android:icon="@drawable/ic_menu_24dp"
+        android:title="@string/menu"/>
+    
+</menu>

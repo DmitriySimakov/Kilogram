@@ -3,7 +3,7 @@ package com.dmitrysimakov.kilogram.ui.trainings.choose_program
 import android.os.Bundle
 import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.ui.common.choose_program.ChooseProgramFragment
-import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 class Trainings_ChooseProgramFragment : ChooseProgramFragment() {
     

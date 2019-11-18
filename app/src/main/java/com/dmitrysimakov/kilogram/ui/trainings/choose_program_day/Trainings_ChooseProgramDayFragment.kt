@@ -6,7 +6,7 @@ import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.ui.common.choose_program_day.ChooseProgramDayFragment
-import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class Trainings_ChooseProgramDayFragment : ChooseProgramDayFragment() {

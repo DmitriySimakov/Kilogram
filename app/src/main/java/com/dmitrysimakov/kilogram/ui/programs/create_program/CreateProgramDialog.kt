@@ -7,7 +7,7 @@ import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.DialogCreateProgramBinding
 import com.dmitrysimakov.kilogram.util.hideKeyboard
-import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_create_program.*
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch

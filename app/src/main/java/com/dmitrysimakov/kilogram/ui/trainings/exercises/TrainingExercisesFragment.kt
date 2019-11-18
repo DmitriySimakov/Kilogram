@@ -14,7 +14,7 @@ import com.dmitrysimakov.kilogram.data.relation.DetailedTrainingExercise
 import com.dmitrysimakov.kilogram.databinding.FragmentTrainingExercisesBinding
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.util.EventObserver
-import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*

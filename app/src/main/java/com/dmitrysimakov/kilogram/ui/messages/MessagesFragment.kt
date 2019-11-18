@@ -10,9 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.R
-import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_messages.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -24,7 +23,7 @@ class MessagesFragment : Fragment() {
     
     private val adapter by lazy { MessagesListAdapter() }
     
-    private val args: MessagesFragmentArgs by navArgs()
+    //private val args: MessagesFragmentArgs by navArgs()
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_messages, container, false)
@@ -35,7 +34,7 @@ class MessagesFragment : Fragment() {
         
         recyclerView.adapter = adapter
     
-        vm.setChatId(args.id)
+        //vm.setChatId(args.id)
         vm.messages.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
         
         photoPickerBtn.setOnClickListener {
