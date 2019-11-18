@@ -11,6 +11,7 @@ import com.dmitrysimakov.kilogram.databinding.DialogCreateProgramDayBinding
 import com.dmitrysimakov.kilogram.ui.common.ChipGroupFilterAdapter
 import com.dmitrysimakov.kilogram.util.EventObserver
 import com.dmitrysimakov.kilogram.util.hideKeyboard
+import com.dmitrysimakov.kilogram.util.setXNavIcon
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_create_program_day.*
 import kotlinx.coroutines.MainScope
@@ -28,6 +29,7 @@ class CreateProgramDayDialog : Fragment() {
     private val vm: CreateProgramDayViewModel by viewModel()
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        setXNavIcon()
         binding = DialogCreateProgramDayBinding.inflate(inflater)
         binding.viewModel = vm
         binding.lifecycleOwner = this
@@ -37,7 +39,6 @@ class CreateProgramDayDialog : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         
-        activity?.toolbar?.setNavigationIcon(R.drawable.ic_close_24dp)
         setHasOptionsMenu(true)
     
         setupNavigation()

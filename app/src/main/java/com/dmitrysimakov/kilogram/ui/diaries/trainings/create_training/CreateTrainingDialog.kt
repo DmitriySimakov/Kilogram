@@ -14,6 +14,7 @@ import com.dmitrysimakov.kilogram.ui.common.ChipGroupFilterAdapter
 import com.dmitrysimakov.kilogram.util.EventObserver
 import com.dmitrysimakov.kilogram.util.hideKeyboard
 import com.dmitrysimakov.kilogram.util.setNewValue
+import com.dmitrysimakov.kilogram.util.setXNavIcon
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -30,6 +31,7 @@ class CreateTrainingDialog : Fragment() {
     private lateinit var muscleAdapter: ChipGroupFilterAdapter
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        setXNavIcon()
         binding = DialogCreateTrainingBinding.inflate(inflater)
         binding.vm = vm
         binding.lifecycleOwner = this
@@ -76,7 +78,6 @@ class CreateTrainingDialog : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         
-        activity?.toolbar?.setNavigationIcon(R.drawable.ic_close_24dp)
         setHasOptionsMenu(true)
     
         setupNavigation()

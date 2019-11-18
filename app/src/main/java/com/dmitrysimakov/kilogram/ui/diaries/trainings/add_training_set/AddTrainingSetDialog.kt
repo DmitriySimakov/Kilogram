@@ -11,6 +11,7 @@ import com.dmitrysimakov.kilogram.databinding.DialogAddTrainingSetBinding
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.util.EventObserver
 import com.dmitrysimakov.kilogram.util.hideKeyboard
+import com.dmitrysimakov.kilogram.util.setXNavIcon
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -25,6 +26,7 @@ class AddTrainingSetDialog : Fragment() {
     private lateinit var binding: DialogAddTrainingSetBinding
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        setXNavIcon()
         binding = DialogAddTrainingSetBinding.inflate(inflater)
         binding.viewModel = vm
         binding.lifecycleOwner = this
@@ -34,7 +36,6 @@ class AddTrainingSetDialog : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         
-        activity?.toolbar?.setNavigationIcon(R.drawable.ic_close_24dp)
         setHasOptionsMenu(true)
         
         vm.start(

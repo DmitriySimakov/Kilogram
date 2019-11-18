@@ -44,7 +44,6 @@ class MainActivity : AppCompatActivity() {
         vm.restStartMillis = preferences.getLong(PreferencesKeys.REST_START_MILLIS, 0)
         vm.restTime.value = preferences.getInt(PreferencesKeys.REST_TIME, 0).takeIf { it > 0 }
         
-        setSupportActionBar(binding.toolbar)
         if (savedInstanceState == null) {
             setupBottomNavigationBar()
         }

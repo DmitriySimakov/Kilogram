@@ -5,11 +5,11 @@ import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import androidx.fragment.app.Fragment
-import java.lang.Exception
-import android.util.TypedValue
 import android.widget.Toast
-import androidx.lifecycle.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
+import com.dmitrysimakov.kilogram.R
 
 fun Fragment.hideKeyboard() {
     view?.let { activity?.hideKeyboard(it) }
@@ -36,4 +36,8 @@ fun EditText.getIntValue(): Int {
 
 fun Context.toast(message: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this, message, duration).show()
+}
+
+fun Fragment.setXNavIcon() {
+    (activity as AppCompatActivity).supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close_24dp)
 }

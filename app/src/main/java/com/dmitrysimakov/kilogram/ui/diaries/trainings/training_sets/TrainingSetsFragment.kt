@@ -57,11 +57,8 @@ class TrainingSetsFragment : Fragment() {
             }
             recyclerView.adapter = adapter
             recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
-    
-    
-            vm.sets.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
-            val finishExerciseMenuItem = activity?.toolbar?.menu?.findItem(R.id.finish_exercise)
-            finishExerciseMenuItem?.isVisible = exercise.state == TrainingExercise.RUNNING
+            
+            activity?.invalidateOptionsMenu()
             
             ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
                 override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean { return false }
@@ -71,6 +68,7 @@ class TrainingSetsFragment : Fragment() {
                 }
             }).attachToRecyclerView(recyclerView)
         })
+        vm.sets.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
         
         activity?.fab?.show()
         activity?.fab?.setOnClickListener{
@@ -88,6 +86,8 @@ class TrainingSetsFragment : Fragment() {
     
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.training_sets, menu)
+        val finishExerciseMenuItem = menu.findItem(R.id.finish_exercise)
+        finishExerciseMenuItem?.isVisible = vm.trainingExercise.value?.state == TrainingExercise.RUNNING
         super.onCreateOptionsMenu(menu, inflater)
     }
     
