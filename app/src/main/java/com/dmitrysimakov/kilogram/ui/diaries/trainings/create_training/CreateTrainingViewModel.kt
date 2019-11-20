@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dmitrysimakov.kilogram.data.local.dao.MuscleDao
+import com.dmitrysimakov.kilogram.data.local.dao.ExerciseTargetDao
 import com.dmitrysimakov.kilogram.data.local.entity.Training
-import com.dmitrysimakov.kilogram.data.local.entity.TrainingMuscle
+import com.dmitrysimakov.kilogram.data.local.entity.TrainingTarget
 import com.dmitrysimakov.kilogram.data.relation.FilterParam
 import com.dmitrysimakov.kilogram.data.relation.ProgramDayAndProgram
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayRepository
@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 class CreateTrainingViewModel(
-        private val muscleDao: MuscleDao,
+        private val exerciseTargetDao: ExerciseTargetDao,
         private val trainingRepo: TrainingRepository,
         private val trainingExerciseRepo: TrainingExerciseRepository,
         private val programDayRepo: ProgramDayRepository,
@@ -48,9 +48,9 @@ class CreateTrainingViewModel(
         }
         
         _muscleList.value = if (programDayId == 0L) {
-            muscleDao.params()
+            exerciseTargetDao.params()
         } else {
-            muscleDao.programDayParams(programDayId)
+            exerciseTargetDao.programDayParams(programDayId)
         }
     }
     
@@ -71,9 +71,9 @@ class CreateTrainingViewModel(
     }
     
     private suspend fun saveMuscles(trainingId: Long) = viewModelScope.launch {
-        val list = mutableListOf<TrainingMuscle>()
+        val list = mutableListOf<TrainingTarget>()
         for (muscle in muscleList.value!!) {
-            if (muscle.is_active) list.add(TrainingMuscle(trainingId, muscle.name))
+            if (muscle.is_active) list.add(TrainingTarget(trainingId, muscle.name))
         }
         trainingMuscleRepo.insert(list)
     }

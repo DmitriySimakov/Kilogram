@@ -20,16 +20,12 @@ class AddExerciseViewModel (
     
     val exercise = _exerciseName.switchMap { liveData { emit(exerciseRepository.exercise(it)) } }
     
-    val restTime: LiveData<Int> = MutableLiveData(3*60)
-    
-    val strategy = MutableLiveData<String>()
-    
     private val _exerciseAddedEvent = MutableLiveData<Event<Unit>>()
     val exerciseAddedEvent: LiveData<Event<Unit>> = _exerciseAddedEvent
     
     fun setExerciseName(name: String) = _exerciseName.setNewValue(name)
     
-    fun addExerciseToTraining(trainingId: Long, num: Int, rest: Int) = viewModelScope.launch {
+    fun addExerciseToTraining(trainingId: Long, num: Int) = viewModelScope.launch {
         exercise.value?.let {
             trainingExerciseRepository.insert(
                 TrainingExercise(
@@ -37,28 +33,19 @@ class AddExerciseViewModel (
                     trainingId,
                     it.name,
                     num,
-                    rest,
-                    strategy.value,
-                    TrainingExercise.PLANNED,
-                    it.measures
+                    120
                 )
             )
-            updateMeasures()
             _exerciseAddedEvent.value = Event(Unit)
         }
     }
     
-    fun addExerciseToProgramDay(programDayId: Long, num: Int, rest: Int) = viewModelScope.launch {
+    fun addExerciseToProgramDay(programDayId: Long, num: Int) = viewModelScope.launch {
         exercise.value?.let {
             programDayExerciseRepository.insert(
-                ProgramDayExercise(0, programDayId, it.name, num, rest, strategy.value, it.measures)
+                ProgramDayExercise(0, programDayId, it.name, num, 120)
             )
-            updateMeasures()
             _exerciseAddedEvent.value = Event(Unit)
         }
-    }
-    
-    private suspend fun updateMeasures() {
-        exercise.value?.let { exerciseRepository.update(it) }
     }
 }

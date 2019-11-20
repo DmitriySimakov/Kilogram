@@ -6,7 +6,6 @@ import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.common.add_exercise.AddExerciseFragment
 import com.dmitrysimakov.kilogram.util.EventObserver
-import com.dmitrysimakov.kilogram.util.getIntValue
 
 class Trainings_AddExerciseFragment : AddExerciseFragment() {
     
@@ -19,7 +18,7 @@ class Trainings_AddExerciseFragment : AddExerciseFragment() {
     }
     
     override fun addExercise() {
-        vm.addExerciseToTraining(args.trainingId, args.num, binding.restET.getIntValue())
+        vm.addExerciseToTraining(args.trainingId, args.num)
     }
     
     private fun setupNavigation() {

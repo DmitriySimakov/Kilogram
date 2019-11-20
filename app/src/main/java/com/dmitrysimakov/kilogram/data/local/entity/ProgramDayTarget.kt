@@ -4,9 +4,9 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 
-@Entity(tableName = "program_day_muscle",
-        indices = [Index(value = ["muscle"])],
-        primaryKeys = ["program_day_id", "muscle"],
+@Entity(tableName = "program_day_targets",
+        indices = [Index(value = ["exercise_target"])],
+        primaryKeys = ["program_day_id", "exercise_target"],
         foreignKeys = [
             ForeignKey(
                     entity = ProgramDay::class,
@@ -14,10 +14,10 @@ import androidx.room.Index
                     childColumns = ["program_day_id"],
                     onDelete = ForeignKey.CASCADE),
             ForeignKey(
-                    entity = Muscle::class,
+                    entity = ExerciseTarget::class,
                     parentColumns = ["name"],
-                    childColumns = ["muscle"],
+                    childColumns = ["exercise_target"],
                     onDelete = ForeignKey.CASCADE)
         ]
 )
-data class ProgramDayMuscle(val program_day_id: Long, val muscle: String)
+data class ProgramDayTarget(val program_day_id: Long, val exercise_target: String)

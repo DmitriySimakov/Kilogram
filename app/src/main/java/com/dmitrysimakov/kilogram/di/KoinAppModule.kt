@@ -6,8 +6,8 @@ import androidx.room.Room
 import com.dmitrysimakov.kilogram.data.local.KilogramDb
 import com.dmitrysimakov.kilogram.data.repository.*
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
-import com.dmitrysimakov.kilogram.ui.catalogs.exercises.choose_muscle.ChooseMuscleViewModel
 import com.dmitrysimakov.kilogram.ui.catalogs.exercises.detail.DetailedExerciseViewModel
+import com.dmitrysimakov.kilogram.ui.catalogs.exercises.exercise_targets.ExerciseTargetsViewModel
 import com.dmitrysimakov.kilogram.ui.catalogs.programs.create_program.CreateProgramViewModel
 import com.dmitrysimakov.kilogram.ui.catalogs.programs.create_program_day.CreateProgramDayViewModel
 import com.dmitrysimakov.kilogram.ui.catalogs.programs.exercises.ProgramDayExercisesViewModel
@@ -34,14 +34,12 @@ val appModule = module {
     single { provideDb(androidContext()) }
     // Data Access Objects
     single { get<KilogramDb>().exerciseDao() }
-    single { get<KilogramDb>().mechanicsTypeDao() }
-    single { get<KilogramDb>().exerciseTypeDao() }
     single { get<KilogramDb>().equipmentDao() }
     single { get<KilogramDb>().programDao() }
     single { get<KilogramDb>().programDayDao() }
-    single { get<KilogramDb>().programDayMuscleDao() }
+    single { get<KilogramDb>().programDayTargetDao() }
     single { get<KilogramDb>().programDayExerciseDao() }
-    single { get<KilogramDb>().muscleDao() }
+    single { get<KilogramDb>().exerciseTargetDao() }
     single { get<KilogramDb>().targetedMuscleDao() }
     single { get<KilogramDb>().trainingDao() }
     single { get<KilogramDb>().trainingMuscleDao() }
@@ -53,7 +51,7 @@ val appModule = module {
     single { MeasurementRepository(get()) }
     single { ProgramDayRepository(get()) }
     single { ProgramDayExerciseRepository(get()) }
-    single { ProgramDayMuscleRepository(get()) }
+    single { ProgramDayTargetsRepository(get()) }
     single { ProgramRepository(get()) }
     single { TrainingExerciseRepository(get()) }
     single { TrainingSetRepository(get()) }
@@ -61,8 +59,8 @@ val appModule = module {
     single { TrainingRepository(get()) }
     // ViewModels
     viewModel { SharedViewModel(get()) }
-    viewModel { ChooseMuscleViewModel(get()) }
-    viewModel { ChooseExerciseViewModel(get(), get(), get(), get(), get(), get(), get()) }
+    viewModel { ExerciseTargetsViewModel(get()) }
+    viewModel { ChooseExerciseViewModel(get(), get(), get(), get(), get()) }
     viewModel { AddExerciseViewModel(get(), get(), get()) }
     viewModel { ChooseProgramViewModel(get()) }
     viewModel { ChooseProgramDayViewModel(get()) }
@@ -74,7 +72,7 @@ val appModule = module {
     viewModel { CreateTrainingViewModel(get(), get(), get(), get(), get()) }
     viewModel { TrainingExercisesViewModel(get(), get(), get()) }
     viewModel { TrainingSetsViewModel(get(), get(), get()) }
-    viewModel { AddTrainingSetViewModel(get(), get()) }
+    viewModel { AddTrainingSetViewModel(get(), get(), get()) }
     viewModel { MeasurementsViewModel(get()) }
     viewModel { ChatsViewModel() }
     viewModel { MessagesViewModel() }

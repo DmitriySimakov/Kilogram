@@ -91,7 +91,7 @@ class CreateTrainingDialog : Fragment() {
             findNavController().navigate(CreateTrainingDialogDirections.toChooseProgramFragment())
         }
     
-        muscleAdapter = ChipGroupFilterAdapter(binding.musclesCG) { name, isChecked ->
+        muscleAdapter = ChipGroupFilterAdapter(binding.targetsCG) { name, isChecked ->
             vm.muscleList.value?.find{ it.name == name }?.is_active = isChecked
         }
         vm.muscleList.observe(viewLifecycleOwner, Observer { muscleAdapter.submitList(it) })

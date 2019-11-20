@@ -22,9 +22,7 @@ abstract class ChooseExerciseFragment : Fragment() {
     
     protected val exerciseAdapter by lazy { ExerciseListAdapter(vm) }
 
-    protected lateinit var muscleAdapter: ChipGroupFilterAdapter
-    protected lateinit var mechanicsTypeAdapter: ChipGroupFilterAdapter
-    protected lateinit var exerciseTypeAdapter: ChipGroupFilterAdapter
+    protected lateinit var exerciseTargetAdapter: ChipGroupFilterAdapter
     protected lateinit var equipmentAdapter: ChipGroupFilterAdapter
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -41,23 +39,15 @@ abstract class ChooseExerciseFragment : Fragment() {
         binding.recyclerView.adapter = exerciseAdapter
         binding.recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
         
-        muscleAdapter = ChipGroupFilterAdapter(binding.musclesCG) { id, isChecked ->
-            vm.setChecked(vm.muscleList, id, isChecked)
-        }
-        mechanicsTypeAdapter = ChipGroupFilterAdapter(binding.mechanicsTypeCG) { id, isChecked ->
-            vm.setChecked(vm.mechanicsTypeList, id, isChecked)
-        }
-        exerciseTypeAdapter = ChipGroupFilterAdapter(binding.exerciseTypeCG) { id, isChecked ->
-            vm.setChecked(vm.exerciseTypeList, id, isChecked)
+        exerciseTargetAdapter = ChipGroupFilterAdapter(binding.targetsCG) { id, isChecked ->
+            vm.setChecked(vm.exerciseTargetList, id, isChecked)
         }
         equipmentAdapter = ChipGroupFilterAdapter(binding.equipmentCG) { id, isChecked ->
             vm.setChecked(vm.equipmentList, id, isChecked)
         }
         
         vm.exerciseList.observe(viewLifecycleOwner, Observer { exerciseAdapter.submitList(it) })
-        vm.muscleList.observe(viewLifecycleOwner, Observer { if (it != null) muscleAdapter.submitList(it) })
-        vm.mechanicsTypeList.observe(viewLifecycleOwner, Observer { mechanicsTypeAdapter.submitList(it) })
-        vm.exerciseTypeList.observe(viewLifecycleOwner, Observer { exerciseTypeAdapter.submitList(it) })
+        vm.exerciseTargetList.observe(viewLifecycleOwner, Observer { if (it != null) exerciseTargetAdapter.submitList(it) })
         vm.equipmentList.observe(viewLifecycleOwner, Observer { equipmentAdapter.submitList(it) })
         
         activity?.fab?.hide()

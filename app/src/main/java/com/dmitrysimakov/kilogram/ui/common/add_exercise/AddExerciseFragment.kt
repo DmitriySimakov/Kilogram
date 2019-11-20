@@ -7,7 +7,6 @@ import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.FragmentAddExerciseBinding
 import com.dmitrysimakov.kilogram.util.hideKeyboard
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_add_exercise.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 abstract class AddExerciseFragment: Fragment() {
@@ -26,10 +25,6 @@ abstract class AddExerciseFragment: Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setHasOptionsMenu(true)
-        
-        executionStrategyET.setOnFocusChangeListener { _, hasFocus ->
-            executionStrategyTIL.isCounterEnabled = hasFocus
-        }
         
         activity?.fab?.hide()
     }

@@ -6,18 +6,24 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingSet
+import com.dmitrysimakov.kilogram.data.relation.ExerciseMeasures
+import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingSetRepository
 import com.dmitrysimakov.kilogram.util.Event
 import kotlinx.coroutines.launch
 
 class AddTrainingSetViewModel(
+        private val exerciseRepository: ExerciseRepository,
         private val trainingExerciseRepository: TrainingExerciseRepository,
         private val trainingExerciseSetRepository: TrainingSetRepository
 ) : ViewModel() {
     
     private val _trainingExercise = MutableLiveData<TrainingExercise>()
     val trainingExercise: LiveData<TrainingExercise> = _trainingExercise
+    
+    private val _measures = MutableLiveData<ExerciseMeasures>()
+    val measures: LiveData<ExerciseMeasures> = _measures
     
     private val _trainingSet = MutableLiveData<TrainingSet>()
     val trainingSet: LiveData<TrainingSet> = _trainingSet
@@ -27,7 +33,9 @@ class AddTrainingSetViewModel(
     
     fun start(trainingExerciseId: Long, setId: Long, weight: Int, reps: Int, time: Int, distance: Int) {
         viewModelScope.launch {
-            _trainingExercise.value = trainingExerciseRepository.trainingExercise(trainingExerciseId)
+            val trainingExercise = trainingExerciseRepository.trainingExercise(trainingExerciseId)
+            _trainingExercise.value = trainingExercise
+            _measures.value = exerciseRepository.measures(trainingExercise.exercise)
             _trainingSet.value = if (setId == 0L) {
                 TrainingSet(0, trainingExerciseId, weight, reps, time, distance)
             } else {

@@ -56,13 +56,13 @@
             
             <TextView
                 style="@style/Label"
-                android:text="@string/main_muscle"/>
+                android:text="@string/exerciseTarget"/>
             
             <TextView
-                android:id="@+id/main_muscle"
+                android:id="@+id/exercise_target"
                 style="@style/Field"
-                android:text="@{vm.exercise.main_muscle}"
-                tools:text="@string/main_muscle"/>
+                android:text="@{vm.exercise.target}"
+                tools:text="@string/exerciseTarget"/>
             
             <View style="@style/VerticalDivider"/>
             
@@ -75,32 +75,6 @@
                 style="@style/Field"
                 android:text="@{vm.targetedMuscles}"
                 tools:text="@string/targeted_muscles"/>
-            
-            <View style="@style/VerticalDivider"/>
-            
-            <TextView
-                style="@style/Label"
-                android:text="@string/mechanics_type"/>
-            
-            <TextView
-                android:id="@+id/mechanics_type"
-                style="@style/Field"
-                android:text="@{vm.exercise.mechanics_type}"
-                tools:text="@string/mechanics_type"/>
-            
-            <View style="@style/VerticalDivider"/>
-            
-            <TextView
-                style="@style/Label"
-                android:text="@string/exercise_type"/>
-            
-            <TextView
-                android:id="@+id/exercise_type"
-                style="@style/Field"
-                android:text="@{vm.exercise.exercise_type}"
-                tools:text="@string/exercise_type"/>
-            
-            <View style="@style/VerticalDivider"/>
             
             <TextView
                 style="@style/Label"

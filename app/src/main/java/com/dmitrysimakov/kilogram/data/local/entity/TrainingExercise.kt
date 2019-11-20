@@ -1,7 +1,9 @@
 package com.dmitrysimakov.kilogram.data.local.entity
 
-import androidx.room.*
-import com.dmitrysimakov.kilogram.data.relation.ExerciseMeasures
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.Index
+import androidx.room.PrimaryKey
 
 @Entity(tableName = "training_exercise",
         indices = [Index(value = ["training_id"]), Index(value = ["exercise"])],
@@ -22,10 +24,9 @@ data class TrainingExercise(
         val training_id: Long,
         val exercise: String,
         var indexNumber: Int,
-        val rest: Int,
+        val rest: Int = 120,
         val strategy: String? = null,
-        val state: Int = PLANNED,
-        @Embedded(prefix = "measure_") val measures: ExerciseMeasures = ExerciseMeasures()
+        val state: Int = PLANNED
 ) {
     companion object {
         const val PLANNED = 0

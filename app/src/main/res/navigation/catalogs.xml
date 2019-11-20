@@ -4,11 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/catalogs"
-    app:startDestination="@id/chooseMuscleFragment">
+    app:startDestination="@id/exerciseTargetsFragment">
     <fragment
-        android:id="@+id/chooseMuscleFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.catalogs.exercises.choose_muscle.ChooseMuscleFragment"
-        tools:layout="@layout/fragment_choose_muscle">
+        android:id="@+id/exerciseTargetsFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.catalogs.exercises.exercise_targets.ExerciseTargetsFragment"
+        tools:layout="@layout/fragment_exercise_targets">
         <action
             android:id="@+id/to_chooseExerciseFragment"
             app:destination="@id/exercises_ChooseExerciseFragment" />
@@ -21,7 +21,7 @@
             android:id="@+id/to_exerciseDetailFragment"
             app:destination="@id/exerciseDetailFragment" />
         <argument
-            android:name="muscle"
+            android:name="target"
             app:argType="string" />
     </fragment>
     <fragment

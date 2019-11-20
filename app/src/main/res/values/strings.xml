@@ -109,5 +109,7 @@
     <string name="running">Выполняющиеся</string>
     <string name="planned">Запланированные</string>
     <string name="finished">Выполненные</string>
+    <string name="exerciseTarget">Цель упражнения</string>
+    <string name="targets">Цели</string>
 
 </resources>

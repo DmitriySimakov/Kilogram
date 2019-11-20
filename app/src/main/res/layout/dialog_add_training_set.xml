@@ -21,7 +21,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:goneUnless="@{viewModel.trainingExercise.measures.weight}">
+            app:goneUnless="@{viewModel.measures.weight}">
             
             <Button
                 android:layout_width="@dimen/min_touch_size"
@@ -63,7 +63,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:goneUnless="@{viewModel.trainingExercise.measures.reps}">
+            app:goneUnless="@{viewModel.measures.reps}">
             
             <Button
                 android:layout_width="@dimen/min_touch_size"
@@ -105,7 +105,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:goneUnless="@{viewModel.trainingExercise.measures.time}">
+            app:goneUnless="@{viewModel.measures.time}">
             
             <Button
                 android:layout_width="@dimen/min_touch_size"
@@ -147,7 +147,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:goneUnless="@{viewModel.trainingExercise.measures.distance}">
+            app:goneUnless="@{viewModel.measures.distance}">
             
             <Button
                 android:layout_width="@dimen/min_touch_size"

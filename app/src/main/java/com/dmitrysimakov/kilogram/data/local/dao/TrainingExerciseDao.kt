@@ -48,8 +48,8 @@ interface TrainingExerciseDao {
     suspend fun insert(trainingExercise: TrainingExercise)
     
     @Query("""
-        INSERT INTO training_exercise (training_id, exercise, indexNumber, rest, strategy, state, measure_weight, measure_reps, measure_time, measure_distance)
-        SELECT :trainingId, exercise, indexNumber, rest, strategy, 0, measure_weight, measure_reps, measure_time, measure_distance
+        INSERT INTO training_exercise (training_id, exercise, indexNumber, rest, strategy, state)
+        SELECT :trainingId, exercise, indexNumber, rest, strategy, 0
         FROM program_day_exercise
         WHERE program_day_id = :programDayId
     """)

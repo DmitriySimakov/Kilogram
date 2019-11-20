@@ -14,7 +14,7 @@ import androidx.room.Index
                     childColumns = ["exercise"],
                     onDelete = ForeignKey.CASCADE),
             ForeignKey(
-                    entity = Muscle::class,
+                    entity = ExerciseTarget::class,
                     parentColumns = ["name"],
                     childColumns = ["muscle"],
                     onDelete = ForeignKey.CASCADE)

@@ -1,24 +1,24 @@
 package com.dmitrysimakov.kilogram.ui.catalogs.programs.create_program_day
 
 import androidx.lifecycle.*
-import com.dmitrysimakov.kilogram.data.local.dao.MuscleDao
+import com.dmitrysimakov.kilogram.data.local.dao.ExerciseTargetDao
 import com.dmitrysimakov.kilogram.data.local.entity.ProgramDay
-import com.dmitrysimakov.kilogram.data.local.entity.ProgramDayMuscle
-import com.dmitrysimakov.kilogram.data.repository.ProgramDayMuscleRepository
+import com.dmitrysimakov.kilogram.data.local.entity.ProgramDayTarget
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayRepository
+import com.dmitrysimakov.kilogram.data.repository.ProgramDayTargetsRepository
 import com.dmitrysimakov.kilogram.util.Event
 import kotlinx.coroutines.launch
 
 class CreateProgramDayViewModel(
-        private val muscleDao: MuscleDao,
+        private val exerciseTargetDao: ExerciseTargetDao,
         private val programDayRepo: ProgramDayRepository,
-        private val programDayMuscleRepo: ProgramDayMuscleRepository
+        private val programDayTargetsRepo: ProgramDayTargetsRepository
 ) : ViewModel() {
 
     val name = MutableLiveData("")
     val description = MutableLiveData("")
     
-    val muscleList = liveData { emit(muscleDao.params()) }
+    val muscleList = liveData { emit(exerciseTargetDao.params()) }
     
     private val _programDayCreatedEvent = MutableLiveData<Event<Long>>()
     val programDayCreatedEvent: LiveData<Event<Long>> = _programDayCreatedEvent
@@ -32,10 +32,10 @@ class CreateProgramDayViewModel(
     }
     
     private suspend fun saveMuscles(programDayId: Long) {
-        val list = mutableListOf<ProgramDayMuscle>()
+        val list = mutableListOf<ProgramDayTarget>()
         for (muscle in muscleList.value!!) {
-            if (muscle.is_active) list.add(ProgramDayMuscle(programDayId, muscle.name))
+            if (muscle.is_active) list.add(ProgramDayTarget(programDayId, muscle.name))
         }
-        programDayMuscleRepo.insert(list)
+        programDayTargetsRepo.insert(list)
     }
 }

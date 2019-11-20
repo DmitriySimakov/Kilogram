@@ -41,11 +41,24 @@ class TrainingSetsFragment : Fragment() {
 
         vm.setTrainingExerciseId(args.trainingExerciseId)
         setupNavigation()
+    
+        recyclerView.adapter = adapter
+        recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
+    
+        activity?.invalidateOptionsMenu()
+    
+        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean { return false }
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
+                val set = adapter.getItem(viewHolder.adapterPosition)
+                vm.deleteSet(set._id)
+            }
+        }).attachToRecyclerView(recyclerView)
         
-        vm.trainingExercise.observe(viewLifecycleOwner, Observer { exercise ->
-            binding.exerciseMeasures = exercise.measures
-        
-            adapter = TrainingSetsAdapter(exercise.measures) { set ->
+        vm.measures.observe(viewLifecycleOwner, Observer {
+            binding.exerciseMeasures = it
+    
+            adapter = TrainingSetsAdapter(it) { set ->
                 findNavController().navigate(TrainingSetsFragmentDirections.toAddSetDialog(
                         args.trainingExerciseId,
                         set._id,
@@ -55,18 +68,6 @@ class TrainingSetsFragment : Fragment() {
                         set.prev_distance ?: 0
                 ))
             }
-            recyclerView.adapter = adapter
-            recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
-            
-            activity?.invalidateOptionsMenu()
-            
-            ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
-                override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean { return false }
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                    val set = adapter.getItem(viewHolder.adapterPosition)
-                    vm.deleteSet(set._id)
-                }
-            }).attachToRecyclerView(recyclerView)
         })
         vm.sets.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
         

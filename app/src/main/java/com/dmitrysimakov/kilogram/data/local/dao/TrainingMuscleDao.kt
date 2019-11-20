@@ -4,20 +4,20 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.dmitrysimakov.kilogram.data.local.entity.TrainingMuscle
+import com.dmitrysimakov.kilogram.data.local.entity.TrainingTarget
 import com.dmitrysimakov.kilogram.data.relation.FilterParam
 
 @Dao
 interface TrainingMuscleDao {
     
-    @Query("""SELECT m.name, CASE WHEN tm.training_id IS NULL THEN 0 ELSE 1 END AS is_active
-        FROM muscle AS m
-        LEFT JOIN training_muscle AS tm
-        ON tm.training_id = :trainingId AND tm.muscle = m.name
+    @Query("""SELECT et.name, CASE WHEN tt.training_id IS NULL THEN 0 ELSE 1 END AS is_active
+        FROM exercise_target AS et
+        LEFT JOIN training_target AS tt
+        ON tt.training_id = :trainingId AND tt.exercise_target = et.name
     """)
     suspend fun params(trainingId: Long): List<FilterParam>
 
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(list: List<TrainingMuscle>)
+    suspend fun insert(list: List<TrainingTarget>)
 }
