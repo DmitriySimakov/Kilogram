@@ -84,6 +84,6 @@ abstract class ChooseExerciseFragment : Fragment() {
             }
             true
         }
-        else -> false
+        else -> super.onOptionsItemSelected(item)
     }
 }

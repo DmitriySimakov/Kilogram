@@ -81,24 +81,6 @@
         <argument
             android:name="training_id"
             app:argType="long" />
-        <action
-            android:id="@+id/to_addExerciseFragment"
-            app:destination="@id/addExerciseFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/addExerciseFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.diaries.trainings.add_exercise.Trainings_AddExerciseFragment"
-        android:label="@string/addExercise"
-        tools:layout="@layout/fragment_add_exercise">
-        <argument
-            android:name="exercise"
-            app:argType="string" />
-        <argument
-            android:name="num"
-            app:argType="integer" />
-        <argument
-            android:name="training_id"
-            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/trainingSetsFragment"

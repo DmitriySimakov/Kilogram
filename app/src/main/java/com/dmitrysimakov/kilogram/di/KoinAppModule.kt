@@ -11,7 +11,6 @@ import com.dmitrysimakov.kilogram.ui.catalogs.exercises.exercise_targets.Exercis
 import com.dmitrysimakov.kilogram.ui.catalogs.programs.create_program.CreateProgramViewModel
 import com.dmitrysimakov.kilogram.ui.catalogs.programs.create_program_day.CreateProgramDayViewModel
 import com.dmitrysimakov.kilogram.ui.catalogs.programs.exercises.ProgramDayExercisesViewModel
-import com.dmitrysimakov.kilogram.ui.common.add_exercise.AddExerciseViewModel
 import com.dmitrysimakov.kilogram.ui.common.choose_exercise.ChooseExerciseViewModel
 import com.dmitrysimakov.kilogram.ui.common.choose_program.ChooseProgramViewModel
 import com.dmitrysimakov.kilogram.ui.common.choose_program_day.ChooseProgramDayViewModel
@@ -60,8 +59,7 @@ val appModule = module {
     // ViewModels
     viewModel { SharedViewModel(get()) }
     viewModel { ExerciseTargetsViewModel(get()) }
-    viewModel { ChooseExerciseViewModel(get(), get(), get(), get(), get()) }
-    viewModel { AddExerciseViewModel(get(), get(), get()) }
+    viewModel { ChooseExerciseViewModel(get(), get(), get(), get(), get(), get(), get()) }
     viewModel { ChooseProgramViewModel(get()) }
     viewModel { ChooseProgramDayViewModel(get()) }
     viewModel { DetailedExerciseViewModel(get(), get()) }

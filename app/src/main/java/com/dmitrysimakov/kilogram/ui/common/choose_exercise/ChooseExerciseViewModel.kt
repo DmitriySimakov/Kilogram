@@ -6,10 +6,10 @@ import androidx.sqlite.db.SupportSQLiteQuery
 import com.dmitrysimakov.kilogram.data.local.dao.EquipmentDao
 import com.dmitrysimakov.kilogram.data.local.dao.ExerciseTargetDao
 import com.dmitrysimakov.kilogram.data.local.entity.Exercise
+import com.dmitrysimakov.kilogram.data.local.entity.ProgramDayExercise
+import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.relation.FilterParam
-import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
-import com.dmitrysimakov.kilogram.data.repository.ProgramDayTargetsRepository
-import com.dmitrysimakov.kilogram.data.repository.TrainingMuscleRepository
+import com.dmitrysimakov.kilogram.data.repository.*
 import com.dmitrysimakov.kilogram.util.Event
 import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.coroutines.launch
@@ -20,7 +20,9 @@ class ChooseExerciseViewModel (
         private val exerciseTargetDao: ExerciseTargetDao,
         private val exerciseRepo: ExerciseRepository,
         private val trainingMuscleRepo: TrainingMuscleRepository,
-        private val programDayTargetsRepo: ProgramDayTargetsRepository
+        private val programDayTargetsRepo: ProgramDayTargetsRepository,
+        private val trainingExerciseRepository: TrainingExerciseRepository,
+        private val programDayExerciseRepository: ProgramDayExerciseRepository
 ) : ViewModel() {
     
     private val query = MediatorLiveData<SupportSQLiteQuery>()
@@ -85,6 +87,20 @@ class ChooseExerciseViewModel (
     fun setChecked(filterParams: LiveData<List<FilterParam>>, name: String, isChecked: Boolean) {
         filterParams.value?.find{ it.name == name }?.is_active = isChecked
         updateQuery()
+    }
+    
+    fun addExerciseToTraining(exercise: Exercise, trainingId: Long, num: Int) = viewModelScope.launch {
+        trainingExerciseRepository.insert(
+                TrainingExercise(0, trainingId, exercise.name, num, 120)
+        )
+        _exerciseAddedEvent.value = Event(Unit)
+    }
+    
+    fun addExerciseToProgramDay(exercise: Exercise, programDayId: Long, num: Int) = viewModelScope.launch {
+        programDayExerciseRepository.insert(
+                ProgramDayExercise(0, programDayId, exercise.name, num, 120)
+        )
+        _exerciseAddedEvent.value = Event(Unit)
     }
     
     private fun LiveData<List<FilterParam>>.getActiveParamsString() =
