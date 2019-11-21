@@ -11,7 +11,7 @@
     <string name="main">На главную</string>
     <string name="exercises">Упражнения</string>
     <string name="training_programs">Программы</string>
-    <string name="training_sessions">Тренировки</string>
+    <string name="trainings">Тренировки</string>
     <string name="measurements">Замеры</string>
     <string name="settings">Настройки</string>
     <string name="about">О приложении</string>
@@ -120,5 +120,8 @@
     <string name="addSet">Добавить подход</string>
     <string name="catalog">Каталог</string>
     <string name="home">Главная</string>
+    <string name="startTrainingButton">Начать\nтренировку</string>
+    <string name="addMeasurementButton">Добавить\nзамеры</string>
+    <string name="addPhotoButton">Добавить\nфото</string>
 
 </resources>

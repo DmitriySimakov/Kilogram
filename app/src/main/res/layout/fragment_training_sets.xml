@@ -13,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.diaries.trainings.training_sets.TrainingSetsFragment">
+        tools:context=".ui.home.trainings.training_sets.TrainingSetsFragment">
         
         <TextView
             android:id="@+id/header_num"

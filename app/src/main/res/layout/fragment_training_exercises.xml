@@ -7,7 +7,7 @@
         
         <variable
             name="vm"
-            type="com.dmitrysimakov.kilogram.ui.diaries.trainings.exercises.TrainingExercisesViewModel" />
+            type="com.dmitrysimakov.kilogram.ui.home.trainings.exercises.TrainingExercisesViewModel" />
     </data>
 
     <ScrollView

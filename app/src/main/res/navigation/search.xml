@@ -6,7 +6,7 @@
     app:startDestination="@id/peopleFragment">
     <fragment
         android:id="@+id/peopleFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.subscriptions.people.PeopleFragment"
         android:label="@string/people"
-        android:name="com.dmitrysimakov.kilogram.ui.community.people.PeopleFragment"
         tools:layout="@layout/fragment_people" />
 </navigation>

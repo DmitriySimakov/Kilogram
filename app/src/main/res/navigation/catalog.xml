@@ -7,8 +7,8 @@
     app:startDestination="@id/exerciseTargetsFragment">
     <fragment
         android:id="@+id/exerciseTargetsFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.catalog.exercises.exercise_targets.ExerciseTargetsFragment"
         android:label="@string/exercises"
-        android:name="com.dmitrysimakov.kilogram.ui.catalogs.exercises.exercise_targets.ExerciseTargetsFragment"
         tools:layout="@layout/fragment_exercise_targets">
         <action
             android:id="@+id/to_chooseExerciseFragment"
@@ -16,8 +16,8 @@
     </fragment>
     <fragment
         android:id="@+id/exercises_ChooseExerciseFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.catalog.exercises.choose_exercise.Exercises_ChooseExerciseFragment"
         android:label="@string/exercises"
-        android:name="com.dmitrysimakov.kilogram.ui.catalogs.exercises.choose_exercise.Exercises_ChooseExerciseFragment"
         tools:layout="@layout/fragment_choose_exercise">
         <action
             android:id="@+id/to_exerciseDetailFragment"
@@ -28,8 +28,8 @@
     </fragment>
     <fragment
         android:id="@+id/exerciseDetailFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.catalog.exercises.detail.DetailedExerciseFragment"
         android:label="@string/exercise"
-        android:name="com.dmitrysimakov.kilogram.ui.catalogs.exercises.detail.DetailedExerciseFragment"
         tools:layout="@layout/fragment_detailed_exercise">
         <argument
             android:name="exercise"
