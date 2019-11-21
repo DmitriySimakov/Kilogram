@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/dieries"
+    android:id="@+id/home"
     app:startDestination="@id/trainingsFragment">
     <fragment
         android:id="@+id/trainingsFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.diaries.trainings.trainings.TrainingsFragment"
         android:label="@string/training_sessions"
+        android:name="com.dmitrysimakov.kilogram.ui.diaries.trainings.trainings.TrainingsFragment"
         tools:layout="@layout/fragment_trainings">
         <action
             android:id="@+id/to_createTrainingFragment"
@@ -19,8 +19,8 @@
     </fragment>
     <fragment
         android:id="@+id/createTrainingFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.diaries.trainings.create_training.CreateTrainingDialog"
         android:label="@string/training_session"
+        android:name="com.dmitrysimakov.kilogram.ui.diaries.trainings.create_training.CreateTrainingDialog"
         tools:layout="@layout/dialog_create_training">
         <action
             android:id="@+id/to_exercisesFragment"
@@ -36,8 +36,8 @@
     </fragment>
     <fragment
         android:id="@+id/trainings_ChooseProgramFragment"
+        android:label="@string/chooseTrainingProgram"
         android:name="com.dmitrysimakov.kilogram.ui.diaries.trainings.choose_program.Trainings_ChooseProgramFragment"
-        android:label="Trainings_ChooseProgramFragment"
         tools:layout="@layout/fragment_choose_program">
         <action
             android:id="@+id/to_chooseProgramDayFragment"
@@ -45,8 +45,8 @@
     </fragment>
     <fragment
         android:id="@+id/trainings_ChooseProgramDayFragment"
+        android:label="@string/chooseTrainingDay"
         android:name="com.dmitrysimakov.kilogram.ui.diaries.trainings.choose_program_day.Trainings_ChooseProgramDayFragment"
-        android:label="Trainings_ChooseProgramDayFragment"
         tools:layout="@layout/fragment_choose_program_day">
         <argument
             android:name="program_id"
@@ -54,8 +54,8 @@
     </fragment>
     <fragment
         android:id="@+id/trainingExercisesFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.diaries.trainings.exercises.TrainingExercisesFragment"
         android:label="@string/training_session"
+        android:name="com.dmitrysimakov.kilogram.ui.diaries.trainings.exercises.TrainingExercisesFragment"
         tools:layout="@layout/fragment_exercises">
         <argument
             android:name="training_id"
@@ -72,8 +72,8 @@
     </fragment>
     <fragment
         android:id="@+id/trainings_ChooseExerciseFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.diaries.trainings.choose_exercise.Trainings_ChooseExerciseFragment"
         android:label="@string/exercises"
+        android:name="com.dmitrysimakov.kilogram.ui.diaries.trainings.choose_exercise.Trainings_ChooseExerciseFragment"
         tools:layout="@layout/fragment_exercises">
         <argument
             android:name="num"
@@ -84,8 +84,8 @@
     </fragment>
     <fragment
         android:id="@+id/trainingSetsFragment"
+        android:label="@string/sets"
         android:name="com.dmitrysimakov.kilogram.ui.diaries.trainings.training_sets.TrainingSetsFragment"
-        android:label="TrainingSetsFragment"
         tools:layout="@layout/fragment_training_sets">
         <argument
             android:name="training_exercise_id"
@@ -96,8 +96,8 @@
     </fragment>
     <fragment
         android:id="@+id/addSetDialog"
+        android:label="@string/addSet"
         android:name="com.dmitrysimakov.kilogram.ui.diaries.trainings.add_training_set.AddTrainingSetDialog"
-        android:label="Добавить подход"
         tools:layout="@layout/dialog_add_training_set">
         <argument
             android:name="training_exercise_id"

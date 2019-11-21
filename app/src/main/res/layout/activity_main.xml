@@ -82,9 +82,11 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_nav_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             app:menu="@menu/bottom_nav"
-            app:labelVisibilityMode="unlabeled"
+            app:itemTextAppearanceActive="@style/BottomNavigationView.Active"
+            app:itemTextAppearanceInactive="@style/BottomNavigationView"
+            app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"/>
     
         <com.google.android.material.floatingactionbutton.FloatingActionButton

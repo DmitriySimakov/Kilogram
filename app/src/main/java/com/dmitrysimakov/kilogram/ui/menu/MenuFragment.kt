@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.other
+package com.dmitrysimakov.kilogram.ui.menu
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,21 +7,21 @@ import android.view.ViewGroup
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.databinding.FragmentOtherBinding
+import com.dmitrysimakov.kilogram.databinding.FragmentMenuBinding
 import com.dmitrysimakov.kilogram.ui.RC_SIGN_IN
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.firebase.ui.auth.AuthUI
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class OtherFragment : Fragment() {
+class MenuFragment : Fragment() {
     
     private val sharedVM: SharedViewModel by sharedViewModel()
     
-    private lateinit var binding: FragmentOtherBinding
+    private lateinit var binding: FragmentMenuBinding
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FragmentOtherBinding.inflate(inflater)
+        binding = FragmentMenuBinding.inflate(inflater)
         binding.vm = sharedVM
         binding.lifecycleOwner = this
         return binding.root

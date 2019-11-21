@@ -84,7 +84,8 @@
     <string name="sort">Сортировка</string>
     <string name="filter">Фильтр</string>
     <string name="trained_muscles">Тренируемые мышцы</string>
-    <string name="search">Найти</string>
+    <string name="to_search">Найти</string>
+    <string name="search">Поиск</string>
     <string name="ok">OK</string>
     <string name="favorite">Избранное</string>
     <string name="calendar">Календарь</string>
@@ -96,8 +97,7 @@
     <string name="verification_message_sent">Сообщение отправлено по адресу %1$s. Подтвердите ваш email и возвращайтесь в приложение.</string>
     <string name="you">Вы: \u0020</string>
     <string name="people">Люди</string>
-    <string name="dieries">Дневники</string>
-    <string name="catalogs">Справочники</string>
+    <string name="directory">Справочник</string>
     <string name="community">Сообщество</string>
     <string name="menu">Меню</string>
     <string name="common">Общие</string>
@@ -111,5 +111,14 @@
     <string name="finished">Выполненные</string>
     <string name="exerciseTarget">Цель упражнения</string>
     <string name="targets">Цели</string>
+    <string name="profile">Профиль</string>
+    <string name="subscriptions">Подписки</string>
+    <string name="more">Ещё</string>
+    <string name="chooseTrainingProgram">Выберите тренировочную программу</string>
+    <string name="chooseTrainingDay">Выбирите тренировочный день</string>
+    <string name="sets">Подходы</string>
+    <string name="addSet">Добавить подход</string>
+    <string name="catalog">Каталог</string>
+    <string name="home">Главная</string>
 
 </resources>

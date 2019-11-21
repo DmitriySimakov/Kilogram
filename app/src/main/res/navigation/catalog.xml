@@ -3,10 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/catalogs"
+    android:id="@+id/catalog"
     app:startDestination="@id/exerciseTargetsFragment">
     <fragment
         android:id="@+id/exerciseTargetsFragment"
+        android:label="@string/exercises"
         android:name="com.dmitrysimakov.kilogram.ui.catalogs.exercises.exercise_targets.ExerciseTargetsFragment"
         tools:layout="@layout/fragment_exercise_targets">
         <action
@@ -15,6 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/exercises_ChooseExerciseFragment"
+        android:label="@string/exercises"
         android:name="com.dmitrysimakov.kilogram.ui.catalogs.exercises.choose_exercise.Exercises_ChooseExerciseFragment"
         tools:layout="@layout/fragment_choose_exercise">
         <action
@@ -26,6 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/exerciseDetailFragment"
+        android:label="@string/exercise"
         android:name="com.dmitrysimakov.kilogram.ui.catalogs.exercises.detail.DetailedExerciseFragment"
         tools:layout="@layout/fragment_detailed_exercise">
         <argument
