@@ -2,7 +2,7 @@ package com.dmitrysimakov.kilogram.ui.home.trainings.exercises
 
 import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
-import com.dmitrysimakov.kilogram.data.relation.DetailedTrainingExercise
+import com.dmitrysimakov.kilogram.data.local.relation.DetailedTrainingExercise
 import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository

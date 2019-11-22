@@ -123,5 +123,6 @@
     <string name="startTrainingButton">Начать\nтренировку</string>
     <string name="addMeasurementButton">Добавить\nзамеры</string>
     <string name="addPhotoButton">Добавить\nфото</string>
+    <string name="photos">Фотографии</string>
 
 </resources>

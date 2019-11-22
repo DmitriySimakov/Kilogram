@@ -1,9 +1,8 @@
 package com.dmitrysimakov.kilogram.ui.common
 
 import android.view.LayoutInflater
-import androidx.lifecycle.MutableLiveData
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.data.relation.FilterParam
+import com.dmitrysimakov.kilogram.data.local.relation.FilterParam
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 

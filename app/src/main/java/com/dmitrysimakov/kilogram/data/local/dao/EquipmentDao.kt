@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.dmitrysimakov.kilogram.data.local.entity.Equipment
-import com.dmitrysimakov.kilogram.data.relation.FilterParam
+import com.dmitrysimakov.kilogram.data.local.relation.FilterParam
 
 @Dao
 interface EquipmentDao {

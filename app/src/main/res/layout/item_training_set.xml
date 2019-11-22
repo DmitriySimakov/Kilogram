@@ -7,11 +7,11 @@
     <data>
         <variable
             name="exercise_measures"
-            type="com.dmitrysimakov.kilogram.data.relation.ExerciseMeasures"/>
+            type="com.dmitrysimakov.kilogram.data.local.relation.ExerciseMeasures"/>
         
         <variable
             name="set"
-            type="com.dmitrysimakov.kilogram.data.relation.SetWithPreviousResults"/>
+            type="com.dmitrysimakov.kilogram.data.local.relation.SetWithPreviousResults"/>
     </data>
     
     <LinearLayout

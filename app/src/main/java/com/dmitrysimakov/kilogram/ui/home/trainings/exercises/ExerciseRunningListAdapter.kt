@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import com.dmitrysimakov.kilogram.data.relation.DetailedTrainingExercise
+import com.dmitrysimakov.kilogram.data.local.relation.DetailedTrainingExercise
 import com.dmitrysimakov.kilogram.databinding.ItemExerciseRunningBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 

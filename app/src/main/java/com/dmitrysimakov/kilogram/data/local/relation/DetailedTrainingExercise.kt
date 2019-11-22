@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.data.relation
+package com.dmitrysimakov.kilogram.data.local.relation
 
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 

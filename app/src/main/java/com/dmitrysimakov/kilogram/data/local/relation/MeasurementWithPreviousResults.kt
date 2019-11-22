@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.data.relation
+package com.dmitrysimakov.kilogram.data.local.relation
 
 data class MeasurementWithPreviousResults(
         val _id: Long,

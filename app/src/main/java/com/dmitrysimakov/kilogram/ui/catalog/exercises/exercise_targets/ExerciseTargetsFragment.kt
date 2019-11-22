@@ -18,7 +18,7 @@ class ExerciseTargetsFragment : Fragment() {
     
     protected val vm: ExerciseTargetsViewModel by viewModel()
 
-    protected val adapter by lazy { MuscleListAdapter() }
+    protected val adapter by lazy { ExerciseTargetsAdapter() }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_exercise_targets, container, false)

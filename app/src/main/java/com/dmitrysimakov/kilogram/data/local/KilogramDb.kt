@@ -12,6 +12,7 @@ import com.dmitrysimakov.kilogram.data.local.entity.*
             Measurement::class,
             MeasurementParam::class,
             ExerciseTarget::class,
+            Photo::class,
             Program::class,
             ProgramDay::class,
             ProgramDayTarget::class,
@@ -32,6 +33,7 @@ abstract class KilogramDb : RoomDatabase() {
     abstract fun measurementDao(): MeasurementDao
     abstract fun measurementParamDao(): MeasurementParamDao
     abstract fun exerciseTargetDao(): ExerciseTargetDao
+    abstract fun photoDao(): PhotoDao
     abstract fun programDao(): ProgramDao
     abstract fun programDayDao(): ProgramDayDao
     abstract fun programDayTargetDao(): ProgramDayTargetDao
@@ -40,5 +42,5 @@ abstract class KilogramDb : RoomDatabase() {
     abstract fun trainingDao(): TrainingDao
     abstract fun trainingMuscleDao(): TrainingMuscleDao
     abstract fun trainingExerciseDao(): TrainingExerciseDao
-    abstract fun trainingExerciseSetDao(): TrainingExerciseSetDao
+    abstract fun trainingSetDao(): TrainingSetDao
 }

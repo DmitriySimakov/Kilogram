@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.dmitrysimakov.kilogram.data.local.entity.Measurement
-import com.dmitrysimakov.kilogram.data.relation.MeasurementWithPreviousResults
+import com.dmitrysimakov.kilogram.data.local.relation.MeasurementWithPreviousResults
 
 @Dao
 interface MeasurementDao {

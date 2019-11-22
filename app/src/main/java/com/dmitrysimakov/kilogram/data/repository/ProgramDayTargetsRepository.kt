@@ -5,9 +5,7 @@ import com.dmitrysimakov.kilogram.data.local.entity.ProgramDayTarget
 
 class ProgramDayTargetsRepository(private val dao: ProgramDayTargetDao) {
     
-    suspend fun params(programId: Long) =
-            dao.params(programId)
+    suspend fun params(programId: Long) = dao.params(programId)
     
-    suspend fun insert(programDayTargets: List<ProgramDayTarget>) =
-            dao.insert(programDayTargets)
+    suspend fun insert(programDayTargets: List<ProgramDayTarget>) = dao.insert(programDayTargets)
 }

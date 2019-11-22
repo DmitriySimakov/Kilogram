@@ -3,8 +3,8 @@ package com.dmitrysimakov.kilogram.ui.home.trainings.training_sets
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import com.dmitrysimakov.kilogram.data.relation.ExerciseMeasures
-import com.dmitrysimakov.kilogram.data.relation.SetWithPreviousResults
+import com.dmitrysimakov.kilogram.data.local.relation.ExerciseMeasures
+import com.dmitrysimakov.kilogram.data.local.relation.SetWithPreviousResults
 import com.dmitrysimakov.kilogram.databinding.ItemTrainingSetBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 import com.dmitrysimakov.kilogram.ui.common.DataBoundViewHolder

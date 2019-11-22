@@ -1,7 +1,7 @@
 package com.dmitrysimakov.kilogram.data.local.entity
 
 import androidx.room.*
-import com.dmitrysimakov.kilogram.data.relation.ExerciseMeasures
+import com.dmitrysimakov.kilogram.data.local.relation.ExerciseMeasures
 
 @Entity(tableName = "exercise",
         indices = [

@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity() {
                 R.navigation.catalog,
                 R.navigation.subscriptions,
                 R.navigation.search,
-                R.navigation.menu
+                R.navigation.profile
         )
         val controller = binding.bottomNavView.setupWithNavController(
                 navGraphIds,

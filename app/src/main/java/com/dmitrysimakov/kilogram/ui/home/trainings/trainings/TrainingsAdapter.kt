@@ -6,7 +6,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DiffUtil
-import com.dmitrysimakov.kilogram.data.relation.DetailedTraining
+import com.dmitrysimakov.kilogram.data.local.relation.DetailedTraining
 import com.dmitrysimakov.kilogram.databinding.ItemTrainingBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 

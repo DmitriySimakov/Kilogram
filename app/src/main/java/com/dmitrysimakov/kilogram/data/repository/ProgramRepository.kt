@@ -3,14 +3,11 @@ package com.dmitrysimakov.kilogram.data.repository
 import com.dmitrysimakov.kilogram.data.local.dao.ProgramDao
 import com.dmitrysimakov.kilogram.data.local.entity.Program
 
-class ProgramRepository(private val programDao: ProgramDao) {
+class ProgramRepository(private val dao: ProgramDao) {
     
-    fun programsFlow() =
-            programDao.programsFlow()
+    fun programsFlow() = dao.programsFlow()
     
-    suspend fun insert(program: Program) =
-            programDao.insert(program)
+    suspend fun insert(program: Program) = dao.insert(program)
     
-    suspend fun delete(id: Long) =
-            programDao.delete(id)
+    suspend fun delete(id: Long) = dao.delete(id)
 }

@@ -8,7 +8,7 @@ import com.dmitrysimakov.kilogram.data.local.dao.ExerciseTargetDao
 import com.dmitrysimakov.kilogram.data.local.entity.Exercise
 import com.dmitrysimakov.kilogram.data.local.entity.ProgramDayExercise
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
-import com.dmitrysimakov.kilogram.data.relation.FilterParam
+import com.dmitrysimakov.kilogram.data.local.relation.FilterParam
 import com.dmitrysimakov.kilogram.data.repository.*
 import com.dmitrysimakov.kilogram.util.Event
 import com.dmitrysimakov.kilogram.util.setNewValue

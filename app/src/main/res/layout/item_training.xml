@@ -13,7 +13,7 @@
         
         <variable
             name="training"
-            type="com.dmitrysimakov.kilogram.data.relation.DetailedTraining"/>
+            type="com.dmitrysimakov.kilogram.data.local.relation.DetailedTraining"/>
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout

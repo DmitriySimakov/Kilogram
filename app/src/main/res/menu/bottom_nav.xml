@@ -22,8 +22,8 @@
         android:title="@string/search"/>
     
     <item
-        android:id="@+id/menu"
-        android:icon="@drawable/ic_menu_24dp"
-        android:title="@string/more" />
+        android:id="@+id/profile"
+        android:icon="@drawable/ic_person_24dp"
+        android:title="@string/profile" />
     
 </menu>

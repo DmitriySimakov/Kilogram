@@ -7,7 +7,7 @@
     <data>
         <variable
             name="exercise_measures"
-            type="com.dmitrysimakov.kilogram.data.relation.ExerciseMeasures"/>
+            type="com.dmitrysimakov.kilogram.data.local.relation.ExerciseMeasures"/>
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout

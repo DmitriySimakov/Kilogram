@@ -7,8 +7,8 @@ import com.dmitrysimakov.kilogram.data.local.entity.ExerciseTarget
 import com.dmitrysimakov.kilogram.databinding.ItemExerciseTargetBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 
-class MuscleListAdapter(clickCallback: ((ExerciseTarget) -> Unit)? = null)
-    : DataBoundListAdapter<ExerciseTarget, ItemExerciseTargetBinding>(clickCallback, MuscleDiffCallback()) {
+class ExerciseTargetsAdapter(clickCallback: ((ExerciseTarget) -> Unit)? = null)
+    : DataBoundListAdapter<ExerciseTarget, ItemExerciseTargetBinding>(clickCallback, ExerciseTargetDiffCallback()) {
 
     override fun createBinding(parent: ViewGroup): ItemExerciseTargetBinding = ItemExerciseTargetBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
@@ -18,7 +18,7 @@ class MuscleListAdapter(clickCallback: ((ExerciseTarget) -> Unit)? = null)
     }
 }
 
-private class MuscleDiffCallback : DiffUtil.ItemCallback<ExerciseTarget>() {
+private class ExerciseTargetDiffCallback : DiffUtil.ItemCallback<ExerciseTarget>() {
     override fun areItemsTheSame(oldItem: ExerciseTarget, newItem: ExerciseTarget) =
             oldItem.name == newItem.name
     override fun areContentsTheSame(oldItem: ExerciseTarget, newItem: ExerciseTarget) =

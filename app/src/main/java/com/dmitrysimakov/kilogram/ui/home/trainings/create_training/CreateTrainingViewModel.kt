@@ -7,8 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.dmitrysimakov.kilogram.data.local.dao.ExerciseTargetDao
 import com.dmitrysimakov.kilogram.data.local.entity.Training
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingTarget
-import com.dmitrysimakov.kilogram.data.relation.FilterParam
-import com.dmitrysimakov.kilogram.data.relation.ProgramDayAndProgram
+import com.dmitrysimakov.kilogram.data.local.relation.FilterParam
+import com.dmitrysimakov.kilogram.data.local.relation.ProgramDayAndProgram
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingMuscleRepository

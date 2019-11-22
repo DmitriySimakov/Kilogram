@@ -5,7 +5,7 @@ import com.dmitrysimakov.kilogram.data.local.entity.TrainingSet
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface TrainingExerciseSetDao {
+interface TrainingSetDao {
     
     @Query("SELECT * FROM training_set WHERE training_exercise_id = :trainingExerciseId")
     fun trainingSetsFlow(trainingExerciseId: Long) : Flow<List<TrainingSet>>

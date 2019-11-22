@@ -3,7 +3,7 @@ package com.dmitrysimakov.kilogram.data.local.dao
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteQuery
 import com.dmitrysimakov.kilogram.data.local.entity.Exercise
-import com.dmitrysimakov.kilogram.data.relation.ExerciseMeasures
+import com.dmitrysimakov.kilogram.data.local.relation.ExerciseMeasures
 import kotlinx.coroutines.flow.Flow
 
 @Dao
