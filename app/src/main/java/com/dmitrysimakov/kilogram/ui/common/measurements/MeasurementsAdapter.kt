@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.home.measurements.add_measurement
+package com.dmitrysimakov.kilogram.ui.common.measurements
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
