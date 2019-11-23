@@ -14,101 +14,100 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
         
             <CalendarView
                 android:id="@+id/calendar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="wrap_content" />
         
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/startTrainingButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_fitness_center_24dp"
-                android:tint="@color/white"
-                app:elevation="0dp"
-                app:layout_constraintEnd_toStartOf="@id/addMeasurementButton"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/calendar" />
-        
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/addMeasurementButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_straighten_24dp"
-                android:tint="@color/white"
-                app:elevation="0dp"
-                app:layout_constraintEnd_toStartOf="@id/addPhotoButton"
-                app:layout_constraintStart_toEndOf="@id/startTrainingButton"
-                app:layout_constraintTop_toBottomOf="@id/calendar" />
-        
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/addPhotoButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_photo_camera_24dp"
-                android:tint="@color/white"
-                app:elevation="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/addMeasurementButton"
-                app:layout_constraintTop_toBottomOf="@id/calendar" />
-        
-            <TextView
-                android:id="@+id/startTrainingTV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:gravity="center"
-                android:text="@string/startTrainingButton"
-                app:layout_constraintEnd_toEndOf="@id/startTrainingButton"
-                app:layout_constraintStart_toStartOf="@id/startTrainingButton"
-                app:layout_constraintTop_toBottomOf="@id/startTrainingButton" />
-        
-            <TextView
-                android:id="@+id/addMeasurementTV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:gravity="center"
-                android:text="@string/addMeasurementButton"
-                app:layout_constraintEnd_toEndOf="@id/addMeasurementButton"
-                app:layout_constraintStart_toStartOf="@id/addMeasurementButton"
-                app:layout_constraintTop_toBottomOf="@id/addMeasurementButton" />
-        
-            <TextView
-                android:id="@+id/addPhotoTV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:gravity="center"
-                android:text="@string/addPhotoButton"
-                app:layout_constraintEnd_toEndOf="@id/addPhotoButton"
-                app:layout_constraintStart_toStartOf="@id/addPhotoButton"
-                app:layout_constraintTop_toBottomOf="@id/addPhotoButton" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/actionButtons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
     
-            <androidx.constraintlayout.widget.Barrier
-                android:id="@+id/barrier1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:constraint_referenced_ids="startTrainingTV,addMeasurementTV,addPhotoTV"
-                app:barrierDirection="bottom" />
+    
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/startTrainingButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_fitness_center_24dp"
+                    android:tint="@color/white"
+                    app:elevation="0dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/addMeasurementButton"
+                    app:layout_constraintStart_toStartOf="parent" />
+    
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/addMeasurementButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_straighten_24dp"
+                    android:tint="@color/white"
+                    app:elevation="0dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/addPhotoButton"
+                    app:layout_constraintStart_toEndOf="@id/startTrainingButton" />
+    
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/addPhotoButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_photo_camera_24dp"
+                    android:tint="@color/white"
+                    app:elevation="0dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/addMeasurementButton" />
+    
+                <TextView
+                    android:id="@+id/startTrainingTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:gravity="center"
+                    android:text="@string/startTrainingButton"
+                    app:layout_constraintEnd_toEndOf="@id/startTrainingButton"
+                    app:layout_constraintStart_toStartOf="@id/startTrainingButton"
+                    app:layout_constraintTop_toBottomOf="@id/startTrainingButton" />
+    
+                <TextView
+                    android:id="@+id/addMeasurementTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:gravity="center"
+                    android:text="@string/addMeasurementButton"
+                    app:layout_constraintEnd_toEndOf="@id/addMeasurementButton"
+                    app:layout_constraintStart_toStartOf="@id/addMeasurementButton"
+                    app:layout_constraintTop_toBottomOf="@id/addMeasurementButton" />
+    
+                <TextView
+                    android:id="@+id/addPhotoTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:gravity="center"
+                    android:text="@string/addPhotoButton"
+                    app:layout_constraintEnd_toEndOf="@id/addPhotoButton"
+                    app:layout_constraintStart_toStartOf="@id/addPhotoButton"
+                    app:layout_constraintTop_toBottomOf="@id/addPhotoButton" />
+                
+            </androidx.constraintlayout.widget.ConstraintLayout>
             
             <TextView
-                android:id="@+id/photosHeader"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
+                android:padding="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:drawableEnd="@drawable/ic_arrow_forward_24dp"
                 android:gravity="center_vertical"
                 android:text="@string/photos"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                app:layout_constraintTop_toBottomOf="@id/barrier1" />
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
         
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/photosRV"
@@ -118,51 +117,46 @@
                 android:layout_marginEnd="16dp"
                 android:nestedScrollingEnabled="false"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:layout_constraintTop_toBottomOf="@id/photosHeader"
                 app:spanCount="3"
                 tools:itemCount="3"
                 tools:listitem="@layout/item_photo" />
         
             <TextView
-                android:id="@+id/measurementsHeader"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
+                android:padding="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:gravity="center_vertical"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
                 android:drawableEnd="@drawable/ic_arrow_forward_24dp"
                 android:text="@string/measurements"
                 app:layout_constraintTop_toBottomOf="@id/photosRV"/>
             
-            <TextView
-                android:id="@+id/parameterHeader"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/parameter"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                app:layout_constraintBottom_toTopOf="@id/barrier2"
-                app:layout_constraintEnd_toStartOf="@id/measurementValueHeader"
-                app:layout_constraintStart_toStartOf="@id/measurementsHeader"
-                app:layout_constraintTop_toBottomOf="@id/measurementsHeader" />
-        
-            <TextView
-                android:id="@+id/measurementValueHeader"
-                android:layout_width="@dimen/calculator_column_width"
-                android:layout_height="wrap_content"
-                android:text="@string/actual_value"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                app:layout_constraintBottom_toTopOf="@id/barrier2"
-                app:layout_constraintEnd_toEndOf="@id/measurementsHeader"
-                app:layout_constraintTop_toBottomOf="@id/measurementsHeader" />
+                android:padding="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp">
     
-            <androidx.constraintlayout.widget.Barrier
-                android:id="@+id/barrier2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:constraint_referenced_ids="parameterHeader,measurementValueHeader"
-                app:barrierDirection="bottom" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="@string/parameter"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+    
+                <TextView
+                    android:id="@+id/measurementValueHeader"
+                    android:layout_width="@dimen/calculator_column_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="@string/actual_value"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+                
+            </LinearLayout>
             
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/measurementsRV"
@@ -170,11 +164,10 @@
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@id/barrier2"
                 tools:itemCount="8"
                 tools:listitem="@layout/item_measurement" />
-    
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            
+        </LinearLayout>
 
     </ScrollView>
 

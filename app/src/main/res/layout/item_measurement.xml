@@ -23,19 +23,19 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:text="@{measurement.param}"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/measureValue"
             tools:text="Параметр тела"/>
         
         <TextView
             android:id="@+id/measureValue"
             android:layout_width="@dimen/calculator_column_width"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:text="@{`` + measurement.value}"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall"
-            android:textSize="20sp"
-            app:layout_constraintRight_toRightOf="parent"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="175"/>
         
@@ -43,10 +43,9 @@
             android:id="@+id/measureDifference"
             android:layout_width="@dimen/calculator_column_width"
             android:layout_height="wrap_content"
-            android:textColor="#757575"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            app:layout_constraintTop_toBottomOf="@id/measureValue"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:text="-3 за 3 дн."/>
     
     </androidx.constraintlayout.widget.ConstraintLayout>
