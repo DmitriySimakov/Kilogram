@@ -25,7 +25,16 @@ class TrainingSetsFragment : Fragment() {
     
     private lateinit var binding: FragmentTrainingSetsBinding
     
-    private lateinit var adapter: TrainingSetsAdapter
+    private val adapter by lazy { TrainingSetsAdapter(vm) { set ->
+        findNavController().navigate(TrainingSetsFragmentDirections.toAddSetDialog(
+                args.trainingExerciseId,
+                set._id,
+                set.prev_weight ?: 0,
+                set.prev_reps ?: 0,
+                set.prev_time ?: 0,
+                set.prev_distance ?: 0
+        ))
+    } }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentTrainingSetsBinding.inflate(inflater)
@@ -55,20 +64,7 @@ class TrainingSetsFragment : Fragment() {
             }
         }).attachToRecyclerView(recyclerView)
         
-        vm.measures.observe(viewLifecycleOwner, Observer {
-            binding.exerciseMeasures = it
-    
-            adapter = TrainingSetsAdapter(it) { set ->
-                findNavController().navigate(TrainingSetsFragmentDirections.toAddSetDialog(
-                        args.trainingExerciseId,
-                        set._id,
-                        set.prev_weight ?: 0,
-                        set.prev_reps ?: 0,
-                        set.prev_time ?: 0,
-                        set.prev_distance ?: 0
-                ))
-            }
-        })
+        vm.measures.observe(viewLifecycleOwner, Observer {})
         vm.sets.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
         
         activity?.fab?.show()

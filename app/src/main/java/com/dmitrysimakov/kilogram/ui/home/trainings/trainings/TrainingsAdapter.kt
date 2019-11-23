@@ -2,19 +2,13 @@ package com.dmitrysimakov.kilogram.ui.home.trainings.trainings
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DiffUtil
 import com.dmitrysimakov.kilogram.data.local.relation.DetailedTraining
 import com.dmitrysimakov.kilogram.databinding.ItemTrainingBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 
-class TrainingsAdapter(
-        private val sessionTime: LiveData<Int?>,
-        private val lifecycleOwner: LifecycleOwner,
-        clickCallback: ((DetailedTraining) -> Unit)?
-) : DataBoundListAdapter<DetailedTraining, ItemTrainingBinding>(
+class TrainingsAdapter(clickCallback: ((DetailedTraining) -> Unit)?)
+    : DataBoundListAdapter<DetailedTraining, ItemTrainingBinding>(
         clickCallback,
         DetailedTrainingDiffCallback()
 ) {
@@ -23,11 +17,6 @@ class TrainingsAdapter(
             .inflate(LayoutInflater.from(parent.context), parent, false)
 
     override fun bind(binding: ItemTrainingBinding, item: DetailedTraining) {
-        sessionTime.observe(lifecycleOwner, Observer {
-            if (it != null) {
-                binding.duration = it
-            }
-        })
         binding.training = item
     }
 }

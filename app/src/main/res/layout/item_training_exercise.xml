@@ -6,10 +6,7 @@
     <data>
         
         <import type="com.dmitrysimakov.kilogram.util.Converter" />
-        
-        <variable
-            name="rest"
-            type="Integer" />
+        <import type="com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise" />
         
         <variable
             name="exercise"
@@ -18,30 +15,27 @@
     
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/listPreferredItemHeight"
         android:padding="4dp">
         
         <ImageView
             android:id="@+id/image"
-            android:layout_width="?attr/listPreferredItemHeight"
-            android:layout_height="?attr/listPreferredItemHeight"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:scaleType="centerCrop"
             app:assetsImage='@{"exercises/"+ exercise.exercise +"_1.jpeg"}'
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_width="?android:attr/listPreferredItemHeight"
             tools:src="@drawable/exercise_sample_1" />
         
         <TextView
             android:id="@+id/name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
+            android:layout_marginStart="16dp"
             android:text="@{exercise.exercise}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-            app:layout_constraintEnd_toStartOf="@id/rest_time"
+            app:layout_constraintEnd_toStartOf="@id/restTV"
             app:layout_constraintStart_toEndOf="@id/image"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Упражнение" />
@@ -50,32 +44,48 @@
             android:id="@+id/strategy"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:gravity="center_vertical"
             android:text="@{exercise.strategy}"
-            app:layout_constraintEnd_toStartOf="@id/rest_time"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            app:layout_constraintEnd_toStartOf="@id/restTV"
             app:layout_constraintStart_toEndOf="@id/image"
             app:layout_constraintTop_toBottomOf="@id/name"
             tools:text="Стратегия" />
-        
-        <TextView
-            android:id="@+id/rest_time"
+    
+        <ImageView
+            android:id="@+id/restIV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/ic_timer"
-            android:text="@{Converter.secondsToTimeFormat(rest)}"
+            android:layout_marginEnd="12dp"
+            android:src="@drawable/ic_timer"
+            android:tint="@color/grey700"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintBottom_toTopOf="@id/restTV"
+            app:layout_constraintEnd_toStartOf="@id/drag_finish_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+    
+        <TextView
+            android:id="@+id/restTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{Converter.secondsToTimeFormat(exercise.rest)}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/finish_icon"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="20" />
+            app:layout_constraintStart_toStartOf="@id/restIV"
+            app:layout_constraintEnd_toEndOf="@id/restIV"
+            app:layout_constraintTop_toBottomOf="@id/restIV"
+            tools:text="1:23" />
         
         <ImageView
-            android:id="@+id/finish_icon"
+            android:id="@+id/drag_finish_icon"
             style="@style/IconButton"
-            android:src="@drawable/ic_flag"
+            android:src="@{exercise.state == TrainingExercise.PLANNED ? @drawable/ic_drag_indicator : @drawable/ic_flag }"
+            app:invisibleUnless="@{exercise.state != TrainingExercise.FINISHED}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_drag_indicator" />
     
     </androidx.constraintlayout.widget.ConstraintLayout>
 

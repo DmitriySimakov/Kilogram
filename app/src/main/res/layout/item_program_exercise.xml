@@ -35,7 +35,7 @@
             android:layout_marginStart="?android:attr/listPreferredItemPaddingLeft"
             android:text="@{exercise.exercise}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-            app:layout_constraintEnd_toStartOf="@id/rest_time"
+            app:layout_constraintEnd_toStartOf="@id/restTV"
             app:layout_constraintStart_toEndOf="@id/image"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Упражнение" />
@@ -48,13 +48,13 @@
             android:gravity="center_vertical"
             android:text="@{exercise.strategy}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-            app:layout_constraintEnd_toStartOf="@id/rest_time"
+            app:layout_constraintEnd_toStartOf="@id/restTV"
             app:layout_constraintStart_toEndOf="@id/image"
             app:layout_constraintTop_toBottomOf="@id/name"
             tools:text="Стратегия" />
         
         <TextView
-            android:id="@+id/rest_time"
+            android:id="@+id/restTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableEnd="@drawable/ic_timer"

@@ -6,8 +6,8 @@
     <data>
         
         <variable
-            name="exercise_measures"
-            type="com.dmitrysimakov.kilogram.data.local.relation.ExerciseMeasures" />
+            name="vm"
+            type="com.dmitrysimakov.kilogram.ui.home.trainings.training_sets.TrainingSetsViewModel" />
     </data>
     
     <LinearLayout
@@ -33,7 +33,7 @@
                 android:gravity="center"
                 android:text="@string/weight"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                app:goneUnless="@{exercise_measures.weight}" />
+                app:goneUnless="@{vm.measures.weight}" />
             
             <TextView
                 android:layout_width="0dp"
@@ -42,7 +42,7 @@
                 android:gravity="center"
                 android:text="@string/reps"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                app:goneUnless="@{exercise_measures.reps}" />
+                app:goneUnless="@{vm.measures.reps}" />
             
             <TextView
                 android:layout_width="0dp"
@@ -51,7 +51,7 @@
                 android:gravity="center"
                 android:text="@string/time"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                app:goneUnless="@{exercise_measures.time}" />
+                app:goneUnless="@{vm.measures.time}" />
             
             <TextView
                 android:layout_width="0dp"
@@ -60,7 +60,7 @@
                 android:gravity="center"
                 android:text="@string/distance"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                app:goneUnless="@{exercise_measures.distance}" />
+                app:goneUnless="@{vm.measures.distance}" />
         
         </LinearLayout>
         

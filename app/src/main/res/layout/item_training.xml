@@ -8,10 +8,6 @@
         <import type="com.dmitrysimakov.kilogram.util.Converter" />
         
         <variable
-            name="duration"
-            type="Integer" />
-        
-        <variable
             name="training"
             type="com.dmitrysimakov.kilogram.data.local.relation.DetailedTraining" />
     </data>
@@ -39,31 +35,27 @@
             app:layout_constraintTop_toBottomOf="@id/dateTV"
             tools:text="День №1 Программа" />
         
-        <TextView
-            android:id="@+id/timerTV"
+        <ImageView
+            android:id="@+id/timerIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/ic_timer"
-            android:text="@{Converter.secondsToTimeFormat(duration)}"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-            app:goneUnless="@{training.duration == null}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/ic_timer"
+            android:tint="@color/grey700"
+            app:layout_constraintVertical_chainStyle="packed"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="1:05" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/duration"/>
         
         <TextView
-            android:id="@+id/durationTV"
+            android:id="@+id/duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/ic_done"
             android:text="@{Converter.secondsToTimeFormat(training.duration)}"
             app:goneUnless="@{training.duration != null}"
+            app:layout_constraintTop_toBottomOf="@id/timerIcon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="1:05"
-            tools:visibility="invisible" />
+            tools:text="1:05" />
     
     </androidx.constraintlayout.widget.ConstraintLayout>
 

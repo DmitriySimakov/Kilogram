@@ -3,14 +3,13 @@ package com.dmitrysimakov.kilogram.ui.home.trainings.training_sets
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import com.dmitrysimakov.kilogram.data.local.relation.ExerciseMeasures
 import com.dmitrysimakov.kilogram.data.local.relation.SetWithPreviousResults
 import com.dmitrysimakov.kilogram.databinding.ItemTrainingSetBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 import com.dmitrysimakov.kilogram.ui.common.DataBoundViewHolder
 
 class TrainingSetsAdapter(
-        private val exerciseMeasures: ExerciseMeasures,
+        private val viewModel: TrainingSetsViewModel,
         clickCallback: ((SetWithPreviousResults) -> Unit)
 ) : DataBoundListAdapter<SetWithPreviousResults, ItemTrainingSetBinding>(
         clickCallback,
@@ -27,7 +26,7 @@ class TrainingSetsAdapter(
 
     override fun bind(binding: ItemTrainingSetBinding, item: SetWithPreviousResults) {
         binding.set = item
-        binding.exerciseMeasures = exerciseMeasures
+        binding.vm = viewModel
     }
 }
 

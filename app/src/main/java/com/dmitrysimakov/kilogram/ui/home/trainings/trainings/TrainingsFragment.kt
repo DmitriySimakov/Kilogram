@@ -24,7 +24,7 @@ class TrainingsFragment : Fragment() {
     private val vm: TrainingsViewModel by viewModel()
     private val sharedVM: SharedViewModel by sharedViewModel()
 
-    private val adapter by lazy { TrainingsAdapter(sharedVM.elapsedSessionTime, this) { training ->
+    private val adapter by lazy { TrainingsAdapter { training ->
         findNavController().navigate(TrainingsFragmentDirections
             .toExercisesFragment(training._id, training.duration == null))
     }}

@@ -51,7 +51,7 @@
                         android:nestedScrollingEnabled="false"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:itemCount="1"
-                        tools:listitem="@layout/item_exercise_running" />
+                        tools:listitem="@layout/item_training_exercise" />
                 
                 </LinearLayout>
             
@@ -87,7 +87,7 @@
                         android:nestedScrollingEnabled="false"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:itemCount="3"
-                        tools:listitem="@layout/item_exercise_planned" />
+                        tools:listitem="@layout/item_training_exercise" />
                 
                 </LinearLayout>
             
@@ -123,7 +123,7 @@
                         android:nestedScrollingEnabled="false"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:itemCount="2"
-                        tools:listitem="@layout/item_exercise_finished" />
+                        tools:listitem="@layout/item_training_exercise" />
                 
                 </LinearLayout>
             
