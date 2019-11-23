@@ -1,34 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     
     <data>
+        
         <variable
             name="vm"
-            type="com.dmitrysimakov.kilogram.ui.common.choose_exercise.ChooseExerciseViewModel"/>
+            type="com.dmitrysimakov.kilogram.ui.common.choose_exercise.ChooseExerciseViewModel" />
         
         <variable
             name="exercise"
-            type="com.dmitrysimakov.kilogram.data.local.entity.Exercise"/>
+            type="com.dmitrysimakov.kilogram.data.local.entity.Exercise" />
     </data>
     
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/listPreferredItemHeight"
-        android:orientation="horizontal"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:padding="4dp">
         
         <ImageView
             android:id="@+id/exercise_image"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="4dp"
             android:adjustViewBounds="true"
             app:assetsImage='@{"exercises/"+ exercise.name +"_1.jpeg"}'
-            tools:src="@drawable/exercise_sample_1"
-            tools:layout_width="?android:attr/listPreferredItemHeight"/>
+            tools:layout_width="?android:attr/listPreferredItemHeight"
+            tools:src="@drawable/exercise_sample_1" />
         
         <TextView
             android:id="@+id/exercise_name"
@@ -39,19 +38,16 @@
             android:paddingStart="?android:attr/listPreferredItemPaddingLeft"
             android:paddingEnd="?android:attr/listPreferredItemPaddingRight"
             android:text="@{exercise.name}"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall"
-            tools:text="Упражнение"/>
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            tools:text="Упражнение" />
         
-        <ToggleButton
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="center"
-            android:layout_marginEnd="?attr/listPreferredItemPaddingRight"
-            android:background="@drawable/favorite_toggle"
-            android:checked="@{exercise._favorite}"
-            android:onCheckedChanged="@{(view, isChecked) -> vm.setFavorite(exercise, isChecked)}"
-            style="@style/ImageToggleButton" />
+        <ImageView
+            style="@style/IconButton"
+            android:layout_gravity="center_vertical"
+            android:onClick="@{() -> vm.setFavorite(exercise)}"
+            android:src="@{exercise._favorite ? @drawable/ic_favorite : @drawable/ic_favorite_border}"
+            tools:src="@drawable/ic_favorite" />
     
     </LinearLayout>
-    
+
 </layout>

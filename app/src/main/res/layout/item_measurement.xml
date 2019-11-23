@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     
     <data>
+        
         <variable
             name="measurement"
-            type="com.dmitrysimakov.kilogram.data.local.relation.MeasurementWithPreviousResults"/>
+            type="com.dmitrysimakov.kilogram.data.local.relation.MeasurementWithPreviousResults" />
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,10 +24,10 @@
             android:gravity="center_vertical"
             android:text="@{measurement.param}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            app:layout_constraintEnd_toStartOf="@id/measureValue"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/measureValue"
-            tools:text="Параметр тела"/>
+            tools:text="Параметр тела" />
         
         <TextView
             android:id="@+id/measureValue"
@@ -37,16 +37,16 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="175"/>
+            tools:text="175" />
         
         <TextView
             android:id="@+id/measureDifference"
             android:layout_width="@dimen/calculator_column_width"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-            app:layout_constraintTop_toBottomOf="@id/measureValue"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="-3 за 3 дн."/>
+            app:layout_constraintTop_toBottomOf="@id/measureValue"
+            tools:text="-3 за 3 дн." />
     
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -56,9 +56,9 @@ class DetailedExerciseFragment : Fragment() {
     
     private fun updateFavoriteButton(item: MenuItem) {
         if (item.isChecked) {
-            item.setIcon(R.drawable.ic_favorite_24dp)
+            item.setIcon(R.drawable.ic_favorite)
         } else {
-            item.setIcon(R.drawable.ic_favorite_border_24dp)
+            item.setIcon(R.drawable.ic_favorite_border)
         }
     }
 }

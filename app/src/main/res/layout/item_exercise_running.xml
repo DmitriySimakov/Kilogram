@@ -1,83 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     
     <data>
-        <import type="com.dmitrysimakov.kilogram.util.Converter"/>
+        
+        <import type="com.dmitrysimakov.kilogram.util.Converter" />
         
         <variable
             name="rest"
-            type="Integer"/>
+            type="Integer" />
         
         <variable
             name="exercise"
-            type="com.dmitrysimakov.kilogram.data.local.relation.DetailedTrainingExercise"/>
+            type="com.dmitrysimakov.kilogram.data.local.relation.DetailedTrainingExercise" />
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="4dp">
         
         <ImageView
             android:id="@+id/image"
             android:layout_width="?attr/listPreferredItemHeight"
             android:layout_height="?attr/listPreferredItemHeight"
-            android:layout_margin="4dp"
             android:scaleType="centerCrop"
             app:assetsImage='@{"exercises/"+ exercise.exercise +"_1.jpeg"}'
-            tools:src="@drawable/exercise_sample_1"
-            tools:layout_width="?android:attr/listPreferredItemHeight"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_width="?android:attr/listPreferredItemHeight"
+            tools:src="@drawable/exercise_sample_1" />
         
         <TextView
             android:id="@+id/name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingStart="?android:attr/listPreferredItemPaddingLeft"
-            android:paddingEnd="?android:attr/listPreferredItemPaddingRight"
-            tools:text="Упражнение"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:text="@{exercise.exercise}"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall"
-            app:layout_constraintTop_toTopOf="parent"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            app:layout_constraintEnd_toStartOf="@id/rest_time"
             app:layout_constraintStart_toEndOf="@id/image"
-            app:layout_constraintEnd_toStartOf="@id/rest_time"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Упражнение" />
         
         <TextView
             android:id="@+id/strategy"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingStart="?android:attr/listPreferredItemPaddingLeft"
-            android:paddingEnd="?android:attr/listPreferredItemPaddingRight"
-            tools:text="Стратегия"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:text="@{exercise.strategy}"
-            app:layout_constraintTop_toBottomOf="@id/name"
+            app:layout_constraintEnd_toStartOf="@id/rest_time"
             app:layout_constraintStart_toEndOf="@id/image"
-            app:layout_constraintEnd_toStartOf="@id/rest_time"/>
-
+            app:layout_constraintTop_toBottomOf="@id/name"
+            tools:text="Стратегия" />
+        
         <TextView
             android:id="@+id/rest_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="20"
+            android:drawableEnd="@drawable/ic_timer"
             android:text="@{Converter.secondsToTimeFormat(rest)}"
-            android:drawableEnd="@drawable/ic_timer_24dp"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/finish_icon"/>
-
+            app:layout_constraintEnd_toStartOf="@id/finish_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="20" />
+        
         <ImageView
             android:id="@+id/finish_icon"
-            android:layout_width="@dimen/min_touch_size"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
+            style="@style/IconButton"
+            android:src="@drawable/ic_flag"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:src="@drawable/ic_flag_24dp"/>
+            app:layout_constraintTop_toTopOf="parent" />
     
     </androidx.constraintlayout.widget.ConstraintLayout>
-    
+
 </layout>

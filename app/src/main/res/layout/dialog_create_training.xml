@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     
     <data>
-        <import type="com.dmitrysimakov.kilogram.util.Converter"/>
+        
+        <import type="com.dmitrysimakov.kilogram.util.Converter" />
         
         <variable
             name="vm"
@@ -15,11 +15,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="?attr/dialogPreferredPadding"
-        android:paddingRight="?attr/dialogPreferredPadding"
-        android:elevation="1dp"
         android:background="@color/white"
-        tools:context=".ui.home.trainings.create_training.CreateTrainingDialog">
+        android:elevation="1dp"
+        android:paddingLeft="?attr/dialogPreferredPadding"
+        android:paddingRight="?attr/dialogPreferredPadding">
         
         <TextView
             android:id="@+id/date_tv"
@@ -30,7 +29,7 @@
             app:layout_constraintEnd_toStartOf="@id/time_tv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Сегодня"/>
+            tools:text="Сегодня" />
         
         <TextView
             android:id="@+id/time_tv"
@@ -41,13 +40,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/date_tv"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="04:20"/>
+            tools:text="04:20" />
         
         <View
             android:id="@+id/divider1"
             style="@style/VerticalDivider"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/date_tv"/>
+            app:layout_constraintTop_toBottomOf="@id/date_tv" />
         
         <TextView
             android:id="@+id/program_label"
@@ -58,7 +57,7 @@
             app:layout_constraintBottom_toBottomOf="@id/program_switch"
             app:layout_constraintEnd_toStartOf="@id/program_switch"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/program_switch"/>
+            app:layout_constraintTop_toTopOf="@id/program_switch" />
         
         <Switch
             android:id="@+id/program_switch"
@@ -67,7 +66,7 @@
             android:checked="@={Converter.unbox(vm.byProgram)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/program_label"
-            app:layout_constraintTop_toBottomOf="@id/divider1"/>
+            app:layout_constraintTop_toBottomOf="@id/divider1" />
         
         <TextView
             android:id="@+id/program_tv"
@@ -79,7 +78,7 @@
             app:layout_constraintEnd_toStartOf="@id/programDayTV"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/program_label"
-            tools:text="На массу"/>
+            tools:text="На массу" />
         
         <TextView
             android:id="@+id/programDayTV"
@@ -91,22 +90,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/program_tv"
             app:layout_constraintTop_toBottomOf="@id/program_label"
-            tools:text="День ног"/>
-    
+            tools:text="День ног" />
+        
         <TextView
             android:id="@+id/targetsLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/targets"
-            app:layout_constraintTop_toBottomOf="@id/program_tv"
-            style="@style/Label"/>
+            app:layout_constraintTop_toBottomOf="@id/program_tv" />
         
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/targetsCG"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/targetsLabel" />
-
+    
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

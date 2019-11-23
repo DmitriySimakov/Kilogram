@@ -1,50 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     
     <data>
+        
         <variable
             name="person"
-            type="com.dmitrysimakov.kilogram.data.remote.Person"/>
+            type="com.dmitrysimakov.kilogram.data.remote.Person" />
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/listPreferredItemHeightLarge"
-        android:padding="8dp">
-    
+        style="@style/HorizontalListItem"
+        android:layout_height="?attr/listPreferredItemHeightLarge">
+        
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/photoCIV"
+            android:id="@+id/photo"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             app:imageUrl="@{person.photoUrl}"
             app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:src="@tools:sample/avatars"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
         
         <TextView
             android:id="@+id/name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceListItem"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
             android:text="@{person.name}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            app:layout_constraintStart_toEndOf="@id/photo"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/photoCIV"
             tools:text="@tools:sample/full_names" />
         
-        <Button
+        <ImageView
             android:id="@+id/sendMessageBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Написать"
-            app:layout_constraintTop_toTopOf="parent"
+            style="@style/IconButton"
+            android:src="@drawable/ic_message"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-        
+            app:layout_constraintTop_toTopOf="parent" />
+    
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

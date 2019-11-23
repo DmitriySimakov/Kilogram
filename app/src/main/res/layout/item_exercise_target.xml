@@ -1,40 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     
     <data>
+        
         <variable
             name="target"
-            type="com.dmitrysimakov.kilogram.data.local.entity.ExerciseTarget"/>
+            type="com.dmitrysimakov.kilogram.data.local.entity.ExerciseTarget" />
     </data>
     
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/white">
+        android:padding="4dp">
         
         <ImageView
             android:layout_width="?attr/listPreferredItemHeight"
             android:layout_height="?attr/listPreferredItemHeight"
-            android:layout_margin="4dp"
             app:assetsImage='@{"muscles/"+ target.name +".png"}'
-            tools:src="@drawable/target_sample"/>
+            tools:src="@drawable/target_sample" />
         
         <TextView
-            android:id="@+id/targetTV"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:paddingStart="?android:attr/listPreferredItemPaddingLeft"
-            android:paddingEnd="?android:attr/listPreferredItemPaddingRight"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall"
             android:text="@{target.name}"
-            tools:text="@string/exercise"/>
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            tools:text="@string/exercise" />
     
     </LinearLayout>
 

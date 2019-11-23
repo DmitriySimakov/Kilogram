@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     
     <data>
-        <import type="com.dmitrysimakov.kilogram.util.Converter"/>
+        
+        <import type="com.dmitrysimakov.kilogram.util.Converter" />
         
         <variable
             name="vm"
-            type="com.dmitrysimakov.kilogram.ui.SharedViewModel"/>
+            type="com.dmitrysimakov.kilogram.ui.SharedViewModel" />
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.MainActivity">
+        android:layout_height="match_parent">
         
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_host_fragment"
@@ -31,12 +30,12 @@
             app:cardCornerRadius="0dp"
             app:goneUnless="@{vm.elapsedSessionTime != null}"
             app:layout_constraintBottom_toTopOf="@id/bottom_nav_view">
-        
+            
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-            
+                
                 <TextView
                     android:id="@+id/duration"
                     android:layout_width="0dp"
@@ -46,10 +45,11 @@
                     android:padding="4dp"
                     android:text="@{Converter.secondsToTimeFormat(vm.elapsedSessionTime)}"
                     tools:text="32:30" />
-            
-                <View style="@style/HorizontalDivider"
-                    app:invisibleUnless="@{vm.elapsedRestTime != null}"/>
-            
+                
+                <View
+                    style="@style/HorizontalDivider"
+                    app:invisibleUnless="@{vm.elapsedRestTime != null}" />
+                
                 <TextView
                     android:id="@+id/rest"
                     android:layout_width="0dp"
@@ -57,13 +57,14 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:padding="4dp"
-                    app:invisibleUnless="@{vm.elapsedRestTime != null}"
                     android:text="@{Converter.secondsToTimeFormat(vm.elapsedRestTime)}"
-                    tools:text="1:05"/>
-            
-                <View style="@style/HorizontalDivider"
-                    app:invisibleUnless="@{vm.elapsedRestTime != null}"/>
-            
+                    app:invisibleUnless="@{vm.elapsedRestTime != null}"
+                    tools:text="1:05" />
+                
+                <View
+                    style="@style/HorizontalDivider"
+                    app:invisibleUnless="@{vm.elapsedRestTime != null}" />
+                
                 <TextView
                     android:id="@+id/restLeft"
                     android:layout_width="0dp"
@@ -71,34 +72,34 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:padding="4dp"
-                    app:invisibleUnless="@{vm.elapsedRestTime != null}"
                     android:text="@{safeUnbox(vm.restTime) - safeUnbox(vm.elapsedRestTime) > 0 ? Converter.secondsToTimeFormat(safeUnbox(vm.restTime) - safeUnbox(vm.elapsedRestTime)) : `Жги сын`}"
-                    tools:text="1:55"/>
-        
+                    app:invisibleUnless="@{vm.elapsedRestTime != null}"
+                    tools:text="1:55" />
+            
             </LinearLayout>
-    
+        
         </com.google.android.material.card.MaterialCardView>
         
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_nav_view"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            app:menu="@menu/bottom_nav"
             app:itemTextAppearanceActive="@style/BottomNavigationView.Active"
             app:itemTextAppearanceInactive="@style/BottomNavigationView"
             app:labelVisibilityMode="labeled"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-    
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:menu="@menu/bottom_nav" />
+        
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/fab_margin"
+            android:tint="@color/white"
             app:layout_constraintBottom_toTopOf="@id/timer_panel"
             app:layout_constraintEnd_toEndOf="parent"
-            android:tint="@color/white"
-            app:srcCompat="@drawable/ic_add_24dp"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:srcCompat="@drawable/ic_add" />
     
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

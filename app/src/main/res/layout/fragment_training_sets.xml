@@ -1,93 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     
     <data>
+        
         <variable
             name="exercise_measures"
-            type="com.dmitrysimakov.kilogram.data.local.relation.ExerciseMeasures"/>
+            type="com.dmitrysimakov.kilogram.data.local.relation.ExerciseMeasures" />
     </data>
     
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.home.trainings.training_sets.TrainingSetsFragment">
+        android:orientation="vertical">
         
-        <TextView
-            android:id="@+id/header_num"
-            android:layout_width="50dp"
-            android:layout_height="30dp"
-            android:gravity="center"
-            android:text="@string/num"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="32dp">
+            
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/num"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+            
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/weight"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                app:goneUnless="@{exercise_measures.weight}" />
+            
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/reps"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                app:goneUnless="@{exercise_measures.reps}" />
+            
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/time"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                app:goneUnless="@{exercise_measures.time}" />
+            
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/distance"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                app:goneUnless="@{exercise_measures.distance}" />
         
-        <TextView
-            android:id="@+id/header_weight"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:gravity="center"
-            android:text="@string/weight"
-            android:textSize="12sp"
-            app:goneUnless="@{exercise_measures.weight}"
-            app:layout_constraintEnd_toStartOf="@id/header_reps"
-            app:layout_constraintStart_toEndOf="@id/header_num"
-            app:layout_constraintTop_toTopOf="parent"/>
+        </LinearLayout>
         
-        <TextView
-            android:id="@+id/header_reps"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:gravity="center"
-            android:text="@string/reps"
-            android:textSize="12sp"
-            app:goneUnless="@{exercise_measures.reps}"
-            app:layout_constraintEnd_toStartOf="@id/header_time"
-            app:layout_constraintStart_toEndOf="@id/header_weight"
-            app:layout_constraintTop_toTopOf="parent"/>
-        
-        <TextView
-            android:id="@+id/header_time"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:gravity="center"
-            android:text="@string/time"
-            android:textSize="12sp"
-            app:goneUnless="@{exercise_measures.time}"
-            app:layout_constraintEnd_toStartOf="@id/header_distance"
-            app:layout_constraintStart_toEndOf="@id/header_reps"
-            app:layout_constraintTop_toTopOf="parent"/>
-        
-        <TextView
-            android:id="@+id/header_distance"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:gravity="center"
-            android:text="@string/distance"
-            android:textSize="12sp"
-            app:goneUnless="@{exercise_measures.distance}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/header_time"
-            app:layout_constraintTop_toTopOf="parent"/>
-        
-        <View
-            android:id="@+id/divider"
-            style="@style/VerticalDivider"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/header_num"/>
+        <View style="@style/VerticalDivider" />
         
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_weight="1"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider"
-            tools:listitem="@layout/item_training_set"/>
+            tools:listitem="@layout/item_training_set" />
     
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </layout>

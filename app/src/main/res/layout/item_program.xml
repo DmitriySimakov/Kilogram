@@ -1,41 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     
     <data>
+        
         <variable
             name="program"
-            type="com.dmitrysimakov.kilogram.data.local.entity.Program"/>
+            type="com.dmitrysimakov.kilogram.data.local.entity.Program" />
     </data>
     
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/listPreferredItemHeight"
-        android:background="@color/white">
-
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="?attr/listPreferredItemPaddingLeft"
-            android:paddingEnd="?attr/listPreferredItemPaddingRight"
-            android:textAppearance="?android:attr/textAppearanceListItem"
-            android:text="@{program.name}"
-            tools:text="Название программы"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="?attr/listPreferredItemPaddingLeft"
-            android:paddingEnd="?attr/listPreferredItemPaddingRight"
-            android:text="@{program.description}"
-            tools:text="Описание"
-            app:layout_constraintTop_toBottomOf="@id/name"/>
+    <LinearLayout
+        style="@style/HorizontalListItem"
+        android:orientation="vertical">
         
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{program.name}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            tools:text="Название программы" />
+        
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{program.description}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            tools:text="Описание" />
     
+    </LinearLayout>
+
 </layout>

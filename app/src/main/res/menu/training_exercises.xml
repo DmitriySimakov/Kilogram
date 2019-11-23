@@ -7,7 +7,7 @@
         android:id="@+id/finish_training"
         android:orderInCategory="1"
         android:title="@string/finish_training"
-        android:icon="@drawable/ic_flag_24dp"
+        android:icon="@drawable/ic_flag"
         app:showAsAction="ifRoom" />
 
 </menu>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     
     <data>
+        
         <variable
             name="vm"
             type="com.dmitrysimakov.kilogram.ui.catalog.exercises.detail.DetailedExerciseViewModel" />
@@ -12,24 +12,28 @@
     
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.catalog.exercises.detail.DetailedExerciseFragment">
+        android:layout_height="match_parent">
         
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/fragment_padding">
+            android:padding="@dimen/frame_padding">
             
             <TextView
                 android:id="@+id/exercise_name"
-                style="@style/Field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:text="@{vm.exercise.name}"
-                tools:text="@string/exercise_name"/>
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                tools:text="@string/exercise_name" />
             
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
                 android:orientation="horizontal">
                 
                 <ImageView
@@ -40,7 +44,7 @@
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/first_phase"
                     app:assetsImage='@{"exercises/"+ vm.exercise.name +"_1.jpeg"}'
-                    tools:src="@drawable/exercise_sample_1"/>
+                    tools:src="@drawable/exercise_sample_1" />
                 
                 <ImageView
                     android:id="@+id/image_2"
@@ -50,53 +54,73 @@
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/second_phase"
                     app:assetsImage='@{"exercises/"+ vm.exercise.name +"_2.jpeg"}'
-                    tools:src="@drawable/exercise_sample_2"/>
+                    tools:src="@drawable/exercise_sample_2" />
             
             </LinearLayout>
             
             <TextView
-                style="@style/Label"
-                android:text="@string/exerciseTarget"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:text="@string/exerciseTarget"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
             
             <TextView
-                android:id="@+id/exercise_target"
-                style="@style/Field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:text="@{vm.exercise.target}"
-                tools:text="@string/exerciseTarget"/>
-            
-            <View style="@style/VerticalDivider"/>
-            
-            <TextView
-                style="@style/Label"
-                android:text="@string/targeted_muscles"/>
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                tools:text="@string/exerciseTarget" />
             
             <TextView
-                android:id="@+id/targeted_muscles"
-                style="@style/Field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:text="@string/targeted_muscles"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:text="@{vm.targetedMuscles}"
-                tools:text="@string/targeted_muscles"/>
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                tools:text="@string/targeted_muscles" />
             
             <TextView
-                style="@style/Label"
-                android:text="@string/equipment"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:text="@string/equipment"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
             
             <TextView
-                android:id="@+id/equipment"
-                style="@style/Field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:text="@{vm.exercise.equipment}"
-                tools:text="@string/equipment"/>
-            
-            <View style="@style/VerticalDivider"/>
-            
-            <TextView
-                style="@style/Label"
-                android:text="@string/description"/>
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                tools:text="@string/equipment" />
             
             <TextView
-                android:id="@+id/description"
-                style="@style/Field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:text="@string/description"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:text="@{vm.exercise.description}"
-                tools:text="@string/description"/>
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                tools:text="@string/description" />
         
         </LinearLayout>
     

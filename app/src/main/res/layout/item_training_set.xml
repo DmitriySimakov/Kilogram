@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     
     <data>
+        
         <variable
             name="exercise_measures"
-            type="com.dmitrysimakov.kilogram.data.local.relation.ExerciseMeasures"/>
+            type="com.dmitrysimakov.kilogram.data.local.relation.ExerciseMeasures" />
         
         <variable
             name="set"
-            type="com.dmitrysimakov.kilogram.data.local.relation.SetWithPreviousResults"/>
+            type="com.dmitrysimakov.kilogram.data.local.relation.SetWithPreviousResults" />
     </data>
     
     <LinearLayout
@@ -24,8 +24,8 @@
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:textColor="@{set.weight != null || set.reps != null || set.time != null || set.distance != null ? @color/black : @color/grey500}"
-            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="1" />
         
@@ -34,36 +34,36 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:gone="@{exercise_measures.weight}"
             app:curr="@{set.weight}"
-            app:prev="@{set.prev_weight}"/>
-    
+            app:gone="@{exercise_measures.weight}"
+            app:prev="@{set.prev_weight}" />
+        
         <include
             layout="@layout/progress"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:gone="@{exercise_measures.reps}"
             app:curr="@{set.reps}"
-            app:prev="@{set.prev_reps}"/>
+            app:gone="@{exercise_measures.reps}"
+            app:prev="@{set.prev_reps}" />
         
         <include
             layout="@layout/progress"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:gone="@{exercise_measures.time}"
             app:curr="@{set.time}"
-            app:prev="@{set.prev_time}"/>
+            app:gone="@{exercise_measures.time}"
+            app:prev="@{set.prev_time}" />
         
         <include
             layout="@layout/progress"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:gone="@{exercise_measures.distance}"
             app:curr="@{set.distance}"
-            app:prev="@{set.prev_distance}"/>
+            app:gone="@{exercise_measures.distance}"
+            app:prev="@{set.prev_distance}" />
     
     </LinearLayout>
 

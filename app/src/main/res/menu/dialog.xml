@@ -7,7 +7,7 @@
         android:id="@+id/ok"
         android:orderInCategory="1"
         android:title="@string/ok"
-        android:icon="@drawable/ic_done_24dp"
+        android:icon="@drawable/ic_done"
         app:showAsAction="always" />
 
 </menu>

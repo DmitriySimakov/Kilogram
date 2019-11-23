@@ -7,7 +7,7 @@
         android:id="@+id/calendar"
         android:orderInCategory="1"
         android:title="@string/calendar"
-        android:icon="@drawable/ic_calendar_multiselect_24dp"
+        android:icon="@drawable/ic_calendar_multiselect"
         app:showAsAction="ifRoom" />
     
 </menu>

@@ -1,51 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     
     <data>
+        
         <variable
             name="day"
-            type="com.dmitrysimakov.kilogram.data.local.entity.ProgramDay"/>
+            type="com.dmitrysimakov.kilogram.data.local.entity.ProgramDay" />
     </data>
     
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/listPreferredItemHeight"
-        android:background="@color/white">
-
+    <androidx.constraintlayout.widget.ConstraintLayout style="@style/HorizontalListItem">
+        
         <TextView
             android:id="@+id/nameTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="?attr/listPreferredItemPaddingLeft"
-            android:layout_marginEnd="?attr/listPreferredItemPaddingLeft"
-            android:textAppearance="?android:attr/textAppearanceListItem"
             android:text="@{day.name}"
-            tools:text="@string/name"
-            app:layout_constraintTop_toTopOf="parent"/>
-
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/name" />
+        
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="?attr/listPreferredItemPaddingLeft"
             android:text="@{day.description}"
-            tools:text="@string/description"
-            app:layout_constraintTop_toBottomOf="@id/nameTV"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            app:layout_constraintEnd_toStartOf="@id/drag_icon"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/drag_icon"/>
-
+            app:layout_constraintTop_toBottomOf="@id/nameTV"
+            tools:text="@string/description" />
+        
         <ImageView
             android:id="@+id/drag_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="?android:attr/listPreferredItemPaddingLeft"
-            app:layout_constraintTop_toTopOf="parent"
+            style="@style/IconButton"
+            android:src="@drawable/ic_drag_indicator"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:src="@drawable/ic_drag_indicator_24dp"/>
-        
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toTopOf="parent" />
     
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

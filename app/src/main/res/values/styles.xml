@@ -40,21 +40,24 @@
     
     <!-- STYLES -->
     
-    <style name="Label">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:paddingTop">4dp</item>
-        <item name="android:paddingBottom">4dp</item>
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body2</item>
+    <style name="BottomNavigationView" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">10sp</item>
     </style>
-
-    <style name="Field">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:paddingBottom">8dp</item>
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+    
+    <style name="BottomNavigationView.Active" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">10sp</item>
     </style>
-
+    
+    <style name="HorizontalListItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/listPreferredItemHeight</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:paddingTop">@dimen/list_item_vertical_padding</item>
+        <item name="android:paddingBottom">@dimen/list_item_vertical_padding</item>
+        <item name="android:paddingStart">@dimen/list_item_horizontal_padding</item>
+        <item name="android:paddingEnd">@dimen/list_item_horizontal_padding</item>
+    </style>
+    
     <style name="VerticalDivider">
         <item name="android:layout_height">1px</item>
         <item name="android:layout_width">match_parent</item>
@@ -66,18 +69,12 @@
         <item name="android:layout_width">1px</item>
         <item name="android:background">?android:attr/listDivider</item>
     </style>
-    
-    <style name="ImageToggleButton" parent="android:Widget.Material.Button.Toggle">
-        <item name="android:textOn"/>
-        <item name="android:textOff"/>
-    </style>
-    
-    <style name="BottomNavigationView" parent="@style/TextAppearance.AppCompat.Caption">
-        <item name="android:textSize">10sp</item>
-    </style>
-    
-    <style name="BottomNavigationView.Active" parent="@style/TextAppearance.AppCompat.Caption">
-        <item name="android:textSize">10sp</item>
+
+    <style name="IconButton">
+        <item name="android:layout_height">@dimen/icon_button_size</item>
+        <item name="android:layout_width">@dimen/icon_button_size</item>
+        <item name="android:padding">@dimen/icon_button_padding</item>
+        <item name="android:layout_gravity">center</item>
     </style>
     
 </resources>

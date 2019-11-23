@@ -3,27 +3,27 @@
     
     <item
         android:id="@+id/home"
-        android:icon="@drawable/ic_home_24dp"
+        android:icon="@drawable/ic_home"
         android:title="@string/home" />
     
     <item
         android:id="@+id/catalog"
-        android:icon="@drawable/ic_fitness_center_24dp"
+        android:icon="@drawable/ic_fitness_center"
         android:title="@string/catalog" />
 
     <item
         android:id="@+id/subscriptions"
-        android:icon="@drawable/ic_subscriptions_24dp"
+        android:icon="@drawable/ic_subscriptions"
         android:title="@string/subscriptions"/>
     
     <item
         android:id="@+id/search"
-        android:icon="@drawable/ic_search_24dp"
+        android:icon="@drawable/ic_search"
         android:title="@string/search"/>
     
     <item
         android:id="@+id/profile"
-        android:icon="@drawable/ic_person_24dp"
+        android:icon="@drawable/ic_person"
         android:title="@string/profile" />
     
 </menu>

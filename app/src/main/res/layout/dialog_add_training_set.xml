@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     
     <data>
-        <import type="com.dmitrysimakov.kilogram.util.Converter"/>
+        
+        <import type="com.dmitrysimakov.kilogram.util.Converter" />
         
         <variable
             name="viewModel"
@@ -15,21 +15,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="?attr/dialogPreferredPadding"
-        tools:context=".ui.home.trainings.add_training_set.AddTrainingSetDialog">
+        android:padding="?attr/dialogPreferredPadding">
         
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:goneUnless="@{viewModel.measures.weight}">
             
-            <Button
-                android:layout_width="@dimen/min_touch_size"
-                android:layout_height="@dimen/min_touch_size"
-                android:layout_gravity="center"
+            <ImageView
+                style="@style/IconButton"
+                android:layout_gravity="center_vertical"
                 android:onClick="@{() -> viewModel.decreaseWeight()}"
-                android:text="@string/minus_sign"
-                android:textSize="@dimen/sign_button_text_size" />
+                android:src="@drawable/ic_remove" />
             
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
@@ -42,21 +39,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:hint="@string/weight_kg"
                     android:inputType="number"
                     android:selectAllOnFocus="true"
-                    app:notEmpty="@{true}"
-                    android:hint="@string/weight_kg"
-                    android:text="@={Converter.intToString(viewModel.trainingSet.weight)}"/>
-                
+                    android:text="@={Converter.intToString(viewModel.trainingSet.weight)}"
+                    app:notEmpty="@{true}" />
+            
             </com.google.android.material.textfield.TextInputLayout>
             
-            <Button
-                android:layout_width="@dimen/min_touch_size"
-                android:layout_height="@dimen/min_touch_size"
-                android:layout_gravity="center"
+            <ImageView
+                style="@style/IconButton"
+                android:layout_gravity="center_vertical"
                 android:onClick="@{() -> viewModel.increaseWeight()}"
-                android:text="@string/plus_sign"
-                android:textSize="@dimen/sign_button_text_size" />
+                android:src="@drawable/ic_add" />
         
         </LinearLayout>
         
@@ -65,40 +60,36 @@
             android:layout_height="wrap_content"
             app:goneUnless="@{viewModel.measures.reps}">
             
-            <Button
-                android:layout_width="@dimen/min_touch_size"
-                android:layout_height="@dimen/min_touch_size"
-                android:layout_gravity="center"
+            <ImageView
+                style="@style/IconButton"
+                android:layout_gravity="center_vertical"
                 android:onClick="@{() -> viewModel.decreaseReps()}"
-                android:text="@string/minus_sign"
-                android:textSize="@dimen/sign_button_text_size" />
-    
+                android:src="@drawable/ic_remove" />
+            
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 app:errorEnabled="true">
-        
+                
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/repsET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:hint="@string/reps"
                     android:inputType="number"
                     android:selectAllOnFocus="true"
-                    app:notEmpty="@{true}"
-                    android:hint="@string/reps"
-                    android:text="@={Converter.intToString(viewModel.trainingSet.reps)}"/>
-    
+                    android:text="@={Converter.intToString(viewModel.trainingSet.reps)}"
+                    app:notEmpty="@{true}" />
+            
             </com.google.android.material.textfield.TextInputLayout>
             
-            <Button
-                android:layout_width="@dimen/min_touch_size"
-                android:layout_height="@dimen/min_touch_size"
-                android:layout_gravity="center"
+            <ImageView
+                style="@style/IconButton"
+                android:layout_gravity="center_vertical"
                 android:onClick="@{() -> viewModel.increaseReps()}"
-                android:text="@string/plus_sign"
-                android:textSize="@dimen/sign_button_text_size" />
+                android:src="@drawable/ic_add" />
         
         </LinearLayout>
         
@@ -107,40 +98,36 @@
             android:layout_height="wrap_content"
             app:goneUnless="@{viewModel.measures.time}">
             
-            <Button
-                android:layout_width="@dimen/min_touch_size"
-                android:layout_height="@dimen/min_touch_size"
-                android:layout_gravity="center"
+            <ImageView
+                style="@style/IconButton"
+                android:layout_gravity="center_vertical"
                 android:onClick="@{() -> viewModel.decreaseTime()}"
-                android:text="@string/minus_sign"
-                android:textSize="@dimen/sign_button_text_size" />
-    
+                android:src="@drawable/ic_remove" />
+            
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 app:errorEnabled="true">
-        
+                
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/timeET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:hint="@string/time_sec"
                     android:inputType="number"
                     android:selectAllOnFocus="true"
-                    app:notEmpty="@{true}"
-                    android:hint="@string/time_sec"
-                    android:text="@={Converter.intToString(viewModel.trainingSet.time)}"/>
-    
+                    android:text="@={Converter.intToString(viewModel.trainingSet.time)}"
+                    app:notEmpty="@{true}" />
+            
             </com.google.android.material.textfield.TextInputLayout>
             
-            <Button
-                android:layout_width="@dimen/min_touch_size"
-                android:layout_height="@dimen/min_touch_size"
-                android:layout_gravity="center"
+            <ImageView
+                style="@style/IconButton"
+                android:layout_gravity="center_vertical"
                 android:onClick="@{() -> viewModel.increaseTime()}"
-                android:text="@string/plus_sign"
-                android:textSize="@dimen/sign_button_text_size" />
+                android:src="@drawable/ic_add" />
         
         </LinearLayout>
         
@@ -149,40 +136,36 @@
             android:layout_height="wrap_content"
             app:goneUnless="@{viewModel.measures.distance}">
             
-            <Button
-                android:layout_width="@dimen/min_touch_size"
-                android:layout_height="@dimen/min_touch_size"
-                android:layout_gravity="center"
+            <ImageView
+                style="@style/IconButton"
+                android:layout_gravity="center_vertical"
                 android:onClick="@{() -> viewModel.decreaseDistance()}"
-                android:text="@string/minus_sign"
-                android:textSize="@dimen/sign_button_text_size" />
-    
+                android:src="@drawable/ic_remove" />
+            
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 app:errorEnabled="true">
-        
+                
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/distanceET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:hint="@string/distance_metres"
                     android:inputType="number"
                     android:selectAllOnFocus="true"
-                    app:notEmpty="@{true}"
-                    android:hint="@string/distance_metres"
-                    android:text="@={Converter.intToString(viewModel.trainingSet.distance)}"/>
-    
+                    android:text="@={Converter.intToString(viewModel.trainingSet.distance)}"
+                    app:notEmpty="@{true}" />
+            
             </com.google.android.material.textfield.TextInputLayout>
             
-            <Button
-                android:layout_width="@dimen/min_touch_size"
-                android:layout_height="@dimen/min_touch_size"
-                android:layout_gravity="center"
+            <ImageView
+                style="@style/IconButton"
+                android:layout_gravity="center_vertical"
                 android:onClick="@{() -> viewModel.increaseDistance()}"
-                android:text="@string/plus_sign"
-                android:textSize="@dimen/sign_button_text_size" />
+                android:src="@drawable/ic_add" />
         
         </LinearLayout>
     

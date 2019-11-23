@@ -80,8 +80,8 @@ class ChooseExerciseViewModel (
         query.value = SimpleSQLiteQuery(res)
     }
     
-    fun setFavorite(exercise: Exercise, isChecked: Boolean) = viewModelScope.launch {
-        exerciseRepo.setFavorite(exercise.name, isChecked)
+    fun setFavorite(exercise: Exercise) = viewModelScope.launch {
+        exerciseRepo.setFavorite(exercise.name, !exercise.is_favorite)
     }
     
     fun setChecked(filterParams: LiveData<List<FilterParam>>, name: String, isChecked: Boolean) {
