@@ -70,7 +70,7 @@ class TrainingsFragment : Fragment() {
     }
     
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.calendar -> {
+        R.id.calendarView -> {
             val calendar = Calendar.getInstance()
             val curYear = calendar.get(Calendar.YEAR)
             val curMonthOfYear = calendar.get(Calendar.MONTH)

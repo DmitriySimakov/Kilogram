@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -28,10 +27,6 @@ fun <T> MutableLiveData<T>.setNewValue(newValue: T?) {
     if (value != newValue) {
         value = newValue
     }
-}
-
-fun EditText.getIntValue(): Int {
-    return try { text.toString().toInt() } catch (e: Exception) { 0 }
 }
 
 fun Context.toast(message: CharSequence, duration: Int = Toast.LENGTH_SHORT) {

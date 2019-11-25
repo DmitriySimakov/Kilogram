@@ -17,10 +17,15 @@ import com.dmitrysimakov.kilogram.data.local.entity.Photo
 import com.dmitrysimakov.kilogram.data.local.relation.MeasurementWithPreviousResults
 import com.dmitrysimakov.kilogram.databinding.FragmentHomeBinding
 import com.dmitrysimakov.kilogram.ui.common.measurements.MeasurementsAdapter
+import com.kizitonwose.calendarview.utils.next
+import com.kizitonwose.calendarview.utils.previous
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.threeten.bp.YearMonth
+import org.threeten.bp.temporal.WeekFields
 import java.io.File
 import java.io.IOException
+import java.text.SimpleDateFormat
 import java.util.*
 
 private const val RC_TAKE_PHOTO = 1
@@ -31,6 +36,8 @@ class HomeFragment : Fragment() {
     
     private lateinit var binding: FragmentHomeBinding
     
+    private val calendarMonthBinder by lazy { CalendarMonthBinder() }
+    private val calendarDayBinder by lazy { CalendarDayBinder(resources) }
     private val photosAdapter by lazy { PhotosAdapter() }
     private val measurementsAdapter by lazy { MeasurementsAdapter() }
     
@@ -42,9 +49,46 @@ class HomeFragment : Fragment() {
         binding.vm = vm
         binding.photosRV.adapter = photosAdapter
         binding.measurementsRV.adapter = measurementsAdapter
+        setupCalendar()
         binding.lifecycleOwner = this
         return binding.root
     }
+    
+    private fun setupCalendar() {
+        binding.apply {
+            calendarView.apply {
+                dayBinder = calendarDayBinder
+                monthHeaderBinder = calendarMonthBinder
+                monthScrollListener = { month ->
+                    val calendar = Calendar.getInstance()
+                    calendar.set(Calendar.MONTH, month.month - 1)
+                    calendar.set(Calendar.YEAR, month.year)
+                    val formattedDate = SimpleDateFormat("LLLL yyyy г.", Locale.getDefault()).format(calendar.time)
+                    dateLabel.text = formattedDate.capitalize()
+                }
+        
+                val currentMonth = YearMonth.now()
+                val firstMonth = YearMonth.of(2000, 1)
+                val lastMonth = currentMonth.plusMonths(1)
+                val firstDayOfWeek = WeekFields.of(Locale.getDefault()).firstDayOfWeek
+                setup(firstMonth, lastMonth, firstDayOfWeek)
+                scrollToMonth(currentMonth)
+            }
+            
+            prevMonthButton.setOnClickListener {
+                calendarView.findFirstVisibleMonth()?.let {
+                    calendarView.smoothScrollToMonth(it.yearMonth.previous)
+                }
+            }
+    
+            nextMonthButton.setOnClickListener {
+                calendarView.findFirstVisibleMonth()?.let {
+                    calendarView.smoothScrollToMonth(it.yearMonth.next)
+                }
+            }
+        }
+    }
+    
     
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
