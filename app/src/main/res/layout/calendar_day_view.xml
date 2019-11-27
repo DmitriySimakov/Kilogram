@@ -25,7 +25,7 @@
         android:paddingBottom="1dp"
         android:paddingStart="2dp"
         android:paddingEnd="2dp"
-        android:background="@drawable/rectangle_rounded_corners"
+        android:background="@drawable/rectangle_rounded_corners_2dp"
         android:textColor="@color/white"
         android:textStyle="bold"
         android:textSize="8sp"

@@ -59,22 +59,32 @@
     </style>
     
     <style name="VerticalDivider">
-        <item name="android:layout_height">1px</item>
         <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
         <item name="android:background">?android:attr/listDivider</item>
     </style>
     
     <style name="HorizontalDivider">
-        <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">1px</item>
+        <item name="android:layout_height">match_parent</item>
         <item name="android:background">?android:attr/listDivider</item>
     </style>
 
     <style name="IconButton">
-        <item name="android:layout_height">@dimen/icon_button_size</item>
         <item name="android:layout_width">@dimen/icon_button_size</item>
+        <item name="android:layout_height">@dimen/icon_button_size</item>
         <item name="android:padding">@dimen/icon_button_padding</item>
         <item name="android:layout_gravity">center</item>
+    </style>
+    
+    <style name="MonthHeaderText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingStart">4dp</item>
+        <item name="android:paddingEnd">4dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">10sp</item>
     </style>
     
 </resources>

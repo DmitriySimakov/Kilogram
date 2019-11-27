@@ -10,58 +10,37 @@
     
     <TextView
         android:id="@+id/legendText1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="ПН"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+        style="@style/MonthHeaderText"
+        android:text="ПН"/>
     
     <TextView
         android:id="@+id/legendText2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="ВТ"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+        style="@style/MonthHeaderText"
+        android:text="ВТ"/>
     
     <TextView
         android:id="@+id/legendText3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="СР"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+        style="@style/MonthHeaderText"
+        android:text="СР"/>
     
     <TextView
         android:id="@+id/legendText4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="ЧТ"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+        style="@style/MonthHeaderText"
+        android:text="ЧТ"/>
     
     <TextView
         android:id="@+id/legendText5"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="ПТ"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+        style="@style/MonthHeaderText"
+        android:text="ПТ"/>
     
     <TextView
         android:id="@+id/legendText6"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="СБ"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+        style="@style/MonthHeaderText"
+        android:text="СБ"/>
     
     <TextView
         android:id="@+id/legendText7"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="ВС"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+        style="@style/MonthHeaderText"
+        android:text="ВС"/>
 
 </LinearLayout>

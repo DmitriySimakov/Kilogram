@@ -33,11 +33,11 @@ class CalendarDayBinder(private val resources: Resources) : DayBinder<DayViewCon
             textView.text = curDayCalendar.get(DAY_OF_MONTH).toString()
     
             if (day.owner != DayOwner.THIS_MONTH) {
-                textView.setTextColor(resources.getColor(R.color.grey700))
+                textView.setTextColor(resources.getColor(R.color.grey500))
             }
             
             if (curDayCalendar.sameDateAs(today)) {
-                textView.setBackgroundResource(R.drawable.rectangle_rounded_corners)
+                textView.setBackgroundResource(R.drawable.oval)
                 textView.setTextColor(resources.getColor(R.color.white))
             }
             
