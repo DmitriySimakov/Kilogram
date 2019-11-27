@@ -5,9 +5,15 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.dmitrysimakov.kilogram.data.local.entity.Photo
 import com.dmitrysimakov.kilogram.data.repository.PhotoRepository
+import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
 import kotlinx.coroutines.launch
 
-class HomeViewModel(private val photoRepository: PhotoRepository) : ViewModel() {
+class HomeViewModel(
+        private val trainingRepository: TrainingRepository,
+        private val photoRepository: PhotoRepository
+) : ViewModel() {
+    
+    val trainings = trainingRepository.detailedTrainingsFlow().asLiveData()
     
     val recentPhotos = photoRepository.recentPhotos(3).asLiveData()
     

@@ -14,6 +14,8 @@
     <color name="red200">#ef9a9a</color>
 
     <color name="green500">#8BC34A</color>
+    <color name="orange500">#FF9800</color>
+    <color name="light_blue500">#03A9F4</color>
 
     <color name="grey900">#212121</color>
     <color name="grey800">#424242</color>

@@ -13,7 +13,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center"
         android:text="ПН"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
     
@@ -22,7 +21,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center"
         android:text="ВТ"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
     
@@ -31,7 +29,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center"
         android:text="СР"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
     
@@ -40,7 +37,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center"
         android:text="ЧТ"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
     
@@ -49,7 +45,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center"
         android:text="ПТ"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
     
@@ -58,7 +53,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center"
         android:text="СБ"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
     
@@ -67,7 +61,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center"
         android:text="ВС"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
 

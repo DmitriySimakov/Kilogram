@@ -20,6 +20,7 @@ import com.dmitrysimakov.kilogram.ui.common.measurements.MeasurementsAdapter
 import com.kizitonwose.calendarview.utils.next
 import com.kizitonwose.calendarview.utils.previous
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.threeten.bp.YearMonth
 import org.threeten.bp.temporal.WeekFields
@@ -102,6 +103,10 @@ class HomeFragment : Fragment() {
             dispatchTakePictureIntent()
         }
         
+        vm.trainings.observe(viewLifecycleOwner, Observer {
+            calendarDayBinder.submitList(it)
+            calendarView.notifyCalendarChanged()
+        })
         vm.recentPhotos.observe(viewLifecycleOwner, Observer { photosAdapter.submitList(it) })
         measurementsAdapter.submitList(listOf(
                 MeasurementWithPreviousResults(1, "Шея", 37.0, 37.0, "lol", "kek"),

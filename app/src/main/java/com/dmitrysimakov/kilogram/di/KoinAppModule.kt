@@ -68,7 +68,7 @@ val appModule = module {
     viewModel { DetailedExerciseViewModel(get(), get()) }
     viewModel { CreateProgramViewModel(get()) }
     viewModel { CreateProgramDayViewModel(get(), get(), get()) }
-    viewModel { HomeViewModel(get()) }
+    viewModel { HomeViewModel(get(), get()) }
     viewModel { ProgramDayExercisesViewModel(get()) }
     viewModel { TrainingsViewModel(get()) }
     viewModel { CreateTrainingViewModel(get(), get(), get(), get(), get()) }
