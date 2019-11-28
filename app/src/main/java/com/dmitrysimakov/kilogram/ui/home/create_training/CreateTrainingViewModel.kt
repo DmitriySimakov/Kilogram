@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.home.trainings.create_training
+package com.dmitrysimakov.kilogram.ui.home.create_training
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,6 +15,7 @@ import com.dmitrysimakov.kilogram.data.repository.TrainingMuscleRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
 import com.dmitrysimakov.kilogram.util.Event
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.util.*
 
 class CreateTrainingViewModel(
@@ -59,6 +60,12 @@ class CreateTrainingViewModel(
         val trainingId = trainingRepo.insert(
                 Training(0, calendar.value!!.timeInMillis, null, programDayId)
         )
+        val c = calendar.value!!
+        val h = c.get(Calendar.HOUR)
+        val m = c.get(Calendar.MINUTE)
+        val s = c.get(Calendar.SECOND)
+        val ms = c.get(Calendar.MILLISECOND)
+        Timber.d("DATETIME $h $m $s $ms")
         if (byProgram.value == true) fillTrainingWithProgramExercises(trainingId)
         saveMuscles(trainingId)
         _trainingCreatedEvent.value = Event(trainingId)

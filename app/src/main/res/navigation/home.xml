@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/createTrainingFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.home.trainings.create_training.CreateTrainingDialog"
+        android:name="com.dmitrysimakov.kilogram.ui.home.create_training.CreateTrainingDialog"
         android:label="@string/training_session"
         tools:layout="@layout/dialog_create_training">
         <action

@@ -13,7 +13,10 @@ import timber.log.Timber
 import java.util.*
 import java.util.Calendar.*
 
-class CalendarDayBinder(private val resources: Resources) : DayBinder<DayViewContainer> {
+class CalendarDayBinder(
+        private val resources: Resources,
+        private val onClick: ((Calendar) -> Unit)
+) : DayBinder<DayViewContainer> {
     
     private var trainings = listOf<DetailedTraining>()
     
@@ -24,21 +27,19 @@ class CalendarDayBinder(private val resources: Resources) : DayBinder<DayViewCon
     override fun bind(container: DayViewContainer, day: CalendarDay) {
         Timber.d("BIND ${day.day}")
         container.apply {
-            val curDayCalendar = getInstance().apply {
-                set(YEAR, day.date.year)
-                set(MONTH, day.date.monthValue - 1)
-                set(DAY_OF_MONTH, day.date.dayOfMonth)
-            }
+            val curDayCalendar = GregorianCalendar(day.date.year, day.date.monthValue - 1, day.date.dayOfMonth)
             
-            textView.text = curDayCalendar.get(DAY_OF_MONTH).toString()
+            layout.setOnClickListener { onClick(curDayCalendar) }
+            
+            dayText.text = curDayCalendar.get(DAY_OF_MONTH).toString()
     
             if (day.owner != DayOwner.THIS_MONTH) {
-                textView.setTextColor(resources.getColor(R.color.grey500))
+                dayText.setTextColor(resources.getColor(R.color.grey500))
             }
             
             if (curDayCalendar.sameDateAs(today)) {
-                textView.setBackgroundResource(R.drawable.oval)
-                textView.setTextColor(resources.getColor(R.color.white))
+                dayText.setBackgroundResource(R.drawable.oval)
+                dayText.setTextColor(resources.getColor(R.color.white))
             }
             
             val currentDayTrainings = trainings.filter {
@@ -64,7 +65,8 @@ class CalendarDayBinder(private val resources: Resources) : DayBinder<DayViewCon
 }
 
 class DayViewContainer(view: View) : ViewContainer(view) {
-    val textView = view.calendarDayText
+    val layout = view.layout
+    val dayText = view.dayText
     val training = view.training
     val more = view.more
 }

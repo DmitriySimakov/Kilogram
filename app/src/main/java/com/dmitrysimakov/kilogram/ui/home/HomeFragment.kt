@@ -17,10 +17,10 @@ import com.dmitrysimakov.kilogram.data.local.entity.Photo
 import com.dmitrysimakov.kilogram.data.local.relation.MeasurementWithPreviousResults
 import com.dmitrysimakov.kilogram.databinding.FragmentHomeBinding
 import com.dmitrysimakov.kilogram.ui.common.measurements.MeasurementsAdapter
+import com.dmitrysimakov.kilogram.ui.home.calendar_day_overview.CalendarDayOverviewDialog
 import com.kizitonwose.calendarview.utils.next
 import com.kizitonwose.calendarview.utils.previous
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.threeten.bp.YearMonth
 import org.threeten.bp.temporal.WeekFields
@@ -38,7 +38,9 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     
     private val calendarMonthBinder by lazy { CalendarMonthBinder() }
-    private val calendarDayBinder by lazy { CalendarDayBinder(resources) }
+    private val calendarDayBinder by lazy { CalendarDayBinder(resources) {
+        CalendarDayOverviewDialog.newInstance(it).show(activity!!.supportFragmentManager, null)
+    }}
     private val photosAdapter by lazy { PhotosAdapter() }
     private val measurementsAdapter by lazy { MeasurementsAdapter() }
     
@@ -61,9 +63,7 @@ class HomeFragment : Fragment() {
                 dayBinder = calendarDayBinder
                 monthHeaderBinder = calendarMonthBinder
                 monthScrollListener = { month ->
-                    val calendar = Calendar.getInstance()
-                    calendar.set(Calendar.MONTH, month.month - 1)
-                    calendar.set(Calendar.YEAR, month.year)
+                    val calendar = GregorianCalendar(month.year, month.month - 1, 1)
                     val formattedDate = SimpleDateFormat("LLLL yyyy г.", Locale.getDefault()).format(calendar.time)
                     dateLabel.text = formattedDate.capitalize()
                 }
@@ -105,7 +105,7 @@ class HomeFragment : Fragment() {
         
         vm.trainings.observe(viewLifecycleOwner, Observer {
             calendarDayBinder.submitList(it)
-            calendarView.notifyCalendarChanged()
+            binding.calendarView.notifyCalendarChanged()
         })
         vm.recentPhotos.observe(viewLifecycleOwner, Observer { photosAdapter.submitList(it) })
         measurementsAdapter.submitList(listOf(

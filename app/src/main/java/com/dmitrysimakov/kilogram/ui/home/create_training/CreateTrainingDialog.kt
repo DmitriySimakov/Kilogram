@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.home.trainings.create_training
+package com.dmitrysimakov.kilogram.ui.home.create_training
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -48,9 +48,7 @@ class CreateTrainingDialog : Fragment() {
             val curMonthOfYear = calendar.get(Calendar.MONTH)
             val curDay = calendar.get(Calendar.DAY_OF_MONTH)
             DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                calendar.set(Calendar.YEAR, year)
-                calendar.set(Calendar.MONTH, monthOfYear)
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                calendar.set(year, monthOfYear, dayOfMonth)
                 vm.updateCalendar()
             }, curYear, curMonthOfYear, curDay).apply {
                 datePicker.minDate = 0
@@ -125,7 +123,7 @@ class CreateTrainingDialog : Fragment() {
     
     private fun setupNavigation() {
         vm.trainingCreatedEvent.observe(viewLifecycleOwner, EventObserver{
-            findNavController().navigate(CreateTrainingDialogDirections.toExercisesFragment(it))
+            findNavController().navigate(CreateTrainingDialogDirections.toExercisesFragment(true, it))
         })
     }
 }

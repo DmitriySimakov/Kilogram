@@ -75,10 +75,9 @@ class TrainingsFragment : Fragment() {
             val curYear = calendar.get(Calendar.YEAR)
             val curMonthOfYear = calendar.get(Calendar.MONTH)
             val curDay = calendar.get(Calendar.DAY_OF_MONTH)
+            calendar.set(curYear, curMonthOfYear, curDay, 0, 0, 0)
             DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                calendar.set(Calendar.YEAR, year)
-                calendar.set(Calendar.MONTH, monthOfYear)
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                calendar.set(year, monthOfYear, dayOfMonth)
                 (recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(
                         vm.findPositionInTrainingList(calendar), 0)
             }, curYear, curMonthOfYear, curDay).apply {

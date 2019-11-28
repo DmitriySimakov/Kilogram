@@ -2,7 +2,7 @@ apply plugin: "com.android.application"
 apply plugin: "kotlin-android"
 apply plugin: "kotlin-android-extensions"
 apply plugin: "kotlin-kapt"
-apply plugin: "androidx.navigation.safeargs"
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion 29
@@ -78,8 +78,8 @@ dependencies {
     //endregion lifecycle
     
     //region navigation
-    implementation "android.arch.navigation:navigation-fragment-ktx:$rootProject.navigation_version"
-    implementation "android.arch.navigation:navigation-ui-ktx:$rootProject.navigation_version"
+    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigation_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigation_version"
     //endregion navigation
     
     //region room
@@ -90,7 +90,7 @@ dependencies {
     //endregion room
     
     //region work manager
-    implementation "android.arch.work:work-runtime-ktx:1.0.1"
+    implementation "androidx.work:work-runtime-ktx:2.2.0"
     //endregion work manager
     
     //endregion Architecture components

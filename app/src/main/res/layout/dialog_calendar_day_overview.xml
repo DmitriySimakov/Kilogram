@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+    
+        <import type="com.dmitrysimakov.kilogram.util.Converter" />
+        
+        <variable
+            name="vm"
+            type="com.dmitrysimakov.kilogram.ui.home.calendar_day_overview.CalendarDayOverviewViewModel" />
+    </data>
+    
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            
+            <ImageView
+                android:id="@+id/prevDayButton"
+                style="@style/IconButton"
+                app:srcCompat="@drawable/ic_keyboard_arrow_left" />
+            
+            <TextView
+                android:id="@+id/dateLabel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:text="@{Converter.calendarToDateFormat(vm.calendar)}"
+                tools:text="1 января 1970 г." />
+            
+            <ImageView
+                android:id="@+id/nextDayButton"
+                style="@style/IconButton"
+                app:srcCompat="@drawable/ic_keyboard_arrow_right" />
+        
+        </LinearLayout>
+        
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_training"
+            tools:itemCount="2"/>
+    
+        <Button
+            android:id="@+id/addTrainingButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Добавить тренировку"/>
+        
+    </LinearLayout>
+
+</layout>

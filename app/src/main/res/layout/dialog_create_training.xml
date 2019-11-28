@@ -9,7 +9,7 @@
         
         <variable
             name="vm"
-            type="com.dmitrysimakov.kilogram.ui.home.trainings.create_training.CreateTrainingViewModel" />
+            type="com.dmitrysimakov.kilogram.ui.home.create_training.CreateTrainingViewModel" />
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout
