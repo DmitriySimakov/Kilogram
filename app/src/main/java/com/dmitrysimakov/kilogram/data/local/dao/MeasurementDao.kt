@@ -17,13 +17,13 @@ interface MeasurementDao {
             ORDER BY date DESC LIMIT 0, 1) AS value,
         (SELECT value FROM measurement
             WHERE param = bmp.param
-            ORDER BY date DESC LIMIT 1, 1) AS prevValue,
+            ORDER BY date DESC LIMIT 1, 1) AS prev_value,
         (SELECT date FROM measurement
             WHERE param = bmp.param
             ORDER BY date DESC LIMIT 0, 1) AS date,
         (SELECT date FROM measurement
             WHERE param = bmp.param
-            ORDER BY date DESC LIMIT 1, 1) AS prevDate
+            ORDER BY date DESC LIMIT 1, 1) AS prev_date
         FROM measurement AS bmp
     """)
     suspend fun measurementsWithPreviousResults() : List<MeasurementWithPreviousResults>

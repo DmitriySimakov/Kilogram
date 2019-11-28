@@ -18,7 +18,9 @@ import com.dmitrysimakov.kilogram.util.setXNavIcon
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.*
+import org.threeten.bp.LocalDate
+import org.threeten.bp.Year
+import org.threeten.bp.ZoneOffset
 
 class CreateTrainingDialog : Fragment() {
     
@@ -43,17 +45,13 @@ class CreateTrainingDialog : Fragment() {
     
     private fun setDatePickerDialog() {
         binding.dateTv.setOnClickListener {
-            val calendar = vm.calendar.value!!
-            val curYear = calendar.get(Calendar.YEAR)
-            val curMonthOfYear = calendar.get(Calendar.MONTH)
-            val curDay = calendar.get(Calendar.DAY_OF_MONTH)
+            val dateTime = vm.dateTime.value!!
             DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                calendar.set(year, monthOfYear, dayOfMonth)
-                vm.updateCalendar()
-            }, curYear, curMonthOfYear, curDay).apply {
-                datePicker.minDate = 0
-                val millisecondsPerMonth = 30L * 24 * 60 * 60 * 1000
-                datePicker.maxDate = Date().time + millisecondsPerMonth
+                vm.setDateTime(dateTime.withYear(year).withMonth(monthOfYear).withDayOfMonth(dayOfMonth))
+            }, dateTime.year, dateTime.monthValue, dateTime.dayOfMonth).apply {
+                fun LocalDate.toEpochMilli() = atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli()
+                datePicker.minDate = Year.of(2000).atDay(1).toEpochMilli()
+                datePicker.maxDate = LocalDate.now().plusMonths(1).toEpochMilli()
                 show()
             }
         }
@@ -61,14 +59,10 @@ class CreateTrainingDialog : Fragment() {
 
     private fun setTimePickerDialog() {
         binding.timeTv.setOnClickListener{
-            val calendar = vm.calendar.value!!
-            val curHourOfDay = calendar.get(Calendar.HOUR_OF_DAY)
-            val curMinute = calendar.get(Calendar.MINUTE)
+            val dateTime = vm.dateTime.value!!
             val dialog = TimePickerDialog(context, { _, hourOfDay, minute ->
-                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                calendar.set(Calendar.MINUTE, minute)
-                vm.updateCalendar()
-            }, curHourOfDay, curMinute, true)
+                vm.setDateTime(dateTime.withHour(hourOfDay).withMinute(minute))
+            }, dateTime.hour, dateTime.minute, true)
             dialog.show()
         }
     }

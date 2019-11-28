@@ -9,9 +9,9 @@ import com.dmitrysimakov.kilogram.databinding.DialogCalendarDayOverviewBinding
 import com.dmitrysimakov.kilogram.ui.home.trainings.trainings.TrainingsAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.*
+import org.threeten.bp.LocalDate
 
-class CalendarDayOverviewDialog(private val calendar: Calendar) : BottomSheetDialogFragment() {
+class CalendarDayOverviewDialog(private val date: LocalDate) : BottomSheetDialogFragment() {
     
     private val vm: CalendarDayOverviewViewModel by viewModel()
     
@@ -31,7 +31,7 @@ class CalendarDayOverviewDialog(private val calendar: Calendar) : BottomSheetDia
     
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        vm.setCalendar(calendar)
+        vm.setDate(date)
         
         vm.trainings.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
@@ -39,8 +39,8 @@ class CalendarDayOverviewDialog(private val calendar: Calendar) : BottomSheetDia
     }
     
     companion object {
-        fun newInstance(calendar: Calendar): CalendarDayOverviewDialog {
-            return CalendarDayOverviewDialog(calendar)
+        fun newInstance(date: LocalDate): CalendarDayOverviewDialog {
+            return CalendarDayOverviewDialog(date)
         }
     }
 }

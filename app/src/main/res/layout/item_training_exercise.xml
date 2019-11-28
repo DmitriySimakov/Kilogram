@@ -5,7 +5,7 @@
     
     <data>
         
-        <import type="com.dmitrysimakov.kilogram.util.Converter" />
+        <import type="com.dmitrysimakov.kilogram.binding.Converter" />
         <import type="com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise" />
         
         <variable

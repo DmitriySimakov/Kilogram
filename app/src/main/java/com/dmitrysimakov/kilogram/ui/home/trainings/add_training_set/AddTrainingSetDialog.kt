@@ -74,7 +74,7 @@ class AddTrainingSetDialog : Fragment() {
     
     private fun submit() {
         if (args.setId == 0L) {
-            vm.addSet(sharedVM.elapsedSessionTime.value ?: 0)
+            vm.addSet()
             sharedVM.onSetCompleted(vm.trainingExercise.value?.rest ?: 0)
         } else {
             vm.updateSet()

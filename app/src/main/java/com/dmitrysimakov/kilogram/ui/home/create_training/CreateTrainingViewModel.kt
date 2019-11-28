@@ -14,9 +14,9 @@ import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingMuscleRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
 import com.dmitrysimakov.kilogram.util.Event
+import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.coroutines.launch
-import timber.log.Timber
-import java.util.*
+import org.threeten.bp.OffsetDateTime
 
 class CreateTrainingViewModel(
         private val exerciseTargetDao: ExerciseTargetDao,
@@ -26,9 +26,9 @@ class CreateTrainingViewModel(
         private val trainingMuscleRepo: TrainingMuscleRepository
 ) : ViewModel() {
     
-    private val _calendar = MutableLiveData<Calendar>(Calendar.getInstance())
-    val calendar: LiveData<Calendar> = _calendar
-    fun updateCalendar() { _calendar.value = _calendar.value }
+    private val _dateTime = MutableLiveData(OffsetDateTime.now())
+    val dateTime: LiveData<OffsetDateTime> = _dateTime
+    fun setDateTime(dateTime: OffsetDateTime) { _dateTime.setNewValue(dateTime) }
     
     val byProgram = MutableLiveData(false)
     
@@ -57,23 +57,15 @@ class CreateTrainingViewModel(
     
     fun createTraining() = viewModelScope.launch{
         val programDayId = byProgram.value?.let { programDay.value?.program_day_id }
-        val trainingId = trainingRepo.insert(
-                Training(0, calendar.value!!.timeInMillis, null, programDayId)
-        )
-        val c = calendar.value!!
-        val h = c.get(Calendar.HOUR)
-        val m = c.get(Calendar.MINUTE)
-        val s = c.get(Calendar.SECOND)
-        val ms = c.get(Calendar.MILLISECOND)
-        Timber.d("DATETIME $h $m $s $ms")
+        val trainingId = trainingRepo.insert(Training(0, dateTime.value!!, null, programDayId))
         if (byProgram.value == true) fillTrainingWithProgramExercises(trainingId)
         saveMuscles(trainingId)
         _trainingCreatedEvent.value = Event(trainingId)
     }
     
     private suspend fun fillTrainingWithProgramExercises(trainingId: Long) = viewModelScope.launch {
-        programDay.value?.program_day_id?.let {
-            trainingExerciseRepo.fillTrainingWithProgramExercises(trainingId, it)
+        programDay.value?.program_day_id?.let { programDayId ->
+            trainingExerciseRepo.fillTrainingWithProgramExercises(trainingId, programDayId)
         }
     }
     

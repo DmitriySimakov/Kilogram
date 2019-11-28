@@ -1,5 +1,5 @@
 @file:JvmName("Converter")
-package com.dmitrysimakov.kilogram.util
+package com.dmitrysimakov.kilogram.binding
 
 import android.text.format.DateUtils
 import androidx.databinding.InverseMethod
@@ -27,19 +27,8 @@ fun secondsToTimeFormat(seconds: Int?): String {
     return sdf.format(Date(millis))
 }
 
-fun millisToDateTimeFormat(milliseconds: Long): String {
-    return SimpleDateFormat("EE. dd MMMM yyyy г. HH:mm", Locale.getDefault()).format(Date(milliseconds))
-}
-
-fun dateToRelativeTimeSpan(date: Date?): String {
-    return if (date == null) ""
-    else DateUtils.getRelativeTimeSpanString(date.time, System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS).toString()
-}
-
-fun calendarToDateFormat(calendar: Calendar): String {
-    return SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(calendar.time)
-}
-
-fun calendarToTimeFormat(calendar: Calendar): String {
-    return SimpleDateFormat("HH:mm", Locale.getDefault()).format(calendar.time)
-}
+fun dateToRelativeTimeSpan(date: Date) = DateUtils.getRelativeTimeSpanString(
+        date.time,
+        System.currentTimeMillis(),
+        DateUtils.MINUTE_IN_MILLIS
+).toString()

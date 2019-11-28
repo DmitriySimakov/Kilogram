@@ -2,6 +2,7 @@ package com.dmitrysimakov.kilogram.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.dmitrysimakov.kilogram.data.local.dao.*
 import com.dmitrysimakov.kilogram.data.local.entity.*
 
@@ -26,6 +27,7 @@ import com.dmitrysimakov.kilogram.data.local.entity.*
         version = 1,
         exportSchema = false
 )
+@TypeConverters(Converters::class)
 abstract class KilogramDb : RoomDatabase() {
 
     abstract fun equipmentDao(): EquipmentDao

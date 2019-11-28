@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import java.util.*
+import org.threeten.bp.LocalDate
 
 @Entity(tableName = "measurement",
         indices = [Index(value = ["param"])],
@@ -18,7 +18,7 @@ import java.util.*
 )
 data class Measurement(
         @PrimaryKey(autoGenerate = true) val _id: Long = 0,
-        val date: String,
+        val date: LocalDate,
         val param: String,
         val value: Double
 )

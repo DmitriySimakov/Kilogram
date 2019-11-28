@@ -5,7 +5,9 @@
     
     <data>
         
-        <import type="com.dmitrysimakov.kilogram.util.Converter" />
+        <import type="com.dmitrysimakov.kilogram.binding.Converter" />
+    
+        <import type="org.threeten.bp.format.DateTimeFormatter" />
         
         <variable
             name="vm"
@@ -25,7 +27,7 @@
             android:layout_width="0dp"
             android:layout_height="?attr/listPreferredItemHeightSmall"
             android:gravity="center_vertical"
-            android:text="@{Converter.calendarToDateFormat(vm.calendar)}"
+            android:text='@{vm.dateTime.format(DateTimeFormatter.ofPattern("dd MMMM yyyy"))}'
             app:layout_constraintEnd_toStartOf="@id/time_tv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -36,7 +38,7 @@
             android:layout_width="0dp"
             android:layout_height="?attr/listPreferredItemHeightSmall"
             android:gravity="center_vertical"
-            android:text="@{Converter.calendarToTimeFormat(vm.calendar)}"
+            android:text='@{vm.dateTime.format(DateTimeFormatter.ofPattern("hh:mm"))}'
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/date_tv"
             app:layout_constraintTop_toTopOf="parent"

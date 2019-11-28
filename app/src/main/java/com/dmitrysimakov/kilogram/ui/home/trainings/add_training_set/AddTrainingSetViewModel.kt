@@ -12,6 +12,7 @@ import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingSetRepository
 import com.dmitrysimakov.kilogram.util.Event
 import kotlinx.coroutines.launch
+import org.threeten.bp.OffsetDateTime
 
 class AddTrainingSetViewModel(
         private val exerciseRepository: ExerciseRepository,
@@ -44,9 +45,9 @@ class AddTrainingSetViewModel(
         }
     }
     
-    fun addSet(secsSinceStart: Int) { viewModelScope.launch {
+    fun addSet() { viewModelScope.launch {
         trainingSet.value?.let {
-            it.secs_since_start = secsSinceStart
+            it.date_time = OffsetDateTime.now()
             trainingExerciseSetRepository.insert(it)
             if (trainingExercise.value?.state == TrainingExercise.PLANNED) {
                 trainingExerciseRepository.updateState(it.training_exercise_id, TrainingExercise.RUNNING)

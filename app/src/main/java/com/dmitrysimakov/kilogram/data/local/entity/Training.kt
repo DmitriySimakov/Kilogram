@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import java.util.*
+import org.threeten.bp.OffsetDateTime
 
 @Entity(tableName = "training",
         indices = [Index(value = ["program_day_id"])],
@@ -18,7 +18,7 @@ import java.util.*
 )
 data class Training(
         @PrimaryKey(autoGenerate = true) val _id: Long = 0,
-        val start_time: Long,
+        val start_date_time: OffsetDateTime,
         var duration: Int? = null,
         var program_day_id: Long? = null
 )

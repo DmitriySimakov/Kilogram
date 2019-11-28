@@ -20,7 +20,7 @@ class PhotosAdapter(clickCallback: ((Photo) -> Unit)? = null)
 
 private class PhotoDiffCallback : DiffUtil.ItemCallback<Photo>() {
     override fun areItemsTheSame(oldItem: Photo, newItem: Photo) =
-            oldItem.date == newItem.date
+            oldItem.uri == newItem.uri
     override fun areContentsTheSame(oldItem: Photo, newItem: Photo) =
             oldItem == newItem
 }

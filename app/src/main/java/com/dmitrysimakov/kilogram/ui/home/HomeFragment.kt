@@ -22,11 +22,13 @@ import com.kizitonwose.calendarview.utils.next
 import com.kizitonwose.calendarview.utils.previous
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.threeten.bp.LocalDate
+import org.threeten.bp.OffsetDateTime
 import org.threeten.bp.YearMonth
+import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.temporal.WeekFields
 import java.io.File
 import java.io.IOException
-import java.text.SimpleDateFormat
 import java.util.*
 
 private const val RC_TAKE_PHOTO = 1
@@ -44,8 +46,8 @@ class HomeFragment : Fragment() {
     private val photosAdapter by lazy { PhotosAdapter() }
     private val measurementsAdapter by lazy { MeasurementsAdapter() }
     
-    private var lastPhotoDate: Long? = null
-    private var lastPhotoUri: String? = null
+    private var lastPhotoDateTime = OffsetDateTime.now()
+    private var lastPhotoUri = ""
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentHomeBinding.inflate(inflater)
@@ -63,9 +65,8 @@ class HomeFragment : Fragment() {
                 dayBinder = calendarDayBinder
                 monthHeaderBinder = calendarMonthBinder
                 monthScrollListener = { month ->
-                    val calendar = GregorianCalendar(month.year, month.month - 1, 1)
-                    val formattedDate = SimpleDateFormat("LLLL yyyy г.", Locale.getDefault()).format(calendar.time)
-                    dateLabel.text = formattedDate.capitalize()
+                    val formatter = DateTimeFormatter.ofPattern("LLLL yyyy г.")
+                    dateLabel.text = month.yearMonth.format(formatter).capitalize()
                 }
         
                 val currentMonth = YearMonth.now()
@@ -109,14 +110,14 @@ class HomeFragment : Fragment() {
         })
         vm.recentPhotos.observe(viewLifecycleOwner, Observer { photosAdapter.submitList(it) })
         measurementsAdapter.submitList(listOf(
-                MeasurementWithPreviousResults(1, "Шея", 37.0, 37.0, "lol", "kek"),
-                MeasurementWithPreviousResults(2, "Бицепс", 36.0, 34.0, "lol", "kek"),
-                MeasurementWithPreviousResults(3, "Предплечье", 30.0, 31.0, "lol", "kek"),
-                MeasurementWithPreviousResults(4, "Грудь", 105.0, 100.0, "lol", "kek"),
-                MeasurementWithPreviousResults(5, "Талия", 75.0, 77.0, "lol", "kek"),
-                MeasurementWithPreviousResults(6, "Таз", 75.0, 77.0, "lol", "kek"),
-                MeasurementWithPreviousResults(7, "Бедро", 75.0, 77.0, "lol", "kek"),
-                MeasurementWithPreviousResults(8, "Голень", 75.0, 77.0, "lol", "kek")
+                MeasurementWithPreviousResults(1, "Шея", 37.0, LocalDate.now()),
+                MeasurementWithPreviousResults(2, "Бицепс", 36.0, LocalDate.now()),
+                MeasurementWithPreviousResults(3, "Предплечье", 30.0, LocalDate.now()),
+                MeasurementWithPreviousResults(4, "Грудь", 105.0, LocalDate.now()),
+                MeasurementWithPreviousResults(5, "Талия", 75.0, LocalDate.now()),
+                MeasurementWithPreviousResults(6, "Таз", 75.0, LocalDate.now()),
+                MeasurementWithPreviousResults(7, "Бедро", 75.0, LocalDate.now()),
+                MeasurementWithPreviousResults(8, "Голень", 75.0, LocalDate.now())
         ))
     }
     
@@ -143,15 +144,15 @@ class HomeFragment : Fragment() {
     
     @Throws(IOException::class)
     private fun createImageFile(): File {
-        lastPhotoDate = Date().time
-        val filename = "Kilogram_${lastPhotoDate}"
+        lastPhotoDateTime = OffsetDateTime.now()
+        val filename = "Kilogram_${lastPhotoDateTime}"
         val storageDir = context?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile(filename, ".jpg", storageDir)
     }
     
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == RC_TAKE_PHOTO && resultCode == RESULT_OK) {
-            vm.addPhoto(Photo(lastPhotoDate!!, lastPhotoUri!!))
+            vm.addPhoto(Photo(lastPhotoUri, lastPhotoDateTime))
         }
     }
 }

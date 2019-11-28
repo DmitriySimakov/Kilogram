@@ -5,15 +5,18 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
 import kotlinx.coroutines.launch
-import java.util.*
+import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalTime
+import org.threeten.bp.OffsetDateTime
+import org.threeten.bp.ZoneOffset
 
 class TrainingsViewModel (private val repository: TrainingRepository) : ViewModel() {
 
     val detailedTrainings = repository.detailedTrainingsFlow().asLiveData()
     
-    fun findPositionInTrainingList(calendar: Calendar): Int {
-        val ms = calendar.time.time
-        val pos = detailedTrainings.value?.indexOfFirst { it.start_time < ms }
+    fun findPositionInTrainingList(date: LocalDate): Int {
+        val dateTime = OffsetDateTime.of(date, LocalTime.MIN, ZoneOffset.UTC)
+        val pos = detailedTrainings.value?.indexOfFirst { it.start_date_time < dateTime }
         return if (pos == null || pos == -1) 0 else pos
     }
     

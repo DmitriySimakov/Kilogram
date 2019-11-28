@@ -25,7 +25,7 @@ interface ProgramDayDao {
             SELECT pd.program_id, pd.indexNumber
             FROM program_day AS pd
             INNER JOIN training AS t ON pd._id = t.program_day_id
-            ORDER BY t.start_time DESC
+            ORDER BY t.start_date_time DESC
             LIMIT 1
         ) AS last
         INNER JOIN program_day AS next ON next.program_id = last.program_id

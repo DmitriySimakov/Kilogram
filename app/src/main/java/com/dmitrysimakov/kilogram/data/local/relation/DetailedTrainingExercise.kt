@@ -7,7 +7,6 @@ data class DetailedTrainingExercise(
         val exercise: String,
         var indexNumber: Int,
         val rest: Int,
-        val secs_since_start: Int = 0,
         val strategy: String? = null,
         val state: Int = TrainingExercise.PLANNED
 )

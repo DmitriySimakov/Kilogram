@@ -2,6 +2,10 @@ package com.dmitrysimakov.kilogram.data.local.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import org.threeten.bp.OffsetDateTime
 
 @Entity(tableName = "photo")
-data class Photo(@PrimaryKey val date: Long, val uri: String)
+data class Photo(
+        @PrimaryKey val uri: String,
+        val date_time: OffsetDateTime
+)

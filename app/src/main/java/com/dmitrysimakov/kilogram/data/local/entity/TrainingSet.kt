@@ -7,7 +7,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import java.util.*
+import org.threeten.bp.OffsetDateTime
 
 @Entity(tableName = "training_set",
         indices = [Index(value = ["training_exercise_id"])],
@@ -26,7 +26,7 @@ class TrainingSet(
         reps: Int? = null,
         time: Int? = null,
         distance: Int? = null,
-        var secs_since_start: Int? = null
+        var date_time: OffsetDateTime? = null
 ) : BaseObservable() {
     
     @get:Bindable var weight = weight

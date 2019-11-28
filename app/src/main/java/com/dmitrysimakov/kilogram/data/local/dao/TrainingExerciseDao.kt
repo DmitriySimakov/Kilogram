@@ -11,7 +11,6 @@ interface TrainingExerciseDao {
     
     @Query("""
         SELECT _id, exercise, indexNumber, rest,
-        (SELECT secs_since_start FROM training_set WHERE training_exercise_id = _id ORDER BY secs_since_start DESC LIMIT 1) AS secs_since_start,
         strategy, state
         FROM training_exercise
         WHERE training_id = :trainingId
@@ -20,13 +19,13 @@ interface TrainingExerciseDao {
     fun detailedTrainingExercisesFlow(trainingId: Long): Flow<List<DetailedTrainingExercise>>
     
     @Query("""
-        SELECT te._id AS training_exercise_id, t._id AS training_id, t.start_time
+        SELECT te._id AS training_exercise_id, t._id AS training_id, t.start_date_time
         FROM training_exercise AS te
         INNER JOIN training AS t
         ON te.training_id = t._id
         WHERE te.exercise = :exercise
-        AND t.start_time < (SELECT start_time FROM training WHERE _id = :trainingId)
-        ORDER BY t.start_time DESC
+        AND t.start_date_time < (SELECT start_date_time FROM training WHERE _id = :trainingId)
+        ORDER BY t.start_date_time DESC
         LIMIT 1
     """)
     suspend fun previousTrainingExercise(trainingId: Long, exercise: String): TrainingExerciseInfo?

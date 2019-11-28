@@ -17,7 +17,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_trainings.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.*
+import org.threeten.bp.LocalDate
+import org.threeten.bp.Year
+import org.threeten.bp.ZoneOffset
 
 class TrainingsFragment : Fragment() {
     
@@ -71,19 +73,15 @@ class TrainingsFragment : Fragment() {
     
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.calendarView -> {
-            val calendar = Calendar.getInstance()
-            val curYear = calendar.get(Calendar.YEAR)
-            val curMonthOfYear = calendar.get(Calendar.MONTH)
-            val curDay = calendar.get(Calendar.DAY_OF_MONTH)
-            calendar.set(curYear, curMonthOfYear, curDay, 0, 0, 0)
+            val date = LocalDate.now()
             DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                calendar.set(year, monthOfYear, dayOfMonth)
+                val d = date.withYear(year).withMonth(monthOfYear).withDayOfMonth(dayOfMonth)
                 (recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(
-                        vm.findPositionInTrainingList(calendar), 0)
-            }, curYear, curMonthOfYear, curDay).apply {
-                datePicker.minDate = 0
-                val millisecondsPerMonth = 30L * 24 * 60 * 60 * 1000
-                datePicker.maxDate = Date().time + millisecondsPerMonth
+                        vm.findPositionInTrainingList(d), 0)
+            }, date.year, date.monthValue, date.dayOfMonth).apply {
+                fun LocalDate.toEpochMilli() = atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli()
+                datePicker.minDate = Year.of(2000).atDay(1).toEpochMilli()
+                datePicker.maxDate = LocalDate.now().plusMonths(1).toEpochMilli()
                 show()
             }
             true
