@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.dmitrysimakov.kilogram.databinding.DialogCalendarDayOverviewBinding
-import com.dmitrysimakov.kilogram.ui.home.trainings.trainings.TrainingsAdapter
+import com.dmitrysimakov.kilogram.ui.home.TrainingsAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.threeten.bp.LocalDate
@@ -17,9 +17,11 @@ class CalendarDayOverviewDialog(private val date: LocalDate) : BottomSheetDialog
     
     private lateinit var binding: DialogCalendarDayOverviewBinding
     
-    private val adapter by lazy { TrainingsAdapter{
-        // TODO
-    }}
+    private val adapter by lazy {
+        TrainingsAdapter {
+            // TODO
+        }
+    }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DialogCalendarDayOverviewBinding.inflate(inflater)

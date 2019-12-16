@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.home.trainings.trainings
+package com.dmitrysimakov.kilogram.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -11,23 +11,8 @@
         android:label="@string/app_name"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/to_trainingsFragment"
-            app:destination="@id/trainingsFragment" />
-        <action
             android:id="@+id/to_createTrainingFragment"
             app:destination="@id/createTrainingFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/trainingsFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.home.trainings.trainings.TrainingsFragment"
-        android:label="@string/trainings"
-        tools:layout="@layout/fragment_trainings">
-        <action
-            android:id="@+id/to_createTrainingFragment"
-            app:destination="@id/createTrainingFragment" />
-        <action
-            android:id="@+id/to_exercisesFragment"
-            app:destination="@id/trainingExercisesFragment" />
     </fragment>
     <fragment
         android:id="@+id/createTrainingFragment"
@@ -37,7 +22,7 @@
         <action
             android:id="@+id/to_exercisesFragment"
             app:destination="@id/trainingExercisesFragment"
-            app:popUpTo="@+id/trainingsFragment">
+            app:popUpTo="@+id/homeFragment">
             <argument
                 android:name="training_is_running"
                 android:defaultValue="true" />
