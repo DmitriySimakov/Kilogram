@@ -51,7 +51,7 @@ dependencies {
     
     implementation "androidx.appcompat:appcompat:1.1.0"
     implementation "androidx.cardview:cardview:1.0.0"
-    implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta3"
+    implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta4"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation "com.google.android.material:material:1.0.0"
@@ -69,7 +69,7 @@ dependencies {
     //region Architecture components
     
     //region lifecycle
-    def lifecycle_version = "2.2.0-rc02"
+    def lifecycle_version = "2.2.0-rc03"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
@@ -104,11 +104,11 @@ dependencies {
     implementation "com.jakewharton.timber:timber:4.7.1"
     
     //region Firebase
-    implementation "com.google.firebase:firebase-auth:19.1.0"
+    implementation "com.google.firebase:firebase-auth:19.2.0"
     implementation "com.google.firebase:firebase-core:17.2.1"
     implementation "com.google.firebase:firebase-database:19.2.0"
-    implementation "com.google.firebase:firebase-firestore-ktx:21.3.0"
-    implementation "com.google.firebase:firebase-messaging:20.0.1"
+    implementation "com.google.firebase:firebase-firestore-ktx:21.3.1"
+    implementation "com.google.firebase:firebase-messaging:20.1.0"
     implementation "com.google.firebase:firebase-storage:19.1.0"
     implementation "com.firebaseui:firebase-ui-auth:5.0.0"
     implementation "com.facebook.android:facebook-android-sdk:5.0.0"

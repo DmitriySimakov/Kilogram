@@ -7,18 +7,20 @@ import org.threeten.bp.format.DateTimeFormatter
 
 class Converters {
     
-    private val dateTimeFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
+    private val offsetDateTimeFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
     
     @TypeConverter fun toOffsetDateTime(value: String?) = value?.let {
-        dateTimeFormatter.parse(value, OffsetDateTime::from)
+        offsetDateTimeFormatter.parse(value, OffsetDateTime::from)
     }
     
-    @TypeConverter fun fromOffsetDateTime(date: OffsetDateTime?) = date?.format(dateTimeFormatter)
+    @TypeConverter fun fromOffsetDateTime(date: OffsetDateTime?) = date?.format(offsetDateTimeFormatter)
     
+    
+    private val localDateFormatter = DateTimeFormatter.ISO_LOCAL_DATE
     
     @TypeConverter fun toLocalDate(value: String?) = value?.let {
-        dateTimeFormatter.parse(value, LocalDate::from)
+        localDateFormatter.parse(value, LocalDate::from)
     }
     
-    @TypeConverter fun fromLocalDate(date: LocalDate?) = date?.format(dateTimeFormatter)
+    @TypeConverter fun fromLocalDate(date: LocalDate?) = date?.format(localDateFormatter)
 }
