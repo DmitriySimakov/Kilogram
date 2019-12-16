@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.databinding.DialogCalendarDayOverviewBinding
+import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections
 import com.dmitrysimakov.kilogram.ui.home.TrainingsAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -19,7 +21,8 @@ class CalendarDayOverviewDialog(private val date: LocalDate) : BottomSheetDialog
     
     private val adapter by lazy {
         TrainingsAdapter {
-            // TODO
+            findNavController().navigate(HomeFragmentDirections.toTrainingExercisesFragment(it._id, it.duration == null))
+            dismiss()
         }
     }
     

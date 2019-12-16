@@ -13,6 +13,9 @@
         <action
             android:id="@+id/to_createTrainingFragment"
             app:destination="@id/createTrainingFragment" />
+        <action
+            android:id="@+id/to_trainingExercisesFragment"
+            app:destination="@id/trainingExercisesFragment" />
     </fragment>
     <fragment
         android:id="@+id/createTrainingFragment"
@@ -23,9 +26,6 @@
             android:id="@+id/to_exercisesFragment"
             app:destination="@id/trainingExercisesFragment"
             app:popUpTo="@+id/homeFragment">
-            <argument
-                android:name="training_is_running"
-                android:defaultValue="true" />
         </action>
         <action
             android:id="@+id/to_chooseProgramFragment"

@@ -117,7 +117,7 @@ class CreateTrainingDialog : Fragment() {
     
     private fun setupNavigation() {
         vm.trainingCreatedEvent.observe(viewLifecycleOwner, EventObserver{
-            findNavController().navigate(CreateTrainingDialogDirections.toExercisesFragment(true, it))
+            findNavController().navigate(CreateTrainingDialogDirections.toExercisesFragment(it, true))
         })
     }
 }
