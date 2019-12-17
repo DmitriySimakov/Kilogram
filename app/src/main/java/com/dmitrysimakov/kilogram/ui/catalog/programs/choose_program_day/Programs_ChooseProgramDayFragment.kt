@@ -1,11 +1,13 @@
 package com.dmitrysimakov.kilogram.ui.catalog.programs.choose_program_day
 
 import android.os.Bundle
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.dmitrysimakov.kilogram.ui.catalog.programs.choose_program_day.Programs_ChooseProgramDayFragmentDirections.Companion.toCreateProgramDayDialog
+import com.dmitrysimakov.kilogram.ui.catalog.programs.choose_program_day.Programs_ChooseProgramDayFragmentDirections.Companion.toExercisesFragment
 import com.dmitrysimakov.kilogram.ui.common.choose_program_day.ChooseProgramDayFragment
+import com.dmitrysimakov.kilogram.util.navigate
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_choose_program_day.*
 import timber.log.Timber
@@ -20,10 +22,7 @@ class Programs_ChooseProgramDayFragment : ChooseProgramDayFragment() {
         
         vm.setProgramId(args.programId)
         
-        adapter.clickCallback = { programDay ->
-            findNavController().navigate(Programs_ChooseProgramDayFragmentDirections
-                    .toExercisesFragment(programDay._id))
-        }
+        adapter.clickCallback = { navigate(toExercisesFragment(it._id)) }
     
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.RIGHT) {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
@@ -41,8 +40,7 @@ class Programs_ChooseProgramDayFragment : ChooseProgramDayFragment() {
     
         activity?.fab?.show()
         activity?.fab?.setOnClickListener{
-            findNavController().navigate(Programs_ChooseProgramDayFragmentDirections
-                    .toCreateProgramDayDialog(adapter.itemCount + 1, args.programId))
+            navigate(toCreateProgramDayDialog(adapter.itemCount + 1, args.programId))
         }
     }
     

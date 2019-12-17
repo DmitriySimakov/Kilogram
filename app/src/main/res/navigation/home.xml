@@ -14,8 +14,8 @@
             android:id="@+id/to_createTrainingFragment"
             app:destination="@id/createTrainingFragment" />
         <action
-            android:id="@+id/to_calendarDayOverviewDialog"
-            app:destination="@id/calendarDayOverviewDialog" />
+            android:id="@+id/to_calendarDayDialog"
+            app:destination="@id/calendarDayDialog" />
     </fragment>
     <fragment
         android:id="@+id/createTrainingFragment"
@@ -116,10 +116,10 @@
             app:argType="integer" />
     </fragment>
     <dialog
-        android:id="@+id/calendarDayOverviewDialog"
-        android:name="com.dmitrysimakov.kilogram.ui.home.calendar_day_overview.CalendarDayOverviewDialog"
-        android:label="CalendarDayOverviewDialog"
-        tools:layout="@layout/dialog_calendar_day_overview">
+        android:id="@+id/calendarDayDialog"
+        android:name="com.dmitrysimakov.kilogram.ui.home.calendar_day_overview.CalendarDayDialog"
+        android:label="CalendarDayDialog"
+        tools:layout="@layout/dialog_calendar_day">
         <action
             android:id="@+id/to_trainingExercisesFragment"
             app:destination="@id/trainingExercisesFragment"

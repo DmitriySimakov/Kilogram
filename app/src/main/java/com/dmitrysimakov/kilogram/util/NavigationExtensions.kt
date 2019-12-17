@@ -2,15 +2,31 @@ package com.dmitrysimakov.kilogram.util
 
 import android.content.Intent
 import android.util.SparseArray
+import androidx.annotation.IdRes
 import androidx.core.util.forEach
 import androidx.core.util.set
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
+
+fun Fragment.navigate(directions: NavDirections) {
+    findNavController().navigate(directions)
+}
+
+fun Fragment.popBackStack() {
+    findNavController().popBackStack()
+}
+
+fun Fragment.popBackStack(@IdRes destinationId: Int, inclusive: Boolean) {
+    findNavController().popBackStack(destinationId, inclusive)
+}
 
 /**
  * Manages the various graphs needed for a [BottomNavigationView].

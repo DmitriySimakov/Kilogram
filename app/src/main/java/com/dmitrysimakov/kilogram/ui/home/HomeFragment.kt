@@ -12,11 +12,13 @@ import android.view.ViewGroup
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.data.local.entity.Photo
 import com.dmitrysimakov.kilogram.data.local.relation.MeasurementWithPreviousResults
 import com.dmitrysimakov.kilogram.databinding.FragmentHomeBinding
 import com.dmitrysimakov.kilogram.ui.common.measurements.MeasurementsAdapter
+import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toCalendarDayDialog
+import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toCreateTrainingFragment
+import com.dmitrysimakov.kilogram.util.navigate
 import com.dmitrysimakov.kilogram.util.toIsoString
 import com.kizitonwose.calendarview.utils.next
 import com.kizitonwose.calendarview.utils.previous
@@ -41,7 +43,7 @@ class HomeFragment : Fragment() {
     
     private val calendarMonthBinder by lazy { CalendarMonthBinder() }
     private val calendarDayBinder by lazy { CalendarDayBinder(resources) {
-        findNavController().navigate(HomeFragmentDirections.toCalendarDayOverviewDialog(it.toIsoString()))
+        navigate(toCalendarDayDialog(it.toIsoString()))
     }}
     private val photosAdapter by lazy { PhotosAdapter() }
     private val measurementsAdapter by lazy { MeasurementsAdapter() }
@@ -96,13 +98,8 @@ class HomeFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         activity?.fab?.hide()
         
-        binding.startTrainingButton.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.toCreateTrainingFragment())
-        }
-    
-        binding.addPhotoButton.setOnClickListener {
-            dispatchTakePictureIntent()
-        }
+        binding.startTrainingButton.setOnClickListener { navigate(toCreateTrainingFragment()) }
+        binding.addPhotoButton.setOnClickListener { dispatchTakePictureIntent() }
         
         vm.trainings.observe(viewLifecycleOwner, Observer {
             calendarDayBinder.submitList(it)

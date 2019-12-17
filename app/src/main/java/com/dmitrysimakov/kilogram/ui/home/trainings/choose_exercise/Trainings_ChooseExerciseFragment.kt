@@ -1,10 +1,10 @@
 package com.dmitrysimakov.kilogram.ui.home.trainings.choose_exercise
 
 import android.os.Bundle
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.ui.common.choose_exercise.ChooseExerciseFragment
 import com.dmitrysimakov.kilogram.util.EventObserver
+import com.dmitrysimakov.kilogram.util.popBackStack
 import com.dmitrysimakov.kilogram.util.setXNavIcon
 
 class Trainings_ChooseExerciseFragment : ChooseExerciseFragment() {
@@ -15,9 +15,7 @@ class Trainings_ChooseExerciseFragment : ChooseExerciseFragment() {
         super.onActivityCreated(savedInstanceState)
         setXNavIcon()
         
-        vm.exerciseAddedEvent.observe(viewLifecycleOwner, EventObserver{
-            findNavController().popBackStack()
-        })
+        vm.exerciseAddedEvent.observe(viewLifecycleOwner, EventObserver{ popBackStack() })
     
         vm.setTrainingId(args.trainingId)
     

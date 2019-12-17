@@ -5,7 +5,7 @@ import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
 import org.threeten.bp.LocalDate
 
-class CalendarDayOverviewViewModel(
+class CalendarDayViewModel(
         private val trainingRepo: TrainingRepository
 ) : ViewModel() {
 

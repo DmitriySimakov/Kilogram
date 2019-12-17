@@ -6,15 +6,13 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.DialogCreateTrainingBinding
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.ui.common.ChipGroupFilterAdapter
-import com.dmitrysimakov.kilogram.util.EventObserver
-import com.dmitrysimakov.kilogram.util.hideKeyboard
-import com.dmitrysimakov.kilogram.util.setNewValue
-import com.dmitrysimakov.kilogram.util.setXNavIcon
+import com.dmitrysimakov.kilogram.ui.home.create_training.CreateTrainingDialogDirections.Companion.toChooseProgramFragment
+import com.dmitrysimakov.kilogram.ui.home.create_training.CreateTrainingDialogDirections.Companion.toExercisesFragment
+import com.dmitrysimakov.kilogram.util.*
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -79,9 +77,7 @@ class CreateTrainingDialog : Fragment() {
             if (it != null) vm.byProgram.setNewValue(true)
         })
         
-        binding.programDayTV.setOnClickListener {
-            findNavController().navigate(CreateTrainingDialogDirections.toChooseProgramFragment())
-        }
+        binding.programDayTV.setOnClickListener { navigate(toChooseProgramFragment()) }
     
         muscleAdapter = ChipGroupFilterAdapter(binding.targetsCG) { name, isChecked ->
             vm.muscleList.value?.find{ it.name == name }?.is_active = isChecked
@@ -117,7 +113,7 @@ class CreateTrainingDialog : Fragment() {
     
     private fun setupNavigation() {
         vm.trainingCreatedEvent.observe(viewLifecycleOwner, EventObserver{
-            findNavController().navigate(CreateTrainingDialogDirections.toExercisesFragment(it, true))
+            navigate(toExercisesFragment(it, true))
         })
     }
 }

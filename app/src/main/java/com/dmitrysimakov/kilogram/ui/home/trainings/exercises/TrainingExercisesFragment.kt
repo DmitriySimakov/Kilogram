@@ -4,16 +4,18 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.data.local.relation.DetailedTrainingExercise
 import com.dmitrysimakov.kilogram.databinding.FragmentTrainingExercisesBinding
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
+import com.dmitrysimakov.kilogram.ui.home.trainings.exercises.TrainingExercisesFragmentDirections.Companion.toChooseExerciseFragment
+import com.dmitrysimakov.kilogram.ui.home.trainings.exercises.TrainingExercisesFragmentDirections.Companion.toTrainingSetsFragment
 import com.dmitrysimakov.kilogram.util.EventObserver
+import com.dmitrysimakov.kilogram.util.navigate
+import com.dmitrysimakov.kilogram.util.popBackStack
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -29,11 +31,15 @@ class TrainingExercisesFragment : Fragment() {
     private lateinit var binding: FragmentTrainingExercisesBinding
     
     private val exerciseRunningListAdapter by lazy { TrainingExercisesAdapter(
-            { toSetsFragment(it) },
+            { navigate(toTrainingSetsFragment(it._id)) },
             { vm.finishExercise(it) }
     )}
-    private val exercisePlannedListAdapter by lazy { TrainingExercisesAdapter({ toSetsFragment(it) }) }
-    private val exerciseFinishedListAdapter by lazy { TrainingExercisesAdapter ({ toSetsFragment(it) }) }
+    private val exercisePlannedListAdapter by lazy { TrainingExercisesAdapter({
+        navigate(toTrainingSetsFragment(it._id))
+    })}
+    private val exerciseFinishedListAdapter by lazy { TrainingExercisesAdapter ({
+        navigate(toTrainingSetsFragment(it._id))
+    }) }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentTrainingExercisesBinding.inflate(inflater)
@@ -45,8 +51,7 @@ class TrainingExercisesFragment : Fragment() {
     
         activity?.fab?.show()
         activity?.fab?.setOnClickListener{
-            findNavController().navigate(TrainingExercisesFragmentDirections
-                    .toChooseExerciseFragment(exercisePlannedListAdapter.itemCount + 1 ,args.trainingId))
+            navigate(toChooseExerciseFragment(exercisePlannedListAdapter.itemCount + 1 ,args.trainingId))
         }
         
         return binding.root
@@ -55,7 +60,7 @@ class TrainingExercisesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         vm.setTrainingId(args.trainingId)
-        setupNavigation()
+        vm.trainingFinishedEvent.observe(viewLifecycleOwner, EventObserver{ popBackStack() })
         vm.training.observe(viewLifecycleOwner, Observer {  })
         vm.runningExercises.observe(viewLifecycleOwner, Observer { exerciseRunningListAdapter.submitList(it) })
         vm.plannedExercises.observe(viewLifecycleOwner, Observer { exercisePlannedListAdapter.submitList(it) })
@@ -102,11 +107,6 @@ class TrainingExercisesFragment : Fragment() {
         }
     }
     
-    private fun toSetsFragment(exercise: DetailedTrainingExercise) {
-        findNavController().navigate(TrainingExercisesFragmentDirections
-                .toTrainingSetsFragment(exercise._id))
-    }
-    
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.training_exercises, menu)
         if (!args.trainingIsRunning) {
@@ -127,11 +127,5 @@ class TrainingExercisesFragment : Fragment() {
     override fun onPause() {
         vm.updateIndexNumbers()
         super.onPause()
-    }
-    
-    private fun setupNavigation() {
-        vm.trainingFinishedEvent.observe(viewLifecycleOwner, EventObserver{
-            findNavController().popBackStack()
-        })
     }
 }

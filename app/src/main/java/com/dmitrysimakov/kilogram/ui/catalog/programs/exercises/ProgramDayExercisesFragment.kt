@@ -6,12 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
+import com.dmitrysimakov.kilogram.ui.catalog.programs.exercises.ProgramDayExercisesFragmentDirections.Companion.toChooseExerciseFragment
+import com.dmitrysimakov.kilogram.util.navigate
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_exercises.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -55,8 +56,7 @@ class ProgramDayExercisesFragment : Fragment() {
     
         activity?.fab?.show()
         activity?.fab?.setOnClickListener{
-            findNavController().navigate(ProgramDayExercisesFragmentDirections
-                    .toChooseExerciseFragment(adapter.itemCount + 1, args.programDayId))
+            navigate(toChooseExerciseFragment(adapter.itemCount + 1, args.programDayId))
         }
     }
     

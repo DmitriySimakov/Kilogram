@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.DialogCreateProgramDayBinding
+import com.dmitrysimakov.kilogram.ui.catalog.programs.create_program_day.CreateProgramDayDialogDirections.Companion.toExercisesFragment
 import com.dmitrysimakov.kilogram.ui.common.ChipGroupFilterAdapter
 import com.dmitrysimakov.kilogram.util.EventObserver
 import com.dmitrysimakov.kilogram.util.hideKeyboard
+import com.dmitrysimakov.kilogram.util.navigate
 import com.dmitrysimakov.kilogram.util.setXNavIcon
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_create_program_day.*
@@ -87,9 +88,7 @@ class CreateProgramDayDialog : Fragment() {
     
     private fun setupNavigation() {
         vm.programDayCreatedEvent.observe(viewLifecycleOwner, EventObserver{
-            findNavController().navigate(
-                    CreateProgramDayDialogDirections.toExercisesFragment(it)
-            )
+            navigate(toExercisesFragment(it))
         })
     }
 }

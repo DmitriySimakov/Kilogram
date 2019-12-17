@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -12,7 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.databinding.FragmentTrainingSetsBinding
+import com.dmitrysimakov.kilogram.ui.home.trainings.training_sets.TrainingSetsFragmentDirections.Companion.toAddSetDialog
 import com.dmitrysimakov.kilogram.util.EventObserver
+import com.dmitrysimakov.kilogram.util.navigate
+import com.dmitrysimakov.kilogram.util.popBackStack
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_training_sets.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -26,7 +28,7 @@ class TrainingSetsFragment : Fragment() {
     private lateinit var binding: FragmentTrainingSetsBinding
     
     private val adapter by lazy { TrainingSetsAdapter(vm) { set ->
-        findNavController().navigate(TrainingSetsFragmentDirections.toAddSetDialog(
+        navigate(toAddSetDialog(
                 args.trainingExerciseId,
                 set._id,
                 set.prev_weight ?: 0,
@@ -70,7 +72,7 @@ class TrainingSetsFragment : Fragment() {
         activity?.fab?.show()
         activity?.fab?.setOnClickListener{
             val set = vm.currentSets.value?.lastOrNull() ?: vm.previousSets.value?.firstOrNull()
-            findNavController().navigate(TrainingSetsFragmentDirections.toAddSetDialog(
+            navigate(toAddSetDialog(
                     args.trainingExerciseId,
                     0,
                     set?.weight ?: 0,
@@ -97,8 +99,6 @@ class TrainingSetsFragment : Fragment() {
     }
     
     private fun setupNavigation() {
-        vm.trainingExerciseFinishedEvent.observe(viewLifecycleOwner, EventObserver {
-            findNavController().popBackStack()
-        })
+        vm.trainingExerciseFinishedEvent.observe(viewLifecycleOwner, EventObserver { popBackStack() })
     }
 }

@@ -9,7 +9,7 @@
         
         <variable
             name="vm"
-            type="com.dmitrysimakov.kilogram.ui.home.calendar_day_overview.CalendarDayOverviewViewModel" />
+            type="com.dmitrysimakov.kilogram.ui.home.calendar_day_overview.CalendarDayViewModel" />
     </data>
     
     <LinearLayout
