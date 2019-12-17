@@ -17,7 +17,7 @@ import com.dmitrysimakov.kilogram.data.local.entity.Photo
 import com.dmitrysimakov.kilogram.data.local.relation.MeasurementWithPreviousResults
 import com.dmitrysimakov.kilogram.databinding.FragmentHomeBinding
 import com.dmitrysimakov.kilogram.ui.common.measurements.MeasurementsAdapter
-import com.dmitrysimakov.kilogram.ui.home.calendar_day_overview.CalendarDayOverviewDialog
+import com.dmitrysimakov.kilogram.util.toIsoString
 import com.kizitonwose.calendarview.utils.next
 import com.kizitonwose.calendarview.utils.previous
 import kotlinx.android.synthetic.main.activity_main.*
@@ -41,7 +41,7 @@ class HomeFragment : Fragment() {
     
     private val calendarMonthBinder by lazy { CalendarMonthBinder() }
     private val calendarDayBinder by lazy { CalendarDayBinder(resources) {
-        CalendarDayOverviewDialog.newInstance(it).show(activity!!.supportFragmentManager, null)
+        findNavController().navigate(HomeFragmentDirections.toCalendarDayOverviewDialog(it.toIsoString()))
     }}
     private val photosAdapter by lazy { PhotosAdapter() }
     private val measurementsAdapter by lazy { MeasurementsAdapter() }

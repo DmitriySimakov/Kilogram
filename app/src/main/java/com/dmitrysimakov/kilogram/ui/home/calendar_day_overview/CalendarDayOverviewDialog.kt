@@ -6,14 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.databinding.DialogCalendarDayOverviewBinding
-import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections
 import com.dmitrysimakov.kilogram.ui.home.TrainingsAdapter
+import com.dmitrysimakov.kilogram.util.toLocalDate
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.threeten.bp.LocalDate
 
-class CalendarDayOverviewDialog(private val date: LocalDate) : BottomSheetDialogFragment() {
+class CalendarDayOverviewDialog : BottomSheetDialogFragment() {
+    
+    private val args: CalendarDayOverviewDialogArgs by navArgs()
     
     private val vm: CalendarDayOverviewViewModel by viewModel()
     
@@ -21,8 +23,8 @@ class CalendarDayOverviewDialog(private val date: LocalDate) : BottomSheetDialog
     
     private val adapter by lazy {
         TrainingsAdapter {
-            findNavController().navigate(HomeFragmentDirections.toTrainingExercisesFragment(it._id, it.duration == null))
-            dismiss()
+            findNavController().navigate(CalendarDayOverviewDialogDirections
+                    .toTrainingExercisesFragment(it._id, it.duration == null))
         }
     }
     
@@ -36,16 +38,10 @@ class CalendarDayOverviewDialog(private val date: LocalDate) : BottomSheetDialog
     
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        vm.setDate(date)
+        vm.setDate(args.date.toLocalDate())
         
         vm.trainings.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
         })
-    }
-    
-    companion object {
-        fun newInstance(date: LocalDate): CalendarDayOverviewDialog {
-            return CalendarDayOverviewDialog(date)
-        }
     }
 }

@@ -9,6 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import com.dmitrysimakov.kilogram.R
+import org.threeten.bp.LocalDate
+import org.threeten.bp.OffsetDateTime
+import org.threeten.bp.format.DateTimeFormatter
 
 fun Fragment.hideKeyboard() {
     view?.let { activity?.hideKeyboard(it) }
@@ -36,3 +39,11 @@ fun Context.toast(message: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
 fun Fragment.setXNavIcon() {
     (activity as AppCompatActivity).supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
 }
+
+private val offsetDateTimeFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
+fun String.toOffsetDateTime() = offsetDateTimeFormatter.parse(this, OffsetDateTime::from)
+fun OffsetDateTime.toIsoString() = format(offsetDateTimeFormatter)
+
+private val localDateFormatter = DateTimeFormatter.ISO_LOCAL_DATE
+fun String.toLocalDate() = localDateFormatter.parse(this, LocalDate::from)
+fun LocalDate.toIsoString() = format(localDateFormatter)

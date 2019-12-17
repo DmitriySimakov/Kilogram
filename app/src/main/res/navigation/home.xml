@@ -14,8 +14,8 @@
             android:id="@+id/to_createTrainingFragment"
             app:destination="@id/createTrainingFragment" />
         <action
-            android:id="@+id/to_trainingExercisesFragment"
-            app:destination="@id/trainingExercisesFragment" />
+            android:id="@+id/to_calendarDayOverviewDialog"
+            app:destination="@id/calendarDayOverviewDialog" />
     </fragment>
     <fragment
         android:id="@+id/createTrainingFragment"
@@ -115,4 +115,17 @@
             android:name="distance"
             app:argType="integer" />
     </fragment>
+    <dialog
+        android:id="@+id/calendarDayOverviewDialog"
+        android:name="com.dmitrysimakov.kilogram.ui.home.calendar_day_overview.CalendarDayOverviewDialog"
+        android:label="CalendarDayOverviewDialog"
+        tools:layout="@layout/dialog_calendar_day_overview">
+        <action
+            android:id="@+id/to_trainingExercisesFragment"
+            app:destination="@id/trainingExercisesFragment"
+            app:popUpTo="@+id/homeFragment" />
+        <argument
+            android:name="date"
+            app:argType="string" />
+    </dialog>
 </navigation>
