@@ -12,15 +12,14 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/to_createTrainingFragment"
-            app:destination="@id/createTrainingFragment" />
+            app:destination="@id/createTrainingDialog" />
         <action
             android:id="@+id/to_calendarDayDialog"
             app:destination="@id/calendarDayDialog" />
     </fragment>
-    <fragment
-        android:id="@+id/createTrainingFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.home.create_training.CreateTrainingDialog"
-        android:label="@string/training_session"
+    <dialog
+        android:id="@+id/createTrainingDialog"
+        android:name="com.dmitrysimakov.kilogram.ui.home.trainings.create_training.CreateTrainingDialog"
         tools:layout="@layout/dialog_create_training">
         <action
             android:id="@+id/to_exercisesFragment"
@@ -30,7 +29,7 @@
         <action
             android:id="@+id/to_chooseProgramFragment"
             app:destination="@id/trainings_ChooseProgramFragment" />
-    </fragment>
+    </dialog>
     <fragment
         android:id="@+id/trainings_ChooseProgramFragment"
         android:name="com.dmitrysimakov.kilogram.ui.home.trainings.choose_program.Trainings_ChooseProgramFragment"
@@ -91,10 +90,9 @@
             android:id="@+id/to_addSetDialog"
             app:destination="@id/addSetDialog" />
     </fragment>
-    <fragment
+    <dialog
         android:id="@+id/addSetDialog"
         android:name="com.dmitrysimakov.kilogram.ui.home.trainings.add_training_set.AddTrainingSetDialog"
-        android:label="@string/addSet"
         tools:layout="@layout/dialog_add_training_set">
         <argument
             android:name="training_exercise_id"
@@ -114,11 +112,10 @@
         <argument
             android:name="distance"
             app:argType="integer" />
-    </fragment>
+    </dialog>
     <dialog
         android:id="@+id/calendarDayDialog"
         android:name="com.dmitrysimakov.kilogram.ui.home.calendar_day.CalendarDayDialog"
-        android:label="CalendarDayDialog"
         tools:layout="@layout/dialog_calendar_day">
         <action
             android:id="@+id/to_trainingExercisesFragment"

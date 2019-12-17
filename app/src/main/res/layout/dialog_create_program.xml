@@ -5,13 +5,13 @@
     <data>
         
         <variable
-            name="viewModel"
+            name="vm"
             type="com.dmitrysimakov.kilogram.ui.catalog.programs.create_program.CreateProgramViewModel" />
     </data>
     
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:elevation="1dp"
         android:orientation="vertical"
@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/name"
                 android:inputType="text"
-                android:text="@={viewModel.name}" />
+                android:text="@={vm.name}" />
         
         </com.google.android.material.textfield.TextInputLayout>
         
@@ -46,9 +46,16 @@
                 android:hint="@string/description"
                 android:inputType="textMultiLine"
                 android:maxLength="100"
-                android:text="@={viewModel.description}" />
+                android:text="@={vm.description}" />
         
         </com.google.android.material.textfield.TextInputLayout>
+        
+        <Button
+            android:id="@+id/createProgramBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/create_program"/>
     
     </LinearLayout>
 

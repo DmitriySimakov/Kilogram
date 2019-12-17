@@ -17,7 +17,7 @@
             android:id="@+id/to_chooseProgramDayFragment"
             app:destination="@id/programs_chooseProgramDayFragment" />
     </fragment>
-    <fragment
+    <dialog
         android:id="@+id/createProgramDialog"
         android:name="com.dmitrysimakov.kilogram.ui.catalog.programs.create_program.CreateProgramDialog"
         android:label="Тренировочная программа"
@@ -26,7 +26,7 @@
             android:id="@+id/to_chooseProgramDayFragment"
             app:destination="@id/programs_chooseProgramDayFragment"
             app:popUpTo="@+id/programs_chooseProgramFragment" />
-    </fragment>
+    </dialog>
     <fragment
         android:id="@+id/programs_chooseProgramDayFragment"
         android:name="com.dmitrysimakov.kilogram.ui.catalog.programs.choose_program_day.Programs_ChooseProgramDayFragment"
@@ -42,7 +42,7 @@
             android:id="@+id/to_exercisesFragment"
             app:destination="@id/programDayExercisesFragment" />
     </fragment>
-    <fragment
+    <dialog
         android:id="@+id/createProgramDayDialog"
         android:name="com.dmitrysimakov.kilogram.ui.catalog.programs.create_program_day.CreateProgramDayDialog"
         android:label="CreateProgramDayDialog"
@@ -57,7 +57,7 @@
             android:id="@+id/to_exercisesFragment"
             app:destination="@id/programDayExercisesFragment"
             app:popUpTo="@+id/programs_chooseProgramDayFragment" />
-    </fragment>
+    </dialog>
     <fragment
         android:id="@+id/programDayExercisesFragment"
         android:name="com.dmitrysimakov.kilogram.ui.catalog.programs.exercises.ProgramDayExercisesFragment"

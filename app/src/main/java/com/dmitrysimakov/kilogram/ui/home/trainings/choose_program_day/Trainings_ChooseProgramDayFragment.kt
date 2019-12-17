@@ -22,7 +22,7 @@ class Trainings_ChooseProgramDayFragment : ChooseProgramDayFragment() {
         
         adapter.clickCallback = { programDay ->
             sharedVM.programDayId.value = programDay._id
-            popBackStack(R.id.createTrainingFragment, false)
+            popBackStack(R.id.createTrainingDialog, false)
         }
         
         activity?.fab?.hide()

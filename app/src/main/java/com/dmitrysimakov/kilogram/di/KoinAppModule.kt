@@ -16,9 +16,9 @@ import com.dmitrysimakov.kilogram.ui.common.choose_program.ChooseProgramViewMode
 import com.dmitrysimakov.kilogram.ui.common.choose_program_day.ChooseProgramDayViewModel
 import com.dmitrysimakov.kilogram.ui.home.HomeViewModel
 import com.dmitrysimakov.kilogram.ui.home.calendar_day.CalendarDayViewModel
-import com.dmitrysimakov.kilogram.ui.home.create_training.CreateTrainingViewModel
 import com.dmitrysimakov.kilogram.ui.home.measurements.add_measurement.MeasurementsViewModel
 import com.dmitrysimakov.kilogram.ui.home.trainings.add_training_set.AddTrainingSetViewModel
+import com.dmitrysimakov.kilogram.ui.home.trainings.create_training.CreateTrainingViewModel
 import com.dmitrysimakov.kilogram.ui.home.trainings.exercises.TrainingExercisesViewModel
 import com.dmitrysimakov.kilogram.ui.home.trainings.training_sets.TrainingSetsViewModel
 import com.dmitrysimakov.kilogram.ui.subscriptions.messages.ChatsViewModel

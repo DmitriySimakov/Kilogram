@@ -21,6 +21,11 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlNormal">@color/black</item>
+        
+        <!--It is necessary to correctly resize window when keyboard appears-->
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <!---->
     </style>
     
     <!-- DARK THEME -->
@@ -44,6 +49,11 @@
         <item name="colorPrimaryDark">@color/darkPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlNormal">@color/white</item>
+    
+        <!--It is necessary to correctly resize window when keyboard appears-->
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <!---->
     </style>
     
     <!-- STYLES -->

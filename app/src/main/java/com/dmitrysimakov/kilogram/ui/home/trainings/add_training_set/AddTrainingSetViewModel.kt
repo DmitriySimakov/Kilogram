@@ -45,7 +45,11 @@ class AddTrainingSetViewModel(
         }
     }
     
-    fun addSet() { viewModelScope.launch {
+    fun submit() { viewModelScope.launch {
+        if (trainingSet.value?._id == 0L) addSet() else updateSet()
+    }}
+    
+    private suspend fun addSet() {
         trainingSet.value?.let {
             it.date_time = OffsetDateTime.now()
             trainingExerciseSetRepository.insert(it)
@@ -54,14 +58,14 @@ class AddTrainingSetViewModel(
             }
             _trainingSetSavedEvent.value = Event(Unit)
         }
-    }}
+    }
     
-    fun updateSet() { viewModelScope.launch {
+    private suspend fun updateSet() {
         trainingSet.value?.let {
             trainingExerciseSetRepository.update(it)
             _trainingSetSavedEvent.value = Event(Unit)
         }
-    }}
+    }
     
     fun decreaseWeight() { trainingSet.value?.weight = (trainingSet.value?.weight ?: 0) - 5 }
     

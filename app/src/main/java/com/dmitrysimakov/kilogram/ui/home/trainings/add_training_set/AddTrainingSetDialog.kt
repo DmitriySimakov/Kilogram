@@ -1,22 +1,21 @@
 package com.dmitrysimakov.kilogram.ui.home.trainings.add_training_set
 
 import android.os.Bundle
-import android.view.*
-import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
-import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.DialogAddTrainingSetBinding
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.util.EventObserver
 import com.dmitrysimakov.kilogram.util.hideKeyboard
 import com.dmitrysimakov.kilogram.util.popBackStack
-import com.dmitrysimakov.kilogram.util.setXNavIcon
-import kotlinx.android.synthetic.main.activity_main.*
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class AddTrainingSetDialog : Fragment() {
+class AddTrainingSetDialog : BottomSheetDialogFragment() {
     
     private val args: AddTrainingSetDialogArgs by navArgs()
     
@@ -26,17 +25,14 @@ class AddTrainingSetDialog : Fragment() {
     private lateinit var binding: DialogAddTrainingSetBinding
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        setXNavIcon()
         binding = DialogAddTrainingSetBinding.inflate(inflater)
-        binding.viewModel = vm
+        binding.vm = vm
         binding.lifecycleOwner = this
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        
-        setHasOptionsMenu(true)
         
         vm.start(
                 args.trainingExerciseId,
@@ -49,35 +45,10 @@ class AddTrainingSetDialog : Fragment() {
         
         vm.trainingSet.observe(viewLifecycleOwner, Observer {  })
         vm.trainingExercise.observe(viewLifecycleOwner, Observer {  })
-        vm.trainingSetSavedEvent.observe(viewLifecycleOwner, EventObserver { popBackStack() })
-        
-        activity?.fab?.hide()
-    }
-    
-    override fun onStop() {
-        hideKeyboard()
-        super.onStop()
-    }
-    
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.dialog, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.ok -> {
-            submit()
-            true
-        }
-        else -> false
-    }
-    
-    private fun submit() {
-        if (args.setId == 0L) {
-            vm.addSet()
+        vm.trainingSetSavedEvent.observe(viewLifecycleOwner, EventObserver {
             sharedVM.onSetCompleted(vm.trainingExercise.value?.rest ?: 0)
-        } else {
-            vm.updateSet()
-        }
+            hideKeyboard()
+            popBackStack()
+        })
     }
 }

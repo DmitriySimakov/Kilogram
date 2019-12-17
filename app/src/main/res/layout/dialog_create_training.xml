@@ -11,102 +11,103 @@
         
         <variable
             name="vm"
-            type="com.dmitrysimakov.kilogram.ui.home.create_training.CreateTrainingViewModel" />
+            type="com.dmitrysimakov.kilogram.ui.home.trainings.create_training.CreateTrainingViewModel" />
     </data>
     
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:elevation="1dp"
-        android:paddingLeft="?attr/dialogPreferredPadding"
-        android:paddingRight="?attr/dialogPreferredPadding">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/frame_padding">
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+    
+            <TextView
+                android:id="@+id/date_tv"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/icon_button_size"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text='@{vm.dateTime.format(DateTimeFormatter.ofPattern("dd MMMM yyyy"))}'
+                tools:text="Сегодня" />
+    
+            <TextView
+                android:id="@+id/time_tv"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/icon_button_size"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text='@{vm.dateTime.format(DateTimeFormatter.ofPattern("hh:mm"))}'
+                tools:text="04:20" />
+            
+        </LinearLayout>
+        
+        <View style="@style/VerticalDivider" />
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+    
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/training_program" />
+    
+            <Switch
+                android:layout_width="@dimen/icon_button_size"
+                android:layout_height="@dimen/icon_button_size"
+                android:checked="@={Converter.unbox(vm.byProgram)}" />
+            
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/programLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+    
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/icon_button_size"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@{vm.programDay.program}"
+                app:invisibleUnless="@{Converter.unbox(vm.byProgram)}"
+                tools:text="На массу" />
+    
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/icon_button_size"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text='@{vm.programDay != null ? vm.programDay.program_day : "Выбрать" }'
+                app:invisibleUnless="@{Converter.unbox(vm.byProgram)}"
+                tools:text="День ног" />
+            
+        </LinearLayout>
+    
+        <View style="@style/VerticalDivider" />
         
         <TextView
-            android:id="@+id/date_tv"
-            android:layout_width="0dp"
-            android:layout_height="?attr/listPreferredItemHeightSmall"
-            android:gravity="center_vertical"
-            android:text='@{vm.dateTime.format(DateTimeFormatter.ofPattern("dd MMMM yyyy"))}'
-            app:layout_constraintEnd_toStartOf="@id/time_tv"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Сегодня" />
-        
-        <TextView
-            android:id="@+id/time_tv"
-            android:layout_width="0dp"
-            android:layout_height="?attr/listPreferredItemHeightSmall"
-            android:gravity="center_vertical"
-            android:text='@{vm.dateTime.format(DateTimeFormatter.ofPattern("hh:mm"))}'
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/date_tv"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="04:20" />
-        
-        <View
-            android:id="@+id/divider1"
-            style="@style/VerticalDivider"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/date_tv" />
-        
-        <TextView
-            android:id="@+id/program_label"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:gravity="center_vertical"
-            android:text="@string/training_program"
-            app:layout_constraintBottom_toBottomOf="@id/program_switch"
-            app:layout_constraintEnd_toStartOf="@id/program_switch"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/program_switch" />
-        
-        <Switch
-            android:id="@+id/program_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="@={Converter.unbox(vm.byProgram)}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/program_label"
-            app:layout_constraintTop_toBottomOf="@id/divider1" />
-        
-        <TextView
-            android:id="@+id/program_tv"
-            android:layout_width="0dp"
-            android:layout_height="?attr/listPreferredItemHeightSmall"
-            android:gravity="center_vertical"
-            android:text="@{vm.programDay.program}"
-            app:invisibleUnless="@{Converter.unbox(vm.byProgram)}"
-            app:layout_constraintEnd_toStartOf="@id/programDayTV"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/program_label"
-            tools:text="На массу" />
-        
-        <TextView
-            android:id="@+id/programDayTV"
-            android:layout_width="0dp"
-            android:layout_height="?attr/listPreferredItemHeightSmall"
-            android:gravity="center_vertical"
-            android:text='@{vm.programDay != null ? vm.programDay.program_day : "Выбрать" }'
-            app:invisibleUnless="@{Converter.unbox(vm.byProgram)}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/program_tv"
-            app:layout_constraintTop_toBottomOf="@id/program_label"
-            tools:text="День ног" />
-        
-        <TextView
-            android:id="@+id/targetsLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/targets"
-            app:layout_constraintTop_toBottomOf="@id/program_tv" />
+            android:text="@string/targets" />
         
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/targetsCG"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        
+        <Button
+            android:id="@+id/startTrainingBtn"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/targetsLabel" />
+            android:layout_gravity="center"
+            android:text="@string/startTraining"/>
     
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </layout>

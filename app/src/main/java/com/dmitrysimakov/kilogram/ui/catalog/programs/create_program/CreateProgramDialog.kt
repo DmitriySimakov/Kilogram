@@ -1,29 +1,27 @@
 package com.dmitrysimakov.kilogram.ui.catalog.programs.create_program
 
 import android.os.Bundle
-import android.view.*
-import androidx.fragment.app.Fragment
-import com.dmitrysimakov.kilogram.R
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.dmitrysimakov.kilogram.databinding.DialogCreateProgramBinding
 import com.dmitrysimakov.kilogram.ui.catalog.programs.create_program.CreateProgramDialogDirections.Companion.toChooseProgramDayFragment
 import com.dmitrysimakov.kilogram.util.EventObserver
 import com.dmitrysimakov.kilogram.util.hideKeyboard
 import com.dmitrysimakov.kilogram.util.navigate
-import com.dmitrysimakov.kilogram.util.setXNavIcon
-import kotlinx.android.synthetic.main.activity_main.*
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.dialog_create_program.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CreateProgramDialog : Fragment() {
+class CreateProgramDialog : BottomSheetDialogFragment() {
     
     private lateinit var binding: DialogCreateProgramBinding
 
     private val vm: CreateProgramViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        setXNavIcon()
         binding = DialogCreateProgramBinding.inflate(inflater)
-        binding.viewModel = vm
+        binding.vm = vm
         binding.lifecycleOwner = this
         return binding.root
     }
@@ -31,39 +29,22 @@ class CreateProgramDialog : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         
-        setHasOptionsMenu(true)
-        
         descriptionET.setOnFocusChangeListener { _, hasFocus ->
             descriptionTIL.isCounterEnabled = hasFocus
         }
         
+        binding.createProgramBtn.setOnClickListener {
+            if (validate()) vm.createProgram()
+        }
+        
         vm.programCreatedEvent.observe(viewLifecycleOwner, EventObserver{
+            hideKeyboard()
             navigate(toChooseProgramDayFragment(it))
         })
-        
-        activity?.fab?.hide()
-    }
-    
-    override fun onStop() {
-        hideKeyboard()
-        super.onStop()
-    }
-    
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.dialog, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.ok -> {
-            if (validate()) vm.createProgram()
-            true
-        }
-        else -> false
     }
     
     private fun validate():Boolean {
-        val nameIsEmpty = nameTIL.editText?.text.toString().trim().isEmpty()
+        val nameIsEmpty = vm.name.value?.trim()?.isEmpty() ?: true
         nameTIL.error = "Заполните поле".takeIf { nameIsEmpty }
         return !nameIsEmpty
     }

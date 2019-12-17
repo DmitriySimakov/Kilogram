@@ -14,51 +14,46 @@
             type="com.dmitrysimakov.kilogram.data.local.relation.DetailedTraining" />
     </data>
     
-    <androidx.constraintlayout.widget.ConstraintLayout style="@style/HorizontalListItem">
+    <LinearLayout
+        style="@style/HorizontalListItem"
+        android:orientation="vertical">
         
-        <TextView
-            android:id="@+id/dateTV"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text='@{training.start_date_time.format(DateTimeFormatter.ofPattern("EE. dd MMMM yyyy г. hh:mm"))}'
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Чт. 21 марта 2019 г. 15:00" />
-        
-        <TextView
-            android:id="@+id/titleTV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{training.program_day_name +` `+ training.program_name}"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-            app:invisibleUnless="@{training.program_day_name != null}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dateTV"
-            tools:text="День №1 Программа" />
-        
-        <ImageView
-            android:id="@+id/timerIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_timer"
-            android:tint="@color/grey700"
-            app:layout_constraintVertical_chainStyle="packed"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/duration"/>
+            android:orientation="horizontal">
+    
+            <TextView
+                android:id="@+id/dateTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{training.start_date_time.format(DateTimeFormatter.ofPattern("hh:mm"))}'
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                tools:text="15:00" />
+    
+            <TextView
+                android:id="@+id/titleTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/frame_padding"
+                android:text="@{training.program_day_name +` `+ training.program_name}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                app:invisibleUnless="@{training.program_day_name != null}"
+                app:layout_constraintStart_toEndOf="@id/dateTV"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="День №1 Программа" />
+            
+        </LinearLayout>
         
         <TextView
             android:id="@+id/duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{Converter.secondsToTimeFormat(training.duration)}"
+            android:text="@{`Длительность: ` + Converter.secondsToTimeFormat(training.duration)}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             app:goneUnless="@{training.duration != null}"
-            app:layout_constraintTop_toBottomOf="@id/timerIcon"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="1:05" />
+            tools:text="Длительность: 1:05" />
     
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </layout>

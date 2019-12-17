@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.home.create_training
+package com.dmitrysimakov.kilogram.ui.home.trainings.create_training
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

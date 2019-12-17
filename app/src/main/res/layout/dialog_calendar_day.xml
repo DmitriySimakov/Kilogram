@@ -13,37 +13,19 @@
     </data>
     
     <LinearLayout
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/frame_padding">
         
-        <LinearLayout
+        <TextView
+            android:id="@+id/dateLabel"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            
-            <ImageView
-                android:id="@+id/prevDayButton"
-                style="@style/IconButton"
-                android:onClick="@{() -> vm.setDate(vm.date.minusDays(1))}"
-                app:srcCompat="@drawable/ic_keyboard_arrow_left" />
-            
-            <TextView
-                android:id="@+id/dateLabel"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                android:text='@{vm.date.format(DateTimeFormatter.ofPattern("dd MMMM yyyy г."))}'
-                tools:text="1 января 1970 г." />
-            
-            <ImageView
-                android:id="@+id/nextDayButton"
-                style="@style/IconButton"
-                android:onClick="@{() -> vm.setDate(vm.date.plusDays(1))}"
-                app:srcCompat="@drawable/ic_keyboard_arrow_right" />
-        
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:text='@{vm.date.format(DateTimeFormatter.ofPattern("dd MMMM yyyy г."))}'
+            tools:text="1 января 1970 г." />
         
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
