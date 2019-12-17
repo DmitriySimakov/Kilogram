@@ -9,7 +9,7 @@
         
         <variable
             name="vm"
-            type="com.dmitrysimakov.kilogram.ui.home.calendar_day_overview.CalendarDayViewModel" />
+            type="com.dmitrysimakov.kilogram.ui.home.calendar_day.CalendarDayViewModel" />
     </data>
     
     <LinearLayout
@@ -24,6 +24,7 @@
             <ImageView
                 android:id="@+id/prevDayButton"
                 style="@style/IconButton"
+                android:onClick="@{() -> vm.setDate(vm.date.minusDays(1))}"
                 app:srcCompat="@drawable/ic_keyboard_arrow_left" />
             
             <TextView
@@ -39,6 +40,7 @@
             <ImageView
                 android:id="@+id/nextDayButton"
                 style="@style/IconButton"
+                android:onClick="@{() -> vm.setDate(vm.date.plusDays(1))}"
                 app:srcCompat="@drawable/ic_keyboard_arrow_right" />
         
         </LinearLayout>

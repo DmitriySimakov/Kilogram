@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.home.calendar_day_overview
+package com.dmitrysimakov.kilogram.ui.home.calendar_day
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.databinding.DialogCalendarDayBinding
 import com.dmitrysimakov.kilogram.ui.home.TrainingsAdapter
-import com.dmitrysimakov.kilogram.ui.home.calendar_day_overview.CalendarDayDialogDirections.Companion.toTrainingExercisesFragment
+import com.dmitrysimakov.kilogram.ui.home.calendar_day.CalendarDayDialogDirections.Companion.toTrainingExercisesFragment
 import com.dmitrysimakov.kilogram.util.navigate
 import com.dmitrysimakov.kilogram.util.toLocalDate
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

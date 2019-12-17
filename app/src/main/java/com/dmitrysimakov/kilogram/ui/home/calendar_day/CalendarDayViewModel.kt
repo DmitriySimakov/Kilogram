@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.home.calendar_day_overview
+package com.dmitrysimakov.kilogram.ui.home.calendar_day
 
 import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
