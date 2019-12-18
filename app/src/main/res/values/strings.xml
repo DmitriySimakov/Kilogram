@@ -128,5 +128,7 @@
     <string name="create_program">Создать программу</string>
     <string name="create_training_day">Создать тренировочный день</string>
     <string name="startTraining">Начать тренировку</string>
+    <string name="compound">Базовые</string>
+    <string name="isolated">Изолированные</string>
 
 </resources>

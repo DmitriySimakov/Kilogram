@@ -9,7 +9,9 @@ import com.dmitrysimakov.kilogram.data.local.entity.Exercise
 import com.dmitrysimakov.kilogram.data.local.entity.ProgramDayExercise
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.local.relation.FilterParam
-import com.dmitrysimakov.kilogram.data.repository.*
+import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
+import com.dmitrysimakov.kilogram.data.repository.ProgramDayExerciseRepository
+import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.util.Event
 import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.coroutines.launch
@@ -19,8 +21,6 @@ class ChooseExerciseViewModel (
         equipmentDao: EquipmentDao,
         private val exerciseTargetDao: ExerciseTargetDao,
         private val exerciseRepo: ExerciseRepository,
-        private val trainingMuscleRepo: TrainingMuscleRepository,
-        private val programDayTargetsRepo: ProgramDayTargetsRepository,
         private val trainingExerciseRepository: TrainingExerciseRepository,
         private val programDayExerciseRepository: ProgramDayExerciseRepository
 ) : ViewModel() {
@@ -34,35 +34,21 @@ class ChooseExerciseViewModel (
     
     val addedToFavorite = MutableLiveData<Boolean>()
     val performedEarlier = MutableLiveData<Boolean>()
+    val compound = MutableLiveData<Boolean>()
+    val isolated = MutableLiveData<Boolean>()
     
-    private val _exerciseTargets = MutableLiveData<List<FilterParam>>()
-    val exerciseTargetList: LiveData<List<FilterParam>> = _exerciseTargets
-    
+    val exerciseTargetList = liveData { emit(exerciseTargetDao.params()) }
     val equipmentList = liveData { emit(equipmentDao.params()) }
     
     private val _exerciseAddedEvent = MutableLiveData<Event<Unit>>()
     val exerciseAddedEvent: LiveData<Event<Unit>> = _exerciseAddedEvent
     
     init {
-        listOf(searchText, addedToFavorite, performedEarlier, exerciseTargetList)
+        listOf(searchText, addedToFavorite, performedEarlier, isolated, exerciseTargetList)
                 .forEach { query.addSource(it) { updateQuery() } }
     }
     
     fun setSearchText(text: String?) = _searchText.setNewValue(text)
-    
-    fun setExerciseTarget(muscleName: String) = viewModelScope.launch {
-        _exerciseTargets.value = exerciseTargetDao.params().map { param ->
-            if (param.name == muscleName) param.apply { is_active = true } else param
-        }
-    }
-    
-    fun setProgramDayId(id: Long) = viewModelScope.launch {
-        _exerciseTargets.value = programDayTargetsRepo.params(id)
-    }
-    
-    fun setTrainingId(id: Long) = viewModelScope.launch {
-        _exerciseTargets.value = trainingMuscleRepo.params(id)
-    }
     
     private fun updateQuery() {
         val exerciseTargets = exerciseTargetList.getActiveParamsString()
@@ -72,6 +58,8 @@ class ChooseExerciseViewModel (
         _searchText.value?.let { if (it.isNotEmpty()) sb.append(" AND name LIKE '%$it%'") }
         if (addedToFavorite.value == true) sb.append(" AND is_favorite == 1")
         if (performedEarlier.value == true) sb.append(" AND executions_cnt > 0")
+        if (compound.value == true && isolated.value == false) sb.append(" AND is_isolated == 0")
+        if (compound.value == false && isolated.value == true) sb.append(" AND is_isolated == 1")
         if (exerciseTargets.isNotEmpty()) sb.append(" AND target IN ($exerciseTargets)")
         if (equipments.isNotEmpty()) sb.append(" AND equipment IN ($equipments)")
         sb.append(" ORDER BY executions_cnt DESC")

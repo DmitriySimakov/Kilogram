@@ -15,8 +15,6 @@ class Programs_ChooseExerciseFragment : ChooseExerciseFragment() {
         super.onActivityCreated(savedInstanceState)
         setXNavIcon()
         
-        vm.setProgramDayId(args.programDayId)
-        
         exerciseAdapter.clickCallback = { exercise ->
             vm.addExerciseToProgramDay(exercise, args.programDayId, args.num)
         }

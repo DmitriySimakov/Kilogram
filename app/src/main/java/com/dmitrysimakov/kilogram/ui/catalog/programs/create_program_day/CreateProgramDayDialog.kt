@@ -4,11 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.databinding.DialogCreateProgramDayBinding
 import com.dmitrysimakov.kilogram.ui.catalog.programs.create_program_day.CreateProgramDayDialogDirections.Companion.toExercisesFragment
-import com.dmitrysimakov.kilogram.ui.common.ChipGroupFilterAdapter
 import com.dmitrysimakov.kilogram.util.EventObserver
 import com.dmitrysimakov.kilogram.util.hideKeyboard
 import com.dmitrysimakov.kilogram.util.navigate
@@ -19,8 +17,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class CreateProgramDayDialog : BottomSheetDialogFragment() {
     
     private lateinit var binding: DialogCreateProgramDayBinding
-    
-    private lateinit var muscleAdapter: ChipGroupFilterAdapter
     
     private val args: CreateProgramDayDialogArgs by navArgs()
     
@@ -39,16 +35,11 @@ class CreateProgramDayDialog : BottomSheetDialogFragment() {
         descriptionET.setOnFocusChangeListener { _, hasFocus ->
             descriptionTIL.isCounterEnabled = hasFocus
         }
-    
-        muscleAdapter = ChipGroupFilterAdapter(binding.targetsCG) { name, isChecked ->
-            vm.muscleList.value?.find{ it.name == name }?.is_active = isChecked
-        }
         
         binding.createProgramDayBtn.setOnClickListener {
             if (validate()) vm.createProgramDay(args.programId, args.num)
         }
         
-        vm.muscleList.observe(viewLifecycleOwner, Observer { muscleAdapter.submitList(it) })
         vm.programDayCreatedEvent.observe(viewLifecycleOwner, EventObserver{
             hideKeyboard()
             navigate(toExercisesFragment(it))

@@ -88,18 +88,6 @@
                 tools:text="День ног" />
             
         </LinearLayout>
-    
-        <View style="@style/VerticalDivider" />
-        
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/targets" />
-        
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/targetsCG"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
         
         <Button
             android:id="@+id/startTrainingBtn"

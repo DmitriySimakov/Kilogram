@@ -15,12 +15,10 @@ class Trainings_ChooseExerciseFragment : ChooseExerciseFragment() {
         super.onActivityCreated(savedInstanceState)
         setXNavIcon()
         
-        vm.exerciseAddedEvent.observe(viewLifecycleOwner, EventObserver{ popBackStack() })
-    
-        vm.setTrainingId(args.trainingId)
-    
         exerciseAdapter.clickCallback = { exercise ->
             vm.addExerciseToTraining(exercise, args.trainingId, args.num)
         }
+    
+        vm.exerciseAddedEvent.observe(viewLifecycleOwner, EventObserver{ popBackStack() })
     }
 }

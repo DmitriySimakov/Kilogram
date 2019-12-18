@@ -24,7 +24,7 @@ import com.dmitrysimakov.kilogram.data.local.relation.ExerciseMeasures
 data class Exercise(
         @PrimaryKey val name: String,
         val target: String? = null,
-        val isIsolated: Boolean? = null,
+        val is_isolated: Boolean? = null,
         val equipment: String? = null,
         val description: String = "",
         val executions_cnt: Long = 0,

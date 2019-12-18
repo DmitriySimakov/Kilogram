@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.dmitrysimakov.kilogram.databinding.DialogCreateTrainingBinding
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
-import com.dmitrysimakov.kilogram.ui.common.ChipGroupFilterAdapter
 import com.dmitrysimakov.kilogram.ui.home.trainings.create_training.CreateTrainingDialogDirections.Companion.toChooseProgramFragment
 import com.dmitrysimakov.kilogram.ui.home.trainings.create_training.CreateTrainingDialogDirections.Companion.toExercisesFragment
 import com.dmitrysimakov.kilogram.util.EventObserver
@@ -30,8 +29,6 @@ class CreateTrainingDialog : BottomSheetDialogFragment() {
     private val vm: CreateTrainingViewModel by viewModel()
     
     private val sharedVM: SharedViewModel by sharedViewModel()
-    
-    private lateinit var muscleAdapter: ChipGroupFilterAdapter
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DialogCreateTrainingBinding.inflate(inflater)
@@ -71,26 +68,22 @@ class CreateTrainingDialog : BottomSheetDialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         
-        vm.trainingCreatedEvent.observe(viewLifecycleOwner, EventObserver{
-            hideKeyboard()
-            navigate(toExercisesFragment(it, true))
-        })
         sharedVM.programDayId.observe(viewLifecycleOwner, Observer { if (it != null) vm.setProgramDay(it) })
         vm.byProgram.observe(viewLifecycleOwner, Observer {  })
         vm.programDay.observe(viewLifecycleOwner, Observer {
             if (it != null) vm.byProgram.setNewValue(true)
         })
-    
-        muscleAdapter = ChipGroupFilterAdapter(binding.targetsCG) { name, isChecked ->
-            vm.muscleList.value?.find{ it.name == name }?.is_active = isChecked
-        }
-        vm.muscleList.observe(viewLifecycleOwner, Observer { muscleAdapter.submitList(it) })
-    
+        
         binding.startTrainingBtn.setOnClickListener {
             vm.createTraining()
             sharedVM.onTrainingSessionStarted()
         }
         binding.programLayout.setOnClickListener { navigate(toChooseProgramFragment()) }
+    
+        vm.trainingCreatedEvent.observe(viewLifecycleOwner, EventObserver{
+            hideKeyboard()
+            navigate(toExercisesFragment(it, true))
+        })
     }
     
     override fun onStop() {

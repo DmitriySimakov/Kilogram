@@ -38,12 +38,10 @@ val appModule = module {
     single { get<KilogramDb>().photoDao() }
     single { get<KilogramDb>().programDao() }
     single { get<KilogramDb>().programDayDao() }
-    single { get<KilogramDb>().programDayTargetDao() }
     single { get<KilogramDb>().programDayExerciseDao() }
     single { get<KilogramDb>().exerciseTargetDao() }
     single { get<KilogramDb>().targetedMuscleDao() }
     single { get<KilogramDb>().trainingDao() }
-    single { get<KilogramDb>().trainingMuscleDao() }
     single { get<KilogramDb>().trainingExerciseDao() }
     single { get<KilogramDb>().trainingSetDao() }
     single { get<KilogramDb>().measurementDao() }
@@ -53,25 +51,23 @@ val appModule = module {
     single { PhotoRepository(get()) }
     single { ProgramDayRepository(get()) }
     single { ProgramDayExerciseRepository(get()) }
-    single { ProgramDayTargetsRepository(get()) }
     single { ProgramRepository(get()) }
     single { TrainingExerciseRepository(get()) }
     single { TrainingSetRepository(get()) }
-    single { TrainingMuscleRepository(get()) }
     single { TrainingRepository(get()) }
     // ViewModels
     viewModel { SharedViewModel(get()) }
     viewModel { ExerciseTargetsViewModel(get()) }
     viewModel { CalendarDayViewModel(get()) }
-    viewModel { ChooseExerciseViewModel(get(), get(), get(), get(), get(), get(), get()) }
+    viewModel { ChooseExerciseViewModel(get(), get(), get(), get(), get()) }
     viewModel { ChooseProgramViewModel(get()) }
     viewModel { ChooseProgramDayViewModel(get()) }
     viewModel { DetailedExerciseViewModel(get(), get()) }
     viewModel { CreateProgramViewModel(get()) }
-    viewModel { CreateProgramDayViewModel(get(), get(), get()) }
+    viewModel { CreateProgramDayViewModel(get()) }
     viewModel { HomeViewModel(get(), get()) }
     viewModel { ProgramDayExercisesViewModel(get()) }
-    viewModel { CreateTrainingViewModel(get(), get(), get(), get(), get()) }
+    viewModel { CreateTrainingViewModel(get(), get(), get()) }
     viewModel { TrainingExercisesViewModel(get(), get(), get()) }
     viewModel { TrainingSetsViewModel(get(), get(), get()) }
     viewModel { AddTrainingSetViewModel(get(), get(), get()) }
