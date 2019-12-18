@@ -18,6 +18,7 @@ import com.dmitrysimakov.kilogram.databinding.FragmentHomeBinding
 import com.dmitrysimakov.kilogram.ui.common.measurements.MeasurementsAdapter
 import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toCalendarDayDialog
 import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toCreateTrainingFragment
+import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toPhotosFragment
 import com.dmitrysimakov.kilogram.util.navigate
 import com.dmitrysimakov.kilogram.util.toIsoString
 import com.kizitonwose.calendarview.utils.next
@@ -93,13 +94,13 @@ class HomeFragment : Fragment() {
         }
     }
     
-    
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         activity?.fab?.hide()
         
         binding.startTrainingButton.setOnClickListener { navigate(toCreateTrainingFragment()) }
         binding.addPhotoButton.setOnClickListener { dispatchTakePictureIntent() }
+        binding.photosLabel.setOnClickListener { navigate(toPhotosFragment()) }
         
         vm.trainings.observe(viewLifecycleOwner, Observer {
             calendarDayBinder.submitList(it)

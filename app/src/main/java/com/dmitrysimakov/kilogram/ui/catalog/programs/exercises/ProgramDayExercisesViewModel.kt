@@ -7,7 +7,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ProgramDayExercisesViewModel (private val repository: ProgramDayExerciseRepository) : ViewModel() {
+class ProgramDayExercisesViewModel(private val repository: ProgramDayExerciseRepository) : ViewModel() {
     
     private val _programDayId = MutableLiveData<Long>()
     val exercises = _programDayId.switchMap { repository.programDayExercisesFlow(it).asLiveData() }

@@ -130,6 +130,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
             
             <TextView
+                android:id="@+id/photosLabel"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:drawableEnd="@drawable/ic_arrow_forward"

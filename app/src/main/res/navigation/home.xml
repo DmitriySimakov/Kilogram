@@ -16,6 +16,9 @@
         <action
             android:id="@+id/to_calendarDayDialog"
             app:destination="@id/calendarDayDialog" />
+        <action
+            android:id="@+id/to_photosFragment"
+            app:destination="@id/photosFragment" />
     </fragment>
     <dialog
         android:id="@+id/createTrainingDialog"
@@ -125,4 +128,9 @@
             android:name="date"
             app:argType="string" />
     </dialog>
+    <fragment
+        android:id="@+id/photosFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.home.photos.PhotosFragment"
+        android:label="fragment_photos"
+        tools:layout="@layout/fragment_photos" />
 </navigation>
