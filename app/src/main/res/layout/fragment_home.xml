@@ -56,78 +56,87 @@
                 app:cv_outDateStyle="endOfGrid"
                 app:cv_scrollMode="paged"/>
             
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/actionButtons"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:baselineAligned="false">
                 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/startTrainingButton"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_fitness_center"
-                    android:tint="@color/white"
-                    app:elevation="0dp"
-                    app:layout_constraintEnd_toStartOf="@id/addMeasurementButton"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+        
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/startTrainingButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_fitness_center"
+                        android:tint="@color/white"
+                        app:elevation="0dp" />
+        
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/startTrainingButton" />
+    
+                </LinearLayout>
+    
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+    
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/addMeasurementButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_straighten"
+                        android:tint="@color/white"
+                        app:elevation="0dp" />
+    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/addMeasurementButton" />
+    
+                </LinearLayout>
+    
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+    
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/addPhotoButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_photo_camera"
+                        android:tint="@color/white"
+                        app:elevation="0dp" />
+    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/addPhotoButton" />
+    
+                </LinearLayout>
                 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/addMeasurementButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_straighten"
-                    android:tint="@color/white"
-                    app:elevation="0dp"
-                    app:layout_constraintEnd_toStartOf="@id/addPhotoButton"
-                    app:layout_constraintStart_toEndOf="@id/startTrainingButton"
-                    app:layout_constraintTop_toTopOf="parent" />
-                
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/addPhotoButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_photo_camera"
-                    android:tint="@color/white"
-                    app:elevation="0dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/addMeasurementButton"
-                    app:layout_constraintTop_toTopOf="parent" />
-                
-                <TextView
-                    android:id="@+id/startTrainingTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:gravity="center"
-                    android:text="@string/startTrainingButton"
-                    app:layout_constraintEnd_toEndOf="@id/startTrainingButton"
-                    app:layout_constraintStart_toStartOf="@id/startTrainingButton"
-                    app:layout_constraintTop_toBottomOf="@id/startTrainingButton" />
-                
-                <TextView
-                    android:id="@+id/addMeasurementTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:gravity="center"
-                    android:text="@string/addMeasurementButton"
-                    app:layout_constraintEnd_toEndOf="@id/addMeasurementButton"
-                    app:layout_constraintStart_toStartOf="@id/addMeasurementButton"
-                    app:layout_constraintTop_toBottomOf="@id/addMeasurementButton" />
-                
-                <TextView
-                    android:id="@+id/addPhotoTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:gravity="center"
-                    android:text="@string/addPhotoButton"
-                    app:layout_constraintEnd_toEndOf="@id/addPhotoButton"
-                    app:layout_constraintStart_toStartOf="@id/addPhotoButton"
-                    app:layout_constraintTop_toBottomOf="@id/addPhotoButton" />
-            
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
             
             <TextView
                 android:id="@+id/photosLabel"

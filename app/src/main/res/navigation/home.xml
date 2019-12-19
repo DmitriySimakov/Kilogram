@@ -32,6 +32,10 @@
         <action
             android:id="@+id/to_chooseProgramFragment"
             app:destination="@id/trainings_ChooseProgramFragment" />
+        <argument
+            android:name="date"
+            app:argType="string"
+            app:nullable="true" />
     </dialog>
     <fragment
         android:id="@+id/trainings_ChooseProgramFragment"
@@ -127,6 +131,10 @@
         <argument
             android:name="date"
             app:argType="string" />
+        <action
+            android:id="@+id/to_createTrainingDialog"
+            app:destination="@id/createTrainingDialog"
+            app:popUpTo="@+id/homeFragment" />
     </dialog>
     <fragment
         android:id="@+id/photosFragment"

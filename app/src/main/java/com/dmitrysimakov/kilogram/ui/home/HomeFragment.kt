@@ -98,7 +98,7 @@ class HomeFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         activity?.fab?.hide()
         
-        binding.startTrainingButton.setOnClickListener { navigate(toCreateTrainingFragment()) }
+        binding.startTrainingButton.setOnClickListener { navigate(toCreateTrainingFragment(null)) }
         binding.addPhotoButton.setOnClickListener { dispatchTakePictureIntent() }
         binding.photosLabel.setOnClickListener { navigate(toPhotosFragment()) }
         

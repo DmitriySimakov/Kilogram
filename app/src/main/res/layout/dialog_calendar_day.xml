@@ -21,7 +21,7 @@
         <TextView
             android:id="@+id/dateLabel"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/icon_button_size"
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             android:text='@{vm.date.format(DateTimeFormatter.ofPattern("dd MMMM yyyy г."))}'

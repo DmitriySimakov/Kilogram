@@ -7,14 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.databinding.DialogCreateTrainingBinding
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.ui.home.trainings.create_training.CreateTrainingDialogDirections.Companion.toChooseProgramFragment
 import com.dmitrysimakov.kilogram.ui.home.trainings.create_training.CreateTrainingDialogDirections.Companion.toExercisesFragment
-import com.dmitrysimakov.kilogram.util.EventObserver
-import com.dmitrysimakov.kilogram.util.hideKeyboard
-import com.dmitrysimakov.kilogram.util.navigate
-import com.dmitrysimakov.kilogram.util.setNewValue
+import com.dmitrysimakov.kilogram.util.*
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -23,6 +21,8 @@ import org.threeten.bp.Year
 import org.threeten.bp.ZoneOffset
 
 class CreateTrainingDialog : BottomSheetDialogFragment() {
+    
+    private val args: CreateTrainingDialogArgs by navArgs()
     
     private lateinit var binding: DialogCreateTrainingBinding
 
@@ -67,6 +67,8 @@ class CreateTrainingDialog : BottomSheetDialogFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        
+        args.date?.let { vm.setDateTime(it.toOffsetDateTime()) }
         
         sharedVM.programDayId.observe(viewLifecycleOwner, Observer { if (it != null) vm.setProgramDay(it) })
         vm.byProgram.observe(viewLifecycleOwner, Observer {  })

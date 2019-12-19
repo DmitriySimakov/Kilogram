@@ -39,7 +39,7 @@
                 android:layout_height="@dimen/icon_button_size"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text='@{vm.dateTime.format(DateTimeFormatter.ofPattern("hh:mm"))}'
+                android:text='@{vm.dateTime.format(DateTimeFormatter.ofPattern("HH:mm"))}'
                 tools:text="04:20" />
             
         </LinearLayout>
@@ -67,15 +67,15 @@
         <LinearLayout
             android:id="@+id/programLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:goneUnless="@{Converter.unbox(vm.byProgram)}">
     
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="@dimen/icon_button_size"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="@{vm.programDay.program}"
-                app:invisibleUnless="@{Converter.unbox(vm.byProgram)}"
+                android:text='@{vm.programDay != null ? vm.programDay.program : "Выбрать"}'
                 tools:text="На массу" />
     
             <TextView
@@ -83,8 +83,7 @@
                 android:layout_height="@dimen/icon_button_size"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text='@{vm.programDay != null ? vm.programDay.program_day : "Выбрать" }'
-                app:invisibleUnless="@{Converter.unbox(vm.byProgram)}"
+                android:text="@{vm.programDay.program_day}"
                 tools:text="День ног" />
             
         </LinearLayout>
