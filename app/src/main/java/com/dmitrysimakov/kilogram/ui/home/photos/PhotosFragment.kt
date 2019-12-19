@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.home.PhotosAdapter
+import com.dmitrysimakov.kilogram.ui.home.photos.PhotosFragmentDirections.Companion.toPhotoFragment
+import com.dmitrysimakov.kilogram.util.navigate
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_exercises.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -16,7 +18,7 @@ class PhotosFragment : Fragment() {
     
     private val vm: PhotosViewModel by viewModel()
     
-    private val adapter by lazy { PhotosAdapter() }
+    private val adapter by lazy { PhotosAdapter { navigate(toPhotoFragment(it.uri)) } }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_photos, container, false)

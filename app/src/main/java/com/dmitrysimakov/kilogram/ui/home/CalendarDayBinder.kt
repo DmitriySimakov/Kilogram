@@ -10,7 +10,6 @@ import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import kotlinx.android.synthetic.main.calendar_day_view.view.*
 import org.threeten.bp.LocalDate
-import timber.log.Timber
 
 class CalendarDayBinder(
         private val resources: Resources,
@@ -24,7 +23,6 @@ class CalendarDayBinder(
     override fun create(view: View) = DayViewContainer(view)
     
     override fun bind(container: DayViewContainer, day: CalendarDay) {
-        Timber.d("BIND ${day.day}")
         container.apply {
             val curDate = day.date
             

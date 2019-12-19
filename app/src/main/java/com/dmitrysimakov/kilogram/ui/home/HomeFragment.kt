@@ -18,6 +18,7 @@ import com.dmitrysimakov.kilogram.databinding.FragmentHomeBinding
 import com.dmitrysimakov.kilogram.ui.common.measurements.MeasurementsAdapter
 import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toCalendarDayDialog
 import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toCreateTrainingFragment
+import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toPhotoFragment
 import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toPhotosFragment
 import com.dmitrysimakov.kilogram.util.navigate
 import com.dmitrysimakov.kilogram.util.toIsoString
@@ -46,7 +47,7 @@ class HomeFragment : Fragment() {
     private val calendarDayBinder by lazy { CalendarDayBinder(resources) {
         navigate(toCalendarDayDialog(it.toIsoString()))
     }}
-    private val photosAdapter by lazy { PhotosAdapter() }
+    private val photosAdapter by lazy { PhotosAdapter{ navigate(toPhotoFragment(it.uri)) } }
     private val measurementsAdapter by lazy { MeasurementsAdapter() }
     
     private var lastPhotoDateTime = OffsetDateTime.now()

@@ -19,6 +19,9 @@
         <action
             android:id="@+id/to_photosFragment"
             app:destination="@id/photosFragment" />
+        <action
+            android:id="@+id/to_photoFragment"
+            app:destination="@id/photoFragment" />
     </fragment>
     <dialog
         android:id="@+id/createTrainingDialog"
@@ -139,6 +142,19 @@
     <fragment
         android:id="@+id/photosFragment"
         android:name="com.dmitrysimakov.kilogram.ui.home.photos.PhotosFragment"
-        android:label="fragment_photos"
-        tools:layout="@layout/fragment_photos" />
+        android:label="@string/photos"
+        tools:layout="@layout/fragment_photos" >
+        <action
+            android:id="@+id/to_photoFragment"
+            app:destination="@id/photoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/photoFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.home.photos.photo.PhotoFragment"
+        android:label="@string/photo"
+        tools:layout="@layout/fragment_photo" >
+        <argument
+            android:name="uri"
+            app:argType="string" />
+    </fragment>
 </navigation>

@@ -130,5 +130,6 @@
     <string name="startTraining">Начать тренировку</string>
     <string name="compound">Базовые</string>
     <string name="isolated">Изолированные</string>
+    <string name="photo">Фото</string>
 
 </resources>

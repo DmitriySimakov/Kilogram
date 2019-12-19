@@ -16,6 +16,9 @@ interface PhotoDao {
     @Query("SELECT * FROM photo ORDER BY date_time DESC LIMIT :number")
     fun recentPhotos(number: Int): Flow<List<Photo>>
     
+    @Query("SELECT * FROM photo WHERE uri = :uri")
+    suspend fun photo(uri: String): Photo
+    
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(photo: Photo)

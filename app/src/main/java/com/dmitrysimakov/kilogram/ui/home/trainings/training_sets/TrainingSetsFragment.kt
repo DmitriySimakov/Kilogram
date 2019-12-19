@@ -15,6 +15,7 @@ import com.dmitrysimakov.kilogram.ui.home.trainings.training_sets.TrainingSetsFr
 import com.dmitrysimakov.kilogram.util.EventObserver
 import com.dmitrysimakov.kilogram.util.navigate
 import com.dmitrysimakov.kilogram.util.popBackStack
+import com.dmitrysimakov.kilogram.util.setTitle
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_training_sets.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -66,6 +67,7 @@ class TrainingSetsFragment : Fragment() {
             }
         }).attachToRecyclerView(recyclerView)
         
+        vm.trainingExercise.observe(viewLifecycleOwner, Observer { setTitle(it.exercise) })
         vm.measures.observe(viewLifecycleOwner, Observer {})
         vm.sets.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
         

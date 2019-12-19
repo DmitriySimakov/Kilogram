@@ -9,5 +9,7 @@ class PhotoRepository(private val dao: PhotoDao) {
     
     fun recentPhotos(number: Int) = dao.recentPhotos(number)
     
+    suspend fun photo(uri: String) = dao.photo(uri)
+    
     suspend fun insert(photo: Photo) = dao.insert(photo)
 }

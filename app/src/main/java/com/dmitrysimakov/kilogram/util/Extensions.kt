@@ -40,6 +40,10 @@ fun Fragment.setXNavIcon() {
     (activity as AppCompatActivity).supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
 }
 
+fun Fragment.setTitle(title: String) {
+    (activity as AppCompatActivity).supportActionBar?.title = title
+}
+
 private val offsetDateTimeFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
 fun String.toOffsetDateTime() = offsetDateTimeFormatter.parse(this, OffsetDateTime::from)
 fun OffsetDateTime.toIsoString() = format(offsetDateTimeFormatter)

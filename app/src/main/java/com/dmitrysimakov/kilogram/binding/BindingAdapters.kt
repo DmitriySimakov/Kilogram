@@ -4,12 +4,11 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.dmitrysimakov.kilogram.R
 import java.io.IOException
-import java.util.*
 
 object BindingAdapters {
     
@@ -35,7 +34,16 @@ object BindingAdapters {
     
     @BindingAdapter("imageUrl")
     @JvmStatic fun ImageView.imageUrl(url: String?) {
-        Glide.with(context).load(url).placeholder(R.drawable.no_photo).into(this)
+        val circularProgressDrawable = CircularProgressDrawable(this.context).apply {
+            strokeWidth = 4f
+            centerRadius = 32f
+            start()
+        }
+        Glide.with(context).load(url)
+                .placeholder(circularProgressDrawable)
+                .fallback(R.drawable.no_photo)
+                .error(R.drawable.no_photo)
+                .into(this)
     }
     
     @BindingAdapter("notEmpty")
