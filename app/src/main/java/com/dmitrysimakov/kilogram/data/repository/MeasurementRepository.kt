@@ -7,5 +7,7 @@ class MeasurementRepository(private val dao: MeasurementDao) {
     
     fun measurementsWithPreviousResults() = dao.measurementsWithPreviousResults()
     
+    fun measurementDates() = dao.measurementDates()
+    
     suspend fun insert(measurement: Measurement) = dao.insert(measurement)
 }

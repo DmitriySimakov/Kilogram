@@ -7,6 +7,7 @@ import androidx.room.Query
 import com.dmitrysimakov.kilogram.data.local.entity.Measurement
 import com.dmitrysimakov.kilogram.data.local.relation.MeasurementWithPreviousResults
 import kotlinx.coroutines.flow.Flow
+import org.threeten.bp.LocalDate
 
 @Dao
 interface MeasurementDao {
@@ -29,6 +30,9 @@ interface MeasurementDao {
     """)
     fun measurementsWithPreviousResults() : Flow<List<MeasurementWithPreviousResults>>
 
+    @Query("SELECT date FROM measurement GROUP BY date ORDER BY date DESC")
+    fun measurementDates() : Flow<List<LocalDate>>
+    
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(measurements: List<Measurement>)

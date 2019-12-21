@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+    
+        <import type="org.threeten.bp.format.DateTimeFormatter" />
+        
+        <variable
+            name="date"
+            type="org.threeten.bp.LocalDate" />
+    </data>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/listPreferredItemHeightSmall"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp">
+        
+        <TextView
+            android:id="@+id/measureParameter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text='@{date.format(DateTimeFormatter.ofPattern("dd MMMM yyyy"))}'
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            tools:text="@tools:sample/date/mmddyy" />
+    
+    </LinearLayout>
+
+</layout>

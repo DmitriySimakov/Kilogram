@@ -18,6 +18,7 @@ import com.dmitrysimakov.kilogram.ui.common.measurements.MeasurementsAdapter
 import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toAddMeasurementDialog
 import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toCalendarDayDialog
 import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toCreateTrainingFragment
+import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toMeasurementsHistoryFragment
 import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toPhotoFragment
 import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toPhotosFragment
 import com.dmitrysimakov.kilogram.util.navigate
@@ -103,6 +104,7 @@ class HomeFragment : Fragment() {
         binding.addMeasurementButton.setOnClickListener { navigate(toAddMeasurementDialog()) }
         
         binding.photosLabel.setOnClickListener { navigate(toPhotosFragment()) }
+        binding.measurementsLabel.setOnClickListener { navigate(toMeasurementsHistoryFragment()) }
         
         vm.trainings.observe(viewLifecycleOwner, Observer {
             calendarDayBinder.submitList(it)
@@ -115,11 +117,7 @@ class HomeFragment : Fragment() {
     private fun dispatchTakePictureIntent() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         takePictureIntent.resolveActivity(activity!!.packageManager)?.also {
-            val photoFile: File? = try {
-                createImageFile()
-            } catch (ex: IOException) {
-                null
-            }
+            val photoFile: File? = try { createImageFile() } catch (ex: IOException) { null }
             photoFile?.also { file ->
                 val photoURI: Uri = FileProvider.getUriForFile(
                         context!!,

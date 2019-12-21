@@ -25,6 +25,9 @@
         <action
             android:id="@+id/to_addMeasurementDialog"
             app:destination="@id/addMeasurementDialog" />
+        <action
+            android:id="@+id/to_measurementsHistoryFragment"
+            app:destination="@id/measurementsHistoryFragment" />
     </fragment>
     <dialog
         android:id="@+id/createTrainingDialog"
@@ -164,4 +167,13 @@
         android:id="@+id/addMeasurementDialog"
         android:name="com.dmitrysimakov.kilogram.ui.home.measurements.add_measurement.AddMeasurementDialog"
         tools:layout="@layout/dialog_add_measurement" />
+    <fragment
+        android:id="@+id/measurementsHistoryFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.home.measurements.measurements_history.MeasurementsHistoryFragment"
+        android:label="@string/measurements"
+        tools:layout="@layout/fragment_measurements_history" >
+        <action
+            android:id="@+id/to_addMeasurementDialog"
+            app:destination="@id/addMeasurementDialog" />
+    </fragment>
 </navigation>
