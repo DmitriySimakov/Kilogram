@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.dmitrysimakov.kilogram.R
+import com.dmitrysimakov.kilogram.ui.home.measurements.measurements_history.MeasurementsHistoryFragmentDirections.Companion.toMeasurementsFragment
+import com.dmitrysimakov.kilogram.util.navigate
+import com.dmitrysimakov.kilogram.util.toIsoString
 import kotlinx.android.synthetic.main.fragment_measurements_history.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -14,7 +17,9 @@ class MeasurementsHistoryFragment : Fragment() {
     
     private val vm: MeasurementsHistoryViewModel by viewModel()
     
-    private val adapter by lazy { MeasurementDateAdapter() }
+    private val adapter by lazy { MeasurementDateAdapter{ date ->
+        navigate(toMeasurementsFragment(date.toIsoString()))
+    }}
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_measurements_history, container, false)

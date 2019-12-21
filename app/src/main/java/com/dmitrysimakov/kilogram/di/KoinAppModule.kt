@@ -16,6 +16,7 @@ import com.dmitrysimakov.kilogram.ui.common.choose_program.ChooseProgramViewMode
 import com.dmitrysimakov.kilogram.ui.common.choose_program_day.ChooseProgramDayViewModel
 import com.dmitrysimakov.kilogram.ui.home.HomeViewModel
 import com.dmitrysimakov.kilogram.ui.home.calendar_day.CalendarDayViewModel
+import com.dmitrysimakov.kilogram.ui.home.measurements.MeasurementsViewModel
 import com.dmitrysimakov.kilogram.ui.home.measurements.add_measurement.AddMeasurementViewModel
 import com.dmitrysimakov.kilogram.ui.home.measurements.measurements_history.MeasurementsHistoryViewModel
 import com.dmitrysimakov.kilogram.ui.home.photos.PhotosViewModel
@@ -74,6 +75,7 @@ val appModule = module {
     viewModel { DetailedExerciseViewModel(get(), get()) }
     viewModel { ExerciseTargetsViewModel(get()) }
     viewModel { HomeViewModel(get(), get(), get()) }
+    viewModel { MeasurementsViewModel(get()) }
     viewModel { MeasurementsHistoryViewModel(get()) }
     viewModel { MessagesViewModel() }
     viewModel { ProgramDayExercisesViewModel(get()) }

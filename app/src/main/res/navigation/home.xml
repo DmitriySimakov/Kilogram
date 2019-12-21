@@ -175,5 +175,17 @@
         <action
             android:id="@+id/to_addMeasurementDialog"
             app:destination="@id/addMeasurementDialog" />
+        <action
+            android:id="@+id/to_measurementsFragment"
+            app:destination="@id/measurementsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/measurementsFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.home.measurements.MeasurementsFragment"
+        android:label="MeasurementsFragment"
+        tools:layout="@layout/fragment_measurements">
+        <argument
+            android:name="date"
+            app:argType="string" />
     </fragment>
 </navigation>

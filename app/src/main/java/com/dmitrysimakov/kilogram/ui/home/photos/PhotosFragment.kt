@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.ui.home.PhotosAdapter
 import com.dmitrysimakov.kilogram.ui.home.photos.PhotosFragmentDirections.Companion.toPhotoFragment
 import com.dmitrysimakov.kilogram.util.navigate
 import kotlinx.android.synthetic.main.activity_main.*

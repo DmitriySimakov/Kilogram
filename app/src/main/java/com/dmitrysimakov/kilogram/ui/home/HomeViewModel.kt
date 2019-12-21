@@ -2,6 +2,7 @@ package com.dmitrysimakov.kilogram.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.dmitrysimakov.kilogram.data.local.entity.Photo
 import com.dmitrysimakov.kilogram.data.repository.MeasurementRepository
@@ -19,7 +20,8 @@ class HomeViewModel(
     
     val recentPhotos = photoRepository.recentPhotos(3).asLiveData()
     
-    val recentMeasurements = measurementRepository.measurementsWithPreviousResults().asLiveData()
+    val recentMeasurements = measurementRepository.lastMeasurementsWithPreviousResults().asLiveData()
+            .map { it.filter { measurement -> measurement._id != null } }
     
     fun addPhoto(photo: Photo) = viewModelScope.launch {
         photoRepository.insert(photo)

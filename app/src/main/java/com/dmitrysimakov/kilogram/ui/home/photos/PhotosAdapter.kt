@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.home
+package com.dmitrysimakov.kilogram.ui.home.photos
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

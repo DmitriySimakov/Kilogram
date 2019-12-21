@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.databinding.DialogCalendarDayBinding
-import com.dmitrysimakov.kilogram.ui.home.TrainingsAdapter
 import com.dmitrysimakov.kilogram.ui.home.calendar_day.CalendarDayDialogDirections.Companion.toCreateTrainingDialog
 import com.dmitrysimakov.kilogram.ui.home.calendar_day.CalendarDayDialogDirections.Companion.toTrainingExercisesFragment
+import com.dmitrysimakov.kilogram.ui.home.trainings.TrainingsAdapter
 import com.dmitrysimakov.kilogram.util.navigate
 import com.dmitrysimakov.kilogram.util.toIsoString
 import com.dmitrysimakov.kilogram.util.toLocalDate
@@ -25,9 +25,11 @@ class CalendarDayDialog : BottomSheetDialogFragment() {
     
     private lateinit var binding: DialogCalendarDayBinding
     
-    private val adapter by lazy { TrainingsAdapter {
-        navigate(toTrainingExercisesFragment(it._id, it.duration == null))
-    }}
+    private val adapter by lazy {
+        TrainingsAdapter {
+            navigate(toTrainingExercisesFragment(it._id, it.duration == null))
+        }
+    }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DialogCalendarDayBinding.inflate(inflater)

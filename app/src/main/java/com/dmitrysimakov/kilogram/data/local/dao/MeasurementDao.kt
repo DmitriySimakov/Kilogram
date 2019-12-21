@@ -13,22 +13,25 @@ import org.threeten.bp.LocalDate
 interface MeasurementDao {
     
     @Query("""
-        SELECT _id, param AS param,
-        (SELECT value FROM measurement
-            WHERE param = bmp.param
-            ORDER BY date DESC LIMIT 0, 1) AS value,
-        (SELECT value FROM measurement
-            WHERE param = bmp.param
-            ORDER BY date DESC LIMIT 1, 1) AS prev_value,
-        (SELECT date FROM measurement
-            WHERE param = bmp.param
-            ORDER BY date DESC LIMIT 0, 1) AS date,
-        (SELECT date FROM measurement
-            WHERE param = bmp.param
-            ORDER BY date DESC LIMIT 1, 1) AS prev_date
-        FROM measurement AS bmp
+        SELECT
+        (SELECT _id FROM measurement WHERE param = mp.name ORDER BY date DESC LIMIT 0, 1) AS _id,
+        mp.name AS param,
+        (SELECT value FROM measurement WHERE param = mp.name ORDER BY date DESC LIMIT 0, 1) AS value,
+        (SELECT date FROM measurement WHERE param = mp.name ORDER BY date DESC LIMIT 0, 1) AS date,
+        (SELECT value FROM measurement WHERE param = mp.name ORDER BY date DESC LIMIT 1, 1) AS prev_value,
+        (SELECT date FROM measurement WHERE param = mp.name ORDER BY date DESC LIMIT 1, 1) AS prev_date
+        FROM measurement_param AS mp
     """)
-    fun measurementsWithPreviousResults() : Flow<List<MeasurementWithPreviousResults>>
+    fun lastMeasurementsWithPreviousResults() : Flow<List<MeasurementWithPreviousResults>>
+    
+    @Query("""
+        SELECT m._id, m.param, m.value, m.date,
+        (SELECT value FROM measurement WHERE param = m.param ORDER BY date DESC LIMIT 1, 1) AS prev_value,
+        (SELECT date FROM measurement WHERE param = m.param ORDER BY date DESC LIMIT 1, 1) AS prev_date
+        FROM measurement AS m
+        WHERE m.date = :date
+    """)
+    fun measurementsWithPreviousResults(date: LocalDate) : Flow<List<MeasurementWithPreviousResults>>
 
     @Query("SELECT date FROM measurement GROUP BY date ORDER BY date DESC")
     fun measurementDates() : Flow<List<LocalDate>>
