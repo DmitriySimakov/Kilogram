@@ -22,6 +22,9 @@
         <action
             android:id="@+id/to_photoFragment"
             app:destination="@id/photoFragment" />
+        <action
+            android:id="@+id/to_addMeasurementDialog"
+            app:destination="@id/addMeasurementDialog" />
     </fragment>
     <dialog
         android:id="@+id/createTrainingDialog"
@@ -157,4 +160,8 @@
             android:name="uri"
             app:argType="string" />
     </fragment>
+    <dialog
+        android:id="@+id/addMeasurementDialog"
+        android:name="com.dmitrysimakov.kilogram.ui.home.measurements.add_measurement.AddMeasurementDialog"
+        tools:layout="@layout/dialog_add_measurement" />
 </navigation>

@@ -1,8 +1,11 @@
 package com.dmitrysimakov.kilogram.data.repository
 
 import com.dmitrysimakov.kilogram.data.local.dao.MeasurementDao
+import com.dmitrysimakov.kilogram.data.local.entity.Measurement
 
 class MeasurementRepository(private val dao: MeasurementDao) {
     
-    suspend fun measurementsWithPreviousResults() = dao.measurementsWithPreviousResults()
+    fun measurementsWithPreviousResults() = dao.measurementsWithPreviousResults()
+    
+    suspend fun insert(measurement: Measurement) = dao.insert(measurement)
 }

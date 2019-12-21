@@ -16,6 +16,11 @@ fun intToString(value: Int?) = value?.toString() ?: ""
 @InverseMethod("intToString")
 fun stringToInt(string: String) = try { string.toInt() } catch (e: Exception) { null }
 
+fun doubleToString(value: Double?) = value?.toString() ?: ""
+
+@InverseMethod("doubleToString")
+fun stringToDouble(string: String) = try { string.toDouble() } catch (e: Exception) { null }
+
 fun secondsToTimeFormat(seconds: Int?): String {
     if (seconds == null) return ""
     val millis = seconds * 1000L

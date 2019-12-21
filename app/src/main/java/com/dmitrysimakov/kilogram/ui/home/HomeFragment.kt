@@ -13,9 +13,9 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.dmitrysimakov.kilogram.data.local.entity.Photo
-import com.dmitrysimakov.kilogram.data.local.relation.MeasurementWithPreviousResults
 import com.dmitrysimakov.kilogram.databinding.FragmentHomeBinding
 import com.dmitrysimakov.kilogram.ui.common.measurements.MeasurementsAdapter
+import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toAddMeasurementDialog
 import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toCalendarDayDialog
 import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toCreateTrainingFragment
 import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toPhotoFragment
@@ -26,7 +26,6 @@ import com.kizitonwose.calendarview.utils.next
 import com.kizitonwose.calendarview.utils.previous
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.threeten.bp.LocalDate
 import org.threeten.bp.OffsetDateTime
 import org.threeten.bp.YearMonth
 import org.threeten.bp.format.DateTimeFormatter
@@ -101,6 +100,8 @@ class HomeFragment : Fragment() {
         
         binding.startTrainingButton.setOnClickListener { navigate(toCreateTrainingFragment(null)) }
         binding.addPhotoButton.setOnClickListener { dispatchTakePictureIntent() }
+        binding.addMeasurementButton.setOnClickListener { navigate(toAddMeasurementDialog()) }
+        
         binding.photosLabel.setOnClickListener { navigate(toPhotosFragment()) }
         
         vm.trainings.observe(viewLifecycleOwner, Observer {
@@ -108,16 +109,7 @@ class HomeFragment : Fragment() {
             binding.calendarView.notifyCalendarChanged()
         })
         vm.recentPhotos.observe(viewLifecycleOwner, Observer { photosAdapter.submitList(it) })
-        measurementsAdapter.submitList(listOf(
-                MeasurementWithPreviousResults(1, "Шея", 37.0, LocalDate.now()),
-                MeasurementWithPreviousResults(2, "Бицепс", 36.0, LocalDate.now()),
-                MeasurementWithPreviousResults(3, "Предплечье", 30.0, LocalDate.now()),
-                MeasurementWithPreviousResults(4, "Грудь", 105.0, LocalDate.now()),
-                MeasurementWithPreviousResults(5, "Талия", 75.0, LocalDate.now()),
-                MeasurementWithPreviousResults(6, "Таз", 75.0, LocalDate.now()),
-                MeasurementWithPreviousResults(7, "Бедро", 75.0, LocalDate.now()),
-                MeasurementWithPreviousResults(8, "Голень", 75.0, LocalDate.now())
-        ))
+        vm.recentMeasurements.observe(viewLifecycleOwner, Observer { measurementsAdapter.submitList(it) })
     }
     
     private fun dispatchTakePictureIntent() {

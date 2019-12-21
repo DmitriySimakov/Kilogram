@@ -16,7 +16,7 @@ import com.dmitrysimakov.kilogram.ui.common.choose_program.ChooseProgramViewMode
 import com.dmitrysimakov.kilogram.ui.common.choose_program_day.ChooseProgramDayViewModel
 import com.dmitrysimakov.kilogram.ui.home.HomeViewModel
 import com.dmitrysimakov.kilogram.ui.home.calendar_day.CalendarDayViewModel
-import com.dmitrysimakov.kilogram.ui.home.measurements.add_measurement.MeasurementsViewModel
+import com.dmitrysimakov.kilogram.ui.home.measurements.add_measurement.AddMeasurementViewModel
 import com.dmitrysimakov.kilogram.ui.home.photos.PhotosViewModel
 import com.dmitrysimakov.kilogram.ui.home.photos.photo.PhotoViewModel
 import com.dmitrysimakov.kilogram.ui.home.trainings.add_training_set.AddTrainingSetViewModel
@@ -47,6 +47,7 @@ val appModule = module {
     single { get<KilogramDb>().trainingExerciseDao() }
     single { get<KilogramDb>().trainingSetDao() }
     single { get<KilogramDb>().measurementDao() }
+    single { get<KilogramDb>().measurementParamDao() }
     // Repositories
     single { ExerciseRepository(get()) }
     single { MeasurementRepository(get()) }
@@ -67,13 +68,13 @@ val appModule = module {
     viewModel { DetailedExerciseViewModel(get(), get()) }
     viewModel { CreateProgramViewModel(get()) }
     viewModel { CreateProgramDayViewModel(get()) }
-    viewModel { HomeViewModel(get(), get()) }
+    viewModel { HomeViewModel(get(), get(), get()) }
     viewModel { ProgramDayExercisesViewModel(get()) }
     viewModel { CreateTrainingViewModel(get(), get(), get()) }
     viewModel { TrainingExercisesViewModel(get(), get(), get()) }
     viewModel { TrainingSetsViewModel(get(), get(), get()) }
     viewModel { AddTrainingSetViewModel(get(), get(), get()) }
-    viewModel { MeasurementsViewModel(get()) }
+    viewModel { AddMeasurementViewModel(get(), get()) }
     viewModel { ChatsViewModel() }
     viewModel { MessagesViewModel() }
     viewModel { PeopleViewModel() }

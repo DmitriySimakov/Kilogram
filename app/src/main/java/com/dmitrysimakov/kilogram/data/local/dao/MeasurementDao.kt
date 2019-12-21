@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.dmitrysimakov.kilogram.data.local.entity.Measurement
 import com.dmitrysimakov.kilogram.data.local.relation.MeasurementWithPreviousResults
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MeasurementDao {
@@ -26,9 +27,12 @@ interface MeasurementDao {
             ORDER BY date DESC LIMIT 1, 1) AS prev_date
         FROM measurement AS bmp
     """)
-    suspend fun measurementsWithPreviousResults() : List<MeasurementWithPreviousResults>
+    fun measurementsWithPreviousResults() : Flow<List<MeasurementWithPreviousResults>>
 
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(measurements: List<Measurement>)
+    
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(measurement: Measurement)
 }

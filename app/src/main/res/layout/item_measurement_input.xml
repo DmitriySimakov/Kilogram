@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+    
+        <import type="com.dmitrysimakov.kilogram.binding.Converter" />
+        
+        <variable
+            name="measurement"
+            type="com.dmitrysimakov.kilogram.data.local.relation.NewMeasurement" />
+    </data>
+    
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@{measurement.param}"
+            tools:hint="Бицепс">
+        
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:inputType="numberDecimal"
+                android:selectAllOnFocus="true"
+                android:text="@={Converter.doubleToString(measurement.value)}" />
+    
+        </com.google.android.material.textfield.TextInputLayout>
+    
+    </FrameLayout>
+
+</layout>

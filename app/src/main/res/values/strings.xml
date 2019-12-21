@@ -131,5 +131,6 @@
     <string name="compound">Базовые</string>
     <string name="isolated">Изолированные</string>
     <string name="photo">Фото</string>
+    <string name="add_measurements">Добавить замеры</string>
 
 </resources>

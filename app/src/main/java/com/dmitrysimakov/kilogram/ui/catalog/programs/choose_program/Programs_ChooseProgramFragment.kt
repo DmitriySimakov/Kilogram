@@ -18,7 +18,7 @@ class Programs_ChooseProgramFragment : ChooseProgramFragment() {
         adapter.clickCallback = { navigate(toChooseProgramDayFragment(it._id)) }
     
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
-            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean { return false }
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder) = false
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
                 vm.deleteProgram(adapter.getItem(viewHolder.adapterPosition)._id)
             }

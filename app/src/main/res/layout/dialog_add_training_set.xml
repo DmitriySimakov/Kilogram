@@ -33,14 +33,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:errorEnabled="true">
+                android:hint="@string/weight_kg">
                 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/weightET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:hint="@string/weight_kg"
                     android:inputType="number"
                     android:selectAllOnFocus="true"
                     android:text="@={Converter.intToString(vm.trainingSet.weight)}"
@@ -71,14 +70,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:errorEnabled="true">
+                android:hint="@string/reps">
                 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/repsET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:hint="@string/reps"
                     android:inputType="number"
                     android:selectAllOnFocus="true"
                     android:text="@={Converter.intToString(vm.trainingSet.reps)}"
@@ -109,14 +107,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:errorEnabled="true">
+                android:hint="@string/time_sec">
                 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/timeET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:hint="@string/time_sec"
                     android:inputType="number"
                     android:selectAllOnFocus="true"
                     android:text="@={Converter.intToString(vm.trainingSet.time)}"
@@ -147,14 +144,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:errorEnabled="true">
+                android:hint="@string/distance_metres">
                 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/distanceET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:hint="@string/distance_metres"
                     android:inputType="number"
                     android:selectAllOnFocus="true"
                     android:text="@={Converter.intToString(vm.trainingSet.distance)}"
