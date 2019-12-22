@@ -185,8 +185,7 @@
                 android:id="@+id/proportionsCalculatorBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="@dimen/icon_button_padding"
-                android:paddingEnd="@dimen/icon_button_padding">
+                android:padding="@dimen/icon_button_padding">
                 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:layout_width="wrap_content"

@@ -12,6 +12,8 @@ import com.dmitrysimakov.kilogram.R
 import org.threeten.bp.LocalDate
 import org.threeten.bp.OffsetDateTime
 import org.threeten.bp.format.DateTimeFormatter
+import kotlin.math.pow
+import kotlin.math.roundToInt
 
 fun Fragment.hideKeyboard() {
     view?.let { activity?.hideKeyboard(it) }
@@ -51,3 +53,8 @@ fun OffsetDateTime.toIsoString() = format(offsetDateTimeFormatter)
 private val localDateFormatter = DateTimeFormatter.ISO_LOCAL_DATE
 fun String.toLocalDate() = localDateFormatter.parse(this, LocalDate::from)
 fun LocalDate.toIsoString() = format(localDateFormatter)
+
+fun Double.round(precision: Int) : Double {
+    val multiplier = 10.0.pow(precision.toDouble())
+    return (this * multiplier).roundToInt() / multiplier
+}
