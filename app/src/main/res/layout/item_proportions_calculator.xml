@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     
     <data>
     
         <import type="com.dmitrysimakov.kilogram.binding.Converter" />
+        
+        <variable
+            name="vm"
+            type="com.dmitrysimakov.kilogram.ui.home.measurements.proportions_calculator.ProportionsCalculatorViewModel" />
         
         <variable
             name="item"
@@ -29,12 +34,13 @@
             tools:text="Параметр тела" />
         
         <EditText
-            android:id="@+id/actualValue"
+            android:id="@+id/value"
             android:layout_width="@dimen/calculator_column_width"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:text="@={Converter.doubleToString(item.value)}"
+            android:text="@{Converter.doubleToString(item.value)}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            app:onFocusLose="@{() -> vm.updateValue(item, value.getText())}"
             tools:text="100" />
     
         <TextView
@@ -50,7 +56,7 @@
             android:layout_width="@dimen/calculator_column_width"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:text="@{`` + item.recommendedValue}"
+            android:text="@{Converter.doubleToString(item.recommendedValue)}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             tools:text="105" />
     

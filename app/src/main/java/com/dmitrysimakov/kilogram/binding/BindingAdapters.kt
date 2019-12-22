@@ -56,4 +56,11 @@ object BindingAdapters {
             }
         }
     }
+    
+    @BindingAdapter("onFocusLose")
+    @JvmStatic fun EditText.onFocusLose(listener: View.OnFocusChangeListener?) {
+        onFocusChangeListener = View.OnFocusChangeListener { focusedView, hasFocus ->
+            if (!hasFocus) listener?.onFocusChange(focusedView, hasFocus)
+        }
+    }
 }

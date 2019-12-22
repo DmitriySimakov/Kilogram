@@ -16,7 +16,7 @@ class ProportionsCalculatorFragment : Fragment() {
     
     private val vm: ProportionsCalculatorViewModel by viewModel()
     
-    private val adapter by lazy { ProportionsCalculatorAdapter() }
+    private val adapter by lazy { ProportionsCalculatorAdapter(vm) }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_measurements, container, false)

@@ -8,14 +8,17 @@ import com.dmitrysimakov.kilogram.databinding.ItemProportionsCalculatorBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 import com.dmitrysimakov.kilogram.util.round
 
-class ProportionsCalculatorAdapter(clickCallback: ((ProportionsCalculatorItem) -> Unit)? = null)
-    : DataBoundListAdapter<ProportionsCalculatorItem, ItemProportionsCalculatorBinding>(clickCallback, MeasurementDiffCallback()) {
+class ProportionsCalculatorAdapter(
+        private val viewModel: ProportionsCalculatorViewModel,
+        clickCallback: ((ProportionsCalculatorItem) -> Unit)? = null
+) : DataBoundListAdapter<ProportionsCalculatorItem, ItemProportionsCalculatorBinding>(clickCallback, MeasurementDiffCallback()) {
 
     override fun createBinding(parent: ViewGroup): ItemProportionsCalculatorBinding = ItemProportionsCalculatorBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
 
     override fun bind(binding: ItemProportionsCalculatorBinding, item: ProportionsCalculatorItem) {
         binding.item = item
+        binding.vm = viewModel
         val recommendedValue = item.recommendedValue
         val value = item.value
         if (recommendedValue != null && value != null) {
