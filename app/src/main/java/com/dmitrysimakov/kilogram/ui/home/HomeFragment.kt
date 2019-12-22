@@ -21,6 +21,7 @@ import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toCre
 import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toMeasurementsHistoryFragment
 import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toPhotoFragment
 import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toPhotosFragment
+import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toProportionsCalculatorFragment
 import com.dmitrysimakov.kilogram.ui.home.photos.PhotosAdapter
 import com.dmitrysimakov.kilogram.util.navigate
 import com.dmitrysimakov.kilogram.util.toIsoString
@@ -103,6 +104,7 @@ class HomeFragment : Fragment() {
         binding.startTrainingButton.setOnClickListener { navigate(toCreateTrainingFragment(null)) }
         binding.addPhotoButton.setOnClickListener { dispatchTakePictureIntent() }
         binding.addMeasurementButton.setOnClickListener { navigate(toAddMeasurementDialog()) }
+        binding.proportionsCalculatorBtn.setOnClickListener { navigate(toProportionsCalculatorFragment()) }
         
         binding.photosLabel.setOnClickListener { navigate(toPhotosFragment()) }
         binding.measurementsLabel.setOnClickListener { navigate(toMeasurementsHistoryFragment()) }

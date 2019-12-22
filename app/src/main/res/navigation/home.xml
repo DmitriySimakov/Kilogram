@@ -28,6 +28,9 @@
         <action
             android:id="@+id/to_measurementsHistoryFragment"
             app:destination="@id/measurementsHistoryFragment" />
+        <action
+            android:id="@+id/to_proportionsCalculatorFragment"
+            app:destination="@id/proportionsCalculatorFragment" />
     </fragment>
     <dialog
         android:id="@+id/createTrainingDialog"
@@ -188,4 +191,9 @@
             android:name="date"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/proportionsCalculatorFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.home.measurements.proportions_calculator.ProportionsCalculatorFragment"
+        android:label="@string/proportions_calculator"
+        tools:layout="@layout/fragment_proportions_calculator" />
 </navigation>

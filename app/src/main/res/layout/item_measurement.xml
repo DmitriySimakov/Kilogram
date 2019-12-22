@@ -31,7 +31,7 @@
         
         <TextView
             android:id="@+id/measureValue"
-            android:layout_width="@dimen/calculator_column_width"
+            android:layout_width="@dimen/measurement_column_width"
             android:layout_height="wrap_content"
             android:text="@{`` + measurement.value}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
@@ -41,7 +41,7 @@
         
         <TextView
             android:id="@+id/measureDifference"
-            android:layout_width="@dimen/calculator_column_width"
+            android:layout_width="@dimen/measurement_column_width"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             app:layout_constraintEnd_toEndOf="parent"

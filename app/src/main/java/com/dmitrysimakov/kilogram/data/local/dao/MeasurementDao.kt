@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.dmitrysimakov.kilogram.data.local.entity.Measurement
 import com.dmitrysimakov.kilogram.data.local.relation.MeasurementWithPreviousResults
+import com.dmitrysimakov.kilogram.data.local.relation.ProportionsCalculatorItem
 import kotlinx.coroutines.flow.Flow
 import org.threeten.bp.LocalDate
 
@@ -13,11 +14,21 @@ import org.threeten.bp.LocalDate
 interface MeasurementDao {
     
     @Query("""
-        SELECT cur._id, cur.param, cur.date, cur.value, prev.date AS prev_date, prev.value AS prev_value
-        FROM (SELECT m.param, MAX(m.date) AS date FROM measurement AS m GROUP BY m.param) AS x
-        INNER JOIN measurement AS cur ON x.param = cur.param AND x.date = cur.date
-        LEFT JOIN (SELECT * FROM measurement ORDER BY date LIMIT 1) AS prev
-        ON x.param = prev.param AND x.date > prev.date
+        SELECT mp.name AS param, mp.coefficient,
+        (SELECT value FROM measurement WHERE param = mp.name ORDER BY date DESC LIMIT 1) AS value
+        FROM measurement_param AS mp
+    """)
+    suspend fun lastMeasurementsWithCoefficients() : List<ProportionsCalculatorItem>
+    
+    @Query("""
+        SELECT
+        (SELECT _id FROM measurement WHERE param = mp.name ORDER BY date DESC LIMIT 0, 1) AS _id,
+        mp.name AS param,
+        (SELECT date FROM measurement WHERE param = mp.name ORDER BY date DESC LIMIT 0, 1) AS date,
+        (SELECT value FROM measurement WHERE param = mp.name ORDER BY date DESC LIMIT 0, 1) AS value,
+        (SELECT date FROM measurement WHERE param = mp.name ORDER BY date DESC LIMIT 1, 1) AS prev_date,
+        (SELECT value FROM measurement WHERE param = mp.name ORDER BY date DESC LIMIT 1, 1) AS prev_value
+        FROM measurement_param AS mp
     """)
     fun lastMeasurementsWithPreviousResults() : Flow<List<MeasurementWithPreviousResults>>
     

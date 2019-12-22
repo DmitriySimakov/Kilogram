@@ -19,6 +19,7 @@ import com.dmitrysimakov.kilogram.ui.home.calendar_day.CalendarDayViewModel
 import com.dmitrysimakov.kilogram.ui.home.measurements.MeasurementsViewModel
 import com.dmitrysimakov.kilogram.ui.home.measurements.add_measurement.AddMeasurementViewModel
 import com.dmitrysimakov.kilogram.ui.home.measurements.measurements_history.MeasurementsHistoryViewModel
+import com.dmitrysimakov.kilogram.ui.home.measurements.proportions_calculator.ProportionsCalculatorViewModel
 import com.dmitrysimakov.kilogram.ui.home.photos.PhotosViewModel
 import com.dmitrysimakov.kilogram.ui.home.photos.photo.PhotoViewModel
 import com.dmitrysimakov.kilogram.ui.home.trainings.add_training_set.AddTrainingSetViewModel
@@ -84,6 +85,7 @@ val appModule = module {
     viewModel { PeopleViewModel() }
     viewModel { PhotoViewModel(get()) }
     viewModel { PhotosViewModel(get()) }
+    viewModel { ProportionsCalculatorViewModel(get()) }
 }
 
 fun provideSharedPreferences(context: Context): SharedPreferences {

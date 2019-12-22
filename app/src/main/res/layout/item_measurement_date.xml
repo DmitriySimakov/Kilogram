@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text='@{date.format(DateTimeFormatter.ofPattern("dd MMMM yyyy"))}'
+            android:text="@{date.format(DateTimeFormatter.ofPattern(`dd MMMM yyyy`))}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             tools:text="@tools:sample/date/mmddyy" />
     

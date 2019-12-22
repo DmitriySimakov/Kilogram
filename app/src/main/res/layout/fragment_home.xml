@@ -171,32 +171,6 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
                 app:goneUnless="@{vm.recentMeasurements != null}"/>
             
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:gravity="center_vertical"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                app:goneUnless="@{vm.recentMeasurements != null}">
-                
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="@string/parameter"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
-                
-                <TextView
-                    android:id="@+id/measurementValueHeader"
-                    android:layout_width="@dimen/calculator_column_width"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="@string/actual_value"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
-            
-            </LinearLayout>
-            
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/measurementsRV"
                 android:layout_width="match_parent"
@@ -204,8 +178,34 @@
                 android:nestedScrollingEnabled="false"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:goneUnless="@{vm.recentMeasurements != null}"
-                tools:itemCount="8"
+                tools:itemCount="2"
                 tools:listitem="@layout/item_measurement" />
+    
+            <LinearLayout
+                android:id="@+id/proportionsCalculatorBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/icon_button_padding"
+                android:paddingEnd="@dimen/icon_button_padding">
+                
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_calculator"
+                    android:tint="@color/white"
+                    android:clickable="false"
+                    app:elevation="0dp" />
+    
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_margin="@dimen/icon_button_padding"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/ideal_body_proportions_calculator"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"/>
+                
+            </LinearLayout>
         
         </LinearLayout>
     

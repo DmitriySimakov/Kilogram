@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+    
+        <import type="com.dmitrysimakov.kilogram.binding.Converter" />
+        
+        <variable
+            name="item"
+            type="com.dmitrysimakov.kilogram.data.local.relation.ProportionsCalculatorItem" />
+    </data>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/listPreferredItemHeightSmall"
+        android:background="@color/white"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp">
+        
+        <TextView
+            android:id="@+id/parameter"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@{item.param}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            tools:text="Параметр тела" />
+        
+        <EditText
+            android:id="@+id/actualValue"
+            android:layout_width="@dimen/calculator_column_width"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="@={Converter.doubleToString(item.value)}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            tools:text="100" />
+    
+        <TextView
+            android:id="@+id/percent"
+            android:layout_width="@dimen/calculator_column_width"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+            tools:text="+5%" />
+        
+        <TextView
+            android:id="@+id/recommendedValue"
+            android:layout_width="@dimen/calculator_column_width"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="@{`` + item.recommendedValue}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            tools:text="105" />
+    
+    </LinearLayout>
+
+</layout>

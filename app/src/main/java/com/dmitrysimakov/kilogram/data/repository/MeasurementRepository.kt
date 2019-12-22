@@ -6,6 +6,8 @@ import org.threeten.bp.LocalDate
 
 class MeasurementRepository(private val dao: MeasurementDao) {
     
+    suspend fun lastMeasurementsWithCoefficients() = dao.lastMeasurementsWithCoefficients()
+    
     fun lastMeasurementsWithPreviousResults() = dao.lastMeasurementsWithPreviousResults()
     
     fun measurementsWithPreviousResults(date: LocalDate) = dao.measurementsWithPreviousResults(date)

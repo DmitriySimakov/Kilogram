@@ -46,9 +46,6 @@
     <string name="enter_value">Введите значение параметра</string>
     
     <!-- ProportionsCalculatorFragment -->
-    <string name="reset">Сбросить</string>
-    <string name="fill">Заполнить</string>
-    <string name="count">Рассчитать</string>
     <string name="parameter">Параметр</string>
     <string name="actual_value">Фактическое значение</string>
     <string name="expected_value">Ожидаемое значение</string>
@@ -74,8 +71,6 @@
     <string name="distance_metres">Расстояние, метры</string>
     <string name="minus_sign">-</string>
     <string name="plus_sign">+</string>
-    
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="name">Название</string>
     <string name="finish_exercise">Завершить упражнение</string>
@@ -132,5 +127,7 @@
     <string name="isolated">Изолированные</string>
     <string name="photo">Фото</string>
     <string name="add_measurements">Добавить замеры</string>
+    <string name="ideal_body_proportions_calculator">Калькулятор идеальных пропорций тела</string>
+    <string name="proportions_calculator">Калькулятор пропорций</string>
 
 </resources>

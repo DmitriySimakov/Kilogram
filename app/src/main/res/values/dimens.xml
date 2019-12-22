@@ -2,7 +2,8 @@
     <dimen name="frame_padding">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="chips_margin">4dp</dimen>
-    <dimen name="calculator_column_width">96dp</dimen>
+    <dimen name="measurement_column_width">96dp</dimen>
+    <dimen name="calculator_column_width">72dp</dimen>
     <dimen name="icon_button_size">48dp</dimen>
     <dimen name="icon_button_padding">12dp</dimen>
     <dimen name="list_item_vertical_padding">8dp</dimen>
