@@ -42,12 +42,12 @@
             android:layout_marginStart="4dp"
             android:text="@{curr > prev ? `+`+(curr - prev) : ``+(curr - prev)}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-            android:textColor="@{curr > prev ? @color/green500 : @color/red500}"
+            android:textColor="@{curr > prev ? @color/light_green : @color/red500}"
             app:goneUnless="@{curr != null &amp;&amp; prev != null &amp;&amp; curr != prev}"
             app:layout_constraintStart_toEndOf="@id/param"
             app:layout_constraintTop_toTopOf="@id/param"
             tools:text="+10"
-            tools:textColor="@color/green500" />
+            tools:textColor="@color/light_green" />
     
     </androidx.constraintlayout.widget.ConstraintLayout>
 

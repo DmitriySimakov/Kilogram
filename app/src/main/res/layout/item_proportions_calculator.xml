@@ -39,6 +39,8 @@
             android:layout_height="wrap_content"
             android:gravity="end"
             android:text="@{Converter.doubleToString(item.value)}"
+            android:inputType="numberDecimal"
+            android:selectAllOnFocus="true"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             app:onFocusLose="@{() -> vm.updateValue(item, value.getText())}"
             tools:text="100" />

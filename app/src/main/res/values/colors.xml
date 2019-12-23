@@ -12,10 +12,14 @@
     <color name="red500">#f44336</color>
     <color name="red400">#ef5350</color>
     <color name="red200">#ef9a9a</color>
-
-    <color name="green500">#8BC34A</color>
-    <color name="orange500">#FF9800</color>
-    <color name="light_blue500">#03A9F4</color>
+    
+    <color name="green">#4CAF50</color>
+    <color name="light_green">#8BC34A</color>
+    <color name="lime">#CDDC39</color>
+    <color name="yellow">#FFEB3B</color>
+    <color name="amber">#FFC107</color>
+    <color name="orange">#FF9800</color>
+    <color name="orange_deep">#FF5722</color>
 
     <color name="grey900">#212121</color>
     <color name="grey800">#424242</color>
