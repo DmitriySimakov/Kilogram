@@ -19,7 +19,7 @@ class ProportionsCalculatorFragment : Fragment() {
     private val adapter by lazy { ProportionsCalculatorAdapter(vm) }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_measurements, container, false)
+        return inflater.inflate(R.layout.fragment_proportions_calculator, container, false)
     }
     
     override fun onActivityCreated(savedInstanceState: Bundle?) {
