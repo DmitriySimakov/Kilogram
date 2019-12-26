@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.home.photos.PhotosFragmentDirections.Companion.toPhotoFragment
 import com.dmitrysimakov.kilogram.util.navigate
@@ -28,7 +28,7 @@ class PhotosFragment : Fragment() {
         
         recyclerView.adapter = adapter
         
-        vm.photos.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
+        vm.photos.observe(viewLifecycleOwner) { adapter.submitList(it) }
         
         activity?.fab?.show()
         activity?.fab?.setOnClickListener{

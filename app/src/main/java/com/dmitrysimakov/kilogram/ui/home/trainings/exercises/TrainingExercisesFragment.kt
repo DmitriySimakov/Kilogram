@@ -3,7 +3,7 @@ package com.dmitrysimakov.kilogram.ui.home.trainings.exercises
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -61,10 +61,10 @@ class TrainingExercisesFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         vm.setTrainingId(args.trainingId)
         vm.trainingFinishedEvent.observe(viewLifecycleOwner, EventObserver{ popBackStack() })
-        vm.training.observe(viewLifecycleOwner, Observer {  })
-        vm.runningExercises.observe(viewLifecycleOwner, Observer { exerciseRunningListAdapter.submitList(it) })
-        vm.plannedExercises.observe(viewLifecycleOwner, Observer { exercisePlannedListAdapter.submitList(it) })
-        vm.finishedExercises.observe(viewLifecycleOwner, Observer { exerciseFinishedListAdapter.submitList(it) })
+        vm.training.observe(viewLifecycleOwner) { }
+        vm.runningExercises.observe(viewLifecycleOwner) { exerciseRunningListAdapter.submitList(it) }
+        vm.plannedExercises.observe(viewLifecycleOwner) { exercisePlannedListAdapter.submitList(it) }
+        vm.finishedExercises.observe(viewLifecycleOwner) { exerciseFinishedListAdapter.submitList(it) }
     }
     
     private fun setupAdapters() {

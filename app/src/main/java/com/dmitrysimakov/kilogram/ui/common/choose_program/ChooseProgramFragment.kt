@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
@@ -27,6 +27,6 @@ abstract class ChooseProgramFragment : Fragment() {
     
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
-        vm.programs.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
+        vm.programs.observe(viewLifecycleOwner) { adapter.submitList(it) }
     }
 }

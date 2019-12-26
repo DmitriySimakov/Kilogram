@@ -3,8 +3,8 @@ package com.dmitrysimakov.kilogram.ui.catalog.programs.choose_program
 import android.os.Bundle
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.dmitrysimakov.kilogram.ui.catalog.programs.choose_program.Programs_ChooseProgramFragmentDirections.Companion.toChooseProgramDayFragment
-import com.dmitrysimakov.kilogram.ui.catalog.programs.choose_program.Programs_ChooseProgramFragmentDirections.Companion.toCreateProgramDialog
+import com.dmitrysimakov.kilogram.ui.catalog.CatalogTabFragmentDirections.Companion.toChooseProgramDayFragment
+import com.dmitrysimakov.kilogram.ui.catalog.CatalogTabFragmentDirections.Companion.toCreateProgramDialog
 import com.dmitrysimakov.kilogram.ui.common.choose_program.ChooseProgramFragment
 import com.dmitrysimakov.kilogram.util.navigate
 import kotlinx.android.synthetic.main.activity_main.*

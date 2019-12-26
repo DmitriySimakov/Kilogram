@@ -4,11 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.databinding.DialogAddTrainingSetBinding
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
-import com.dmitrysimakov.kilogram.util.EventObserver
 import com.dmitrysimakov.kilogram.util.hideKeyboard
 import com.dmitrysimakov.kilogram.util.popBackStack
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -43,12 +42,12 @@ class AddTrainingSetDialog : BottomSheetDialogFragment() {
                 args.distance
         )
         
-        vm.trainingSet.observe(viewLifecycleOwner, Observer {  })
-        vm.trainingExercise.observe(viewLifecycleOwner, Observer {  })
-        vm.trainingSetSavedEvent.observe(viewLifecycleOwner, EventObserver {
+        vm.trainingSet.observe(viewLifecycleOwner) { }
+        vm.trainingExercise.observe(viewLifecycleOwner) { }
+        vm.trainingSetSavedEvent.observe(viewLifecycleOwner) {
             sharedVM.onSetCompleted(vm.trainingExercise.value?.rest ?: 0)
             hideKeyboard()
             popBackStack()
-        })
+        }
     }
 }

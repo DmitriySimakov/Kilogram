@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import com.dmitrysimakov.kilogram.R
+import com.dmitrysimakov.kilogram.ui.subscriptions.messages.ChatsFragmentDirections.Companion.toMessagesFragment
+import com.dmitrysimakov.kilogram.util.navigate
 import com.dmitrysimakov.kilogram.util.user
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_exercises.*
@@ -16,9 +18,7 @@ class ChatsFragment : Fragment() {
     
     private val vm: ChatsViewModel by viewModel()
     
-    private val adapter by lazy { ChatsListAdapter(user!!.uid) {
-        //findNavController().navigate(ChatsFragmentDirections.toMessagesFragment(it.id))
-    }}
+    private val adapter by lazy { ChatsListAdapter(user!!.uid) { navigate(toMessagesFragment(it.id)) }}
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_chats, container, false)
@@ -29,7 +29,7 @@ class ChatsFragment : Fragment() {
         
         recyclerView.adapter = adapter
         
-        vm.chats.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
+        vm.chats.observe(viewLifecycleOwner) { adapter.submitList(it) }
         
         activity?.fab?.hide()
     }

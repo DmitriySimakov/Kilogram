@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.databinding.FragmentPhotoBinding
 import com.dmitrysimakov.kilogram.util.setTitle
@@ -34,8 +34,8 @@ class PhotoFragment : Fragment() {
         
         vm.setPhotoUri(args.uri)
         
-        vm.photo.observe(viewLifecycleOwner, Observer { photo ->
+        vm.photo.observe(viewLifecycleOwner) { photo ->
             setTitle(photo.date_time.format(DateTimeFormatter.ofPattern("dd MMMM yyyy г.")))
-        })
+        }
     }
 }

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.home.measurements.measurements_history.MeasurementsHistoryFragmentDirections.Companion.toMeasurementsFragment
 import com.dmitrysimakov.kilogram.util.navigate
@@ -30,6 +30,6 @@ class MeasurementsHistoryFragment : Fragment() {
         
         recyclerView.adapter = adapter
         
-        vm.measurementDates.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
+        vm.measurementDates.observe(viewLifecycleOwner) { adapter.submitList(it) }
     }
 }

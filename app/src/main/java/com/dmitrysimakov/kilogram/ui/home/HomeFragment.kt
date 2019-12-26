@@ -11,7 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import com.dmitrysimakov.kilogram.data.local.entity.Photo
 import com.dmitrysimakov.kilogram.databinding.FragmentHomeBinding
 import com.dmitrysimakov.kilogram.ui.common.measurements.MeasurementsAdapter
@@ -109,12 +109,12 @@ class HomeFragment : Fragment() {
         binding.photosLabel.setOnClickListener { navigate(toPhotosFragment()) }
         binding.measurementsLabel.setOnClickListener { navigate(toMeasurementsHistoryFragment()) }
         
-        vm.trainings.observe(viewLifecycleOwner, Observer {
+        vm.trainings.observe(viewLifecycleOwner) {
             calendarDayBinder.submitList(it)
             binding.calendarView.notifyCalendarChanged()
-        })
-        vm.recentPhotos.observe(viewLifecycleOwner, Observer { photosAdapter.submitList(it) })
-        vm.recentMeasurements.observe(viewLifecycleOwner, Observer { measurementsAdapter.submitList(it) })
+        }
+        vm.recentPhotos.observe(viewLifecycleOwner) { photosAdapter.submitList(it) }
+        vm.recentMeasurements.observe(viewLifecycleOwner) { measurementsAdapter.submitList(it) }
     }
     
     private fun dispatchTakePictureIntent() {

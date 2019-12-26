@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.databinding.DialogCreateTrainingBinding
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
@@ -70,11 +70,11 @@ class CreateTrainingDialog : BottomSheetDialogFragment() {
         
         args.date?.let { vm.setDateTime(it.toOffsetDateTime()) }
         
-        sharedVM.programDayId.observe(viewLifecycleOwner, Observer { if (it != null) vm.setProgramDay(it) })
-        vm.byProgram.observe(viewLifecycleOwner, Observer {  })
-        vm.programDay.observe(viewLifecycleOwner, Observer {
+        sharedVM.programDayId.observe(viewLifecycleOwner) { if (it != null) vm.setProgramDay(it) }
+        vm.byProgram.observe(viewLifecycleOwner) { }
+        vm.programDay.observe(viewLifecycleOwner) {
             if (it != null) vm.byProgram.setNewValue(true)
-        })
+        }
         
         binding.startTrainingBtn.setOnClickListener {
             vm.createTraining()

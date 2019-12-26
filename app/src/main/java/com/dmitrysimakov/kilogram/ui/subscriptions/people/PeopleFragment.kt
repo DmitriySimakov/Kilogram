@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.data.remote.Person
 import kotlinx.android.synthetic.main.activity_main.*
@@ -27,7 +27,7 @@ class PeopleFragment : Fragment() {
         
         recyclerView.adapter = adapter
         
-        vm.people.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
+        vm.people.observe(viewLifecycleOwner) { adapter.submitList(it) }
         
         activity?.fab?.hide()
     }

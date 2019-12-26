@@ -3,7 +3,7 @@ package com.dmitrysimakov.kilogram.ui.home.trainings.training_sets
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -67,9 +67,9 @@ class TrainingSetsFragment : Fragment() {
             }
         }).attachToRecyclerView(recyclerView)
         
-        vm.trainingExercise.observe(viewLifecycleOwner, Observer { setTitle(it.exercise) })
-        vm.measures.observe(viewLifecycleOwner, Observer {})
-        vm.sets.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
+        vm.trainingExercise.observe(viewLifecycleOwner)  { setTitle(it.exercise) }
+        vm.measures.observe(viewLifecycleOwner) {}
+        vm.sets.observe(viewLifecycleOwner) { adapter.submitList(it) }
         
         activity?.fab?.show()
         activity?.fab?.setOnClickListener{

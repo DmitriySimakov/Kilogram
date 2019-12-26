@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import com.dmitrysimakov.kilogram.databinding.DialogAddMeasurementBinding
 import com.dmitrysimakov.kilogram.util.popBackStack
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -30,7 +30,7 @@ class AddMeasurementDialog : BottomSheetDialogFragment() {
         
         binding.recyclerView.adapter = adapter
         
-        vm.measurements.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
+        vm.measurements.observe(viewLifecycleOwner) { adapter.submitList(it) }
         
         binding.addMeasurementBtn.setOnClickListener {
             vm.addMeasurements()

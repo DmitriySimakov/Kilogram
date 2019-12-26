@@ -4,80 +4,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/subscriptions"
-    app:startDestination="@id/programs_chooseProgramFragment">
+    app:startDestination="@id/chatsFragment">
+    
     <fragment
-        android:id="@+id/programs_chooseProgramFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.catalog.programs.choose_program.Programs_ChooseProgramFragment"
-        android:label="Тренировочные программы"
-        tools:layout="@layout/fragment_choose_program">
+        android:id="@+id/chatsFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.subscriptions.messages.ChatsFragment"
+        android:label="@string/messages"
+        tools:layout="@layout/fragment_chats" >
         <action
-            android:id="@+id/to_createProgramDialog"
-            app:destination="@id/createProgramDialog" />
-        <action
-            android:id="@+id/to_chooseProgramDayFragment"
-            app:destination="@id/programs_chooseProgramDayFragment" />
+            android:id="@+id/to_messagesFragment"
+            app:destination="@id/messagesFragment" />
     </fragment>
-    <dialog
-        android:id="@+id/createProgramDialog"
-        android:name="com.dmitrysimakov.kilogram.ui.catalog.programs.create_program.CreateProgramDialog"
-        android:label="Тренировочная программа"
-        tools:layout="@layout/dialog_create_program">
-        <action
-            android:id="@+id/to_chooseProgramDayFragment"
-            app:destination="@id/programs_chooseProgramDayFragment"
-            app:popUpTo="@+id/programs_chooseProgramFragment" />
-    </dialog>
+    
     <fragment
-        android:id="@+id/programs_chooseProgramDayFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.catalog.programs.choose_program_day.Programs_ChooseProgramDayFragment"
-        android:label="fragment_training_days"
-        tools:layout="@layout/fragment_choose_program_day">
+        android:id="@+id/messagesFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.subscriptions.messages.MessagesFragment"
+        android:label="@string/messages"
+        tools:layout="@layout/fragment_messages" >
         <argument
-            android:name="program_id"
-            app:argType="long" />
-        <action
-            android:id="@+id/to_createProgramDayDialog"
-            app:destination="@id/createProgramDayDialog" />
-        <action
-            android:id="@+id/to_exercisesFragment"
-            app:destination="@id/programDayExercisesFragment" />
+            android:name="id"
+            app:argType="string" />
     </fragment>
-    <dialog
-        android:id="@+id/createProgramDayDialog"
-        android:name="com.dmitrysimakov.kilogram.ui.catalog.programs.create_program_day.CreateProgramDayDialog"
-        android:label="CreateProgramDayDialog"
-        tools:layout="@layout/dialog_create_program_day">
-        <argument
-            android:name="num"
-            app:argType="integer" />
-        <argument
-            android:name="program_id"
-            app:argType="long" />
-        <action
-            android:id="@+id/to_exercisesFragment"
-            app:destination="@id/programDayExercisesFragment"
-            app:popUpTo="@+id/programs_chooseProgramDayFragment" />
-    </dialog>
-    <fragment
-        android:id="@+id/programDayExercisesFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.catalog.programs.exercises.ProgramDayExercisesFragment"
-        android:label="Programs_ExercisesFragment">
-        <argument
-            android:name="program_day_id"
-            app:argType="long" />
-        <action
-            android:id="@+id/to_chooseExerciseFragment"
-            app:destination="@id/programs_ChooseExerciseFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/programs_ChooseExerciseFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.catalog.programs.choose_exercise.Programs_ChooseExerciseFragment"
-        android:label="Programs_ChooseExerciseFragment" >
-        <argument
-            android:name="num"
-            app:argType="integer" />
-        <argument
-            android:name="program_day_id"
-            app:argType="long" />
-    </fragment>
+    
 </navigation>

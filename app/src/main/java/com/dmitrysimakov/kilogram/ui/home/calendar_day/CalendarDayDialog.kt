@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.databinding.DialogCalendarDayBinding
 import com.dmitrysimakov.kilogram.ui.home.calendar_day.CalendarDayDialogDirections.Companion.toCreateTrainingDialog
@@ -44,9 +44,7 @@ class CalendarDayDialog : BottomSheetDialogFragment() {
         val date = args.date.toLocalDate()
         vm.setDate(date)
         
-        vm.trainings.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
-        })
+        vm.trainings.observe(viewLifecycleOwner) { adapter.submitList(it) }
         
         binding.addTrainingButton.setOnClickListener {
             navigate(toCreateTrainingDialog(date.atTime(OffsetTime.now()).toIsoString()))

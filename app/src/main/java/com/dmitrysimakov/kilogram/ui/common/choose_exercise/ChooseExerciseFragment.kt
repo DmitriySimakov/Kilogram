@@ -5,7 +5,7 @@ import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
@@ -46,9 +46,9 @@ abstract class ChooseExerciseFragment : Fragment() {
             vm.setChecked(vm.equipmentList, id, isChecked)
         }
         
-        vm.exerciseList.observe(viewLifecycleOwner, Observer { exerciseAdapter.submitList(it) })
-        vm.exerciseTargetList.observe(viewLifecycleOwner, Observer { if (it != null) exerciseTargetAdapter.submitList(it) })
-        vm.equipmentList.observe(viewLifecycleOwner, Observer { equipmentAdapter.submitList(it) })
+        vm.exerciseList.observe(viewLifecycleOwner) { exerciseAdapter.submitList(it) }
+        vm.exerciseTargetList.observe(viewLifecycleOwner) { exerciseTargetAdapter.submitList(it) }
+        vm.equipmentList.observe(viewLifecycleOwner) { equipmentAdapter.submitList(it) }
         
         activity?.fab?.hide()
     }
