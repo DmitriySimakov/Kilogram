@@ -13,7 +13,8 @@
     
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
     
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -27,7 +28,8 @@
                 android:gravity="center"
                 android:inputType="numberDecimal"
                 android:selectAllOnFocus="true"
-                android:text="@={Converter.doubleToString(measurement.value)}" />
+                android:text="@={Converter.doubleToString(measurement.value)}"
+                tools:text="100"/>
     
         </com.google.android.material.textfield.TextInputLayout>
     

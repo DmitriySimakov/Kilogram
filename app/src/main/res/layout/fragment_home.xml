@@ -73,7 +73,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_fitness_center"
-                        android:tint="@color/white"
                         app:elevation="0dp" />
         
                     <TextView
@@ -98,7 +97,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_straighten"
-                        android:tint="@color/white"
                         app:elevation="0dp" />
     
                     <TextView
@@ -123,7 +121,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_photo_camera"
-                        android:tint="@color/white"
                         app:elevation="0dp" />
     
                     <TextView
@@ -191,7 +188,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_calculator"
-                    android:tint="@color/white"
                     android:clickable="false"
                     app:elevation="0dp" />
     
