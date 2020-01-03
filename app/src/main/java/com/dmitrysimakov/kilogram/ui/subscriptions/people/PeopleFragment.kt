@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.data.remote.Person
+import com.dmitrysimakov.kilogram.data.remote.User
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_people.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -32,8 +32,8 @@ class PeopleFragment : Fragment() {
         activity?.fab?.hide()
     }
     
-    private fun navigateToChatWith(person: Person) {
-        vm.getChatWith(person) { chatId ->
+    private fun navigateToChatWith(user: User) {
+        vm.getChatWith(user) { chatId ->
             //findNavController().navigate(PeopleFragmentDirections.toMessagesFragment(chatId))
         }
     }

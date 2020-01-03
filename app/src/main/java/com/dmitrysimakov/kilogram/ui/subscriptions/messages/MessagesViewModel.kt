@@ -14,7 +14,7 @@ import com.google.firebase.firestore.DocumentReference
 
 class MessagesViewModel : ViewModel() {
     
-    private val userId = user!!.uid
+    private val userId = firebaseUser!!.uid
     
     private lateinit var chatDocument: DocumentReference
     private lateinit var messagesCollection: CollectionReference

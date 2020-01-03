@@ -12,6 +12,6 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/messageET"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/item_person" />
+        tools:listitem="@layout/item_user" />
 
 </FrameLayout>

@@ -4,7 +4,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 
-val user
+val firebaseUser
     get() = FirebaseAuth.getInstance().currentUser
 
 val firestore : FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
@@ -12,7 +12,7 @@ val firestore : FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
 val usersCollection = firestore.collection("users")
 
 val userDocument
-    get() = usersCollection.document(checkNotNull(user?.uid))
+    get() = usersCollection.document(checkNotNull(firebaseUser?.uid))
 
 val chatsCollection = firestore.collection("chats")
 

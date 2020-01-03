@@ -3,7 +3,7 @@ package com.dmitrysimakov.kilogram.ui
 import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dmitrysimakov.kilogram.data.remote.Person
+import com.dmitrysimakov.kilogram.data.remote.User
 import com.dmitrysimakov.kilogram.util.FirebaseUserLiveData
 import com.dmitrysimakov.kilogram.util.PreferencesKeys
 import com.dmitrysimakov.kilogram.util.userDocument
@@ -22,30 +22,24 @@ class SharedViewModel(private val preferences: SharedPreferences) : ViewModel() 
             FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener{ result ->
                 val token = result.token
                 if (!doc.exists()) {
-                    createNewPersonWith(token)
+                    createNewUserWithToken(token)
                 } else {
-                    addTokenToPerson(token, doc.toObject(Person::class.java)!!)
+                    addTokenToUser(token, doc.toObject(User::class.java)!!)
                 }
             }
         }
     }
     
-    fun requestEmailVerification(callback: (()-> Unit)) {
-        if (user.value?.isEmailVerified == false) {
-            callback()
-        }
-    }
-    
-    private fun createNewPersonWith(token: String) {
-        userDocument.set(Person(
+    private fun createNewUserWithToken(token: String) {
+        userDocument.set(User(
                 user.value?.displayName ?: "",
                 user.value?.photoUrl.toString(),
                 mutableListOf(token)
         ))
     }
     
-    private fun addTokenToPerson(token: String, person: Person) {
-        val tokens = person.registrationTokens
+    private fun addTokenToUser(token: String, user: User) {
+        val tokens = user.registrationTokens
         if (!tokens.contains(token)) {
             tokens.add(token)
             userDocument.update(mapOf("registrationTokens" to tokens))

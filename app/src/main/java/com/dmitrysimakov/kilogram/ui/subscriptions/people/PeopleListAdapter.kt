@@ -3,30 +3,30 @@ package com.dmitrysimakov.kilogram.ui.subscriptions.people
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import com.dmitrysimakov.kilogram.data.remote.Person
-import com.dmitrysimakov.kilogram.databinding.ItemPersonBinding
+import com.dmitrysimakov.kilogram.data.remote.User
+import com.dmitrysimakov.kilogram.databinding.ItemUserBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 
 class PeopleListAdapter(
-        private val sendMessageClickCallback: ((Person) -> Unit),
-        clickCallback: ((Person) -> Unit)? = null
-) : DataBoundListAdapter<Person, ItemPersonBinding>(
+        private val sendMessageClickCallback: ((User) -> Unit),
+        clickCallback: ((User) -> Unit)? = null
+) : DataBoundListAdapter<User, ItemUserBinding>(
         clickCallback,
-        PersonDiffCallback()
+        UserDiffCallback()
 ) {
     
-    override fun createBinding(parent: ViewGroup): ItemPersonBinding = ItemPersonBinding
+    override fun createBinding(parent: ViewGroup): ItemUserBinding = ItemUserBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
     
-    override fun bind(binding: ItemPersonBinding, item: Person) {
-        binding.person = item
+    override fun bind(binding: ItemUserBinding, item: User) {
+        binding.user = item
         binding.sendMessageBtn.setOnClickListener { sendMessageClickCallback.invoke(item) }
     }
 }
 
-private class PersonDiffCallback : DiffUtil.ItemCallback<Person>() {
-    override fun areItemsTheSame(oldItem: Person, newItem: Person) =
+private class UserDiffCallback : DiffUtil.ItemCallback<User>() {
+    override fun areItemsTheSame(oldItem: User, newItem: User) =
             oldItem.id == newItem.id
-    override fun areContentsTheSame(oldItem: Person, newItem: Person) =
+    override fun areContentsTheSame(oldItem: User, newItem: User) =
             oldItem == newItem
 }

@@ -13,7 +13,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.ActivityMainBinding
 import com.dmitrysimakov.kilogram.util.PreferencesKeys
+import com.dmitrysimakov.kilogram.util.firebaseUser
 import com.dmitrysimakov.kilogram.util.setupWithNavController
+import com.dmitrysimakov.kilogram.util.toast
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -47,8 +49,6 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             setupBottomNavigationBar()
         }
-        
-        requestEmailVerification()
     }
     
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -72,14 +72,16 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN && resultCode == Activity.RESULT_OK) {
             vm.initUser()
-            requestEmailVerification()
+            if (firebaseUser?.isEmailVerified == false) {
+                firebaseUser?.sendEmailVerification()?.addOnCompleteListener {
+                    if (it.isSuccessful) toast(getString(R.string.verify_your_email))
+                }
+            }
         }
     }
     
-    private fun requestEmailVerification() {
-        vm.requestEmailVerification {
-            startActivity(Intent(this, EmailVerificationActivity::class.java))
-        }
+    override fun onSupportNavigateUp(): Boolean {
+        return currentNavController?.value?.navigateUp() ?: false
     }
     
     private fun setupBottomNavigationBar() {
@@ -96,14 +98,10 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_host_fragment,
                 intent
         )
-    
+        
         controller.observe(this) { navController ->
             setupActionBarWithNavController(navController)
         }
         currentNavController = controller
-    }
-    
-    override fun onSupportNavigateUp(): Boolean {
-        return currentNavController?.value?.navigateUp() ?: false
     }
 }

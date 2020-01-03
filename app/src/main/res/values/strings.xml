@@ -89,7 +89,7 @@
     <string name="sign_out">Выйти</string>
     <string name="messages">Сообщения</string>
     <string name="user_photo">Фотография пользователя</string>
-    <string name="verification_message_sent">Сообщение отправлено по адресу %1$s. Подтвердите ваш email и возвращайтесь в приложение.</string>
+    <string name="verify_your_email">Подтвердите ваш email адрес.</string>
     <string name="you">Вы: \u0020</string>
     <string name="people">Люди</string>
     <string name="directory">Справочник</string>

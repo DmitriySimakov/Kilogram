@@ -6,8 +6,8 @@
     <data>
         
         <variable
-            name="person"
-            type="com.dmitrysimakov.kilogram.data.remote.Person" />
+            name="user"
+            type="com.dmitrysimakov.kilogram.data.remote.User" />
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +18,7 @@
             android:id="@+id/photo"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            app:imageUrl="@{person.photoUrl}"
+            app:imageUrl="@{user.photoUrl}"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -29,7 +29,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="@{person.name}"
+            android:text="@{user.name}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:layout_constraintStart_toEndOf="@id/photo"
             app:layout_constraintTop_toTopOf="parent"

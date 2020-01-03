@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
+import com.dmitrysimakov.kilogram.BuildConfig
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.FragmentProfileBinding
 import com.dmitrysimakov.kilogram.ui.RC_SIGN_IN
@@ -30,11 +31,13 @@ class ProfileFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         
-        binding.authBtn.setOnClickListener { onAuthButtonClicked() }
+        binding.authBtn.setOnClickListener {
+            if (sharedVM.user.value == null) signIn() else signOut()
+        }
         
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.share -> { share() }
+                R.id.share -> share()
             }
             true
         }
@@ -42,19 +45,22 @@ class ProfileFragment : Fragment() {
         activity?.fab?.hide()
     }
     
-    private fun onAuthButtonClicked() {
-        if (sharedVM.user.value == null) {
-            startActivityForResult(AuthUI.getInstance()
-                    .createSignInIntentBuilder()
-                    .setAvailableProviders(listOf(
-                            AuthUI.IdpConfig.EmailBuilder().build(),
-                            AuthUI.IdpConfig.GoogleBuilder().build(),
-                            AuthUI.IdpConfig.FacebookBuilder().build()))
-                    .setLogo(R.mipmap.ic_launcher_round)
-                    .build(), RC_SIGN_IN)
-        } else {
-            context?.let { AuthUI.getInstance().signOut(it) }
-        }
+    private fun signIn() {
+        val providers = listOf(
+                AuthUI.IdpConfig.EmailBuilder().build(),
+                AuthUI.IdpConfig.GoogleBuilder().build(),
+                AuthUI.IdpConfig.FacebookBuilder().build()
+        )
+        activity?.startActivityForResult(AuthUI.getInstance()
+                .createSignInIntentBuilder()
+                .setIsSmartLockEnabled(!BuildConfig.DEBUG)
+                .setAvailableProviders(providers)
+                .setLogo(R.mipmap.ic_launcher_round)
+                .build(), RC_SIGN_IN)
+    }
+    
+    private fun signOut() {
+        AuthUI.getInstance().signOut(context!!)
     }
     
     private fun share() {
