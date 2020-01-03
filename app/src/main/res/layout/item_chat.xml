@@ -8,10 +8,6 @@
         <import type="com.dmitrysimakov.kilogram.binding.Converter" />
         
         <variable
-            name="currentUserId"
-            type="String" />
-        
-        <variable
             name="chat"
             type="com.dmitrysimakov.kilogram.data.remote.Chat" />
     </data>
@@ -51,15 +47,14 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@tools:sample/date/hhmm" />
         
-        <TextView
-            android:id="@+id/you"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/you"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-            app:goneUnless="@{currentUserId.equals(chat.lastMessage.senderId)}"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/senderPhoto"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:imageUrl="@{chat.lastMessage.senderPhotoUrl}"
             app:layout_constraintStart_toStartOf="@id/name"
-            app:layout_constraintTop_toBottomOf="@id/name" />
+            app:layout_constraintTop_toBottomOf="@id/name"
+            tools:src="@tools:sample/avatars"/>
         
         <TextView
             android:id="@+id/lastMessage"
@@ -71,7 +66,7 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/you"
+            app:layout_constraintStart_toEndOf="@id/senderPhoto"
             app:layout_constraintTop_toBottomOf="@id/name"
             tools:text="@tools:sample/lorem/random" />
     

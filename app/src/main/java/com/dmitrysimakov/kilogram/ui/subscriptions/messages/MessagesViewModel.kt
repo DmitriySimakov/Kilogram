@@ -7,14 +7,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
 import com.dmitrysimakov.kilogram.data.remote.Chat
 import com.dmitrysimakov.kilogram.data.remote.Message
-import com.dmitrysimakov.kilogram.util.*
+import com.dmitrysimakov.kilogram.data.remote.User
+import com.dmitrysimakov.kilogram.util.chatsCollection
+import com.dmitrysimakov.kilogram.util.firestore
 import com.dmitrysimakov.kilogram.util.live_data.liveData
+import com.dmitrysimakov.kilogram.util.msgImagesRef
+import com.dmitrysimakov.kilogram.util.setNewValue
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 
 class MessagesViewModel : ViewModel() {
     
-    private val userId = firebaseUser!!.uid
+    private val _user = MutableLiveData<User>()
     
     private lateinit var chatDocument: DocumentReference
     private lateinit var messagesCollection: CollectionReference
@@ -41,11 +45,14 @@ class MessagesViewModel : ViewModel() {
         }
     }
     
+    fun setUser(user: User) { _user.setNewValue(user) }
+    
     fun sendMessage(text: String?, imageUrl: String?) {
         _chat.value?.let {
+            val lastMessage = Chat.LastMessage(_user.value?.photoUrl, text ?: "Фотография")
             firestore.batch()
-                    .set(messagesCollection.document(), Message(Message.Sender(userId), text, imageUrl))
-                    .update(chatDocument, "lastMessage", Chat.LastMessage(userId, text ?: "Фотография"))
+                    .set(messagesCollection.document(), Message(Message.Sender(_user.value?.id), text, imageUrl))
+                    .update(chatDocument, "lastMessage", lastMessage)
                     .commit()
         }
     }

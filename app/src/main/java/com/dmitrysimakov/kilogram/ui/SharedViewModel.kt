@@ -1,12 +1,15 @@
 package com.dmitrysimakov.kilogram.ui
 
 import android.content.SharedPreferences
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.remote.User
-import com.dmitrysimakov.kilogram.util.FirebaseUserLiveData
+import com.dmitrysimakov.kilogram.data.remote.toUser
 import com.dmitrysimakov.kilogram.util.PreferencesKeys
+import com.dmitrysimakov.kilogram.util.firebaseUser
 import com.dmitrysimakov.kilogram.util.userDocument
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.iid.FirebaseInstanceId
 import java.util.*
 
@@ -15,27 +18,43 @@ class SharedViewModel(private val preferences: SharedPreferences) : ViewModel() 
     val programDayId = MutableLiveData(0L)
     
     //region Firebase
-    val user = FirebaseUserLiveData()
+    
+    private val _user = MutableLiveData<User?>()
+    val user: LiveData<User?> = _user
     
     fun initUser() {
+        firebaseUser?.let {
+            userDocument.get().addOnSuccessListener { doc ->
+                _user.value = doc.toUser()
+            }
+        }
+    }
+    
+    fun signOut() { _user.value = null }
+    
+    fun signIn() {
         userDocument.get().addOnSuccessListener { doc ->
             FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener{ result ->
                 val token = result.token
                 if (!doc.exists()) {
                     createNewUserWithToken(token)
                 } else {
-                    addTokenToUser(token, doc.toObject(User::class.java)!!)
+                    _user.value = doc.toUser()!!
+                    addTokenToUser(token, user.value!!)
                 }
             }
         }
     }
     
     private fun createNewUserWithToken(token: String) {
-        userDocument.set(User(
-                user.value?.displayName ?: "",
-                user.value?.photoUrl.toString(),
+        val firebaseUser = FirebaseAuth.getInstance().currentUser!!
+        val newUser = User(
+                firebaseUser.displayName ?: "",
+                firebaseUser.photoUrl.toString(),
                 mutableListOf(token)
-        ))
+        )
+        userDocument.set(newUser)
+        _user.value = newUser
     }
     
     private fun addTokenToUser(token: String, user: User) {

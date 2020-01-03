@@ -8,7 +8,6 @@ import com.dmitrysimakov.kilogram.databinding.ItemChatBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 
 class ChatsListAdapter(
-        private val userId: String,
         clickCallback: ((Chat) -> Unit)? = null
 ) : DataBoundListAdapter<Chat, ItemChatBinding>(
         clickCallback,
@@ -20,7 +19,6 @@ class ChatsListAdapter(
     
     override fun bind(binding: ItemChatBinding, item: Chat) {
         binding.chat = item
-        binding.currentUserId = userId
     }
 }
 

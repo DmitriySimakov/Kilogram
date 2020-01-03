@@ -9,7 +9,6 @@ import androidx.lifecycle.observe
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.ui.subscriptions.messages.ChatsFragmentDirections.Companion.toMessagesFragment
-import com.dmitrysimakov.kilogram.util.firebaseUser
 import com.dmitrysimakov.kilogram.util.navigate
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_exercises.*
@@ -21,7 +20,7 @@ class ChatsFragment : Fragment() {
     private val vm: ChatsViewModel by viewModel()
     private val sharedVM: SharedViewModel by sharedViewModel()
     
-    private val adapter by lazy { ChatsListAdapter(firebaseUser!!.uid) { navigate(toMessagesFragment(it.id)) }}
+    private val adapter by lazy { ChatsListAdapter { navigate(toMessagesFragment(it.id)) }}
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_chats, container, false)
@@ -31,7 +30,8 @@ class ChatsFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         
         recyclerView.adapter = adapter
-        
+    
+        sharedVM.user.value?.let { vm.setUser(it) }
         vm.chats.observe(viewLifecycleOwner) { adapter.submitList(it) }
         
         activity?.fab?.hide()

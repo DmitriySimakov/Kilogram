@@ -8,13 +8,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.data.remote.User
+import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_people.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PeopleFragment : Fragment() {
     
     private val vm: PeopleViewModel by viewModel()
+    private val sharedVM: SharedViewModel by sharedViewModel()
     
     private val adapter by lazy { PeopleListAdapter({ navigateToChatWith(it) }) }
     
@@ -27,6 +30,7 @@ class PeopleFragment : Fragment() {
         
         recyclerView.adapter = adapter
         
+        sharedVM.user.value?.let { vm.setUser(it) }
         vm.people.observe(viewLifecycleOwner) { adapter.submitList(it) }
         
         activity?.fab?.hide()

@@ -13,9 +13,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.ActivityMainBinding
 import com.dmitrysimakov.kilogram.util.PreferencesKeys
-import com.dmitrysimakov.kilogram.util.firebaseUser
 import com.dmitrysimakov.kilogram.util.setupWithNavController
 import com.dmitrysimakov.kilogram.util.toast
+import com.google.firebase.auth.FirebaseAuth
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.vm = vm
     
+        vm.initUser()
         vm.timerIsRunning.observe(this) { }
         
         vm.timerIsRunning.value = preferences.getBoolean(PreferencesKeys.TIMER_IS_RUNNING, false)
@@ -71,9 +72,10 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN && resultCode == Activity.RESULT_OK) {
-            vm.initUser()
-            if (firebaseUser?.isEmailVerified == false) {
-                firebaseUser?.sendEmailVerification()?.addOnCompleteListener {
+            vm.signIn()
+            val user = FirebaseAuth.getInstance().currentUser!!
+            if (!user.isEmailVerified) {
+                user.sendEmailVerification().addOnCompleteListener {
                     if (it.isSuccessful) toast(getString(R.string.verify_your_email))
                 }
             }

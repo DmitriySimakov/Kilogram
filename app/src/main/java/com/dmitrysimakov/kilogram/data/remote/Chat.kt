@@ -14,7 +14,7 @@ data class Chat(
         @get:Exclude var id: String = ""
 ) {
     data class LastMessage(
-            val senderId: String = "",
+            val senderPhotoUrl: String? = "",
             var text: String? = null,
             val timestamp: Date = Date(),
             val messageId: String = ""

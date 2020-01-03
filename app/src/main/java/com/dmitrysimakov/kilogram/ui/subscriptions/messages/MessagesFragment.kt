@@ -12,8 +12,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.R
+import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_messages.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private const val RC_PHOTO_PICKER = 1
@@ -21,6 +23,7 @@ private const val RC_PHOTO_PICKER = 1
 class MessagesFragment : Fragment() {
     
     private val vm: MessagesViewModel by viewModel()
+    private val sharedVM: SharedViewModel by sharedViewModel()
     
     private val adapter by lazy { MessagesListAdapter() }
     
@@ -35,6 +38,7 @@ class MessagesFragment : Fragment() {
         
         recyclerView.adapter = adapter
     
+        sharedVM.user.value?.let { vm.setUser(it) }
         vm.setChatId(args.id)
         vm.messages.observe(viewLifecycleOwner) { adapter.submitList(it) }
         

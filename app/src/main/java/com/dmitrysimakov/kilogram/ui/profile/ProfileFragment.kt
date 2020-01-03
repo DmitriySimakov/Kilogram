@@ -32,7 +32,11 @@ class ProfileFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         
         binding.authBtn.setOnClickListener {
-            if (sharedVM.user.value == null) signIn() else signOut()
+            if (sharedVM.user.value == null) signIn()
+            else {
+                signOut()
+                sharedVM.signOut()
+            }
         }
         
         binding.navView.setNavigationItemSelectedListener { menuItem ->

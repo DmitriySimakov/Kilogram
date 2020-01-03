@@ -1,5 +1,6 @@
 package com.dmitrysimakov.kilogram.data.remote
 
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.IgnoreExtraProperties
 
@@ -10,3 +11,5 @@ data class User(
         val registrationTokens: MutableList<String> = mutableListOf(),
         @get:Exclude var id: String = ""
 )
+
+fun DocumentSnapshot.toUser() = toObject(User::class.java).also { user -> user?.id = id }
