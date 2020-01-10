@@ -129,5 +129,8 @@
     <string name="add_measurements">Добавить замеры</string>
     <string name="ideal_body_proportions_calculator">Калькулятор идеальных пропорций тела</string>
     <string name="proportions_calculator">Калькулятор пропорций</string>
+    <string name="profile_editing">Редактирование профиля</string>
+    <string name="edit_profile">Редактировать профиль</string>
+    <string name="username">Имя</string>
 
 </resources>

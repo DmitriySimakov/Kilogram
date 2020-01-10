@@ -6,11 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.observe
 import com.dmitrysimakov.kilogram.BuildConfig
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.FragmentProfileBinding
 import com.dmitrysimakov.kilogram.ui.RC_SIGN_IN
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
+import com.dmitrysimakov.kilogram.ui.profile.ProfileFragmentDirections.Companion.toEditProfileFragment
+import com.dmitrysimakov.kilogram.util.navigate
 import com.firebase.ui.auth.AuthUI
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -31,40 +34,43 @@ class ProfileFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         
-        binding.authBtn.setOnClickListener {
-            if (sharedVM.user.value == null) signIn()
-            else {
-                signOut()
-                sharedVM.signOut()
-            }
-        }
-        
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
+                R.id.signInSignOut -> signInSignOut()
+                R.id.editProfile -> { navigate(toEditProfileFragment()) }
                 R.id.share -> share()
             }
             true
         }
         
+        sharedVM.user.observe(viewLifecycleOwner) { user ->
+            val signInSignOutItem = binding.navView.menu.findItem(R.id.signInSignOut)
+            val editProfileItem = binding.navView.menu.findItem(R.id.editProfile)
+            
+            signInSignOutItem.title = if (user != null) getString(R.string.sign_out) else getString(R.string.sign_in)
+            editProfileItem.isVisible = user != null
+        }
+        
         activity?.fab?.hide()
     }
     
-    private fun signIn() {
-        val providers = listOf(
-                AuthUI.IdpConfig.EmailBuilder().build(),
-                AuthUI.IdpConfig.GoogleBuilder().build(),
-                AuthUI.IdpConfig.FacebookBuilder().build()
-        )
-        activity?.startActivityForResult(AuthUI.getInstance()
-                .createSignInIntentBuilder()
-                .setIsSmartLockEnabled(!BuildConfig.DEBUG)
-                .setAvailableProviders(providers)
-                .setLogo(R.mipmap.ic_launcher_round)
-                .build(), RC_SIGN_IN)
-    }
-    
-    private fun signOut() {
-        AuthUI.getInstance().signOut(context!!)
+    private fun signInSignOut() {
+        if (sharedVM.user.value == null) {
+            val providers = listOf(
+                    AuthUI.IdpConfig.EmailBuilder().build(),
+                    AuthUI.IdpConfig.GoogleBuilder().build(),
+                    AuthUI.IdpConfig.FacebookBuilder().build()
+            )
+            activity?.startActivityForResult(AuthUI.getInstance()
+                    .createSignInIntentBuilder()
+                    .setIsSmartLockEnabled(!BuildConfig.DEBUG)
+                    .setAvailableProviders(providers)
+                    .setLogo(R.mipmap.ic_launcher_round)
+                    .build(), RC_SIGN_IN)
+        } else {
+            AuthUI.getInstance().signOut(context!!)
+            sharedVM.signOut()
+        }
     }
     
     private fun share() {

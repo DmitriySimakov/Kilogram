@@ -3,11 +3,10 @@ package com.dmitrysimakov.kilogram.ui.subscriptions.messages
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
@@ -49,13 +48,9 @@ class MessagesFragment : Fragment() {
             startActivityForResult(intent, RC_PHOTO_PICKER)
         }
         
-        messageET.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                sendBtn.isEnabled = charSequence.isNotBlank()
-            }
-            override fun afterTextChanged(editable: Editable) {}
-        })
+        messageET.doOnTextChanged { text, _, _, _ ->
+            sendBtn.isEnabled = text?.isNotBlank() ?: false
+        }
         
         sendBtn.setOnClickListener {
             vm.sendMessage(messageET.text.toString(), null)

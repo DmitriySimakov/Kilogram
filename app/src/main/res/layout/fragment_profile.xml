@@ -10,71 +10,51 @@
             type="com.dmitrysimakov.kilogram.ui.SharedViewModel" />
     </data>
     
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
     
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
         
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/photo"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_margin="@dimen/frame_padding"
-                app:imageUrl="@{vm.user.photoUrl.toString()}"
-                app:invisibleUnless="@{vm.user != null}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@tools:sample/avatars" />
-        
-            <TextView
-                android:id="@+id/usernameTV"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="@dimen/frame_padding"
-                android:layout_marginEnd="16dp"
-                android:text="@{vm.user.name}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                app:invisibleUnless="@{vm.user != null}"
-                app:layout_constraintStart_toEndOf="@id/photo"
-                app:layout_constraintEnd_toStartOf="@id/editProfileBtn"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="@tools:sample/full_names" />
-        
-            <ImageView
-                android:id="@+id/editProfileBtn"
-                style="@style/IconButton"
-                android:layout_margin="@dimen/frame_padding"
-                android:src="@drawable/ic_edit"
-                android:tint="@color/grey700"
-                app:invisibleUnless="@{vm.user != null}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        
-            <Button
-                android:id="@+id/authBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/frame_padding"
-                android:text="@{vm.user != null ? @string/sign_out : @string/sign_in}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/usernameTV"
-                tools:text="@string/sign_out" />
+                android:padding="@dimen/frame_padding"
+                app:goneUnless="@{vm.user != null}">
             
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/navView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            app:elevation="0dp"
-            app:menu="@menu/other" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/photo"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:imageUrl="@{vm.user.photoUrl.toString()}"
+                    tools:src="@tools:sample/avatars" />
+            
+                <TextView
+                    android:id="@+id/usernameTV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/frame_padding"
+                    android:text="@{vm.user.name}"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    tools:text="@tools:sample/full_names" />
+                
+            </LinearLayout>
         
-    </LinearLayout>
+            <com.google.android.material.navigation.NavigationView
+                android:id="@+id/navView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:nestedScrollingEnabled="false"
+                app:elevation="0dp"
+                app:menu="@menu/profile_nav_view" />
+            
+        </LinearLayout>
+    
+    </ScrollView>
 
 </layout>

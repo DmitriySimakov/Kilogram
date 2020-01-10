@@ -1,6 +1,7 @@
 package com.dmitrysimakov.kilogram.ui
 
 import android.content.SharedPreferences
+import androidx.core.content.edit
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -106,10 +107,10 @@ class SharedViewModel(private val preferences: SharedPreferences) : ViewModel() 
         clearValues()
         startTimer()
         
-        preferences.edit()
-                .putBoolean(PreferencesKeys.TIMER_IS_RUNNING, true)
-                .putLong(PreferencesKeys.SESSION_START_MILLIS, sessionStartMillis)
-                .apply()
+        preferences.edit {
+            putBoolean(PreferencesKeys.TIMER_IS_RUNNING, true)
+            putLong(PreferencesKeys.SESSION_START_MILLIS, sessionStartMillis)
+        }
     }
     
     fun onTrainingSessionFinished() {
@@ -117,22 +118,22 @@ class SharedViewModel(private val preferences: SharedPreferences) : ViewModel() 
         timerIsRunning.value = false
         clearValues()
         
-        preferences.edit()
-                .putBoolean(PreferencesKeys.TIMER_IS_RUNNING, false)
-                .remove(PreferencesKeys.SESSION_START_MILLIS)
-                .remove(PreferencesKeys.REST_START_MILLIS)
-                .remove(PreferencesKeys.REST_TIME)
-                .apply()
+        preferences.edit {
+            putBoolean(PreferencesKeys.TIMER_IS_RUNNING, false)
+            remove(PreferencesKeys.SESSION_START_MILLIS)
+            remove(PreferencesKeys.REST_START_MILLIS)
+            remove(PreferencesKeys.REST_TIME)
+        }
     }
     
     fun onSetCompleted(rest: Int) {
         restStartMillis = System.currentTimeMillis()
         restTime.value = rest
         
-        preferences.edit()
-                .putLong(PreferencesKeys.REST_START_MILLIS, restStartMillis)
-                .putInt(PreferencesKeys.REST_TIME, rest)
-                .apply()
+        preferences.edit {
+            putLong(PreferencesKeys.REST_START_MILLIS, restStartMillis)
+            putInt(PreferencesKeys.REST_TIME, rest)
+        }
     }
     
     private fun clearValues() {
