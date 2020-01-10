@@ -7,7 +7,6 @@ import com.dmitrysimakov.kilogram.ui.catalog.CatalogTabFragmentDirections.Compan
 import com.dmitrysimakov.kilogram.ui.catalog.CatalogTabFragmentDirections.Companion.toCreateProgramDialog
 import com.dmitrysimakov.kilogram.ui.common.choose_program.ChooseProgramFragment
 import com.dmitrysimakov.kilogram.util.navigate
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_choose_program.*
 
 class Programs_ChooseProgramFragment : ChooseProgramFragment() {
@@ -24,7 +23,6 @@ class Programs_ChooseProgramFragment : ChooseProgramFragment() {
             }
         }).attachToRecyclerView(recyclerView)
     
-        activity?.fab?.show()
-        activity?.fab?.setOnClickListener{ navigate(toCreateProgramDialog()) }
+        fab.setOnClickListener{ navigate(toCreateProgramDialog()) }
     }
 }

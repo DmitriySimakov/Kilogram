@@ -10,7 +10,6 @@ import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.ui.subscriptions.messages.ChatsFragmentDirections.Companion.toMessagesFragment
 import com.dmitrysimakov.kilogram.util.navigate
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_exercises.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -33,7 +32,5 @@ class ChatsFragment : Fragment() {
     
         sharedVM.user.value?.let { vm.setUser(it) }
         vm.chats.observe(viewLifecycleOwner) { adapter.submitList(it) }
-        
-        activity?.fab?.hide()
     }
 }

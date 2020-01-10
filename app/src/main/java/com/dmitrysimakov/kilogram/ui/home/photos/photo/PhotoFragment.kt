@@ -9,7 +9,6 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.databinding.FragmentPhotoBinding
 import com.dmitrysimakov.kilogram.util.setTitle
-import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.threeten.bp.format.DateTimeFormatter
 
@@ -30,7 +29,6 @@ class PhotoFragment : Fragment() {
     
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        activity?.fab?.hide()
         
         vm.setPhotoUri(args.uri)
         

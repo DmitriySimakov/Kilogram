@@ -7,7 +7,6 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.FragmentDetailedExerciseBinding
-import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailedExerciseFragment : Fragment() {
@@ -30,8 +29,6 @@ class DetailedExerciseFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         
         vm.setExerciseName(args.exercise)
-        
-        activity?.fab?.hide()
     }
     
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

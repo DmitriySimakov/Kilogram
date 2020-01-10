@@ -10,127 +10,142 @@
             type="com.dmitrysimakov.kilogram.ui.home.trainings.exercises.TrainingExercisesViewModel" />
     </data>
     
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/grey100">
+        android:layout_height="match_parent">
         
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="4dp">
+            android:layout_height="match_parent"
+            android:background="@color/grey100">
             
-            <com.google.android.material.card.MaterialCardView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                app:cardCornerRadius="0dp"
-                app:goneUnless="@{vm.runningExercises.size > 0}">
+                android:orientation="vertical"
+                android:padding="4dp">
                 
-                <LinearLayout
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_margin="4dp"
+                    app:cardCornerRadius="0dp"
+                    app:goneUnless="@{vm.runningExercises.size > 0}">
                     
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginBottom="4dp"
-                        android:layout_marginStart="@dimen/frame_padding"
-                        android:layout_marginEnd="@dimen/frame_padding"
-                        android:text="@string/running" />
+                        android:orientation="vertical">
+                        
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:layout_marginStart="@dimen/frame_padding"
+                            android:layout_marginEnd="@dimen/frame_padding"
+                            android:text="@string/running" />
+                        
+                        <View style="@style/VerticalDivider" />
+                        
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/runningExercisesRV"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:nestedScrollingEnabled="false"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            tools:itemCount="1"
+                            tools:listitem="@layout/item_training_exercise" />
                     
-                    <View style="@style/VerticalDivider" />
-                    
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/runningExercisesRV"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:nestedScrollingEnabled="false"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        tools:itemCount="1"
-                        tools:listitem="@layout/item_training_exercise" />
+                    </LinearLayout>
                 
-                </LinearLayout>
-            
-            </com.google.android.material.card.MaterialCardView>
-            
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                app:cardCornerRadius="0dp"
-                app:goneUnless="@{vm.plannedExercises.size > 0}">
+                </com.google.android.material.card.MaterialCardView>
                 
-                <LinearLayout
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_margin="4dp"
+                    app:cardCornerRadius="0dp"
+                    app:goneUnless="@{vm.plannedExercises.size > 0}">
                     
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginBottom="4dp"
-                        android:layout_marginStart="@dimen/frame_padding"
-                        android:layout_marginEnd="@dimen/frame_padding"
-                        android:text="@string/planned" />
+                        android:orientation="vertical">
+                        
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:layout_marginStart="@dimen/frame_padding"
+                            android:layout_marginEnd="@dimen/frame_padding"
+                            android:text="@string/planned" />
+                        
+                        <View style="@style/VerticalDivider" />
+                        
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/plannedExercisesRV"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:nestedScrollingEnabled="false"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            tools:itemCount="3"
+                            tools:listitem="@layout/item_training_exercise" />
                     
-                    <View style="@style/VerticalDivider" />
-                    
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/plannedExercisesRV"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:nestedScrollingEnabled="false"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        tools:itemCount="3"
-                        tools:listitem="@layout/item_training_exercise" />
+                    </LinearLayout>
                 
-                </LinearLayout>
-            
-            </com.google.android.material.card.MaterialCardView>
-            
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                app:cardCornerRadius="0dp"
-                app:goneUnless="@{vm.finishedExercises.size > 0}">
+                </com.google.android.material.card.MaterialCardView>
                 
-                <LinearLayout
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_margin="4dp"
+                    app:cardCornerRadius="0dp"
+                    app:goneUnless="@{vm.finishedExercises.size > 0}">
                     
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginBottom="4dp"
-                        android:layout_marginStart="@dimen/frame_padding"
-                        android:layout_marginEnd="@dimen/frame_padding"
-                        android:text="@string/finished" />
+                        android:orientation="vertical">
+                        
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:layout_marginStart="@dimen/frame_padding"
+                            android:layout_marginEnd="@dimen/frame_padding"
+                            android:text="@string/finished" />
+                        
+                        <View style="@style/VerticalDivider" />
+                        
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/finishedExercisesRV"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:nestedScrollingEnabled="false"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            tools:itemCount="2"
+                            tools:listitem="@layout/item_training_exercise" />
                     
-                    <View style="@style/VerticalDivider" />
-                    
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/finishedExercisesRV"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:nestedScrollingEnabled="false"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        tools:itemCount="2"
-                        tools:listitem="@layout/item_training_exercise" />
+                    </LinearLayout>
                 
-                </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
             
-            </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
         
-        </LinearLayout>
+        </ScrollView>
     
-    </ScrollView>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_add" />
+        
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

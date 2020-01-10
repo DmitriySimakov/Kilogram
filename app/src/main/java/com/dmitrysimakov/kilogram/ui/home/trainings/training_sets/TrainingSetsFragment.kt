@@ -16,7 +16,6 @@ import com.dmitrysimakov.kilogram.util.EventObserver
 import com.dmitrysimakov.kilogram.util.navigate
 import com.dmitrysimakov.kilogram.util.popBackStack
 import com.dmitrysimakov.kilogram.util.setTitle
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_training_sets.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -71,8 +70,7 @@ class TrainingSetsFragment : Fragment() {
         vm.measures.observe(viewLifecycleOwner) {}
         vm.sets.observe(viewLifecycleOwner) { adapter.submitList(it) }
         
-        activity?.fab?.show()
-        activity?.fab?.setOnClickListener{
+        binding.fab.setOnClickListener{
             val set = vm.currentSets.value?.lastOrNull() ?: vm.previousSets.value?.firstOrNull()
             navigate(toAddSetDialog(
                     args.trainingExerciseId,

@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.catalog.programs.exercises.ProgramDayExercisesFragmentDirections.Companion.toChooseExerciseFragment
 import com.dmitrysimakov.kilogram.util.navigate
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_exercises.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -54,8 +53,7 @@ class ProgramDayExercisesFragment : Fragment() {
             }
         }).attachToRecyclerView(recyclerView)
     
-        activity?.fab?.show()
-        activity?.fab?.setOnClickListener{
+        fab.setOnClickListener{
             navigate(toChooseExerciseFragment(adapter.itemCount + 1, args.programDayId))
         }
     }

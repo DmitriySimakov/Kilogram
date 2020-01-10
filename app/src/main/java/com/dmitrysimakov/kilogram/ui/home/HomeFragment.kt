@@ -27,7 +27,6 @@ import com.dmitrysimakov.kilogram.util.navigate
 import com.dmitrysimakov.kilogram.util.toIsoString
 import com.kizitonwose.calendarview.utils.next
 import com.kizitonwose.calendarview.utils.previous
-import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.threeten.bp.OffsetDateTime
 import org.threeten.bp.YearMonth
@@ -99,7 +98,6 @@ class HomeFragment : Fragment() {
     
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        activity?.fab?.hide()
         
         binding.startTrainingButton.setOnClickListener { navigate(toCreateTrainingFragment(null)) }
         binding.addPhotoButton.setOnClickListener { dispatchTakePictureIntent() }

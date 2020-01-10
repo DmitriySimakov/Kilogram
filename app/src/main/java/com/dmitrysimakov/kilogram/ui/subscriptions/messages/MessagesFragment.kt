@@ -12,7 +12,6 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_messages.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -56,8 +55,6 @@ class MessagesFragment : Fragment() {
             vm.sendMessage(messageET.text.toString(), null)
             messageET.setText("")
         }
-        
-        activity?.fab?.hide()
     }
     
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

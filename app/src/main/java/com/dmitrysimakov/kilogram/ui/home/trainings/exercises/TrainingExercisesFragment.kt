@@ -16,7 +16,6 @@ import com.dmitrysimakov.kilogram.ui.home.trainings.exercises.TrainingExercisesF
 import com.dmitrysimakov.kilogram.util.EventObserver
 import com.dmitrysimakov.kilogram.util.navigate
 import com.dmitrysimakov.kilogram.util.popBackStack
-import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
@@ -49,8 +48,7 @@ class TrainingExercisesFragment : Fragment() {
         setHasOptionsMenu(true)
         setupAdapters()
     
-        activity?.fab?.show()
-        activity?.fab?.setOnClickListener{
+        binding.fab.setOnClickListener{
             navigate(toChooseExerciseFragment(exercisePlannedListAdapter.itemCount + 1 ,args.trainingId))
         }
         

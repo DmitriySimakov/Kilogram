@@ -9,7 +9,6 @@ import androidx.lifecycle.observe
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.data.remote.User
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_people.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -32,8 +31,6 @@ class PeopleFragment : Fragment() {
         
         sharedVM.user.value?.let { vm.setUser(it) }
         vm.people.observe(viewLifecycleOwner) { adapter.submitList(it) }
-        
-        activity?.fab?.hide()
     }
     
     private fun navigateToChatWith(user: User) {

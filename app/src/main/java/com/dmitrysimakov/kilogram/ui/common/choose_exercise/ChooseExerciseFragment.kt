@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.FragmentChooseExerciseBinding
 import com.dmitrysimakov.kilogram.ui.common.ChipGroupFilterAdapter
-import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 abstract class ChooseExerciseFragment : Fragment() {
@@ -49,8 +48,6 @@ abstract class ChooseExerciseFragment : Fragment() {
         vm.exerciseList.observe(viewLifecycleOwner) { exerciseAdapter.submitList(it) }
         vm.exerciseTargetList.observe(viewLifecycleOwner) { exerciseTargetAdapter.submitList(it) }
         vm.equipmentList.observe(viewLifecycleOwner) { equipmentAdapter.submitList(it) }
-        
-        activity?.fab?.hide()
     }
     
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

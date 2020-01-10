@@ -5,7 +5,6 @@ import com.dmitrysimakov.kilogram.ui.common.choose_program.ChooseProgramFragment
 import com.dmitrysimakov.kilogram.ui.home.trainings.choose_program.Trainings_ChooseProgramFragmentDirections.Companion.toChooseProgramDayFragment
 import com.dmitrysimakov.kilogram.util.navigate
 import com.dmitrysimakov.kilogram.util.setXNavIcon
-import kotlinx.android.synthetic.main.activity_main.*
 
 class Trainings_ChooseProgramFragment : ChooseProgramFragment() {
     
@@ -15,6 +14,5 @@ class Trainings_ChooseProgramFragment : ChooseProgramFragment() {
         adapter.clickCallback = { navigate(toChooseProgramDayFragment(it._id)) }
      
         setXNavIcon()
-        activity?.fab?.hide()
     }
 }

@@ -6,7 +6,6 @@ import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.ui.common.choose_program_day.ChooseProgramDayFragment
 import com.dmitrysimakov.kilogram.util.popBackStack
-import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class Trainings_ChooseProgramDayFragment : ChooseProgramDayFragment() {
@@ -24,7 +23,5 @@ class Trainings_ChooseProgramDayFragment : ChooseProgramDayFragment() {
             sharedVM.programDayId.value = programDay._id
             popBackStack(R.id.createTrainingDialog, false)
         }
-        
-        activity?.fab?.hide()
     }
 }

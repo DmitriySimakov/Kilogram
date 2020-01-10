@@ -15,7 +15,6 @@ import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.ui.profile.ProfileFragmentDirections.Companion.toEditProfileFragment
 import com.dmitrysimakov.kilogram.util.navigate
 import com.firebase.ui.auth.AuthUI
-import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class ProfileFragment : Fragment() {
@@ -50,8 +49,6 @@ class ProfileFragment : Fragment() {
             signInSignOutItem.title = if (user != null) getString(R.string.sign_out) else getString(R.string.sign_in)
             editProfileItem.isVisible = user != null
         }
-        
-        activity?.fab?.hide()
     }
     
     private fun signInSignOut() {

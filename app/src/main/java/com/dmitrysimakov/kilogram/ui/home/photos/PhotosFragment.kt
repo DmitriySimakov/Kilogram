@@ -9,7 +9,6 @@ import androidx.lifecycle.observe
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.home.photos.PhotosFragmentDirections.Companion.toPhotoFragment
 import com.dmitrysimakov.kilogram.util.navigate
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_exercises.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -30,8 +29,7 @@ class PhotosFragment : Fragment() {
         
         vm.photos.observe(viewLifecycleOwner) { adapter.submitList(it) }
         
-        activity?.fab?.show()
-        activity?.fab?.setOnClickListener{
+        fab.setOnClickListener{
             //TODO
         }
     }

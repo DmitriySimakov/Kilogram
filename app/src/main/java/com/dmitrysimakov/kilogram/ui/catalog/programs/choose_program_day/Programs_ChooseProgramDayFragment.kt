@@ -8,7 +8,6 @@ import com.dmitrysimakov.kilogram.ui.catalog.programs.choose_program_day.Program
 import com.dmitrysimakov.kilogram.ui.catalog.programs.choose_program_day.Programs_ChooseProgramDayFragmentDirections.Companion.toExercisesFragment
 import com.dmitrysimakov.kilogram.ui.common.choose_program_day.ChooseProgramDayFragment
 import com.dmitrysimakov.kilogram.util.navigate
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_choose_program_day.*
 import timber.log.Timber
 import java.util.*
@@ -38,8 +37,7 @@ class Programs_ChooseProgramDayFragment : ChooseProgramDayFragment() {
             }
         }).attachToRecyclerView(recyclerView)
     
-        activity?.fab?.show()
-        activity?.fab?.setOnClickListener{
+        fab.setOnClickListener{
             navigate(toCreateProgramDayDialog(adapter.itemCount + 1, args.programId))
         }
     }
