@@ -2,6 +2,7 @@ package com.dmitrysimakov.kilogram.util
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -44,6 +45,13 @@ fun Fragment.setXNavIcon() {
 
 fun Fragment.setTitle(title: String) {
     (activity as AppCompatActivity).supportActionBar?.title = title
+}
+
+fun Fragment.dispatchGetImageContentIntent(requestCode: Int) {
+    val intent = Intent(Intent.ACTION_GET_CONTENT)
+    intent.type = "image/*"
+    intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true)
+    startActivityForResult(intent, requestCode)
 }
 
 private val offsetDateTimeFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME

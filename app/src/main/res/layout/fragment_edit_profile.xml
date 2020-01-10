@@ -21,7 +21,15 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             app:imageUrl="@{vm.user.photoUrl.toString()}"
+            goneUnless="@{vm.user.photoUrl != null}"
             tools:src="@tools:sample/avatars" />
+        
+        <ProgressBar
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:padding="25dp"
+            goneUnless="@{vm.user.photoUrl == null}"
+            tools:visibility="gone"/>
         
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"

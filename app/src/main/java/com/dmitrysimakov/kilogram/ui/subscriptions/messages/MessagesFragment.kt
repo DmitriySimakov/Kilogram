@@ -12,6 +12,7 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
+import com.dmitrysimakov.kilogram.util.dispatchGetImageContentIntent
 import kotlinx.android.synthetic.main.fragment_messages.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -40,12 +41,7 @@ class MessagesFragment : Fragment() {
         vm.setChatId(args.id)
         vm.messages.observe(viewLifecycleOwner) { adapter.submitList(it) }
         
-        photoPickerBtn.setOnClickListener {
-            val intent = Intent(Intent.ACTION_GET_CONTENT)
-            intent.type = "image/*"
-            intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true)
-            startActivityForResult(intent, RC_PHOTO_PICKER)
-        }
+        photoPickerBtn.setOnClickListener { dispatchGetImageContentIntent(RC_PHOTO_PICKER) }
         
         messageET.doOnTextChanged { text, _, _, _ ->
             sendBtn.isEnabled = text?.isNotBlank() ?: false

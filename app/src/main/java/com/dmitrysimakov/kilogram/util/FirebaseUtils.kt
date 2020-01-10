@@ -19,4 +19,6 @@ val chatsCollection = firestore.collection("chats")
 
 val firebaseStorage = FirebaseStorage.getInstance()
 
+val profileImagesRef = firebaseStorage.reference.child("profile_images")
+
 val msgImagesRef = firebaseStorage.reference.child("message_images")

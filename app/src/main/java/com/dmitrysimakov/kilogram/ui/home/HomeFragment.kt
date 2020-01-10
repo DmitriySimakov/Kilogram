@@ -2,7 +2,6 @@ package com.dmitrysimakov.kilogram.ui.home
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -100,7 +99,7 @@ class HomeFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         
         binding.startTrainingButton.setOnClickListener { navigate(toCreateTrainingFragment(null)) }
-        binding.addPhotoButton.setOnClickListener { dispatchTakePictureIntent() }
+        binding.addPhotoButton.setOnClickListener { dispatchImageCaptureIntent() }
         binding.addMeasurementButton.setOnClickListener { navigate(toAddMeasurementDialog()) }
         binding.proportionsCalculatorBtn.setOnClickListener { navigate(toProportionsCalculatorFragment()) }
         
@@ -115,26 +114,24 @@ class HomeFragment : Fragment() {
         vm.recentMeasurements.observe(viewLifecycleOwner) { measurementsAdapter.submitList(it) }
     }
     
-    private fun dispatchTakePictureIntent() {
-        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        takePictureIntent.resolveActivity(activity!!.packageManager)?.also {
-            val photoFile: File? = try { createImageFile() } catch (ex: IOException) { null }
-            photoFile?.also { file ->
-                val photoURI: Uri = FileProvider.getUriForFile(
-                        context!!,
-                        "com.dmitrysimakov.kilogram",
-                        file
-                )
-                lastPhotoUri = photoURI.toString()
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                startActivityForResult(takePictureIntent, RC_TAKE_PHOTO)
-            }
+    private fun dispatchImageCaptureIntent() {
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        intent.resolveActivity(activity!!.packageManager)
+        val photoFile: File? = try { createImageFile() } catch (ex: IOException) { null }
+        photoFile?.let { file ->
+            val photoURI = FileProvider.getUriForFile(
+                    context!!,
+                    "com.dmitrysimakov.kilogram",
+                    file
+            )
+            lastPhotoUri = photoURI.toString()
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+            startActivityForResult(intent, RC_TAKE_PHOTO)
         }
     }
     
     @Throws(IOException::class)
     private fun createImageFile(): File {
-        lastPhotoDateTime = OffsetDateTime.now()
         val filename = "Kilogram_${lastPhotoDateTime}"
         val storageDir = context?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile(filename, ".jpg", storageDir)
