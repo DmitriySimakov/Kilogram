@@ -13,6 +13,7 @@ import com.dmitrysimakov.kilogram.R
 import org.threeten.bp.LocalDate
 import org.threeten.bp.OffsetDateTime
 import org.threeten.bp.format.DateTimeFormatter
+import java.util.*
 import kotlin.math.pow
 import kotlin.math.roundToInt
 
@@ -65,4 +66,12 @@ fun LocalDate.toIsoString() = format(localDateFormatter)
 fun Double.round(precision: Int) : Double {
     val multiplier = 10.0.pow(precision.toDouble())
     return (this * multiplier).roundToInt() / multiplier
+}
+
+fun String.meetsQuery(query: String): Boolean {
+    val queryParts = query.toLowerCase(Locale.getDefault()).trim().split(" ")
+    queryParts.forEach {
+        if (!this.toLowerCase(Locale.getDefault()).contains(it)) return false
+    }
+    return true
 }

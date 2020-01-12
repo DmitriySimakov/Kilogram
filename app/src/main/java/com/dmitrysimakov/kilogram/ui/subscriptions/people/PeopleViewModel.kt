@@ -7,11 +7,8 @@ import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.remote.Chat
 import com.dmitrysimakov.kilogram.data.remote.User
 import com.dmitrysimakov.kilogram.data.remote.toUser
-import com.dmitrysimakov.kilogram.util.chatsCollection
+import com.dmitrysimakov.kilogram.util.*
 import com.dmitrysimakov.kilogram.util.live_data.liveData
-import com.dmitrysimakov.kilogram.util.setNewValue
-import com.dmitrysimakov.kilogram.util.userDocument
-import com.dmitrysimakov.kilogram.util.usersCollection
 import com.google.firebase.firestore.SetOptions
 
 class PeopleViewModel : ViewModel() {
@@ -39,16 +36,7 @@ class PeopleViewModel : ViewModel() {
         }
         
         people.value = loadedPeople.filter { person ->
-            var isValidName = true
-            
-            searchText?.let {
-                val nameParts = searchText.trim().split(" ")
-                nameParts.forEach {
-                    if (!person.name.contains(it)) isValidName = false
-                }
-            }
-    
-            person.id != user.id && isValidName
+            person.id != user.id && (searchText == null || person.name.meetsQuery(searchText))
         }
     }
     
