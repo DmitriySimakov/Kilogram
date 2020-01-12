@@ -19,7 +19,7 @@ class ChatsFragment : Fragment() {
     private val vm: ChatsViewModel by viewModel()
     private val sharedVM: SharedViewModel by sharedViewModel()
     
-    private val adapter by lazy { ChatsListAdapter { navigate(toMessagesFragment(it.id)) }}
+    private val adapter by lazy { ChatsListAdapter(vm) { navigate(toMessagesFragment(it.id)) }}
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_chats, container, false)

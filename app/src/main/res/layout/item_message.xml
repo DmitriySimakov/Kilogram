@@ -8,71 +8,58 @@
         <import type="com.dmitrysimakov.kilogram.binding.Converter" />
         
         <variable
+            name="vm"
+            type="com.dmitrysimakov.kilogram.ui.subscriptions.messages.MessagesViewModel" />
+        
+        <variable
             name="message"
             type="com.dmitrysimakov.kilogram.data.remote.Message" />
     </data>
     
-    <androidx.constraintlayout.widget.ConstraintLayout
-        style="@style/HorizontalListItem"
-        android:layout_height="wrap_content">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
         
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/photo"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            app:imageUrl="@{message.sender.photoUrl}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
-        
-        <TextView
-            android:id="@+id/name"
+        <LinearLayout
+            android:id="@+id/messageBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@{message.sender.name}"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-            app:layout_constraintStart_toEndOf="@id/photo"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@tools:sample/full_names" />
-        
-        <TextView
-            android:id="@+id/timestamp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@{Converter.dateToRelativeTimeSpan(message.timestamp)}"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-            app:layout_constraintBaseline_toBaselineOf="@id/name"
-            app:layout_constraintStart_toEndOf="@id/name"
-            tools:text="@tools:sample/date/hhmm" />
-        
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="@dimen/list_item_horizontal_padding"
-            android:text="@{message.text}"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/photo"
-            app:layout_constraintTop_toBottomOf="@id/name"
-            tools:text="@tools:sample/lorem" />
-        
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:adjustViewBounds="true"
-            android:scaleType="fitEnd"
-            app:goneUnless="@{message.imageUrl != null}"
-            app:imageUrl="@{message.imageUrl}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_max="300dp"
-            app:layout_constraintStart_toStartOf="@id/name"
-            app:layout_constraintTop_toBottomOf="@id/name" />
+            android:orientation="vertical"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:background="@{message.senderId.equals(vm.user.id) ? @drawable/bg_sender : @drawable/bg_receiver}"
+            tools:background="@drawable/bg_receiver">
     
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:text="@{message.text}"
+                app:goneUnless="@{message.text != null}"
+                tools:text="@tools:sample/lorem" />
+    
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                app:goneUnless="@{message.imageUrl != null}"
+                app:imageUrl="@{message.imageUrl}"
+                tools:visibility="gone"/>
+    
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:text="@{Converter.dateToRelativeTimeSpan(message.timestamp)}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                tools:text="@tools:sample/date/hhmm" />
+            
+        </LinearLayout>
+    
+    </FrameLayout>
 
 </layout>

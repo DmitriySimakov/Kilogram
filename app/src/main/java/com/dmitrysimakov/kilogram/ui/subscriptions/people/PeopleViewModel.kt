@@ -4,12 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dmitrysimakov.kilogram.data.remote.Chat
 import com.dmitrysimakov.kilogram.data.remote.User
 import com.dmitrysimakov.kilogram.data.remote.toUser
-import com.dmitrysimakov.kilogram.util.*
 import com.dmitrysimakov.kilogram.util.live_data.liveData
-import com.google.firebase.firestore.SetOptions
+import com.dmitrysimakov.kilogram.util.meetsQuery
+import com.dmitrysimakov.kilogram.util.setNewValue
+import com.dmitrysimakov.kilogram.util.usersCollection
 
 class PeopleViewModel : ViewModel() {
     
@@ -18,7 +18,7 @@ class PeopleViewModel : ViewModel() {
     
     private val _user = MutableLiveData<User?>()
     
-    private val _people = usersCollection.liveData { it.toUser()!! }
+    private val _people = usersCollection.liveData { it.toUser() }
     val people = MediatorLiveData<List<User>>()
     
     init {
@@ -43,24 +43,4 @@ class PeopleViewModel : ViewModel() {
     fun setUser(user: User?) { _user.setNewValue(user) }
     
     fun setSearchText(text: String?) { _searchText.setNewValue(text) }
-    
-    fun getChatWith(user: User, callback: ((String) -> Unit)) {
-        val curUserDirectsDocument = userDocument.collection("chats").document("chats")
-        curUserDirectsDocument.get().addOnSuccessListener { doc ->
-            val chatId = doc.get(user.id) as String?
-            if (chatId == null) {
-                _user.value?.let { curUser ->
-                    val currentMember = Chat.Member(curUser.id, curUser.name, curUser.photoUrl.toString())
-                    val members = listOf(currentMember, Chat.Member(user.id, user.name, user.photoUrl))
-                    val membersIds = listOf(curUser.id, user.id)
-                    chatsCollection.add(Chat(members, membersIds)).addOnSuccessListener { chatDoc ->
-                        curUserDirectsDocument.set(hashMapOf(user.id to chatDoc.id), SetOptions.merge())
-                        callback(chatDoc.id)
-                    }
-                }
-            } else {
-                callback(chatId)
-            }
-        }
-    }
 }

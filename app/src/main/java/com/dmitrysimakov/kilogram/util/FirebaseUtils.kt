@@ -14,7 +14,8 @@ val usersCollection = firestore.collection("users")
 val userDocument
     get() = usersCollection.document(checkNotNull(firebaseUser?.uid))
 
-val chatsCollection = firestore.collection("chats")
+val chatsCollection
+    get() = userDocument.collection("chats")
 
 
 val firebaseStorage = FirebaseStorage.getInstance()

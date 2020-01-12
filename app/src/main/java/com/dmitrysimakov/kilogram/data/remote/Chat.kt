@@ -1,28 +1,14 @@
 package com.dmitrysimakov.kilogram.data.remote
 
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.IgnoreExtraProperties
-import java.util.*
 
 @IgnoreExtraProperties
 data class Chat(
-        var members: List<Member> = emptyList(),
-        var membersIds: List<String> = emptyList(),
-        var name: String? = null,
-        var photoUrl: String? = null,
-        var lastMessage: LastMessage = LastMessage(),
+        var companion: User = User(),
+        var lastMessage: Message = Message(),
         @get:Exclude var id: String = ""
-) {
-    data class LastMessage(
-            val senderPhotoUrl: String? = "",
-            var text: String? = null,
-            val timestamp: Date = Date(),
-            val messageId: String = ""
-    )
-    
-    data class Member(
-            val id: String = "",
-            val name: String = "",
-            val photoUrl: String? = null
-    )
-}
+)
+
+fun DocumentSnapshot.toChat() = toObject(Chat::class.java)!!.also { it.id = id }

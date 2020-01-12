@@ -40,7 +40,7 @@ class SharedViewModel(private val preferences: SharedPreferences) : ViewModel() 
                 if (!doc.exists()) {
                     createNewUserWithToken(token)
                 } else {
-                    _user.value = doc.toUser()!!
+                    _user.value = doc.toUser()
                     addTokenToUser(token, user.value!!)
                 }
             }

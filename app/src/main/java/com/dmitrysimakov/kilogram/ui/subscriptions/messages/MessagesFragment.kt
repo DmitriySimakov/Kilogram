@@ -24,7 +24,7 @@ class MessagesFragment : Fragment() {
     private val vm: MessagesViewModel by viewModel()
     private val sharedVM: SharedViewModel by sharedViewModel()
     
-    private val adapter by lazy { MessagesListAdapter() }
+    private val adapter by lazy { MessagesListAdapter(vm) }
     
     private val args: MessagesFragmentArgs by navArgs()
     
@@ -37,8 +37,9 @@ class MessagesFragment : Fragment() {
         
         recyclerView.adapter = adapter
     
-        sharedVM.user.value?.let { vm.setUser(it) }
-        vm.setChatId(args.id)
+        sharedVM.user.observe(viewLifecycleOwner) {user ->
+            vm.start(user, args.id)
+        }
         vm.messages.observe(viewLifecycleOwner) { adapter.submitList(it) }
         
         photoPickerBtn.setOnClickListener { dispatchGetImageContentIntent(RC_PHOTO_PICKER) }

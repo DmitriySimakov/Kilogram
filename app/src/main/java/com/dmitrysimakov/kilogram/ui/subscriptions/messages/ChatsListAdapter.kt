@@ -8,6 +8,7 @@ import com.dmitrysimakov.kilogram.databinding.ItemChatBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 
 class ChatsListAdapter(
+        private val vm: ChatsViewModel,
         clickCallback: ((Chat) -> Unit)? = null
 ) : DataBoundListAdapter<Chat, ItemChatBinding>(
         clickCallback,
@@ -18,6 +19,7 @@ class ChatsListAdapter(
             .inflate(LayoutInflater.from(parent.context), parent, false)
     
     override fun bind(binding: ItemChatBinding, item: Chat) {
+        binding.vm = vm
         binding.chat = item
     }
 }

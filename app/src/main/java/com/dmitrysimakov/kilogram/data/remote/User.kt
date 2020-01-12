@@ -12,4 +12,4 @@ data class User(
         @get:Exclude var id: String = ""
 )
 
-fun DocumentSnapshot.toUser() = toObject(User::class.java).also { user -> user?.id = id }
+fun DocumentSnapshot.toUser() = toObject(User::class.java)!!.also { it.id = id }

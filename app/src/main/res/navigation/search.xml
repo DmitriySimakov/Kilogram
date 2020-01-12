@@ -8,5 +8,18 @@
         android:id="@+id/peopleFragment"
         android:name="com.dmitrysimakov.kilogram.ui.subscriptions.people.PeopleFragment"
         android:label="@string/people"
-        tools:layout="@layout/fragment_people" />
+        tools:layout="@layout/fragment_people" >
+        <action
+            android:id="@+id/to_messagesFragment"
+            app:destination="@id/messagesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/messagesFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.subscriptions.messages.MessagesFragment"
+        android:label="@string/messages"
+        tools:layout="@layout/fragment_messages" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
 </navigation>

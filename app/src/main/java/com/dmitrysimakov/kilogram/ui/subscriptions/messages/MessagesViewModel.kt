@@ -5,56 +5,65 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
-import com.dmitrysimakov.kilogram.data.remote.Chat
-import com.dmitrysimakov.kilogram.data.remote.Message
-import com.dmitrysimakov.kilogram.data.remote.User
-import com.dmitrysimakov.kilogram.util.chatsCollection
-import com.dmitrysimakov.kilogram.util.firestore
+import com.dmitrysimakov.kilogram.data.remote.*
+import com.dmitrysimakov.kilogram.util.*
 import com.dmitrysimakov.kilogram.util.live_data.liveData
-import com.dmitrysimakov.kilogram.util.msgImagesRef
-import com.dmitrysimakov.kilogram.util.setNewValue
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 
 class MessagesViewModel : ViewModel() {
     
     private val _user = MutableLiveData<User>()
+    val user: LiveData<User?> = _user
     
-    private lateinit var chatDocument: DocumentReference
-    private lateinit var messagesCollection: CollectionReference
+    private lateinit var userChatDoc: DocumentReference
+    private lateinit var companionChatDoc: DocumentReference
+    private lateinit var userMessagesCol: CollectionReference
+    private lateinit var companionMessagesCol: CollectionReference
     
     private val _chat = MutableLiveData<Chat>()
     val chat: LiveData<Chat> = _chat
     
-    fun setChatId(id: String) {
-        chatDocument = chatsCollection.document(id)
-        messagesCollection = chatDocument.collection("messages")
-        chatDocument.get().addOnSuccessListener { chatDoc ->
-            _chat.setNewValue(chatDoc.toObject(Chat::class.java)?.also { it.id = id })
-        }
+    val messages = _chat.switchMap {
+        userMessagesCol.orderBy("timestamp").liveData { it.toMessage() }
     }
     
-    val messages = _chat.switchMap {
-        messagesCollection.orderBy("start_time").liveData { doc ->
-            doc.toObject(Message::class.java)?.also { msg ->
-                msg.id = doc.id
-                val sender = _chat.value!!.members.find { member -> member.id == msg.sender.id }
-                msg.sender.name = sender?.name ?: ""
-                msg.sender.photoUrl = sender?.photoUrl
+    fun start(user: User?, companionId: String) {
+        _user.setNewValue(user)
+        if (user == null) return
+        
+        userChatDoc = chatsCollection.document(companionId)
+        companionChatDoc = usersCollection.document(companionId).collection("chats").document(user.id)
+        userMessagesCol = userChatDoc.collection("messages")
+        companionMessagesCol = companionChatDoc.collection("messages")
+        
+        userChatDoc.get().addOnSuccessListener {
+            if (it.exists()) {
+                _chat.setNewValue(it.toChat())
+            } else {
+                usersCollection.document(companionId).get().addOnSuccessListener { companionDoc ->
+                    val newChatForUser = Chat(companionDoc.toUser())
+                    val newChatForCompanion = Chat(user)
+                    _chat.setNewValue(newChatForUser)
+                    
+                    firestore.batch()
+                            .set(userChatDoc, newChatForUser)
+                            .set(companionChatDoc, newChatForCompanion)
+                            .commit()
+                }
             }
         }
     }
     
-    fun setUser(user: User) { _user.setNewValue(user) }
-    
     fun sendMessage(text: String?, imageUrl: String?) {
-        _chat.value?.let {
-            val lastMessage = Chat.LastMessage(_user.value?.photoUrl, text ?: "Фотография")
-            firestore.batch()
-                    .set(messagesCollection.document(), Message(Message.Sender(_user.value?.id), text, imageUrl))
-                    .update(chatDocument, "lastMessage", lastMessage)
-                    .commit()
-        }
+        val senderId = user.value!!.id
+        val message = Message(senderId, text, imageUrl)
+        firestore.batch()
+                .set(userMessagesCol.document(), message)
+                .set(companionMessagesCol.document(), message)
+                .update(userChatDoc, "lastMessage", message)
+                .update(companionChatDoc, "lastMessage", message)
+                .commit()
     }
     
     fun sendImage(uri: Uri) {
