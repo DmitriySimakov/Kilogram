@@ -55,16 +55,15 @@ abstract class ChooseExerciseFragment : Fragment() {
         
         val searchView = menu.findItem(R.id.search).actionView as SearchView
         
-        vm.searchText.value?.let { query ->
-            if (query.isNotEmpty()) searchView.setQuery(query, false)
+        val query = vm.searchText.value
+        if (query?.trim()?.isNotEmpty() == true) {
+            searchView.setQuery(query, false)
             searchView.isIconified = false
         }
         
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
-            override fun onQueryTextChange(newText: String?): Boolean{
+            override fun onQueryTextSubmit(query: String?) = false
+            override fun onQueryTextChange(newText: String?): Boolean {
                 vm.setSearchText(newText)
                 return true
             }

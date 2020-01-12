@@ -48,14 +48,14 @@ class ChooseExerciseViewModel (
                 .forEach { query.addSource(it) { updateQuery() } }
     }
     
-    fun setSearchText(text: String?) = _searchText.setNewValue(text)
+    fun setSearchText(text: String?) { _searchText.setNewValue(text) }
     
     private fun updateQuery() {
         val exerciseTargets = exerciseTargetList.getActiveParamsString()
         val equipments = equipmentList.getActiveParamsString()
 
         val sb = StringBuilder("SELECT * FROM exercise WHERE name IS NOT NULL")
-        _searchText.value?.let { if (it.isNotEmpty()) sb.append(" AND name LIKE '%$it%'") }
+        _searchText.value?.let { if (it.trim().isNotEmpty()) sb.append(" AND name LIKE '%$it%'") }
         if (addedToFavorite.value == true) sb.append(" AND is_favorite == 1")
         if (performedEarlier.value == true) sb.append(" AND executions_cnt > 0")
         if (compound.value == true && isolated.value == false) sb.append(" AND is_isolated == 0")

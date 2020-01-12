@@ -1,9 +1,9 @@
 package com.dmitrysimakov.kilogram.ui.subscriptions.people
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.map
-import androidx.lifecycle.switchMap
 import com.dmitrysimakov.kilogram.data.remote.Chat
 import com.dmitrysimakov.kilogram.data.remote.User
 import com.dmitrysimakov.kilogram.data.remote.toUser
@@ -16,15 +16,45 @@ import com.google.firebase.firestore.SetOptions
 
 class PeopleViewModel : ViewModel() {
     
-    private val _user = MutableLiveData<User>()
+    private val _searchText = MutableLiveData<String?>(null)
+    val searchText: LiveData<String?> = _searchText
     
-    val people = _user.switchMap { currentUser ->
-        usersCollection.liveData { it.toUser() }.map {
-            it.filter { user -> user?.id != currentUser.id }
+    private val _user = MutableLiveData<User?>()
+    
+    private val _people = usersCollection.liveData { it.toUser()!! }
+    val people = MediatorLiveData<List<User>>()
+    
+    init {
+        listOf(_people, _user, _searchText).forEach { people.addSource(it) { filterPeople() } }
+    }
+    
+    private fun filterPeople() {
+        val loadedPeople = _people.value
+        val user = _user.value
+        val searchText = _searchText.value
+        
+        if (loadedPeople == null || user == null) {
+            people.value = null
+            return
+        }
+        
+        people.value = loadedPeople.filter { person ->
+            var isValidName = true
+            
+            searchText?.let {
+                val nameParts = searchText.trim().split(" ")
+                nameParts.forEach {
+                    if (!person.name.contains(it)) isValidName = false
+                }
+            }
+    
+            person.id != user.id && isValidName
         }
     }
     
-    fun setUser(user: User) { _user.setNewValue(user) }
+    fun setUser(user: User?) { _user.setNewValue(user) }
+    
+    fun setSearchText(text: String?) { _searchText.setNewValue(text) }
     
     fun getChatWith(user: User, callback: ((String) -> Unit)) {
         val curUserDirectsDocument = userDocument.collection("chats").document("chats")
