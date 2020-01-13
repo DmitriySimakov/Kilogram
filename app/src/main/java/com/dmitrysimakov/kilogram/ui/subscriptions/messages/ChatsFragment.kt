@@ -30,7 +30,7 @@ class ChatsFragment : Fragment() {
         
         recyclerView.adapter = adapter
     
-        sharedVM.user.value?.let { vm.setUser(it) }
+        sharedVM.user.observe(viewLifecycleOwner) { vm.setUser(it) }
         vm.chats.observe(viewLifecycleOwner) { adapter.submitList(it) }
     }
 }

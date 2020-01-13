@@ -58,9 +58,10 @@ class MessagesViewModel : ViewModel() {
     fun sendMessage(text: String?, imageUrl: String?) {
         val senderId = user.value!!.id
         val message = Message(senderId, text, imageUrl)
+        val userMessageDoc = userMessagesCol.document()
         firestore.batch()
-                .set(userMessagesCol.document(), message)
-                .set(companionMessagesCol.document(), message)
+                .set(userMessageDoc, message)
+                .set(companionMessagesCol.document(userMessageDoc.id), message)
                 .update(userChatDoc, "lastMessage", message)
                 .update(companionChatDoc, "lastMessage", message)
                 .commit()
@@ -71,5 +72,26 @@ class MessagesViewModel : ViewModel() {
         imageRef.putFile(uri).addOnSuccessListener {
             imageRef.downloadUrl.addOnSuccessListener { sendMessage(null, it.toString()) }
         }
+    }
+    
+    fun markNewMessagesAsRead() {
+        val user = user.value ?: return
+    
+        var newMessagesReceived = false
+        val writeBatch = firestore.batch()
+        messages.value?.forEach { msg ->
+            if (msg.senderId != user.id && !msg.wasRead) {
+                newMessagesReceived = true
+                writeBatch
+                        .update(userMessagesCol.document(msg.id), "wasRead", true)
+                        .update(companionMessagesCol.document(msg.id), "wasRead", true)
+            }
+        }
+        if (newMessagesReceived) {
+            writeBatch
+                    .update(userChatDoc, "lastMessage.wasRead", true)
+                    .update(companionChatDoc, "lastMessage.wasRead", true)
+        }
+        writeBatch.commit()
     }
 }

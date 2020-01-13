@@ -40,7 +40,10 @@ class MessagesFragment : Fragment() {
         sharedVM.user.observe(viewLifecycleOwner) {user ->
             vm.start(user, args.id)
         }
-        vm.messages.observe(viewLifecycleOwner) { adapter.submitList(it) }
+        vm.messages.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+            vm.markNewMessagesAsRead()
+        }
         
         photoPickerBtn.setOnClickListener { dispatchGetImageContentIntent(RC_PHOTO_PICKER) }
         

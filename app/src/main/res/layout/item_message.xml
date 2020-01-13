@@ -18,7 +18,8 @@
     
     <androidx.constraintlayout.widget.ConstraintLayout
         style="@style/HorizontalListItem"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@{(!message.wasRead &amp;&amp; !message.senderId.equals(vm.user.id)) ? @color/blue100 : @color/white}">
         
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/photo"
@@ -70,13 +71,24 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:adjustViewBounds="true"
-            android:scaleType="fitEnd"
+            android:scaleType="fitStart"
             app:goneUnless="@{message.imageUrl != null}"
             app:imageUrl="@{message.imageUrl}"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/dot"
             app:layout_constraintHeight_max="300dp"
             app:layout_constraintStart_toStartOf="@id/name"
             app:layout_constraintTop_toBottomOf="@id/name" />
+    
+        <ImageView
+            android:id="@+id/dot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_dot"
+            android:tint="@color/blue900"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:invisibleUnless="@{!message.wasRead &amp;&amp; message.senderId.equals(vm.user.id)}"/>
     
     </androidx.constraintlayout.widget.ConstraintLayout>
 

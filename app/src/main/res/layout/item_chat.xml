@@ -18,7 +18,8 @@
     
     <androidx.constraintlayout.widget.ConstraintLayout
         style="@style/HorizontalListItem"
-        android:layout_height="?attr/listPreferredItemHeightLarge">
+        android:layout_height="?attr/listPreferredItemHeightLarge"
+        android:background="@{(!chat.lastMessage.wasRead &amp;&amp; !chat.lastMessage.senderId.equals(vm.user.id)) ? @color/blue100 : @color/white}">
         
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/photo"
@@ -69,10 +70,21 @@
             android:text="@{chat.lastMessage.text != null ? chat.lastMessage.text : @string/photo}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/dot"
             app:layout_constraintStart_toEndOf="@id/senderPhoto"
             app:layout_constraintTop_toBottomOf="@id/name"
             tools:text="@tools:sample/lorem/random" />
+        
+        <ImageView
+            android:id="@+id/dot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_dot"
+            android:tint="@color/blue900"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:goneUnless="@{!chat.lastMessage.wasRead &amp;&amp; chat.lastMessage.senderId.equals(vm.user.id)}"/>
     
     </androidx.constraintlayout.widget.ConstraintLayout>
 

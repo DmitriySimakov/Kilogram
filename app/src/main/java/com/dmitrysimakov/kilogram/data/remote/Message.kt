@@ -11,6 +11,7 @@ data class Message(
         var text: String? = null,
         var imageUrl: String? = null,
         var timestamp: Date = Date(),
+        var wasRead: Boolean = false,
         @get:Exclude var id: String = ""
 )
 
