@@ -17,5 +17,27 @@
         android:id="@+id/editProfileFragment"
         android:name="com.dmitrysimakov.kilogram.ui.profile.edit_profile.EditProfileFragment"
         android:label="@string/profile_editing"
-        tools:layout="@layout/fragment_edit_profile" />
+        tools:layout="@layout/fragment_edit_profile" >
+        <action
+            android:id="@+id/to_followersFragment"
+            app:destination="@id/followersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/followersFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.profile.followers.FollowersFragment"
+        android:label="@string/followers"
+        tools:layout="@layout/fragment_followers" >
+        <action
+            android:id="@+id/to_messagesFragment"
+            app:destination="@id/messagesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/messagesFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.subscriptions.messages.MessagesFragment"
+        android:label="@string/messages"
+        tools:layout="@layout/fragment_messages" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
 </navigation>

@@ -17,6 +17,10 @@ val userDocument
 val chatsCollection
     get() = userDocument.collection("chats")
 
+fun subscriptionsDocument(userId: String) = usersCollection
+        .document(userId)
+        .collection("subscriptions")
+        .document("subscriptions")
 
 val firebaseStorage = FirebaseStorage.getInstance()
 

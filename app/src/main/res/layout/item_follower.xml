@@ -35,11 +35,10 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@tools:sample/full_names" />
         
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/followBtn"
-            android:text="@string/follow"
+        <ImageView
+            android:id="@+id/sendMessageBtn"
+            style="@style/IconButton"
+            android:src="@drawable/ic_message"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

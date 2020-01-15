@@ -2,13 +2,13 @@ package com.dmitrysimakov.kilogram.ui.subscriptions.people
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import com.dmitrysimakov.kilogram.data.remote.User
 import com.dmitrysimakov.kilogram.databinding.ItemUserBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
+import com.dmitrysimakov.kilogram.ui.profile.UserDiffCallback
 
 class PeopleListAdapter(
-        private val sendMessageClickCallback: ((User) -> Unit),
+        private val followClickCallback: ((User) -> Unit),
         clickCallback: ((User) -> Unit)? = null
 ) : DataBoundListAdapter<User, ItemUserBinding>(
         clickCallback,
@@ -20,13 +20,6 @@ class PeopleListAdapter(
     
     override fun bind(binding: ItemUserBinding, item: User) {
         binding.user = item
-        binding.sendMessageBtn.setOnClickListener { sendMessageClickCallback.invoke(item) }
+        binding.followBtn.setOnClickListener { followClickCallback.invoke(item) }
     }
-}
-
-private class UserDiffCallback : DiffUtil.ItemCallback<User>() {
-    override fun areItemsTheSame(oldItem: User, newItem: User) =
-            oldItem.id == newItem.id
-    override fun areContentsTheSame(oldItem: User, newItem: User) =
-            oldItem == newItem
 }
