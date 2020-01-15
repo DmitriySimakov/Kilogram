@@ -6,8 +6,8 @@
     <data>
         
         <variable
-            name="user"
-            type="com.dmitrysimakov.kilogram.data.remote.User" />
+            name="uwss"
+            type="com.dmitrysimakov.kilogram.data.remote.relation.UserWithSubscriptionStatus" />
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +18,7 @@
             android:id="@+id/photo"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            app:imageUrl="@{user.photoUrl}"
+            app:imageUrl="@{uwss.photoUrl}"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -29,20 +29,34 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="@{user.name}"
+            android:text="@{uwss.name}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:layout_constraintStart_toEndOf="@id/photo"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@tools:sample/full_names" />
         
         <Button
+            android:id="@+id/followBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/followBtn"
             android:text="@string/follow"
+            app:goneUnless="@{!uwss.isFollowed}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+    
+        <Button
+            android:id="@+id/unfollowBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/unfollow"
+            android:backgroundTint="@color/grey300"
+            android:textColor="@color/black"
+            app:goneUnless="@{uwss.isFollowed}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone"/>
     
     </androidx.constraintlayout.widget.ConstraintLayout>
 

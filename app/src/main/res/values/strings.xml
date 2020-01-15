@@ -133,6 +133,7 @@
     <string name="edit_profile">Редактировать профиль</string>
     <string name="username">Имя</string>
     <string name="follow">Подписаться</string>
+    <string name="unfollow">Отписаться</string>
     <string name="followers">Подписчики</string>
 
 </resources>

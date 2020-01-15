@@ -16,7 +16,7 @@ class PeopleFragment : Fragment() {
     private val vm: PeopleViewModel by viewModel()
     private val sharedVM: SharedViewModel by sharedViewModel()
     
-    private val adapter by lazy { PeopleListAdapter({ vm.followByUser(it) })}
+    private val adapter by lazy { PeopleListAdapter(vm)}
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
