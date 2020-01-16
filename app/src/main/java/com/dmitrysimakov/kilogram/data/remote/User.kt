@@ -8,7 +8,6 @@ import com.google.firebase.firestore.IgnoreExtraProperties
 data class User(
         var name: String = "",
         var photoUrl: String? = null,
-        val registrationTokens: MutableList<String> = mutableListOf(),
         @get:Exclude var id: String = ""
 )
 

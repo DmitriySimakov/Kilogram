@@ -9,6 +9,7 @@ import com.dmitrysimakov.kilogram.data.remote.User
 import com.dmitrysimakov.kilogram.data.remote.toUser
 import com.dmitrysimakov.kilogram.util.PreferencesKeys
 import com.dmitrysimakov.kilogram.util.firebaseUser
+import com.dmitrysimakov.kilogram.util.tokensDocument
 import com.dmitrysimakov.kilogram.util.userDocument
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.iid.FirebaseInstanceId
@@ -38,31 +39,34 @@ class SharedViewModel(private val preferences: SharedPreferences) : ViewModel() 
             FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener{ result ->
                 val token = result.token
                 if (!doc.exists()) {
-                    createNewUserWithToken(token)
+                    createNewUser()
+                    tokensDocument.set(mapOf("tokens" to listOf(token)))
                 } else {
                     _user.value = doc.toUser()
-                    addTokenToUser(token, user.value!!)
+                    addToken(token)
                 }
             }
         }
     }
     
-    private fun createNewUserWithToken(token: String) {
+    private fun createNewUser() {
         val firebaseUser = FirebaseAuth.getInstance().currentUser!!
         val newUser = User(
                 firebaseUser.displayName ?: "",
-                firebaseUser.photoUrl.toString(),
-                mutableListOf(token)
+                firebaseUser.photoUrl.toString()
         )
         userDocument.set(newUser)
         _user.value = newUser
     }
     
-    private fun addTokenToUser(token: String, user: User) {
-        val tokens = user.registrationTokens
-        if (!tokens.contains(token)) {
-            tokens.add(token)
-            userDocument.update(mapOf("registrationTokens" to tokens))
+    private fun addToken(token: String) {
+        tokensDocument.get().addOnSuccessListener { doc ->
+            @Suppress("UNCHECKED_CAST")
+            val tokens = doc["tokens"] as MutableList<String>
+            if (!tokens.contains(token)) {
+                tokens.add(token)
+                tokensDocument.update("tokens", tokens)
+            }
         }
     }
     //endregion

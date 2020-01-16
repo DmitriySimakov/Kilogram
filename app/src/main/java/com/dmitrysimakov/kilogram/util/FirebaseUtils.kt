@@ -7,20 +7,21 @@ import com.google.firebase.storage.FirebaseStorage
 val firebaseUser
     get() = FirebaseAuth.getInstance().currentUser
 
-val firestore : FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
+val firestore = FirebaseFirestore.getInstance()
 
 val usersCollection = firestore.collection("users")
 
 val userDocument
     get() = usersCollection.document(checkNotNull(firebaseUser?.uid))
 
+val tokensDocument
+    get () = firestore.collection("registration_tokens").document(checkNotNull(firebaseUser?.uid))
+
 val chatsCollection
     get() = userDocument.collection("chats")
 
-fun subscriptionsDocument(userId: String) = usersCollection
-        .document(userId)
-        .collection("subscriptions")
-        .document("subscriptions")
+fun subscriptionsDocument(userId: String) =
+        firestore.collection("subscriptions").document(userId)
 
 val firebaseStorage = FirebaseStorage.getInstance()
 
