@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.subscriptions.people
+package com.dmitrysimakov.kilogram.ui.search.people
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -20,7 +20,7 @@ class PeopleListAdapter(
     
     override fun bind(binding: ItemUserBinding, item: UserWithSubscriptionStatus) {
         binding.uwss = item
-        binding.followBtn.setOnClickListener { vm.followByUser(item.id) }
-        binding.unfollowBtn.setOnClickListener { vm.unfollowFromUser(item.id) }
+        binding.followBtn.setOnClickListener { vm.followByUser(item) }
+        binding.unfollowBtn.setOnClickListener { vm.unfollowFromUser(item) }
     }
 }

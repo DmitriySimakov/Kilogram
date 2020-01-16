@@ -5,10 +5,13 @@ import androidx.core.content.edit
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.switchMap
 import com.dmitrysimakov.kilogram.data.remote.User
 import com.dmitrysimakov.kilogram.data.remote.toUser
 import com.dmitrysimakov.kilogram.util.PreferencesKeys
 import com.dmitrysimakov.kilogram.util.firebaseUser
+import com.dmitrysimakov.kilogram.util.live_data.AbsentLiveData
+import com.dmitrysimakov.kilogram.util.live_data.liveData
 import com.dmitrysimakov.kilogram.util.tokensDocument
 import com.dmitrysimakov.kilogram.util.userDocument
 import com.google.firebase.auth.FirebaseAuth
@@ -21,18 +24,17 @@ class SharedViewModel(private val preferences: SharedPreferences) : ViewModel() 
     
     //region Firebase
     
-    private val _user = MutableLiveData<User?>()
-    val user: LiveData<User?> = _user
-    
-    fun initUser() {
-        firebaseUser?.let {
-            userDocument.get().addOnSuccessListener { doc ->
-                _user.value = doc.toUser()
-            }
-        }
+    private val _userExist = MutableLiveData<Boolean>()
+    val user: LiveData<User> = _userExist.switchMap { userExist ->
+        if (!userExist) AbsentLiveData.create()
+        else userDocument.liveData { it.toUser() }
     }
     
-    fun signOut() { _user.value = null }
+    fun initUser() {
+        firebaseUser?.let { _userExist.value = true }
+    }
+    
+    fun signOut() { _userExist.value = false }
     
     fun signIn() {
         userDocument.get().addOnSuccessListener { doc ->
@@ -42,7 +44,7 @@ class SharedViewModel(private val preferences: SharedPreferences) : ViewModel() 
                     createNewUser()
                     tokensDocument.set(mapOf("tokens" to listOf(token)))
                 } else {
-                    _user.value = doc.toUser()
+                    _userExist.value = true
                     addToken(token)
                 }
             }
@@ -51,12 +53,8 @@ class SharedViewModel(private val preferences: SharedPreferences) : ViewModel() 
     
     private fun createNewUser() {
         val firebaseUser = FirebaseAuth.getInstance().currentUser!!
-        val newUser = User(
-                firebaseUser.displayName ?: "",
-                firebaseUser.photoUrl.toString()
-        )
-        userDocument.set(newUser)
-        _user.value = newUser
+        val newUser = User(firebaseUser.displayName ?: "", firebaseUser.photoUrl.toString())
+        userDocument.set(newUser).addOnSuccessListener { _userExist.value = true }
     }
     
     private fun addToken(token: String) {

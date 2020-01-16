@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.subscriptions.people
+package com.dmitrysimakov.kilogram.ui.search.people
 
 import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.remote.Subscriptions
@@ -19,7 +19,7 @@ class PeopleViewModel : ViewModel() {
     
     val subscriptions = _currentUser.switchMap {  user ->
         if (user == null) AbsentLiveData.create()
-        else subscriptionsDocument(user.id).liveData { it.toObject(Subscriptions::class.java)!! }
+        else subscriptionsDocument(user.id).liveData { it.toObject(Subscriptions::class.java) }
     }
     
     private val _loadedPeople = usersCollection.liveData { it.toUser() }
@@ -49,7 +49,7 @@ class PeopleViewModel : ViewModel() {
     
     fun setSearchText(text: String?) { _searchText.setNewValue(text) }
     
-    fun followByUser(userId: String) {
+    fun followByUser(user: UserWithSubscriptionStatus) {
         val currentUser = _currentUser.value!!
         
         val writeBatch = firestore.batch()
@@ -58,13 +58,13 @@ class PeopleViewModel : ViewModel() {
             // Add user to currentUser's followedIds list
             if (doc.exists()) {
                 val subs = doc.toObject(Subscriptions::class.java)!!
-                subs.followedIds.add(userId)
+                subs.followedIds.add(user.id)
                 writeBatch.update(curUserSubsDoc, "followedIds", subs.followedIds)
             } else {
-                writeBatch.set(curUserSubsDoc, Subscriptions(followedIds = mutableListOf(userId)))
+                writeBatch.set(curUserSubsDoc, Subscriptions(followedIds = mutableListOf(user.id)))
             }
             
-            val userSubsDoc = subscriptionsDocument(userId)
+            val userSubsDoc = subscriptionsDocument(user.id)
             userSubsDoc.get().addOnSuccessListener {
                 // Add currentUser to user's followersIds list
                 if (doc.exists()) {
@@ -75,13 +75,17 @@ class PeopleViewModel : ViewModel() {
                     writeBatch.set(userSubsDoc, Subscriptions(followersIds = mutableListOf(currentUser.id)))
                 }
     
+                // Increase subscriptions count
+                writeBatch.update(userDocument, "followedCount", currentUser.followedCount + 1)
+                writeBatch.update(usersCollection.document(user.id), "followersCount", user.followersCount + 1)
+                
                 // COMMIT
                 writeBatch.commit()
             }
         }
     }
     
-    fun unfollowFromUser(userId: String) {
+    fun unfollowFromUser(user: UserWithSubscriptionStatus) {
         val currentUser = _currentUser.value!!
         
         val writeBatch = firestore.batch()
@@ -89,15 +93,19 @@ class PeopleViewModel : ViewModel() {
         curUserSubsDoc.get().addOnSuccessListener { doc ->
             // Remove user from currentUser's followedIds list
             val curUserSubs = doc.toObject(Subscriptions::class.java)!!
-            curUserSubs.followedIds.remove(userId)
+            curUserSubs.followedIds.remove(user.id)
             writeBatch.update(curUserSubsDoc, "followedIds", curUserSubs.followedIds)
             
-            val userSubsDoc = subscriptionsDocument(userId)
+            val userSubsDoc = subscriptionsDocument(user.id)
             userSubsDoc.get().addOnSuccessListener {
                 // Remove currentUser from user's followersIds list
                 val userSubs = doc.toObject(Subscriptions::class.java)!!
                 userSubs.followersIds.remove(currentUser.id)
                 writeBatch.update(userSubsDoc, "followersIds", userSubs.followersIds)
+    
+                // Increase subscriptions count
+                writeBatch.update(userDocument, "followedCount", currentUser.followedCount - 1)
+                writeBatch.update(usersCollection.document(user.id), "followersCount", user.followersCount - 1)
                 
                 // COMMIT
                 writeBatch.commit()

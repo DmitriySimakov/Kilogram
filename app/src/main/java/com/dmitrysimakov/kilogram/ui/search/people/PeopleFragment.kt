@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.subscriptions.people
+package com.dmitrysimakov.kilogram.ui.search.people
 
 import android.os.Bundle
 import android.view.*

@@ -8,6 +8,8 @@ import com.google.firebase.firestore.IgnoreExtraProperties
 data class User(
         var name: String = "",
         var photoUrl: String? = null,
+        var followersCount: Int = 0,
+        var followedCount: Int = 0,
         @get:Exclude var id: String = ""
 )
 

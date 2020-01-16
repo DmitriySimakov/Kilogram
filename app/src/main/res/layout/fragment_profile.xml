@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
         
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/frame_padding"
@@ -27,9 +27,11 @@
             
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/photo"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
                     app:imageUrl="@{vm.user.photoUrl.toString()}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:src="@tools:sample/avatars" />
             
                 <TextView
@@ -40,9 +42,35 @@
                     android:layout_marginStart="@dimen/frame_padding"
                     android:text="@{vm.user.name}"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    app:layout_constraintStart_toEndOf="@id/photo"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:text="@tools:sample/full_names" />
                 
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/followers"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center_vertical"
+                    android:text="@{@string/followers +`: `+ vm.user.followersCount}"
+                    app:layout_constraintStart_toStartOf="@id/usernameTV"
+                    app:layout_constraintEnd_toStartOf="@id/followed"
+                    app:layout_constraintTop_toBottomOf="@id/usernameTV"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:text="Подписчики 45" />
+    
+                <TextView
+                    android:id="@+id/followed"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center_vertical"
+                    android:text="@{@string/followed +`: `+ vm.user.followedCount}"
+                    app:layout_constraintStart_toEndOf="@id/followers"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/usernameTV"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:text="Подписки 24" />
+                
+            </androidx.constraintlayout.widget.ConstraintLayout>
         
             <com.google.android.material.navigation.NavigationView
                 android:id="@+id/navView"

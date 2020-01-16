@@ -27,9 +27,9 @@ import com.dmitrysimakov.kilogram.ui.home.trainings.create_training.CreateTraini
 import com.dmitrysimakov.kilogram.ui.home.trainings.exercises.TrainingExercisesViewModel
 import com.dmitrysimakov.kilogram.ui.home.trainings.training_sets.TrainingSetsViewModel
 import com.dmitrysimakov.kilogram.ui.profile.edit_profile.EditProfileViewModel
+import com.dmitrysimakov.kilogram.ui.search.people.PeopleViewModel
 import com.dmitrysimakov.kilogram.ui.subscriptions.messages.ChatsViewModel
 import com.dmitrysimakov.kilogram.ui.subscriptions.messages.MessagesViewModel
-import com.dmitrysimakov.kilogram.ui.subscriptions.people.PeopleViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module

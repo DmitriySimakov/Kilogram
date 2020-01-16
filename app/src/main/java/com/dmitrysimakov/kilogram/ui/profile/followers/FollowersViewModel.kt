@@ -20,11 +20,12 @@ class FollowersViewModel : ViewModel() {
     
     val subscriptions = _user.switchMap { user ->
         if (user == null) AbsentLiveData.create()
-        else subscriptionsDocument(user.id).liveData { it.toObject(Subscriptions::class.java)!! }
+        else subscriptionsDocument(user.id).liveData { it.toObject(Subscriptions::class.java) }
     }
     
     val followers = subscriptions.switchMap { subscriptions ->
-        usersCollection.liveData { it.toUser() }.map {
+        if (subscriptions == null) AbsentLiveData.create()
+        else usersCollection.liveData { it.toUser() }.map {
             it.filter {person -> subscriptions.followersIds.contains(person.id) }
                     .map { person -> person.withSubscriptionStatus(subscriptions) }
         }

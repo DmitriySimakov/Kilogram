@@ -135,5 +135,6 @@
     <string name="follow">Подписаться</string>
     <string name="unfollow">Отписаться</string>
     <string name="followers">Подписчики</string>
+    <string name="followed">Подписки</string>
 
 </resources>
