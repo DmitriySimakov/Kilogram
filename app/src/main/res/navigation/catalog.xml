@@ -9,7 +9,7 @@
         android:id="@+id/catalogTabFragment"
         android:name="com.dmitrysimakov.kilogram.ui.catalog.CatalogTabFragment"
         android:label="@string/catalog"
-        tools:layout="@layout/fragment_catalog_tab" >
+        tools:layout="@layout/tab_fragment" >
         <action
             android:id="@+id/to_exerciseDetailFragment"
             app:destination="@id/exerciseDetailFragment" />

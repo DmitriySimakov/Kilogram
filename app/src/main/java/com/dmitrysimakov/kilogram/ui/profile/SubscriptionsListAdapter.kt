@@ -1,13 +1,12 @@
-package com.dmitrysimakov.kilogram.ui.profile.followers
+package com.dmitrysimakov.kilogram.ui.profile
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.dmitrysimakov.kilogram.data.remote.relation.UserWithSubscriptionStatus
 import com.dmitrysimakov.kilogram.databinding.ItemFollowerBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
-import com.dmitrysimakov.kilogram.ui.profile.UserWithSubscriptionStatusDiffCallback
 
-class FollowersListAdapter(
+class SubscriptionsListAdapter(
         private val sendMessageClickCallback: ((UserWithSubscriptionStatus) -> Unit),
         clickCallback: ((UserWithSubscriptionStatus) -> Unit)? = null
 ) : DataBoundListAdapter<UserWithSubscriptionStatus, ItemFollowerBinding>(

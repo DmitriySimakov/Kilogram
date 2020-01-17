@@ -13,6 +13,9 @@ import com.dmitrysimakov.kilogram.databinding.FragmentProfileBinding
 import com.dmitrysimakov.kilogram.ui.RC_SIGN_IN
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.ui.profile.ProfileFragmentDirections.Companion.toEditProfileFragment
+import com.dmitrysimakov.kilogram.ui.profile.ProfileFragmentDirections.Companion.toSubscriptionsTabFragment
+import com.dmitrysimakov.kilogram.ui.profile.subscriptions.FOLLOWED_PAGE
+import com.dmitrysimakov.kilogram.ui.profile.subscriptions.FOLLOWERS_PAGE
 import com.dmitrysimakov.kilogram.util.navigate
 import com.firebase.ui.auth.AuthUI
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -41,6 +44,9 @@ class ProfileFragment : Fragment() {
             }
             true
         }
+        
+        binding.followers.setOnClickListener { navigate(toSubscriptionsTabFragment(FOLLOWERS_PAGE)) }
+        binding.followed.setOnClickListener { navigate(toSubscriptionsTabFragment(FOLLOWED_PAGE)) }
         
         sharedVM.user.observe(viewLifecycleOwner) { user ->
             val signInSignOutItem = binding.navView.menu.findItem(R.id.signInSignOut)

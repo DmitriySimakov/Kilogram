@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.profile.followers
+package com.dmitrysimakov.kilogram.ui.profile.followed
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,9 +15,9 @@ import kotlinx.android.synthetic.main.fragment_people.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class FollowersFragment : Fragment() {
+class FollowedFragment : Fragment() {
     
-    private val vm: FollowersViewModel by viewModel()
+    private val vm: FollowedViewModel by viewModel()
     private val sharedVM: SharedViewModel by sharedViewModel()
     
     private val adapter by lazy { SubscriptionsListAdapter({ navigate(toMessagesFragment(it.id)) }) }

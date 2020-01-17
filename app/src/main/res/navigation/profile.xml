@@ -12,25 +12,15 @@
         <action
             android:id="@+id/to_editProfileFragment"
             app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/to_subscriptionsTabFragment"
+            app:destination="@id/subscriptionsTabFragment" />
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.dmitrysimakov.kilogram.ui.profile.edit_profile.EditProfileFragment"
         android:label="@string/profile_editing"
-        tools:layout="@layout/fragment_edit_profile" >
-        <action
-            android:id="@+id/to_followersFragment"
-            app:destination="@id/followersFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/followersFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.profile.followers.FollowersFragment"
-        android:label="@string/followers"
-        tools:layout="@layout/fragment_followers" >
-        <action
-            android:id="@+id/to_messagesFragment"
-            app:destination="@id/messagesFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_edit_profile" />
     <fragment
         android:id="@+id/messagesFragment"
         android:name="com.dmitrysimakov.kilogram.ui.subscriptions.messages.MessagesFragment"
@@ -39,5 +29,15 @@
         <argument
             android:name="id"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/subscriptionsTabFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.profile.subscriptions.SubscriptionsTabFragment"
+        tools:layout="@layout/tab_fragment" >
+        <action
+            android:id="@+id/to_messagesFragment"
+            app:destination="@id/messagesFragment" />
+        <argument android:name="page_id"
+            app:argType="integer" />
     </fragment>
 </navigation>
