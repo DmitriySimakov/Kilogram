@@ -4,16 +4,22 @@
     <item android:title="@string/profile">
         <menu>
             <item
-                android:id="@+id/signInSignOut"
-                android:icon="@drawable/ic_person"
-                android:title="@string/sign_in"
-                android:checkable="false" />
+                android:id="@+id/chats"
+                android:icon="@drawable/ic_message"
+                android:title="@string/messages"
+                android:checkable="false"
+                android:visible="false"/>
             <item
                 android:id="@+id/editProfile"
                 android:icon="@drawable/ic_edit"
                 android:title="@string/edit_profile"
                 android:checkable="false"
                 android:visible="false"/>
+            <item
+                android:id="@+id/signInSignOut"
+                android:icon="@drawable/ic_person"
+                android:title="@string/sign_in"
+                android:checkable="false" />
         </menu>
     </item>
     

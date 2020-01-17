@@ -15,12 +15,24 @@
         <action
             android:id="@+id/to_subscriptionsTabFragment"
             app:destination="@id/subscriptionsTabFragment" />
+        <action
+            android:id="@+id/to_chatsFragment"
+            app:destination="@id/chatsFragment" />
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.dmitrysimakov.kilogram.ui.profile.edit_profile.EditProfileFragment"
         android:label="@string/profile_editing"
         tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/chatsFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.subscriptions.messages.ChatsFragment"
+        android:label="@string/messages"
+        tools:layout="@layout/fragment_chats" >
+        <action
+            android:id="@+id/to_messagesFragment"
+            app:destination="@id/messagesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/messagesFragment"
         android:name="com.dmitrysimakov.kilogram.ui.subscriptions.messages.MessagesFragment"

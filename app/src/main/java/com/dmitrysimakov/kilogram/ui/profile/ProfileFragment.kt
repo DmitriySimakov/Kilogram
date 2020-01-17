@@ -12,6 +12,7 @@ import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.FragmentProfileBinding
 import com.dmitrysimakov.kilogram.ui.RC_SIGN_IN
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
+import com.dmitrysimakov.kilogram.ui.profile.ProfileFragmentDirections.Companion.toChatsFragment
 import com.dmitrysimakov.kilogram.ui.profile.ProfileFragmentDirections.Companion.toEditProfileFragment
 import com.dmitrysimakov.kilogram.ui.profile.ProfileFragmentDirections.Companion.toSubscriptionsTabFragment
 import com.dmitrysimakov.kilogram.ui.profile.subscriptions.FOLLOWED_PAGE
@@ -38,8 +39,9 @@ class ProfileFragment : Fragment() {
         
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.signInSignOut -> signInSignOut()
+                R.id.chats -> { navigate(toChatsFragment()) }
                 R.id.editProfile -> { navigate(toEditProfileFragment()) }
+                R.id.signInSignOut -> signInSignOut()
                 R.id.share -> share()
             }
             true
@@ -49,11 +51,13 @@ class ProfileFragment : Fragment() {
         binding.followed.setOnClickListener { navigate(toSubscriptionsTabFragment(FOLLOWED_PAGE)) }
         
         sharedVM.user.observe(viewLifecycleOwner) { user ->
-            val signInSignOutItem = binding.navView.menu.findItem(R.id.signInSignOut)
+            val chatsItem = binding.navView.menu.findItem(R.id.chats)
             val editProfileItem = binding.navView.menu.findItem(R.id.editProfile)
-            
-            signInSignOutItem.title = if (user != null) getString(R.string.sign_out) else getString(R.string.sign_in)
+            val signInSignOutItem = binding.navView.menu.findItem(R.id.signInSignOut)
+    
+            chatsItem.isVisible = user != null
             editProfileItem.isVisible = user != null
+            signInSignOutItem.title = if (user != null) getString(R.string.sign_out) else getString(R.string.sign_in)
         }
     }
     
