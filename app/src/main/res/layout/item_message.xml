@@ -9,7 +9,7 @@
         
         <variable
             name="vm"
-            type="com.dmitrysimakov.kilogram.ui.subscriptions.messages.MessagesViewModel" />
+            type="com.dmitrysimakov.kilogram.ui.profile.messages.MessagesViewModel" />
         
         <variable
             name="message"

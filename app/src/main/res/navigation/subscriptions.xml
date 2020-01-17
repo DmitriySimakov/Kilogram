@@ -7,8 +7,17 @@
     app:startDestination="@id/subscriptionsFragment">
     <fragment
         android:id="@+id/subscriptionsFragment"
-        android:name="com.dmitrysimakov.kilogram.SubscriptionsFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.subscriptions.SubscriptionsFragment"
         android:label="fragment_subscriptions"
-        tools:layout="@layout/fragment_subscriptions" />
+        tools:layout="@layout/fragment_subscriptions" >
+        <action
+            android:id="@+id/to_createPostFragment"
+            app:destination="@id/createPostFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createPostFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.subscriptions.create_post.CreatePostFragment"
+        android:label="@string/new_post"
+        tools:layout="@layout/fragment_create_post" />
 
 </navigation>

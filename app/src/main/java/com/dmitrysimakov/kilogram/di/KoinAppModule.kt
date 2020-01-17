@@ -26,12 +26,13 @@ import com.dmitrysimakov.kilogram.ui.home.trainings.add_training_set.AddTraining
 import com.dmitrysimakov.kilogram.ui.home.trainings.create_training.CreateTrainingViewModel
 import com.dmitrysimakov.kilogram.ui.home.trainings.exercises.TrainingExercisesViewModel
 import com.dmitrysimakov.kilogram.ui.home.trainings.training_sets.TrainingSetsViewModel
+import com.dmitrysimakov.kilogram.ui.profile.chats.ChatsViewModel
 import com.dmitrysimakov.kilogram.ui.profile.edit_profile.EditProfileViewModel
 import com.dmitrysimakov.kilogram.ui.profile.followed.FollowedViewModel
 import com.dmitrysimakov.kilogram.ui.profile.followers.FollowersViewModel
+import com.dmitrysimakov.kilogram.ui.profile.messages.MessagesViewModel
 import com.dmitrysimakov.kilogram.ui.search.people.PeopleViewModel
-import com.dmitrysimakov.kilogram.ui.subscriptions.messages.ChatsViewModel
-import com.dmitrysimakov.kilogram.ui.subscriptions.messages.MessagesViewModel
+import com.dmitrysimakov.kilogram.ui.subscriptions.create_post.CreatePostViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -73,6 +74,7 @@ val appModule = module {
     viewModel { ChooseExerciseViewModel(get(), get(), get(), get(), get()) }
     viewModel { ChooseProgramViewModel(get()) }
     viewModel { ChooseProgramDayViewModel(get()) }
+    viewModel { CreatePostViewModel() }
     viewModel { CreateProgramViewModel(get()) }
     viewModel { CreateProgramDayViewModel(get()) }
     viewModel { CreateTrainingViewModel(get(), get(), get()) }

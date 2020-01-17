@@ -26,7 +26,7 @@
         tools:layout="@layout/fragment_edit_profile" />
     <fragment
         android:id="@+id/chatsFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.subscriptions.messages.ChatsFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.profile.chats.ChatsFragment"
         android:label="@string/messages"
         tools:layout="@layout/fragment_chats" >
         <action
@@ -35,7 +35,7 @@
     </fragment>
     <fragment
         android:id="@+id/messagesFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.subscriptions.messages.MessagesFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.profile.messages.MessagesFragment"
         android:label="@string/messages"
         tools:layout="@layout/fragment_messages" >
         <argument

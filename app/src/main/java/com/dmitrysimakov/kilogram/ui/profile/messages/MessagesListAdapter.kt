@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.subscriptions.messages
+package com.dmitrysimakov.kilogram.ui.profile.messages
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

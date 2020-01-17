@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.subscriptions.messages
+package com.dmitrysimakov.kilogram.ui.profile.chats
 
 import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.remote.Chat

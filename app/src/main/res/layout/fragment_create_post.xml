@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <variable
+            name="vm"
+            type="com.dmitrysimakov.kilogram.ui.subscriptions.create_post.CreatePostViewModel" />
+    </data>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:elevation="1dp"
+        android:orientation="vertical"
+        android:padding="?attr/dialogPreferredPadding">
+        
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/titleTIL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/title"
+            app:errorEnabled="true">
+            
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:text="@={vm.title}" />
+        
+        </com.google.android.material.textfield.TextInputLayout>
+        
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textTIL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:counterMaxLength="300"
+            android:hint="@string/content"
+            app:errorEnabled="true">
+            
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/descriptionET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:maxLength="300"
+                android:text="@={vm.content}" />
+        
+        </com.google.android.material.textfield.TextInputLayout>
+        
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:imageUrl="@{vm.imageUrl}"
+            tools:src="@drawable/no_photo"/>
+        
+        <Button
+            android:id="@+id/publishBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/publish"
+            android:onClick="@{() -> vm.publishPost()}"/>
+    
+    </LinearLayout>
+
+</layout>

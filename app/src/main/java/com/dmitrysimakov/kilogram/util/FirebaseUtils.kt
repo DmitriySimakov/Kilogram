@@ -23,6 +23,9 @@ val chatsCollection
 fun subscriptionsDocument(userId: String) =
         firestore.collection("subscriptions").document(userId)
 
+val postsCollection = firestore.collection("posts")
+
+
 val firebaseStorage = FirebaseStorage.getInstance()
 
 val profileImagesRef = firebaseStorage.reference.child("profile_images")
