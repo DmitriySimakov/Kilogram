@@ -32,6 +32,7 @@ import com.dmitrysimakov.kilogram.ui.profile.followed.FollowedViewModel
 import com.dmitrysimakov.kilogram.ui.profile.followers.FollowersViewModel
 import com.dmitrysimakov.kilogram.ui.profile.messages.MessagesViewModel
 import com.dmitrysimakov.kilogram.ui.search.people.PeopleViewModel
+import com.dmitrysimakov.kilogram.ui.subscriptions.SubscriptionsViewModel
 import com.dmitrysimakov.kilogram.ui.subscriptions.create_post.CreatePostViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -94,6 +95,7 @@ val appModule = module {
     viewModel { PhotoViewModel(get()) }
     viewModel { PhotosViewModel(get()) }
     viewModel { ProportionsCalculatorViewModel(get()) }
+    viewModel { SubscriptionsViewModel() }
 }
 
 fun provideSharedPreferences(context: Context): SharedPreferences {

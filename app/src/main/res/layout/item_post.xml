@@ -3,6 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     
+    <data>
+    
+        <import type="com.dmitrysimakov.kilogram.binding.Converter" />
+        
+        <variable
+            name="post"
+            type="com.dmitrysimakov.kilogram.data.remote.Post" />
+    </data>
+    
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,39 +21,76 @@
             android:id="@+id/authorPhoto"
             android:layout_width="36dp"
             android:layout_height="36dp"
+            app:imageUrl="@{post.authorPhotoUrl}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:src="@tools:sample/avatars"/>
         
         <TextView
+            android:id="@+id/author"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:layout_marginStart="@dimen/frame_padding"
+            android:text="@{post.authorName}"
             app:layout_constraintTop_toTopOf="@id/authorPhoto"
-            app:layout_constraintBottom_toBottomOf="@id/authorPhoto"
+            app:layout_constraintBottom_toTopOf="@id/timestamp"
             app:layout_constraintStart_toEndOf="@id/authorPhoto"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="@tools:sample/full_names"/>
+    
+        <TextView
+            android:id="@+id/timestamp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            android:layout_marginStart="@dimen/frame_padding"
+            android:text="@{Converter.dateToRelativeTimeSpan(post.timestamp)}"
+            app:layout_constraintTop_toBottomOf="@id/author"
+            app:layout_constraintBottom_toBottomOf="@id/authorPhoto"
+            app:layout_constraintStart_toEndOf="@id/authorPhoto"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="2 часа назад"/>
         
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:text="@{post.title}"
+            app:goneUnless="@{post.title != null}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:layout_constraintTop_toBottomOf="@id/authorPhoto"
             tools:text="Заголовок"/>
+    
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingBottom="4dp"
+            android:text="@{post.content}"
+            app:goneUnless="@{post.content != null}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            tools:text="Содержание"/>
         
         <ImageView
             android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:src="@drawable/no_photo"
-            tools:src="@tools:sample/backgrounds/scenic"
-            app:layout_constraintTop_toBottomOf="@id/title"/>
+            app:imageUrl="@{post.imageUrl}"
+            app:goneUnless="@{post.imageUrl != null}"
+            app:layout_constraintTop_toBottomOf="@id/content"
+            tools:src="@tools:sample/backgrounds/scenic" />
+    
+        <ImageView
+            style="@style/IconButton"
+            android:src="@{false ? @drawable/ic_favorite : @drawable/ic_favorite_border}"
+            app:layout_constraintTop_toBottomOf="@id/image"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:src="@drawable/ic_favorite" />
     
     </androidx.constraintlayout.widget.ConstraintLayout>
 

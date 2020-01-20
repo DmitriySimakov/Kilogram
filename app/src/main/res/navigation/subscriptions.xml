@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/subscriptionsFragment"
         android:name="com.dmitrysimakov.kilogram.ui.subscriptions.SubscriptionsFragment"
-        android:label="fragment_subscriptions"
+        android:label="@string/subscriptions"
         tools:layout="@layout/fragment_subscriptions" >
         <action
             android:id="@+id/to_createPostFragment"

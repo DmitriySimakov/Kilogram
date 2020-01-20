@@ -7,7 +7,9 @@ import java.util.*
 
 @IgnoreExtraProperties
 data class Post(
-        var author: User = User(),
+        var authorId: String? = null,
+        var authorName: String? = null,
+        var authorPhotoUrl: String? = null,
         var title: String? = null,
         var content: String? = null,
         var imageUrl: String? = null,

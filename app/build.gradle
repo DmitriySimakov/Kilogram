@@ -105,7 +105,7 @@ dependencies {
     
     //region Firebase
     implementation "com.google.firebase:firebase-auth:19.2.0"
-    implementation "com.google.firebase:firebase-core:17.2.1"
+    implementation "com.google.firebase:firebase-core:17.2.2"
     implementation "com.google.firebase:firebase-database:19.2.0"
     implementation "com.google.firebase:firebase-firestore-ktx:21.3.1"
     implementation "com.google.firebase:firebase-messaging:20.1.0"
