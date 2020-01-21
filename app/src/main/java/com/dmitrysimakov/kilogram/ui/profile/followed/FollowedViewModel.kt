@@ -20,7 +20,7 @@ class FollowedViewModel : ViewModel() {
     
     val subscriptions = _user.switchMap { user ->
         if (user == null) AbsentLiveData.create()
-        else subscriptionsDocument(user.id).liveData { it.toObject(Subscriptions::class.java) }
+        else subscriptionsDocument.liveData { it.toObject(Subscriptions::class.java) }
     }
     
     val followers = subscriptions.switchMap { subscriptions ->

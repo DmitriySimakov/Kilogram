@@ -18,7 +18,7 @@ class SubscriptionsViewModel : ViewModel() {
     
     private val _subscriptions = _user.switchMap { user ->
         if (user == null) AbsentLiveData.create()
-        else subscriptionsDocument(user.id).liveData { it.toObject(Subscriptions::class.java) }
+        else subscriptionsDocument.liveData { it.toObject(Subscriptions::class.java) }
     }
     
     val posts = _subscriptions.switchMap { subscriptions ->

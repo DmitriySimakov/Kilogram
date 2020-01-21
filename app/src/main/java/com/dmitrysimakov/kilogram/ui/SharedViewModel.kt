@@ -6,15 +6,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
+import com.dmitrysimakov.kilogram.data.remote.Subscriptions
 import com.dmitrysimakov.kilogram.data.remote.User
 import com.dmitrysimakov.kilogram.data.remote.toUser
-import com.dmitrysimakov.kilogram.util.PreferencesKeys
-import com.dmitrysimakov.kilogram.util.firebaseUser
+import com.dmitrysimakov.kilogram.util.*
 import com.dmitrysimakov.kilogram.util.live_data.AbsentLiveData
 import com.dmitrysimakov.kilogram.util.live_data.liveData
-import com.dmitrysimakov.kilogram.util.tokensDocument
-import com.dmitrysimakov.kilogram.util.userDocument
-import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.WriteBatch
 import com.google.firebase.iid.FirebaseInstanceId
 import java.util.*
 
@@ -40,30 +38,30 @@ class SharedViewModel(private val preferences: SharedPreferences) : ViewModel() 
         userDocument.get().addOnSuccessListener { doc ->
             FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener{ result ->
                 val token = result.token
-                if (!doc.exists()) {
-                    createNewUser()
-                    tokensDocument.set(mapOf("tokens" to listOf(token)))
-                } else {
-                    _userExist.value = true
-                    addToken(token)
-                }
+                val writeBatch = firestore.batch()
+                
+                if (!doc.exists()) createNewUser(token, writeBatch) else addToken(token, writeBatch)
+                
+                writeBatch.commit().addOnSuccessListener { _userExist.value = true }
             }
         }
     }
     
-    private fun createNewUser() {
-        val firebaseUser = FirebaseAuth.getInstance().currentUser!!
-        val newUser = User(firebaseUser.displayName ?: "", firebaseUser.photoUrl.toString())
-        userDocument.set(newUser).addOnSuccessListener { _userExist.value = true }
+    private fun createNewUser(token: String, writeBatch: WriteBatch) {
+        val newUser = User(firebaseUser!!.displayName ?: "", firebaseUser!!.photoUrl.toString())
+        writeBatch
+                .set(userDocument, newUser)
+                .set(tokensDocument, mapOf("tokens" to listOf(token)))
+                .set(subscriptionsDocument, Subscriptions())
     }
     
-    private fun addToken(token: String) {
+    private fun addToken(token: String, writeBatch: WriteBatch) {
         tokensDocument.get().addOnSuccessListener { doc ->
             @Suppress("UNCHECKED_CAST")
             val tokens = doc["tokens"] as MutableList<String>
             if (!tokens.contains(token)) {
                 tokens.add(token)
-                tokensDocument.update("tokens", tokens)
+                writeBatch.update(tokensDocument, "tokens", tokens)
             }
         }
     }
