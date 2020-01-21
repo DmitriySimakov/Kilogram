@@ -1,7 +1,6 @@
 package com.dmitrysimakov.kilogram.ui.profile.edit_profile
 
 import android.net.Uri
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.remote.User
@@ -12,20 +11,30 @@ import com.dmitrysimakov.kilogram.util.userDocument
 class EditProfileViewModel : ViewModel() {
     
     private val _user = MutableLiveData<User>()
-    val user: LiveData<User> = _user
     
-    fun setUser(user: User) { _user.setNewValue(user) }
+    val name = MutableLiveData<String>()
+    val photoUrl = MutableLiveData<String>()
+    
+    fun setUser(user: User) {
+        _user.setNewValue(user)
+        name.setNewValue(user.name)
+        photoUrl.setNewValue(user.photoUrl)
+    }
     
     fun saveChanges() {
-        userDocument.set(user.value!!)
+        val user = _user.value!!.copy(
+                name = name.value!!,
+                photoUrl = photoUrl.value
+        )
+        userDocument.set(user)
     }
     
     fun saveImage(uri: Uri) {
-        setUser(user.value!!.copy(photoUrl = null))
+        photoUrl.setNewValue(null)
         val imageRef = profileImagesRef.child(uri.lastPathSegment!!)
         imageRef.putFile(uri).addOnSuccessListener {
             imageRef.downloadUrl.addOnSuccessListener { photoUri ->
-                setUser(user.value!!.copy(photoUrl = photoUri.toString()))
+                photoUrl.setNewValue(photoUri.toString())
             }
         }
     }

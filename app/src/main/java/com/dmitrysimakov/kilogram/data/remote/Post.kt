@@ -7,14 +7,14 @@ import java.util.*
 
 @IgnoreExtraProperties
 data class Post(
-        var authorId: String? = null,
-        var authorName: String? = null,
-        var authorPhotoUrl: String? = null,
-        var title: String? = null,
-        var content: String? = null,
-        var imageUrl: String? = null,
-        var timestamp: Date = Date(),
-        var likes: MutableList<String> = mutableListOf(), // Ids of people who liked the post
+        val authorId: String? = null,
+        val authorName: String? = null,
+        val authorPhotoUrl: String? = null,
+        val title: String? = null,
+        val content: String? = null,
+        val imageUrl: String? = null,
+        val timestamp: Date = Date(),
+        val likes: List<String> = listOf(), // Ids of people who liked the post
         @get:Exclude var id: String = ""
 )
 

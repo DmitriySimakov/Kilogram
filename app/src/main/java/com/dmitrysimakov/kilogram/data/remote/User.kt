@@ -6,10 +6,10 @@ import com.google.firebase.firestore.IgnoreExtraProperties
 
 @IgnoreExtraProperties
 data class User(
-        var name: String = "",
-        var photoUrl: String? = null,
-        var followersCount: Int = 0,
-        var followedCount: Int = 0,
+        val name: String = "",
+        val photoUrl: String? = null,
+        val followersCount: Int = 0,
+        val followedCount: Int = 0,
         @get:Exclude var id: String = ""
 )
 

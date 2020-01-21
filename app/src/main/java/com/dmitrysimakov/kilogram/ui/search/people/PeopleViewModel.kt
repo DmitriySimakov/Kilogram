@@ -58,8 +58,9 @@ class PeopleViewModel : ViewModel() {
             // Add user to currentUser's followedIds list
             if (doc.exists()) {
                 val subs = doc.toObject(Subscriptions::class.java)!!
-                subs.followedIds.add(user.id)
-                writeBatch.update(curUserSubsDoc, "followedIds", subs.followedIds)
+                val followedIds = subs.followedIds.toMutableList()
+                followedIds.add(user.id)
+                writeBatch.update(curUserSubsDoc, "followedIds", followedIds)
             } else {
                 writeBatch.set(curUserSubsDoc, Subscriptions(followedIds = mutableListOf(user.id)))
             }
@@ -69,8 +70,9 @@ class PeopleViewModel : ViewModel() {
                 // Add currentUser to user's followersIds list
                 if (doc.exists()) {
                     val subs = doc.toObject(Subscriptions::class.java)!!
-                    subs.followersIds.add(currentUser.id)
-                    writeBatch.update(userSubsDoc, "followersIds", subs.followersIds)
+                    val followersIds = subs.followersIds.toMutableList()
+                    followersIds.add(currentUser.id)
+                    writeBatch.update(userSubsDoc, "followersIds", followersIds)
                 } else {
                     writeBatch.set(userSubsDoc, Subscriptions(followersIds = mutableListOf(currentUser.id)))
                 }
@@ -93,14 +95,16 @@ class PeopleViewModel : ViewModel() {
         curUserSubsDoc.get().addOnSuccessListener { doc ->
             // Remove user from currentUser's followedIds list
             val curUserSubs = doc.toObject(Subscriptions::class.java)!!
-            curUserSubs.followedIds.remove(user.id)
-            writeBatch.update(curUserSubsDoc, "followedIds", curUserSubs.followedIds)
+            val followedIds = curUserSubs.followedIds.toMutableList()
+            followedIds.remove(user.id)
+            writeBatch.update(curUserSubsDoc, "followedIds", followedIds)
             
             val userSubsDoc = subscriptionsDocument(user.id)
             userSubsDoc.get().addOnSuccessListener {
                 // Remove currentUser from user's followersIds list
                 val userSubs = doc.toObject(Subscriptions::class.java)!!
-                userSubs.followersIds.remove(currentUser.id)
+                val followersIds = userSubs.followersIds.toMutableList()
+                followersIds.remove(currentUser.id)
                 writeBatch.update(userSubsDoc, "followersIds", userSubs.followersIds)
     
                 // Increase subscriptions count

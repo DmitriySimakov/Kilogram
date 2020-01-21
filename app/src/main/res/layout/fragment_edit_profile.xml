@@ -20,15 +20,15 @@
             android:id="@+id/photo"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            app:imageUrl="@{vm.user.photoUrl.toString()}"
-            goneUnless="@{vm.user.photoUrl != null}"
+            app:imageUrl="@{vm.photoUrl}"
+            goneUnless="@{vm.photoUrl != null}"
             tools:src="@tools:sample/avatars" />
         
         <ProgressBar
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:padding="25dp"
-            goneUnless="@{vm.user.photoUrl == null}"
+            goneUnless="@{vm.photoUrl == null}"
             tools:visibility="gone"/>
         
         <com.google.android.material.textfield.TextInputLayout
@@ -40,7 +40,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@={vm.user.name}"
+                android:text="@={vm.name}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 tools:text="@tools:sample/full_names"/>
             

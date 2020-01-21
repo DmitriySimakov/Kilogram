@@ -7,11 +7,11 @@ import java.util.*
 
 @IgnoreExtraProperties
 data class Message(
-        var senderId: String = "",
-        var text: String? = null,
-        var imageUrl: String? = null,
-        var timestamp: Date = Date(),
-        var wasRead: Boolean = false,
+        val senderId: String = "",
+        val text: String? = null,
+        val imageUrl: String? = null,
+        val timestamp: Date = Date(),
+        val wasRead: Boolean = false,
         @get:Exclude var id: String = ""
 )
 

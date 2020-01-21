@@ -6,8 +6,8 @@ import com.google.firebase.firestore.IgnoreExtraProperties
 
 @IgnoreExtraProperties
 data class Chat(
-        var companion: User = User(),
-        var lastMessage: Message = Message(),
+        val companion: User = User(),
+        val lastMessage: Message = Message(),
         @get:Exclude var id: String = ""
 )
 

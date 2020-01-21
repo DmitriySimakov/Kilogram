@@ -4,6 +4,6 @@ import com.google.firebase.firestore.IgnoreExtraProperties
 
 @IgnoreExtraProperties
 data class Subscriptions(
-        val followersIds: MutableList<String> = mutableListOf(),
-        val followedIds: MutableList<String> = mutableListOf()
+        val followersIds: List<String> = listOf(),
+        val followedIds: List<String> = listOf()
 )
