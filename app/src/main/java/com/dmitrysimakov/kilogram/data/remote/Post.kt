@@ -14,7 +14,7 @@ data class Post(
         var content: String? = null,
         var imageUrl: String? = null,
         var timestamp: Date = Date(),
-        var likesCount: Int = 0,
+        var likes: MutableList<String> = mutableListOf(), // Ids of people who liked the post
         @get:Exclude var id: String = ""
 )
 

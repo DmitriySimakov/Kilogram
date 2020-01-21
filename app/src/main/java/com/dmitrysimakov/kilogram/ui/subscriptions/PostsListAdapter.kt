@@ -8,6 +8,7 @@ import com.dmitrysimakov.kilogram.databinding.ItemPostBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 
 class PostsListAdapter(
+        private val vm: SubscriptionsViewModel,
         clickCallback: ((Post) -> Unit)? = null
 ) : DataBoundListAdapter<Post, ItemPostBinding>(clickCallback, PostsDiffCallback()) {
     
@@ -15,6 +16,7 @@ class PostsListAdapter(
             .inflate(LayoutInflater.from(parent.context), parent, false)
     
     override fun bind(binding: ItemPostBinding, item: Post) {
+        binding.vm = vm
         binding.post = item
     }
 }

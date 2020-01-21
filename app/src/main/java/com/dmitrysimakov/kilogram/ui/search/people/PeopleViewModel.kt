@@ -54,7 +54,7 @@ class PeopleViewModel : ViewModel() {
         
         val writeBatch = firestore.batch()
         val curUserSubsDoc = subscriptionsDocument(currentUser.id)
-        curUserSubsDoc.get().addOnSuccessListener { doc ->
+        curUserSubsDoc.get().addOnSuccessListener { doc -> // TODO Don't need to load curUserSubs again
             // Add user to currentUser's followedIds list
             if (doc.exists()) {
                 val subs = doc.toObject(Subscriptions::class.java)!!

@@ -19,7 +19,7 @@ class SubscriptionsFragment : Fragment() {
     private val vm: SubscriptionsViewModel by viewModel()
     private val sharedVM: SharedViewModel by sharedViewModel()
     
-    private val adapter by lazy { PostsListAdapter() }
+    private val adapter by lazy { PostsListAdapter(vm) }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_subscriptions, container, false)
