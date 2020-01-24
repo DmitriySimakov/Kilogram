@@ -4,8 +4,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 
-@Entity(tableName = "targeted_muscle",
-        indices = [Index(value = ["muscle"])],
+@Entity(indices = [Index(value = ["muscle"])],
         primaryKeys = ["exercise", "muscle"],
         foreignKeys = [
             ForeignKey(

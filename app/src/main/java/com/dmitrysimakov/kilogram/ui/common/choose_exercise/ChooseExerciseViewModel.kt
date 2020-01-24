@@ -56,24 +56,24 @@ class ChooseExerciseViewModel (
 
         val sb = StringBuilder("SELECT * FROM exercise WHERE name IS NOT NULL")
         _searchText.value?.let { if (it.trim().isNotEmpty()) sb.append(" AND name LIKE '%$it%'") }
-        if (addedToFavorite.value == true) sb.append(" AND is_favorite == 1")
-        if (performedEarlier.value == true) sb.append(" AND executions_cnt > 0")
-        if (compound.value == true && isolated.value == false) sb.append(" AND is_isolated == 0")
-        if (compound.value == false && isolated.value == true) sb.append(" AND is_isolated == 1")
+        if (addedToFavorite.value == true) sb.append(" AND isFavorite == 1")
+        if (performedEarlier.value == true) sb.append(" AND executionsCount > 0")
+        if (compound.value == true && isolated.value == false) sb.append(" AND isIsolated == 0")
+        if (compound.value == false && isolated.value == true) sb.append(" AND isIsolated == 1")
         if (exerciseTargets.isNotEmpty()) sb.append(" AND target IN ($exerciseTargets)")
         if (equipments.isNotEmpty()) sb.append(" AND equipment IN ($equipments)")
-        sb.append(" ORDER BY executions_cnt DESC")
+        sb.append(" ORDER BY executionsCount DESC")
         val res = sb.toString()
         Timber.d("QUERY = $res")
         query.value = SimpleSQLiteQuery(res)
     }
     
     fun setFavorite(exercise: Exercise) = viewModelScope.launch {
-        exerciseRepo.setFavorite(exercise.name, !exercise.is_favorite)
+        exerciseRepo.setFavorite(exercise.name, !exercise.isFavorite)
     }
     
     fun setChecked(filterParams: LiveData<List<FilterParam>>, name: String, isChecked: Boolean) {
-        filterParams.value?.find{ it.name == name }?.is_active = isChecked
+        filterParams.value?.find{ it.name == name }?.isActive = isChecked
         updateQuery()
     }
     
@@ -92,5 +92,5 @@ class ChooseExerciseViewModel (
     }
     
     private fun LiveData<List<FilterParam>>.getActiveParamsString() =
-            value?.filter { it.is_active }?.joinToString(", ") { "'${it.name}'" } ?: ""
+            value?.filter { it.isActive }?.joinToString(", ") { "'${it.name}'" } ?: ""
 }

@@ -9,7 +9,7 @@ import com.dmitrysimakov.kilogram.data.local.entity.MeasurementParam
 @Dao
 interface MeasurementParamDao {
 
-    @Query("SELECT * FROM measurement_param")
+    @Query("SELECT * FROM MeasurementParam")
     suspend fun params() : List<MeasurementParam>
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)

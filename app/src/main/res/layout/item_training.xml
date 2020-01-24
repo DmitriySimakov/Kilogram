@@ -27,7 +27,7 @@
                 android:id="@+id/dateTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{training.start_date_time.format(DateTimeFormatter.ofPattern(`HH:mm`))}"
+                android:text="@{training.startDateTime.format(DateTimeFormatter.ofPattern(`HH:mm`))}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                 tools:text="15:00" />
     
@@ -36,9 +36,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/frame_padding"
-                android:text="@{training.program_day_name +` `+ training.program_name}"
+                android:text="@{training.programDayName +` `+ training.programName}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                app:invisibleUnless="@{training.program_day_name != null}"
+                app:invisibleUnless="@{training.programDayName != null}"
                 app:layout_constraintStart_toEndOf="@id/dateTV"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="День №1 Программа" />

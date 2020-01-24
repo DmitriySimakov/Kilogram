@@ -13,10 +13,10 @@ interface ExerciseDao {
     fun exercisesFlow(query: SupportSQLiteQuery) : Flow<List<Exercise>>
     
     @Query("""SELECT measure_weight AS weight, measure_reps AS reps, measure_time AS time, measure_distance AS distance
-        FROM exercise WHERE name = :exerciseName""")
+        FROM Exercise WHERE name = :exerciseName""")
     suspend fun measures(exerciseName: String) : ExerciseMeasures
     
-    @Query("SELECT * FROM exercise WHERE name = :name")
+    @Query("SELECT * FROM Exercise WHERE name = :name")
     suspend fun exercise(name: String) : Exercise
     
     
@@ -24,12 +24,12 @@ interface ExerciseDao {
     suspend fun insert(exercises: List<Exercise>)
     
     
-    @Query("UPDATE exercise SET is_favorite = :isFavorite WHERE name = :name")
+    @Query("UPDATE Exercise SET isFavorite = :isFavorite WHERE name = :name")
     suspend fun setFavorite(name: String, isFavorite: Boolean)
     
-    @Query("UPDATE exercise SET executions_cnt = executions_cnt + 1 WHERE name = :name")
+    @Query("UPDATE Exercise SET executionsCount = executionsCount + 1 WHERE name = :name")
     suspend fun increaseExecutionsCnt(name: String)
     
-    @Query("UPDATE exercise SET executions_cnt = executions_cnt - 1 WHERE name = :name")
+    @Query("UPDATE Exercise SET executionsCount = executionsCount - 1 WHERE name = :name")
     suspend fun decreaseExecutionsCnt(name: String)
 }

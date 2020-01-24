@@ -8,30 +8,30 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ProgramDayDao {
     
-    @Query("SELECT * FROM program_day WHERE program_id = :programId ORDER BY indexNumber")
+    @Query("SELECT * FROM ProgramDay WHERE programId = :programId ORDER BY indexNumber")
     fun programDaysFlow(programId: Long): Flow<List<ProgramDay>>
     
     @Query("""
-        SELECT pd._id AS program_day_id, pd.name AS program_day, p.name AS program
-        FROM program_day AS pd
-        INNER JOIN program AS p
-        WHERE pd._id = :id
+        SELECT PD.id AS programDayId, PD.name AS programDay, P.name AS program
+        FROM ProgramDay AS PD
+        INNER JOIN program AS P
+        WHERE PD.id = :id
     """)
     suspend fun programDayAndProgram(id: Long): ProgramDayAndProgram?
     
     @Query("""
-        SELECT next._id AS program_day_id, next.name AS program_day, p.name AS program
+        SELECT Next.id AS programDayId, Next.name AS programDay, P.name AS program
         FROM (
-            SELECT pd.program_id, pd.indexNumber
-            FROM program_day AS pd
-            INNER JOIN training AS t ON pd._id = t.program_day_id
-            ORDER BY t.start_date_time DESC
+            SELECT PD.programId, PD.indexNumber
+            FROM ProgramDay AS PD
+            INNER JOIN training AS T ON PD.id = T.programDayId
+            ORDER BY T.startDateTime DESC
             LIMIT 1
-        ) AS last
-        INNER JOIN program_day AS next ON next.program_id = last.program_id
-        AND next.indexNumber IN (last.indexNumber + 1, 1)
-        INNER JOIN program AS p ON next.program_id = p._id
-        ORDER BY next.indexNumber DESC
+        ) AS Last
+        INNER JOIN ProgramDay AS Next ON Next.programId = Last.programId
+        AND Next.indexNumber IN (Last.indexNumber + 1, 1)
+        INNER JOIN program AS P ON Next.programId = P.id
+        ORDER BY Next.indexNumber DESC
     """)
     suspend fun nextProgramDayAndProgram(): ProgramDayAndProgram?
     
@@ -47,6 +47,6 @@ interface ProgramDayDao {
     suspend fun update(programDayList: List<ProgramDay>)
     
     
-    @Query("DELETE FROM program_day WHERE _id = :id")
+    @Query("DELETE FROM ProgramDay WHERE id = :id")
     suspend fun delete(id: Long)
 }

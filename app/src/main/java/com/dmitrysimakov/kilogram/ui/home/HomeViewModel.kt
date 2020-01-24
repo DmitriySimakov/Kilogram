@@ -21,7 +21,7 @@ class HomeViewModel(
     val recentPhotos = photoRepository.recentPhotos(3).asLiveData()
     
     val recentMeasurements = measurementRepository.lastMeasurementsWithPreviousResults().asLiveData()
-            .map { it.filter { measurement -> measurement._id != null } }
+            .map { it.filter { measurement -> measurement.id != null } }
     
     fun addPhoto(photo: Photo) = viewModelScope.launch {
         photoRepository.insert(photo)

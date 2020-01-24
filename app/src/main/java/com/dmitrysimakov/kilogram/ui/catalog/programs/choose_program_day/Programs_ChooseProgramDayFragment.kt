@@ -21,7 +21,7 @@ class Programs_ChooseProgramDayFragment : ChooseProgramDayFragment() {
         
         vm.setProgramId(args.programId)
         
-        adapter.clickCallback = { navigate(toExercisesFragment(it._id)) }
+        adapter.clickCallback = { navigate(toExercisesFragment(it.id)) }
     
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.RIGHT) {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
@@ -33,7 +33,7 @@ class Programs_ChooseProgramDayFragment : ChooseProgramDayFragment() {
                 return false
             }
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                vm.deleteTrainingDay(adapter.getItem(viewHolder.adapterPosition)._id)
+                vm.deleteTrainingDay(adapter.getItem(viewHolder.adapterPosition).id)
             }
         }).attachToRecyclerView(recyclerView)
     

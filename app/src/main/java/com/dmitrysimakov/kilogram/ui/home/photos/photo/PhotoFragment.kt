@@ -33,7 +33,7 @@ class PhotoFragment : Fragment() {
         vm.setPhotoUri(args.uri)
         
         vm.photo.observe(viewLifecycleOwner) { photo ->
-            setTitle(photo.date_time.format(DateTimeFormatter.ofPattern("dd MMMM yyyy г.")))
+            setTitle(photo.dateTime.format(DateTimeFormatter.ofPattern("dd MMMM yyyy г.")))
         }
     }
 }

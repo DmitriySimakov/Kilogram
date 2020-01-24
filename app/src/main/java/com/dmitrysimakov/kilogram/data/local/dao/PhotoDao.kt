@@ -10,13 +10,13 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface PhotoDao {
     
-    @Query("SELECT * FROM photo ORDER BY date_time DESC")
+    @Query("SELECT * FROM Photo ORDER BY dateTime DESC")
     fun photos(): Flow<List<Photo>>
     
-    @Query("SELECT * FROM photo ORDER BY date_time DESC LIMIT :number")
+    @Query("SELECT * FROM Photo ORDER BY dateTime DESC LIMIT :number")
     fun recentPhotos(number: Int): Flow<List<Photo>>
     
-    @Query("SELECT * FROM photo WHERE uri = :uri")
+    @Query("SELECT * FROM Photo WHERE uri = :uri")
     suspend fun photo(uri: String): Photo
     
     

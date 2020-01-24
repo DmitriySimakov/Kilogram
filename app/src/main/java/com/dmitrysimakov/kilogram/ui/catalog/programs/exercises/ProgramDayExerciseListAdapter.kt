@@ -23,7 +23,7 @@ class ProgramDayExerciseListAdapter(clickCallback: ((ProgramDayExercise) -> Unit
 
 private class ProgramDayExerciseDiffCallback : DiffUtil.ItemCallback<ProgramDayExercise>() {
     override fun areItemsTheSame(oldItem: ProgramDayExercise, newItem: ProgramDayExercise) =
-            oldItem._id == newItem._id
+            oldItem.id == newItem.id
     override fun areContentsTheSame(oldItem: ProgramDayExercise, newItem: ProgramDayExercise) =
             oldItem == newItem
 }

@@ -7,10 +7,10 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface TrainingSetDao {
     
-    @Query("SELECT * FROM training_set WHERE training_exercise_id = :trainingExerciseId")
+    @Query("SELECT * FROM TrainingSet WHERE trainingExerciseId = :trainingExerciseId")
     fun trainingSetsFlow(trainingExerciseId: Long) : Flow<List<TrainingSet>>
 
-    @Query("SELECT * FROM training_set WHERE _id = :id")
+    @Query("SELECT * FROM TrainingSet WHERE id = :id")
     suspend fun trainingSet(id: Long) : TrainingSet
     
     
@@ -25,6 +25,6 @@ interface TrainingSetDao {
     suspend fun update(trainingSet: TrainingSet)
     
     
-    @Query("DELETE FROM training_set WHERE _id = :id")
+    @Query("DELETE FROM TrainingSet WHERE id = :id")
     suspend fun delete(id: Long)
 }

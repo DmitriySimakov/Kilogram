@@ -30,14 +30,14 @@ class TrainingExercisesFragment : Fragment() {
     private lateinit var binding: FragmentTrainingExercisesBinding
     
     private val exerciseRunningListAdapter by lazy { TrainingExercisesAdapter(
-            { navigate(toTrainingSetsFragment(it._id)) },
+            { navigate(toTrainingSetsFragment(it.id)) },
             { vm.finishExercise(it) }
     )}
     private val exercisePlannedListAdapter by lazy { TrainingExercisesAdapter({
-        navigate(toTrainingSetsFragment(it._id))
+        navigate(toTrainingSetsFragment(it.id))
     })}
     private val exerciseFinishedListAdapter by lazy { TrainingExercisesAdapter ({
-        navigate(toTrainingSetsFragment(it._id))
+        navigate(toTrainingSetsFragment(it.id))
     }) }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

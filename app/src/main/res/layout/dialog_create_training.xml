@@ -83,7 +83,7 @@
                 android:layout_height="@dimen/icon_button_size"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="@{vm.programDay.program_day}"
+                android:text="@{vm.programDay.programDay}"
                 tools:text="День ног" />
             
         </LinearLayout>

@@ -46,15 +46,15 @@ class AddTrainingSetViewModel(
     }
     
     fun submit() { viewModelScope.launch {
-        if (trainingSet.value?._id == 0L) addSet() else updateSet()
+        if (trainingSet.value?.id == 0L) addSet() else updateSet()
     }}
     
     private suspend fun addSet() {
         trainingSet.value?.let {
-            it.date_time = OffsetDateTime.now()
+            it.dateTime = OffsetDateTime.now()
             trainingExerciseSetRepository.insert(it)
             if (trainingExercise.value?.state == TrainingExercise.PLANNED) {
-                trainingExerciseRepository.updateState(it.training_exercise_id, TrainingExercise.RUNNING)
+                trainingExerciseRepository.updateState(it.trainingExerciseId, TrainingExercise.RUNNING)
             }
             _trainingSetSavedEvent.value = Event(Unit)
         }

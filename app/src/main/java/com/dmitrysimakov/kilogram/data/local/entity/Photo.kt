@@ -4,8 +4,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import org.threeten.bp.OffsetDateTime
 
-@Entity(tableName = "photo")
+@Entity
 data class Photo(
         @PrimaryKey val uri: String,
-        val date_time: OffsetDateTime
+        val dateTime: OffsetDateTime
 )

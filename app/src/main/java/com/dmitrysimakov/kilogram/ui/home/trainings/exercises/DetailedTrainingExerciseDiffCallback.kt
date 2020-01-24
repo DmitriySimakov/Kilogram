@@ -7,7 +7,7 @@ class DetailedTrainingExerciseDiffCallback : DiffUtil.ItemCallback<DetailedTrain
     override fun areItemsTheSame(
             oldItem: DetailedTrainingExercise,
             newItem: DetailedTrainingExercise
-    ) = oldItem._id == newItem._id
+    ) = oldItem.id == newItem.id
     
     override fun areContentsTheSame(
             oldItem: DetailedTrainingExercise,

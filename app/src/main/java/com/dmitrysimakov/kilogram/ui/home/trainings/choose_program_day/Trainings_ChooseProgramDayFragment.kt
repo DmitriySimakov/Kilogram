@@ -20,7 +20,7 @@ class Trainings_ChooseProgramDayFragment : ChooseProgramDayFragment() {
         vm.setProgramId(args.programId)
         
         adapter.clickCallback = { programDay ->
-            sharedVM.programDayId.value = programDay._id
+            sharedVM.programDayId.value = programDay.id
             popBackStack(R.id.createTrainingDialog, false)
         }
     }

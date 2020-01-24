@@ -10,23 +10,23 @@ import org.threeten.bp.LocalDate
 interface TrainingDao {
     
     @Query("""
-        SELECT t._id, t.start_date_time, t.duration, t.program_day_id, pd.name AS program_day_name, p.name AS program_name
-        FROM training AS t
-        LEFT JOIN program_day AS pd ON pd._id = t.program_day_id
-        LEFT JOIN program AS p ON p._id = pd.program_id
-        ORDER BY t.start_date_time DESC""")
+        SELECT T.id, T.startDateTime, T.duration, T.programDayId, PD.name AS programDayName, P.name AS programName
+        FROM Training AS T
+        LEFT JOIN ProgramDay AS PD ON PD.id = T.programDayId
+        LEFT JOIN Program AS P ON P.id = PD.programId
+        ORDER BY T.startDateTime DESC""")
     fun detailedTrainingsFlow() : Flow<List<DetailedTraining>>
     
     @Query("""
-        SELECT t._id, t.start_date_time, t.duration, t.program_day_id, pd.name AS program_day_name, p.name AS program_name
-        FROM training AS t
-        LEFT JOIN program_day AS pd ON pd._id = t.program_day_id
-        LEFT JOIN program AS p ON p._id = pd.program_id
-        WHERE date(start_date_time) = date(:startDateTime)
-        ORDER BY t.start_date_time""")
+        SELECT T.id, T.startDateTime, T.duration, T.programDayId, PD.name AS programDayName, P.name AS programName
+        FROM Training AS T
+        LEFT JOIN ProgramDay AS PD ON PD.id = T.programDayId
+        LEFT JOIN Program AS P ON P.id = PD.programId
+        WHERE date(startDateTime) = date(:startDateTime)
+        ORDER BY T.startDateTime""")
     suspend fun detailedTrainingsForDay(startDateTime: LocalDate) : List<DetailedTraining>
     
-    @Query("SELECT * FROM training WHERE _id = :id")
+    @Query("SELECT * FROM Training WHERE id = :id")
     suspend fun training(id: Long) : Training
     
     
@@ -41,6 +41,6 @@ interface TrainingDao {
     suspend fun update(training: Training)
     
     
-    @Query("DELETE FROM training WHERE _id = :id")
+    @Query("DELETE FROM Training WHERE id = :id")
     suspend fun delete(id: Long)
 }

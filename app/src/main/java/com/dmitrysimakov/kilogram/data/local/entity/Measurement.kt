@@ -6,8 +6,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import org.threeten.bp.LocalDate
 
-@Entity(tableName = "measurement",
-        indices = [Index(value = ["param"])],
+@Entity(indices = [Index(value = ["param"])],
         foreignKeys = [
             ForeignKey(
                     entity = MeasurementParam::class,
@@ -17,7 +16,7 @@ import org.threeten.bp.LocalDate
         ]
 )
 data class Measurement(
-        @PrimaryKey(autoGenerate = true) val _id: Long = 0,
+        @PrimaryKey(autoGenerate = true) val id: Long = 0,
         val date: LocalDate,
         val param: String,
         val value: Double

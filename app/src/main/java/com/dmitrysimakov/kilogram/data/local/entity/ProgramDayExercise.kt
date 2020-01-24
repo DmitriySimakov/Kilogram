@@ -5,13 +5,12 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "program_day_exercise",
-        indices = [Index(value = ["program_day_id"]), Index(value = ["exercise"])],
+@Entity(indices = [Index(value = ["programDayId"]), Index(value = ["exercise"])],
         foreignKeys = [
             ForeignKey(
                     entity = ProgramDay::class,
-                    parentColumns = ["_id"],
-                    childColumns = ["program_day_id"],
+                    parentColumns = ["id"],
+                    childColumns = ["programDayId"],
                     onDelete = ForeignKey.CASCADE),
             ForeignKey(
                     entity = Exercise::class,
@@ -21,8 +20,8 @@ import androidx.room.PrimaryKey
         ]
 )
 data class ProgramDayExercise(
-        @PrimaryKey(autoGenerate = true) val _id: Long = 0,
-        val program_day_id: Long,
+        @PrimaryKey(autoGenerate = true) val id: Long = 0,
+        val programDayId: Long,
         val exercise: String,
         var indexNumber: Int,
         val rest: Int = 120,

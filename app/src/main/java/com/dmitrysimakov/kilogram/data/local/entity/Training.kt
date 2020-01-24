@@ -6,19 +6,18 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import org.threeten.bp.OffsetDateTime
 
-@Entity(tableName = "training",
-        indices = [Index(value = ["program_day_id"])],
+@Entity(indices = [Index(value = ["programDayId"])],
         foreignKeys = [
             ForeignKey(
                     entity = ProgramDay::class,
-                    parentColumns = ["_id"],
-                    childColumns = ["program_day_id"],
+                    parentColumns = ["id"],
+                    childColumns = ["programDayId"],
                     onDelete = ForeignKey.SET_NULL)
         ]
 )
 data class Training(
-        @PrimaryKey(autoGenerate = true) val _id: Long = 0,
-        val start_date_time: OffsetDateTime,
+        @PrimaryKey(autoGenerate = true) val id: Long = 0,
+        val startDateTime: OffsetDateTime,
         var duration: Int? = null,
-        var program_day_id: Long? = null
+        var programDayId: Long? = null
 )

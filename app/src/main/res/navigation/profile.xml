@@ -49,7 +49,7 @@
         <action
             android:id="@+id/to_messagesFragment"
             app:destination="@id/messagesFragment" />
-        <argument android:name="page_id"
+        <argument android:name="pageId"
             app:argType="integer" />
     </fragment>
 </navigation>

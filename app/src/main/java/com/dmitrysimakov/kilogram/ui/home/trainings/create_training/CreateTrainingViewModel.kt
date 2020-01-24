@@ -43,7 +43,7 @@ class CreateTrainingViewModel(
     fun setProgramDay(programDayId: Long) { _programDayId.setNewValue(programDayId) }
     
     fun createTraining() = viewModelScope.launch{
-        val programDayId = byProgram.value?.let { programDay.value?.program_day_id }
+        val programDayId = byProgram.value?.let { programDay.value?.programDayId }
         val training = Training(0, dateTime.value!!, null, programDayId)
         val trainingId = trainingRepo.insert(training)
         if (byProgram.value == true) fillTrainingWithProgramExercises(trainingId)
@@ -65,7 +65,7 @@ class CreateTrainingViewModel(
     }
     
     private suspend fun fillTrainingWithProgramExercises(trainingId: Long) = viewModelScope.launch {
-        programDay.value?.program_day_id?.let { programDayId ->
+        programDay.value?.programDayId?.let { programDayId ->
             trainingExerciseRepo.fillTrainingWithProgramExercises(trainingId, programDayId)
         }
     }

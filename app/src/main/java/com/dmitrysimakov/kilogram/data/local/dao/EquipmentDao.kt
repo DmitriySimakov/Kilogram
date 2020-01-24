@@ -10,7 +10,7 @@ import com.dmitrysimakov.kilogram.data.local.relation.FilterParam
 @Dao
 interface EquipmentDao {
     
-    @Query("SELECT name, 0 AS is_active FROM equipment")
+    @Query("SELECT name, 0 AS isActive FROM Equipment")
     suspend fun params(): List<FilterParam>
     
     

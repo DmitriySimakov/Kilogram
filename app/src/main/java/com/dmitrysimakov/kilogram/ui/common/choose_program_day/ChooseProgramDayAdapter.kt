@@ -24,7 +24,7 @@ class ChooseProgramDayAdapter(clickCallback: ((ProgramDay) -> Unit)? = null)
 
 private class ProgramDayDiffCallback : DiffUtil.ItemCallback<ProgramDay>() {
     override fun areItemsTheSame(oldItem: ProgramDay, newItem: ProgramDay) =
-            oldItem._id == newItem._id
+            oldItem.id == newItem.id
     override fun areContentsTheSame(oldItem: ProgramDay, newItem: ProgramDay) =
             oldItem == newItem
 }

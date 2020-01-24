@@ -45,7 +45,7 @@
             style="@style/IconButton"
             android:layout_gravity="center_vertical"
             android:onClick="@{() -> vm.setFavorite(exercise)}"
-            android:src="@{exercise._favorite ? @drawable/ic_favorite : @drawable/ic_favorite_border}"
+            android:src="@{exercise.favorite ? @drawable/ic_favorite : @drawable/ic_favorite_border}"
             tools:src="@drawable/ic_favorite" />
     
     </LinearLayout>

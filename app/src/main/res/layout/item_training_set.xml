@@ -36,7 +36,7 @@
             android:layout_weight="1"
             app:curr="@{set.weight}"
             app:gone="@{vm.measures.weight}"
-            app:prev="@{set.prev_weight}" />
+            app:prev="@{set.prevWeight}" />
         
         <include
             layout="@layout/progress"
@@ -45,7 +45,7 @@
             android:layout_weight="1"
             app:curr="@{set.reps}"
             app:gone="@{vm.measures.reps}"
-            app:prev="@{set.prev_reps}" />
+            app:prev="@{set.prevReps}" />
         
         <include
             layout="@layout/progress"
@@ -54,7 +54,7 @@
             android:layout_weight="1"
             app:curr="@{set.time}"
             app:gone="@{vm.measures.time}"
-            app:prev="@{set.prev_time}" />
+            app:prev="@{set.prevTime}" />
         
         <include
             layout="@layout/progress"
@@ -63,7 +63,7 @@
             android:layout_weight="1"
             app:curr="@{set.distance}"
             app:gone="@{vm.measures.distance}"
-            app:prev="@{set.prev_distance}" />
+            app:prev="@{set.prevDistance}" />
     
     </LinearLayout>
 

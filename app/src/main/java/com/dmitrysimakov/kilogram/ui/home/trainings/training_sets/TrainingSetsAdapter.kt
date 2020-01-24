@@ -32,8 +32,8 @@ class TrainingSetsAdapter(
 
 private class SetWithPreviousResultsDiffCallback : DiffUtil.ItemCallback<SetWithPreviousResults>() {
     override fun areItemsTheSame(oldItem: SetWithPreviousResults, newItem: SetWithPreviousResults)
-            = newItem._id != 0L && oldItem._id == newItem._id
-            || newItem.prev_id != 0L && oldItem.prev_id == newItem.prev_id
+            = newItem.id != 0L && oldItem.id == newItem.id
+            || newItem.prevId != 0L && oldItem.prevId == newItem.prevId
     
     override fun areContentsTheSame(oldItem: SetWithPreviousResults, newItem: SetWithPreviousResults)
             = oldItem == newItem

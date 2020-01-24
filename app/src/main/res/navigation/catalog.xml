@@ -45,7 +45,7 @@
         android:label="fragment_training_days"
         tools:layout="@layout/fragment_choose_program_day">
         <argument
-            android:name="program_id"
+            android:name="programId"
             app:argType="long" />
         <action
             android:id="@+id/to_createProgramDayDialog"
@@ -63,7 +63,7 @@
             android:name="num"
             app:argType="integer" />
         <argument
-            android:name="program_id"
+            android:name="programId"
             app:argType="long" />
         <action
             android:id="@+id/to_exercisesFragment"
@@ -75,7 +75,7 @@
         android:name="com.dmitrysimakov.kilogram.ui.catalog.programs.exercises.ProgramDayExercisesFragment"
         android:label="Programs_ExercisesFragment">
         <argument
-            android:name="program_day_id"
+            android:name="programDayId"
             app:argType="long" />
         <action
             android:id="@+id/to_chooseExerciseFragment"
@@ -89,7 +89,7 @@
             android:name="num"
             app:argType="integer" />
         <argument
-            android:name="program_day_id"
+            android:name="programDayId"
             app:argType="long" />
     </fragment>
 </navigation>

@@ -27,7 +27,7 @@ class CalendarDayDialog : BottomSheetDialogFragment() {
     
     private val adapter by lazy {
         TrainingsAdapter {
-            navigate(toTrainingExercisesFragment(it._id, it.duration == null))
+            navigate(toTrainingExercisesFragment(it.id, it.duration == null))
         }
     }
     

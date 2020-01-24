@@ -8,8 +8,8 @@ import kotlinx.coroutines.flow.Flow
 interface ProgramDayExerciseDao {
     
     @Query("""
-        SELECT * FROM program_day_exercise
-        WHERE program_day_id = :programDayId
+        SELECT * FROM ProgramDayExercise
+        WHERE programDayId = :programDayId
         ORDER BY indexNumber
     """)
     fun programDayExercisesFlow(programDayId: Long) : Flow<List<ProgramDayExercise>>
@@ -26,6 +26,6 @@ interface ProgramDayExerciseDao {
     suspend fun update(programDayExercises: List<ProgramDayExercise>)
     
     
-    @Query("DELETE FROM program_day_exercise WHERE _id = :id")
+    @Query("DELETE FROM ProgramDayExercise WHERE id = :id")
     suspend fun delete(id: Long)
 }

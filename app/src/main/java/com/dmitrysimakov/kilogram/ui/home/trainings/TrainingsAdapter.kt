@@ -23,7 +23,7 @@ class TrainingsAdapter(clickCallback: ((DetailedTraining) -> Unit)?)
 
 private class DetailedTrainingDiffCallback : DiffUtil.ItemCallback<DetailedTraining>() {
     override fun areItemsTheSame(oldItem: DetailedTraining, newItem: DetailedTraining) =
-            oldItem._id == newItem._id
+            oldItem.id == newItem.id
     override fun areContentsTheSame(oldItem: DetailedTraining, newItem: DetailedTraining) =
             oldItem == newItem
 }

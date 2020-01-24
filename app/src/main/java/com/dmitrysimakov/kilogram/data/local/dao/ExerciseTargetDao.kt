@@ -10,10 +10,10 @@ import com.dmitrysimakov.kilogram.data.local.relation.FilterParam
 @Dao
 interface ExerciseTargetDao {
 
-    @Query("SELECT * FROM exercise_target")
+    @Query("SELECT * FROM ExerciseTarget")
     suspend fun exerciseTargets() : List<ExerciseTarget>
     
-    @Query("SELECT name, 0 AS is_active FROM exercise_target")
+    @Query("SELECT name, 0 AS isActive FROM ExerciseTarget")
     suspend fun params() : List<FilterParam>
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)

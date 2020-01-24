@@ -9,7 +9,7 @@ import com.dmitrysimakov.kilogram.data.local.entity.TargetedMuscle
 @Dao
 interface TargetedMuscleDao {
     
-    @Query("SELECT muscle FROM targeted_muscle WHERE exercise = :exerciseName")
+    @Query("SELECT muscle FROM TargetedMuscle WHERE exercise = :exerciseName")
     suspend fun targetedMuscles(exerciseName: String) : List<String>
     
     

@@ -3,8 +3,7 @@ package com.dmitrysimakov.kilogram.data.local.entity
 import androidx.room.*
 import com.dmitrysimakov.kilogram.data.local.relation.ExerciseMeasures
 
-@Entity(tableName = "exercise",
-        indices = [
+@Entity(indices = [
             Index(value = ["target"]),
             Index(value = ["equipment"])
         ],
@@ -24,10 +23,10 @@ import com.dmitrysimakov.kilogram.data.local.relation.ExerciseMeasures
 data class Exercise(
         @PrimaryKey val name: String,
         val target: String? = null,
-        val is_isolated: Boolean? = null,
+        val isIsolated: Boolean? = null,
         val equipment: String? = null,
         val description: String = "",
-        val executions_cnt: Long = 0,
-        var is_favorite: Boolean = false,
+        val executionsCount: Long = 0,
+        var isFavorite: Boolean = false,
         @Embedded(prefix = "measure_") val measures: ExerciseMeasures = ExerciseMeasures()
 )

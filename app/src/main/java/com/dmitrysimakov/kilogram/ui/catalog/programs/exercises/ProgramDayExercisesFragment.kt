@@ -49,7 +49,7 @@ class ProgramDayExercisesFragment : Fragment() {
                 return false
             }
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                vm.deleteExercise(adapter.getItem(viewHolder.adapterPosition)._id)
+                vm.deleteExercise(adapter.getItem(viewHolder.adapterPosition).id)
             }
         }).attachToRecyclerView(recyclerView)
     

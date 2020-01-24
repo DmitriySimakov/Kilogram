@@ -29,16 +29,16 @@ class TrainingSetsViewModel(
     }
     
     val currentSets = trainingExercise.switchMap {
-        trainingSetRepository.trainingSetsFlow(it._id).asLiveData()
+        trainingSetRepository.trainingSetsFlow(it.id).asLiveData()
     }
     
     private val previousExercise = trainingExercise.switchMap {
-        liveData { emit(trainingExerciseRepository.previousTrainingExercise(it.training_id, it.exercise)) }
+        liveData { emit(trainingExerciseRepository.previousTrainingExercise(it.trainingId, it.exercise)) }
     }
     
     val previousSets = previousExercise.switchMap {
         if (it == null) AbsentLiveData.create()
-        else trainingSetRepository.trainingSetsFlow(it.training_exercise_id).asLiveData()
+        else trainingSetRepository.trainingSetsFlow(it.trainingExerciseId).asLiveData()
     }
     
     val sets = MediatorLiveData<List<SetWithPreviousResults>>()
@@ -62,8 +62,8 @@ class TrainingSetsViewModel(
             val curr = try { currSets?.get(i) } catch (e: Exception) { null }
             val prev = try { prevSets?.get(i) } catch (e: Exception) { null }
             val set = SetWithPreviousResults(
-                    curr?._id ?: 0, curr?.weight, curr?.reps, curr?.time, curr?.distance,
-                    prev?._id ?: 0, prev?.weight, prev?.reps, prev?.time, prev?.distance
+                    curr?.id ?: 0, curr?.weight, curr?.reps, curr?.time, curr?.distance,
+                    prev?.id ?: 0, prev?.weight, prev?.reps, prev?.time, prev?.distance
             )
             res.add(set)
         }

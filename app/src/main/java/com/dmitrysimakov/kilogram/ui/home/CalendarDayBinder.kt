@@ -36,12 +36,12 @@ class CalendarDayBinder(private val onClick: ((LocalDate) -> Unit)) : DayBinder<
             }
             
             val currentDayTrainings = trainings.filter {
-                it.start_date_time.toLocalDate() == curDate
-            }.sortedBy { it.start_date_time }
+                it.startDateTime.toLocalDate() == curDate
+            }.sortedBy { it.startDateTime }
     
             val firstTraining = currentDayTrainings.firstOrNull()
             training.visibility  = if (firstTraining != null) View.VISIBLE else View.GONE
-            training.text = firstTraining?.program_day_name ?: "Тренировка"
+            training.text = firstTraining?.programDayName ?: "Тренировка"
             more.visibility = if (currentDayTrainings.size > 1) View.VISIBLE else View.GONE
         }
     }

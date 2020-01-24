@@ -9,24 +9,23 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import org.threeten.bp.OffsetDateTime
 
-@Entity(tableName = "training_set",
-        indices = [Index(value = ["training_exercise_id"])],
+@Entity(indices = [Index(value = ["trainingExerciseId"])],
         foreignKeys = [
             ForeignKey(
                     entity = TrainingExercise::class,
-                    parentColumns = ["_id"],
-                    childColumns = ["training_exercise_id"],
+                    parentColumns = ["id"],
+                    childColumns = ["trainingExerciseId"],
                     onDelete = ForeignKey.CASCADE)
         ]
 )
 class TrainingSet(
-        @PrimaryKey(autoGenerate = true) val _id: Long = 0,
-        val training_exercise_id: Long,
+        @PrimaryKey(autoGenerate = true) val id: Long = 0,
+        val trainingExerciseId: Long,
         weight: Int? = null,
         reps: Int? = null,
         time: Int? = null,
         distance: Int? = null,
-        var date_time: OffsetDateTime? = null
+        var dateTime: OffsetDateTime? = null
 ) : BaseObservable() {
     
     @get:Bindable var weight = weight

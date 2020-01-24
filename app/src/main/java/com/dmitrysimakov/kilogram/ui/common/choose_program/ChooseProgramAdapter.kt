@@ -20,7 +20,7 @@ class ChooseProgramAdapter(clickCallback: ((Program) -> Unit)? = null)
 
 private class ProgramDiffCallback : DiffUtil.ItemCallback<Program>() {
     override fun areItemsTheSame(oldItem: Program, newItem: Program) =
-            oldItem._id == newItem._id
+            oldItem.id == newItem.id
     override fun areContentsTheSame(oldItem: Program, newItem: Program) =
             oldItem == newItem
 }

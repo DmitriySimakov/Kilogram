@@ -13,7 +13,7 @@ class ChipGroupFilterAdapter(private val group: ChipGroup, private val callback:
         for (item in newList) {
             val chip = LayoutInflater.from(group.context).inflate(R.layout.chip_filter, group, false) as Chip
             chip.text = item.name
-            chip.isChecked = item.is_active
+            chip.isChecked = item.isActive
             chip.setOnCheckedChangeListener{ _, isChecked -> callback(item.name, isChecked) }
             group.addView(chip)
         }

@@ -23,7 +23,7 @@ class MeasurementsAdapter (clickCallback: ((MeasurementWithPreviousResults) -> U
 
 private class MeasurementsWithPreviousResultsDiffCallback : DiffUtil.ItemCallback<MeasurementWithPreviousResults>() {
     override fun areItemsTheSame(oldItem: MeasurementWithPreviousResults, newItem: MeasurementWithPreviousResults) =
-            oldItem._id == newItem._id
+            oldItem.id == newItem.id
     override fun areContentsTheSame(oldItem: MeasurementWithPreviousResults, newItem: MeasurementWithPreviousResults) =
             oldItem == newItem
 }

@@ -11,7 +11,7 @@ class Trainings_ChooseProgramFragment : ChooseProgramFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
     
-        adapter.clickCallback = { navigate(toChooseProgramDayFragment(it._id)) }
+        adapter.clickCallback = { navigate(toChooseProgramDayFragment(it.id)) }
      
         setXNavIcon()
     }

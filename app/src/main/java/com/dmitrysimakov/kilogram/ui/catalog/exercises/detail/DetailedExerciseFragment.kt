@@ -35,7 +35,7 @@ class DetailedExerciseFragment : Fragment() {
         inflater.inflate(R.menu.exercise_detail, menu)
         vm.exercise.observe(viewLifecycleOwner) { exercise ->
             val item = menu.findItem(R.id.addToFavorite)
-            item.isChecked = exercise.is_favorite
+            item.isChecked = exercise.isFavorite
             updateFavoriteButton(item)
         }
         super.onCreateOptionsMenu(menu, inflater)

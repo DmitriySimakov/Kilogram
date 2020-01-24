@@ -14,34 +14,34 @@ import org.threeten.bp.LocalDate
 interface MeasurementDao {
     
     @Query("""
-        SELECT mp.name AS param, mp.coefficient,
-        (SELECT value FROM measurement WHERE param = mp.name ORDER BY date DESC LIMIT 1) AS value
-        FROM measurement_param AS mp
+        SELECT MP.name AS param, MP.coefficient,
+        (SELECT value FROM Measurement WHERE param = MP.name ORDER BY date DESC LIMIT 1) AS value
+        FROM MeasurementParam AS MP
     """)
     suspend fun lastMeasurementsWithCoefficients() : List<ProportionsCalculatorItem>
     
     @Query("""
         SELECT
-        (SELECT _id FROM measurement WHERE param = mp.name ORDER BY date DESC LIMIT 0, 1) AS _id,
-        mp.name AS param,
-        (SELECT date FROM measurement WHERE param = mp.name ORDER BY date DESC LIMIT 0, 1) AS date,
-        (SELECT value FROM measurement WHERE param = mp.name ORDER BY date DESC LIMIT 0, 1) AS value,
-        (SELECT date FROM measurement WHERE param = mp.name ORDER BY date DESC LIMIT 1, 1) AS prev_date,
-        (SELECT value FROM measurement WHERE param = mp.name ORDER BY date DESC LIMIT 1, 1) AS prev_value
-        FROM measurement_param AS mp
+        (SELECT id FROM Measurement WHERE param = MP.name ORDER BY date DESC LIMIT 0, 1) AS id,
+        MP.name AS param,
+        (SELECT date FROM Measurement WHERE param = MP.name ORDER BY date DESC LIMIT 0, 1) AS date,
+        (SELECT value FROM Measurement WHERE param = MP.name ORDER BY date DESC LIMIT 0, 1) AS value,
+        (SELECT date FROM Measurement WHERE param = MP.name ORDER BY date DESC LIMIT 1, 1) AS prevDate,
+        (SELECT value FROM Measurement WHERE param = MP.name ORDER BY date DESC LIMIT 1, 1) AS prevValue
+        FROM MeasurementParam AS MP
     """)
     fun lastMeasurementsWithPreviousResults() : Flow<List<MeasurementWithPreviousResults>>
     
     @Query("""
-        SELECT m._id, m.param, m.value, m.date,
-        (SELECT value FROM measurement WHERE param = m.param ORDER BY date DESC LIMIT 1, 1) AS prev_value,
-        (SELECT date FROM measurement WHERE param = m.param ORDER BY date DESC LIMIT 1, 1) AS prev_date
-        FROM measurement AS m
-        WHERE m.date = :date
+        SELECT M.id, M.param, M.value, M.date,
+        (SELECT value FROM Measurement WHERE param = M.param ORDER BY date DESC LIMIT 1, 1) AS prevValue,
+        (SELECT date FROM Measurement WHERE param = M.param ORDER BY date DESC LIMIT 1, 1) AS prevDate
+        FROM Measurement AS M
+        WHERE M.date = :date
     """)
     fun measurementsWithPreviousResults(date: LocalDate) : Flow<List<MeasurementWithPreviousResults>>
 
-    @Query("SELECT date FROM measurement GROUP BY date ORDER BY date DESC")
+    @Query("SELECT date FROM Measurement GROUP BY date ORDER BY date DESC")
     fun measurementDates() : Flow<List<LocalDate>>
     
     

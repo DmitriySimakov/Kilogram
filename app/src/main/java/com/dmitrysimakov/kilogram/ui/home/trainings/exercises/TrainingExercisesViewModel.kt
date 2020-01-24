@@ -44,7 +44,7 @@ class TrainingExercisesViewModel(
     fun setTrainingId(id: Long) = _trainingId.setNewValue(id)
     
     fun deleteExercise(exercise: DetailedTrainingExercise) = viewModelScope.launch {
-        trainingExerciseRepository.delete(exercise._id)
+        trainingExerciseRepository.delete(exercise.id)
         exerciseRepository.decreaseExecutionsCnt(exercise.exercise)
     }
     
@@ -52,13 +52,13 @@ class TrainingExercisesViewModel(
         training.value?.let {
             it.duration = duration
             trainingRepository.update(it)
-            trainingExerciseRepository.finishTrainingExercises(it._id)
+            trainingExerciseRepository.finishTrainingExercises(it.id)
             _trainingFinishedEvent.value = Event(Unit)
         }
     }
     
     fun finishExercise(exercise: DetailedTrainingExercise) = viewModelScope.launch {
-        trainingExerciseRepository.updateState(exercise._id, TrainingExercise.FINISHED)
+        trainingExerciseRepository.updateState(exercise.id, TrainingExercise.FINISHED)
         exerciseRepository.increaseExecutionsCnt(exercise.exercise)
     }
     

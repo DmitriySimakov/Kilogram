@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ProgramDao {
     
-    @Query("SELECT * FROM program ORDER BY _id DESC")
+    @Query("SELECT * FROM Program ORDER BY id DESC")
     fun programsFlow() : Flow<List<Program>>
     
     
@@ -21,6 +21,6 @@ interface ProgramDao {
     suspend fun insert(program: Program) : Long
     
     
-    @Query("DELETE FROM program WHERE _id = :id")
+    @Query("DELETE FROM Program WHERE id = :id")
     suspend fun delete(id: Long)
 }

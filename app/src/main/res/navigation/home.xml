@@ -64,7 +64,7 @@
         android:label="@string/chooseTrainingDay"
         tools:layout="@layout/fragment_choose_program_day">
         <argument
-            android:name="program_id"
+            android:name="programId"
             app:argType="long" />
     </fragment>
     <fragment
@@ -73,10 +73,10 @@
         android:label="@string/training_session"
         tools:layout="@layout/fragment_exercises">
         <argument
-            android:name="training_id"
+            android:name="trainingId"
             app:argType="long" />
         <argument
-            android:name="training_is_running"
+            android:name="trainingIsRunning"
             app:argType="boolean" />
         <action
             android:id="@+id/to_trainingSetsFragment"
@@ -94,7 +94,7 @@
             android:name="num"
             app:argType="integer" />
         <argument
-            android:name="training_id"
+            android:name="trainingId"
             app:argType="long" />
     </fragment>
     <fragment
@@ -103,7 +103,7 @@
         android:label="@string/sets"
         tools:layout="@layout/fragment_training_sets">
         <argument
-            android:name="training_exercise_id"
+            android:name="trainingExerciseId"
             app:argType="long" />
         <action
             android:id="@+id/to_addSetDialog"
@@ -114,10 +114,10 @@
         android:name="com.dmitrysimakov.kilogram.ui.home.trainings.add_training_set.AddTrainingSetDialog"
         tools:layout="@layout/dialog_add_training_set">
         <argument
-            android:name="training_exercise_id"
+            android:name="trainingExerciseId"
             app:argType="long" />
         <argument
-            android:name="set_id"
+            android:name="setId"
             app:argType="long" />
         <argument
             android:name="weight"
