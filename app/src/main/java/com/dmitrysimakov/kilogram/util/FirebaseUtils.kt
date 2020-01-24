@@ -18,10 +18,16 @@ val userDocument
     get() = usersCollection.document(uid)
 
 val tokensDocument
-    get() = firestore.collection("registration_tokens").document(uid)
+    get() = firestore.document("registration_tokens/$uid")
 
 val trainingsCollection
     get() = userDocument.collection("trainings")
+
+val trainingExercisesCollection
+    get() = userDocument.collection("training_exercises")
+
+val trainingSetsCollection
+    get() = userDocument.collection("training_sets")
 
 val chatsCollection
     get() = userDocument.collection("chats")

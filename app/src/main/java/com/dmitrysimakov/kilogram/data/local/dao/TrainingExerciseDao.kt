@@ -44,7 +44,7 @@ interface TrainingExerciseDao {
     suspend fun insert(trainingExercises: List<TrainingExercise>)
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(trainingExercise: TrainingExercise)
+    suspend fun insert(trainingExercise: TrainingExercise): Long
     
     @Query("""
         INSERT INTO TrainingExercise (trainingId, exercise, indexNumber, rest, strategy, state)

@@ -69,10 +69,10 @@ val appModule = module {
     // ViewModels
     viewModel { SharedViewModel(get()) }
     viewModel { AddMeasurementViewModel(get(), get()) }
-    viewModel { AddTrainingSetViewModel(get(), get(), get()) }
+    viewModel { AddTrainingSetViewModel(get(), get(), get(), get()) }
     viewModel { CalendarDayViewModel(get()) }
     viewModel { ChatsViewModel() }
-    viewModel { ChooseExerciseViewModel(get(), get(), get(), get(), get()) }
+    viewModel { ChooseExerciseViewModel(get(), get(), get(), get(), get(), get()) }
     viewModel { ChooseProgramViewModel(get()) }
     viewModel { ChooseProgramDayViewModel(get()) }
     viewModel { CreatePostViewModel() }

@@ -1,0 +1,14 @@
+package com.dmitrysimakov.kilogram.data.remote
+
+import java.util.*
+
+data class TrainingSet(
+        val id: Long = 0,
+        val trainingExerciseId: Long = 0,
+        val weight: Int? = null,
+        val reps: Int? = null,
+        val time: Int? = null,
+        val distance: Int? = null,
+        val dateTime: Date? = null,
+        val updatedAt: Date = Date()
+)

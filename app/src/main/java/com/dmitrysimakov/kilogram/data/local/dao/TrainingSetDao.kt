@@ -18,7 +18,7 @@ interface TrainingSetDao {
     suspend fun insert(trainingSets: List<TrainingSet>)
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(trainingSet: TrainingSet)
+    suspend fun insert(trainingSet: TrainingSet): Long
     
     
     @Update

@@ -1,9 +1,11 @@
 package com.dmitrysimakov.kilogram.ui.home.trainings.add_training_set
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.work.*
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingSet
 import com.dmitrysimakov.kilogram.data.local.relation.ExerciseMeasures
@@ -11,14 +13,16 @@ import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingSetRepository
 import com.dmitrysimakov.kilogram.util.Event
+import com.dmitrysimakov.kilogram.workers.UploadTrainingSetWorker
 import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
 
 class AddTrainingSetViewModel(
+        app: Application,
         private val exerciseRepository: ExerciseRepository,
         private val trainingExerciseRepository: TrainingExerciseRepository,
         private val trainingExerciseSetRepository: TrainingSetRepository
-) : ViewModel() {
+) : AndroidViewModel(app) {
     
     private val _trainingExercise = MutableLiveData<TrainingExercise>()
     val trainingExercise: LiveData<TrainingExercise> = _trainingExercise
@@ -50,21 +54,35 @@ class AddTrainingSetViewModel(
     }}
     
     private suspend fun addSet() {
-        trainingSet.value?.let {
-            it.dateTime = OffsetDateTime.now()
-            trainingExerciseSetRepository.insert(it)
-            if (trainingExercise.value?.state == TrainingExercise.PLANNED) {
-                trainingExerciseRepository.updateState(it.trainingExerciseId, TrainingExercise.RUNNING)
-            }
-            _trainingSetSavedEvent.value = Event(Unit)
+        val trainingSet = trainingSet.value ?: return
+        
+        trainingSet.dateTime = OffsetDateTime.now()
+        val id = trainingExerciseSetRepository.insert(trainingSet)
+        uploadSet(id)
+        if (trainingExercise.value?.state == TrainingExercise.PLANNED) {
+            trainingExerciseRepository.updateState(trainingSet.trainingExerciseId, TrainingExercise.RUNNING)
         }
+        
+        _trainingSetSavedEvent.value = Event(Unit)
     }
     
     private suspend fun updateSet() {
-        trainingSet.value?.let {
-            trainingExerciseSetRepository.update(it)
-            _trainingSetSavedEvent.value = Event(Unit)
-        }
+        val trainingSet = trainingSet.value ?: return
+        
+        trainingExerciseSetRepository.update(trainingSet)
+        _trainingSetSavedEvent.value = Event(Unit)
+    }
+    
+    private fun uploadSet(id: Long) {
+        val constraints = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
+        val data = Data.Builder().putLong("id", id).build()
+        
+        val uploadSetRequest = OneTimeWorkRequest.Builder(UploadTrainingSetWorker::class.java)
+                .setConstraints(constraints)
+                .setInputData(data)
+                .build()
+        
+        WorkManager.getInstance(getApplication()).enqueue(uploadSetRequest)
     }
     
     fun decreaseWeight() { trainingSet.value?.weight = (trainingSet.value?.weight ?: 0) - 5 }

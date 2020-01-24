@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import com.dmitrysimakov.kilogram.R
+import org.threeten.bp.DateTimeUtils
 import org.threeten.bp.LocalDate
 import org.threeten.bp.OffsetDateTime
 import org.threeten.bp.format.DateTimeFormatter
@@ -58,6 +59,7 @@ fun Fragment.dispatchGetImageContentIntent(requestCode: Int) {
 private val offsetDateTimeFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
 fun String.toOffsetDateTime() = offsetDateTimeFormatter.parse(this, OffsetDateTime::from)
 fun OffsetDateTime.toIsoString() = format(offsetDateTimeFormatter)
+fun OffsetDateTime.toDate() = DateTimeUtils.toDate(this.toInstant())
 
 private val localDateFormatter = DateTimeFormatter.ISO_LOCAL_DATE
 fun String.toLocalDate() = localDateFormatter.parse(this, LocalDate::from)

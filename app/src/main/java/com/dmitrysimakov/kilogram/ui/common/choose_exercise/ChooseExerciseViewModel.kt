@@ -1,8 +1,10 @@
 package com.dmitrysimakov.kilogram.ui.common.choose_exercise
 
+import android.app.Application
 import androidx.lifecycle.*
 import androidx.sqlite.db.SimpleSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteQuery
+import androidx.work.*
 import com.dmitrysimakov.kilogram.data.local.dao.EquipmentDao
 import com.dmitrysimakov.kilogram.data.local.dao.ExerciseTargetDao
 import com.dmitrysimakov.kilogram.data.local.entity.Exercise
@@ -14,16 +16,18 @@ import com.dmitrysimakov.kilogram.data.repository.ProgramDayExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.util.Event
 import com.dmitrysimakov.kilogram.util.setNewValue
+import com.dmitrysimakov.kilogram.workers.UploadTrainingExerciseWorker
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class ChooseExerciseViewModel (
+        app: Application,
         equipmentDao: EquipmentDao,
         private val exerciseTargetDao: ExerciseTargetDao,
         private val exerciseRepo: ExerciseRepository,
         private val trainingExerciseRepository: TrainingExerciseRepository,
         private val programDayExerciseRepository: ProgramDayExerciseRepository
-) : ViewModel() {
+) : AndroidViewModel(app) {
     
     private val query = MediatorLiveData<SupportSQLiteQuery>()
     
@@ -78,10 +82,23 @@ class ChooseExerciseViewModel (
     }
     
     fun addExerciseToTraining(exercise: Exercise, trainingId: Long, num: Int) = viewModelScope.launch {
-        trainingExerciseRepository.insert(
-                TrainingExercise(0, trainingId, exercise.name, num, 120)
-        )
+        val trainingExercise = TrainingExercise(0, trainingId, exercise.name, num, 120)
+        val id = trainingExerciseRepository.insert(trainingExercise)
+        uploadTrainingExercise(id)
+        
         _exerciseAddedEvent.value = Event(Unit)
+    }
+    
+    private fun uploadTrainingExercise(id: Long) {
+        val constraints = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
+        val data = Data.Builder().putLong("id", id).build()
+        
+        val uploadTrainingExerciseRequest = OneTimeWorkRequest.Builder(UploadTrainingExerciseWorker::class.java)
+                .setConstraints(constraints)
+                .setInputData(data)
+                .build()
+        
+        WorkManager.getInstance(getApplication()).enqueue(uploadTrainingExerciseRequest)
     }
     
     fun addExerciseToProgramDay(exercise: Exercise, programDayId: Long, num: Int) = viewModelScope.launch {
