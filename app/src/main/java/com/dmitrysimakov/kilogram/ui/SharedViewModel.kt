@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
 import com.dmitrysimakov.kilogram.data.remote.Subscriptions
 import com.dmitrysimakov.kilogram.data.remote.User
-import com.dmitrysimakov.kilogram.data.remote.toUser
 import com.dmitrysimakov.kilogram.util.*
 import com.dmitrysimakov.kilogram.util.live_data.AbsentLiveData
 import com.dmitrysimakov.kilogram.util.live_data.liveData
@@ -25,7 +24,7 @@ class SharedViewModel(private val preferences: SharedPreferences) : ViewModel() 
     private val _userExist = MutableLiveData<Boolean>()
     val user: LiveData<User> = _userExist.switchMap { userExist ->
         if (!userExist) AbsentLiveData.create()
-        else userDocument.liveData { it.toUser() }
+        else userDocument.liveData { it.toObject(User::class.java)!! }
     }
     
     fun initUser() {
@@ -48,7 +47,7 @@ class SharedViewModel(private val preferences: SharedPreferences) : ViewModel() 
     }
     
     private fun createNewUser(token: String, writeBatch: WriteBatch) {
-        val newUser = User(firebaseUser!!.displayName ?: "", firebaseUser!!.photoUrl.toString())
+        val newUser = User(firebaseUser!!.uid, firebaseUser!!.displayName ?: "", firebaseUser!!.photoUrl.toString())
         writeBatch
                 .set(userDocument, newUser)
                 .set(tokensDocument, mapOf("tokens" to listOf(token)))

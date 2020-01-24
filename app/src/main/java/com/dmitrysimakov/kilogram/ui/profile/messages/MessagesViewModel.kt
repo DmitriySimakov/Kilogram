@@ -5,7 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
-import com.dmitrysimakov.kilogram.data.remote.*
+import com.dmitrysimakov.kilogram.data.remote.Chat
+import com.dmitrysimakov.kilogram.data.remote.Message
+import com.dmitrysimakov.kilogram.data.remote.User
 import com.dmitrysimakov.kilogram.util.*
 import com.dmitrysimakov.kilogram.util.live_data.liveData
 import com.google.firebase.firestore.CollectionReference
@@ -25,7 +27,7 @@ class MessagesViewModel : ViewModel() {
     val chat: LiveData<Chat> = _chat
     
     val messages = _chat.switchMap {
-        userMessagesCol.orderBy("timestamp").liveData { it.toMessage() }
+        userMessagesCol.orderBy("timestamp").liveData { it.toObject(Message::class.java)!! }
     }
     
     fun start(user: User?, companionId: String) {
@@ -39,11 +41,12 @@ class MessagesViewModel : ViewModel() {
         
         userChatDoc.get().addOnSuccessListener {
             if (it.exists()) {
-                _chat.setNewValue(it.toChat())
+                _chat.setNewValue(it.toObject(Chat::class.java)!!)
             } else {
                 usersCollection.document(companionId).get().addOnSuccessListener { companionDoc ->
-                    val newChatForUser = Chat(companionDoc.toUser())
-                    val newChatForCompanion = Chat(user)
+                    val companion = companionDoc.toObject(User::class.java)!!
+                    val newChatForUser = Chat(companion.id, companion)
+                    val newChatForCompanion = Chat(user.id, user)
                     _chat.setNewValue(newChatForUser)
                     
                     firestore.batch()
@@ -57,8 +60,8 @@ class MessagesViewModel : ViewModel() {
     
     fun sendMessage(text: String?, imageUrl: String?) {
         val senderId = user.value!!.id
-        val message = Message(senderId, text, imageUrl)
         val userMessageDoc = userMessagesCol.document()
+        val message = Message(userMessageDoc.id, senderId, text, imageUrl)
         firestore.batch()
                 .set(userMessageDoc, message)
                 .set(companionMessagesCol.document(userMessageDoc.id), message)

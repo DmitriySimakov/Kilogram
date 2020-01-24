@@ -7,7 +7,6 @@ import androidx.lifecycle.switchMap
 import com.dmitrysimakov.kilogram.data.remote.Subscriptions
 import com.dmitrysimakov.kilogram.data.remote.User
 import com.dmitrysimakov.kilogram.data.remote.relation.withSubscriptionStatus
-import com.dmitrysimakov.kilogram.data.remote.toUser
 import com.dmitrysimakov.kilogram.util.live_data.AbsentLiveData
 import com.dmitrysimakov.kilogram.util.live_data.liveData
 import com.dmitrysimakov.kilogram.util.setNewValue
@@ -25,7 +24,7 @@ class FollowersViewModel : ViewModel() {
     
     val followers = subscriptions.switchMap { subscriptions ->
         if (subscriptions == null) AbsentLiveData.create()
-        else usersCollection.liveData { it.toUser() }.map {
+        else usersCollection.liveData { it.toObject(User::class.java)!! }.map {
             it.filter {person -> subscriptions.followersIds.contains(person.id) }
                     .map { person -> person.withSubscriptionStatus(subscriptions) }
         }

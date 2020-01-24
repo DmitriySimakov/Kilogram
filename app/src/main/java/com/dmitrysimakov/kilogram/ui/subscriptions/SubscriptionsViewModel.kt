@@ -4,7 +4,6 @@ import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.remote.Post
 import com.dmitrysimakov.kilogram.data.remote.Subscriptions
 import com.dmitrysimakov.kilogram.data.remote.User
-import com.dmitrysimakov.kilogram.data.remote.toPost
 import com.dmitrysimakov.kilogram.util.live_data.AbsentLiveData
 import com.dmitrysimakov.kilogram.util.live_data.liveData
 import com.dmitrysimakov.kilogram.util.postsCollection
@@ -23,7 +22,7 @@ class SubscriptionsViewModel : ViewModel() {
     
     val posts = _subscriptions.switchMap { subscriptions ->
         if (subscriptions == null) AbsentLiveData.create()
-        else postsCollection.liveData { it.toPost() }.map {
+        else postsCollection.liveData { it.toObject(Post::class.java)!! }.map {
             it.filter { post -> subscriptions.followedIds.contains(post.authorId) }
         }
     }

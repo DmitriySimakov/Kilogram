@@ -3,7 +3,6 @@ package com.dmitrysimakov.kilogram.ui.profile.chats
 import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.remote.Chat
 import com.dmitrysimakov.kilogram.data.remote.User
-import com.dmitrysimakov.kilogram.data.remote.toChat
 import com.dmitrysimakov.kilogram.util.chatsCollection
 import com.dmitrysimakov.kilogram.util.live_data.liveData
 import com.dmitrysimakov.kilogram.util.setNewValue
@@ -14,7 +13,7 @@ class ChatsViewModel : ViewModel() {
     val user: LiveData<User?> = _user
     
     private val unsortedChats = user.switchMap { user ->
-        if (user != null) chatsCollection.liveData { doc -> doc.toChat() }
+        if (user != null) chatsCollection.liveData { doc -> doc.toObject(Chat::class.java)!! }
         else MutableLiveData<List<Chat>>(null)
     }
     

@@ -5,7 +5,6 @@ import com.dmitrysimakov.kilogram.data.remote.Subscriptions
 import com.dmitrysimakov.kilogram.data.remote.User
 import com.dmitrysimakov.kilogram.data.remote.relation.UserWithSubscriptionStatus
 import com.dmitrysimakov.kilogram.data.remote.relation.withSubscriptionStatus
-import com.dmitrysimakov.kilogram.data.remote.toUser
 import com.dmitrysimakov.kilogram.util.*
 import com.dmitrysimakov.kilogram.util.live_data.AbsentLiveData
 import com.dmitrysimakov.kilogram.util.live_data.liveData
@@ -22,7 +21,7 @@ class PeopleViewModel : ViewModel() {
         else subscriptionsDocument.liveData { it.toObject(Subscriptions::class.java) }
     }
     
-    private val _loadedPeople = usersCollection.liveData { it.toUser() }
+    private val _loadedPeople = usersCollection.liveData { it.toObject(User::class.java)!! }
     private val _people = MediatorLiveData<List<UserWithSubscriptionStatus>>()
     val people: LiveData<List<UserWithSubscriptionStatus>> = _people
     

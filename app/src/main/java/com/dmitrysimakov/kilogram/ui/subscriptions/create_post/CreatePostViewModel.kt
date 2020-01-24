@@ -24,10 +24,11 @@ class CreatePostViewModel : ViewModel() {
     fun setUser(user: User?) { _user.setNewValue(user) }
     
     fun publishPost() {
+        val postDoc = postsCollection.document()
         val author = _user.value ?: return
-        val post = Post(author.id, author.name, author.photoUrl, title.value, content.value, imageUrl.value, Date())
+        val post = Post(postDoc.id, author.id, author.name, author.photoUrl, title.value, content.value, imageUrl.value, Date())
         
-        postsCollection.document().set(post).addOnSuccessListener {
+        postDoc.set(post).addOnSuccessListener {
             _postPublishedEvent.value = Event(Unit)
         }
     }
