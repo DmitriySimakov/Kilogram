@@ -90,7 +90,7 @@ dependencies {
     //endregion room
     
     //region work manager
-    implementation "androidx.work:work-runtime-ktx:2.2.0"
+    implementation "androidx.work:work-runtime-ktx:2.3.0"
     //endregion work manager
     
     //endregion Architecture components
