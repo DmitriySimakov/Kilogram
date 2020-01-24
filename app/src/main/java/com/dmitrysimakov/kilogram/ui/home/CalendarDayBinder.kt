@@ -1,6 +1,5 @@
 package com.dmitrysimakov.kilogram.ui.home
 
-import android.content.res.Resources
 import android.view.View
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.data.local.relation.DetailedTraining
@@ -11,10 +10,7 @@ import com.kizitonwose.calendarview.ui.ViewContainer
 import kotlinx.android.synthetic.main.calendar_day_view.view.*
 import org.threeten.bp.LocalDate
 
-class CalendarDayBinder(
-        private val resources: Resources,
-        private val onClick: ((LocalDate) -> Unit)
-) : DayBinder<DayViewContainer> {
+class CalendarDayBinder(private val onClick: ((LocalDate) -> Unit)) : DayBinder<DayViewContainer> {
     
     private var trainings = listOf<DetailedTraining>()
     
@@ -31,12 +27,12 @@ class CalendarDayBinder(
             dayText.text = curDate.dayOfMonth.toString()
     
             if (day.owner != DayOwner.THIS_MONTH) {
-                dayText.setTextColor(resources.getColor(R.color.grey500))
+                dayText.setTextColor(view.resources.getColor(R.color.grey500))
             }
             
             if (curDate == today) {
                 dayText.setBackgroundResource(R.drawable.oval)
-                dayText.setTextColor(resources.getColor(R.color.white))
+                dayText.setTextColor(view.resources.getColor(R.color.white))
             }
             
             val currentDayTrainings = trainings.filter {

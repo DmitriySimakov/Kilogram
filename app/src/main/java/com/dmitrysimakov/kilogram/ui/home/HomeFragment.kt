@@ -44,7 +44,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     
     private val calendarMonthBinder by lazy { CalendarMonthBinder() }
-    private val calendarDayBinder by lazy { CalendarDayBinder(resources) {
+    private val calendarDayBinder by lazy { CalendarDayBinder() {
         navigate(toCalendarDayDialog(it.toIsoString()))
     }}
     private val photosAdapter by lazy { PhotosAdapter { navigate(toPhotoFragment(it.uri)) } }
