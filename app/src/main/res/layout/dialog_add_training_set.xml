@@ -21,7 +21,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:goneUnless="@{vm.measures.weight}">
+            app:goneUnless="@{vm.weight != null}">
             
             <ImageView
                 style="@style/IconButton"
@@ -42,7 +42,7 @@
                     android:gravity="center"
                     android:inputType="number"
                     android:selectAllOnFocus="true"
-                    android:text="@={Converter.intToString(vm.trainingSet.weight)}"
+                    android:text="@={Converter.intToString(vm.weight)}"
                     app:notEmpty="@{true}" />
             
             </com.google.android.material.textfield.TextInputLayout>
@@ -58,7 +58,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:goneUnless="@{vm.measures.reps}">
+            app:goneUnless="@{vm.reps != null}">
             
             <ImageView
                 style="@style/IconButton"
@@ -79,7 +79,7 @@
                     android:gravity="center"
                     android:inputType="number"
                     android:selectAllOnFocus="true"
-                    android:text="@={Converter.intToString(vm.trainingSet.reps)}"
+                    android:text="@={Converter.intToString(vm.reps)}"
                     app:notEmpty="@{true}" />
             
             </com.google.android.material.textfield.TextInputLayout>
@@ -95,7 +95,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:goneUnless="@{vm.measures.time}">
+            app:goneUnless="@{vm.time != null}">
             
             <ImageView
                 style="@style/IconButton"
@@ -116,7 +116,7 @@
                     android:gravity="center"
                     android:inputType="number"
                     android:selectAllOnFocus="true"
-                    android:text="@={Converter.intToString(vm.trainingSet.time)}"
+                    android:text="@={Converter.intToString(vm.time)}"
                     app:notEmpty="@{true}" />
             
             </com.google.android.material.textfield.TextInputLayout>
@@ -132,7 +132,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:goneUnless="@{vm.measures.distance}">
+            app:goneUnless="@{vm.distance != null}">
             
             <ImageView
                 style="@style/IconButton"
@@ -153,7 +153,7 @@
                     android:gravity="center"
                     android:inputType="number"
                     android:selectAllOnFocus="true"
-                    android:text="@={Converter.intToString(vm.trainingSet.distance)}"
+                    android:text="@={Converter.intToString(vm.distance)}"
                     app:notEmpty="@{true}" />
             
             </com.google.android.material.textfield.TextInputLayout>
@@ -170,7 +170,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@{vm.trainingSet.id == 0 ? @string/add_set : @string/save_changes}"
+            android:text="@{vm.trainingSetId == 0 ? @string/add_set : @string/save_changes}"
             android:onClick="@{() -> vm.submit()}"
             tools:text="@string/add_set" />
     

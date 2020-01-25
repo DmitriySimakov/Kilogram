@@ -42,8 +42,6 @@ class AddTrainingSetDialog : BottomSheetDialogFragment() {
                 args.distance
         )
         
-        vm.trainingSet.observe(viewLifecycleOwner) { }
-        vm.trainingExercise.observe(viewLifecycleOwner) { }
         vm.trainingSetSavedEvent.observe(viewLifecycleOwner) {
             sharedVM.onSetCompleted(vm.trainingExercise.value?.rest ?: 0)
             hideKeyboard()

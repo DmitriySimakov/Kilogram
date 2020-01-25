@@ -28,14 +28,12 @@ class TrainingSetsFragment : Fragment() {
     private lateinit var binding: FragmentTrainingSetsBinding
     
     private val adapter by lazy { TrainingSetsAdapter(vm) { set ->
-        navigate(toAddSetDialog(
-                args.trainingExerciseId,
-                set.id,
-                set.prevWeight ?: 0,
-                set.prevReps ?: 0,
-                set.prevTime ?: 0,
-                set.prevDistance ?: 0
-        ))
+        val weight = set.weight ?: set.prevWeight ?: -1
+        val reps = set.reps ?: set.prevReps ?: -1
+        val time = set.time ?: set.prevTime ?: -1
+        val distance = set.distance ?: set.prevDistance ?: -1
+        
+        navigate(toAddSetDialog(args.trainingExerciseId, set.id, weight, reps, time, distance))
     } }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -72,14 +70,14 @@ class TrainingSetsFragment : Fragment() {
         
         binding.fab.setOnClickListener{
             val set = vm.currentSets.value?.lastOrNull() ?: vm.previousSets.value?.firstOrNull()
-            navigate(toAddSetDialog(
-                    args.trainingExerciseId,
-                    0,
-                    set?.weight ?: 0,
-                    set?.reps ?: 0,
-                    set?.time ?: 0,
-                    set?.distance ?: 0
-            ))
+    
+            val measures = vm.measures.value!!
+            val weight = if (measures.weight) { set?.weight ?: 0 } else -1
+            val reps = if (measures.reps) { set?.reps ?: 0 } else -1
+            val time = if (measures.time) { set?.time ?: 0 } else -1
+            val distance = if (measures.distance) { set?.distance ?: 0 } else -1
+            
+            navigate(toAddSetDialog(args.trainingExerciseId, 0, weight, reps, time, distance))
         }
     }
     
