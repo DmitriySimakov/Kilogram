@@ -9,7 +9,6 @@ import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 import com.dmitrysimakov.kilogram.ui.common.DataBoundViewHolder
 
 class TrainingSetsAdapter(
-        private val viewModel: TrainingSetsViewModel,
         clickCallback: ((SetWithPreviousResults) -> Unit)
 ) : DataBoundListAdapter<SetWithPreviousResults, ItemTrainingSetBinding>(
         clickCallback,
@@ -26,7 +25,6 @@ class TrainingSetsAdapter(
 
     override fun bind(binding: ItemTrainingSetBinding, item: SetWithPreviousResults) {
         binding.set = item
-        binding.vm = viewModel
     }
 }
 

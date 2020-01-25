@@ -6,10 +6,6 @@
     <data>
         
         <variable
-            name="vm"
-            type="com.dmitrysimakov.kilogram.ui.home.trainings.training_sets.TrainingSetsViewModel" />
-        
-        <variable
             name="set"
             type="com.dmitrysimakov.kilogram.data.local.relation.SetWithPreviousResults" />
     </data>
@@ -35,7 +31,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:curr="@{set.weight}"
-            app:gone="@{vm.measures.weight}"
             app:prev="@{set.prevWeight}" />
         
         <include
@@ -44,7 +39,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:curr="@{set.reps}"
-            app:gone="@{vm.measures.reps}"
             app:prev="@{set.prevReps}" />
         
         <include
@@ -53,7 +47,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:curr="@{set.time}"
-            app:gone="@{vm.measures.time}"
             app:prev="@{set.prevTime}" />
         
         <include
@@ -62,7 +55,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:curr="@{set.distance}"
-            app:gone="@{vm.measures.distance}"
             app:prev="@{set.prevDistance}" />
     
     </LinearLayout>

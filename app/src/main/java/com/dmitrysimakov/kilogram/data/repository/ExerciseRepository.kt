@@ -6,8 +6,6 @@ import com.dmitrysimakov.kilogram.data.local.dao.ExerciseDao
 class ExerciseRepository(private val dao: ExerciseDao) {
 
     fun exercisesFlow(query: SupportSQLiteQuery) = dao.exercisesFlow(query)
-
-    suspend fun measures(exerciseName: String) = dao.measures(exerciseName)
     
     suspend fun exercise(name: String) = dao.exercise(name)
     

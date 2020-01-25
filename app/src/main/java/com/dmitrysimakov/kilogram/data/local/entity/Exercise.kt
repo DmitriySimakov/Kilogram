@@ -1,7 +1,9 @@
 package com.dmitrysimakov.kilogram.data.local.entity
 
-import androidx.room.*
-import com.dmitrysimakov.kilogram.data.local.relation.ExerciseMeasures
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.Index
+import androidx.room.PrimaryKey
 
 @Entity(indices = [
             Index(value = ["target"]),
@@ -28,5 +30,8 @@ data class Exercise(
         val description: String = "",
         val executionsCount: Long = 0,
         var isFavorite: Boolean = false,
-        @Embedded(prefix = "measure_") val measures: ExerciseMeasures = ExerciseMeasures()
+        val measuredInWeight: Boolean = true,
+        val measuredInReps: Boolean = true,
+        val measuredInTime: Boolean = false,
+        val measuredInDistance: Boolean = false
 )

@@ -3,7 +3,6 @@ package com.dmitrysimakov.kilogram.data.local.dao
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteQuery
 import com.dmitrysimakov.kilogram.data.local.entity.Exercise
-import com.dmitrysimakov.kilogram.data.local.relation.ExerciseMeasures
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -11,10 +10,6 @@ interface ExerciseDao {
     
     @RawQuery(observedEntities = [Exercise::class])
     fun exercisesFlow(query: SupportSQLiteQuery) : Flow<List<Exercise>>
-    
-    @Query("""SELECT measure_weight AS weight, measure_reps AS reps, measure_time AS time, measure_distance AS distance
-        FROM Exercise WHERE name = :exerciseName""")
-    suspend fun measures(exerciseName: String) : ExerciseMeasures
     
     @Query("SELECT * FROM Exercise WHERE name = :name")
     suspend fun exercise(name: String) : Exercise

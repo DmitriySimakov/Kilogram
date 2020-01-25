@@ -6,10 +6,6 @@
     <data>
         
         <variable
-            name="gone"
-            type="Boolean" />
-        
-        <variable
             name="curr"
             type="Integer" />
         
@@ -21,7 +17,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:goneUnless="@{gone}">
+        app:goneUnless="@{curr != null || prev != null}">
         
         <TextView
             android:id="@+id/param"

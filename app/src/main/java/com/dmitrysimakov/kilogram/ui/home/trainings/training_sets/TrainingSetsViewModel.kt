@@ -24,8 +24,8 @@ class TrainingSetsViewModel(
         trainingExerciseRepository.trainingExerciseFlow(it).asLiveData()
     }
     
-    val measures = trainingExercise.switchMap {
-        liveData { emit(exerciseRepository.measures(it.exercise)) }
+    val exercise = trainingExercise.switchMap {
+        liveData { emit(exerciseRepository.exercise(it.exercise)) }
     }
     
     val currentSets = trainingExercise.switchMap {

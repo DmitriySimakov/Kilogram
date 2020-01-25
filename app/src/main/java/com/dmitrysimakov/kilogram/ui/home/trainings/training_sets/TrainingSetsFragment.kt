@@ -27,7 +27,7 @@ class TrainingSetsFragment : Fragment() {
     
     private lateinit var binding: FragmentTrainingSetsBinding
     
-    private val adapter by lazy { TrainingSetsAdapter(vm) { set ->
+    private val adapter by lazy { TrainingSetsAdapter { set ->
         val weight = set.weight ?: set.prevWeight ?: -1
         val reps = set.reps ?: set.prevReps ?: -1
         val time = set.time ?: set.prevTime ?: -1
@@ -65,17 +65,17 @@ class TrainingSetsFragment : Fragment() {
         }).attachToRecyclerView(recyclerView)
         
         vm.trainingExercise.observe(viewLifecycleOwner)  { setTitle(it.exercise) }
-        vm.measures.observe(viewLifecycleOwner) {}
+        vm.exercise.observe(viewLifecycleOwner) {}
         vm.sets.observe(viewLifecycleOwner) { adapter.submitList(it) }
         
         binding.fab.setOnClickListener{
             val set = vm.currentSets.value?.lastOrNull() ?: vm.previousSets.value?.firstOrNull()
     
-            val measures = vm.measures.value!!
-            val weight = if (measures.weight) { set?.weight ?: 0 } else -1
-            val reps = if (measures.reps) { set?.reps ?: 0 } else -1
-            val time = if (measures.time) { set?.time ?: 0 } else -1
-            val distance = if (measures.distance) { set?.distance ?: 0 } else -1
+            val exercise = vm.exercise.value!!
+            val weight = if (exercise.measuredInWeight) { set?.weight ?: 0 } else -1
+            val reps = if (exercise.measuredInReps) { set?.reps ?: 0 } else -1
+            val time = if (exercise.measuredInTime) { set?.time ?: 0 } else -1
+            val distance = if (exercise.measuredInDistance) { set?.distance ?: 0 } else -1
             
             navigate(toAddSetDialog(args.trainingExerciseId, 0, weight, reps, time, distance))
         }
