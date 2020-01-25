@@ -20,7 +20,10 @@ class TrainingRepository(private val dao: TrainingDao, private val src: Training
         return id
     }
     
-    suspend fun update(training: Training) = dao.update(training)
+    suspend fun update(training: Training) {
+        dao.update(training)
+        src.uploadTraining(training.id)
+    }
     
     suspend fun delete(id: Long) = dao.delete(id)
 }

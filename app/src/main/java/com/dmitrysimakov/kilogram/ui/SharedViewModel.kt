@@ -11,7 +11,6 @@ import com.dmitrysimakov.kilogram.data.remote.User
 import com.dmitrysimakov.kilogram.util.*
 import com.dmitrysimakov.kilogram.util.live_data.AbsentLiveData
 import com.dmitrysimakov.kilogram.util.live_data.liveData
-import com.google.firebase.firestore.WriteBatch
 import com.google.firebase.iid.FirebaseInstanceId
 import java.util.*
 
@@ -36,31 +35,31 @@ class SharedViewModel(private val preferences: SharedPreferences) : ViewModel() 
     fun signIn() {
         userDocument.get().addOnSuccessListener { doc ->
             FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener{ result ->
-                val token = result.token
-                val writeBatch = firestore.batch()
-                
-                if (!doc.exists()) createNewUser(token, writeBatch) else addToken(token, writeBatch)
-                
-                writeBatch.commit().addOnSuccessListener { _userExist.value = true }
+                if (!doc.exists()) createNewUser(result.token)
+                else addToken(result.token)
             }
         }
     }
     
-    private fun createNewUser(token: String, writeBatch: WriteBatch) {
+    private fun createNewUser(token: String) {
         val newUser = User(firebaseUser!!.uid, firebaseUser!!.displayName ?: "", firebaseUser!!.photoUrl.toString())
-        writeBatch
+        firestore.batch()
                 .set(userDocument, newUser)
                 .set(tokensDocument, mapOf("tokens" to listOf(token)))
                 .set(subscriptionsDocument, Subscriptions())
+                .commit()
+                .addOnSuccessListener { _userExist.value = true }
     }
     
-    private fun addToken(token: String, writeBatch: WriteBatch) {
+    private fun addToken(token: String) {
         tokensDocument.get().addOnSuccessListener { doc ->
             @Suppress("UNCHECKED_CAST")
             val tokens = doc["tokens"] as MutableList<String>
             if (!tokens.contains(token)) {
                 tokens.add(token)
-                writeBatch.update(tokensDocument, "tokens", tokens)
+                tokensDocument.update("tokens", tokens).addOnSuccessListener {
+                    _userExist.value = true
+                }
             }
         }
     }

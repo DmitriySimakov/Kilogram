@@ -14,6 +14,9 @@ interface ProgramDayExerciseDao {
     """)
     fun programDayExercisesFlow(programDayId: Long) : Flow<List<ProgramDayExercise>>
     
+    @Query("SELECT * FROM ProgramDayExercise WHERE programDayId = :programDayId")
+    suspend fun programDayExercises(programDayId: Long) : List<ProgramDayExercise>
+    
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(programDayExercises: List<ProgramDayExercise>)

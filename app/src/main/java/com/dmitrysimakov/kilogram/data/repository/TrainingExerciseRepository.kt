@@ -2,12 +2,11 @@ package com.dmitrysimakov.kilogram.data.repository
 
 import com.dmitrysimakov.kilogram.data.local.dao.TrainingExerciseDao
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
-import com.dmitrysimakov.kilogram.data.local.relation.DetailedTrainingExercise
 import com.dmitrysimakov.kilogram.data.remote.data_sources.TrainingSource
 
 class TrainingExerciseRepository(private val dao: TrainingExerciseDao, private val src: TrainingSource) {
     
-    fun detailedTrainingExercisesFlow(trainingId: Long) = dao.detailedTrainingExercisesFlow(trainingId)
+    fun trainingExercisesFlow(trainingId: Long) = dao.trainingExercisesFlow(trainingId)
     
     suspend fun previousTrainingExercise(trainingId: Long, exercise: String) = dao.previousTrainingExercise(trainingId, exercise)
     
@@ -15,23 +14,31 @@ class TrainingExerciseRepository(private val dao: TrainingExerciseDao, private v
     
     suspend fun trainingExercise(id: Long) = dao.trainingExercise(id)
     
+    suspend fun trainingExercises(trainingId: Long) = dao.trainingExercises(trainingId)
+    
     suspend fun insert(exercise: TrainingExercise) {
         val id = dao.insert(exercise)
         src.uploadTrainingExercise(id)
     }
     
+    suspend fun insert(exercises: List<TrainingExercise>) {
+        dao.insert(exercises)
+        src.uploadTrainingExerciseList(exercises[0].trainingId)
+    }
+    
     suspend fun delete(id: Long) = dao.delete(id)
     
-    suspend fun fillTrainingWithProgramExercises(trainingId: Long, programDayId: Long) = dao.fillTrainingWithProgramExercises(trainingId, programDayId)
+    suspend fun updateState(id: Long, state: Int) {
+        val exercise = dao.trainingExercise(id)
+        val updatedExercise = exercise.copy(state = state)
+        dao.update(updatedExercise)
+        src.uploadTrainingExercise(id)
+    }
     
-    suspend fun updateState(id: Long, state: Int) = dao.updateState(id, state)
+    suspend fun updateIndexNumbers(trainingExercises: List<TrainingExercise>) = dao.updateIndexNumbers(trainingExercises)
     
-    suspend fun updateIndexNumbers(detailedTrainingExercises: List<DetailedTrainingExercise>) = dao.updateIndexNumbers(detailedTrainingExercises)
-    
-    suspend fun finishTrainingExercises(trainingId: Long) =
-            dao.finishTrainingExercises(
-                    trainingId,
-                    TrainingExercise.FINISHED,
-                    TrainingExercise.RUNNING
-            )
+    suspend fun update(trainingExercises: List<TrainingExercise>) {
+        dao.update(trainingExercises)
+        src.uploadTrainingExerciseList(trainingExercises[0].trainingId)
+    }
 }

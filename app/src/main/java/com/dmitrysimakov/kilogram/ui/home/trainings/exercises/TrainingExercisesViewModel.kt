@@ -2,7 +2,6 @@ package com.dmitrysimakov.kilogram.ui.home.trainings.exercises
 
 import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
-import com.dmitrysimakov.kilogram.data.local.relation.DetailedTrainingExercise
 import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
@@ -23,7 +22,7 @@ class TrainingExercisesViewModel(
     val training = _trainingId.switchMap { liveData { emit(trainingRepository.training(it)) } }
     
     private val exercises = _trainingId.switchMap {
-        trainingExerciseRepository.detailedTrainingExercisesFlow(it).asLiveData()
+        trainingExerciseRepository.trainingExercisesFlow(it).asLiveData()
     }
     
     val runningExercises = exercises.map {
@@ -43,21 +42,24 @@ class TrainingExercisesViewModel(
     
     fun setTrainingId(id: Long) = _trainingId.setNewValue(id)
     
-    fun deleteExercise(exercise: DetailedTrainingExercise) = viewModelScope.launch {
+    fun deleteExercise(exercise: TrainingExercise) = viewModelScope.launch {
         trainingExerciseRepository.delete(exercise.id)
         exerciseRepository.decreaseExecutionsCnt(exercise.exercise)
     }
     
-    fun finishTraining(duration: Int) = viewModelScope.launch {
-        training.value?.let {
-            it.duration = duration
-            trainingRepository.update(it)
-            trainingExerciseRepository.finishTrainingExercises(it.id)
-            _trainingFinishedEvent.value = Event(Unit)
-        }
-    }
+    fun finishTraining(duration: Int)  { viewModelScope.launch {
+        val training = training.value ?: return@launch
+        
+        trainingRepository.update(training.copy(duration = duration))
+        
+        trainingExerciseRepository.update(
+                exercises.value!!.map { it.copy(state = TrainingExercise.FINISHED) }
+        )
+        
+        _trainingFinishedEvent.value = Event(Unit)
+    }}
     
-    fun finishExercise(exercise: DetailedTrainingExercise) = viewModelScope.launch {
+    fun finishExercise(exercise: TrainingExercise) = viewModelScope.launch {
         trainingExerciseRepository.updateState(exercise.id, TrainingExercise.FINISHED)
         exerciseRepository.increaseExecutionsCnt(exercise.exercise)
     }

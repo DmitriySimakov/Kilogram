@@ -3,6 +3,8 @@ package com.dmitrysimakov.kilogram.ui.home.trainings.create_training
 import android.app.Application
 import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.local.entity.Training
+import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
+import com.dmitrysimakov.kilogram.data.repository.ProgramDayExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
@@ -15,7 +17,8 @@ class CreateTrainingViewModel(
         app: Application,
         private val trainingRepo: TrainingRepository,
         private val trainingExerciseRepo: TrainingExerciseRepository,
-        private val programDayRepo: ProgramDayRepository
+        private val programDayRepo: ProgramDayRepository,
+        private val programDayExerciseRepo: ProgramDayExerciseRepository
 ) : AndroidViewModel(app) {
     
     private val _dateTime = MutableLiveData(OffsetDateTime.now())
@@ -51,7 +54,9 @@ class CreateTrainingViewModel(
     private suspend fun fillTrainingWithProgramExercises(trainingId: Long) {
         val programDayId = programDay.value?.programDayId ?: return
         viewModelScope.launch {
-            trainingExerciseRepo.fillTrainingWithProgramExercises(trainingId, programDayId)
+            val programDayExercises = programDayExerciseRepo.programDayExercises(programDayId)
+            val trainingExercises = programDayExercises.map { TrainingExercise(0, trainingId, it.exercise, it.indexNumber, it.rest, it.strategy) }
+            trainingExerciseRepo.insert(trainingExercises)
         }
     }
 }
