@@ -2,17 +2,14 @@ package com.dmitrysimakov.kilogram.ui.home.trainings.create_training
 
 import android.app.Application
 import androidx.lifecycle.*
-import androidx.work.*
 import com.dmitrysimakov.kilogram.data.local.entity.Training
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
 import com.dmitrysimakov.kilogram.util.Event
 import com.dmitrysimakov.kilogram.util.setNewValue
-import com.dmitrysimakov.kilogram.workers.UploadTrainingWorker
 import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
-
 
 class CreateTrainingViewModel(
         app: Application,
@@ -47,25 +44,13 @@ class CreateTrainingViewModel(
         val training = Training(0, dateTime.value!!, null, programDayId)
         val trainingId = trainingRepo.insert(training)
         if (byProgram.value == true) fillTrainingWithProgramExercises(trainingId)
-        uploadTraining(trainingId)
         
         _trainingCreatedEvent.value = Event(trainingId)
     }
     
-    private fun uploadTraining(id: Long) {
-        val constraints = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
-        val data = Data.Builder().putLong("id", id).build()
-        
-        val uploadTrainingRequest = OneTimeWorkRequest.Builder(UploadTrainingWorker::class.java)
-                .setConstraints(constraints)
-                .setInputData(data)
-                .build()
-    
-        WorkManager.getInstance(getApplication()).enqueue(uploadTrainingRequest)
-    }
-    
-    private suspend fun fillTrainingWithProgramExercises(trainingId: Long) = viewModelScope.launch {
-        programDay.value?.programDayId?.let { programDayId ->
+    private suspend fun fillTrainingWithProgramExercises(trainingId: Long) {
+        val programDayId = programDay.value?.programDayId ?: return
+        viewModelScope.launch {
             trainingExerciseRepo.fillTrainingWithProgramExercises(trainingId, programDayId)
         }
     }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
 import com.dmitrysimakov.kilogram.data.local.KilogramDb
+import com.dmitrysimakov.kilogram.data.remote.data_sources.TrainingSource
 import com.dmitrysimakov.kilogram.data.repository.*
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.ui.catalog.exercises.detail.DetailedExerciseViewModel
@@ -56,6 +57,8 @@ val appModule = module {
     single { get<KilogramDb>().trainingSetDao() }
     single { get<KilogramDb>().measurementDao() }
     single { get<KilogramDb>().measurementParamDao() }
+    // Remote data sources
+    single { TrainingSource(get()) }
     // Repositories
     single { ExerciseRepository(get()) }
     single { MeasurementRepository(get()) }
@@ -63,9 +66,9 @@ val appModule = module {
     single { ProgramDayRepository(get()) }
     single { ProgramDayExerciseRepository(get()) }
     single { ProgramRepository(get()) }
-    single { TrainingExerciseRepository(get()) }
-    single { TrainingSetRepository(get()) }
-    single { TrainingRepository(get()) }
+    single { TrainingExerciseRepository(get(), get()) }
+    single { TrainingSetRepository(get(), get()) }
+    single { TrainingRepository(get(), get()) }
     // ViewModels
     viewModel { SharedViewModel(get()) }
     viewModel { AddMeasurementViewModel(get(), get()) }

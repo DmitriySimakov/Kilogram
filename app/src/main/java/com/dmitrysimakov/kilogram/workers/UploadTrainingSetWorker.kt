@@ -20,7 +20,7 @@ class UploadTrainingSetWorker(context: Context, workerParams: WorkerParameters):
         val set = repository.trainingSet(trainingSetId)
         
         val trainingSet = TrainingSet(set.id, set.trainingExerciseId, set.weight, set.reps, set.time, set.distance, set.dateTime?.toDate(), Date())
-        trainingSetsCollection.document(id.toString()).set(trainingSet)
+        trainingSetsCollection.document(set.id.toString()).set(trainingSet)
         
         return Result.success()
     }
