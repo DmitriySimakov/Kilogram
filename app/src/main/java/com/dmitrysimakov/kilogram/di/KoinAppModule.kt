@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
 import com.dmitrysimakov.kilogram.data.local.KilogramDb
+import com.dmitrysimakov.kilogram.data.remote.data_sources.MeasurementSource
+import com.dmitrysimakov.kilogram.data.remote.data_sources.PhotoSource
 import com.dmitrysimakov.kilogram.data.remote.data_sources.ProgramSource
 import com.dmitrysimakov.kilogram.data.remote.data_sources.TrainingSource
 import com.dmitrysimakov.kilogram.data.repository.*
@@ -59,12 +61,14 @@ val appModule = module {
     single { get<KilogramDb>().measurementDao() }
     single { get<KilogramDb>().measurementParamDao() }
     // Remote data sources
-    single { TrainingSource(get()) }
+    single { MeasurementSource(get()) }
+    single { PhotoSource(get()) }
     single { ProgramSource(get()) }
+    single { TrainingSource(get()) }
     // Repositories
     single { ExerciseRepository(get()) }
-    single { MeasurementRepository(get()) }
-    single { PhotoRepository(get()) }
+    single { MeasurementRepository(get(), get()) }
+    single { PhotoRepository(get(), get()) }
     single { ProgramDayRepository(get(), get()) }
     single { ProgramDayExerciseRepository(get(), get()) }
     single { ProgramRepository(get(), get()) }

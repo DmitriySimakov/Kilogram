@@ -2,8 +2,12 @@ package com.dmitrysimakov.kilogram.data.repository
 
 import com.dmitrysimakov.kilogram.data.local.dao.PhotoDao
 import com.dmitrysimakov.kilogram.data.local.entity.Photo
+import com.dmitrysimakov.kilogram.data.remote.data_sources.PhotoSource
 
-class PhotoRepository(private val dao: PhotoDao) {
+class PhotoRepository(
+        private val dao: PhotoDao,
+        private val src: PhotoSource
+) {
     
     fun photos() = dao.photos()
     
@@ -11,5 +15,8 @@ class PhotoRepository(private val dao: PhotoDao) {
     
     suspend fun photo(uri: String) = dao.photo(uri)
     
-    suspend fun insert(photo: Photo) = dao.insert(photo)
+    suspend fun insert(photo: Photo) {
+        dao.insert(photo)
+        src.uploadPhoto(photo.uri)
+    }
 }

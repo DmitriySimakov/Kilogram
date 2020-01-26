@@ -3,22 +3,22 @@ package com.dmitrysimakov.kilogram.workers
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import com.dmitrysimakov.kilogram.data.local.dao.TrainingSetDao
 import com.dmitrysimakov.kilogram.data.remote.models.TrainingSet
-import com.dmitrysimakov.kilogram.data.repository.TrainingSetRepository
 import com.dmitrysimakov.kilogram.util.trainingSetsCollection
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
 class UploadTrainingSetWorker(context: Context, workerParams: WorkerParameters): CoroutineWorker(context, workerParams), KoinComponent {
     
-    private val repository: TrainingSetRepository by inject()
+    private val dao: TrainingSetDao by inject()
     
     override suspend fun doWork(): Result {
         val trainingSetId = inputData.getLong("id", 0)
-        val set = repository.trainingSet(trainingSetId)
+        val (_, trainingExerciseId, weight, reps, time, distance) = dao.trainingSet(trainingSetId)
         
-        val trainingSet = TrainingSet(set.id, set.trainingExerciseId, set.weight, set.reps, set.time, set.distance)
-        trainingSetsCollection.document(set.id.toString()).set(trainingSet)
+        val trainingSet = TrainingSet(trainingSetId, trainingExerciseId, weight, reps, time, distance)
+        trainingSetsCollection.document(trainingSetId.toString()).set(trainingSet)
         
         return Result.success()
     }

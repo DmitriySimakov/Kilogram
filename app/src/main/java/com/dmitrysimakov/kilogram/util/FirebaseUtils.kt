@@ -38,6 +38,12 @@ val programDaysCollection
 val programDayExercisesCollection
     get() = userDocument.collection("program_day_exercises")
 
+val photosCollection
+    get() = userDocument.collection("photos")
+
+val measurementsCollection
+    get() = userDocument.collection("measurements")
+
 val chatsCollection
     get() = userDocument.collection("chats")
 

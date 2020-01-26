@@ -13,6 +13,9 @@ import org.threeten.bp.LocalDate
 @Dao
 interface MeasurementDao {
     
+    @Query("SELECT * FROM Measurement WHERE id = :id")
+    suspend fun measurement(id: Long) : Measurement
+    
     @Query("""
         SELECT MP.name AS param, MP.coefficient,
         (SELECT value FROM Measurement WHERE param = MP.name ORDER BY date DESC LIMIT 1) AS value
@@ -49,5 +52,5 @@ interface MeasurementDao {
     suspend fun insert(measurements: List<Measurement>)
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(measurement: Measurement)
+    suspend fun insert(measurement: Measurement): Long
 }
