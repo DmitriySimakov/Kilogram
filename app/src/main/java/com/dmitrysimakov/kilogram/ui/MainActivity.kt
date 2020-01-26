@@ -75,9 +75,7 @@ class MainActivity : AppCompatActivity() {
             vm.signIn()
             val user = FirebaseAuth.getInstance().currentUser!!
             if (!user.isEmailVerified) {
-                user.sendEmailVerification().addOnCompleteListener {
-                    if (it.isSuccessful) toast(getString(R.string.verify_your_email))
-                }
+                user.sendEmailVerification().addOnSuccessListener { toast(getString(R.string.verify_your_email)) }
             }
         }
     }

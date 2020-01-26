@@ -2,16 +2,16 @@ package com.dmitrysimakov.kilogram.ui
 
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.switchMap
+import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.remote.models.Subscriptions
 import com.dmitrysimakov.kilogram.data.remote.models.User
 import com.dmitrysimakov.kilogram.util.*
 import com.dmitrysimakov.kilogram.util.live_data.AbsentLiveData
 import com.dmitrysimakov.kilogram.util.live_data.liveData
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.iid.FirebaseInstanceId
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import java.util.*
 
 class SharedViewModel(private val preferences: SharedPreferences) : ViewModel() {
@@ -32,36 +32,37 @@ class SharedViewModel(private val preferences: SharedPreferences) : ViewModel() 
     
     fun signOut() { _userExist.value = false }
     
-    fun signIn() {
-        userDocument.get().addOnSuccessListener { doc ->
-            FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener{ result ->
-                if (!doc.exists()) createNewUser(result.token)
-                else addToken(result.token)
-            }
-        }
-    }
+    fun signIn() { viewModelScope.launch {
+        val tokensTask = tokensDocument.get()
+        val result = FirebaseInstanceId.getInstance().instanceId.await()
+        val tokensDoc = tokensTask.await()
+        
+        if (!tokensDoc.exists()) createNewUser(result.token)
+        else addToken(result.token, tokensDoc)
     
-    private fun createNewUser(token: String) {
-        val newUser = User(firebaseUser!!.uid, firebaseUser!!.displayName
-                ?: "", firebaseUser!!.photoUrl.toString())
+        _userExist.value = true
+    }}
+    
+    private suspend fun createNewUser(token: String) {
+        val newUser = User(
+                firebaseUser!!.uid,
+                firebaseUser!!.displayName ?: "",
+                firebaseUser!!.photoUrl.toString()
+        )
         firestore.batch()
                 .set(userDocument, newUser)
                 .set(tokensDocument, mapOf("tokens" to listOf(token)))
                 .set(subscriptionsDocument, Subscriptions())
                 .commit()
-                .addOnSuccessListener { _userExist.value = true }
+                .await()
     }
     
-    private fun addToken(token: String) {
-        tokensDocument.get().addOnSuccessListener { doc ->
-            @Suppress("UNCHECKED_CAST")
-            val tokens = doc["tokens"] as MutableList<String>
-            if (!tokens.contains(token)) {
-                tokens.add(token)
-                tokensDocument.update("tokens", tokens).addOnSuccessListener {
-                    _userExist.value = true
-                }
-            }
+    private fun addToken(token: String, tokensDoc: DocumentSnapshot) {
+        @Suppress("UNCHECKED_CAST")
+        val tokens = tokensDoc["tokens"] as MutableList<String>
+        if (!tokens.contains(token)) {
+            tokens.add(token)
+            tokensDocument.update("tokens", tokens)
         }
     }
     //endregion

@@ -8,6 +8,8 @@ import com.dmitrysimakov.kilogram.data.remote.relation.withSubscriptionStatus
 import com.dmitrysimakov.kilogram.util.*
 import com.dmitrysimakov.kilogram.util.live_data.AbsentLiveData
 import com.dmitrysimakov.kilogram.util.live_data.liveData
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class PeopleViewModel : ViewModel() {
     
@@ -48,55 +50,45 @@ class PeopleViewModel : ViewModel() {
     
     fun setSearchText(text: String?) { _searchText.setNewValue(text) }
     
-    fun followByUser(user: UserWithSubscriptionStatus) {
+    fun followByUser(user: UserWithSubscriptionStatus) { viewModelScope.launch {
         val currentUser = _currentUser.value!!
-        val writeBatch = firestore.batch()
         
         // Add user to currentUser's followedIds list
         val followedIds = subscriptions.value!!.followedIds.toMutableList()
         followedIds.add(user.id)
-        writeBatch.update(subscriptionsDocument, "followedIds", followedIds)
-    
+        
+        // Add currentUser to user's followersIds list
         val userSubsDoc = subscriptionsCollection.document(user.id)
-        userSubsDoc.get().addOnSuccessListener { doc ->
-            // Add currentUser to user's followersIds list
-            val subs = doc.toObject(Subscriptions::class.java)!!
-            val followersIds = subs.followersIds.toMutableList()
-            followersIds.add(currentUser.id)
-            writeBatch.update(userSubsDoc, "followersIds", followersIds)
+        val subs = userSubsDoc.get().await().toObject(Subscriptions::class.java)!!
+        val followersIds = subs.followersIds.toMutableList()
+        followersIds.add(currentUser.id)
         
-            // Increase subscriptions count
-            writeBatch.update(userDocument, "followedCount", currentUser.followedCount + 1)
-            writeBatch.update(usersCollection.document(user.id), "followersCount", user.followersCount + 1)
-        
-            // COMMIT
-            writeBatch.commit()
-        }
-    }
+        firestore.batch()
+                .update(subscriptionsDocument, "followedIds", followedIds)
+                .update(userSubsDoc, "followersIds", followersIds)
+                .update(userDocument, "followedCount", currentUser.followedCount + 1)
+                .update(usersCollection.document(user.id), "followersCount", user.followersCount + 1)
+                .commit()
+    }}
     
-    fun unfollowFromUser(user: UserWithSubscriptionStatus) {
+    fun unfollowFromUser(user: UserWithSubscriptionStatus) { viewModelScope.launch {
         val currentUser = _currentUser.value!!
         
-        val writeBatch = firestore.batch()
         // Remove user from currentUser's followedIds list
         val followedIds = subscriptions.value!!.followedIds.toMutableList()
         followedIds.remove(user.id)
-        writeBatch.update(subscriptionsDocument, "followedIds", followedIds)
     
+        // Remove currentUser from user's followersIds list
         val userSubsDoc = subscriptionsCollection.document(user.id)
-        userSubsDoc.get().addOnSuccessListener { doc ->
-            // Remove currentUser from user's followersIds list
-            val userSubs = doc.toObject(Subscriptions::class.java)!!
-            val followersIds = userSubs.followersIds.toMutableList()
-            followersIds.remove(currentUser.id)
-            writeBatch.update(userSubsDoc, "followersIds", userSubs.followersIds)
-        
-            // Increase subscriptions count
-            writeBatch.update(userDocument, "followedCount", currentUser.followedCount - 1)
-            writeBatch.update(usersCollection.document(user.id), "followersCount", user.followersCount - 1)
-        
-            // COMMIT
-            writeBatch.commit()
-        }
-    }
+        val userSubs = userSubsDoc.get().await().toObject(Subscriptions::class.java)!!
+        val followersIds = userSubs.followersIds.toMutableList()
+        followersIds.remove(currentUser.id)
+    
+        firestore.batch()
+                .update(subscriptionsDocument, "followedIds", followedIds)
+                .update(userSubsDoc, "followersIds", userSubs.followersIds)
+                .update(userDocument, "followedCount", currentUser.followedCount - 1)
+                .update(usersCollection.document(user.id), "followersCount", user.followersCount - 1)
+                .commit()
+    }}
 }

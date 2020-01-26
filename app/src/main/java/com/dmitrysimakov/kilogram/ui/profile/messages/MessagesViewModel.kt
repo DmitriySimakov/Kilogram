@@ -1,10 +1,7 @@
 package com.dmitrysimakov.kilogram.ui.profile.messages
 
 import android.net.Uri
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.switchMap
+import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.remote.models.Chat
 import com.dmitrysimakov.kilogram.data.remote.models.Message
 import com.dmitrysimakov.kilogram.data.remote.models.User
@@ -12,6 +9,8 @@ import com.dmitrysimakov.kilogram.util.*
 import com.dmitrysimakov.kilogram.util.live_data.liveData
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class MessagesViewModel : ViewModel() {
     
@@ -30,33 +29,31 @@ class MessagesViewModel : ViewModel() {
         userMessagesCol.orderBy("timestamp").liveData { it.toObject(Message::class.java)!! }
     }
     
-    fun start(user: User?, companionId: String) {
+    fun start(user: User?, companionId: String) { viewModelScope.launch{
         _user.setNewValue(user)
-        if (user == null) return
+        if (user == null) return@launch
         
         userChatDoc = chatsCollection.document(companionId)
         companionChatDoc = usersCollection.document(companionId).collection("chats").document(user.id)
         userMessagesCol = userChatDoc.collection("messages")
         companionMessagesCol = companionChatDoc.collection("messages")
         
-        userChatDoc.get().addOnSuccessListener {
-            if (it.exists()) {
-                _chat.setNewValue(it.toObject(Chat::class.java)!!)
-            } else {
-                usersCollection.document(companionId).get().addOnSuccessListener { companionDoc ->
-                    val companion = companionDoc.toObject(User::class.java)!!
-                    val newChatForUser = Chat(companion.id, companion)
-                    val newChatForCompanion = Chat(user.id, user)
-                    _chat.setNewValue(newChatForUser)
-                    
-                    firestore.batch()
-                            .set(userChatDoc, newChatForUser)
-                            .set(companionChatDoc, newChatForCompanion)
-                            .commit()
-                }
-            }
+        val doc = userChatDoc.get().await()
+        if (doc.exists()) {
+            _chat.setNewValue(doc.toObject(Chat::class.java)!!)
+        } else {
+            val companionDoc = usersCollection.document(companionId).get().await()
+            val companion = companionDoc.toObject(User::class.java)!!
+            val newChatForUser = Chat(companion.id, companion)
+            val newChatForCompanion = Chat(user.id, user)
+            _chat.setNewValue(newChatForUser)
+            
+            firestore.batch()
+                    .set(userChatDoc, newChatForUser)
+                    .set(companionChatDoc, newChatForCompanion)
+                    .commit()
         }
-    }
+    }}
     
     fun sendMessage(text: String?, imageUrl: String?) {
         val senderId = user.value!!.id
@@ -70,12 +67,12 @@ class MessagesViewModel : ViewModel() {
                 .commit()
     }
     
-    fun sendImage(uri: Uri) {
+    fun sendImage(uri: Uri) { viewModelScope.launch {
         val imageRef = msgImagesRef.child(uri.lastPathSegment!!)
-        imageRef.putFile(uri).addOnSuccessListener {
-            imageRef.downloadUrl.addOnSuccessListener { sendMessage(null, it.toString()) }
-        }
-    }
+        imageRef.putFile(uri).await()
+        val imageUri = imageRef.downloadUrl.await().toString()
+        sendMessage(null, imageUri)
+    }}
     
     fun markNewMessagesAsRead() {
         val user = user.value ?: return

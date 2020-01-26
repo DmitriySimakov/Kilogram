@@ -3,10 +3,13 @@ package com.dmitrysimakov.kilogram.ui.profile.edit_profile
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.dmitrysimakov.kilogram.data.remote.models.User
 import com.dmitrysimakov.kilogram.util.profileImagesRef
 import com.dmitrysimakov.kilogram.util.setNewValue
 import com.dmitrysimakov.kilogram.util.userDocument
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class EditProfileViewModel : ViewModel() {
     
@@ -29,13 +32,11 @@ class EditProfileViewModel : ViewModel() {
         userDocument.set(user)
     }
     
-    fun saveImage(uri: Uri) {
+    fun saveImage(uri: Uri) { viewModelScope.launch {
         photoUrl.setNewValue(null)
         val imageRef = profileImagesRef.child(uri.lastPathSegment!!)
-        imageRef.putFile(uri).addOnSuccessListener {
-            imageRef.downloadUrl.addOnSuccessListener { photoUri ->
-                photoUrl.setNewValue(photoUri.toString())
-            }
-        }
-    }
+        imageRef.putFile(uri).await()
+        val photoUri = imageRef.downloadUrl.await().toString()
+        photoUrl.setNewValue(photoUri)
+    }}
 }

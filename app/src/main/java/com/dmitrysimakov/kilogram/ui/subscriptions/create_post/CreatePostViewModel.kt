@@ -3,11 +3,14 @@ package com.dmitrysimakov.kilogram.ui.subscriptions.create_post
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.dmitrysimakov.kilogram.data.remote.models.Post
 import com.dmitrysimakov.kilogram.data.remote.models.User
 import com.dmitrysimakov.kilogram.util.live_data.Event
 import com.dmitrysimakov.kilogram.util.postsCollection
 import com.dmitrysimakov.kilogram.util.setNewValue
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import java.util.*
 
 class CreatePostViewModel : ViewModel() {
@@ -23,13 +26,12 @@ class CreatePostViewModel : ViewModel() {
     
     fun setUser(user: User?) { _user.setNewValue(user) }
     
-    fun publishPost() {
+    fun publishPost() { viewModelScope.launch {
         val postDoc = postsCollection.document()
-        val author = _user.value ?: return
+        val author = _user.value ?: return@launch
         val post = Post(postDoc.id, author.id, author.name, author.photoUrl, title.value, content.value, imageUrl.value, Date())
         
-        postDoc.set(post).addOnSuccessListener {
-            _postPublishedEvent.value = Event(Unit)
-        }
-    }
+        postDoc.set(post).await()
+        _postPublishedEvent.value = Event(Unit)
+    }}
 }
