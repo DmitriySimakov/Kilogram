@@ -13,7 +13,7 @@
         
         <variable
             name="post"
-            type="com.dmitrysimakov.kilogram.data.remote.Post" />
+            type="com.dmitrysimakov.kilogram.data.remote.models.Post" />
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -8,7 +8,7 @@ import com.dmitrysimakov.kilogram.data.repository.ProgramDayExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
-import com.dmitrysimakov.kilogram.util.Event
+import com.dmitrysimakov.kilogram.util.live_data.Event
 import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime

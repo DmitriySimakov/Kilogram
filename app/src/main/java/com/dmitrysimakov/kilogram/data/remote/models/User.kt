@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.data.remote
+package com.dmitrysimakov.kilogram.data.remote.models
 
 data class User(
         val id: String = "",

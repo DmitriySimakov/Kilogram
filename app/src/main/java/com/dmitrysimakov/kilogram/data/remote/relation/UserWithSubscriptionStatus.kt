@@ -1,7 +1,7 @@
 package com.dmitrysimakov.kilogram.data.remote.relation
 
-import com.dmitrysimakov.kilogram.data.remote.Subscriptions
-import com.dmitrysimakov.kilogram.data.remote.User
+import com.dmitrysimakov.kilogram.data.remote.models.Subscriptions
+import com.dmitrysimakov.kilogram.data.remote.models.User
 
 data class UserWithSubscriptionStatus(
         var id: String = "",

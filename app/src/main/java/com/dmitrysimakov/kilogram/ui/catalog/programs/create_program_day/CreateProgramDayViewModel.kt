@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dmitrysimakov.kilogram.data.local.entity.ProgramDay
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayRepository
-import com.dmitrysimakov.kilogram.util.Event
+import com.dmitrysimakov.kilogram.util.live_data.Event
 import kotlinx.coroutines.launch
 
 class CreateProgramDayViewModel(private val programDayRepo: ProgramDayRepository) : ViewModel() {

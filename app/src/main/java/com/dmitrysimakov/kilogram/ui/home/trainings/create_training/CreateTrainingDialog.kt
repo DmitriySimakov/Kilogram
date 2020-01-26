@@ -12,7 +12,11 @@ import com.dmitrysimakov.kilogram.databinding.DialogCreateTrainingBinding
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.ui.home.trainings.create_training.CreateTrainingDialogDirections.Companion.toChooseProgramFragment
 import com.dmitrysimakov.kilogram.ui.home.trainings.create_training.CreateTrainingDialogDirections.Companion.toExercisesFragment
-import com.dmitrysimakov.kilogram.util.*
+import com.dmitrysimakov.kilogram.util.hideKeyboard
+import com.dmitrysimakov.kilogram.util.live_data.EventObserver
+import com.dmitrysimakov.kilogram.util.navigate
+import com.dmitrysimakov.kilogram.util.setNewValue
+import com.dmitrysimakov.kilogram.util.toOffsetDateTime
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -82,7 +86,7 @@ class CreateTrainingDialog : BottomSheetDialogFragment() {
         }
         binding.programLayout.setOnClickListener { navigate(toChooseProgramFragment()) }
     
-        vm.trainingCreatedEvent.observe(viewLifecycleOwner, EventObserver{
+        vm.trainingCreatedEvent.observe(viewLifecycleOwner, EventObserver {
             hideKeyboard()
             navigate(toExercisesFragment(it, true))
         })

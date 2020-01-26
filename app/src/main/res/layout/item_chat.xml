@@ -13,7 +13,7 @@
         
         <variable
             name="chat"
-            type="com.dmitrysimakov.kilogram.data.remote.Chat" />
+            type="com.dmitrysimakov.kilogram.data.remote.models.Chat" />
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout

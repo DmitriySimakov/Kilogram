@@ -3,7 +3,7 @@ package com.dmitrysimakov.kilogram.ui.subscriptions
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import com.dmitrysimakov.kilogram.data.remote.Post
+import com.dmitrysimakov.kilogram.data.remote.models.Post
 import com.dmitrysimakov.kilogram.databinding.ItemPostBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 

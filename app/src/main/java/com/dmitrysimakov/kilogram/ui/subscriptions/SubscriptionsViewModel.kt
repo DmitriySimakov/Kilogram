@@ -1,9 +1,9 @@
 package com.dmitrysimakov.kilogram.ui.subscriptions
 
 import androidx.lifecycle.*
-import com.dmitrysimakov.kilogram.data.remote.Post
-import com.dmitrysimakov.kilogram.data.remote.Subscriptions
-import com.dmitrysimakov.kilogram.data.remote.User
+import com.dmitrysimakov.kilogram.data.remote.models.Post
+import com.dmitrysimakov.kilogram.data.remote.models.Subscriptions
+import com.dmitrysimakov.kilogram.data.remote.models.User
 import com.dmitrysimakov.kilogram.util.live_data.AbsentLiveData
 import com.dmitrysimakov.kilogram.util.live_data.liveData
 import com.dmitrysimakov.kilogram.util.postsCollection

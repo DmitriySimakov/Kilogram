@@ -6,8 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
-import com.dmitrysimakov.kilogram.data.remote.Subscriptions
-import com.dmitrysimakov.kilogram.data.remote.User
+import com.dmitrysimakov.kilogram.data.remote.models.Subscriptions
+import com.dmitrysimakov.kilogram.data.remote.models.User
 import com.dmitrysimakov.kilogram.util.*
 import com.dmitrysimakov.kilogram.util.live_data.AbsentLiveData
 import com.dmitrysimakov.kilogram.util.live_data.liveData
@@ -42,7 +42,8 @@ class SharedViewModel(private val preferences: SharedPreferences) : ViewModel() 
     }
     
     private fun createNewUser(token: String) {
-        val newUser = User(firebaseUser!!.uid, firebaseUser!!.displayName ?: "", firebaseUser!!.photoUrl.toString())
+        val newUser = User(firebaseUser!!.uid, firebaseUser!!.displayName
+                ?: "", firebaseUser!!.photoUrl.toString())
         firestore.batch()
                 .set(userDocument, newUser)
                 .set(tokensDocument, mapOf("tokens" to listOf(token)))

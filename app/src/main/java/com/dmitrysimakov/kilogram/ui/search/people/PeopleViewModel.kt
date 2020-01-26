@@ -1,8 +1,8 @@
 package com.dmitrysimakov.kilogram.ui.search.people
 
 import androidx.lifecycle.*
-import com.dmitrysimakov.kilogram.data.remote.Subscriptions
-import com.dmitrysimakov.kilogram.data.remote.User
+import com.dmitrysimakov.kilogram.data.remote.models.Subscriptions
+import com.dmitrysimakov.kilogram.data.remote.models.User
 import com.dmitrysimakov.kilogram.data.remote.relation.UserWithSubscriptionStatus
 import com.dmitrysimakov.kilogram.data.remote.relation.withSubscriptionStatus
 import com.dmitrysimakov.kilogram.util.*

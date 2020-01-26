@@ -12,7 +12,7 @@ import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.databinding.FragmentTrainingSetsBinding
 import com.dmitrysimakov.kilogram.ui.home.trainings.training_sets.TrainingSetsFragmentDirections.Companion.toAddSetDialog
-import com.dmitrysimakov.kilogram.util.EventObserver
+import com.dmitrysimakov.kilogram.util.live_data.EventObserver
 import com.dmitrysimakov.kilogram.util.navigate
 import com.dmitrysimakov.kilogram.util.popBackStack
 import com.dmitrysimakov.kilogram.util.setTitle

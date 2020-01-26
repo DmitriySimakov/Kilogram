@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.data.remote
+package com.dmitrysimakov.kilogram.data.remote.models
 
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise.Companion.PLANNED
 import java.util.*

@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.data.remote
+package com.dmitrysimakov.kilogram.data.remote.models
 
 data class Subscriptions(
         val followersIds: List<String> = listOf(),

@@ -3,7 +3,7 @@ package com.dmitrysimakov.kilogram.workers
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.dmitrysimakov.kilogram.data.remote.TrainingExercise
+import com.dmitrysimakov.kilogram.data.remote.models.TrainingExercise
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.util.firestore
 import com.dmitrysimakov.kilogram.util.trainingExercisesCollection

@@ -3,9 +3,9 @@ package com.dmitrysimakov.kilogram.ui.subscriptions.create_post
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dmitrysimakov.kilogram.data.remote.Post
-import com.dmitrysimakov.kilogram.data.remote.User
-import com.dmitrysimakov.kilogram.util.Event
+import com.dmitrysimakov.kilogram.data.remote.models.Post
+import com.dmitrysimakov.kilogram.data.remote.models.User
+import com.dmitrysimakov.kilogram.util.live_data.Event
 import com.dmitrysimakov.kilogram.util.postsCollection
 import com.dmitrysimakov.kilogram.util.setNewValue
 import java.util.*

@@ -3,7 +3,7 @@ package com.dmitrysimakov.kilogram.workers
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.dmitrysimakov.kilogram.data.remote.TrainingSet
+import com.dmitrysimakov.kilogram.data.remote.models.TrainingSet
 import com.dmitrysimakov.kilogram.data.repository.TrainingSetRepository
 import com.dmitrysimakov.kilogram.util.trainingSetsCollection
 import org.koin.core.KoinComponent

@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.databinding.DialogCreateProgramDayBinding
 import com.dmitrysimakov.kilogram.ui.catalog.programs.create_program_day.CreateProgramDayDialogDirections.Companion.toExercisesFragment
-import com.dmitrysimakov.kilogram.util.EventObserver
 import com.dmitrysimakov.kilogram.util.hideKeyboard
+import com.dmitrysimakov.kilogram.util.live_data.EventObserver
 import com.dmitrysimakov.kilogram.util.navigate
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.dialog_create_program_day.*
@@ -40,7 +40,7 @@ class CreateProgramDayDialog : BottomSheetDialogFragment() {
             if (validate()) vm.createProgramDay(args.programId, args.num)
         }
         
-        vm.programDayCreatedEvent.observe(viewLifecycleOwner, EventObserver{
+        vm.programDayCreatedEvent.observe(viewLifecycleOwner, EventObserver {
             hideKeyboard()
             navigate(toExercisesFragment(it))
         })

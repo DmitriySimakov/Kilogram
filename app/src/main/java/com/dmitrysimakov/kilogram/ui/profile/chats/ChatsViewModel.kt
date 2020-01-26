@@ -1,8 +1,8 @@
 package com.dmitrysimakov.kilogram.ui.profile.chats
 
 import androidx.lifecycle.*
-import com.dmitrysimakov.kilogram.data.remote.Chat
-import com.dmitrysimakov.kilogram.data.remote.User
+import com.dmitrysimakov.kilogram.data.remote.models.Chat
+import com.dmitrysimakov.kilogram.data.remote.models.User
 import com.dmitrysimakov.kilogram.util.chatsCollection
 import com.dmitrysimakov.kilogram.util.live_data.liveData
 import com.dmitrysimakov.kilogram.util.setNewValue

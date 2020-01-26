@@ -6,8 +6,8 @@ import com.dmitrysimakov.kilogram.data.local.relation.SetWithPreviousResults
 import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingSetRepository
-import com.dmitrysimakov.kilogram.util.Event
 import com.dmitrysimakov.kilogram.util.live_data.AbsentLiveData
+import com.dmitrysimakov.kilogram.util.live_data.Event
 import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.coroutines.launch
 import kotlin.math.max

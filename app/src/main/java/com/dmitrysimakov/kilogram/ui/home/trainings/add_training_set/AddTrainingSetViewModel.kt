@@ -9,7 +9,7 @@ import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingSet
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingSetRepository
-import com.dmitrysimakov.kilogram.util.Event
+import com.dmitrysimakov.kilogram.util.live_data.Event
 import kotlinx.coroutines.launch
 
 class AddTrainingSetViewModel(

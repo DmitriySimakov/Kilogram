@@ -13,7 +13,7 @@ import com.dmitrysimakov.kilogram.databinding.FragmentTrainingExercisesBinding
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.ui.home.trainings.exercises.TrainingExercisesFragmentDirections.Companion.toChooseExerciseFragment
 import com.dmitrysimakov.kilogram.ui.home.trainings.exercises.TrainingExercisesFragmentDirections.Companion.toTrainingSetsFragment
-import com.dmitrysimakov.kilogram.util.EventObserver
+import com.dmitrysimakov.kilogram.util.live_data.EventObserver
 import com.dmitrysimakov.kilogram.util.navigate
 import com.dmitrysimakov.kilogram.util.popBackStack
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -58,7 +58,7 @@ class TrainingExercisesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         vm.setTrainingId(args.trainingId)
-        vm.trainingFinishedEvent.observe(viewLifecycleOwner, EventObserver{ popBackStack() })
+        vm.trainingFinishedEvent.observe(viewLifecycleOwner, EventObserver { popBackStack() })
         vm.training.observe(viewLifecycleOwner) { }
         vm.runningExercises.observe(viewLifecycleOwner) { exerciseRunningListAdapter.submitList(it) }
         vm.plannedExercises.observe(viewLifecycleOwner) { exercisePlannedListAdapter.submitList(it) }
