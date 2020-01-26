@@ -9,7 +9,6 @@ import com.dmitrysimakov.kilogram.util.firestore
 import com.dmitrysimakov.kilogram.util.trainingExercisesCollection
 import org.koin.core.KoinComponent
 import org.koin.core.inject
-import java.util.*
 
 class UploadTrainingExerciseListWorker(context: Context, workerParams: WorkerParameters): CoroutineWorker(context, workerParams), KoinComponent {
     
@@ -21,7 +20,7 @@ class UploadTrainingExerciseListWorker(context: Context, workerParams: WorkerPar
         
         val writeBatch = firestore.batch()
         for (e in exercises) {
-            val remoteExercise = TrainingExercise(e.id, e.trainingId, e.exercise, e.indexNumber, e.rest, e.strategy, e.state, Date())
+            val remoteExercise = TrainingExercise(e.id, e.trainingId, e.exercise, e.indexNumber, e.rest, e.strategy, e.state)
             writeBatch.set(trainingExercisesCollection.document(remoteExercise.id.toString()), remoteExercise)
         }
         writeBatch.commit()

@@ -13,6 +13,9 @@ interface ProgramDao {
     @Query("SELECT * FROM Program ORDER BY id DESC")
     fun programsFlow() : Flow<List<Program>>
     
+    @Query("SELECT * FROM Program WHERE id = :id")
+    suspend fun program(id: Long) : Program
+    
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(programs: List<Program>)

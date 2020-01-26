@@ -4,7 +4,10 @@ import com.dmitrysimakov.kilogram.data.local.dao.TrainingExerciseDao
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.remote.data_sources.TrainingSource
 
-class TrainingExerciseRepository(private val dao: TrainingExerciseDao, private val src: TrainingSource) {
+class TrainingExerciseRepository(
+        private val dao: TrainingExerciseDao,
+        private val src: TrainingSource
+) {
     
     fun trainingExercisesFlow(trainingId: Long) = dao.trainingExercisesFlow(trainingId)
     
@@ -22,6 +25,8 @@ class TrainingExerciseRepository(private val dao: TrainingExerciseDao, private v
     }
     
     suspend fun insert(exercises: List<TrainingExercise>) {
+        if (exercises.isEmpty()) return
+        
         dao.insert(exercises)
         src.uploadTrainingExerciseList(exercises[0].trainingId)
     }
@@ -38,6 +43,8 @@ class TrainingExerciseRepository(private val dao: TrainingExerciseDao, private v
     suspend fun updateIndexNumbers(trainingExercises: List<TrainingExercise>) = dao.updateIndexNumbers(trainingExercises)
     
     suspend fun update(trainingExercises: List<TrainingExercise>) {
+        if (trainingExercises.isEmpty()) return
+        
         dao.update(trainingExercises)
         src.uploadTrainingExerciseList(trainingExercises[0].trainingId)
     }

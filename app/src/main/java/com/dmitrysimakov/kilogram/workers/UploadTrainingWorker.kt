@@ -9,7 +9,6 @@ import com.dmitrysimakov.kilogram.util.toDate
 import com.dmitrysimakov.kilogram.util.trainingsCollection
 import org.koin.core.KoinComponent
 import org.koin.core.inject
-import java.util.*
 
 class UploadTrainingWorker(context: Context, workerParams: WorkerParameters): CoroutineWorker(context, workerParams), KoinComponent {
     
@@ -19,7 +18,7 @@ class UploadTrainingWorker(context: Context, workerParams: WorkerParameters): Co
         val trainingId = inputData.getLong("id", 0)
         val (id, startDateTime, duration, programDayId) = repository.training(trainingId)
         
-        val training = Training(id, startDateTime.toDate(), duration, programDayId, Date())
+        val training = Training(id, startDateTime.toDate(), duration, programDayId)
         trainingsCollection.document(id.toString()).set(training)
         
         return Result.success()

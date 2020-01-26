@@ -17,12 +17,15 @@ interface ProgramDayExerciseDao {
     @Query("SELECT * FROM ProgramDayExercise WHERE programDayId = :programDayId")
     suspend fun programDayExercises(programDayId: Long) : List<ProgramDayExercise>
     
+    @Query("SELECT * FROM ProgramDayExercise WHERE id = :id")
+    suspend fun programDayExercise(id: Long) : ProgramDayExercise
+    
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(programDayExercises: List<ProgramDayExercise>)
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(programDayExercise: ProgramDayExercise)
+    suspend fun insert(programDayExercise: ProgramDayExercise): Long
     
     
     @Update

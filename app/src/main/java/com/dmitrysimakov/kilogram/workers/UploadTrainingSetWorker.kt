@@ -8,7 +8,6 @@ import com.dmitrysimakov.kilogram.data.repository.TrainingSetRepository
 import com.dmitrysimakov.kilogram.util.trainingSetsCollection
 import org.koin.core.KoinComponent
 import org.koin.core.inject
-import java.util.*
 
 class UploadTrainingSetWorker(context: Context, workerParams: WorkerParameters): CoroutineWorker(context, workerParams), KoinComponent {
     
@@ -18,7 +17,7 @@ class UploadTrainingSetWorker(context: Context, workerParams: WorkerParameters):
         val trainingSetId = inputData.getLong("id", 0)
         val set = repository.trainingSet(trainingSetId)
         
-        val trainingSet = TrainingSet(set.id, set.trainingExerciseId, set.weight, set.reps, set.time, set.distance, Date())
+        val trainingSet = TrainingSet(set.id, set.trainingExerciseId, set.weight, set.reps, set.time, set.distance)
         trainingSetsCollection.document(set.id.toString()).set(trainingSet)
         
         return Result.success()

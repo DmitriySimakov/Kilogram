@@ -12,12 +12,12 @@ class TrainingSetRepository(private val dao: TrainingSetDao, private val src: Tr
     
     suspend fun insert(set: TrainingSet) {
         val id = dao.insert(set)
-        src.uploadSet(id)
+        src.uploadTrainingSet(id)
     }
     
     suspend fun update(set: TrainingSet) {
         dao.update(set)
-        src.uploadSet(set.id)
+        src.uploadTrainingSet(set.id)
     }
     
     suspend fun delete(id: Long) = dao.delete(id)

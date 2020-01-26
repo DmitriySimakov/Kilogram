@@ -29,6 +29,15 @@ val trainingExercisesCollection
 val trainingSetsCollection
     get() = userDocument.collection("training_sets")
 
+val programsCollection
+    get() = userDocument.collection("programs")
+
+val programDaysCollection
+    get() = userDocument.collection("program_days")
+
+val programDayExercisesCollection
+    get() = userDocument.collection("program_day_exercises")
+
 val chatsCollection
     get() = userDocument.collection("chats")
 
