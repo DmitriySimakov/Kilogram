@@ -3,15 +3,15 @@ package com.dmitrysimakov.kilogram.data.remote.data_sources
 import android.content.Context
 import com.dmitrysimakov.kilogram.workers.*
 
-class ProgramSource(private val context: Context) {
+class ProgramSource(context: Context) : RemoteDataSource(context) {
     
-    fun uploadProgram(id: Long) { upload(context, id, UploadProgramWorker::class.java) }
+    fun uploadProgram(id: Long) { upload(id, UploadProgramWorker::class.java) }
     
-    fun uploadProgramDay(id: Long) { upload(context, id, UploadProgramDayWorker::class.java) }
+    fun uploadProgramDay(id: Long) { upload(id, UploadProgramDayWorker::class.java) }
     
-    fun uploadProgramDayList(programId: Long) { upload(context, programId, UploadProgramDayListWorker::class.java) }
+    fun uploadProgramDayList(programId: Long) { upload(programId, UploadProgramDayListWorker::class.java) }
     
-    fun uploadProgramDayExercise(id: Long) { upload(context, id, UploadProgramDayExerciseWorker::class.java) }
+    fun uploadProgramDayExercise(id: Long) { upload(id, UploadProgramDayExerciseWorker::class.java) }
     
-    fun uploadProgramDayExerciseList(programDayId: Long) { upload(context, programDayId, UploadProgramDayExerciseListWorker::class.java) }
+    fun uploadProgramDayExerciseList(programDayId: Long) { upload(programDayId, UploadProgramDayExerciseListWorker::class.java) }
 }
