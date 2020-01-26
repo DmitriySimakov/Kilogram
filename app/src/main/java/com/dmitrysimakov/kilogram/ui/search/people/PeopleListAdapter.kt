@@ -2,6 +2,7 @@ package com.dmitrysimakov.kilogram.ui.search.people
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.dmitrysimakov.kilogram.data.remote.models.SubscriptionAction
 import com.dmitrysimakov.kilogram.data.remote.relation.UserWithSubscriptionStatus
 import com.dmitrysimakov.kilogram.databinding.ItemUserBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
@@ -20,7 +21,7 @@ class PeopleListAdapter(
     
     override fun bind(binding: ItemUserBinding, item: UserWithSubscriptionStatus) {
         binding.uwss = item
-        binding.followBtn.setOnClickListener { vm.followByUser(item) }
-        binding.unfollowBtn.setOnClickListener { vm.unfollowFromUser(item) }
+        binding.subscribeBtn.setOnClickListener { vm.updateSubscriptions(item, SubscriptionAction.SUBSCRIBE) }
+        binding.unsubscribeBtn.setOnClickListener { vm.updateSubscriptions(item, SubscriptionAction.UNSUBSCRIBE) }
     }
 }

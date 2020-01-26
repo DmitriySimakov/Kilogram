@@ -1,6 +1,7 @@
 package com.dmitrysimakov.kilogram.ui.search.people
 
 import androidx.lifecycle.*
+import com.dmitrysimakov.kilogram.data.remote.models.SubscriptionAction
 import com.dmitrysimakov.kilogram.data.remote.models.Subscriptions
 import com.dmitrysimakov.kilogram.data.remote.models.User
 import com.dmitrysimakov.kilogram.data.remote.relation.UserWithSubscriptionStatus
@@ -50,45 +51,37 @@ class PeopleViewModel : ViewModel() {
     
     fun setSearchText(text: String?) { _searchText.setNewValue(text) }
     
-    fun followByUser(user: UserWithSubscriptionStatus) { viewModelScope.launch {
+    fun updateSubscriptions(user: UserWithSubscriptionStatus, action: SubscriptionAction) { viewModelScope.launch {
         val currentUser = _currentUser.value!!
+        val currentUserFollowedIds = subscriptions.value!!.followedIds.toMutableList()
         
-        // Add user to currentUser's followedIds list
-        val followedIds = subscriptions.value!!.followedIds.toMutableList()
-        followedIds.add(user.id)
-        
-        // Add currentUser to user's followersIds list
-        val userSubsDoc = subscriptionsCollection.document(user.id)
-        val subs = userSubsDoc.get().await().toObject(Subscriptions::class.java)!!
-        val followersIds = subs.followersIds.toMutableList()
-        followersIds.add(currentUser.id)
-        
-        firestore.batch()
-                .update(subscriptionsDocument, "followedIds", followedIds)
-                .update(userSubsDoc, "followersIds", followersIds)
-                .update(userDocument, "followedCount", currentUser.followedCount + 1)
-                .update(usersCollection.document(user.id), "followersCount", user.followersCount + 1)
-                .commit()
-    }}
-    
-    fun unfollowFromUser(user: UserWithSubscriptionStatus) { viewModelScope.launch {
-        val currentUser = _currentUser.value!!
-        
-        // Remove user from currentUser's followedIds list
-        val followedIds = subscriptions.value!!.followedIds.toMutableList()
-        followedIds.remove(user.id)
-    
-        // Remove currentUser from user's followersIds list
         val userSubsDoc = subscriptionsCollection.document(user.id)
         val userSubs = userSubsDoc.get().await().toObject(Subscriptions::class.java)!!
-        val followersIds = userSubs.followersIds.toMutableList()
-        followersIds.remove(currentUser.id)
-    
+        val userFollowersIds = userSubs.followersIds.toMutableList()
+        
+        var currentUserFollowedCount = currentUser.followedCount
+        var userFollowersCount = user.followersCount
+        
+        when (action) {
+            SubscriptionAction.SUBSCRIBE -> {
+                currentUserFollowedIds.add(user.id)
+                userFollowersIds.add(currentUser.id)
+                currentUserFollowedCount++
+                userFollowersCount++
+            }
+            SubscriptionAction.UNSUBSCRIBE -> {
+                currentUserFollowedIds.remove(user.id)
+                userFollowersIds.remove(currentUser.id)
+                currentUserFollowedCount--
+                userFollowersCount--
+            }
+        }
+        
         firestore.batch()
-                .update(subscriptionsDocument, "followedIds", followedIds)
-                .update(userSubsDoc, "followersIds", userSubs.followersIds)
-                .update(userDocument, "followedCount", currentUser.followedCount - 1)
-                .update(usersCollection.document(user.id), "followersCount", user.followersCount - 1)
+                .update(subscriptionsDocument, "followedIds", currentUserFollowedIds)
+                .update(userSubsDoc, "followersIds", userFollowersIds)
+                .update(userDocument, "followedCount", currentUserFollowedCount)
+                .update(usersCollection.document(user.id), "followersCount", userFollowersCount)
                 .commit()
     }}
 }
