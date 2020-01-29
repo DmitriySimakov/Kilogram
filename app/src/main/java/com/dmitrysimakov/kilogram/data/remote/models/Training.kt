@@ -4,8 +4,8 @@ import java.util.*
 
 data class Training(
         val id: Long = 0,
-        val startDateTime: Date = Date(),
+        val startDateTime: String = "",
         val duration: Int? = null,
         val programDayId: Long? = null,
-        val updatedAt: Date = Date()
+        val lastUpdate: Date = Date()
 )

@@ -74,20 +74,20 @@ val appModule = module {
     single { ProgramRepository(get(), get()) }
     single { TrainingExerciseRepository(get(), get()) }
     single { TrainingSetRepository(get(), get()) }
-    single { TrainingRepository(get(), get()) }
+    single { TrainingRepository(get(), get(), get()) }
     // ViewModels
-    viewModel { SharedViewModel(get()) }
+    viewModel { SharedViewModel(get(), get()) }
     viewModel { AddMeasurementViewModel(get(), get()) }
-    viewModel { AddTrainingSetViewModel(get(), get(), get()) }
+    viewModel { AddTrainingSetViewModel(get(), get()) }
     viewModel { CalendarDayViewModel(get()) }
     viewModel { ChatsViewModel() }
-    viewModel { ChooseExerciseViewModel(get(), get(), get(), get(), get(), get()) }
+    viewModel { ChooseExerciseViewModel(get(), get(), get(), get(), get()) }
     viewModel { ChooseProgramViewModel(get()) }
     viewModel { ChooseProgramDayViewModel(get()) }
     viewModel { CreatePostViewModel() }
     viewModel { CreateProgramViewModel(get()) }
     viewModel { CreateProgramDayViewModel(get()) }
-    viewModel { CreateTrainingViewModel(get(), get(), get(), get(), get()) }
+    viewModel { CreateTrainingViewModel(get(), get(), get(), get()) }
     viewModel { DetailedExerciseViewModel(get(), get()) }
     viewModel { EditProfileViewModel() }
     viewModel { ExerciseTargetsViewModel(get()) }

@@ -5,7 +5,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.dmitrysimakov.kilogram.data.local.dao.TrainingDao
 import com.dmitrysimakov.kilogram.data.remote.models.Training
-import com.dmitrysimakov.kilogram.util.toDate
+import com.dmitrysimakov.kilogram.util.toIsoString
 import com.dmitrysimakov.kilogram.util.trainingsCollection
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -18,7 +18,7 @@ class UploadTrainingWorker(context: Context, workerParams: WorkerParameters): Co
         val trainingId = inputData.getLong("id", 0)
         val (_, startDateTime, duration, programDayId) = dao.training(trainingId)
         
-        val training = Training(trainingId, startDateTime.toDate(), duration, programDayId)
+        val training = Training(trainingId, startDateTime.toIsoString(), duration, programDayId)
         trainingsCollection.document(trainingId.toString()).set(training)
         
         return Result.success()

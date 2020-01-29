@@ -11,5 +11,5 @@ data class TrainingExercise(
         val rest: Int = 120,
         val strategy: String? = null,
         val state: Int = PLANNED,
-        val updatedAt: Date = Date()
+        val lastUpdate: Date = Date()
 )

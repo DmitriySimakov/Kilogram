@@ -4,8 +4,8 @@ import java.util.*
 
 data class Measurement(
         val id: Long = 0,
-        val date: Date = Date(),
+        val date: String = "",
         val param: String = "",
         val value: Double = 0.0,
-        val updatedAt: Date = Date()
+        val lastUpdate: Date = Date()
 )

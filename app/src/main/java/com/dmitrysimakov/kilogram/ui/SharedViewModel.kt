@@ -5,6 +5,7 @@ import androidx.core.content.edit
 import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.remote.models.Subscriptions
 import com.dmitrysimakov.kilogram.data.remote.models.User
+import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
 import com.dmitrysimakov.kilogram.util.*
 import com.dmitrysimakov.kilogram.util.live_data.AbsentLiveData
 import com.dmitrysimakov.kilogram.util.live_data.liveData
@@ -14,7 +15,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.util.*
 
-class SharedViewModel(private val preferences: SharedPreferences) : ViewModel() {
+class SharedViewModel(
+        private val preferences: SharedPreferences,
+        private val trainingRepository: TrainingRepository
+) : ViewModel() {
     
     val programDayId = MutableLiveData(0L)
     
@@ -30,7 +34,11 @@ class SharedViewModel(private val preferences: SharedPreferences) : ViewModel() 
         firebaseUser?.let { _userExist.value = true }
     }
     
-    fun signOut() { _userExist.value = false }
+    fun signOut() {
+        _userExist.value = false
+        
+        trainingRepository.cancelTrainingSync()
+    }
     
     fun signIn() { viewModelScope.launch {
         val tokensTask = tokensDocument.get()
@@ -41,6 +49,8 @@ class SharedViewModel(private val preferences: SharedPreferences) : ViewModel() 
         else addToken(result.token, tokensDoc)
     
         _userExist.value = true
+        
+        trainingRepository.runPeriodicTrainingSync()
     }}
     
     private suspend fun createNewUser(token: String) {

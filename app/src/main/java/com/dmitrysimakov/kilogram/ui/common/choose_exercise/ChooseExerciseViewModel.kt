@@ -1,6 +1,5 @@
 package com.dmitrysimakov.kilogram.ui.common.choose_exercise
 
-import android.app.Application
 import androidx.lifecycle.*
 import androidx.sqlite.db.SimpleSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteQuery
@@ -19,13 +18,12 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class ChooseExerciseViewModel (
-        app: Application,
         equipmentDao: EquipmentDao,
         private val exerciseTargetDao: ExerciseTargetDao,
         private val exerciseRepo: ExerciseRepository,
         private val trainingExerciseRepository: TrainingExerciseRepository,
         private val programDayExerciseRepository: ProgramDayExerciseRepository
-) : AndroidViewModel(app) {
+) : ViewModel() {
     
     private val query = MediatorLiveData<SupportSQLiteQuery>()
     

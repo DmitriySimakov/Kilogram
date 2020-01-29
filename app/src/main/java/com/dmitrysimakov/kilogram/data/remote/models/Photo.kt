@@ -4,6 +4,6 @@ import java.util.*
 
 data class Photo(
         val uri: String = "",
-        val dateTime: Date = Date(),
-        val updatedAt: Date = Date()
+        val dateTime: String = "",
+        val lastUpdate: Date = Date()
 )

@@ -1,6 +1,5 @@
 package com.dmitrysimakov.kilogram.ui.home.trainings.create_training
 
-import android.app.Application
 import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.local.entity.Training
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
@@ -14,12 +13,11 @@ import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
 
 class CreateTrainingViewModel(
-        app: Application,
         private val trainingRepo: TrainingRepository,
         private val trainingExerciseRepo: TrainingExerciseRepository,
         private val programDayRepo: ProgramDayRepository,
         private val programDayExerciseRepo: ProgramDayExerciseRepository
-) : AndroidViewModel(app) {
+) : ViewModel() {
     
     private val _dateTime = MutableLiveData(OffsetDateTime.now())
     val dateTime: LiveData<OffsetDateTime> = _dateTime

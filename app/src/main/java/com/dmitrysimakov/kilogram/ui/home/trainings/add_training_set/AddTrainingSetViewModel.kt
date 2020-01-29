@@ -1,9 +1,8 @@
 package com.dmitrysimakov.kilogram.ui.home.trainings.add_training_set
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.local.entity.TrainingSet
@@ -13,10 +12,9 @@ import com.dmitrysimakov.kilogram.util.live_data.Event
 import kotlinx.coroutines.launch
 
 class AddTrainingSetViewModel(
-        app: Application,
         private val trainingExerciseRepository: TrainingExerciseRepository,
         private val trainingExerciseSetRepository: TrainingSetRepository
-) : AndroidViewModel(app) {
+) : ViewModel() {
     
     private val _trainingSetId = MutableLiveData(0L)
     val trainingSetId: LiveData<Long> = _trainingSetId
