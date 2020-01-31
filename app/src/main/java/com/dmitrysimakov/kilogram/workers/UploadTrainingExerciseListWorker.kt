@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.dmitrysimakov.kilogram.data.local.dao.TrainingExerciseDao
+import com.dmitrysimakov.kilogram.data.remote.data_sources.ID
 import com.dmitrysimakov.kilogram.data.remote.models.TrainingExercise
 import com.dmitrysimakov.kilogram.util.firestore
 import com.dmitrysimakov.kilogram.util.trainingExercisesCollection
@@ -15,7 +16,7 @@ class UploadTrainingExerciseListWorker(context: Context, workerParams: WorkerPar
     private val dao: TrainingExerciseDao by inject()
     
     override suspend fun doWork(): Result {
-        val trainingId = inputData.getLong("id", 0)
+        val trainingId = inputData.getLong(ID, 0)
         val exercises = dao.trainingExercises(trainingId)
         
         val writeBatch = firestore.batch()

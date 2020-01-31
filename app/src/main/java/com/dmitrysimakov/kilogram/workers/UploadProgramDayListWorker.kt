@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.dmitrysimakov.kilogram.data.local.dao.ProgramDayDao
+import com.dmitrysimakov.kilogram.data.remote.data_sources.ID
 import com.dmitrysimakov.kilogram.data.remote.models.ProgramDay
 import com.dmitrysimakov.kilogram.util.firestore
 import com.dmitrysimakov.kilogram.util.programDaysCollection
@@ -15,7 +16,7 @@ class UploadProgramDayListWorker(context: Context, workerParams: WorkerParameter
     private val dao: ProgramDayDao by inject()
     
     override suspend fun doWork(): Result {
-        val programId = inputData.getLong("id", 0)
+        val programId = inputData.getLong(ID, 0)
         val programDays = dao.programDays(programId)
         
         val writeBatch = firestore.batch()
