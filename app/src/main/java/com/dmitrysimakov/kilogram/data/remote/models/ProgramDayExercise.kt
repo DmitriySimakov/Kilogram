@@ -9,5 +9,6 @@ data class ProgramDayExercise(
         var indexNumber: Int = 1,
         val rest: Int = 120,
         val strategy: String? = null,
-        val lastUpdate: Date = Date()
+        val lastUpdate: Date = Date(),
+        val deleted: Boolean = false
 )

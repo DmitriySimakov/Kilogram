@@ -10,4 +10,12 @@ class PhotoSource(workManager: WorkManager) : RemoteDataSource(workManager) {
         val data = Data.Builder().putString("uri", uri).build()
         upload(data, UploadPhotoWorker::class.java)
     }
+    
+    fun deletePhoto(uri: String) {
+        val data = Data.Builder()
+                .putString("uri", uri)
+                .putBoolean("delete", true)
+                .build()
+        upload(data, UploadPhotoWorker::class.java)
+    }
 }

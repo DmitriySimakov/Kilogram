@@ -9,5 +9,6 @@ data class TrainingSet(
         val reps: Int? = null,
         val time: Int? = null,
         val distance: Int? = null,
-        val lastUpdate: Date = Date()
+        val lastUpdate: Date = Date(),
+        val deleted: Boolean = false
 )

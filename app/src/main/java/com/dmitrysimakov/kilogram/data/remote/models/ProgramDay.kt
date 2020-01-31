@@ -8,5 +8,6 @@ data class ProgramDay(
         var indexNumber: Int = 1,
         val name: String = "",
         val description: String = "",
-        val lastUpdate: Date = Date()
+        val lastUpdate: Date = Date(),
+        val deleted: Boolean = false
 )

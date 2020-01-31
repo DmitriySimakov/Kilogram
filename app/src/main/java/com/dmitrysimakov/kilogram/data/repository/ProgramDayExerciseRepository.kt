@@ -13,8 +13,6 @@ class ProgramDayExerciseRepository(
     
     suspend fun programDayExercises(programDayId: Long) = dao.programDayExercises(programDayId)
     
-    suspend fun programDayExercise(id: Long) = dao.programDayExercise(id)
-    
     suspend fun insert(programDayExercise: ProgramDayExercise) {
         val id = dao.insert(programDayExercise)
         src.uploadProgramDayExercise(id)
@@ -27,5 +25,8 @@ class ProgramDayExerciseRepository(
         src.uploadProgramDayExerciseList(programDayExercises[0].programDayId)
     }
     
-    suspend fun delete(id: Long) = dao.delete(id)
+    suspend fun delete(id: Long) {
+        dao.delete(id)
+        src.deleteProgramDayExercise(id)
+    }
 }

@@ -17,8 +17,6 @@ class TrainingExerciseRepository(
     
     suspend fun trainingExercise(id: Long) = dao.trainingExercise(id)
     
-    suspend fun trainingExercises(trainingId: Long) = dao.trainingExercises(trainingId)
-    
     suspend fun insert(exercise: TrainingExercise) {
         val id = dao.insert(exercise)
         src.uploadTrainingExercise(id)
@@ -30,8 +28,6 @@ class TrainingExerciseRepository(
         dao.insert(exercises)
         src.uploadTrainingExerciseList(exercises[0].trainingId)
     }
-    
-    suspend fun delete(id: Long) = dao.delete(id)
     
     suspend fun updateState(id: Long, state: Int) {
         val exercise = dao.trainingExercise(id)
@@ -47,5 +43,10 @@ class TrainingExerciseRepository(
         
         dao.update(trainingExercises)
         src.uploadTrainingExerciseList(trainingExercises[0].trainingId)
+    }
+    
+    suspend fun delete(id: Long) {
+        dao.delete(id)
+        src.deleteTrainingExercise(id)
     }
 }

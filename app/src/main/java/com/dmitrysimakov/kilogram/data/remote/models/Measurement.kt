@@ -7,5 +7,6 @@ data class Measurement(
         val date: String = "",
         val param: String = "",
         val value: Double = 0.0,
-        val lastUpdate: Date = Date()
+        val lastUpdate: Date = Date(),
+        val deleted: Boolean = false
 )

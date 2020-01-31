@@ -11,8 +11,6 @@ class ProgramDayRepository(
     
     fun programDaysFlow(programId: Long)  = dao.programDaysFlow(programId)
     
-    suspend fun programDays(programId: Long) = dao.programDays(programId)
-    
     suspend fun programDay(id: Long) = dao.programDay(id)
     
     suspend fun nextProgramDayAndProgram() = dao.nextProgramDayAndProgram()
@@ -32,5 +30,8 @@ class ProgramDayRepository(
         src.uploadProgramDayList(programDays[0].programId)
     }
     
-    suspend fun delete(id: Long) = dao.delete(id)
+    suspend fun delete(id: Long) {
+        dao.delete(id)
+        src.deleteProgramDay(id)
+    }
 }

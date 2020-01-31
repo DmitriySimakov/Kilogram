@@ -20,5 +20,8 @@ class TrainingSetRepository(private val dao: TrainingSetDao, private val src: Tr
         src.uploadTrainingSet(set.id)
     }
     
-    suspend fun delete(id: Long) = dao.delete(id)
+    suspend fun delete(id: Long) {
+        dao.delete(id)
+        src.deleteTrainingSet(id)
+    }
 }

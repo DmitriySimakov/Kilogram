@@ -7,5 +7,6 @@ data class Training(
         val startDateTime: String = "",
         val duration: Int? = null,
         val programDayId: Long? = null,
-        val lastUpdate: Date = Date()
+        val lastUpdate: Date = Date(),
+        val deleted: Boolean = false
 )

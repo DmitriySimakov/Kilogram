@@ -28,5 +28,8 @@ class TrainingRepository(
         src.uploadTraining(training.id)
     }
     
-    suspend fun delete(id: Long) = dao.delete(id)
+    suspend fun delete(id: Long) {
+        dao.delete(id)
+        src.deleteTraining(id)
+    }
 }

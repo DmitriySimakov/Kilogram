@@ -19,5 +19,8 @@ class ProgramRepository(
         return id
     }
     
-    suspend fun delete(id: Long) = dao.delete(id)
+    suspend fun delete(id: Long) {
+        dao.delete(id)
+        src.deleteProgram(id)
+    }
 }

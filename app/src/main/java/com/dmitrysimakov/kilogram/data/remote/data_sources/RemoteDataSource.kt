@@ -3,10 +3,21 @@ package com.dmitrysimakov.kilogram.data.remote.data_sources
 import androidx.work.*
 import com.dmitrysimakov.kilogram.util.firebaseUser
 
+const val ID = "id"
+const val NEED_TO_DELETE = "need_to_delete"
+
 abstract class RemoteDataSource(private val workManager: WorkManager) {
     
     fun upload(id: Long, workerClass: Class<out ListenableWorker>) {
-        val data = Data.Builder().putLong("id", id).build()
+        val data = Data.Builder().putLong(ID, id).build()
+        upload(data, workerClass)
+    }
+    
+    fun delete(id: Long, workerClass: Class<out ListenableWorker>) {
+        val data = Data.Builder()
+                .putLong(ID, id)
+                .putBoolean(NEED_TO_DELETE, true)
+                .build()
         upload(data, workerClass)
     }
     
