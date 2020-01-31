@@ -1,10 +1,9 @@
 package com.dmitrysimakov.kilogram.data.remote.data_sources
 
-import android.content.Context
 import androidx.work.*
 import com.dmitrysimakov.kilogram.util.firebaseUser
 
-abstract class RemoteDataSource(private val context: Context) {
+abstract class RemoteDataSource(private val workManager: WorkManager) {
     
     fun upload(id: Long, workerClass: Class<out ListenableWorker>) {
         val data = Data.Builder().putLong("id", id).build()
@@ -24,6 +23,6 @@ abstract class RemoteDataSource(private val context: Context) {
                 .setInputData(data)
                 .build()
         
-        WorkManager.getInstance(context).enqueue(request)
+        workManager.enqueue(request)
     }
 }

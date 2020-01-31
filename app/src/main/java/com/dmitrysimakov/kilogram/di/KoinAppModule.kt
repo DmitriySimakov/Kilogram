@@ -1,8 +1,8 @@
 package com.dmitrysimakov.kilogram.di
 
 import android.content.Context
-import android.content.SharedPreferences
 import androidx.room.Room
+import androidx.work.WorkManager
 import com.dmitrysimakov.kilogram.data.local.KilogramDb
 import com.dmitrysimakov.kilogram.data.remote.data_sources.MeasurementSource
 import com.dmitrysimakov.kilogram.data.remote.data_sources.PhotoSource
@@ -43,7 +43,8 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
-    single { provideSharedPreferences(androidContext()) }
+    single { androidContext().getSharedPreferences("app_preferences", Context.MODE_PRIVATE) }
+    single { WorkManager.getInstance(androidContext()) }
     // Database
     single { provideDb(androidContext()) }
     // Data Access Objects
@@ -74,7 +75,7 @@ val appModule = module {
     single { ProgramRepository(get(), get()) }
     single { TrainingExerciseRepository(get(), get()) }
     single { TrainingSetRepository(get(), get()) }
-    single { TrainingRepository(get(), get(), get()) }
+    single { TrainingRepository(get(), get()) }
     // ViewModels
     viewModel { SharedViewModel(get(), get()) }
     viewModel { AddMeasurementViewModel(get(), get()) }
@@ -105,10 +106,6 @@ val appModule = module {
     viewModel { PhotosViewModel(get()) }
     viewModel { ProportionsCalculatorViewModel(get()) }
     viewModel { SubscriptionsViewModel() }
-}
-
-fun provideSharedPreferences(context: Context): SharedPreferences {
-    return context.getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
 }
 
 fun provideDb(context: Context): KilogramDb {

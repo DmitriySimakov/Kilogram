@@ -1,10 +1,10 @@
 package com.dmitrysimakov.kilogram.data.remote.data_sources
 
-import android.content.Context
 import androidx.work.Data
+import androidx.work.WorkManager
 import com.dmitrysimakov.kilogram.workers.UploadPhotoWorker
 
-class PhotoSource(context: Context) : RemoteDataSource(context) {
+class PhotoSource(workManager: WorkManager) : RemoteDataSource(workManager) {
     
     fun uploadPhoto(uri: String) {
         val data = Data.Builder().putString("uri", uri).build()

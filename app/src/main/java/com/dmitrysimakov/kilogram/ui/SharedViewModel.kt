@@ -3,21 +3,27 @@ package com.dmitrysimakov.kilogram.ui
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import androidx.lifecycle.*
+import androidx.work.*
 import com.dmitrysimakov.kilogram.data.remote.models.Subscriptions
 import com.dmitrysimakov.kilogram.data.remote.models.User
-import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
 import com.dmitrysimakov.kilogram.util.*
 import com.dmitrysimakov.kilogram.util.live_data.AbsentLiveData
 import com.dmitrysimakov.kilogram.util.live_data.liveData
+import com.dmitrysimakov.kilogram.workers.SyncProgramsWorker
+import com.dmitrysimakov.kilogram.workers.SyncTrainingsWorker
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.util.*
+import java.util.concurrent.TimeUnit
+
+private const val PROGRAMS_SYNC = "programs sync"
+private const val TRAININGS_SYNC = "trainings sync"
 
 class SharedViewModel(
-        private val preferences: SharedPreferences,
-        private val trainingRepository: TrainingRepository
+        private val workManager: WorkManager,
+        private val preferences: SharedPreferences
 ) : ViewModel() {
     
     val programDayId = MutableLiveData(0L)
@@ -36,8 +42,9 @@ class SharedViewModel(
     
     fun signOut() {
         _userExist.value = false
-        
-        trainingRepository.cancelTrainingSync()
+    
+        workManager.cancelAllWorkByTag(PROGRAMS_SYNC)
+        workManager.cancelAllWorkByTag(TRAININGS_SYNC)
     }
     
     fun signIn() { viewModelScope.launch {
@@ -50,8 +57,21 @@ class SharedViewModel(
     
         _userExist.value = true
         
-        trainingRepository.runPeriodicTrainingSync()
+        workManager.enqueue(getSyncWorkRequest(SyncProgramsWorker::class.java, PROGRAMS_SYNC))
+        workManager.enqueue(getSyncWorkRequest(SyncTrainingsWorker::class.java, TRAININGS_SYNC))
     }}
+    
+    private fun getSyncWorkRequest(workerClass: Class<out ListenableWorker>, tag: String): PeriodicWorkRequest {
+        val constraints = Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .setRequiresBatteryNotLow(true)
+                .build()
+        
+        return PeriodicWorkRequest.Builder(workerClass, 1, TimeUnit.DAYS)
+                .addTag(tag)
+                .setConstraints(constraints)
+                .build()
+    }
     
     private suspend fun createNewUser(token: String) {
         val newUser = User(

@@ -1,9 +1,9 @@
 package com.dmitrysimakov.kilogram.data.remote.data_sources
 
-import android.content.Context
+import androidx.work.WorkManager
 import com.dmitrysimakov.kilogram.workers.*
 
-class ProgramSource(context: Context) : RemoteDataSource(context) {
+class ProgramSource(workManager: WorkManager) : RemoteDataSource(workManager) {
     
     fun uploadProgram(id: Long) { upload(id, UploadProgramWorker::class.java) }
     

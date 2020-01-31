@@ -9,9 +9,6 @@ import com.dmitrysimakov.kilogram.data.local.dao.TrainingDao
 import com.dmitrysimakov.kilogram.data.local.dao.TrainingExerciseDao
 import com.dmitrysimakov.kilogram.data.local.dao.TrainingSetDao
 import com.dmitrysimakov.kilogram.util.*
-import com.google.android.gms.tasks.Task
-import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.tasks.await
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -66,10 +63,5 @@ class SyncTrainingsWorker(context: Context, workerParams: WorkerParameters): Cor
         } catch (e: Exception) {
             return Result.failure()
         }
-    }
-    
-    private fun CollectionReference.getNewDataTask(lastUpdate: String?): Task<QuerySnapshot> {
-        return if (lastUpdate == null) get()
-        else whereGreaterThan("lastUpdate", lastUpdate).get()
     }
 }

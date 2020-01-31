@@ -1,12 +1,12 @@
 package com.dmitrysimakov.kilogram.data.remote.data_sources
 
-import android.content.Context
+import androidx.work.WorkManager
 import com.dmitrysimakov.kilogram.workers.UploadTrainingExerciseListWorker
 import com.dmitrysimakov.kilogram.workers.UploadTrainingExerciseWorker
 import com.dmitrysimakov.kilogram.workers.UploadTrainingSetWorker
 import com.dmitrysimakov.kilogram.workers.UploadTrainingWorker
 
-class TrainingSource(context: Context) : RemoteDataSource(context) {
+class TrainingSource(workManager: WorkManager) : RemoteDataSource(workManager) {
     
     fun uploadTraining(id: Long) { upload(id, UploadTrainingWorker::class.java) }
     

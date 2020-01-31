@@ -1,7 +1,10 @@
 package com.dmitrysimakov.kilogram.util
 
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.storage.FirebaseStorage
 
 val firebaseUser
@@ -60,3 +63,9 @@ val firebaseStorage = FirebaseStorage.getInstance()
 val profileImagesRef = firebaseStorage.reference.child("profile_images")
 
 val msgImagesRef = firebaseStorage.reference.child("message_images")
+
+
+fun CollectionReference.getNewDataTask(lastUpdate: String?): Task<QuerySnapshot> {
+    return if (lastUpdate == null) get()
+    else whereGreaterThan("lastUpdate", lastUpdate).get()
+}
