@@ -3,14 +3,16 @@ package com.dmitrysimakov.kilogram.ui
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import androidx.lifecycle.*
-import androidx.work.*
+import androidx.work.Constraints
+import androidx.work.NetworkType
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
 import com.dmitrysimakov.kilogram.data.remote.models.Subscriptions
 import com.dmitrysimakov.kilogram.data.remote.models.User
 import com.dmitrysimakov.kilogram.util.*
 import com.dmitrysimakov.kilogram.util.live_data.AbsentLiveData
 import com.dmitrysimakov.kilogram.util.live_data.liveData
-import com.dmitrysimakov.kilogram.workers.SyncProgramsWorker
-import com.dmitrysimakov.kilogram.workers.SyncTrainingsWorker
+import com.dmitrysimakov.kilogram.workers.SyncLocalDatabaseWorker
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.coroutines.launch
@@ -18,8 +20,7 @@ import kotlinx.coroutines.tasks.await
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-private const val PROGRAMS_SYNC = "programs sync"
-private const val TRAININGS_SYNC = "trainings sync"
+private const val LOCAL_DB_SYNC = "local db sync"
 
 class SharedViewModel(
         private val workManager: WorkManager,
@@ -43,8 +44,7 @@ class SharedViewModel(
     fun signOut() {
         _userExist.value = false
     
-        workManager.cancelAllWorkByTag(PROGRAMS_SYNC)
-        workManager.cancelAllWorkByTag(TRAININGS_SYNC)
+        workManager.cancelAllWorkByTag(LOCAL_DB_SYNC)
     }
     
     fun signIn() { viewModelScope.launch {
@@ -57,20 +57,22 @@ class SharedViewModel(
     
         _userExist.value = true
         
-        workManager.enqueue(getSyncWorkRequest(SyncProgramsWorker::class.java, PROGRAMS_SYNC))
-        workManager.enqueue(getSyncWorkRequest(SyncTrainingsWorker::class.java, TRAININGS_SYNC))
+        runLocalDatabasePeriodicSync()
     }}
     
-    private fun getSyncWorkRequest(workerClass: Class<out ListenableWorker>, tag: String): PeriodicWorkRequest {
+    private fun runLocalDatabasePeriodicSync() {
         val constraints = Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .setRequiresBatteryNotLow(true)
                 .build()
         
-        return PeriodicWorkRequest.Builder(workerClass, 1, TimeUnit.DAYS)
-                .addTag(tag)
+        val request = PeriodicWorkRequest
+                .Builder(SyncLocalDatabaseWorker::class.java, 1, TimeUnit.DAYS)
+                .addTag(LOCAL_DB_SYNC)
                 .setConstraints(constraints)
                 .build()
+    
+        workManager.enqueue(request)
     }
     
     private suspend fun createNewUser(token: String) {

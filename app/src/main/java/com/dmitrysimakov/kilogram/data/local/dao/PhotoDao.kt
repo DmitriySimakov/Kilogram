@@ -21,5 +21,8 @@ interface PhotoDao {
     
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(photos: List<Photo>)
+    
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(photo: Photo)
 }

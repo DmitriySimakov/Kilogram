@@ -5,6 +5,5 @@ object PreferencesKeys {
     @JvmStatic val SESSION_START_MILLIS = "session_start_millis"
     @JvmStatic val REST_START_MILLIS = "rest_start_millis"
     @JvmStatic val REST_TIME = "rest_time"
-    @JvmStatic val TRAININGS_LAST_UPDATE = "trainings_last_update"
-    @JvmStatic val PROGRAMS_LAST_UPDATE = "programs_last_update"
+    @JvmStatic val DB_LAST_SYNC = "db_last_sync"
 }
