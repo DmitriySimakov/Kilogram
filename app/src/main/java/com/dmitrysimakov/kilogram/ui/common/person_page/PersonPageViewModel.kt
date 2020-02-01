@@ -1,28 +1,22 @@
 package com.dmitrysimakov.kilogram.ui.common.person_page
 
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
+import androidx.lifecycle.switchMap
 import com.dmitrysimakov.kilogram.data.remote.models.User
-import com.dmitrysimakov.kilogram.data.repository.MeasurementRepository
-import com.dmitrysimakov.kilogram.data.repository.PhotoRepository
-import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
 import com.dmitrysimakov.kilogram.util.setNewValue
+import com.dmitrysimakov.kilogram.util.usersCollection
+import kotlinx.coroutines.tasks.await
 
-class PersonPageViewModel(
-        private val trainingRepository: TrainingRepository,
-        private val photoRepository: PhotoRepository,
-        private val measurementRepository: MeasurementRepository
-) : ViewModel() {
+class PersonPageViewModel : ViewModel() {
     
-    private val _user = MutableLiveData<User>()
-    val user: LiveData<User> = _user
+    private val _userId = MutableLiveData<String>()
     
-    fun setUser(user: User) { _user.setNewValue(user) }
+    val user = _userId.switchMap { id -> liveData {
+        emit(usersCollection.document(id).get().await().toObject(User::class.java)!!)
+    }}
     
-    val trainings = trainingRepository.detailedTrainingsFlow().asLiveData()
-
-    val recentPhotos = photoRepository.recentPhotos(3).asLiveData()
-
-    val recentMeasurements = measurementRepository.lastMeasurementsWithPreviousResults().asLiveData()
-            .map { it.filter { measurement -> measurement.id != null } }
+    fun setUserId(id: String) { _userId.setNewValue(id) }
 
 }

@@ -18,6 +18,7 @@ import com.dmitrysimakov.kilogram.ui.catalog.programs.exercises.ProgramDayExerci
 import com.dmitrysimakov.kilogram.ui.common.choose_exercise.ChooseExerciseViewModel
 import com.dmitrysimakov.kilogram.ui.common.choose_program.ChooseProgramViewModel
 import com.dmitrysimakov.kilogram.ui.common.choose_program_day.ChooseProgramDayViewModel
+import com.dmitrysimakov.kilogram.ui.common.person_page.PersonPageViewModel
 import com.dmitrysimakov.kilogram.ui.home.HomeViewModel
 import com.dmitrysimakov.kilogram.ui.home.calendar_day.CalendarDayViewModel
 import com.dmitrysimakov.kilogram.ui.home.measurements.MeasurementsViewModel
@@ -102,6 +103,7 @@ val appModule = module {
     viewModel { TrainingExercisesViewModel(get(), get(), get()) }
     viewModel { TrainingSetsViewModel(get(), get(), get()) }
     viewModel { PeopleViewModel() }
+    viewModel { PersonPageViewModel() }
     viewModel { PhotoViewModel(get()) }
     viewModel { PhotosViewModel(get()) }
     viewModel { ProportionsCalculatorViewModel(get()) }
