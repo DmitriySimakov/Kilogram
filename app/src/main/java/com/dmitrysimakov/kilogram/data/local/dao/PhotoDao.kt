@@ -25,4 +25,8 @@ interface PhotoDao {
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(photo: Photo)
+    
+    
+    @Query("DELETE FROM Photo WHERE uri = :uri")
+    suspend fun delete(uri: String)
 }

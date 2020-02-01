@@ -46,59 +46,21 @@ class SyncLocalDatabaseWorker(context: Context, workerParams: WorkerParameters):
             val programDaysTask = getNewDataTask(programDaysCollection)
             val programDayExercisesTask = getNewDataTask(programDayExercisesCollection)
             val trainingsTask = getNewDataTask(trainingsCollection)
-            val exercisesTask = getNewDataTask(trainingExercisesCollection)
-            val setsTask = getNewDataTask(trainingSetsCollection)
+            val trainingExerciseTask = getNewDataTask(trainingExercisesCollection)
+            val trainingSetsTask = getNewDataTask(trainingSetsCollection)
             val measurementsTask = getNewDataTask(measurementsCollection)
             val photosTask = getNewDataTask(photosCollection)
             
-            val remotePrograms = programsTask.await().toObjects(RemoteProgram::class.java)
-            val localPrograms = remotePrograms.map {
-                LocalProgram(it.id, it.name, it.description)
-            }
-    
-            val remoteProgramDays = programDaysTask.await().toObjects(RemoteProgramDay::class.java)
-            val localProgramDays = remoteProgramDays.map {
-                LocalProgramDay(it.id, it.programId, it.indexNumber, it.name, it.description)
-            }
-    
-            val remoteProgramDayExercises = programDayExercisesTask.await().toObjects(RemoteProgramDayExercise::class.java)
-            val localProgramDayExercises = remoteProgramDayExercises.map {
-                LocalProgramDayExercise(it.id, it.programDayId, it.exercise, it.indexNumber, it.rest, it.strategy)
-            }
-    
-            val remoteTrainings = trainingsTask.await().toObjects(RemoteTraining::class.java)
-            val localTrainings = remoteTrainings.map {
-                LocalTraining(it.id, it.startDateTime.toOffsetDateTime(), it.duration, it.programDayId)
-            }
-    
-            val remoteTrainingExercises = exercisesTask.await().toObjects(RemoteTrainingExercise::class.java)
-            val localTrainingExercises = remoteTrainingExercises.map {
-                LocalTrainingExercise(it.id, it.trainingId, it.exercise, it.indexNumber, it.rest, it.strategy, it.state)
-            }
-    
-            val remoteTrainingSets = setsTask.await().toObjects(RemoteTrainingSet::class.java)
-            val localTrainingSets = remoteTrainingSets.map {
-                LocalTrainingSet(it.id, it.trainingExerciseId, it.weight, it.reps, it.time, it.distance)
-            }
-    
-            val remoteMeasurements = measurementsTask.await().toObjects(RemoteMeasurement::class.java)
-            val localMeasurements = remoteMeasurements.map {
-                LocalMeasurement(it.id, it.date.toLocalDate(), it.param, it.value)
-            }
-    
-            val remotePhotos = photosTask.await().toObjects(RemotePhoto::class.java)
-            val localPhotos = remotePhotos.map {
-                LocalPhoto(it.uri, it.dateTime.toOffsetDateTime())
-            }
-    
-            db.programDao().insert(localPrograms)
-            db.programDayDao().insert(localProgramDays)
-            db.programDayExerciseDao().insert(localProgramDayExercises)
-            db.trainingDao().insert(localTrainings)
-            db.trainingExerciseDao().insert(localTrainingExercises)
-            db.trainingSetDao().insert(localTrainingSets)
-            db.measurementDao().insert(localMeasurements)
-            db.photoDao().insert(localPhotos) // TODO download photos from firebase storage
+            syncPrograms(programsTask.await())
+            syncProgramDays(programDaysTask.await())
+            syncProgramDayExercises(programDayExercisesTask.await())
+            syncTrainings(trainingsTask.await())
+            syncTrainingExercises(trainingExerciseTask.await())
+            syncTrainingSets(trainingSetsTask.await())
+            syncMeasurements(measurementsTask.await())
+            syncPhotos(photosTask.await())
+            
+            // TODO download photos from firebase storage
             
             preferences.edit().putLong(DB_LAST_SYNC, Date().time).apply()
     
@@ -106,6 +68,102 @@ class SyncLocalDatabaseWorker(context: Context, workerParams: WorkerParameters):
         } catch (e: Exception) {
             return Result.failure()
         }
+    }
+    
+    private suspend fun syncPrograms(snapshot: QuerySnapshot) {
+        val dao = db.programDao()
+        val remoteItems = snapshot.toObjects(RemoteProgram::class.java)
+    
+        val (deletedItems, existingItems) = remoteItems.partition { it.deleted }
+        
+        for (item in deletedItems) dao.delete(item.id)
+        
+        val localItems = existingItems.map { LocalProgram(it.id, it.name, it.description) }
+        dao.insert(localItems)
+    }
+    
+    private suspend fun syncProgramDays(snapshot: QuerySnapshot) {
+        val dao = db.programDayDao()
+        val remoteItems = snapshot.toObjects(RemoteProgramDay::class.java)
+    
+        val (deletedItems, existingItems) = remoteItems.partition { it.deleted }
+        
+        for (item in deletedItems) dao.delete(item.id)
+        
+        val localItems = existingItems.map { LocalProgramDay(it.id, it.programId, it.indexNumber, it.name, it.description) }
+        dao.insert(localItems)
+    }
+    
+    private suspend fun syncProgramDayExercises(snapshot: QuerySnapshot) {
+        val dao = db.programDayExerciseDao()
+        val remoteItems = snapshot.toObjects(RemoteProgramDayExercise::class.java)
+    
+        val (deletedItems, existingItems) = remoteItems.partition { it.deleted }
+        
+        for (item in deletedItems) dao.delete(item.id)
+        
+        val localItems = existingItems.map { LocalProgramDayExercise(it.id, it.programDayId, it.exercise, it.indexNumber, it.rest, it.strategy) }
+        dao.insert(localItems)
+    }
+    
+    private suspend fun syncTrainings(snapshot: QuerySnapshot) {
+        val dao = db.trainingDao()
+        val remoteItems = snapshot.toObjects(RemoteTraining::class.java)
+    
+        val (deletedItems, existingItems) = remoteItems.partition { it.deleted }
+        
+        for (item in deletedItems) dao.delete(item.id)
+        
+        val localItems = existingItems.map { LocalTraining(it.id, it.startDateTime.toOffsetDateTime(), it.duration, it.programDayId) }
+        dao.insert(localItems)
+    }
+    
+    private suspend fun syncTrainingExercises(snapshot: QuerySnapshot) {
+        val dao = db.trainingExerciseDao()
+        val remoteItems = snapshot.toObjects(RemoteTrainingExercise::class.java)
+    
+        val (deletedItems, existingItems) = remoteItems.partition { it.deleted }
+        
+        for (item in deletedItems) dao.delete(item.id)
+        
+        val localItems = existingItems.map { LocalTrainingExercise(it.id, it.trainingId, it.exercise, it.indexNumber, it.rest, it.strategy, it.state) }
+        dao.insert(localItems)
+    }
+    
+    private suspend fun syncTrainingSets(snapshot: QuerySnapshot) {
+        val dao = db.trainingSetDao()
+        val remoteItems = snapshot.toObjects(RemoteTrainingSet::class.java)
+        
+        val (deletedItems, existingItems) = remoteItems.partition { it.deleted }
+        
+        for (item in deletedItems) dao.delete(item.id)
+        
+        val localItems = existingItems.map {  LocalTrainingSet(it.id, it.trainingExerciseId, it.weight, it.reps, it.time, it.distance) }
+        dao.insert(localItems)
+    }
+    
+    private suspend fun syncMeasurements(snapshot: QuerySnapshot) {
+        val dao = db.measurementDao()
+        val remoteItems = snapshot.toObjects(RemoteMeasurement::class.java)
+    
+        val (deletedItems, existingItems) = remoteItems.partition { it.deleted }
+    
+        for (item in deletedItems) dao.delete(item.id)
+    
+        val localItems = existingItems.map {  LocalMeasurement(it.id, it.date.toLocalDate(), it.param, it.value) }
+        dao.insert(localItems)
+    }
+    
+    private suspend fun syncPhotos(snapshot: QuerySnapshot) {
+        val dao = db.photoDao()
+        val remoteItems = snapshot.toObjects(RemotePhoto::class.java)
+        
+        val (deletedItems, existingItems) = remoteItems.partition { it.deleted }
+        
+        for (item in deletedItems) dao.delete(item.uri)
+        
+        val localItems = existingItems.map {  LocalPhoto(it.uri, it.dateTime.toOffsetDateTime()) }
+        dao.insert(localItems)
     }
     
     private fun getNewDataTask(ref: CollectionReference): Task<QuerySnapshot> {

@@ -53,4 +53,8 @@ interface MeasurementDao {
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(measurement: Measurement): Long
+    
+    
+    @Query("DELETE FROM Measurement WHERE id = :id")
+    suspend fun delete(id: Long)
 }
