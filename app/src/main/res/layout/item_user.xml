@@ -6,19 +6,19 @@
     <data>
         
         <variable
-            name="uwss"
-            type="com.dmitrysimakov.kilogram.data.remote.relation.UserWithSubscriptionStatus" />
+            name="user"
+            type="com.dmitrysimakov.kilogram.data.remote.models.User" />
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout
         style="@style/HorizontalListItem"
-        android:layout_height="?attr/listPreferredItemHeightLarge">
+        android:layout_height="?attr/listPreferredItemHeightSmall">
         
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/photo"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            app:imageUrl="@{uwss.photoUrl}"
+            app:imageUrl="@{user.photoUrl}"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -29,32 +29,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="@{uwss.name}"
+            android:text="@{user.name}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:layout_constraintStart_toEndOf="@id/photo"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@tools:sample/full_names" />
-        
-        <Button
-            android:id="@+id/subscribe_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/follow"
-            app:goneUnless="@{!uwss.isFollowed}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-    
-        <Button
-            android:id="@+id/unsubscribe_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/unfollow"
-            android:backgroundTint="@color/grey300"
-            android:textColor="@color/black"
-            app:goneUnless="@{uwss.isFollowed}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:visibility="gone"/>
     
     </androidx.constraintlayout.widget.ConstraintLayout>
 

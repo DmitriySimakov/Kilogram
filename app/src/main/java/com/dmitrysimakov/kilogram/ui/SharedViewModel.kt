@@ -32,9 +32,15 @@ class SharedViewModel(
     //region Firebase
     
     private val _userExist = MutableLiveData<Boolean>()
+    
     val user: LiveData<User> = _userExist.switchMap { userExist ->
         if (!userExist) AbsentLiveData.create()
         else userDocument.liveData { it.toObject(User::class.java)!! }
+    }
+    
+    val subscriptions = user.switchMap { user ->
+        if (user == null) AbsentLiveData.create()
+        else subscriptionsDocument.liveData { it.toObject(Subscriptions::class.java) }
     }
     
     fun initUser() {

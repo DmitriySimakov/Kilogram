@@ -5,8 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.databinding.FragmentPersonPageBinding
+import com.dmitrysimakov.kilogram.ui.SharedViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PersonPageFragment : Fragment() {
@@ -14,6 +17,7 @@ class PersonPageFragment : Fragment() {
     private val args: PersonPageFragmentArgs by navArgs()
     
     private val vm: PersonPageViewModel by viewModel()
+    private val sharedVM: SharedViewModel by sharedViewModel()
     
     private lateinit var binding: FragmentPersonPageBinding
     
@@ -27,6 +31,8 @@ class PersonPageFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         
-        vm.setUserId(args.userId)
+        sharedVM.user.observe(viewLifecycleOwner) { vm.setUser(it) }
+        sharedVM.subscriptions.observe(viewLifecycleOwner) { vm.setSubscriptions(it) }
+        vm.setPersonId(args.userId)
     }
 }
