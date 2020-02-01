@@ -12,6 +12,7 @@ class PersonPageViewModel : ViewModel() {
     
     private val _user = MutableLiveData<User?>()
     private val _subscriptions = MutableLiveData<Subscriptions?>()
+    val subscriptions: LiveData<Subscriptions?> = _subscriptions
     
     private val _personId = MutableLiveData<String>()
     val person = _personId.switchMap { id -> liveData {
@@ -25,9 +26,10 @@ class PersonPageViewModel : ViewModel() {
     fun setPersonId(id: String) { _personId.setNewValue(id) }
     
     
-    fun updateSubscriptions(person: User, action: SubscriptionAction) { viewModelScope.launch {
+    fun updateSubscriptions(action: SubscriptionAction) { viewModelScope.launch {
         val currentUser = _user.value!!
         val currentUserFollowedIds = _subscriptions.value!!.followedIds.toMutableList()
+        val person = person.value!!
         
         val userSubsDoc = subscriptionsCollection.document(person.id)
         val userSubs = userSubsDoc.get().await().toObject(Subscriptions::class.java)!!

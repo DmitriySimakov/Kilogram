@@ -60,7 +60,7 @@
             android:name="userId"
             app:argType="string" />
         <action
-            android:id="@+id/action_personPageFragment_to_messagesFragment"
+            android:id="@+id/to_messagesFragment"
             app:destination="@id/messagesFragment" />
     </fragment>
 </navigation>

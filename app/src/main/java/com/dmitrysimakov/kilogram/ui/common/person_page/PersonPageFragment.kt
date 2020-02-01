@@ -7,8 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
+import com.dmitrysimakov.kilogram.data.remote.models.SubscriptionAction.SUBSCRIBE
+import com.dmitrysimakov.kilogram.data.remote.models.SubscriptionAction.UNSUBSCRIBE
 import com.dmitrysimakov.kilogram.databinding.FragmentPersonPageBinding
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
+import com.dmitrysimakov.kilogram.ui.common.person_page.PersonPageFragmentDirections.Companion.toMessagesFragment
+import com.dmitrysimakov.kilogram.util.navigate
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -34,5 +38,9 @@ class PersonPageFragment : Fragment() {
         sharedVM.user.observe(viewLifecycleOwner) { vm.setUser(it) }
         sharedVM.subscriptions.observe(viewLifecycleOwner) { vm.setSubscriptions(it) }
         vm.setPersonId(args.userId)
+        
+        binding.followBtn.setOnClickListener { vm.updateSubscriptions(SUBSCRIBE) }
+        binding.unfollowBtn.setOnClickListener { vm.updateSubscriptions(UNSUBSCRIBE) }
+        binding.writeMessageBtn.setOnClickListener { navigate(toMessagesFragment(args.userId)) }
     }
 }
