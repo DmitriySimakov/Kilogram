@@ -141,5 +141,6 @@
     <string name="content">Содержание</string>
     <string name="publish">Опубликовать</string>
     <string name="add_image">Добавить изображение</string>
+    <string name="write">Написать</string>
 
 </resources>

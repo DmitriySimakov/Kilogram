@@ -1,10 +1,10 @@
-package com.dmitrysimakov.kilogram.ui.home
+package com.dmitrysimakov.kilogram.ui.common
 
 import android.view.View
 import com.kizitonwose.calendarview.model.CalendarMonth
 import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
-import kotlinx.android.synthetic.main.calendar_month_header.view.*
+import kotlinx.android.synthetic.main.view_calendar_header.view.*
 
 class MonthViewContainer(view: View) : ViewContainer(view) {
     val legendLayout = view.legendLayout

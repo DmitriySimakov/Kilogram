@@ -1,5 +1,6 @@
 package com.dmitrysimakov.kilogram.ui.home
 
+import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
@@ -13,6 +14,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import com.dmitrysimakov.kilogram.data.local.entity.Photo
 import com.dmitrysimakov.kilogram.databinding.FragmentHomeBinding
+import com.dmitrysimakov.kilogram.ui.common.CalendarDayBinder
+import com.dmitrysimakov.kilogram.ui.common.CalendarMonthBinder
 import com.dmitrysimakov.kilogram.ui.common.measurements.MeasurementsAdapter
 import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toAddMeasurementDialog
 import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toCalendarDayDialog
@@ -44,7 +47,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     
     private val calendarMonthBinder by lazy { CalendarMonthBinder() }
-    private val calendarDayBinder by lazy { CalendarDayBinder() {
+    private val calendarDayBinder by lazy { CalendarDayBinder {
         navigate(toCalendarDayDialog(it.toIsoString()))
     }}
     private val photosAdapter by lazy { PhotosAdapter { navigate(toPhotoFragment(it.uri)) } }
@@ -63,6 +66,7 @@ class HomeFragment : Fragment() {
         return binding.root
     }
     
+    @SuppressLint("DefaultLocale")
     private fun setupCalendar() {
         binding.apply {
             calendarView.apply {

@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.home
+package com.dmitrysimakov.kilogram.ui.common
 
 import android.view.View
 import com.dmitrysimakov.kilogram.R
@@ -7,10 +7,10 @@ import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
-import kotlinx.android.synthetic.main.calendar_day_view.view.*
+import kotlinx.android.synthetic.main.item_calendar_day.view.*
 import org.threeten.bp.LocalDate
 
-class CalendarDayBinder(private val onClick: ((LocalDate) -> Unit)) : DayBinder<DayViewContainer> {
+class CalendarDayBinder(private val onClick: ((LocalDate) -> Unit)? = null) : DayBinder<DayViewContainer> {
     
     private var trainings = listOf<DetailedTraining>()
     
@@ -22,7 +22,7 @@ class CalendarDayBinder(private val onClick: ((LocalDate) -> Unit)) : DayBinder<
         container.apply {
             val curDate = day.date
             
-            layout.setOnClickListener { onClick(curDate) }
+            onClick?.let { layout.setOnClickListener { it(curDate) } }
             
             dayText.text = curDate.dayOfMonth.toString()
     
