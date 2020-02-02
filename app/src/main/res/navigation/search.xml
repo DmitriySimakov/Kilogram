@@ -10,7 +10,7 @@
         android:label="@string/people"
         tools:layout="@layout/fragment_people" >
         <action
-            android:id="@+id/to_person_page"
+            android:id="@+id/to_personPageFragment"
             app:destination="@id/person_page" >
             <argument
                 android:name="id"

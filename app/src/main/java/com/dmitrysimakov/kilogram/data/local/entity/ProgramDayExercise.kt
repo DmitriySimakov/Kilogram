@@ -1,5 +1,6 @@
 package com.dmitrysimakov.kilogram.data.local.entity
 
+import androidx.recyclerview.widget.DiffUtil
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
@@ -27,3 +28,8 @@ data class ProgramDayExercise(
         val rest: Int = 120,
         val strategy: String? = null
 )
+
+class ProgramDayExerciseDiffCallback : DiffUtil.ItemCallback<ProgramDayExercise>() {
+    override fun areItemsTheSame(oldItem: ProgramDayExercise, newItem: ProgramDayExercise) = oldItem.id == newItem.id
+    override fun areContentsTheSame(oldItem: ProgramDayExercise, newItem: ProgramDayExercise) = oldItem == newItem
+}

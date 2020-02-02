@@ -1,5 +1,6 @@
 package com.dmitrysimakov.kilogram.data.remote.models
 
+import androidx.recyclerview.widget.DiffUtil
 import java.util.*
 
 data class Message(
@@ -10,3 +11,8 @@ data class Message(
         val timestamp: Date = Date(),
         val wasRead: Boolean = false
 )
+
+class MessageDiffCallback : DiffUtil.ItemCallback<Message>() {
+    override fun areItemsTheSame(oldItem: Message, newItem: Message) = oldItem.id == newItem.id
+    override fun areContentsTheSame(oldItem: Message, newItem: Message) = oldItem == newItem
+}

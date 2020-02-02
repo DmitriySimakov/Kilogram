@@ -2,9 +2,9 @@ package com.dmitrysimakov.kilogram.ui.home.measurements.proportions_calculator
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.data.local.relation.ProportionsCalculatorItem
+import com.dmitrysimakov.kilogram.data.local.relation.ProportionsCalculatorItemDiffCallback
 import com.dmitrysimakov.kilogram.databinding.ItemProportionsCalculatorBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 import kotlin.math.absoluteValue
@@ -12,7 +12,10 @@ import kotlin.math.absoluteValue
 class ProportionsCalculatorAdapter(
         private val viewModel: ProportionsCalculatorViewModel,
         clickCallback: ((ProportionsCalculatorItem) -> Unit)? = null
-) : DataBoundListAdapter<ProportionsCalculatorItem, ItemProportionsCalculatorBinding>(clickCallback, MeasurementDiffCallback()) {
+) : DataBoundListAdapter<ProportionsCalculatorItem, ItemProportionsCalculatorBinding>(
+        clickCallback,
+        ProportionsCalculatorItemDiffCallback()
+) {
 
     override fun createBinding(parent: ViewGroup): ItemProportionsCalculatorBinding = ItemProportionsCalculatorBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
@@ -41,11 +44,4 @@ class ProportionsCalculatorAdapter(
             binding.percent.setTextColor(res.getColor(color))
         }
     }
-}
-
-private class MeasurementDiffCallback : DiffUtil.ItemCallback<ProportionsCalculatorItem>() {
-    override fun areItemsTheSame(oldItem: ProportionsCalculatorItem, newItem: ProportionsCalculatorItem) =
-            oldItem.param == newItem.param
-    override fun areContentsTheSame(oldItem: ProportionsCalculatorItem, newItem: ProportionsCalculatorItem) =
-            oldItem == newItem
 }

@@ -2,8 +2,8 @@ package com.dmitrysimakov.kilogram.ui.common.choose_program
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import com.dmitrysimakov.kilogram.data.local.entity.Program
+import com.dmitrysimakov.kilogram.data.local.entity.ProgramDiffCallback
 import com.dmitrysimakov.kilogram.databinding.ItemProgramBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 
@@ -16,11 +16,4 @@ class ChooseProgramAdapter(clickCallback: ((Program) -> Unit)? = null)
     override fun bind(binding: ItemProgramBinding, item: Program) {
         binding.program = item
     }
-}
-
-private class ProgramDiffCallback : DiffUtil.ItemCallback<Program>() {
-    override fun areItemsTheSame(oldItem: Program, newItem: Program) =
-            oldItem.id == newItem.id
-    override fun areContentsTheSame(oldItem: Program, newItem: Program) =
-            oldItem == newItem
 }

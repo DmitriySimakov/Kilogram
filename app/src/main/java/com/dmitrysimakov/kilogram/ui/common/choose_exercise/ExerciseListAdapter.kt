@@ -2,8 +2,8 @@ package com.dmitrysimakov.kilogram.ui.common.choose_exercise
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import com.dmitrysimakov.kilogram.data.local.entity.Exercise
+import com.dmitrysimakov.kilogram.data.local.entity.ExerciseDiffCallback
 import com.dmitrysimakov.kilogram.databinding.ItemExerciseBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 
@@ -19,11 +19,4 @@ class ExerciseListAdapter(
         binding.exercise = item
         binding.vm = viewModel
     }
-}
-
-private class ExerciseDiffCallback : DiffUtil.ItemCallback<Exercise>() {
-    override fun areItemsTheSame(oldItem: Exercise, newItem: Exercise) =
-            oldItem.name == newItem.name
-    override fun areContentsTheSame(oldItem: Exercise, newItem: Exercise) =
-            oldItem == newItem
 }

@@ -1,5 +1,6 @@
 package com.dmitrysimakov.kilogram.data.local.relation
 
+import androidx.recyclerview.widget.DiffUtil
 import org.threeten.bp.LocalDate
 
 data class MeasurementWithPreviousResults(
@@ -10,3 +11,10 @@ data class MeasurementWithPreviousResults(
         val prevValue: Double? = null,
         val prevDate: LocalDate? = null
 )
+
+class MeasurementsWithPreviousResultsDiffCallback : DiffUtil.ItemCallback<MeasurementWithPreviousResults>() {
+    override fun areItemsTheSame(oldItem: MeasurementWithPreviousResults, newItem: MeasurementWithPreviousResults) =
+            oldItem.id == newItem.id
+    override fun areContentsTheSame(oldItem: MeasurementWithPreviousResults, newItem: MeasurementWithPreviousResults) =
+            oldItem == newItem
+}
