@@ -7,18 +7,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.ui.common.UserListAdapter
 import com.dmitrysimakov.kilogram.ui.profile.subscriptions_tab.SubscriptionsTabFragmentDirections.Companion.toPersonPageFragment
 import com.dmitrysimakov.kilogram.util.navigate
 import kotlinx.android.synthetic.main.fragment_people.*
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SubscribersFragment : Fragment() {
+class SubscribersFragment(private val userId: String) : Fragment() {
     
     private val vm: SubscribersViewModel by viewModel()
-    private val sharedVM: SharedViewModel by sharedViewModel()
     
     private val adapter by lazy { UserListAdapter { navigate(toPersonPageFragment(it.id)) } }
     
@@ -31,7 +28,7 @@ class SubscribersFragment : Fragment() {
         
         recyclerView.adapter = adapter
         
-        sharedVM.user.observe(viewLifecycleOwner) { vm.setUser(it) }
+        vm.setUserId(userId)
         vm.subscribers.observe(viewLifecycleOwner) { adapter.submitList(it) }
     }
 }

@@ -55,6 +55,9 @@
                 android:name="id"
                 app:argType="string" />
         </action>
+        <argument
+            android:name="userId"
+            app:argType="string" />
     </fragment>
     <include app:graph="@navigation/person_page" />
 </navigation>

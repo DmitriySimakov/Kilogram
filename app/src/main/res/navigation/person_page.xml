@@ -8,12 +8,26 @@
         android:id="@+id/personPageFragment"
         android:name="com.dmitrysimakov.kilogram.ui.common.person_page.PersonPageFragment"
         tools:layout="@layout/fragment_person_page" >
-        <action
-            android:id="@+id/to_messagesFragment"
-            app:destination="@id/messagesFragment" />
         <argument
             android:name="id"
             app:argType="string" />
+        <action
+            android:id="@+id/to_subscriptionsTabFragment"
+            app:destination="@id/subscriptionsTabFragment" />
+        <action
+            android:id="@+id/to_messagesFragment"
+            app:destination="@id/messagesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/subscriptionsTabFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.profile.subscriptions_tab.SubscriptionsTabFragment"
+        tools:layout="@layout/tab_fragment" >
+        <argument android:name="pageId"
+            app:argType="integer" />
+        <argument android:name="userId" />
+        <action
+            android:id="@+id/to_personPageFragment"
+            app:destination="@id/personPageFragment" />
     </fragment>
     <fragment
         android:id="@+id/messagesFragment"

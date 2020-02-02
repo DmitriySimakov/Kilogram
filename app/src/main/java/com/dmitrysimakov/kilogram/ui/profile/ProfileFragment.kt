@@ -47,9 +47,6 @@ class ProfileFragment : Fragment() {
             true
         }
         
-        binding.subscribers.setOnClickListener { navigate(toSubscriptionsTabFragment(SUBSCRIBERS_PAGE)) }
-        binding.subscriptions.setOnClickListener { navigate(toSubscriptionsTabFragment(SUBSCRIPTIONS_PAGE)) }
-        
         sharedVM.user.observe(viewLifecycleOwner) { user ->
             val chatsItem = binding.navView.menu.findItem(R.id.chats)
             val editProfileItem = binding.navView.menu.findItem(R.id.editProfile)
@@ -58,6 +55,13 @@ class ProfileFragment : Fragment() {
             chatsItem.isVisible = user != null
             editProfileItem.isVisible = user != null
             signInSignOutItem.title = if (user != null) getString(R.string.sign_out) else getString(R.string.sign_in)
+    
+            binding.subscribers.setOnClickListener {
+                navigate(toSubscriptionsTabFragment(SUBSCRIBERS_PAGE, user.id))
+            }
+            binding.subscriptions.setOnClickListener {
+                navigate(toSubscriptionsTabFragment(SUBSCRIPTIONS_PAGE, user.id))
+            }
         }
     }
     

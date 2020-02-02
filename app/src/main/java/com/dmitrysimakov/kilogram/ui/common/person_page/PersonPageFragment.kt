@@ -10,6 +10,9 @@ import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.databinding.FragmentPersonPageBinding
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.ui.common.person_page.PersonPageFragmentDirections.Companion.toMessagesFragment
+import com.dmitrysimakov.kilogram.ui.common.person_page.PersonPageFragmentDirections.Companion.toSubscriptionsTabFragment
+import com.dmitrysimakov.kilogram.ui.profile.subscriptions_tab.SUBSCRIBERS_PAGE
+import com.dmitrysimakov.kilogram.ui.profile.subscriptions_tab.SUBSCRIPTIONS_PAGE
 import com.dmitrysimakov.kilogram.util.navigate
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -35,6 +38,8 @@ class PersonPageFragment : Fragment() {
         
         sharedVM.user.observe(viewLifecycleOwner) { vm.start(it, args.id) }
         
+        binding.subscribers.setOnClickListener { navigate(toSubscriptionsTabFragment(SUBSCRIBERS_PAGE, args.id)) }
+        binding.subscriptions.setOnClickListener { navigate(toSubscriptionsTabFragment(SUBSCRIPTIONS_PAGE, args.id)) }
         binding.followBtn.setOnClickListener { vm.updateSubscriptions() }
         binding.unfollowBtn.setOnClickListener { vm.updateSubscriptions() }
         binding.writeMessageBtn.setOnClickListener { navigate(toMessagesFragment(args.id)) }

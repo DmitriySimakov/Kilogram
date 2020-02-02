@@ -21,7 +21,7 @@ class SubscriptionsTabFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         
-        val adapter = SubscriptionsPagerAdapter(this)
+        val adapter = SubscriptionsPagerAdapter(this, args.userId)
         viewPager.adapter = adapter
         
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->

@@ -53,13 +53,13 @@
                     android:gravity="center_vertical"
                     android:text="@{@string/subscribers +`: `+ vm.person.subscribers.size()}"
                     app:layout_constraintStart_toStartOf="@id/usernameTV"
-                    app:layout_constraintEnd_toStartOf="@id/feed"
+                    app:layout_constraintEnd_toStartOf="@id/subscriptions"
                     app:layout_constraintTop_toBottomOf="@id/usernameTV"
                     app:layout_constraintBottom_toBottomOf="parent"
                     tools:text="Подписчики 45" />
         
                 <TextView
-                    android:id="@+id/feed"
+                    android:id="@+id/subscriptions"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:gravity="center_vertical"
