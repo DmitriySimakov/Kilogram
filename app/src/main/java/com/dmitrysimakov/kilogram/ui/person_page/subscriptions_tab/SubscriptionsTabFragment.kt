@@ -1,6 +1,7 @@
 package com.dmitrysimakov.kilogram.ui.person_page.subscriptions_tab
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,8 +28,8 @@ class SubscriptionsTabFragment : Fragment() {
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = getTabTitle(position)
         }.attach()
-    
-        viewPager.currentItem = args.pageId
+        
+        Handler().postDelayed({ viewPager.currentItem = args.pageId }, 100) // КОСТЫЛЬ
     }
     
     private fun getTabTitle(position: Int): String? {
