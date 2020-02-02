@@ -8,5 +8,14 @@
         android:id="@+id/peopleFragment"
         android:name="com.dmitrysimakov.kilogram.ui.search.people.PeopleFragment"
         android:label="@string/people"
-        tools:layout="@layout/fragment_people" />
+        tools:layout="@layout/fragment_people" >
+        <action
+            android:id="@+id/to_person_page"
+            app:destination="@id/person_page" >
+            <argument
+                android:name="id"
+                app:argType="string" />
+        </action>
+    </fragment>
+    <include app:graph="@navigation/person_page" />
 </navigation>

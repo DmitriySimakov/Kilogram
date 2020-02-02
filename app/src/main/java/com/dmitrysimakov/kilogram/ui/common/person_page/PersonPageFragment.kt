@@ -33,10 +33,10 @@ class PersonPageFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         
-        sharedVM.user.observe(viewLifecycleOwner) { vm.start(it, args.userId) }
+        sharedVM.user.observe(viewLifecycleOwner) { vm.start(it, args.id) }
         
         binding.followBtn.setOnClickListener { vm.updateSubscriptions() }
         binding.unfollowBtn.setOnClickListener { vm.updateSubscriptions() }
-        binding.writeMessageBtn.setOnClickListener { navigate(toMessagesFragment(args.userId)) }
+        binding.writeMessageBtn.setOnClickListener { navigate(toMessagesFragment(args.id)) }
     }
 }

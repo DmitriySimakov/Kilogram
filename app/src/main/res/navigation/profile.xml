@@ -35,7 +35,7 @@
     </fragment>
     <fragment
         android:id="@+id/messagesFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.profile.messages.MessagesFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.common.messages.MessagesFragment"
         android:label="@string/messages"
         tools:layout="@layout/fragment_messages" >
         <argument
@@ -49,18 +49,12 @@
         <argument android:name="pageId"
             app:argType="integer" />
         <action
-            android:id="@+id/to_personPageFragment"
-            app:destination="@id/personPageFragment" />
+            android:id="@+id/to_person_page"
+            app:destination="@id/person_page" >
+            <argument
+                android:name="id"
+                app:argType="string" />
+        </action>
     </fragment>
-    <fragment
-        android:id="@+id/personPageFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.common.person_page.PersonPageFragment"
-        tools:layout="@layout/fragment_person_page">
-        <argument
-            android:name="userId"
-            app:argType="string" />
-        <action
-            android:id="@+id/to_messagesFragment"
-            app:destination="@id/messagesFragment" />
-    </fragment>
+    <include app:graph="@navigation/person_page" />
 </navigation>
