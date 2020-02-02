@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.profile.subscriptions_tab
+package com.dmitrysimakov.kilogram.ui.person_page.subscriptions_tab
 
 import android.os.Bundle
 import android.view.LayoutInflater

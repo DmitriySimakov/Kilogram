@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.common.person_page
+package com.dmitrysimakov.kilogram.ui.person_page
 
 import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.remote.models.User

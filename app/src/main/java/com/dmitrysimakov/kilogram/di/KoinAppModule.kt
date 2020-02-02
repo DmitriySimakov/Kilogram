@@ -19,7 +19,6 @@ import com.dmitrysimakov.kilogram.ui.common.choose_exercise.ChooseExerciseViewMo
 import com.dmitrysimakov.kilogram.ui.common.choose_program.ChooseProgramViewModel
 import com.dmitrysimakov.kilogram.ui.common.choose_program_day.ChooseProgramDayViewModel
 import com.dmitrysimakov.kilogram.ui.common.messages.MessagesViewModel
-import com.dmitrysimakov.kilogram.ui.common.person_page.PersonPageViewModel
 import com.dmitrysimakov.kilogram.ui.feed.FeedViewModel
 import com.dmitrysimakov.kilogram.ui.feed.create_post.CreatePostViewModel
 import com.dmitrysimakov.kilogram.ui.home.HomeViewModel
@@ -34,10 +33,11 @@ import com.dmitrysimakov.kilogram.ui.home.trainings.add_training_set.AddTraining
 import com.dmitrysimakov.kilogram.ui.home.trainings.create_training.CreateTrainingViewModel
 import com.dmitrysimakov.kilogram.ui.home.trainings.exercises.TrainingExercisesViewModel
 import com.dmitrysimakov.kilogram.ui.home.trainings.training_sets.TrainingSetsViewModel
+import com.dmitrysimakov.kilogram.ui.person_page.PersonPageViewModel
+import com.dmitrysimakov.kilogram.ui.person_page.subscribers.SubscribersViewModel
+import com.dmitrysimakov.kilogram.ui.person_page.subscriptions.SubscriptionsViewModel
 import com.dmitrysimakov.kilogram.ui.profile.chats.ChatsViewModel
 import com.dmitrysimakov.kilogram.ui.profile.edit_profile.EditProfileViewModel
-import com.dmitrysimakov.kilogram.ui.profile.subscribers.SubscribersViewModel
-import com.dmitrysimakov.kilogram.ui.profile.subscriptions.SubscriptionsViewModel
 import com.dmitrysimakov.kilogram.ui.search.people.PeopleViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel

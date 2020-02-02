@@ -44,7 +44,7 @@
     </fragment>
     <fragment
         android:id="@+id/subscriptionsTabFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.profile.subscriptions_tab.SubscriptionsTabFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.person_page.subscriptions_tab.SubscriptionsTabFragment"
         tools:layout="@layout/tab_fragment" >
         <argument android:name="pageId"
             app:argType="integer" />

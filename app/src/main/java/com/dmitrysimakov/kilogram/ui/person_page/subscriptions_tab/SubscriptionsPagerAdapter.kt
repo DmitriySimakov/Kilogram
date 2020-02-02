@@ -1,9 +1,9 @@
-package com.dmitrysimakov.kilogram.ui.profile.subscriptions_tab
+package com.dmitrysimakov.kilogram.ui.person_page.subscriptions_tab
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.dmitrysimakov.kilogram.ui.profile.subscribers.SubscribersFragment
-import com.dmitrysimakov.kilogram.ui.profile.subscriptions.SubscriptionsFragment
+import com.dmitrysimakov.kilogram.ui.person_page.subscribers.SubscribersFragment
+import com.dmitrysimakov.kilogram.ui.person_page.subscriptions.SubscriptionsFragment
 
 const val SUBSCRIBERS_PAGE = 0
 const val SUBSCRIPTIONS_PAGE = 1

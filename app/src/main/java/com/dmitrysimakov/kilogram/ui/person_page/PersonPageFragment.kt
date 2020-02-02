@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.common.person_page
+package com.dmitrysimakov.kilogram.ui.person_page
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,10 +9,10 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.databinding.FragmentPersonPageBinding
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
-import com.dmitrysimakov.kilogram.ui.common.person_page.PersonPageFragmentDirections.Companion.toMessagesFragment
-import com.dmitrysimakov.kilogram.ui.common.person_page.PersonPageFragmentDirections.Companion.toSubscriptionsTabFragment
-import com.dmitrysimakov.kilogram.ui.profile.subscriptions_tab.SUBSCRIBERS_PAGE
-import com.dmitrysimakov.kilogram.ui.profile.subscriptions_tab.SUBSCRIPTIONS_PAGE
+import com.dmitrysimakov.kilogram.ui.person_page.PersonPageFragmentDirections.Companion.toMessagesFragment
+import com.dmitrysimakov.kilogram.ui.person_page.PersonPageFragmentDirections.Companion.toSubscriptionsTabFragment
+import com.dmitrysimakov.kilogram.ui.person_page.subscriptions_tab.SUBSCRIBERS_PAGE
+import com.dmitrysimakov.kilogram.ui.person_page.subscriptions_tab.SUBSCRIPTIONS_PAGE
 import com.dmitrysimakov.kilogram.util.navigate
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel

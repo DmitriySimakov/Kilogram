@@ -7,7 +7,7 @@
         
         <variable
             name="vm"
-            type="com.dmitrysimakov.kilogram.ui.common.person_page.PersonPageViewModel" />
+            type="com.dmitrysimakov.kilogram.ui.person_page.PersonPageViewModel" />
     </data>
     
     <ScrollView
