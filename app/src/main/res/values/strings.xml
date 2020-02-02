@@ -107,7 +107,6 @@
     <string name="exerciseTarget">Цель упражнения</string>
     <string name="targets">Цели</string>
     <string name="profile">Профиль</string>
-    <string name="subscriptions">Подписки</string>
     <string name="more">Ещё</string>
     <string name="chooseTrainingProgram">Выберите тренировочную программу</string>
     <string name="chooseTrainingDay">Выбирите тренировочный день</string>
@@ -132,10 +131,10 @@
     <string name="profile_editing">Редактирование профиля</string>
     <string name="edit_profile">Редактировать профиль</string>
     <string name="username">Имя</string>
-    <string name="follow">Подписаться</string>
-    <string name="unfollow">Отписаться</string>
-    <string name="followers">Подписчики</string>
-    <string name="followed">Подписки</string>
+    <string name="subscribe">Подписаться</string>
+    <string name="unsubscribe">Отписаться</string>
+    <string name="subscribers">Подписчики</string>
+    <string name="subscriptions">Подписки</string>
     <string name="new_post">Новый пост</string>
     <string name="title">Заголовок</string>
     <string name="content">Содержание</string>

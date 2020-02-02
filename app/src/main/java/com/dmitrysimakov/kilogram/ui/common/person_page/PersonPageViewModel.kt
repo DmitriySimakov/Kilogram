@@ -1,63 +1,51 @@
 package com.dmitrysimakov.kilogram.ui.common.person_page
 
 import androidx.lifecycle.*
-import com.dmitrysimakov.kilogram.data.remote.models.SubscriptionAction
-import com.dmitrysimakov.kilogram.data.remote.models.Subscriptions
 import com.dmitrysimakov.kilogram.data.remote.models.User
-import com.dmitrysimakov.kilogram.util.*
+import com.dmitrysimakov.kilogram.util.firestore
+import com.dmitrysimakov.kilogram.util.setNewValue
+import com.dmitrysimakov.kilogram.util.userDocument
+import com.dmitrysimakov.kilogram.util.usersCollection
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
 class PersonPageViewModel : ViewModel() {
     
     private val _user = MutableLiveData<User?>()
-    private val _subscriptions = MutableLiveData<Subscriptions?>()
-    val subscriptions: LiveData<Subscriptions?> = _subscriptions
     
     private val _personId = MutableLiveData<String>()
     val person = _personId.switchMap { id -> liveData {
         emit(usersCollection.document(id).get().await().toObject(User::class.java)!!)
     }}
     
-    fun setUser(user: User?) { _user.setNewValue(user) }
+    private val _subscribed = MutableLiveData<Boolean>()
+    val subscribed: LiveData<Boolean> = _subscribed
     
-    fun setSubscriptions(subscriptions: Subscriptions?) { _subscriptions.setNewValue(subscriptions) }
+    fun start(user: User?, personId: String) {
+        _user.setNewValue(user)
+        _personId.setNewValue(personId)
+        val subscribed = user?.subscriptions?.contains(personId)
+        _subscribed.setNewValue(subscribed)
+    }
     
-    fun setPersonId(id: String) { _personId.setNewValue(id) }
-    
-    
-    fun updateSubscriptions(action: SubscriptionAction) { viewModelScope.launch {
-        val currentUser = _user.value!!
-        val currentUserFollowedIds = _subscriptions.value!!.followedIds.toMutableList()
+    fun updateSubscriptions() { viewModelScope.launch {
+        val user = _user.value ?: return@launch
         val person = person.value!!
         
-        val userSubsDoc = subscriptionsCollection.document(person.id)
-        val userSubs = userSubsDoc.get().await().toObject(Subscriptions::class.java)!!
-        val userFollowersIds = userSubs.followersIds.toMutableList()
+        val userSubscriptions = user.subscriptions.toMutableList()
+        val personSubscribers = person.subscribers.toMutableList()
         
-        var currentUserFollowedCount = currentUser.followedCount
-        var userFollowersCount = person.followersCount
-        
-        when (action) {
-            SubscriptionAction.SUBSCRIBE -> {
-                currentUserFollowedIds.add(person.id)
-                userFollowersIds.add(currentUser.id)
-                currentUserFollowedCount++
-                userFollowersCount++
-            }
-            SubscriptionAction.UNSUBSCRIBE -> {
-                currentUserFollowedIds.remove(person.id)
-                userFollowersIds.remove(currentUser.id)
-                currentUserFollowedCount--
-                userFollowersCount--
-            }
+        if (subscribed.value!!) {
+            userSubscriptions.remove(person.id)
+            personSubscribers.remove(user.id)
+        } else {
+            userSubscriptions.add(person.id)
+            personSubscribers.add(user.id)
         }
         
         firestore.batch()
-                .update(subscriptionsDocument, "followedIds", currentUserFollowedIds)
-                .update(userSubsDoc, "followersIds", userFollowersIds)
-                .update(userDocument, "followedCount", currentUserFollowedCount)
-                .update(usersCollection.document(person.id), "followersCount", userFollowersCount)
+                .update(userDocument, "subscriptions", userSubscriptions)
+                .update(usersCollection.document(person.id), "subscribers", personSubscribers)
                 .commit()
     }}
 }

@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.subscriptions.create_post
+package com.dmitrysimakov.kilogram.ui.feed.create_post
 
 import android.os.Bundle
 import android.view.LayoutInflater

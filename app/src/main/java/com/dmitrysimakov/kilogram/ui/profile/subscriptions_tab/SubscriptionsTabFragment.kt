@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.profile.subscriptions
+package com.dmitrysimakov.kilogram.ui.profile.subscriptions_tab
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -33,8 +33,8 @@ class SubscriptionsTabFragment : Fragment() {
     
     private fun getTabTitle(position: Int): String? {
         return when (position) {
-            FOLLOWERS_PAGE -> getString(R.string.followers)
-            FOLLOWED_PAGE -> getString(R.string.followed)
+            SUBSCRIBERS_PAGE -> getString(R.string.subscribers)
+            SUBSCRIPTIONS_PAGE -> getString(R.string.subscriptions)
             else -> null
         }
     }

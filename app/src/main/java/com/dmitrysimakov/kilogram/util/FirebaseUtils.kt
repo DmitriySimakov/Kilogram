@@ -47,11 +47,6 @@ val measurementsCollection
 val chatsCollection
     get() = userDocument.collection("chats")
 
-val subscriptionsCollection = firestore.collection("subscriptions")
-
-val subscriptionsDocument
-    get() = subscriptionsCollection.document(uid)
-
 val postsCollection = firestore.collection("posts")
 
 

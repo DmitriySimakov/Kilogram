@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.subscriptions.create_post
+package com.dmitrysimakov.kilogram.ui.feed.create_post
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -47,24 +47,24 @@
                     tools:text="@tools:sample/full_names" />
                 
                 <TextView
-                    android:id="@+id/followers"
+                    android:id="@+id/subscribers"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:gravity="center_vertical"
-                    android:text="@{@string/followers +`: `+ vm.user.followersCount}"
+                    android:text="@{@string/subscribers +`: `+ vm.user.subscribers.size()}"
                     app:layout_constraintStart_toStartOf="@id/usernameTV"
-                    app:layout_constraintEnd_toStartOf="@id/followed"
+                    app:layout_constraintEnd_toStartOf="@id/subscriptions"
                     app:layout_constraintTop_toBottomOf="@id/usernameTV"
                     app:layout_constraintBottom_toBottomOf="parent"
                     tools:text="Подписчики 45" />
     
                 <TextView
-                    android:id="@+id/followed"
+                    android:id="@+id/subscriptions"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:gravity="center_vertical"
-                    android:text="@{@string/followed +`: `+ vm.user.followedCount}"
-                    app:layout_constraintStart_toEndOf="@id/followers"
+                    android:text="@{@string/subscriptions +`: `+ vm.user.subscriptions.size()}"
+                    app:layout_constraintStart_toEndOf="@id/subscribers"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/usernameTV"
                     app:layout_constraintBottom_toBottomOf="parent"

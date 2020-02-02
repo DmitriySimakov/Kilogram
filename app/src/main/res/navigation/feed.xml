@@ -3,20 +3,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/subscriptions"
-    app:startDestination="@id/subscriptionsFragment">
+    android:id="@+id/feed"
+    app:startDestination="@id/feedFragment">
     <fragment
-        android:id="@+id/subscriptionsFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.subscriptions.SubscriptionsFragment"
+        android:id="@+id/feedFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.feed.FeedFragment"
         android:label="@string/subscriptions"
-        tools:layout="@layout/fragment_subscriptions" >
+        tools:layout="@layout/fragment_feed" >
         <action
             android:id="@+id/to_createPostFragment"
             app:destination="@id/createPostFragment" />
     </fragment>
     <fragment
         android:id="@+id/createPostFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.subscriptions.create_post.CreatePostFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.feed.create_post.CreatePostFragment"
         android:label="@string/new_post"
         tools:layout="@layout/fragment_create_post" />
 

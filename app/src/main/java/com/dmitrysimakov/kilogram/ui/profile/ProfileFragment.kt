@@ -15,8 +15,8 @@ import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.ui.profile.ProfileFragmentDirections.Companion.toChatsFragment
 import com.dmitrysimakov.kilogram.ui.profile.ProfileFragmentDirections.Companion.toEditProfileFragment
 import com.dmitrysimakov.kilogram.ui.profile.ProfileFragmentDirections.Companion.toSubscriptionsTabFragment
-import com.dmitrysimakov.kilogram.ui.profile.subscriptions.FOLLOWED_PAGE
-import com.dmitrysimakov.kilogram.ui.profile.subscriptions.FOLLOWERS_PAGE
+import com.dmitrysimakov.kilogram.ui.profile.subscriptions_tab.SUBSCRIBERS_PAGE
+import com.dmitrysimakov.kilogram.ui.profile.subscriptions_tab.SUBSCRIPTIONS_PAGE
 import com.dmitrysimakov.kilogram.util.navigate
 import com.firebase.ui.auth.AuthUI
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -47,8 +47,8 @@ class ProfileFragment : Fragment() {
             true
         }
         
-        binding.followers.setOnClickListener { navigate(toSubscriptionsTabFragment(FOLLOWERS_PAGE)) }
-        binding.followed.setOnClickListener { navigate(toSubscriptionsTabFragment(FOLLOWED_PAGE)) }
+        binding.subscribers.setOnClickListener { navigate(toSubscriptionsTabFragment(SUBSCRIBERS_PAGE)) }
+        binding.subscriptions.setOnClickListener { navigate(toSubscriptionsTabFragment(SUBSCRIPTIONS_PAGE)) }
         
         sharedVM.user.observe(viewLifecycleOwner) { user ->
             val chatsItem = binding.navView.menu.findItem(R.id.chats)

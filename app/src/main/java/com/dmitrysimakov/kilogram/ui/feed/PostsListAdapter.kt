@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.subscriptions
+package com.dmitrysimakov.kilogram.ui.feed
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,7 +8,7 @@ import com.dmitrysimakov.kilogram.databinding.ItemPostBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 
 class PostsListAdapter(
-        private val vm: SubscriptionsViewModel,
+        private val vm: FeedViewModel,
         clickCallback: ((Post) -> Unit)? = null
 ) : DataBoundListAdapter<Post, ItemPostBinding>(clickCallback, PostsDiffCallback()) {
     

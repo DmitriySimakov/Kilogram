@@ -6,8 +6,8 @@ data class User(
         val id: String = "",
         val name: String = "",
         val photoUrl: String? = null,
-        val followersCount: Int = 0,
-        val followedCount: Int = 0
+        val subscribers: List<String> = listOf(),  // ids
+        val subscriptions: List<String> = listOf() // ids
 )
 
 class UserDiffCallback : DiffUtil.ItemCallback<User>() {

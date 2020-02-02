@@ -1,18 +1,18 @@
-package com.dmitrysimakov.kilogram.ui.profile.subscriptions
+package com.dmitrysimakov.kilogram.ui.profile.subscriptions_tab
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.dmitrysimakov.kilogram.ui.profile.followed.FollowedFragment
-import com.dmitrysimakov.kilogram.ui.profile.followers.FollowersFragment
+import com.dmitrysimakov.kilogram.ui.profile.subscribers.SubscribersFragment
+import com.dmitrysimakov.kilogram.ui.profile.subscriptions.SubscriptionsFragment
 
-const val FOLLOWERS_PAGE = 0
-const val FOLLOWED_PAGE = 1
+const val SUBSCRIBERS_PAGE = 0
+const val SUBSCRIPTIONS_PAGE = 1
 
 class SubscriptionsPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     
     private val tabFragmentsCreators: Map<Int, () -> Fragment> = mapOf(
-            FOLLOWERS_PAGE to { FollowersFragment() },
-            FOLLOWED_PAGE to { FollowedFragment() }
+            SUBSCRIBERS_PAGE to { SubscribersFragment() },
+            SUBSCRIPTIONS_PAGE to { SubscriptionsFragment() }
     )
     
     override fun getItemCount() = tabFragmentsCreators.size

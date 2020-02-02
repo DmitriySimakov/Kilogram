@@ -7,7 +7,6 @@ import androidx.work.Constraints
 import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
-import com.dmitrysimakov.kilogram.data.remote.models.Subscriptions
 import com.dmitrysimakov.kilogram.data.remote.models.User
 import com.dmitrysimakov.kilogram.util.*
 import com.dmitrysimakov.kilogram.util.live_data.AbsentLiveData
@@ -36,11 +35,6 @@ class SharedViewModel(
     val user: LiveData<User> = _userExist.switchMap { userExist ->
         if (!userExist) AbsentLiveData.create()
         else userDocument.liveData { it.toObject(User::class.java)!! }
-    }
-    
-    val subscriptions = user.switchMap { user ->
-        if (user == null) AbsentLiveData.create()
-        else subscriptionsDocument.liveData { it.toObject(Subscriptions::class.java) }
     }
     
     fun initUser() {
@@ -90,7 +84,6 @@ class SharedViewModel(
         firestore.batch()
                 .set(userDocument, newUser)
                 .set(tokensDocument, mapOf("tokens" to listOf(token)))
-                .set(subscriptionsDocument, Subscriptions())
                 .commit()
                 .await()
     }

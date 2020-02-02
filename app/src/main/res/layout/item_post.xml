@@ -9,7 +9,7 @@
         
         <variable
             name="vm"
-            type="com.dmitrysimakov.kilogram.ui.subscriptions.SubscriptionsViewModel" />
+            type="com.dmitrysimakov.kilogram.ui.feed.FeedViewModel" />
         
         <variable
             name="post"

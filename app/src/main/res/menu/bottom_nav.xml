@@ -12,7 +12,7 @@
         android:title="@string/catalog" />
 
     <item
-        android:id="@+id/subscriptions"
+        android:id="@+id/feed"
         android:icon="@drawable/ic_subscriptions"
         android:title="@string/subscriptions"/>
     

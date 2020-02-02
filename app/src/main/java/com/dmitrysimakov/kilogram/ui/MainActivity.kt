@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity() {
         val navGraphIds = listOf(
                 R.navigation.home,
                 R.navigation.catalog,
-                R.navigation.subscriptions,
+                R.navigation.feed,
                 R.navigation.search,
                 R.navigation.profile
         )
