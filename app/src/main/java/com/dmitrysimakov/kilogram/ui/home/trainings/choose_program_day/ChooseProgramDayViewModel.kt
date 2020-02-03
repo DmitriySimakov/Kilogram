@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.common.choose_program_day
+package com.dmitrysimakov.kilogram.ui.home.trainings.choose_program_day
 
 import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayRepository

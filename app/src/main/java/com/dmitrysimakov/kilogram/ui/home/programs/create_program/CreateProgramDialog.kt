@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.dmitrysimakov.kilogram.databinding.DialogCreateProgramBinding
-import com.dmitrysimakov.kilogram.ui.home.programs.create_program.CreateProgramDialogDirections.Companion.toChooseProgramDayFragment
+import com.dmitrysimakov.kilogram.ui.home.programs.create_program.CreateProgramDialogDirections.Companion.toProgramDaysFragment
 import com.dmitrysimakov.kilogram.util.hideKeyboard
 import com.dmitrysimakov.kilogram.util.live_data.EventObserver
 import com.dmitrysimakov.kilogram.util.navigate
@@ -39,7 +39,7 @@ class CreateProgramDialog : BottomSheetDialogFragment() {
         
         vm.programCreatedEvent.observe(viewLifecycleOwner, EventObserver {
             hideKeyboard()
-            navigate(toChooseProgramDayFragment(it))
+            navigate(toProgramDaysFragment(it))
         })
     }
     

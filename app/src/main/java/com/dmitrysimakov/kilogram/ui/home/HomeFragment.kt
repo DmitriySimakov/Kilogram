@@ -22,7 +22,7 @@ import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toAdd
 import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toCalendarDayDialog
 import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toChooseProgramDayFragment
 import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toCreateProgramDialog
-import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toCreateTrainingFragment
+import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toCreateTrainingDialog
 import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toMeasurementsHistoryFragment
 import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toPhotoFragment
 import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toPhotosFragment
@@ -107,7 +107,7 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         
-        binding.startTrainingButton.setOnClickListener { navigate(toCreateTrainingFragment(null)) }
+        binding.startTrainingButton.setOnClickListener { navigate(toCreateTrainingDialog(null)) }
         binding.addPhotoButton.setOnClickListener { dispatchImageCaptureIntent() }
         binding.addMeasurementButton.setOnClickListener { navigate(toAddMeasurementDialog()) }
         binding.proportionsCalculatorBtn.setOnClickListener { navigate(toProportionsCalculatorFragment()) }
