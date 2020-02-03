@@ -7,23 +7,31 @@ import androidx.lifecycle.viewModelScope
 import com.dmitrysimakov.kilogram.data.local.entity.Photo
 import com.dmitrysimakov.kilogram.data.repository.MeasurementRepository
 import com.dmitrysimakov.kilogram.data.repository.PhotoRepository
+import com.dmitrysimakov.kilogram.data.repository.ProgramRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-        private val trainingRepository: TrainingRepository,
-        private val photoRepository: PhotoRepository,
-        private val measurementRepository: MeasurementRepository
+        private val trainingRepo: TrainingRepository,
+        private val photoRepo: PhotoRepository,
+        private val measurementRepo: MeasurementRepository,
+        private val programRepo: ProgramRepository
 ) : ViewModel() {
     
-    val trainings = trainingRepository.detailedTrainingsFlow().asLiveData()
+    val trainings = trainingRepo.detailedTrainingsFlow().asLiveData()
     
-    val recentPhotos = photoRepository.recentPhotos(3).asLiveData()
+    val recentPhotos = photoRepo.recentPhotos(3).asLiveData()
     
-    val recentMeasurements = measurementRepository.lastMeasurementsWithPreviousResults().asLiveData()
+    val recentMeasurements = measurementRepo.lastMeasurementsWithPreviousResults().asLiveData()
             .map { it.filter { measurement -> measurement.id != null } }
     
+    val programs = programRepo.programsFlow().asLiveData()
+    
     fun addPhoto(photo: Photo) = viewModelScope.launch {
-        photoRepository.insert(photo)
+        photoRepo.insert(photo)
+    }
+    
+    fun deleteProgram(id: Long) = viewModelScope.launch {
+        programRepo.delete(id)
     }
 }

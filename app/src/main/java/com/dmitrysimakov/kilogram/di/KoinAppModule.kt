@@ -10,7 +10,6 @@ import com.dmitrysimakov.kilogram.data.remote.data_sources.ProgramSource
 import com.dmitrysimakov.kilogram.data.remote.data_sources.TrainingSource
 import com.dmitrysimakov.kilogram.data.repository.*
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
-import com.dmitrysimakov.kilogram.ui.common.choose_program.ChooseProgramViewModel
 import com.dmitrysimakov.kilogram.ui.common.choose_program_day.ChooseProgramDayViewModel
 import com.dmitrysimakov.kilogram.ui.common.exercises.ExercisesViewModel
 import com.dmitrysimakov.kilogram.ui.common.messages.MessagesViewModel
@@ -29,6 +28,7 @@ import com.dmitrysimakov.kilogram.ui.home.programs.create_program.CreateProgramV
 import com.dmitrysimakov.kilogram.ui.home.programs.create_program_day.CreateProgramDayViewModel
 import com.dmitrysimakov.kilogram.ui.home.programs.exercises.ProgramDayExercisesViewModel
 import com.dmitrysimakov.kilogram.ui.home.trainings.add_training_set.AddTrainingSetViewModel
+import com.dmitrysimakov.kilogram.ui.home.trainings.choose_program.ChooseProgramViewModel
 import com.dmitrysimakov.kilogram.ui.home.trainings.create_training.CreateTrainingViewModel
 import com.dmitrysimakov.kilogram.ui.home.trainings.exercises.TrainingExercisesViewModel
 import com.dmitrysimakov.kilogram.ui.home.trainings.training_sets.TrainingSetsViewModel
@@ -93,7 +93,7 @@ val appModule = module {
     viewModel { EditProfileViewModel() }
     viewModel { SubscribersViewModel() }
     viewModel { SubscriptionsViewModel() }
-    viewModel { HomeViewModel(get(), get(), get()) }
+    viewModel { HomeViewModel(get(), get(), get(), get()) }
     viewModel { MeasurementsViewModel(get()) }
     viewModel { MeasurementsHistoryViewModel(get()) }
     viewModel { MessagesViewModel() }

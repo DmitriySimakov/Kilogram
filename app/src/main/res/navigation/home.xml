@@ -32,8 +32,11 @@
             android:id="@+id/to_proportionsCalculatorFragment"
             app:destination="@id/proportionsCalculatorFragment" />
         <action
-            android:id="@+id/to_chooseProgramFragment"
-            app:destination="@id/chooseProgramFragment" />
+            android:id="@+id/to_createProgramDialog"
+            app:destination="@id/createProgramDialog" />
+        <action
+            android:id="@+id/to_chooseProgramDayFragment"
+            app:destination="@id/programs_chooseProgramDayFragment" />
     </fragment>
     <dialog
         android:id="@+id/createTrainingDialog"
@@ -46,16 +49,16 @@
         </action>
         <action
             android:id="@+id/to_chooseProgramFragment"
-            app:destination="@id/trainings_ChooseProgramFragment" />
+            app:destination="@id/chooseProgramFragment" />
         <argument
             android:name="date"
             app:argType="string"
             app:nullable="true" />
     </dialog>
     <fragment
-        android:id="@+id/trainings_ChooseProgramFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.home.trainings.choose_program.Trainings_ChooseProgramFragment"
-        android:label="@string/chooseTrainingProgram"
+        android:id="@+id/chooseProgramFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.home.trainings.choose_program.ChooseProgramFragment"
+        android:label="@string/chooseProgram"
         tools:layout="@layout/fragment_choose_program">
         <action
             android:id="@+id/to_chooseProgramDayFragment"
@@ -204,18 +207,6 @@
         android:name="com.dmitrysimakov.kilogram.ui.home.measurements.proportions_calculator.ProportionsCalculatorFragment"
         android:label="@string/proportions_calculator"
         tools:layout="@layout/fragment_proportions_calculator" />
-    <fragment
-        android:id="@+id/chooseProgramFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.common.choose_program.ChooseProgramFragment"
-        android:label="@string/training_programs"
-        tools:layout="@layout/fragment_choose_program">
-        <action
-            android:id="@+id/to_createProgramDialog"
-            app:destination="@id/createProgramDialog" />
-        <action
-            android:id="@+id/to_programs_chooseProgramDayFragment"
-            app:destination="@id/programs_chooseProgramDayFragment" />
-    </fragment>
     <dialog
         android:id="@+id/createProgramDialog"
         android:name="com.dmitrysimakov.kilogram.ui.home.programs.create_program.CreateProgramDialog"
@@ -224,7 +215,7 @@
         <action
             android:id="@+id/to_chooseProgramDayFragment"
             app:destination="@id/programs_chooseProgramDayFragment"
-            app:popUpTo="@+id/chooseProgramFragment" />
+            app:popUpTo="@+id/homeFragment" />
     </dialog>
     <fragment
         android:id="@+id/programs_chooseProgramDayFragment"

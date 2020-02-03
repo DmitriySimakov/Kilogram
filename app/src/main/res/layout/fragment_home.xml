@@ -201,6 +201,27 @@
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"/>
                 
             </LinearLayout>
+    
+            <TextView
+                android:id="@+id/programsLabel"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:drawableEnd="@drawable/ic_add"
+                android:gravity="center_vertical"
+                android:padding="@dimen/icon_button_padding"
+                android:text="@string/programs"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                app:goneUnless="@{vm.programs != null}"/>
+    
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/programsRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:goneUnless="@{vm.programs != null}"
+                tools:itemCount="2"
+                tools:listitem="@layout/item_program" />
         
         </LinearLayout>
     

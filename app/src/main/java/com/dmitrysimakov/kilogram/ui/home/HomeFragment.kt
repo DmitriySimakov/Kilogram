@@ -16,9 +16,12 @@ import com.dmitrysimakov.kilogram.data.local.entity.Photo
 import com.dmitrysimakov.kilogram.databinding.FragmentHomeBinding
 import com.dmitrysimakov.kilogram.ui.common.CalendarDayBinder
 import com.dmitrysimakov.kilogram.ui.common.CalendarMonthBinder
+import com.dmitrysimakov.kilogram.ui.common.ProgramsAdapter
 import com.dmitrysimakov.kilogram.ui.common.measurements.MeasurementsAdapter
 import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toAddMeasurementDialog
 import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toCalendarDayDialog
+import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toChooseProgramDayFragment
+import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toCreateProgramDialog
 import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toCreateTrainingFragment
 import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toMeasurementsHistoryFragment
 import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toPhotoFragment
@@ -52,6 +55,7 @@ class HomeFragment : Fragment() {
     }}
     private val photosAdapter by lazy { PhotosAdapter { navigate(toPhotoFragment(it.uri)) } }
     private val measurementsAdapter by lazy { MeasurementsAdapter() }
+    private val programsAdapter by lazy { ProgramsAdapter { navigate(toChooseProgramDayFragment(it.id)) }}
     
     private var lastPhotoDateTime = OffsetDateTime.now()
     private var lastPhotoUri = ""
@@ -61,6 +65,7 @@ class HomeFragment : Fragment() {
         binding.vm = vm
         binding.photosRV.adapter = photosAdapter
         binding.measurementsRV.adapter = measurementsAdapter
+        binding.programsRV.adapter = programsAdapter
         setupCalendar()
         binding.lifecycleOwner = this
         return binding.root
@@ -109,6 +114,7 @@ class HomeFragment : Fragment() {
         
         binding.photosLabel.setOnClickListener { navigate(toPhotosFragment()) }
         binding.measurementsLabel.setOnClickListener { navigate(toMeasurementsHistoryFragment()) }
+        binding.programsLabel.setOnClickListener { navigate(toCreateProgramDialog()) }
         
         vm.trainings.observe(viewLifecycleOwner) {
             calendarDayBinder.submitList(it)
@@ -116,6 +122,7 @@ class HomeFragment : Fragment() {
         }
         vm.recentPhotos.observe(viewLifecycleOwner) { photosAdapter.submitList(it) }
         vm.recentMeasurements.observe(viewLifecycleOwner) { measurementsAdapter.submitList(it) }
+        vm.programs.observe(viewLifecycleOwner) { programsAdapter.submitList(it) }
     }
     
     private fun dispatchImageCaptureIntent() {

@@ -10,7 +10,7 @@
     <!-- NavigationView items -->
     <string name="main">На главную</string>
     <string name="exercises">Упражнения</string>
-    <string name="training_programs">Программы</string>
+    <string name="programs">Программы</string>
     <string name="trainings">Тренировки</string>
     <string name="measurements">Замеры</string>
     <string name="settings">Настройки</string>
@@ -108,7 +108,7 @@
     <string name="targets">Цели</string>
     <string name="profile">Профиль</string>
     <string name="more">Ещё</string>
-    <string name="chooseTrainingProgram">Выберите тренировочную программу</string>
+    <string name="chooseProgram">Выберите тренировочную программу</string>
     <string name="chooseTrainingDay">Выбирите тренировочный день</string>
     <string name="sets">Подходы</string>
     <string name="add_set">Добавить подход</string>
