@@ -7,7 +7,7 @@
         
         <variable
             name="vm"
-            type="com.dmitrysimakov.kilogram.ui.common.choose_exercise.ChooseExerciseViewModel" />
+            type="com.dmitrysimakov.kilogram.ui.common.exercises.ExercisesViewModel" />
         
         <variable
             name="exercise"

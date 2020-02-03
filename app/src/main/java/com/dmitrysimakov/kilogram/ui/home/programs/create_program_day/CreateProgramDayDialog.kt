@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.catalog.programs.create_program_day
+package com.dmitrysimakov.kilogram.ui.home.programs.create_program_day
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.databinding.DialogCreateProgramDayBinding
-import com.dmitrysimakov.kilogram.ui.catalog.programs.create_program_day.CreateProgramDayDialogDirections.Companion.toExercisesFragment
+import com.dmitrysimakov.kilogram.ui.home.programs.create_program_day.CreateProgramDayDialogDirections.Companion.toProgramDayExercisesFragment
 import com.dmitrysimakov.kilogram.util.hideKeyboard
 import com.dmitrysimakov.kilogram.util.live_data.EventObserver
 import com.dmitrysimakov.kilogram.util.navigate
@@ -42,7 +42,7 @@ class CreateProgramDayDialog : BottomSheetDialogFragment() {
         
         vm.programDayCreatedEvent.observe(viewLifecycleOwner, EventObserver {
             hideKeyboard()
-            navigate(toExercisesFragment(it))
+            navigate(toProgramDayExercisesFragment(it))
         })
     }
     

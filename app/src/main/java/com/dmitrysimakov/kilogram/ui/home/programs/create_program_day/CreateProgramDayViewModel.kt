@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.catalog.programs.create_program_day
+package com.dmitrysimakov.kilogram.ui.home.programs.create_program_day
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

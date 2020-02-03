@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.common.choose_exercise
+package com.dmitrysimakov.kilogram.ui.common.exercises
 
 import androidx.lifecycle.*
 import androidx.sqlite.db.SimpleSQLiteQuery
@@ -17,7 +17,7 @@ import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class ChooseExerciseViewModel (
+class ExercisesViewModel (
         equipmentDao: EquipmentDao,
         private val exerciseTargetDao: ExerciseTargetDao,
         private val exerciseRepo: ExerciseRepository,

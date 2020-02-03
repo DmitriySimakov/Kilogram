@@ -6,7 +6,7 @@
         
         <variable
             name="vm"
-            type="com.dmitrysimakov.kilogram.ui.catalog.programs.create_program.CreateProgramViewModel" />
+            type="com.dmitrysimakov.kilogram.ui.home.programs.create_program.CreateProgramViewModel" />
     </data>
     
     <LinearLayout

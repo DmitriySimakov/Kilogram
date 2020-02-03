@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.catalog.programs.exercises
+package com.dmitrysimakov.kilogram.ui.home.programs.exercises
 
 import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayExerciseRepository

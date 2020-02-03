@@ -7,9 +7,9 @@
         android:title="@string/home" />
     
     <item
-        android:id="@+id/catalog"
+        android:id="@+id/exercises"
         android:icon="@drawable/ic_fitness_center"
-        android:title="@string/catalog" />
+        android:title="@string/exercises" />
 
     <item
         android:id="@+id/feed"

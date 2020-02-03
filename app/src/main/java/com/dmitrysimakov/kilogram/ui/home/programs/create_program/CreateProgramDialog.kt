@@ -1,11 +1,11 @@
-package com.dmitrysimakov.kilogram.ui.catalog.programs.create_program
+package com.dmitrysimakov.kilogram.ui.home.programs.create_program
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.dmitrysimakov.kilogram.databinding.DialogCreateProgramBinding
-import com.dmitrysimakov.kilogram.ui.catalog.programs.create_program.CreateProgramDialogDirections.Companion.toChooseProgramDayFragment
+import com.dmitrysimakov.kilogram.ui.home.programs.create_program.CreateProgramDialogDirections.Companion.toChooseProgramDayFragment
 import com.dmitrysimakov.kilogram.util.hideKeyboard
 import com.dmitrysimakov.kilogram.util.live_data.EventObserver
 import com.dmitrysimakov.kilogram.util.navigate

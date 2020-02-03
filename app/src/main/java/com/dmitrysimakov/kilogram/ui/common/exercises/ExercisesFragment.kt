@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.common.choose_exercise
+package com.dmitrysimakov.kilogram.ui.common.exercises
 
 import android.os.Bundle
 import android.view.*
@@ -6,27 +6,43 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.databinding.FragmentChooseExerciseBinding
+import com.dmitrysimakov.kilogram.databinding.FragmentExercisesBinding
 import com.dmitrysimakov.kilogram.ui.common.ChipGroupFilterAdapter
+import com.dmitrysimakov.kilogram.ui.common.exercises.ExercisesFragmentDirections.Companion.toExerciseDetailFragment
+import com.dmitrysimakov.kilogram.util.hideKeyboard
+import com.dmitrysimakov.kilogram.util.live_data.EventObserver
+import com.dmitrysimakov.kilogram.util.navigate
+import com.dmitrysimakov.kilogram.util.popBackStack
+import com.dmitrysimakov.kilogram.util.setXNavIcon
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-abstract class ChooseExerciseFragment : Fragment() {
-
-    protected val vm: ChooseExerciseViewModel by viewModel()
-
-    protected lateinit var binding: FragmentChooseExerciseBinding
+class ExercisesFragment : Fragment() {
     
-    protected val exerciseAdapter by lazy { ExerciseListAdapter(vm) }
-
-    protected lateinit var exerciseTargetAdapter: ChipGroupFilterAdapter
-    protected lateinit var equipmentAdapter: ChipGroupFilterAdapter
+    private val args: ExercisesFragmentArgs by navArgs()
+    
+    private val vm: ExercisesViewModel by viewModel()
+    
+    private lateinit var binding: FragmentExercisesBinding
+    
+    private val exerciseAdapter by lazy { ExerciseListAdapter(vm) { exercise ->
+        hideKeyboard()
+        when {
+            args.programDayId != -1L -> vm.addExerciseToProgramDay(exercise, args.programDayId, args.num)
+            args.trainingId != -1L -> vm.addExerciseToTraining(exercise, args.trainingId, args.num)
+            else -> navigate(toExerciseDetailFragment(exercise.name))
+        }
+    }}
+    
+    private lateinit var exerciseTargetAdapter: ChipGroupFilterAdapter
+    private lateinit var equipmentAdapter: ChipGroupFilterAdapter
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
-        binding = FragmentChooseExerciseBinding.inflate(inflater)
+        binding = FragmentExercisesBinding.inflate(inflater)
         binding.vm = vm
         binding.lifecycleOwner = this
         return binding.root
@@ -34,6 +50,7 @@ abstract class ChooseExerciseFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        if (args.num != -1) setXNavIcon()
         
         binding.recyclerView.adapter = exerciseAdapter
         binding.recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
@@ -48,6 +65,8 @@ abstract class ChooseExerciseFragment : Fragment() {
         vm.exerciseList.observe(viewLifecycleOwner) { exerciseAdapter.submitList(it) }
         vm.exerciseTargetList.observe(viewLifecycleOwner) { exerciseTargetAdapter.submitList(it) }
         vm.equipmentList.observe(viewLifecycleOwner) { equipmentAdapter.submitList(it) }
+    
+        vm.exerciseAddedEvent.observe(viewLifecycleOwner, EventObserver { popBackStack() })
     }
     
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.FragmentTrainingExercisesBinding
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
-import com.dmitrysimakov.kilogram.ui.home.trainings.exercises.TrainingExercisesFragmentDirections.Companion.toChooseExerciseFragment
+import com.dmitrysimakov.kilogram.ui.home.trainings.exercises.TrainingExercisesFragmentDirections.Companion.toExercisesFragment
 import com.dmitrysimakov.kilogram.ui.home.trainings.exercises.TrainingExercisesFragmentDirections.Companion.toTrainingSetsFragment
 import com.dmitrysimakov.kilogram.util.live_data.EventObserver
 import com.dmitrysimakov.kilogram.util.navigate
@@ -38,7 +38,7 @@ class TrainingExercisesFragment : Fragment() {
     })}
     private val exerciseFinishedListAdapter by lazy { TrainingExercisesAdapter ({
         navigate(toTrainingSetsFragment(it.id))
-    }) }
+    })}
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentTrainingExercisesBinding.inflate(inflater)
@@ -49,7 +49,7 @@ class TrainingExercisesFragment : Fragment() {
         setupAdapters()
     
         binding.fab.setOnClickListener{
-            navigate(toChooseExerciseFragment(exercisePlannedListAdapter.itemCount + 1 ,args.trainingId))
+            navigate(toExercisesFragment(exercisePlannedListAdapter.itemCount + 1, -1, args.trainingId))
         }
         
         return binding.root

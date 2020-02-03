@@ -31,6 +31,9 @@
         <action
             android:id="@+id/to_proportionsCalculatorFragment"
             app:destination="@id/proportionsCalculatorFragment" />
+        <action
+            android:id="@+id/to_chooseProgramFragment"
+            app:destination="@id/chooseProgramFragment" />
     </fragment>
     <dialog
         android:id="@+id/createTrainingDialog"
@@ -71,7 +74,7 @@
         android:id="@+id/trainingExercisesFragment"
         android:name="com.dmitrysimakov.kilogram.ui.home.trainings.exercises.TrainingExercisesFragment"
         android:label="@string/training_session"
-        tools:layout="@layout/fragment_exercises">
+        tools:layout="@layout/fragment_program_day_exercises">
         <argument
             android:name="trainingId"
             app:argType="long" />
@@ -82,20 +85,25 @@
             android:id="@+id/to_trainingSetsFragment"
             app:destination="@id/trainingSetsFragment" />
         <action
-            android:id="@+id/to_chooseExerciseFragment"
-            app:destination="@id/trainings_ChooseExerciseFragment" />
+            android:id="@+id/to_exercisesFragment"
+            app:destination="@id/exercisesFragment" />
     </fragment>
     <fragment
-        android:id="@+id/trainings_ChooseExerciseFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.home.trainings.choose_exercise.Trainings_ChooseExerciseFragment"
+        android:id="@+id/exercisesFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.common.exercises.ExercisesFragment"
         android:label="@string/exercises"
         tools:layout="@layout/fragment_exercises">
         <argument
             android:name="num"
             app:argType="integer" />
         <argument
+            android:name="programDayId"
+            app:argType="long"
+            android:defaultValue="-1L" />
+        <argument
             android:name="trainingId"
-            app:argType="long" />
+            app:argType="long"
+            android:defaultValue="-1L" />
     </fragment>
     <fragment
         android:id="@+id/trainingSetsFragment"
@@ -196,4 +204,68 @@
         android:name="com.dmitrysimakov.kilogram.ui.home.measurements.proportions_calculator.ProportionsCalculatorFragment"
         android:label="@string/proportions_calculator"
         tools:layout="@layout/fragment_proportions_calculator" />
+    <fragment
+        android:id="@+id/chooseProgramFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.common.choose_program.ChooseProgramFragment"
+        android:label="@string/training_programs"
+        tools:layout="@layout/fragment_choose_program">
+        <action
+            android:id="@+id/to_createProgramDialog"
+            app:destination="@id/createProgramDialog" />
+        <action
+            android:id="@+id/to_programs_chooseProgramDayFragment"
+            app:destination="@id/programs_chooseProgramDayFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/createProgramDialog"
+        android:name="com.dmitrysimakov.kilogram.ui.home.programs.create_program.CreateProgramDialog"
+        android:label="Тренировочная программа"
+        tools:layout="@layout/dialog_create_program">
+        <action
+            android:id="@+id/to_chooseProgramDayFragment"
+            app:destination="@id/programs_chooseProgramDayFragment"
+            app:popUpTo="@+id/chooseProgramFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/programs_chooseProgramDayFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.home.programs.choose_program_day.Programs_ChooseProgramDayFragment"
+        android:label="fragment_training_days"
+        tools:layout="@layout/fragment_choose_program_day">
+        <argument
+            android:name="programId"
+            app:argType="long" />
+        <action
+            android:id="@+id/to_createProgramDayDialog"
+            app:destination="@id/createProgramDayDialog" />
+        <action
+            android:id="@+id/to_exercisesFragment"
+            app:destination="@id/programDayExercisesFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/createProgramDayDialog"
+        android:name="com.dmitrysimakov.kilogram.ui.home.programs.create_program_day.CreateProgramDayDialog"
+        android:label="CreateProgramDayDialog"
+        tools:layout="@layout/dialog_create_program_day">
+        <argument
+            android:name="num"
+            app:argType="integer" />
+        <argument
+            android:name="programId"
+            app:argType="long" />
+        <action
+            android:id="@+id/to_programDayExercisesFragment"
+            app:destination="@id/programDayExercisesFragment"
+            app:popUpTo="@+id/programs_chooseProgramDayFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/programDayExercisesFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.home.programs.exercises.ProgramDayExercisesFragment"
+        tools:layout="@layout/fragment_program_day_exercises">
+        <argument
+            android:name="programDayId"
+            app:argType="long" />
+        <action
+            android:id="@+id/to_exercisesFragment"
+            app:destination="@id/exercisesFragment" />
+    </fragment>
 </navigation>

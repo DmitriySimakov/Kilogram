@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.catalog.programs.exercises
+package com.dmitrysimakov.kilogram.ui.home.programs.exercises
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,9 +11,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.ui.catalog.programs.exercises.ProgramDayExercisesFragmentDirections.Companion.toChooseExerciseFragment
 import com.dmitrysimakov.kilogram.util.navigate
-import kotlinx.android.synthetic.main.fragment_exercises.*
+import kotlinx.android.synthetic.main.fragment_program_day_exercises.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import java.util.*
@@ -27,7 +26,7 @@ class ProgramDayExercisesFragment : Fragment() {
     private val adapter by lazy { ProgramDayExerciseListAdapter() }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_exercises, container, false)
+        return inflater.inflate(R.layout.fragment_program_day_exercises, container, false)
     }
     
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -54,7 +53,7 @@ class ProgramDayExercisesFragment : Fragment() {
         }).attachToRecyclerView(recyclerView)
     
         fab.setOnClickListener{
-            navigate(toChooseExerciseFragment(adapter.itemCount + 1, args.programDayId))
+            navigate(ProgramDayExercisesFragmentDirections.toExercisesFragment(adapter.itemCount + 1, args.programDayId, -1))
         }
     }
     

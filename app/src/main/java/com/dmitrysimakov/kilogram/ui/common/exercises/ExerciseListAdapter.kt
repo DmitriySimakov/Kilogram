@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.common.choose_exercise
+package com.dmitrysimakov.kilogram.ui.common.exercises
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,7 +8,7 @@ import com.dmitrysimakov.kilogram.databinding.ItemExerciseBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 
 class ExerciseListAdapter(
-        private val viewModel: ChooseExerciseViewModel,
+        private val viewModel: ExercisesViewModel,
         clickCallback: ((Exercise) -> Unit)? = null
 ) : DataBoundListAdapter<Exercise, ItemExerciseBinding>(clickCallback, ExerciseDiffCallback()) {
 
