@@ -10,6 +10,7 @@ import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.common.UserListAdapter
 import com.dmitrysimakov.kilogram.ui.person_page.subscriptions_tab.SubscriptionsTabFragmentDirections.Companion.toPersonPageFragment
 import com.dmitrysimakov.kilogram.util.navigate
+import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.android.synthetic.main.fragment_people.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -28,7 +29,7 @@ class SubscriptionsFragment(private val userId: String) : Fragment() {
         
         recyclerView.adapter = adapter
         
-        vm.setUserId(userId)
+        vm.userId.setNewValue(userId)
         vm.subscriptions.observe(viewLifecycleOwner) { adapter.submitList(it) }
     }
 }

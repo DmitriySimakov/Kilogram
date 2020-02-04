@@ -2,7 +2,10 @@ package com.dmitrysimakov.kilogram.ui
 
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.switchMap
+import androidx.lifecycle.viewModelScope
 import androidx.work.Constraints
 import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequest
@@ -34,19 +37,19 @@ class SharedViewModel(
     
     //region Firebase
     
-    private val _userExist = MutableLiveData<Boolean>()
+    val userExist = MutableLiveData<Boolean>()
     
-    val user: LiveData<User> = _userExist.switchMap { userExist ->
+    val user = userExist.switchMap { userExist ->
         if (!userExist) AbsentLiveData.create()
-        else userDocument.liveData { it.toObject(User::class.java)!! }
+        else userDocument.liveData<User?> { it.toObject(User::class.java)!! }
     }
     
     fun initUser() {
-        firebaseUser?.let { _userExist.value = true }
+        firebaseUser?.let { userExist.value = true }
     }
     
     fun signOut() {
-        _userExist.value = false
+        userExist.value = false
     
         workManager.cancelAllWorkByTag(LOCAL_DB_SYNC)
     }
@@ -59,7 +62,7 @@ class SharedViewModel(
         if (!tokensDoc.exists()) createNewUser(result.token)
         else addToken(result.token, tokensDoc)
     
-        _userExist.value = true
+        userExist.value = true
         
         runLocalDatabasePeriodicSync()
     }}

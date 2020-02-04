@@ -12,6 +12,7 @@ import com.dmitrysimakov.kilogram.ui.feed.create_post.CreatePostFragmentDirectio
 import com.dmitrysimakov.kilogram.util.live_data.EventObserver
 import com.dmitrysimakov.kilogram.util.navigate
 import com.dmitrysimakov.kilogram.util.popBackStack
+import com.dmitrysimakov.kilogram.util.setNewValue
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -32,9 +33,9 @@ class CreatePostFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         
-        sharedVM.user.observe(viewLifecycleOwner) { vm.setUser(it) }
+        sharedVM.user.observe(viewLifecycleOwner) { vm.user.setNewValue(it) }
         
-        sharedVM.program.observe(viewLifecycleOwner, EventObserver { vm.setProgram(it) })
+        sharedVM.program.observe(viewLifecycleOwner, EventObserver { vm.program.setNewValue(it) })
         
         vm.postPublishedEvent.observe(viewLifecycleOwner, EventObserver { popBackStack() })
         

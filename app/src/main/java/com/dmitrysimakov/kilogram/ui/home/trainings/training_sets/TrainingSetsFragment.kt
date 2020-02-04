@@ -15,6 +15,7 @@ import com.dmitrysimakov.kilogram.ui.home.trainings.training_sets.TrainingSetsFr
 import com.dmitrysimakov.kilogram.util.live_data.EventObserver
 import com.dmitrysimakov.kilogram.util.navigate
 import com.dmitrysimakov.kilogram.util.popBackStack
+import com.dmitrysimakov.kilogram.util.setNewValue
 import com.dmitrysimakov.kilogram.util.setTitle
 import kotlinx.android.synthetic.main.fragment_training_sets.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -48,7 +49,7 @@ class TrainingSetsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        vm.setTrainingExerciseId(args.trainingExerciseId)
+        vm.trainingExerciseId.setNewValue(args.trainingExerciseId)
         setupNavigation()
     
         recyclerView.adapter = adapter

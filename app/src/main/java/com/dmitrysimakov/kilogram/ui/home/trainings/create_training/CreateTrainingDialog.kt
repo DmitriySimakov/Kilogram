@@ -44,7 +44,7 @@ class CreateTrainingDialog : Fragment() {
         binding.dateTv.setOnClickListener {
             val dateTime = vm.dateTime.value!!
             val listener = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                vm.setDateTime(dateTime.withYear(year).withMonth(monthOfYear).withDayOfMonth(dayOfMonth))
+                vm.dateTime.setNewValue(dateTime.withYear(year).withMonth(monthOfYear).withDayOfMonth(dayOfMonth))
             }
             DatePickerDialog(context!!, listener, dateTime.year, dateTime.monthValue, dateTime.dayOfMonth).apply {
                 fun LocalDate.toEpochMilli() = atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli()
@@ -59,7 +59,7 @@ class CreateTrainingDialog : Fragment() {
         binding.timeTv.setOnClickListener{
             val dateTime = vm.dateTime.value!!
             val listener = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-                vm.setDateTime(dateTime.withHour(hourOfDay).withMinute(minute))
+                vm.dateTime.setNewValue(dateTime.withHour(hourOfDay).withMinute(minute))
             }
             TimePickerDialog(context, listener, dateTime.hour, dateTime.minute, true).show()
         }
@@ -70,7 +70,7 @@ class CreateTrainingDialog : Fragment() {
         
         setXNavIcon()
         
-        args.date?.let { vm.setDateTime(it.toOffsetDateTime()) }
+        args.date?.let { vm.dateTime.setNewValue(it.toOffsetDateTime()) }
         
         sharedVM.program.observe(viewLifecycleOwner, EventObserver { vm.program.setNewValue(it) })
         sharedVM.programDay.observe(viewLifecycleOwner, EventObserver { vm.programDay.setNewValue(it) })

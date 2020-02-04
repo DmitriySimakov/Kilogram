@@ -13,11 +13,8 @@ import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.FragmentExercisesBinding
 import com.dmitrysimakov.kilogram.ui.common.ChipGroupFilterAdapter
 import com.dmitrysimakov.kilogram.ui.common.exercises.ExercisesFragmentDirections.Companion.toExerciseDetailFragment
-import com.dmitrysimakov.kilogram.util.hideKeyboard
+import com.dmitrysimakov.kilogram.util.*
 import com.dmitrysimakov.kilogram.util.live_data.EventObserver
-import com.dmitrysimakov.kilogram.util.navigate
-import com.dmitrysimakov.kilogram.util.popBackStack
-import com.dmitrysimakov.kilogram.util.setXNavIcon
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ExercisesFragment : Fragment() {
@@ -83,7 +80,7 @@ class ExercisesFragment : Fragment() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?) = false
             override fun onQueryTextChange(newText: String?): Boolean {
-                vm.setSearchText(newText)
+                vm.searchText.setNewValue(newText)
                 return true
             }
         })

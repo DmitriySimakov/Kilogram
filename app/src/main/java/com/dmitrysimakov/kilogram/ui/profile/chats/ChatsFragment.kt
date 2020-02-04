@@ -10,6 +10,7 @@ import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.ui.profile.chats.ChatsFragmentDirections.Companion.toMessagesFragment
 import com.dmitrysimakov.kilogram.util.navigate
+import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.android.synthetic.main.fragment_program_day_exercises.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -30,7 +31,7 @@ class ChatsFragment : Fragment() {
         
         recyclerView.adapter = adapter
     
-        sharedVM.user.observe(viewLifecycleOwner) { vm.setUser(it) }
+        sharedVM.user.observe(viewLifecycleOwner) { vm.user.setNewValue(it) }
         vm.chats.observe(viewLifecycleOwner) { adapter.submitList(it) }
     }
 }

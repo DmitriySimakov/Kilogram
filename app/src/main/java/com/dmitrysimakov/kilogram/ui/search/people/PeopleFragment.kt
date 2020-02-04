@@ -10,6 +10,7 @@ import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.ui.common.UserListAdapter
 import com.dmitrysimakov.kilogram.ui.search.people.PeopleFragmentDirections.Companion.toPersonPageFragment
 import com.dmitrysimakov.kilogram.util.navigate
+import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.android.synthetic.main.fragment_people.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -31,7 +32,7 @@ class PeopleFragment : Fragment() {
         
         recyclerView.adapter = adapter
         
-        sharedVM.user.observe(viewLifecycleOwner) { vm.setUser(it) }
+        sharedVM.user.observe(viewLifecycleOwner) { vm.user.setNewValue(it) }
         vm.people.observe(viewLifecycleOwner) { adapter.submitList(it) }
     }
     
@@ -49,7 +50,7 @@ class PeopleFragment : Fragment() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?) = false
             override fun onQueryTextChange(newText: String?) : Boolean {
-                vm.setSearchText(newText)
+                vm.searchText.setNewValue(newText)
                 return true
             }
         })

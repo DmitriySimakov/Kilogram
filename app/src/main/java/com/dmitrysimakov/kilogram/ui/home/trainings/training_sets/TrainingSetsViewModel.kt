@@ -8,7 +8,6 @@ import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingSetRepository
 import com.dmitrysimakov.kilogram.util.live_data.AbsentLiveData
 import com.dmitrysimakov.kilogram.util.live_data.Event
-import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.coroutines.launch
 import kotlin.math.max
 
@@ -18,9 +17,9 @@ class TrainingSetsViewModel(
         private val exerciseRepository: ExerciseRepository
 ) : ViewModel() {
     
-    private val _trainingExerciseId = MutableLiveData<Long>()
+    val trainingExerciseId = MutableLiveData<Long>()
     
-    val trainingExercise = _trainingExerciseId.switchMap {
+    val trainingExercise = trainingExerciseId.switchMap {
         trainingExerciseRepository.trainingExerciseFlow(it).asLiveData()
     }
     
@@ -44,15 +43,12 @@ class TrainingSetsViewModel(
     val sets = MediatorLiveData<List<SetWithPreviousResults>>()
     
     
-    private val _trainingExerciseFinishedEvent = MutableLiveData<Event<Unit>>()
-    val trainingExerciseFinishedEvent: LiveData<Event<Unit>> = _trainingExerciseFinishedEvent
+    val trainingExerciseFinishedEvent = MutableLiveData<Event<Unit>>()
     
     init {
         sets.addSource(currentSets) { sets.value = updateSets() }
         sets.addSource(previousSets) { sets.value = updateSets() }
     }
-    
-    fun setTrainingExerciseId(id: Long) = _trainingExerciseId.setNewValue(id)
     
     private fun updateSets(): List<SetWithPreviousResults> {
         val currSets = currentSets.value
@@ -77,6 +73,6 @@ class TrainingSetsViewModel(
     fun finishExercise(trainingExerciseId: Long)= viewModelScope.launch {
         trainingExerciseRepository.updateState(trainingExerciseId, TrainingExercise.FINISHED)
         trainingExercise.value?.let { exerciseRepository.increaseExecutionsCnt(it.exercise) }
-        _trainingExerciseFinishedEvent.value = Event(Unit)
+        trainingExerciseFinishedEvent.value = Event(Unit)
     }
 }

@@ -1,26 +1,25 @@
 package com.dmitrysimakov.kilogram.ui.feed
 
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
+import androidx.lifecycle.switchMap
 import com.dmitrysimakov.kilogram.data.remote.models.Post
 import com.dmitrysimakov.kilogram.data.remote.models.User
 import com.dmitrysimakov.kilogram.util.live_data.AbsentLiveData
 import com.dmitrysimakov.kilogram.util.live_data.liveData
 import com.dmitrysimakov.kilogram.util.postsCollection
-import com.dmitrysimakov.kilogram.util.setNewValue
 
 class FeedViewModel : ViewModel() {
     
-    private val _user = MutableLiveData<User?>()
-    val user: LiveData<User?> = _user
+    val user = MutableLiveData<User?>()
     
-    val posts = _user.switchMap { user ->
+    val posts = user.switchMap { user ->
         if (user == null) AbsentLiveData.create()
         else postsCollection.liveData { it.toObject(Post::class.java)!! }.map {
             it.filter { post -> user.subscriptions.contains(post.authorId) }
         }
     }
-    
-    fun setUser(user: User?) { _user.setNewValue(user) }
     
     fun like(post: Post?) {
         val userId = user.value?.id ?: return

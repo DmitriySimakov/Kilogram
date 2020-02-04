@@ -11,6 +11,7 @@ import com.dmitrysimakov.kilogram.ui.home.calendar_day.CalendarDayDialogDirectio
 import com.dmitrysimakov.kilogram.ui.home.calendar_day.CalendarDayDialogDirections.Companion.toTrainingExercisesFragment
 import com.dmitrysimakov.kilogram.ui.home.trainings.TrainingsAdapter
 import com.dmitrysimakov.kilogram.util.navigate
+import com.dmitrysimakov.kilogram.util.setNewValue
 import com.dmitrysimakov.kilogram.util.toIsoString
 import com.dmitrysimakov.kilogram.util.toLocalDate
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -42,7 +43,7 @@ class CalendarDayDialog : BottomSheetDialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val date = args.date.toLocalDate()
-        vm.setDate(date)
+        vm.date.setNewValue(date)
         
         vm.trainings.observe(viewLifecycleOwner) { adapter.submitList(it) }
         

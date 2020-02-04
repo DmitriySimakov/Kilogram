@@ -14,6 +14,7 @@ import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.home.programs.program_days.ProgramDaysFragmentDirections.Companion.toCreateProgramDayDialog
 import com.dmitrysimakov.kilogram.ui.home.programs.program_days.ProgramDaysFragmentDirections.Companion.toProgramDayExercisesFragment
 import com.dmitrysimakov.kilogram.util.navigate
+import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.android.synthetic.main.fragment_program_days.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -36,7 +37,7 @@ class ProgramDaysFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         
-        vm.setProgramId(args.programId)
+        vm.programDayId.setNewValue(args.programId)
     
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))

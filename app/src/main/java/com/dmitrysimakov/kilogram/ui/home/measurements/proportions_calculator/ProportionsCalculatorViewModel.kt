@@ -12,7 +12,6 @@ import kotlinx.coroutines.launch
 class ProportionsCalculatorViewModel (private val repository: MeasurementRepository) : ViewModel() {
     
     private val _calculatorItems = MutableLiveData<List<ProportionsCalculatorItem>>()
-    
     val calculatorItems = _calculatorItems.map { list ->
         val listRelatedByChest = list.map { item ->
             val chest = list.find { it.param == "Грудь" }!!

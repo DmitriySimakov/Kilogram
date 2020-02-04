@@ -10,6 +10,7 @@ import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.ui.feed.FeedFragmentDirections.Companion.toCreatePostFragment
 import com.dmitrysimakov.kilogram.util.navigate
+import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.android.synthetic.main.fragment_feed.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -30,7 +31,7 @@ class FeedFragment : Fragment() {
         
         recyclerView.adapter = adapter
         
-        sharedVM.user.observe(viewLifecycleOwner) { vm.setUser(it) }
+        sharedVM.user.observe(viewLifecycleOwner) { vm.user.setNewValue(it) }
         vm.posts.observe(viewLifecycleOwner) { adapter.submitList(it) }
         
         fab.setOnClickListener { navigate(toCreatePostFragment()) }

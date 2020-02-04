@@ -13,7 +13,6 @@ import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.util.live_data.Event
-import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -27,8 +26,7 @@ class ExercisesViewModel (
     
     private val query = MediatorLiveData<SupportSQLiteQuery>()
     
-    private val _searchText = MutableLiveData<String>()
-    val searchText: LiveData<String> = _searchText
+    val searchText = MutableLiveData<String>()
     
     val exerciseList = query.switchMap { query -> exerciseRepo.exercisesFlow(query).asLiveData() }
     
@@ -40,22 +38,19 @@ class ExercisesViewModel (
     val exerciseTargetList = liveData { emit(exerciseTargetDao.params()) }
     val equipmentList = liveData { emit(equipmentDao.params()) }
     
-    private val _exerciseAddedEvent = MutableLiveData<Event<Unit>>()
-    val exerciseAddedEvent: LiveData<Event<Unit>> = _exerciseAddedEvent
+    val exerciseAddedEvent = MutableLiveData<Event<Unit>>()
     
     init {
         listOf(searchText, addedToFavorite, performedEarlier, isolated, exerciseTargetList)
                 .forEach { query.addSource(it) { updateQuery() } }
     }
     
-    fun setSearchText(text: String?) { _searchText.setNewValue(text) }
-    
     private fun updateQuery() {
         val exerciseTargets = exerciseTargetList.getActiveParamsString()
         val equipments = equipmentList.getActiveParamsString()
 
         val sb = StringBuilder("SELECT * FROM exercise WHERE name IS NOT NULL")
-        _searchText.value?.let { if (it.trim().isNotEmpty()) sb.append(" AND name LIKE '%$it%'") }
+        searchText.value?.let { if (it.trim().isNotEmpty()) sb.append(" AND name LIKE '%$it%'") }
         if (addedToFavorite.value == true) sb.append(" AND isFavorite == 1")
         if (performedEarlier.value == true) sb.append(" AND executionsCount > 0")
         if (compound.value == true && isolated.value == false) sb.append(" AND isIsolated == 0")
@@ -81,14 +76,14 @@ class ExercisesViewModel (
         val trainingExercise = TrainingExercise(0, trainingId, exercise.name, num, 120)
         trainingExerciseRepository.insert(trainingExercise)
         
-        _exerciseAddedEvent.value = Event(Unit)
+        exerciseAddedEvent.value = Event(Unit)
     }
     
     fun addExerciseToProgramDay(exercise: Exercise, programDayId: Long, num: Int) = viewModelScope.launch {
         programDayExerciseRepository.insert(
                 ProgramDayExercise(0, programDayId, exercise.name, num, 120)
         )
-        _exerciseAddedEvent.value = Event(Unit)
+        exerciseAddedEvent.value = Event(Unit)
     }
     
     private fun LiveData<List<FilterParam>>.getActiveParamsString() =

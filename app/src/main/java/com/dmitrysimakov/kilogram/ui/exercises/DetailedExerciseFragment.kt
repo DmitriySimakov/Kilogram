@@ -7,6 +7,7 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.FragmentDetailedExerciseBinding
+import com.dmitrysimakov.kilogram.util.setNewValue
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailedExerciseFragment : Fragment() {
@@ -27,8 +28,8 @@ class DetailedExerciseFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        
-        vm.setExerciseName(args.exercise)
+    
+        vm.exerciseName.setNewValue(args.exercise)
     }
     
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

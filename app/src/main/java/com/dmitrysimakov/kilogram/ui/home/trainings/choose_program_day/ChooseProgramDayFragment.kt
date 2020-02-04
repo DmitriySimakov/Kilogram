@@ -14,6 +14,7 @@ import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.ui.home.programs.program_days.ProgramDaysViewModel
 import com.dmitrysimakov.kilogram.util.live_data.Event
 import com.dmitrysimakov.kilogram.util.popBackStack
+import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.android.synthetic.main.fragment_choose_program_day.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -37,7 +38,7 @@ class ChooseProgramDayFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
     
-        vm.setProgramId(args.programId)
+        vm.programDayId.setNewValue(args.programId)
         
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))

@@ -1,6 +1,5 @@
 package com.dmitrysimakov.kilogram.ui.home.programs.create_program_day
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,12 +13,11 @@ class CreateProgramDayViewModel(private val programDayRepo: ProgramDayRepository
     val name = MutableLiveData("")
     val description = MutableLiveData("")
     
-    private val _programDayCreatedEvent = MutableLiveData<Event<Long>>()
-    val programDayCreatedEvent: LiveData<Event<Long>> = _programDayCreatedEvent
+    val programDayCreatedEvent = MutableLiveData<Event<Long>>()
     
     fun createProgramDay(programId: Long, num: Int) = viewModelScope.launch {
         val programDay = ProgramDay(0, programId, num, name.value!!, description.value!!)
         val programDayId = programDayRepo.insert(programDay)
-        _programDayCreatedEvent.value = Event(programDayId)
+        programDayCreatedEvent.value = Event(programDayId)
     }
 }
