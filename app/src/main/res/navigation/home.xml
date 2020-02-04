@@ -60,7 +60,7 @@
     </fragment>
     <fragment
         android:id="@+id/chooseProgramFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.home.trainings.choose_program.ChooseProgramFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.common.choose_program.ChooseProgramFragment"
         android:label="@string/chooseProgram"
         tools:layout="@layout/fragment_choose_program">
         <argument

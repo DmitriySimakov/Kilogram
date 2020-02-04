@@ -30,6 +30,8 @@ class CreatePostViewModel : ViewModel() {
     
     fun setUser(user: User?) { _user.setNewValue(user) }
     
+    fun setProgram(program: Program) { _program.setNewValue(program) }
+    
     fun publishPost() { viewModelScope.launch {
         val postDoc = postsCollection.document()
         val author = _user.value ?: return@launch

@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.home.trainings.choose_program
+package com.dmitrysimakov.kilogram.ui.common.choose_program
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData

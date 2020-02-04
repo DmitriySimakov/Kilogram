@@ -7,6 +7,7 @@ import androidx.work.Constraints
 import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
+import com.dmitrysimakov.kilogram.data.local.entity.Program
 import com.dmitrysimakov.kilogram.data.remote.models.User
 import com.dmitrysimakov.kilogram.util.*
 import com.dmitrysimakov.kilogram.util.live_data.AbsentLiveData
@@ -27,6 +28,7 @@ class SharedViewModel(
         private val preferences: SharedPreferences
 ) : ViewModel() {
     
+    val program = MutableLiveData<Event<Program>>()
     val programDayId = MutableLiveData<Event<Long>>()
     
     //region Firebase

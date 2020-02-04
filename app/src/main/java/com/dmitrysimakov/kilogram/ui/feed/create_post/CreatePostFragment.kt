@@ -34,6 +34,8 @@ class CreatePostFragment : Fragment() {
         
         sharedVM.user.observe(viewLifecycleOwner) { vm.setUser(it) }
         
+        sharedVM.program.observe(viewLifecycleOwner, EventObserver { vm.setProgram(it) })
+        
         vm.postPublishedEvent.observe(viewLifecycleOwner, EventObserver { popBackStack() })
         
         binding.addProgramButton.setOnClickListener {
