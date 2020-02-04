@@ -69,7 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/icon_button_size"
             android:gravity="center_vertical"
-            android:text="@{vm.programDay != null ? vm.programDay.program +`: `+ vm.programDay.programDay : @string/choose}"
+            android:text="@{vm.programDay != null ? vm.program.name +`: `+ vm.programDay.name : @string/choose}"
             app:goneUnless="@{Converter.unbox(vm.byProgram)}"
             tools:text="На массу: День ног" />
         

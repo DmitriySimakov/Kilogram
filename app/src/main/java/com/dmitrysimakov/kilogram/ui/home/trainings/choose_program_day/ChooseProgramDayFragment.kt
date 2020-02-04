@@ -26,7 +26,7 @@ class ChooseProgramDayFragment : Fragment() {
     private val sharedVM: SharedViewModel by sharedViewModel()
     
     private val adapter by lazy { ChooseProgramDayAdapter { programDay ->
-        sharedVM.programDayId.value = Event(programDay.id)
+        sharedVM.programDay.value = Event(programDay)
         popBackStack(R.id.createTrainingDialog, false)
     }}
     

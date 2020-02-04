@@ -12,11 +12,8 @@ import com.dmitrysimakov.kilogram.databinding.DialogCreateTrainingBinding
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.ui.home.trainings.create_training.CreateTrainingDialogDirections.Companion.toChooseProgramFragment
 import com.dmitrysimakov.kilogram.ui.home.trainings.create_training.CreateTrainingDialogDirections.Companion.toExercisesFragment
-import com.dmitrysimakov.kilogram.util.hideKeyboard
+import com.dmitrysimakov.kilogram.util.*
 import com.dmitrysimakov.kilogram.util.live_data.EventObserver
-import com.dmitrysimakov.kilogram.util.navigate
-import com.dmitrysimakov.kilogram.util.setXNavIcon
-import com.dmitrysimakov.kilogram.util.toOffsetDateTime
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.threeten.bp.LocalDate
@@ -75,7 +72,8 @@ class CreateTrainingDialog : Fragment() {
         
         args.date?.let { vm.setDateTime(it.toOffsetDateTime()) }
         
-        sharedVM.programDayId.observe(viewLifecycleOwner, EventObserver { vm.setProgramDay(it) })
+        sharedVM.program.observe(viewLifecycleOwner, EventObserver { vm.program.setNewValue(it) })
+        sharedVM.programDay.observe(viewLifecycleOwner, EventObserver { vm.programDay.setNewValue(it) })
         
         binding.startTrainingBtn.setOnClickListener {
             vm.createTraining()
