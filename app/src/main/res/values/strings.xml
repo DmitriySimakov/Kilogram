@@ -142,5 +142,6 @@
     <string name="add_image">Добавить изображение</string>
     <string name="write">Написать</string>
     <string name="program_days">Тренировончые дни</string>
+    <string name="attach_training_program">Прикрепить тренировочную программу</string>
 
 </resources>

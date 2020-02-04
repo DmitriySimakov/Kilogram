@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import com.dmitrysimakov.kilogram.databinding.FragmentCreatePostBinding
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
+import com.dmitrysimakov.kilogram.ui.feed.create_post.CreatePostFragmentDirections.Companion.toChooseProgramFragment
 import com.dmitrysimakov.kilogram.util.live_data.EventObserver
+import com.dmitrysimakov.kilogram.util.navigate
 import com.dmitrysimakov.kilogram.util.popBackStack
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -33,5 +35,9 @@ class CreatePostFragment : Fragment() {
         sharedVM.user.observe(viewLifecycleOwner) { vm.setUser(it) }
         
         vm.postPublishedEvent.observe(viewLifecycleOwner, EventObserver { popBackStack() })
+        
+        binding.addProgramButton.setOnClickListener {
+            navigate(toChooseProgramFragment())
+        }
     }
 }

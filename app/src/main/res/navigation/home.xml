@@ -49,7 +49,10 @@
         </action>
         <action
             android:id="@+id/to_chooseProgramFragment"
-            app:destination="@id/chooseProgramFragment" />
+            app:destination="@id/chooseProgramFragment" >
+            <argument android:defaultValue="true"
+                android:name="toChooseProgramDay" />
+        </action>
         <argument
             android:name="date"
             app:argType="string"
@@ -60,6 +63,9 @@
         android:name="com.dmitrysimakov.kilogram.ui.home.trainings.choose_program.ChooseProgramFragment"
         android:label="@string/chooseProgram"
         tools:layout="@layout/fragment_choose_program">
+        <argument
+            android:name="toChooseProgramDay"
+            app:argType="boolean" />
         <action
             android:id="@+id/to_chooseProgramDayFragment"
             app:destination="@id/chooseProgramDayFragment"

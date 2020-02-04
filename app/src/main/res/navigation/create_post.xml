@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/create_post"
+    app:startDestination="@id/createPostFragment">
+    <fragment
+        android:id="@+id/createPostFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.feed.create_post.CreatePostFragment"
+        android:label="@string/new_post"
+        tools:layout="@layout/fragment_create_post" >
+        <action
+            android:id="@+id/to_chooseProgramFragment"
+            app:destination="@id/chooseProgramFragment" >
+            <argument android:defaultValue="false"
+                android:name="toChooseProgramDay" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/chooseProgramFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.home.trainings.choose_program.ChooseProgramFragment"
+        android:label="@string/chooseProgram"
+        tools:layout="@layout/fragment_choose_program">
+        <argument
+            android:name="toChooseProgramDay"
+            app:argType="boolean" />
+    </fragment>
+</navigation>

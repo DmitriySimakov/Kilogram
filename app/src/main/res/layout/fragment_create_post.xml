@@ -12,7 +12,7 @@
     
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@color/white"
         android:elevation="1dp"
         android:orientation="vertical"
@@ -54,8 +54,76 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:goneUnless="@{vm.imageUrl != null}"
             app:imageUrl="@{vm.imageUrl}"
             tools:src="@drawable/no_photo"/>
+    
+        <LinearLayout
+            style="@style/HorizontalListItem"
+            android:orientation="vertical"
+            app:goneUnless="@{vm.program != null}">
+        
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{vm.program.name}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                tools:text="Название программы" />
+        
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{vm.program.description}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                tools:text="Описание" />
+    
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/addPhotoButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/list_item_horizontal_padding">
+        
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_photo_camera"
+                app:elevation="0dp" />
+        
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/frame_padding"
+                android:gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:text="@string/add_image"/>
+    
+        </LinearLayout>
+    
+        <LinearLayout
+            android:id="@+id/addProgramButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/list_item_horizontal_padding">
+        
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_fitness_center"
+                app:elevation="0dp" />
+        
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/frame_padding"
+                android:gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:text="@string/attach_training_program"/>
+    
+        </LinearLayout>
         
         <Button
             android:id="@+id/publishBtn"

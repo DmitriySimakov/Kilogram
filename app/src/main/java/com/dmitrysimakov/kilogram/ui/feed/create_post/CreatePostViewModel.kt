@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dmitrysimakov.kilogram.data.local.entity.Program
 import com.dmitrysimakov.kilogram.data.remote.models.Post
 import com.dmitrysimakov.kilogram.data.remote.models.User
 import com.dmitrysimakov.kilogram.util.live_data.Event
@@ -18,6 +19,9 @@ class CreatePostViewModel : ViewModel() {
     val title = MutableLiveData("")
     val content = MutableLiveData("")
     val imageUrl = MutableLiveData<String>(null)
+    
+    private val _program = MutableLiveData<Program>()
+    val program: LiveData<Program> = _program
     
     private val _user = MutableLiveData<User>()
     
