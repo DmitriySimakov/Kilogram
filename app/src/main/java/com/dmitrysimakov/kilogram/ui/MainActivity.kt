@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity() {
         binding.vm = vm
     
         vm.initUser()
-        vm.timerIsRunning.observe(this) { }
         
         vm.timerIsRunning.value = preferences.getBoolean(PreferencesKeys.TIMER_IS_RUNNING, false)
         vm.sessionStartMillis = preferences.getLong(PreferencesKeys.SESSION_START_MILLIS, 0)

@@ -41,11 +41,11 @@ class TrainingExercisesFragment : Fragment() {
     })}
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FragmentTrainingExercisesBinding.inflate(inflater)
-        binding.lifecycleOwner = this
-        binding.vm = vm
-    
         setHasOptionsMenu(true)
+        binding = FragmentTrainingExercisesBinding.inflate(inflater)
+        binding.vm = vm
+        binding.lifecycleOwner = this
+    
         setupAdapters()
     
         binding.fab.setOnClickListener{
@@ -59,7 +59,6 @@ class TrainingExercisesFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         vm.setTrainingId(args.trainingId)
         vm.trainingFinishedEvent.observe(viewLifecycleOwner, EventObserver { popBackStack() })
-        vm.training.observe(viewLifecycleOwner) { }
         vm.runningExercises.observe(viewLifecycleOwner) { exerciseRunningListAdapter.submitList(it) }
         vm.plannedExercises.observe(viewLifecycleOwner) { exercisePlannedListAdapter.submitList(it) }
         vm.finishedExercises.observe(viewLifecycleOwner) { exerciseFinishedListAdapter.submitList(it) }

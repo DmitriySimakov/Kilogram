@@ -37,11 +37,11 @@ class TrainingSetsFragment : Fragment() {
     } }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FragmentTrainingSetsBinding.inflate(inflater)
-        binding.lifecycleOwner = this
-        
         setHasOptionsMenu(true)
         
+        binding = FragmentTrainingSetsBinding.inflate(inflater)
+        binding.vm = vm
+        binding.lifecycleOwner = this
         return binding.root
     }
 
@@ -65,7 +65,6 @@ class TrainingSetsFragment : Fragment() {
         }).attachToRecyclerView(recyclerView)
         
         vm.trainingExercise.observe(viewLifecycleOwner)  { setTitle(it.exercise) }
-        vm.exercise.observe(viewLifecycleOwner) {}
         vm.sets.observe(viewLifecycleOwner) { adapter.submitList(it) }
         
         binding.fab.setOnClickListener{
