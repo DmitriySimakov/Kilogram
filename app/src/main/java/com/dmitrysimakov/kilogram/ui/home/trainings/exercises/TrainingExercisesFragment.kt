@@ -58,10 +58,15 @@ class TrainingExercisesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         vm.setTrainingId(args.trainingId)
-        vm.trainingFinishedEvent.observe(viewLifecycleOwner, EventObserver { popBackStack() })
+        
+        vm.training.observe(viewLifecycleOwner) {}
         vm.runningExercises.observe(viewLifecycleOwner) { exerciseRunningListAdapter.submitList(it) }
         vm.plannedExercises.observe(viewLifecycleOwner) { exercisePlannedListAdapter.submitList(it) }
         vm.finishedExercises.observe(viewLifecycleOwner) { exerciseFinishedListAdapter.submitList(it) }
+        vm.trainingFinishedEvent.observe(viewLifecycleOwner, EventObserver {
+            sharedVM.onTrainingSessionFinished()
+            popBackStack()
+        })
     }
     
     private fun setupAdapters() {
@@ -115,7 +120,6 @@ class TrainingExercisesFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.finish_training -> {
             vm.finishTraining(sharedVM.elapsedSessionTime.value ?: 0)
-            sharedVM.onTrainingSessionFinished()
             true
         }
         else -> false
