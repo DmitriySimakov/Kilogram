@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.home.trainings.choose_program_day
+package com.dmitrysimakov.kilogram.ui.home.programs.program_days
 
 import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayRepository
@@ -7,7 +7,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ChooseProgramDayViewModel (private val repository: ProgramDayRepository) : ViewModel() {
+class ProgramDaysViewModel (private val repository: ProgramDayRepository) : ViewModel() {
     
     private val _programDayId = MutableLiveData<Long>()
     
@@ -15,7 +15,7 @@ class ChooseProgramDayViewModel (private val repository: ProgramDayRepository) :
     
     fun setProgramId(id: Long) = _programDayId.setNewValue(id)
     
-    fun deleteTrainingDay(id: Long) = viewModelScope.launch {
+    fun deleteProgramDay(id: Long) = viewModelScope.launch {
         repository.delete(id)
     }
     

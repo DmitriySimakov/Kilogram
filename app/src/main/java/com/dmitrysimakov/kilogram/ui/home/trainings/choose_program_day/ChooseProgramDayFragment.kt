@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
+import com.dmitrysimakov.kilogram.ui.home.programs.program_days.ProgramDaysViewModel
 import com.dmitrysimakov.kilogram.util.popBackStack
 import kotlinx.android.synthetic.main.fragment_choose_program_day.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -20,7 +21,7 @@ class ChooseProgramDayFragment : Fragment() {
     
     private val args: ChooseProgramDayFragmentArgs by navArgs()
     
-    private val vm: ChooseProgramDayViewModel by viewModel()
+    private val vm: ProgramDaysViewModel by viewModel()
     private val sharedVM: SharedViewModel by sharedViewModel()
     
     private val adapter by lazy { ChooseProgramDayAdapter { programDay ->

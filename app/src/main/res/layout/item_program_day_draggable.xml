@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     
     <data>
@@ -9,24 +10,35 @@
             type="com.dmitrysimakov.kilogram.data.local.entity.ProgramDay" />
     </data>
     
-    <LinearLayout
-        style="@style/HorizontalListItem"
-        android:orientation="vertical">
+    <androidx.constraintlayout.widget.ConstraintLayout style="@style/HorizontalListItem">
         
         <TextView
+            android:id="@+id/nameTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@{day.name}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/name" />
         
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@{day.description}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            app:layout_constraintEnd_toStartOf="@id/drag_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nameTV"
             tools:text="@string/description" />
+        
+        <ImageView
+            android:id="@+id/drag_icon"
+            style="@style/IconButton"
+            android:src="@drawable/ic_drag_indicator"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

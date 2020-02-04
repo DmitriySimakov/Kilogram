@@ -230,7 +230,7 @@
             android:id="@+id/to_createProgramDayDialog"
             app:destination="@id/createProgramDayDialog" />
         <action
-            android:id="@+id/to_exercisesFragment"
+            android:id="@+id/to_programDayExercisesFragment"
             app:destination="@id/programDayExercisesFragment" />
     </fragment>
     <dialog
