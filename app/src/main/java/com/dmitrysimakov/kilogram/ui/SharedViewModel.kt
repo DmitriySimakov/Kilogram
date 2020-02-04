@@ -10,6 +10,7 @@ import androidx.work.WorkManager
 import com.dmitrysimakov.kilogram.data.remote.models.User
 import com.dmitrysimakov.kilogram.util.*
 import com.dmitrysimakov.kilogram.util.live_data.AbsentLiveData
+import com.dmitrysimakov.kilogram.util.live_data.Event
 import com.dmitrysimakov.kilogram.util.live_data.liveData
 import com.dmitrysimakov.kilogram.workers.SyncLocalDatabaseWorker
 import com.google.firebase.firestore.DocumentSnapshot
@@ -26,7 +27,7 @@ class SharedViewModel(
         private val preferences: SharedPreferences
 ) : ViewModel() {
     
-    val programDayId = MutableLiveData(0L)
+    val programDayId = MutableLiveData<Event<Long>>()
     
     //region Firebase
     

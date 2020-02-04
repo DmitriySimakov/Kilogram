@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.ui.home.programs.program_days.ProgramDaysViewModel
+import com.dmitrysimakov.kilogram.util.live_data.Event
 import com.dmitrysimakov.kilogram.util.popBackStack
 import kotlinx.android.synthetic.main.fragment_choose_program_day.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -25,7 +26,7 @@ class ChooseProgramDayFragment : Fragment() {
     private val sharedVM: SharedViewModel by sharedViewModel()
     
     private val adapter by lazy { ChooseProgramDayAdapter { programDay ->
-        sharedVM.programDayId.value = programDay.id
+        sharedVM.programDayId.value = Event(programDay.id)
         popBackStack(R.id.createTrainingDialog, false)
     }}
     

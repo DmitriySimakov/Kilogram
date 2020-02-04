@@ -143,5 +143,6 @@
     <string name="write">Написать</string>
     <string name="program_days">Тренировончые дни</string>
     <string name="attach_training_program">Прикрепить тренировочную программу</string>
+    <string name="choose">Выбрать</string>
 
 </resources>

@@ -64,29 +64,14 @@
             
         </LinearLayout>
         
-        <LinearLayout
+        <TextView
             android:id="@+id/programLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:goneUnless="@{Converter.unbox(vm.byProgram)}">
-    
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="@dimen/icon_button_size"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="@{vm.programDay != null ? vm.programDay.program : `Выбрать`}"
-                tools:text="На массу" />
-    
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="@dimen/icon_button_size"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="@{vm.programDay.programDay}"
-                tools:text="День ног" />
-            
-        </LinearLayout>
+            android:layout_height="@dimen/icon_button_size"
+            android:gravity="center_vertical"
+            android:text="@{vm.programDay != null ? vm.programDay.program +`: `+ vm.programDay.programDay : @string/choose}"
+            app:goneUnless="@{Converter.unbox(vm.byProgram)}"
+            tools:text="На массу: День ног" />
         
         <Button
             android:id="@+id/startTrainingBtn"

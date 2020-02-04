@@ -20,7 +20,7 @@ interface ProgramDayDao {
     @Query("""
         SELECT PD.id AS programDayId, PD.name AS programDay, P.name AS program
         FROM ProgramDay AS PD
-        INNER JOIN program AS P
+        INNER JOIN program AS P ON PD.programId = P.id
         WHERE PD.id = :id
     """)
     suspend fun programDayAndProgram(id: Long): ProgramDayAndProgram?
