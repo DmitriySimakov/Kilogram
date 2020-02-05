@@ -7,7 +7,7 @@ import com.dmitrysimakov.kilogram.data.local.dao.TrainingExerciseDao
 import com.dmitrysimakov.kilogram.data.remote.data_sources.ID
 import com.dmitrysimakov.kilogram.data.remote.models.TrainingExercise
 import com.dmitrysimakov.kilogram.util.firestore
-import com.dmitrysimakov.kilogram.util.trainingExercisesCollection
+import com.dmitrysimakov.kilogram.util.userTrainingExercisesCollection
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
@@ -22,7 +22,7 @@ class UploadTrainingExerciseListWorker(context: Context, workerParams: WorkerPar
         val writeBatch = firestore.batch()
         for (e in exercises) {
             val remoteExercise = TrainingExercise(e.id, e.trainingId, e.exercise, e.indexNumber, e.rest, e.strategy, e.state)
-            writeBatch.set(trainingExercisesCollection.document(remoteExercise.id.toString()), remoteExercise)
+            writeBatch.set(userTrainingExercisesCollection.document(remoteExercise.id.toString()), remoteExercise)
         }
         writeBatch.commit()
         

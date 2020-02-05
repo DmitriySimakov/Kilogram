@@ -7,7 +7,7 @@ import com.dmitrysimakov.kilogram.data.local.dao.ProgramDayDao
 import com.dmitrysimakov.kilogram.data.remote.data_sources.ID
 import com.dmitrysimakov.kilogram.data.remote.models.ProgramDay
 import com.dmitrysimakov.kilogram.util.firestore
-import com.dmitrysimakov.kilogram.util.programDaysCollection
+import com.dmitrysimakov.kilogram.util.userProgramDaysCollection
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
@@ -22,7 +22,7 @@ class UploadProgramDayListWorker(context: Context, workerParams: WorkerParameter
         val writeBatch = firestore.batch()
         for (d in programDays) {
             val remoteDay = ProgramDay(d.id, d.programId, d.indexNumber, d.name, d.description)
-            writeBatch.set(programDaysCollection.document(remoteDay.id.toString()), remoteDay)
+            writeBatch.set(userProgramDaysCollection.document(remoteDay.id.toString()), remoteDay)
         }
         writeBatch.commit()
         

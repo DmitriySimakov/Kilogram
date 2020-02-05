@@ -7,7 +7,7 @@
         
         <variable
             name="vm"
-            type="com.dmitrysimakov.kilogram.ui.feed.create_post.CreatePostViewModel" />
+            type="com.dmitrysimakov.kilogram.ui.create_post.CreatePostViewModel" />
     </data>
     
     <LinearLayout
@@ -52,11 +52,13 @@
         </com.google.android.material.textfield.TextInputLayout>
         
         <ImageView
+            android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:goneUnless="@{vm.imageUrl != null}"
-            app:imageUrl="@{vm.imageUrl}"
-            tools:src="@drawable/no_photo"/>
+            android:adjustViewBounds="true"
+            app:goneUnless="@{vm.imageUri != null}"
+            app:imageUrl="@{vm.imageUri.toString()}"
+            tools:src="@tools:sample/backgrounds/scenic"/>
     
         <LinearLayout
             style="@style/HorizontalListItem"
@@ -80,16 +82,17 @@
         </LinearLayout>
         
         <LinearLayout
-            android:id="@+id/addPhotoButton"
+            android:id="@+id/addImageButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/list_item_horizontal_padding"
-            app:goneUnless="@{vm.imageUrl == null}">
+            app:goneUnless="@{vm.imageUri == null}">
         
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:clickable="false"
                 android:src="@drawable/ic_photo_camera"
                 app:elevation="0dp" />
         
@@ -114,6 +117,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:clickable="false"
                 android:src="@drawable/ic_fitness_center"
                 app:elevation="0dp" />
         

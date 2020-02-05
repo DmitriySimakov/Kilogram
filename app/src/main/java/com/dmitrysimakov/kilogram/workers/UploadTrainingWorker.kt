@@ -8,7 +8,7 @@ import com.dmitrysimakov.kilogram.data.remote.data_sources.ID
 import com.dmitrysimakov.kilogram.data.remote.data_sources.NEED_TO_DELETE
 import com.dmitrysimakov.kilogram.data.remote.models.Training
 import com.dmitrysimakov.kilogram.util.toIsoString
-import com.dmitrysimakov.kilogram.util.trainingsCollection
+import com.dmitrysimakov.kilogram.util.userTrainingsCollection
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
@@ -26,7 +26,7 @@ class UploadTrainingWorker(context: Context, workerParams: WorkerParameters): Co
             val (_, startDateTime, duration, programDayId) = dao.training(trainingId)
             Training(trainingId, startDateTime.toIsoString(), duration, programDayId)
         }
-        trainingsCollection.document(trainingId.toString()).set(training)
+        userTrainingsCollection.document(trainingId.toString()).set(training)
         
         return Result.success()
     }

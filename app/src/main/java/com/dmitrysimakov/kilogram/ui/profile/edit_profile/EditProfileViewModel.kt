@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dmitrysimakov.kilogram.data.remote.models.User
-import com.dmitrysimakov.kilogram.util.profileImagesRef
+import com.dmitrysimakov.kilogram.util.imagesRef
 import com.dmitrysimakov.kilogram.util.setNewValue
 import com.dmitrysimakov.kilogram.util.userDocument
 import kotlinx.coroutines.launch
@@ -34,7 +34,7 @@ class EditProfileViewModel : ViewModel() {
     
     fun saveImage(uri: Uri) { viewModelScope.launch {
         photoUrl.setNewValue(null)
-        val imageRef = profileImagesRef.child(uri.lastPathSegment!!)
+        val imageRef = imagesRef.child(uri.lastPathSegment!!)
         imageRef.putFile(uri).await()
         val photoUri = imageRef.downloadUrl.await().toString()
         photoUrl.setNewValue(photoUri)

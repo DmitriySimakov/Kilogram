@@ -17,41 +17,41 @@ val usersCollection = firestore.collection("users")
 val userDocument
     get() = usersCollection.document(uid)
 
-val tokensDocument
+val userTokensDocument
     get() = firestore.document("registration_tokens/$uid")
 
-val trainingsCollection
+val userTrainingsCollection
     get() = userDocument.collection("trainings")
 
-val trainingExercisesCollection
+val userTrainingExercisesCollection
     get() = userDocument.collection("training_exercises")
 
-val trainingSetsCollection
+val userTrainingSetsCollection
     get() = userDocument.collection("training_sets")
 
-val programsCollection
+val userProgramsCollection
     get() = userDocument.collection("programs")
 
-val programDaysCollection
+val userProgramDaysCollection
     get() = userDocument.collection("program_days")
 
-val programDayExercisesCollection
+val userProgramDayExercisesCollection
     get() = userDocument.collection("program_day_exercises")
 
-val photosCollection
+val userPhotosCollection
     get() = userDocument.collection("photos")
 
-val measurementsCollection
+val userMeasurementsCollection
     get() = userDocument.collection("measurements")
 
-val chatsCollection
+val userChatsCollection
     get() = userDocument.collection("chats")
 
 val postsCollection = firestore.collection("posts")
 
+val programsCollection = firestore.collection("programs")
+
 
 val firebaseStorage = FirebaseStorage.getInstance()
 
-val profileImagesRef = firebaseStorage.reference.child("profile_images")
-
-val msgImagesRef = firebaseStorage.reference.child("message_images")
+val imagesRef = firebaseStorage.reference.child("images")

@@ -55,7 +55,7 @@ class SharedViewModel(
     }
     
     fun signIn() { viewModelScope.launch {
-        val tokensTask = tokensDocument.get()
+        val tokensTask = userTokensDocument.get()
         val result = FirebaseInstanceId.getInstance().instanceId.await()
         val tokensDoc = tokensTask.await()
         
@@ -90,7 +90,7 @@ class SharedViewModel(
         )
         firestore.batch()
                 .set(userDocument, newUser)
-                .set(tokensDocument, mapOf("tokens" to listOf(token)))
+                .set(userTokensDocument, mapOf("tokens" to listOf(token)))
                 .commit()
                 .await()
     }
@@ -100,7 +100,7 @@ class SharedViewModel(
         val tokens = tokensDoc["tokens"] as MutableList<String>
         if (!tokens.contains(token)) {
             tokens.add(token)
-            tokensDocument.update("tokens", tokens)
+            userTokensDocument.update("tokens", tokens)
         }
     }
     //endregion

@@ -42,14 +42,14 @@ class SyncLocalDatabaseWorker(context: Context, workerParams: WorkerParameters):
         try {
             lastUpdate = preferences.getLong(DB_LAST_SYNC, 0L)
             
-            val programsTask = getNewDataTask(programsCollection)
-            val programDaysTask = getNewDataTask(programDaysCollection)
-            val programDayExercisesTask = getNewDataTask(programDayExercisesCollection)
-            val trainingsTask = getNewDataTask(trainingsCollection)
-            val trainingExerciseTask = getNewDataTask(trainingExercisesCollection)
-            val trainingSetsTask = getNewDataTask(trainingSetsCollection)
-            val measurementsTask = getNewDataTask(measurementsCollection)
-            val photosTask = getNewDataTask(photosCollection)
+            val programsTask = getNewDataTask(userProgramsCollection)
+            val programDaysTask = getNewDataTask(userProgramDaysCollection)
+            val programDayExercisesTask = getNewDataTask(userProgramDayExercisesCollection)
+            val trainingsTask = getNewDataTask(userTrainingsCollection)
+            val trainingExerciseTask = getNewDataTask(userTrainingExercisesCollection)
+            val trainingSetsTask = getNewDataTask(userTrainingSetsCollection)
+            val measurementsTask = getNewDataTask(userMeasurementsCollection)
+            val photosTask = getNewDataTask(userPhotosCollection)
             
             syncPrograms(programsTask.await())
             syncProgramDays(programDaysTask.await())

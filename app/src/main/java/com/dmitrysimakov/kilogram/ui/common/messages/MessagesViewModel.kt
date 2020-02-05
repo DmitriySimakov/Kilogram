@@ -33,7 +33,7 @@ class MessagesViewModel : ViewModel() {
         _user.setNewValue(user)
         if (user == null) return@launch
         
-        userChatDoc = chatsCollection.document(companionId)
+        userChatDoc = userChatsCollection.document(companionId)
         companionChatDoc = usersCollection.document(companionId).collection("chats").document(user.id)
         userMessagesCol = userChatDoc.collection("messages")
         companionMessagesCol = companionChatDoc.collection("messages")
@@ -68,7 +68,7 @@ class MessagesViewModel : ViewModel() {
     }
     
     fun sendImage(uri: Uri) { viewModelScope.launch {
-        val imageRef = msgImagesRef.child(uri.lastPathSegment!!)
+        val imageRef = imagesRef.child(uri.lastPathSegment!!)
         imageRef.putFile(uri).await()
         val imageUri = imageRef.downloadUrl.await().toString()
         sendMessage(null, imageUri)

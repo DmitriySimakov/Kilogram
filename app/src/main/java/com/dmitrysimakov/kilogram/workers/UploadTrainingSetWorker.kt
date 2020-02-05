@@ -7,7 +7,7 @@ import com.dmitrysimakov.kilogram.data.local.dao.TrainingSetDao
 import com.dmitrysimakov.kilogram.data.remote.data_sources.ID
 import com.dmitrysimakov.kilogram.data.remote.data_sources.NEED_TO_DELETE
 import com.dmitrysimakov.kilogram.data.remote.models.TrainingSet
-import com.dmitrysimakov.kilogram.util.trainingSetsCollection
+import com.dmitrysimakov.kilogram.util.userTrainingSetsCollection
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
@@ -26,7 +26,7 @@ class UploadTrainingSetWorker(context: Context, workerParams: WorkerParameters):
             TrainingSet(trainingSetId, trainingExerciseId, weight, reps, time, distance)
         }
         
-        trainingSetsCollection.document(trainingSetId.toString()).set(trainingSet)
+        userTrainingSetsCollection.document(trainingSetId.toString()).set(trainingSet)
         
         return Result.success()
     }

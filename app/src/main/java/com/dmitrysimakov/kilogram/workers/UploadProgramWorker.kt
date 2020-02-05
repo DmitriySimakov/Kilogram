@@ -7,7 +7,7 @@ import com.dmitrysimakov.kilogram.data.local.dao.ProgramDao
 import com.dmitrysimakov.kilogram.data.remote.data_sources.ID
 import com.dmitrysimakov.kilogram.data.remote.data_sources.NEED_TO_DELETE
 import com.dmitrysimakov.kilogram.data.remote.models.Program
-import com.dmitrysimakov.kilogram.util.programsCollection
+import com.dmitrysimakov.kilogram.util.userProgramsCollection
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
@@ -26,7 +26,7 @@ class UploadProgramWorker(context: Context, workerParams: WorkerParameters): Cor
             Program(programId, name, description)
         }
         
-        programsCollection.document(programId.toString()).set(program)
+        userProgramsCollection.document(programId.toString()).set(program)
         
         return Result.success()
     }

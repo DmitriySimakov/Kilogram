@@ -6,15 +6,15 @@ import androidx.lifecycle.map
 import androidx.lifecycle.switchMap
 import com.dmitrysimakov.kilogram.data.remote.models.Chat
 import com.dmitrysimakov.kilogram.data.remote.models.User
-import com.dmitrysimakov.kilogram.util.chatsCollection
 import com.dmitrysimakov.kilogram.util.live_data.liveData
+import com.dmitrysimakov.kilogram.util.userChatsCollection
 
 class ChatsViewModel : ViewModel() {
     
     val user = MutableLiveData<User?>()
     
     private val unsortedChats = user.switchMap { user ->
-        if (user != null) chatsCollection.liveData { doc -> doc.toObject(Chat::class.java)!! }
+        if (user != null) userChatsCollection.liveData { doc -> doc.toObject(Chat::class.java)!! }
         else MutableLiveData<List<Chat>>(null)
     }
     

@@ -6,8 +6,8 @@ import androidx.work.WorkerParameters
 import com.dmitrysimakov.kilogram.data.local.dao.MeasurementDao
 import com.dmitrysimakov.kilogram.data.remote.data_sources.ID
 import com.dmitrysimakov.kilogram.data.remote.models.Measurement
-import com.dmitrysimakov.kilogram.util.measurementsCollection
 import com.dmitrysimakov.kilogram.util.toIsoString
+import com.dmitrysimakov.kilogram.util.userMeasurementsCollection
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
@@ -20,7 +20,7 @@ class UploadMeasurementWorker(context: Context, workerParams: WorkerParameters):
         val (_, date, param, value) = dao.measurement(measurementId)
         
         val measurement = Measurement(measurementId, date.toIsoString(), param, value)
-        measurementsCollection.document(measurementId.toString()).set(measurement)
+        userMeasurementsCollection.document(measurementId.toString()).set(measurement)
         
         return Result.success()
     }

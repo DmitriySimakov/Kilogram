@@ -13,9 +13,9 @@ import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.ui.common.choose_program.ChooseProgramViewModel
 import com.dmitrysimakov.kilogram.ui.common.exercises.ExercisesViewModel
 import com.dmitrysimakov.kilogram.ui.common.messages.MessagesViewModel
+import com.dmitrysimakov.kilogram.ui.create_post.CreatePostViewModel
 import com.dmitrysimakov.kilogram.ui.exercises.DetailedExerciseViewModel
 import com.dmitrysimakov.kilogram.ui.feed.FeedViewModel
-import com.dmitrysimakov.kilogram.ui.feed.create_post.CreatePostViewModel
 import com.dmitrysimakov.kilogram.ui.home.HomeViewModel
 import com.dmitrysimakov.kilogram.ui.home.calendar_day.CalendarDayViewModel
 import com.dmitrysimakov.kilogram.ui.home.measurements.MeasurementsViewModel

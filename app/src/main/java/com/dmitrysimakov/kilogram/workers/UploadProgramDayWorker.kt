@@ -7,7 +7,7 @@ import com.dmitrysimakov.kilogram.data.local.dao.ProgramDayDao
 import com.dmitrysimakov.kilogram.data.remote.data_sources.ID
 import com.dmitrysimakov.kilogram.data.remote.data_sources.NEED_TO_DELETE
 import com.dmitrysimakov.kilogram.data.remote.models.ProgramDay
-import com.dmitrysimakov.kilogram.util.programDaysCollection
+import com.dmitrysimakov.kilogram.util.userProgramDaysCollection
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
@@ -26,7 +26,7 @@ class UploadProgramDayWorker(context: Context, workerParams: WorkerParameters): 
             ProgramDay(programDayId, programId, indexNumber, name, description)
         }
         
-        programDaysCollection.document(programDayId.toString()).set(programDay)
+        userProgramDaysCollection.document(programDayId.toString()).set(programDay)
         
         return Result.success()
     }
