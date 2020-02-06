@@ -4,10 +4,9 @@ import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.dmitrysimakov.kilogram.data.local.dao.TrainingDao
+import com.dmitrysimakov.kilogram.data.model.Training
 import com.dmitrysimakov.kilogram.data.remote.data_sources.ID
 import com.dmitrysimakov.kilogram.data.remote.data_sources.NEED_TO_DELETE
-import com.dmitrysimakov.kilogram.data.remote.models.Training
-import com.dmitrysimakov.kilogram.util.toIsoString
 import com.dmitrysimakov.kilogram.util.userTrainingsCollection
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -17,16 +16,13 @@ class UploadTrainingWorker(context: Context, workerParams: WorkerParameters): Co
     private val dao: TrainingDao by inject()
     
     override suspend fun doWork(): Result {
-        val trainingId = inputData.getLong(ID, 0)
+        val trainingId = inputData.getString(ID)!!
         val needToDelete = inputData.getBoolean(NEED_TO_DELETE, false)
         
-        val training = if (needToDelete) {
-            Training(trainingId, deleted = true)
-        } else {
-            val (_, startDateTime, duration, programDayId) = dao.training(trainingId)
-            Training(trainingId, startDateTime.toIsoString(), duration, programDayId)
-        }
-        userTrainingsCollection.document(trainingId.toString()).set(training)
+        val training = if (needToDelete) Training(id = trainingId, deleted = true)
+        else dao.training(trainingId)
+        
+        userTrainingsCollection.document(trainingId).set(training)
         
         return Result.success()
     }

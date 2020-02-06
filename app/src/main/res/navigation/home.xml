@@ -78,7 +78,7 @@
         tools:layout="@layout/fragment_choose_program_day">
         <argument
             android:name="programId"
-            app:argType="long" />
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/trainingExercisesFragment"
@@ -87,7 +87,7 @@
         tools:layout="@layout/fragment_program_day_exercises">
         <argument
             android:name="trainingId"
-            app:argType="long" />
+            app:argType="string" />
         <argument
             android:name="trainingIsRunning"
             app:argType="boolean" />
@@ -108,12 +108,12 @@
             app:argType="integer" />
         <argument
             android:name="programDayId"
-            app:argType="long"
-            android:defaultValue="-1L" />
+            app:argType="string"
+            app:nullable="true" />
         <argument
             android:name="trainingId"
-            app:argType="long"
-            android:defaultValue="-1L" />
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/trainingSetsFragment"
@@ -122,7 +122,7 @@
         tools:layout="@layout/fragment_training_sets">
         <argument
             android:name="trainingExerciseId"
-            app:argType="long" />
+            app:argType="string" />
         <action
             android:id="@+id/to_addSetDialog"
             app:destination="@id/addSetDialog" />
@@ -133,10 +133,11 @@
         tools:layout="@layout/dialog_add_training_set">
         <argument
             android:name="trainingExerciseId"
-            app:argType="long" />
+            app:argType="string" />
         <argument
             android:name="setId"
-            app:argType="long" />
+            app:argType="string"
+            app:nullable="true"/>
         <argument
             android:name="weight"
             app:argType="integer" />
@@ -231,7 +232,7 @@
         tools:layout="@layout/fragment_choose_program_day">
         <argument
             android:name="programId"
-            app:argType="long" />
+            app:argType="string" />
         <action
             android:id="@+id/to_createProgramDayDialog"
             app:destination="@id/createProgramDayDialog" />
@@ -249,7 +250,7 @@
             app:argType="integer" />
         <argument
             android:name="programId"
-            app:argType="long" />
+            app:argType="string" />
         <action
             android:id="@+id/to_programDayExercisesFragment"
             app:destination="@id/programDayExercisesFragment"
@@ -261,7 +262,7 @@
         tools:layout="@layout/fragment_program_day_exercises">
         <argument
             android:name="programDayId"
-            app:argType="long" />
+            app:argType="string" />
         <action
             android:id="@+id/to_exercisesFragment"
             app:destination="@id/exercisesFragment" />

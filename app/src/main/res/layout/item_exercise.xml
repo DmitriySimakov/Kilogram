@@ -11,7 +11,7 @@
         
         <variable
             name="exercise"
-            type="com.dmitrysimakov.kilogram.data.local.entity.Exercise" />
+            type="com.dmitrysimakov.kilogram.data.model.Exercise" />
     </data>
     
     <LinearLayout

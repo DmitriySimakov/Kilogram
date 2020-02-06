@@ -2,8 +2,8 @@ package com.dmitrysimakov.kilogram.ui.profile.chats
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.dmitrysimakov.kilogram.data.remote.models.Chat
-import com.dmitrysimakov.kilogram.data.remote.models.ChatDiffCallback
+import com.dmitrysimakov.kilogram.data.model.Chat
+import com.dmitrysimakov.kilogram.data.model.ChatDiffCallback
 import com.dmitrysimakov.kilogram.databinding.ItemChatBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 

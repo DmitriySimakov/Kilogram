@@ -16,12 +16,14 @@
             android:defaultValue="-1" />
         <argument
             android:name="programDayId"
-            app:argType="long"
-            android:defaultValue="-1L" />
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
         <argument
             android:name="trainingId"
-            app:argType="long"
-            android:defaultValue="-1L" />
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null"/>
         <action
             android:id="@+id/to_exerciseDetailFragment"
             app:destination="@id/exerciseDetailFragment" />

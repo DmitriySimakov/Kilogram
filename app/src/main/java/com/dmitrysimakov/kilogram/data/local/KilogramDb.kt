@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.dmitrysimakov.kilogram.data.local.dao.*
-import com.dmitrysimakov.kilogram.data.local.entity.*
+import com.dmitrysimakov.kilogram.data.model.*
 
 @Database(
         entities = [

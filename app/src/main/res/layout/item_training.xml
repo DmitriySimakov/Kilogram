@@ -27,10 +27,12 @@
                 android:id="@+id/dateTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{training.startDateTime.format(DateTimeFormatter.ofPattern(`HH:mm`))}"
+                
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                 tools:text="15:00" />
     
+<!--    TODO        android:text="@{training.startDateTime.format(DateTimeFormatter.ofPattern(`HH:mm`))}"-->
+            
             <TextView
                 android:id="@+id/titleTV"
                 android:layout_width="wrap_content"

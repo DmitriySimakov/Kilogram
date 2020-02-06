@@ -4,7 +4,7 @@ import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dmitrysimakov.kilogram.data.remote.models.User
+import com.dmitrysimakov.kilogram.data.model.User
 import com.dmitrysimakov.kilogram.util.imagesRef
 import com.dmitrysimakov.kilogram.util.setNewValue
 import com.dmitrysimakov.kilogram.util.userDocument

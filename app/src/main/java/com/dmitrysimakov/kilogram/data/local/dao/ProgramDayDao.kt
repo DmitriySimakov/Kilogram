@@ -1,21 +1,21 @@
 package com.dmitrysimakov.kilogram.data.local.dao
 
 import androidx.room.*
-import com.dmitrysimakov.kilogram.data.local.entity.ProgramDay
 import com.dmitrysimakov.kilogram.data.local.relation.ProgramDayAndProgram
+import com.dmitrysimakov.kilogram.data.model.ProgramDay
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ProgramDayDao {
     
     @Query("SELECT * FROM ProgramDay WHERE programId = :programId ORDER BY indexNumber")
-    fun programDaysFlow(programId: Long): Flow<List<ProgramDay>>
+    fun programDaysFlow(programId: String): Flow<List<ProgramDay>>
     
     @Query("SELECT * FROM ProgramDay WHERE programId = :programId ORDER BY indexNumber")
-    suspend fun programDays(programId: Long): List<ProgramDay>
+    suspend fun programDays(programId: String): List<ProgramDay>
     
     @Query("SELECT * FROM ProgramDay WHERE id = :id")
-    suspend fun programDay(id: Long): ProgramDay
+    suspend fun programDay(id: String): ProgramDay
     
     @Query("""
         SELECT PD.id AS programDayId, PD.name AS programDay, P.name AS program
@@ -23,7 +23,7 @@ interface ProgramDayDao {
         INNER JOIN program AS P ON PD.programId = P.id
         WHERE PD.id = :id
     """)
-    suspend fun programDayAndProgram(id: Long): ProgramDayAndProgram?
+    suspend fun programDayAndProgram(id: String): ProgramDayAndProgram?
     
     @Query("""
         SELECT Next.id AS programDayId, Next.name AS programDay, P.name AS program
@@ -46,7 +46,7 @@ interface ProgramDayDao {
     suspend fun insert(programDays: List<ProgramDay>)
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(programDay: ProgramDay): Long
+    suspend fun insert(programDay: ProgramDay)
     
     
     @Update
@@ -54,5 +54,5 @@ interface ProgramDayDao {
     
     
     @Query("DELETE FROM ProgramDay WHERE id = :id")
-    suspend fun delete(id: Long)
+    suspend fun delete(id: String)
 }

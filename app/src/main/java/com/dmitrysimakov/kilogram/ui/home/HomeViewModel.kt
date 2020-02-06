@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
-import com.dmitrysimakov.kilogram.data.local.entity.Photo
+import com.dmitrysimakov.kilogram.data.model.Photo
 import com.dmitrysimakov.kilogram.data.repository.MeasurementRepository
 import com.dmitrysimakov.kilogram.data.repository.PhotoRepository
 import com.dmitrysimakov.kilogram.data.repository.ProgramRepository
@@ -31,7 +31,7 @@ class HomeViewModel(
         photoRepo.insert(photo)
     }
     
-    fun deleteProgram(id: Long) = viewModelScope.launch {
+    fun deleteProgram(id: String) = viewModelScope.launch {
         programRepo.delete(id)
     }
 }

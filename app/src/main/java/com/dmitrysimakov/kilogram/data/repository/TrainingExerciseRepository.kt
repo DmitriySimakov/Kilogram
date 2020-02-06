@@ -1,7 +1,7 @@
 package com.dmitrysimakov.kilogram.data.repository
 
 import com.dmitrysimakov.kilogram.data.local.dao.TrainingExerciseDao
-import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
+import com.dmitrysimakov.kilogram.data.model.TrainingExercise
 import com.dmitrysimakov.kilogram.data.remote.data_sources.TrainingSource
 
 class TrainingExerciseRepository(
@@ -9,17 +9,17 @@ class TrainingExerciseRepository(
         private val src: TrainingSource
 ) {
     
-    fun trainingExercisesFlow(trainingId: Long) = dao.trainingExercisesFlow(trainingId)
+    fun trainingExercisesFlow(trainingId: String) = dao.trainingExercisesFlow(trainingId)
     
-    suspend fun previousTrainingExercise(trainingId: Long, exercise: String) = dao.previousTrainingExercise(trainingId, exercise)
+    suspend fun previousTrainingExercise(trainingId: String, exercise: String) = dao.previousTrainingExercise(trainingId, exercise)
     
-    fun trainingExerciseFlow(id: Long) = dao.trainingExerciseFlow(id)
+    fun trainingExerciseFlow(id: String) = dao.trainingExerciseFlow(id)
     
-    suspend fun trainingExercise(id: Long) = dao.trainingExercise(id)
+    suspend fun trainingExercise(id: String) = dao.trainingExercise(id)
     
     suspend fun insert(exercise: TrainingExercise) {
-        val id = dao.insert(exercise)
-        src.uploadTrainingExercise(id)
+        dao.insert(exercise)
+        src.uploadTrainingExercise(exercise.id)
     }
     
     suspend fun insert(exercises: List<TrainingExercise>) {
@@ -29,7 +29,7 @@ class TrainingExerciseRepository(
         src.uploadTrainingExerciseList(exercises[0].trainingId)
     }
     
-    suspend fun updateState(id: Long, state: Int) {
+    suspend fun updateState(id: String, state: Int) {
         val exercise = dao.trainingExercise(id)
         val updatedExercise = exercise.copy(state = state)
         dao.update(updatedExercise)
@@ -45,7 +45,7 @@ class TrainingExerciseRepository(
         src.uploadTrainingExerciseList(trainingExercises[0].trainingId)
     }
     
-    suspend fun delete(id: Long) {
+    suspend fun delete(id: String) {
         dao.delete(id)
         src.deleteTrainingExercise(id)
     }

@@ -28,8 +28,8 @@ class ExercisesFragment : Fragment() {
     private val exerciseAdapter by lazy { ExerciseListAdapter(vm) { exercise ->
         hideKeyboard()
         when {
-            args.programDayId != -1L -> vm.addExerciseToProgramDay(exercise, args.programDayId, args.num)
-            args.trainingId != -1L -> vm.addExerciseToTraining(exercise, args.trainingId, args.num)
+            args.programDayId != null -> vm.addExerciseToProgramDay(exercise, args.programDayId!!, args.num)
+            args.trainingId != null -> vm.addExerciseToTraining(exercise, args.trainingId!!, args.num)
             else -> navigate(toExerciseDetailFragment(exercise.name))
         }
     }}

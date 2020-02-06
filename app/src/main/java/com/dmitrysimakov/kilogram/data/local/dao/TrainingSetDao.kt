@@ -1,24 +1,24 @@
 package com.dmitrysimakov.kilogram.data.local.dao
 
 import androidx.room.*
-import com.dmitrysimakov.kilogram.data.local.entity.TrainingSet
+import com.dmitrysimakov.kilogram.data.model.TrainingSet
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TrainingSetDao {
     
     @Query("SELECT * FROM TrainingSet WHERE trainingExerciseId = :trainingExerciseId")
-    fun trainingSetsFlow(trainingExerciseId: Long) : Flow<List<TrainingSet>>
+    fun trainingSetsFlow(trainingExerciseId: String) : Flow<List<TrainingSet>>
 
     @Query("SELECT * FROM TrainingSet WHERE id = :id")
-    suspend fun trainingSet(id: Long) : TrainingSet
+    suspend fun trainingSet(id: String) : TrainingSet
     
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(trainingSets: List<TrainingSet>)
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(trainingSet: TrainingSet): Long
+    suspend fun insert(trainingSet: TrainingSet)
     
     
     @Update
@@ -26,5 +26,5 @@ interface TrainingSetDao {
     
     
     @Query("DELETE FROM TrainingSet WHERE id = :id")
-    suspend fun delete(id: Long)
+    suspend fun delete(id: String)
 }

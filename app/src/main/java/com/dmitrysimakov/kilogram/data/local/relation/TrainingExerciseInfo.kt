@@ -1,9 +1,9 @@
 package com.dmitrysimakov.kilogram.data.local.relation
 
-import org.threeten.bp.OffsetDateTime
+import java.util.*
 
 data class TrainingExerciseInfo(
-        val trainingExerciseId: Long,
-        val trainingId: Long?,
-        val startDateTime: OffsetDateTime?
+        val trainingExerciseId: String,
+        val trainingId: String?,
+        val startDateTime: Date?
 )

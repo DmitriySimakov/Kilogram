@@ -4,9 +4,9 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.dmitrysimakov.kilogram.data.local.entity.Measurement
 import com.dmitrysimakov.kilogram.data.local.relation.MeasurementWithPreviousResults
 import com.dmitrysimakov.kilogram.data.local.relation.ProportionsCalculatorItem
+import com.dmitrysimakov.kilogram.data.model.Measurement
 import kotlinx.coroutines.flow.Flow
 import org.threeten.bp.LocalDate
 
@@ -14,7 +14,7 @@ import org.threeten.bp.LocalDate
 interface MeasurementDao {
     
     @Query("SELECT * FROM Measurement WHERE id = :id")
-    suspend fun measurement(id: Long) : Measurement
+    suspend fun measurement(id: String) : Measurement
     
     @Query("""
         SELECT MP.name AS param, MP.coefficient,
@@ -52,9 +52,9 @@ interface MeasurementDao {
     suspend fun insert(measurements: List<Measurement>)
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(measurement: Measurement): Long
+    suspend fun insert(measurement: Measurement)
     
     
     @Query("DELETE FROM Measurement WHERE id = :id")
-    suspend fun delete(id: Long)
+    suspend fun delete(id: String)
 }

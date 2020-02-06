@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.data.local.entity
+package com.dmitrysimakov.kilogram.data.model
 
 import androidx.recyclerview.widget.DiffUtil
 import androidx.room.Entity

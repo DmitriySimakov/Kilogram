@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.data.remote.models
+package com.dmitrysimakov.kilogram.data.model
 
 import androidx.recyclerview.widget.DiffUtil
 

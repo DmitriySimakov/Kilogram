@@ -1,10 +1,11 @@
-package com.dmitrysimakov.kilogram.data.local.entity
+package com.dmitrysimakov.kilogram.data.model
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import org.threeten.bp.LocalDate
+import com.dmitrysimakov.kilogram.util.generateId
+import java.util.*
 
 @Entity(indices = [Index(value = ["param"])],
         foreignKeys = [
@@ -16,8 +17,10 @@ import org.threeten.bp.LocalDate
         ]
 )
 data class Measurement(
-        @PrimaryKey(autoGenerate = true) val id: Long = 0,
-        val date: LocalDate,
-        val param: String,
-        val value: Double
+        val param: String = "",
+        val value: Double = 0.0,
+        val date: Date = Date(),
+        val lastUpdate: Date = Date(),
+        val deleted: Boolean = false,
+        @PrimaryKey val id: String = generateId()
 )

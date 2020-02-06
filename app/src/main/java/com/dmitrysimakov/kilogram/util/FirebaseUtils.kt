@@ -12,6 +12,8 @@ val uid
 
 val firestore = FirebaseFirestore.getInstance()
 
+fun generateId() = firestore.collection("path").document().id
+
 val usersCollection = firestore.collection("users")
 
 val userDocument

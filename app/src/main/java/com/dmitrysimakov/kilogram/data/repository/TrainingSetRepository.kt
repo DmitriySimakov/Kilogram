@@ -1,18 +1,16 @@
 package com.dmitrysimakov.kilogram.data.repository
 
 import com.dmitrysimakov.kilogram.data.local.dao.TrainingSetDao
-import com.dmitrysimakov.kilogram.data.local.entity.TrainingSet
+import com.dmitrysimakov.kilogram.data.model.TrainingSet
 import com.dmitrysimakov.kilogram.data.remote.data_sources.TrainingSource
 
 class TrainingSetRepository(private val dao: TrainingSetDao, private val src: TrainingSource) {
 
-    fun trainingSetsFlow(training_exercise_id: Long) = dao.trainingSetsFlow(training_exercise_id)
-    
-    suspend fun trainingSet(id: Long) = dao.trainingSet(id)
+    fun trainingSetsFlow(trainingExerciseId: String) = dao.trainingSetsFlow(trainingExerciseId)
     
     suspend fun insert(set: TrainingSet) {
-        val id = dao.insert(set)
-        src.uploadTrainingSet(id)
+        dao.insert(set)
+        src.uploadTrainingSet(set.id)
     }
     
     suspend fun update(set: TrainingSet) {
@@ -20,7 +18,7 @@ class TrainingSetRepository(private val dao: TrainingSetDao, private val src: Tr
         src.uploadTrainingSet(set.id)
     }
     
-    suspend fun delete(id: Long) {
+    suspend fun delete(id: String) {
         dao.delete(id)
         src.deleteTrainingSet(id)
     }

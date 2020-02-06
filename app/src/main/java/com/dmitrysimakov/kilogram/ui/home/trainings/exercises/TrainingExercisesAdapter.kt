@@ -2,7 +2,7 @@ package com.dmitrysimakov.kilogram.ui.home.trainings.exercises
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
+import com.dmitrysimakov.kilogram.data.model.TrainingExercise
 import com.dmitrysimakov.kilogram.databinding.ItemTrainingExerciseBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 

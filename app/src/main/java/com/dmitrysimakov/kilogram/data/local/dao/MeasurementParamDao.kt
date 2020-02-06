@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.dmitrysimakov.kilogram.data.local.entity.MeasurementParam
+import com.dmitrysimakov.kilogram.data.model.MeasurementParam
 
 @Dao
 interface MeasurementParamDao {

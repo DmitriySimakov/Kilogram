@@ -13,7 +13,7 @@
         
         <variable
             name="message"
-            type="com.dmitrysimakov.kilogram.data.remote.models.Message" />
+            type="com.dmitrysimakov.kilogram.data.model.Message" />
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout

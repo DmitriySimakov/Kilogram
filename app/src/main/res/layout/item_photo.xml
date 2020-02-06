@@ -6,7 +6,7 @@
         
         <variable
             name="photo"
-            type="com.dmitrysimakov.kilogram.data.local.entity.Photo" />
+            type="com.dmitrysimakov.kilogram.data.model.Photo" />
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout

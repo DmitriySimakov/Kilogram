@@ -1,10 +1,12 @@
-package com.dmitrysimakov.kilogram.data.local.entity
+package com.dmitrysimakov.kilogram.data.model
 
 import androidx.recyclerview.widget.DiffUtil
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.dmitrysimakov.kilogram.util.generateId
+import java.util.*
 
 @Entity(indices = [Index(value = ["programId"])],
         foreignKeys = [
@@ -16,11 +18,13 @@ import androidx.room.PrimaryKey
         ]
 )
 data class ProgramDay(
-        @PrimaryKey(autoGenerate = true) val id: Long = 0,
-        val programId: Long,
-        var indexNumber: Int,
-        val name: String,
-        val description: String = ""
+        val programId: String = "",
+        var indexNumber: Int = 1,
+        val name: String = "",
+        val description: String = "",
+        val lastUpdate: Date = Date(),
+        val deleted: Boolean = false,
+        @PrimaryKey val id: String = generateId()
 )
 
 class ProgramDayDiffCallback : DiffUtil.ItemCallback<ProgramDay>() {

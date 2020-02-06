@@ -5,7 +5,6 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.dmitrysimakov.kilogram.data.local.dao.ProgramDayExerciseDao
 import com.dmitrysimakov.kilogram.data.remote.data_sources.ID
-import com.dmitrysimakov.kilogram.data.remote.models.ProgramDayExercise
 import com.dmitrysimakov.kilogram.util.firestore
 import com.dmitrysimakov.kilogram.util.userProgramDayExercisesCollection
 import org.koin.core.KoinComponent
@@ -16,13 +15,12 @@ class UploadProgramDayExerciseListWorker(context: Context, workerParams: WorkerP
     private val dao: ProgramDayExerciseDao by inject()
     
     override suspend fun doWork(): Result {
-        val programDayId = inputData.getLong(ID, 0)
+        val programDayId = inputData.getString(ID)!!
         val exercises = dao.programDayExercises(programDayId)
         
         val writeBatch = firestore.batch()
-        for (e in exercises) {
-            val remoteExercise = ProgramDayExercise(e.id, e.programDayId, e.exercise, e.indexNumber, e.rest, e.strategy)
-            writeBatch.set(userProgramDayExercisesCollection.document(remoteExercise.id.toString()), remoteExercise)
+        for (exercise in exercises) {
+            writeBatch.set(userProgramDayExercisesCollection.document(exercise.id), exercise)
         }
         writeBatch.commit()
         

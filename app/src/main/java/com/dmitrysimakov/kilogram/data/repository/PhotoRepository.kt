@@ -1,7 +1,7 @@
 package com.dmitrysimakov.kilogram.data.repository
 
 import com.dmitrysimakov.kilogram.data.local.dao.PhotoDao
-import com.dmitrysimakov.kilogram.data.local.entity.Photo
+import com.dmitrysimakov.kilogram.data.model.Photo
 import com.dmitrysimakov.kilogram.data.remote.data_sources.PhotoSource
 
 class PhotoRepository(

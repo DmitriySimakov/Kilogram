@@ -7,7 +7,7 @@
         
         <variable
             name="exercise"
-            type="com.dmitrysimakov.kilogram.data.local.entity.ProgramDayExercise" />
+            type="com.dmitrysimakov.kilogram.data.model.ProgramDayExercise" />
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
-import com.dmitrysimakov.kilogram.data.local.entity.Photo
+import com.dmitrysimakov.kilogram.data.model.Photo
 import com.dmitrysimakov.kilogram.databinding.FragmentHomeBinding
 import com.dmitrysimakov.kilogram.ui.common.CalendarDayBinder
 import com.dmitrysimakov.kilogram.ui.common.CalendarMonthBinder
@@ -33,7 +33,6 @@ import com.dmitrysimakov.kilogram.util.toIsoString
 import com.kizitonwose.calendarview.utils.next
 import com.kizitonwose.calendarview.utils.previous
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.threeten.bp.OffsetDateTime
 import org.threeten.bp.YearMonth
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.temporal.WeekFields
@@ -57,7 +56,7 @@ class HomeFragment : Fragment() {
     private val measurementsAdapter by lazy { MeasurementsAdapter() }
     private val programsAdapter by lazy { ProgramsAdapter { navigate(toChooseProgramDayFragment(it.id)) }}
     
-    private var lastPhotoDateTime = OffsetDateTime.now()
+    private var lastPhotoDateTime = Date()
     private var lastPhotoUri = ""
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

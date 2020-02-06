@@ -10,10 +10,7 @@ import com.dmitrysimakov.kilogram.databinding.DialogCalendarDayBinding
 import com.dmitrysimakov.kilogram.ui.home.calendar_day.CalendarDayDialogDirections.Companion.toCreateTrainingDialog
 import com.dmitrysimakov.kilogram.ui.home.calendar_day.CalendarDayDialogDirections.Companion.toTrainingExercisesFragment
 import com.dmitrysimakov.kilogram.ui.home.trainings.TrainingsAdapter
-import com.dmitrysimakov.kilogram.util.navigate
-import com.dmitrysimakov.kilogram.util.setNewValue
-import com.dmitrysimakov.kilogram.util.toIsoString
-import com.dmitrysimakov.kilogram.util.toLocalDate
+import com.dmitrysimakov.kilogram.util.*
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.threeten.bp.OffsetTime
@@ -43,7 +40,7 @@ class CalendarDayDialog : BottomSheetDialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val date = args.date.toLocalDate()
-        vm.date.setNewValue(date)
+        vm.date.setNewValue(date.toIsoString().toDate()) // TODO check logic
         
         vm.trainings.observe(viewLifecycleOwner) { adapter.submitList(it) }
         

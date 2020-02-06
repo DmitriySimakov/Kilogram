@@ -4,15 +4,15 @@ import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dmitrysimakov.kilogram.data.remote.models.Post
-import com.dmitrysimakov.kilogram.data.remote.models.User
+import com.dmitrysimakov.kilogram.data.model.Post
+import com.dmitrysimakov.kilogram.data.model.User
 import com.dmitrysimakov.kilogram.util.imagesRef
 import com.dmitrysimakov.kilogram.util.live_data.Event
 import com.dmitrysimakov.kilogram.util.postsCollection
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.util.*
-import com.dmitrysimakov.kilogram.data.local.entity.Program as LocalProgram
+import com.dmitrysimakov.kilogram.data.model.Program as LocalProgram
 
 class CreatePostViewModel : ViewModel() {
     

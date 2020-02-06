@@ -6,7 +6,7 @@
         
         <variable
             name="program"
-            type="com.dmitrysimakov.kilogram.data.local.entity.Program" />
+            type="com.dmitrysimakov.kilogram.data.model.Program" />
     </data>
     
     <LinearLayout

@@ -2,8 +2,8 @@ package com.dmitrysimakov.kilogram.ui.common
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.dmitrysimakov.kilogram.data.remote.models.User
-import com.dmitrysimakov.kilogram.data.remote.models.UserDiffCallback
+import com.dmitrysimakov.kilogram.data.model.User
+import com.dmitrysimakov.kilogram.data.model.UserDiffCallback
 import com.dmitrysimakov.kilogram.databinding.ItemUserBinding
 
 class UserListAdapter(

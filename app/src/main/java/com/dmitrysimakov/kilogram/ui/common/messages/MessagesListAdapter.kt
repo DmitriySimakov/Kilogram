@@ -2,8 +2,8 @@ package com.dmitrysimakov.kilogram.ui.common.messages
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.dmitrysimakov.kilogram.data.remote.models.Message
-import com.dmitrysimakov.kilogram.data.remote.models.MessageDiffCallback
+import com.dmitrysimakov.kilogram.data.model.Message
+import com.dmitrysimakov.kilogram.data.model.MessageDiffCallback
 import com.dmitrysimakov.kilogram.databinding.ItemMessageBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 

@@ -1,8 +1,8 @@
 package com.dmitrysimakov.kilogram.ui.home.trainings.training_sets
 
 import androidx.lifecycle.*
-import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.local.relation.SetWithPreviousResults
+import com.dmitrysimakov.kilogram.data.model.TrainingExercise
 import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingSetRepository
@@ -17,7 +17,7 @@ class TrainingSetsViewModel(
         private val exerciseRepository: ExerciseRepository
 ) : ViewModel() {
     
-    val trainingExerciseId = MutableLiveData<Long>()
+    val trainingExerciseId = MutableLiveData<String>()
     
     val trainingExercise = trainingExerciseId.switchMap {
         trainingExerciseRepository.trainingExerciseFlow(it).asLiveData()
@@ -58,19 +58,19 @@ class TrainingSetsViewModel(
             val curr = try { currSets?.get(i) } catch (e: Exception) { null }
             val prev = try { prevSets?.get(i) } catch (e: Exception) { null }
             val set = SetWithPreviousResults(
-                    curr?.id ?: 0, curr?.weight, curr?.reps, curr?.time, curr?.distance,
-                    prev?.id ?: 0, prev?.weight, prev?.reps, prev?.time, prev?.distance
+                    curr?.id ?: "", curr?.weight, curr?.reps, curr?.time, curr?.distance,
+                    prev?.id ?: "", prev?.weight, prev?.reps, prev?.time, prev?.distance
             )
             res.add(set)
         }
         return res
     }
 
-    fun deleteSet(id: Long) = viewModelScope.launch {
+    fun deleteSet(id: String) = viewModelScope.launch {
         trainingSetRepository.delete(id)
     }
     
-    fun finishExercise(trainingExerciseId: Long)= viewModelScope.launch {
+    fun finishExercise(trainingExerciseId: String)= viewModelScope.launch {
         trainingExerciseRepository.updateState(trainingExerciseId, TrainingExercise.FINISHED)
         trainingExercise.value?.let { exerciseRepository.increaseExecutionsCnt(it.exercise) }
         trainingExerciseFinishedEvent.value = Event(Unit)

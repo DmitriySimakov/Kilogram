@@ -1,14 +1,18 @@
-package com.dmitrysimakov.kilogram.data.local.entity
+package com.dmitrysimakov.kilogram.data.model
 
 import androidx.recyclerview.widget.DiffUtil
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.dmitrysimakov.kilogram.util.generateId
+import java.util.*
 
 @Entity
 data class Program(
-        @PrimaryKey(autoGenerate = true) val id: Long = 0,
-        val name: String,
-        val description: String = ""
+        val name: String = "",
+        val description: String = "",
+        val lastUpdate: Date = Date(),
+        val deleted: Boolean = false,
+        @PrimaryKey val id: String = generateId()
 )
 
 class ProgramDiffCallback : DiffUtil.ItemCallback<Program>() {

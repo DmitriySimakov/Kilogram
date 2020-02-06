@@ -1,10 +1,11 @@
-package com.dmitrysimakov.kilogram.data.local.entity
+package com.dmitrysimakov.kilogram.data.model
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import org.threeten.bp.OffsetDateTime
+import com.dmitrysimakov.kilogram.util.generateId
+import java.util.*
 
 @Entity(indices = [Index(value = ["programDayId"])],
         foreignKeys = [
@@ -16,8 +17,10 @@ import org.threeten.bp.OffsetDateTime
         ]
 )
 data class Training(
-        @PrimaryKey(autoGenerate = true) val id: Long = 0,
-        val startDateTime: OffsetDateTime,
+        val startDateTime: Date = Date(),
+        var programDayId: String? = null,
         var duration: Int? = null,
-        var programDayId: Long? = null
+        val lastUpdate: Date = Date(),
+        val deleted: Boolean = false,
+        @PrimaryKey val id: String = generateId()
 )

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
+import com.dmitrysimakov.kilogram.data.model.TrainingExercise
 import com.dmitrysimakov.kilogram.databinding.FragmentTrainingSetsBinding
 import com.dmitrysimakov.kilogram.ui.home.trainings.training_sets.TrainingSetsFragmentDirections.Companion.toAddSetDialog
 import com.dmitrysimakov.kilogram.util.live_data.EventObserver
@@ -77,7 +77,7 @@ class TrainingSetsFragment : Fragment() {
             val time = if (exercise.measuredInTime) { set?.time ?: 0 } else -1
             val distance = if (exercise.measuredInDistance) { set?.distance ?: 0 } else -1
             
-            navigate(toAddSetDialog(args.trainingExerciseId, 0, weight, reps, time, distance))
+            navigate(toAddSetDialog(args.trainingExerciseId, null, weight, reps, time, distance))
         }
     }
     

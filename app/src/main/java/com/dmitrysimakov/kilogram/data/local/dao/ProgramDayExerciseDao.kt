@@ -1,7 +1,7 @@
 package com.dmitrysimakov.kilogram.data.local.dao
 
 import androidx.room.*
-import com.dmitrysimakov.kilogram.data.local.entity.ProgramDayExercise
+import com.dmitrysimakov.kilogram.data.model.ProgramDayExercise
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -12,20 +12,20 @@ interface ProgramDayExerciseDao {
         WHERE programDayId = :programDayId
         ORDER BY indexNumber
     """)
-    fun programDayExercisesFlow(programDayId: Long) : Flow<List<ProgramDayExercise>>
+    fun programDayExercisesFlow(programDayId: String) : Flow<List<ProgramDayExercise>>
     
     @Query("SELECT * FROM ProgramDayExercise WHERE programDayId = :programDayId")
-    suspend fun programDayExercises(programDayId: Long) : List<ProgramDayExercise>
+    suspend fun programDayExercises(programDayId: String) : List<ProgramDayExercise>
     
     @Query("SELECT * FROM ProgramDayExercise WHERE id = :id")
-    suspend fun programDayExercise(id: Long) : ProgramDayExercise
+    suspend fun programDayExercise(id: String) : ProgramDayExercise
     
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(programDayExercises: List<ProgramDayExercise>)
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(programDayExercise: ProgramDayExercise): Long
+    suspend fun insert(programDayExercise: ProgramDayExercise)
     
     
     @Update
@@ -33,5 +33,5 @@ interface ProgramDayExerciseDao {
     
     
     @Query("DELETE FROM ProgramDayExercise WHERE id = :id")
-    suspend fun delete(id: Long)
+    suspend fun delete(id: String)
 }

@@ -50,7 +50,7 @@ class TrainingExercisesFragment : Fragment() {
         setupAdapters()
     
         binding.fab.setOnClickListener{
-            navigate(toExercisesFragment(exercisePlannedListAdapter.itemCount + 1, -1, args.trainingId))
+            navigate(toExercisesFragment(exercisePlannedListAdapter.itemCount + 1, null, args.trainingId))
         }
         
         return binding.root

@@ -6,11 +6,11 @@
     <data>
         
         <import type="com.dmitrysimakov.kilogram.binding.Converter" />
-        <import type="com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise" />
+        <import type="com.dmitrysimakov.kilogram.data.model.TrainingExercise" />
         
         <variable
             name="exercise"
-            type="com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise" />
+            type="TrainingExercise" />
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout

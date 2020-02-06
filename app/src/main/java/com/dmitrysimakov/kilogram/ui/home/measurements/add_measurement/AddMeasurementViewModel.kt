@@ -4,13 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.map
 import com.dmitrysimakov.kilogram.data.local.dao.MeasurementParamDao
-import com.dmitrysimakov.kilogram.data.local.entity.Measurement
 import com.dmitrysimakov.kilogram.data.local.relation.NewMeasurement
+import com.dmitrysimakov.kilogram.data.model.Measurement
 import com.dmitrysimakov.kilogram.data.repository.MeasurementRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.threeten.bp.LocalDate
 
 class AddMeasurementViewModel (
         private val measurementParamDao: MeasurementParamDao,
@@ -23,9 +22,7 @@ class AddMeasurementViewModel (
     
     fun addMeasurements() = CoroutineScope(Dispatchers.IO).launch {
         measurements.value?.forEach { measurement ->
-            measurement.value?.let {
-                repository.insert(Measurement(0, LocalDate.now(), measurement.param, it))
-            }
+            measurement.value?.let { repository.insert(Measurement(measurement.param, it)) }
         }
     }
 }

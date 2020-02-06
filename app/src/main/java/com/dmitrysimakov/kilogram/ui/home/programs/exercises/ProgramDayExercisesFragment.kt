@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
+import com.dmitrysimakov.kilogram.ui.home.programs.exercises.ProgramDayExercisesFragmentDirections.Companion.toExercisesFragment
 import com.dmitrysimakov.kilogram.util.navigate
 import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.android.synthetic.main.fragment_program_day_exercises.*
@@ -54,7 +55,7 @@ class ProgramDayExercisesFragment : Fragment() {
         }).attachToRecyclerView(recyclerView)
     
         fab.setOnClickListener{
-            navigate(ProgramDayExercisesFragmentDirections.toExercisesFragment(adapter.itemCount + 1, args.programDayId, -1))
+            navigate(toExercisesFragment(adapter.itemCount + 1, args.programDayId, null))
         }
     }
     

@@ -1,10 +1,10 @@
 package com.dmitrysimakov.kilogram.data.local.dao
 
 import androidx.room.*
-import com.dmitrysimakov.kilogram.data.local.entity.Training
 import com.dmitrysimakov.kilogram.data.local.relation.DetailedTraining
+import com.dmitrysimakov.kilogram.data.model.Training
 import kotlinx.coroutines.flow.Flow
-import org.threeten.bp.LocalDate
+import java.util.*
 
 @Dao
 interface TrainingDao {
@@ -24,17 +24,17 @@ interface TrainingDao {
         LEFT JOIN Program AS P ON P.id = PD.programId
         WHERE date(startDateTime) = date(:startDateTime)
         ORDER BY T.startDateTime""")
-    suspend fun detailedTrainingsForDay(startDateTime: LocalDate) : List<DetailedTraining>
+    suspend fun detailedTrainingsForDay(startDateTime: Date) : List<DetailedTraining>
     
     @Query("SELECT * FROM Training WHERE id = :id")
-    suspend fun training(id: Long) : Training
+    suspend fun training(id: String) : Training
     
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(trainings: List<Training>)
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(training: Training) : Long
+    suspend fun insert(training: Training)
     
     
     @Update
@@ -42,5 +42,5 @@ interface TrainingDao {
     
     
     @Query("DELETE FROM Training WHERE id = :id")
-    suspend fun delete(id: Long)
+    suspend fun delete(id: String)
 }

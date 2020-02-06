@@ -36,7 +36,7 @@ class CalendarDayBinder(private val onClick: ((LocalDate) -> Unit)? = null) : Da
             }
             
             val currentDayTrainings = trainings.filter {
-                it.startDateTime.toLocalDate() == curDate
+                true // TODO it.startDateTime.toLocalDate() == curDate
             }.sortedBy { it.startDateTime }
     
             val firstTraining = currentDayTrainings.firstOrNull()

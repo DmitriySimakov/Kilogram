@@ -2,8 +2,8 @@ package com.dmitrysimakov.kilogram.ui.common
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.dmitrysimakov.kilogram.data.local.entity.Program
-import com.dmitrysimakov.kilogram.data.local.entity.ProgramDiffCallback
+import com.dmitrysimakov.kilogram.data.model.Program
+import com.dmitrysimakov.kilogram.data.model.ProgramDiffCallback
 import com.dmitrysimakov.kilogram.databinding.ItemProgramBinding
 
 class ProgramsAdapter(

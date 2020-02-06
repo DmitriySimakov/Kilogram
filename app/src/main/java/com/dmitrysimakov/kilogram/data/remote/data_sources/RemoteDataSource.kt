@@ -8,14 +8,14 @@ const val NEED_TO_DELETE = "need_to_delete"
 
 abstract class RemoteDataSource(private val workManager: WorkManager) {
     
-    fun upload(id: Long, workerClass: Class<out ListenableWorker>) {
-        val data = Data.Builder().putLong(ID, id).build()
+    fun upload(id: String, workerClass: Class<out ListenableWorker>) {
+        val data = Data.Builder().putString(ID, id).build()
         upload(data, workerClass)
     }
     
-    fun delete(id: Long, workerClass: Class<out ListenableWorker>) {
+    fun delete(id: String, workerClass: Class<out ListenableWorker>) {
         val data = Data.Builder()
-                .putLong(ID, id)
+                .putString(ID, id)
                 .putBoolean(NEED_TO_DELETE, true)
                 .build()
         upload(data, workerClass)

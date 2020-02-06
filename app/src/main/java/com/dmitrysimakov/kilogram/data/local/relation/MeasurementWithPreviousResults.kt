@@ -1,15 +1,15 @@
 package com.dmitrysimakov.kilogram.data.local.relation
 
 import androidx.recyclerview.widget.DiffUtil
-import org.threeten.bp.LocalDate
+import java.util.*
 
 data class MeasurementWithPreviousResults(
-        val id: Long?,
+        val id: String?,
         val param: String,
         val value: Double?,
-        val date: LocalDate?,
+        val date: Date?,
         val prevValue: Double? = null,
-        val prevDate: LocalDate? = null
+        val prevDate: Date? = null
 )
 
 class MeasurementsWithPreviousResultsDiffCallback : DiffUtil.ItemCallback<MeasurementWithPreviousResults>() {

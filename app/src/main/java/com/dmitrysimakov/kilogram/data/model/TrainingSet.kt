@@ -1,9 +1,11 @@
-package com.dmitrysimakov.kilogram.data.local.entity
+package com.dmitrysimakov.kilogram.data.model
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.dmitrysimakov.kilogram.util.generateId
+import java.util.*
 
 @Entity(indices = [Index(value = ["trainingExerciseId"])],
         foreignKeys = [
@@ -15,10 +17,12 @@ import androidx.room.PrimaryKey
         ]
 )
 data class TrainingSet(
-        @PrimaryKey(autoGenerate = true) val id: Long = 0,
-        val trainingExerciseId: Long,
+        val trainingExerciseId: String = "",
         val weight: Int? = null,
         val reps: Int? = null,
         val time: Int? = null,
-        val distance: Int? = null
+        val distance: Int? = null,
+        val lastUpdate: Date = Date(),
+        val deleted: Boolean = false,
+        @PrimaryKey val id: String = generateId()
 )

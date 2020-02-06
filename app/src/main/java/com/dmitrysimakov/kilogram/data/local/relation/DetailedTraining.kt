@@ -1,13 +1,13 @@
 package com.dmitrysimakov.kilogram.data.local.relation
 
 import androidx.recyclerview.widget.DiffUtil
-import org.threeten.bp.OffsetDateTime
+import java.util.*
 
 data class DetailedTraining(
-        val id: Long,
-        val startDateTime: OffsetDateTime,
+        val id: String,
+        val startDateTime: Date,
         var duration: Int? = null,
-        var programDayId: Long? = null,
+        var programDayId: String? = null,
         val programDayName: String? = null,
         val programName: String? = null
 )

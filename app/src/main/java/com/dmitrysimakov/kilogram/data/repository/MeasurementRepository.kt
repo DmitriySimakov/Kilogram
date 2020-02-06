@@ -1,7 +1,7 @@
 package com.dmitrysimakov.kilogram.data.repository
 
 import com.dmitrysimakov.kilogram.data.local.dao.MeasurementDao
-import com.dmitrysimakov.kilogram.data.local.entity.Measurement
+import com.dmitrysimakov.kilogram.data.model.Measurement
 import com.dmitrysimakov.kilogram.data.remote.data_sources.MeasurementSource
 import org.threeten.bp.LocalDate
 
@@ -9,8 +9,6 @@ class MeasurementRepository(
         private val dao: MeasurementDao,
         private val src: MeasurementSource
 ) {
-    
-    suspend fun measurement(id: Long) = dao.measurement(id)
     
     suspend fun lastMeasurementsWithCoefficients() = dao.lastMeasurementsWithCoefficients()
     
@@ -21,7 +19,7 @@ class MeasurementRepository(
     fun measurementDates() = dao.measurementDates()
     
     suspend fun insert(measurement: Measurement) {
-        val id = dao.insert(measurement)
-        src.uploadMeasurement(id)
+        dao.insert(measurement)
+        src.uploadMeasurement(measurement.id)
     }
 }

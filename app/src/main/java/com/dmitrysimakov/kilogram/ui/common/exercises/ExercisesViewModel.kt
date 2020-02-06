@@ -5,10 +5,10 @@ import androidx.sqlite.db.SimpleSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteQuery
 import com.dmitrysimakov.kilogram.data.local.dao.EquipmentDao
 import com.dmitrysimakov.kilogram.data.local.dao.ExerciseTargetDao
-import com.dmitrysimakov.kilogram.data.local.entity.Exercise
-import com.dmitrysimakov.kilogram.data.local.entity.ProgramDayExercise
-import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.local.relation.FilterParam
+import com.dmitrysimakov.kilogram.data.model.Exercise
+import com.dmitrysimakov.kilogram.data.model.ProgramDayExercise
+import com.dmitrysimakov.kilogram.data.model.TrainingExercise
 import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
@@ -72,16 +72,16 @@ class ExercisesViewModel (
         updateQuery()
     }
     
-    fun addExerciseToTraining(exercise: Exercise, trainingId: Long, num: Int) = viewModelScope.launch {
-        val trainingExercise = TrainingExercise(0, trainingId, exercise.name, num, 120)
+    fun addExerciseToTraining(exercise: Exercise, trainingId: String, num: Int) = viewModelScope.launch {
+        val trainingExercise = TrainingExercise(trainingId, exercise.name, num)
         trainingExerciseRepository.insert(trainingExercise)
         
         exerciseAddedEvent.value = Event(Unit)
     }
     
-    fun addExerciseToProgramDay(exercise: Exercise, programDayId: Long, num: Int) = viewModelScope.launch {
+    fun addExerciseToProgramDay(exercise: Exercise, programDayId: String, num: Int) = viewModelScope.launch {
         programDayExerciseRepository.insert(
-                ProgramDayExercise(0, programDayId, exercise.name, num, 120)
+                ProgramDayExercise(programDayId, exercise.name, num)
         )
         exerciseAddedEvent.value = Event(Unit)
     }

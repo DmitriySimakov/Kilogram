@@ -1,7 +1,7 @@
 package com.dmitrysimakov.kilogram.data.repository
 
 import com.dmitrysimakov.kilogram.data.local.dao.ProgramDayDao
-import com.dmitrysimakov.kilogram.data.local.entity.ProgramDay
+import com.dmitrysimakov.kilogram.data.model.ProgramDay
 import com.dmitrysimakov.kilogram.data.remote.data_sources.ProgramSource
 
 class ProgramDayRepository(
@@ -9,18 +9,17 @@ class ProgramDayRepository(
         private val src: ProgramSource
 ) {
     
-    fun programDaysFlow(programId: Long)  = dao.programDaysFlow(programId)
+    fun programDaysFlow(programId: String)  = dao.programDaysFlow(programId)
     
-    suspend fun programDay(id: Long) = dao.programDay(id)
+    suspend fun programDay(id: String) = dao.programDay(id)
     
     suspend fun nextProgramDayAndProgram() = dao.nextProgramDayAndProgram()
     
-    suspend fun programDayAndProgram(id: Long)  = dao.programDayAndProgram(id)
+    suspend fun programDayAndProgram(id: String)  = dao.programDayAndProgram(id)
     
-    suspend fun insert(programDay: ProgramDay): Long {
-        val id = dao.insert(programDay)
-        src.uploadProgramDay(id)
-        return id
+    suspend fun insert(programDay: ProgramDay) {
+        dao.insert(programDay)
+        src.uploadProgramDay(programDay.id)
     }
     
     suspend fun update(programDays: List<ProgramDay>) {
@@ -30,7 +29,7 @@ class ProgramDayRepository(
         src.uploadProgramDayList(programDays[0].programId)
     }
     
-    suspend fun delete(id: Long) {
+    suspend fun delete(id: String) {
         dao.delete(id)
         src.deleteProgramDay(id)
     }

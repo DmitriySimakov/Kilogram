@@ -30,18 +30,21 @@
                 android:layout_height="@dimen/icon_button_size"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="@{vm.dateTime.format(DateTimeFormatter.ofPattern(`dd MMMM yyyy`))}"
                 tools:text="Сегодня" />
     
+<!--  TODO          android:text="@{vm.dateTime.format(DateTimeFormatter.ofPattern(`dd MMMM yyyy`))}"-->
+            
             <TextView
                 android:id="@+id/time_tv"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/icon_button_size"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="@{vm.dateTime.format(DateTimeFormatter.ofPattern(`HH:mm`))}"
+                
                 tools:text="04:20" />
-            
+    
+<!--      TODO      android:text="@{vm.dateTime.format(DateTimeFormatter.ofPattern(`HH:mm`))}"-->
+        
         </LinearLayout>
         
         <View style="@style/VerticalDivider" />

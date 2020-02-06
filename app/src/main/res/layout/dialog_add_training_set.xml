@@ -170,7 +170,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@{vm.trainingSetId == 0 ? @string/add_set : @string/save_changes}"
+            android:text="@{vm.trainingSetId == null ? @string/add_set : @string/save_changes}"
             android:onClick="@{() -> vm.submit()}"
             tools:text="@string/add_set" />
     

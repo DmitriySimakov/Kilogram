@@ -8,11 +8,11 @@ import kotlinx.coroutines.launch
 
 class ProgramDaysViewModel (private val repository: ProgramDayRepository) : ViewModel() {
     
-    val programDayId = MutableLiveData<Long>()
+    val programId = MutableLiveData<String>()
     
-    val programDays = programDayId.switchMap { repository.programDaysFlow(it).asLiveData() }
+    val programDays = programId.switchMap { repository.programDaysFlow(it).asLiveData() }
     
-    fun deleteProgramDay(id: Long) = viewModelScope.launch {
+    fun deleteProgramDay(id: String) = viewModelScope.launch {
         repository.delete(id)
     }
     

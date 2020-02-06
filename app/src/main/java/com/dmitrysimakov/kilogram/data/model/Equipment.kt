@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.data.local.entity
+package com.dmitrysimakov.kilogram.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

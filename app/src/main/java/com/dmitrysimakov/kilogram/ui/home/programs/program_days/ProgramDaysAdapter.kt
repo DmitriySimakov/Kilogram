@@ -2,8 +2,8 @@ package com.dmitrysimakov.kilogram.ui.home.programs.program_days
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.dmitrysimakov.kilogram.data.local.entity.ProgramDay
-import com.dmitrysimakov.kilogram.data.local.entity.ProgramDayDiffCallback
+import com.dmitrysimakov.kilogram.data.model.ProgramDay
+import com.dmitrysimakov.kilogram.data.model.ProgramDayDiffCallback
 import com.dmitrysimakov.kilogram.databinding.ItemProgramDayDraggableBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 

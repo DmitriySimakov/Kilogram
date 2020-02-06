@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
-import com.dmitrysimakov.kilogram.data.local.entity.TrainingSet
+import com.dmitrysimakov.kilogram.data.model.TrainingExercise
+import com.dmitrysimakov.kilogram.data.model.TrainingSet
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingSetRepository
 import com.dmitrysimakov.kilogram.util.live_data.Event
@@ -16,8 +16,8 @@ class AddTrainingSetViewModel(
         private val trainingExerciseSetRepository: TrainingSetRepository
 ) : ViewModel() {
     
-    private val _trainingSetId = MutableLiveData(0L)
-    val trainingSetId: LiveData<Long> = _trainingSetId
+    private val _trainingSetId = MutableLiveData<String?>()
+    val trainingSetId: LiveData<String?> = _trainingSetId
     
     private val _trainingExercise = MutableLiveData<TrainingExercise>()
     val trainingExercise: LiveData<TrainingExercise> = _trainingExercise
@@ -30,7 +30,7 @@ class AddTrainingSetViewModel(
     private val _trainingSetSavedEvent = MutableLiveData<Event<Unit>>()
     val trainingSetSavedEvent: LiveData<Event<Unit>> = _trainingSetSavedEvent
     
-    fun start(trainingExerciseId: Long, setId: Long, _weight: Int, _reps: Int, _time: Int, _distance: Int) { viewModelScope.launch {
+    fun start(trainingExerciseId: String, setId: String?, _weight: Int, _reps: Int, _time: Int, _distance: Int) { viewModelScope.launch {
         _trainingSetId.value = setId
         weight.value = _weight.takeIf { it != -1 }
         reps.value = _reps.takeIf { it != -1 }
@@ -43,9 +43,9 @@ class AddTrainingSetViewModel(
     fun submit() { viewModelScope.launch {
         val setId = _trainingSetId.value!!
         val exerciseId = trainingExercise.value!!.id
-        val trainingSet = TrainingSet(setId, exerciseId, weight.value, reps.value, time.value, distance.value)
+        val trainingSet = TrainingSet(exerciseId, weight.value, reps.value, time.value, distance.value, id = setId)
         
-        if (_trainingSetId.value == 0L) addSet(trainingSet) else updateSet(trainingSet)
+        if (_trainingSetId.value == null) addSet(trainingSet) else updateSet(trainingSet)
     }}
     
     private suspend fun addSet(trainingSet: TrainingSet) {

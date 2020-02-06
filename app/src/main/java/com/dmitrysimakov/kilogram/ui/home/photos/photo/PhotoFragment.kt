@@ -9,9 +9,7 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.databinding.FragmentPhotoBinding
 import com.dmitrysimakov.kilogram.util.setNewValue
-import com.dmitrysimakov.kilogram.util.setTitle
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.threeten.bp.format.DateTimeFormatter
 
 class PhotoFragment : Fragment() {
     
@@ -34,7 +32,7 @@ class PhotoFragment : Fragment() {
         vm.photoUri.setNewValue(args.uri)
         
         vm.photo.observe(viewLifecycleOwner) { photo ->
-            setTitle(photo.dateTime.format(DateTimeFormatter.ofPattern("dd MMMM yyyy г.")))
+//            TODO setTitle(photo.dateTime.format(DateTimeFormatter.ofPattern("dd MMMM yyyy г.")))
         }
     }
 }

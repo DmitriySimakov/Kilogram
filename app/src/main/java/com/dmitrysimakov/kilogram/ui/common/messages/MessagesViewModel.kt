@@ -2,9 +2,9 @@ package com.dmitrysimakov.kilogram.ui.common.messages
 
 import android.net.Uri
 import androidx.lifecycle.*
-import com.dmitrysimakov.kilogram.data.remote.models.Chat
-import com.dmitrysimakov.kilogram.data.remote.models.Message
-import com.dmitrysimakov.kilogram.data.remote.models.User
+import com.dmitrysimakov.kilogram.data.model.Chat
+import com.dmitrysimakov.kilogram.data.model.Message
+import com.dmitrysimakov.kilogram.data.model.User
 import com.dmitrysimakov.kilogram.util.*
 import com.dmitrysimakov.kilogram.util.live_data.liveData
 import com.google.firebase.firestore.CollectionReference

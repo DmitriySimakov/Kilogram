@@ -38,7 +38,7 @@ class ChooseProgramDayFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
     
-        vm.programDayId.setNewValue(args.programId)
+        vm.programId.setNewValue(args.programId)
         
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))

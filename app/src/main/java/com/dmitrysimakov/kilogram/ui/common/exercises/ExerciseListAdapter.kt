@@ -2,8 +2,8 @@ package com.dmitrysimakov.kilogram.ui.common.exercises
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.dmitrysimakov.kilogram.data.local.entity.Exercise
-import com.dmitrysimakov.kilogram.data.local.entity.ExerciseDiffCallback
+import com.dmitrysimakov.kilogram.data.model.Exercise
+import com.dmitrysimakov.kilogram.data.model.ExerciseDiffCallback
 import com.dmitrysimakov.kilogram.databinding.ItemExerciseBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 

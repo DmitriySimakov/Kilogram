@@ -1,7 +1,7 @@
 package com.dmitrysimakov.kilogram.ui.home.trainings.exercises
 
 import androidx.recyclerview.widget.DiffUtil
-import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
+import com.dmitrysimakov.kilogram.data.model.TrainingExercise
 
 class TrainingExerciseDiffCallback : DiffUtil.ItemCallback<TrainingExercise>() {
     override fun areItemsTheSame(oldItem: TrainingExercise, newItem: TrainingExercise)

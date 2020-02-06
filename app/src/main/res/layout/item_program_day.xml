@@ -6,7 +6,7 @@
         
         <variable
             name="day"
-            type="com.dmitrysimakov.kilogram.data.local.entity.ProgramDay" />
+            type="com.dmitrysimakov.kilogram.data.model.ProgramDay" />
     </data>
     
     <LinearLayout

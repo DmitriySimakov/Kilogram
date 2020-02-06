@@ -3,7 +3,7 @@ package com.dmitrysimakov.kilogram.ui.home.photos
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import com.dmitrysimakov.kilogram.data.local.entity.Photo
+import com.dmitrysimakov.kilogram.data.model.Photo
 import com.dmitrysimakov.kilogram.databinding.ItemPhotoBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 

@@ -1,24 +1,24 @@
 package com.dmitrysimakov.kilogram.data.local.dao
 
 import androidx.room.*
-import com.dmitrysimakov.kilogram.data.local.entity.TrainingExercise
 import com.dmitrysimakov.kilogram.data.local.relation.TrainingExerciseInfo
+import com.dmitrysimakov.kilogram.data.model.TrainingExercise
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TrainingExerciseDao {
     
     @Query("SELECT * FROM TrainingExercise WHERE trainingId = :trainingId ORDER BY indexNumber")
-    fun trainingExercisesFlow(trainingId: Long): Flow<List<TrainingExercise>>
+    fun trainingExercisesFlow(trainingId: String): Flow<List<TrainingExercise>>
     
     @Query("SELECT * FROM TrainingExercise WHERE trainingId = :trainingId ORDER BY indexNumber")
-    suspend fun trainingExercises(trainingId: Long): List<TrainingExercise>
+    suspend fun trainingExercises(trainingId: String): List<TrainingExercise>
     
     @Query("SELECT * FROM TrainingExercise WHERE id = :id")
-    fun trainingExerciseFlow(id: Long): Flow<TrainingExercise>
+    fun trainingExerciseFlow(id: String): Flow<TrainingExercise>
     
     @Query("SELECT * FROM TrainingExercise WHERE id = :id")
-    suspend fun trainingExercise(id: Long): TrainingExercise
+    suspend fun trainingExercise(id: String): TrainingExercise
     
     @Query("""
         SELECT TE.id AS trainingExerciseId, T.id AS trainingId, T.startDateTime
@@ -30,14 +30,14 @@ interface TrainingExerciseDao {
         ORDER BY T.startDateTime DESC
         LIMIT 1
     """)
-    suspend fun previousTrainingExercise(trainingId: Long, exercise: String): TrainingExerciseInfo?
+    suspend fun previousTrainingExercise(trainingId: String, exercise: String): TrainingExerciseInfo?
     
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(trainingExercises: List<TrainingExercise>)
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(trainingExercise: TrainingExercise): Long
+    suspend fun insert(trainingExercise: TrainingExercise)
     
     
     @Update
@@ -47,7 +47,7 @@ interface TrainingExerciseDao {
     suspend fun update(trainingExercise: TrainingExercise)
     
     @Query("UPDATE TrainingExercise SET indexNumber = :indexNumber WHERE id = :id")
-    suspend fun setIndexNumber(id: Long, indexNumber: Int)
+    suspend fun setIndexNumber(id: String, indexNumber: Int)
     
     @Transaction
     suspend fun updateIndexNumbers(exercises: List<TrainingExercise>) {
@@ -60,9 +60,9 @@ interface TrainingExerciseDao {
         UPDATE TrainingExercise
         SET state = :finished
         WHERE trainingId = :trainingId AND state = :running""")
-    suspend fun finishTrainingExercises(trainingId: Long, finished: Int, running: Int)
+    suspend fun finishTrainingExercises(trainingId: String, finished: Int, running: Int)
     
     
     @Query("DELETE FROM TrainingExercise WHERE id = :id")
-    suspend fun delete(id: Long)
+    suspend fun delete(id: String)
 }
