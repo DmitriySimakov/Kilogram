@@ -1,5 +1,6 @@
 package com.dmitrysimakov.kilogram.ui.profile
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -86,11 +87,9 @@ class ProfileFragment : Fragment() {
         }
     }
     
-    private fun share() {
-        val shareIntent = ShareCompat.IntentBuilder.from(activity)
-                .setText("Kilogram - крутой фитнес трекер. Переходи по ссылке и тренируйся вместе со мной.")
-                .setType("text/plain")
-                .intent
-        startActivity(shareIntent)
-    }
+    private fun share() = startActivity(ShareCompat.IntentBuilder.from(activity as Activity)
+            .setText(getString(R.string.share_text))
+            .setType("text/plain")
+            .intent
+    )
 }
