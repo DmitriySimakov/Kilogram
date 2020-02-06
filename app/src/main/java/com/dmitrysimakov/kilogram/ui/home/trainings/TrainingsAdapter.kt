@@ -2,8 +2,8 @@ package com.dmitrysimakov.kilogram.ui.home.trainings
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.dmitrysimakov.kilogram.data.local.relation.DetailedTraining
-import com.dmitrysimakov.kilogram.data.local.relation.DetailedTrainingDiffCallback
+import com.dmitrysimakov.kilogram.data.relation.DetailedTraining
+import com.dmitrysimakov.kilogram.data.relation.DetailedTrainingDiffCallback
 import com.dmitrysimakov.kilogram.databinding.ItemTrainingBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 

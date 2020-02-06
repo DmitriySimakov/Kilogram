@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
-import com.dmitrysimakov.kilogram.data.local.relation.ProportionsCalculatorItem
+import com.dmitrysimakov.kilogram.data.relation.ProportionsCalculatorItem
 import com.dmitrysimakov.kilogram.data.repository.MeasurementRepository
 import com.dmitrysimakov.kilogram.util.round
 import kotlinx.coroutines.launch

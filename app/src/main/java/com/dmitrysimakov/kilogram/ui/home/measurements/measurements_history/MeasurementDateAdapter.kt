@@ -5,20 +5,20 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import com.dmitrysimakov.kilogram.databinding.ItemMeasurementDateBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
-import org.threeten.bp.LocalDate
+import java.util.*
 
-class MeasurementDateAdapter(clickCallback: ((LocalDate) -> Unit)? = null)
-    : DataBoundListAdapter<LocalDate, ItemMeasurementDateBinding>(clickCallback, MeasurementDiffCallback()) {
+class MeasurementDateAdapter(clickCallback: ((Date) -> Unit)? = null)
+    : DataBoundListAdapter<Date, ItemMeasurementDateBinding>(clickCallback, MeasurementDiffCallback()) {
 
     override fun createBinding(parent: ViewGroup): ItemMeasurementDateBinding = ItemMeasurementDateBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
 
-    override fun bind(binding: ItemMeasurementDateBinding, item: LocalDate) {
+    override fun bind(binding: ItemMeasurementDateBinding, item: Date) {
         binding.date = item
     }
 }
 
-private class MeasurementDiffCallback : DiffUtil.ItemCallback<LocalDate>() {
-    override fun areItemsTheSame(oldItem: LocalDate, newItem: LocalDate) = oldItem == newItem
-    override fun areContentsTheSame(oldItem: LocalDate, newItem: LocalDate) = oldItem == newItem
+private class MeasurementDiffCallback : DiffUtil.ItemCallback<Date>() {
+    override fun areItemsTheSame(oldItem: Date, newItem: Date) = oldItem == newItem
+    override fun areContentsTheSame(oldItem: Date, newItem: Date) = oldItem == newItem
 }

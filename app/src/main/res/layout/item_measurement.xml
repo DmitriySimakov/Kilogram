@@ -7,7 +7,7 @@
         
         <variable
             name="measurement"
-            type="com.dmitrysimakov.kilogram.data.local.relation.MeasurementWithPreviousResults" />
+            type="com.dmitrysimakov.kilogram.data.relation.MeasurementWithPreviousResults" />
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout

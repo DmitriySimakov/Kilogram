@@ -37,3 +37,12 @@ fun dateToRelativeTimeSpan(date: Date) = DateUtils.getRelativeTimeSpanString(
         System.currentTimeMillis(),
         DateUtils.MINUTE_IN_MILLIS
 ).toString()
+
+fun dateTime(date: Date?, pattern: String): String {
+    if (date == null) return ""
+    
+    val format = SimpleDateFormat(pattern, Locale.getDefault())
+            .apply { timeZone = TimeZone.getTimeZone("UTC") }
+    
+    return format.format(date)
+}

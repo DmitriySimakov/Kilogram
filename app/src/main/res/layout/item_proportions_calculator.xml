@@ -13,7 +13,7 @@
         
         <variable
             name="item"
-            type="com.dmitrysimakov.kilogram.data.local.relation.ProportionsCalculatorItem" />
+            type="com.dmitrysimakov.kilogram.data.relation.ProportionsCalculatorItem" />
     </data>
     
     <LinearLayout

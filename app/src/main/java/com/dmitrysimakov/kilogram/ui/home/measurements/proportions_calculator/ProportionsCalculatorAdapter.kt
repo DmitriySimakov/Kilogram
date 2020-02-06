@@ -3,8 +3,8 @@ package com.dmitrysimakov.kilogram.ui.home.measurements.proportions_calculator
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.data.local.relation.ProportionsCalculatorItem
-import com.dmitrysimakov.kilogram.data.local.relation.ProportionsCalculatorItemDiffCallback
+import com.dmitrysimakov.kilogram.data.relation.ProportionsCalculatorItem
+import com.dmitrysimakov.kilogram.data.relation.ProportionsCalculatorItemDiffCallback
 import com.dmitrysimakov.kilogram.databinding.ItemProportionsCalculatorBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 import kotlin.math.absoluteValue

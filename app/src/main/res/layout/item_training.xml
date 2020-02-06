@@ -6,12 +6,10 @@
     <data>
         
         <import type="com.dmitrysimakov.kilogram.binding.Converter" />
-    
-        <import type="org.threeten.bp.format.DateTimeFormatter" />
         
         <variable
             name="training"
-            type="com.dmitrysimakov.kilogram.data.local.relation.DetailedTraining" />
+            type="com.dmitrysimakov.kilogram.data.relation.DetailedTraining" />
     </data>
     
     <LinearLayout
@@ -27,11 +25,9 @@
                 android:id="@+id/dateTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                
+                android:text="@{Converter.dateTime(training.startDateTime, `HH:mm`)}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                 tools:text="15:00" />
-    
-<!--    TODO        android:text="@{training.startDateTime.format(DateTimeFormatter.ofPattern(`HH:mm`))}"-->
             
             <TextView
                 android:id="@+id/titleTV"

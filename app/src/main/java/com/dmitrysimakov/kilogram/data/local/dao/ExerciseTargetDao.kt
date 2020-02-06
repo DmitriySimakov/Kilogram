@@ -4,8 +4,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.dmitrysimakov.kilogram.data.local.relation.FilterParam
 import com.dmitrysimakov.kilogram.data.model.ExerciseTarget
+import com.dmitrysimakov.kilogram.data.relation.FilterParam
 
 @Dao
 interface ExerciseTargetDao {

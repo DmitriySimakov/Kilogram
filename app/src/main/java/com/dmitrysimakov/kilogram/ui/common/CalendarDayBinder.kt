@@ -2,7 +2,7 @@ package com.dmitrysimakov.kilogram.ui.common
 
 import android.view.View
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.data.local.relation.DetailedTraining
+import com.dmitrysimakov.kilogram.data.relation.DetailedTraining
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder

@@ -1,8 +1,8 @@
 package com.dmitrysimakov.kilogram.data.local.dao
 
 import androidx.room.*
-import com.dmitrysimakov.kilogram.data.local.relation.TrainingExerciseInfo
 import com.dmitrysimakov.kilogram.data.model.TrainingExercise
+import com.dmitrysimakov.kilogram.data.relation.TrainingExerciseInfo
 import kotlinx.coroutines.flow.Flow
 
 @Dao

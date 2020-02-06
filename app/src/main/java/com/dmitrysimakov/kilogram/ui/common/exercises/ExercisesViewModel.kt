@@ -5,10 +5,10 @@ import androidx.sqlite.db.SimpleSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteQuery
 import com.dmitrysimakov.kilogram.data.local.dao.EquipmentDao
 import com.dmitrysimakov.kilogram.data.local.dao.ExerciseTargetDao
-import com.dmitrysimakov.kilogram.data.local.relation.FilterParam
 import com.dmitrysimakov.kilogram.data.model.Exercise
 import com.dmitrysimakov.kilogram.data.model.ProgramDayExercise
 import com.dmitrysimakov.kilogram.data.model.TrainingExercise
+import com.dmitrysimakov.kilogram.data.relation.FilterParam
 import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository

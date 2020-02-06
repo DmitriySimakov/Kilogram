@@ -4,11 +4,12 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.dmitrysimakov.kilogram.data.local.relation.MeasurementWithPreviousResults
-import com.dmitrysimakov.kilogram.data.local.relation.ProportionsCalculatorItem
 import com.dmitrysimakov.kilogram.data.model.Measurement
+import com.dmitrysimakov.kilogram.data.relation.MeasurementWithPreviousResults
+import com.dmitrysimakov.kilogram.data.relation.ProportionsCalculatorItem
 import kotlinx.coroutines.flow.Flow
 import org.threeten.bp.LocalDate
+import java.util.*
 
 @Dao
 interface MeasurementDao {
@@ -45,7 +46,7 @@ interface MeasurementDao {
     fun measurementsWithPreviousResults(date: LocalDate) : Flow<List<MeasurementWithPreviousResults>>
 
     @Query("SELECT date FROM Measurement GROUP BY date ORDER BY date DESC")
-    fun measurementDates() : Flow<List<LocalDate>>
+    fun measurementDates() : Flow<List<Date>>
     
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)

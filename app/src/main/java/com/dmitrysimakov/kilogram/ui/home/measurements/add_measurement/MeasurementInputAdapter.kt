@@ -2,8 +2,8 @@ package com.dmitrysimakov.kilogram.ui.home.measurements.add_measurement
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.dmitrysimakov.kilogram.data.local.relation.NewMeasurement
-import com.dmitrysimakov.kilogram.data.local.relation.NewMeasurementDiffCallback
+import com.dmitrysimakov.kilogram.data.relation.NewMeasurement
+import com.dmitrysimakov.kilogram.data.relation.NewMeasurementDiffCallback
 import com.dmitrysimakov.kilogram.databinding.ItemMeasurementInputBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 
