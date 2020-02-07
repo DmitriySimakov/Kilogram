@@ -1,7 +1,7 @@
 package com.dmitrysimakov.kilogram.data.remote.data_sources
 
 import androidx.work.*
-import com.dmitrysimakov.kilogram.util.firebaseUser
+import com.dmitrysimakov.kilogram.data.remote.firebaseUser
 
 const val ID = "id"
 const val NEED_TO_DELETE = "need_to_delete"

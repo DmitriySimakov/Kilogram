@@ -4,10 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import androidx.work.WorkManager
 import com.dmitrysimakov.kilogram.data.local.KilogramDb
-import com.dmitrysimakov.kilogram.data.remote.data_sources.MeasurementSource
-import com.dmitrysimakov.kilogram.data.remote.data_sources.PhotoSource
-import com.dmitrysimakov.kilogram.data.remote.data_sources.ProgramSource
-import com.dmitrysimakov.kilogram.data.remote.data_sources.TrainingSource
+import com.dmitrysimakov.kilogram.data.remote.data_sources.*
 import com.dmitrysimakov.kilogram.data.repository.*
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.ui.common.choose_program.ChooseProgramViewModel
@@ -63,6 +60,7 @@ val appModule = module {
     single { get<KilogramDb>().measurementParamDao() }
     // Remote data sources
     single { MeasurementSource(get()) }
+    single { MessagesSource() }
     single { PhotoSource(get()) }
     single { ProgramSource(get()) }
     single { TrainingSource(get()) }
@@ -96,7 +94,7 @@ val appModule = module {
     viewModel { HomeViewModel(get(), get(), get(), get()) }
     viewModel { MeasurementsViewModel(get()) }
     viewModel { MeasurementsHistoryViewModel(get()) }
-    viewModel { MessagesViewModel() }
+    viewModel { MessagesViewModel(get()) }
     viewModel { ProgramDayExercisesViewModel(get()) }
     viewModel { TrainingExercisesViewModel(get(), get(), get()) }
     viewModel { TrainingSetsViewModel(get(), get(), get()) }

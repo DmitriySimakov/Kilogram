@@ -13,7 +13,11 @@ import androidx.work.WorkManager
 import com.dmitrysimakov.kilogram.data.model.Program
 import com.dmitrysimakov.kilogram.data.model.ProgramDay
 import com.dmitrysimakov.kilogram.data.model.User
-import com.dmitrysimakov.kilogram.util.*
+import com.dmitrysimakov.kilogram.data.remote.firebaseUser
+import com.dmitrysimakov.kilogram.data.remote.firestore
+import com.dmitrysimakov.kilogram.data.remote.userDocument
+import com.dmitrysimakov.kilogram.data.remote.userTokensDocument
+import com.dmitrysimakov.kilogram.util.PreferencesKeys
 import com.dmitrysimakov.kilogram.util.live_data.AbsentLiveData
 import com.dmitrysimakov.kilogram.util.live_data.Event
 import com.dmitrysimakov.kilogram.util.live_data.liveData

@@ -37,9 +37,7 @@ class MessagesFragment : Fragment() {
         
         recyclerView.adapter = adapter
     
-        sharedVM.user.observe(viewLifecycleOwner) {user ->
-            vm.start(user, args.id)
-        }
+        sharedVM.user.observe(viewLifecycleOwner) { user -> vm.start(user, args.id) }
         vm.messages.observe(viewLifecycleOwner) {
             adapter.submitList(it)
             vm.markNewMessagesAsRead()

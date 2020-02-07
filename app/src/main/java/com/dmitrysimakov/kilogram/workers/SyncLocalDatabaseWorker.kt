@@ -6,7 +6,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.dmitrysimakov.kilogram.data.local.KilogramDb
 import com.dmitrysimakov.kilogram.data.model.*
-import com.dmitrysimakov.kilogram.util.*
+import com.dmitrysimakov.kilogram.data.remote.*
 import com.dmitrysimakov.kilogram.util.PreferencesKeys.DB_LAST_SYNC
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.CollectionReference

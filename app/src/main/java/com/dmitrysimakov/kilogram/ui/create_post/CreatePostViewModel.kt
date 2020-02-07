@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dmitrysimakov.kilogram.data.model.Post
 import com.dmitrysimakov.kilogram.data.model.User
-import com.dmitrysimakov.kilogram.util.imagesRef
+import com.dmitrysimakov.kilogram.data.remote.imagesRef
+import com.dmitrysimakov.kilogram.data.remote.postsCollection
 import com.dmitrysimakov.kilogram.util.live_data.Event
-import com.dmitrysimakov.kilogram.util.postsCollection
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.util.*

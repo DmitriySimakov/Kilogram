@@ -6,8 +6,8 @@ import androidx.lifecycle.map
 import androidx.lifecycle.switchMap
 import com.dmitrysimakov.kilogram.data.model.Chat
 import com.dmitrysimakov.kilogram.data.model.User
+import com.dmitrysimakov.kilogram.data.remote.userChatsCollection
 import com.dmitrysimakov.kilogram.util.live_data.liveData
-import com.dmitrysimakov.kilogram.util.userChatsCollection
 
 class ChatsViewModel : ViewModel() {
     

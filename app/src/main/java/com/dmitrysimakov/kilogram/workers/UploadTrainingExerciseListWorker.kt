@@ -5,8 +5,8 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.dmitrysimakov.kilogram.data.local.dao.TrainingExerciseDao
 import com.dmitrysimakov.kilogram.data.remote.data_sources.ID
-import com.dmitrysimakov.kilogram.util.firestore
-import com.dmitrysimakov.kilogram.util.userTrainingExercisesCollection
+import com.dmitrysimakov.kilogram.data.remote.firestore
+import com.dmitrysimakov.kilogram.data.remote.userTrainingExercisesCollection
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 

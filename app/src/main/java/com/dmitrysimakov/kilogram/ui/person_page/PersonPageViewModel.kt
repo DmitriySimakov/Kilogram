@@ -2,10 +2,10 @@ package com.dmitrysimakov.kilogram.ui.person_page
 
 import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.model.User
-import com.dmitrysimakov.kilogram.util.firestore
+import com.dmitrysimakov.kilogram.data.remote.firestore
+import com.dmitrysimakov.kilogram.data.remote.userDocument
+import com.dmitrysimakov.kilogram.data.remote.usersCollection
 import com.dmitrysimakov.kilogram.util.setNewValue
-import com.dmitrysimakov.kilogram.util.userDocument
-import com.dmitrysimakov.kilogram.util.usersCollection
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 

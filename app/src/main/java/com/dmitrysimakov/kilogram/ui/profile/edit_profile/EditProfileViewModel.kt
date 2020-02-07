@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dmitrysimakov.kilogram.data.model.User
-import com.dmitrysimakov.kilogram.util.imagesRef
+import com.dmitrysimakov.kilogram.data.remote.imagesRef
+import com.dmitrysimakov.kilogram.data.remote.userDocument
 import com.dmitrysimakov.kilogram.util.setNewValue
-import com.dmitrysimakov.kilogram.util.userDocument
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 

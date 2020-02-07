@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.util
+package com.dmitrysimakov.kilogram.data.remote
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore

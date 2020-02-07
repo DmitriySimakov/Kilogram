@@ -5,66 +5,30 @@ import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.model.Chat
 import com.dmitrysimakov.kilogram.data.model.Message
 import com.dmitrysimakov.kilogram.data.model.User
-import com.dmitrysimakov.kilogram.util.*
-import com.dmitrysimakov.kilogram.util.live_data.liveData
-import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.DocumentReference
+import com.dmitrysimakov.kilogram.data.remote.data_sources.MessagesSource
+import com.dmitrysimakov.kilogram.data.remote.generateId
+import com.dmitrysimakov.kilogram.data.remote.imagesRef
+import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
-class MessagesViewModel : ViewModel() {
+class MessagesViewModel(private val messagesSrc: MessagesSource) : ViewModel() {
     
-    private val _user = MutableLiveData<User>()
+    private val _user = MutableLiveData<User?>()
     val user: LiveData<User?> = _user
     
-    private lateinit var userChatDoc: DocumentReference
-    private lateinit var companionChatDoc: DocumentReference
-    private lateinit var userMessagesCol: CollectionReference
-    private lateinit var companionMessagesCol: CollectionReference
+    val chat = MutableLiveData<Chat>()
     
-    private val _chat = MutableLiveData<Chat>()
-    val chat: LiveData<Chat> = _chat
+    val messages = chat.switchMap { messagesSrc.messagesLive(it.companion.id) }
     
-    val messages = _chat.switchMap {
-        userMessagesCol.orderBy("timestamp").liveData { it.toObject(Message::class.java)!! }
-    }
-    
-    fun start(user: User?, companionId: String) { viewModelScope.launch{
+    fun start(user: User?, companionId: String) { viewModelScope.launch {
         _user.setNewValue(user)
-        if (user == null) return@launch
-        
-        userChatDoc = userChatsCollection.document(companionId)
-        companionChatDoc = usersCollection.document(companionId).collection("chats").document(user.id)
-        userMessagesCol = userChatDoc.collection("messages")
-        companionMessagesCol = companionChatDoc.collection("messages")
-        
-        val doc = userChatDoc.get().await()
-        if (doc.exists()) {
-            _chat.setNewValue(doc.toObject(Chat::class.java)!!)
-        } else {
-            val companionDoc = usersCollection.document(companionId).get().await()
-            val companion = companionDoc.toObject(User::class.java)!!
-            val newChatForUser = Chat(companion.id, companion)
-            val newChatForCompanion = Chat(user.id, user)
-            _chat.setNewValue(newChatForUser)
-            
-            firestore.batch()
-                    .set(userChatDoc, newChatForUser)
-                    .set(companionChatDoc, newChatForCompanion)
-                    .commit()
-        }
+        user?.let { chat.setNewValue(messagesSrc.chat(user, companionId)) }
     }}
     
     fun sendMessage(text: String?, imageUrl: String?) {
-        val senderId = user.value!!.id
-        val userMessageDoc = userMessagesCol.document()
-        val message = Message(userMessageDoc.id, senderId, text, imageUrl)
-        firestore.batch()
-                .set(userMessageDoc, message)
-                .set(companionMessagesCol.document(userMessageDoc.id), message)
-                .update(userChatDoc, "lastMessage", message)
-                .update(companionChatDoc, "lastMessage", message)
-                .commit()
+        val message = Message(generateId(), user.value!!.id, text, imageUrl)
+        messagesSrc.sendMessage(message, chat.value!!.companion.id)
     }
     
     fun sendImage(uri: Uri) { viewModelScope.launch {
@@ -75,23 +39,6 @@ class MessagesViewModel : ViewModel() {
     }}
     
     fun markNewMessagesAsRead() {
-        val user = user.value ?: return
-    
-        var newMessagesReceived = false
-        val writeBatch = firestore.batch()
-        messages.value?.forEach { msg ->
-            if (msg.senderId != user.id && !msg.wasRead) {
-                newMessagesReceived = true
-                writeBatch
-                        .update(userMessagesCol.document(msg.id), "wasRead", true)
-                        .update(companionMessagesCol.document(msg.id), "wasRead", true)
-            }
-        }
-        if (newMessagesReceived) {
-            writeBatch
-                    .update(userChatDoc, "lastMessage.wasRead", true)
-                    .update(companionChatDoc, "lastMessage.wasRead", true)
-        }
-        writeBatch.commit()
+        messages.value?.let { messagesSrc.markNewMessagesAsRead(it, chat.value!!.companion.id) }
     }
 }

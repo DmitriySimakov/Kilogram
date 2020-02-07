@@ -4,9 +4,9 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dmitrysimakov.kilogram.data.model.User
+import com.dmitrysimakov.kilogram.data.remote.usersCollection
 import com.dmitrysimakov.kilogram.util.live_data.liveData
 import com.dmitrysimakov.kilogram.util.meetsQuery
-import com.dmitrysimakov.kilogram.util.usersCollection
 
 class PeopleViewModel : ViewModel() {
     

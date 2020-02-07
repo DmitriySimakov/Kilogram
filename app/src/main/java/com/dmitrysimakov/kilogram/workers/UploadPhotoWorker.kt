@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.dmitrysimakov.kilogram.data.local.dao.PhotoDao
-import com.dmitrysimakov.kilogram.data.remote.data_sources.PHOTO_URI
-import com.dmitrysimakov.kilogram.util.userPhotosCollection
+import com.dmitrysimakov.kilogram.data.remote.data_sources.ID
+import com.dmitrysimakov.kilogram.data.remote.userPhotosCollection
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
@@ -14,7 +14,7 @@ class UploadPhotoWorker(context: Context, workerParams: WorkerParameters): Corou
     private val dao: PhotoDao by inject()
     
     override suspend fun doWork(): Result {
-        val uri = inputData.getString(PHOTO_URI)!!
+        val uri = inputData.getString(ID)!!
         
         val photo = dao.photo(uri)
         userPhotosCollection.document(uri).set(photo)

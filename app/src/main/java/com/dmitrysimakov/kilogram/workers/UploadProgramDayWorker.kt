@@ -7,7 +7,7 @@ import com.dmitrysimakov.kilogram.data.local.dao.ProgramDayDao
 import com.dmitrysimakov.kilogram.data.model.ProgramDay
 import com.dmitrysimakov.kilogram.data.remote.data_sources.ID
 import com.dmitrysimakov.kilogram.data.remote.data_sources.NEED_TO_DELETE
-import com.dmitrysimakov.kilogram.util.userProgramDaysCollection
+import com.dmitrysimakov.kilogram.data.remote.userProgramDaysCollection
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 

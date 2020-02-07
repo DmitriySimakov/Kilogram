@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.dmitrysimakov.kilogram.util.generateId
+import com.dmitrysimakov.kilogram.data.remote.generateId
 import java.util.*
 
 @Entity(indices = [Index(value = ["param"])],

@@ -7,7 +7,7 @@ import com.dmitrysimakov.kilogram.data.local.dao.TrainingExerciseDao
 import com.dmitrysimakov.kilogram.data.model.TrainingExercise
 import com.dmitrysimakov.kilogram.data.remote.data_sources.ID
 import com.dmitrysimakov.kilogram.data.remote.data_sources.NEED_TO_DELETE
-import com.dmitrysimakov.kilogram.util.userTrainingExercisesCollection
+import com.dmitrysimakov.kilogram.data.remote.userTrainingExercisesCollection
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
