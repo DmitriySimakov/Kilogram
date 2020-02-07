@@ -25,7 +25,7 @@
                 android:id="@+id/dateTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{Converter.dateTime(training.startDateTime, `HH:mm`)}"
+                android:text="@{Converter.formatDate(training.startDateTime, `HH:mm`)}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                 tools:text="15:00" />
             

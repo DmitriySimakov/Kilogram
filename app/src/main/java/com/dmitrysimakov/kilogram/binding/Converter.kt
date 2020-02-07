@@ -38,7 +38,7 @@ fun dateToRelativeTimeSpan(date: Date) = DateUtils.getRelativeTimeSpanString(
         DateUtils.MINUTE_IN_MILLIS
 ).toString()
 
-fun dateTime(date: Date?, pattern: String): String {
+fun formatDate(date: Date?, pattern: String): String {
     if (date == null) return ""
     
     val format = SimpleDateFormat(pattern, Locale.getDefault())

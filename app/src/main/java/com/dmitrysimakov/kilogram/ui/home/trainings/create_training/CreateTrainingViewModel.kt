@@ -11,8 +11,9 @@ import com.dmitrysimakov.kilogram.data.repository.ProgramDayExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
 import com.dmitrysimakov.kilogram.util.live_data.Event
+import com.dmitrysimakov.kilogram.util.toDate
 import kotlinx.coroutines.launch
-import java.util.*
+import org.threeten.bp.LocalDateTime
 
 class CreateTrainingViewModel(
         private val trainingRepo: TrainingRepository,
@@ -20,7 +21,7 @@ class CreateTrainingViewModel(
         private val programDayExerciseRepo: ProgramDayExerciseRepository
 ) : ViewModel() {
     
-    val dateTime = MutableLiveData(Date())
+    val dateTime = MutableLiveData(LocalDateTime.now())
     
     val program = MutableLiveData<Program>()
     val programDay = MutableLiveData<ProgramDay>()
@@ -31,7 +32,7 @@ class CreateTrainingViewModel(
     
     fun createTraining() = viewModelScope.launch{
         val programDayId = byProgram.value?.let { programDay.value?.id }
-        val training = Training(dateTime.value!!, programDayId)
+        val training = Training(dateTime.value!!.toDate(), programDayId)
         trainingRepo.insert(training)
         if (programDayId != null) fillTrainingWithProgramExercises(training.id, programDayId)
         

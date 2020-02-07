@@ -3,6 +3,7 @@ package com.dmitrysimakov.kilogram.ui.common
 import android.view.View
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.data.relation.DetailedTraining
+import com.dmitrysimakov.kilogram.util.toLocalDate
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
@@ -36,7 +37,7 @@ class CalendarDayBinder(private val onClick: ((LocalDate) -> Unit)? = null) : Da
             }
             
             val currentDayTrainings = trainings.filter {
-                true // TODO it.startDateTime.toLocalDate() == curDate
+                it.startDateTime.toLocalDate() == curDate
             }.sortedBy { it.startDateTime }
     
             val firstTraining = currentDayTrainings.firstOrNull()

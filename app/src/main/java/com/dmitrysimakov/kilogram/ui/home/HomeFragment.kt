@@ -33,6 +33,7 @@ import com.dmitrysimakov.kilogram.util.toIsoString
 import com.kizitonwose.calendarview.utils.next
 import com.kizitonwose.calendarview.utils.previous
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.threeten.bp.LocalTime
 import org.threeten.bp.YearMonth
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.temporal.WeekFields
@@ -50,7 +51,8 @@ class HomeFragment : Fragment() {
     
     private val calendarMonthBinder by lazy { CalendarMonthBinder() }
     private val calendarDayBinder by lazy { CalendarDayBinder {
-        navigate(toCalendarDayDialog(it.toIsoString()))
+        val dateString = it.atTime(LocalTime.NOON).toIsoString()
+        navigate(toCalendarDayDialog(dateString))
     }}
     private val photosAdapter by lazy { PhotosAdapter { navigate(toPhotoFragment(it.uri)) } }
     private val measurementsAdapter by lazy { MeasurementsAdapter() }

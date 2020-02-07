@@ -8,7 +8,6 @@ import com.dmitrysimakov.kilogram.data.model.Measurement
 import com.dmitrysimakov.kilogram.data.relation.MeasurementWithPreviousResults
 import com.dmitrysimakov.kilogram.data.relation.ProportionsCalculatorItem
 import kotlinx.coroutines.flow.Flow
-import org.threeten.bp.LocalDate
 import java.util.*
 
 @Dao
@@ -43,7 +42,7 @@ interface MeasurementDao {
         FROM Measurement AS M
         WHERE M.date = :date
     """)
-    fun measurementsWithPreviousResults(date: LocalDate) : Flow<List<MeasurementWithPreviousResults>>
+    fun measurementsWithPreviousResults(date: Date) : Flow<List<MeasurementWithPreviousResults>>
 
     @Query("SELECT date FROM Measurement GROUP BY date ORDER BY date DESC")
     fun measurementDates() : Flow<List<Date>>

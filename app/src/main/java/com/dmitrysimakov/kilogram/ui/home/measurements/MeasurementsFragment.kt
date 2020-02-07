@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.common.measurements.MeasurementsAdapter
 import com.dmitrysimakov.kilogram.util.setNewValue
-import com.dmitrysimakov.kilogram.util.toLocalDate
+import com.dmitrysimakov.kilogram.util.toDate
 import kotlinx.android.synthetic.main.fragment_measurements.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -31,7 +31,7 @@ class MeasurementsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         
-        vm.date.setNewValue(args.date.toLocalDate())
+        vm.date.setNewValue(args.date.toDate())
         
         vm.measurements.observe(viewLifecycleOwner) { adapter.submitList(it) }
         

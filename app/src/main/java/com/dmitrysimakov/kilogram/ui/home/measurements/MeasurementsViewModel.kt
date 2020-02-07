@@ -5,11 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.switchMap
 import com.dmitrysimakov.kilogram.data.repository.MeasurementRepository
-import org.threeten.bp.LocalDate
+import java.util.*
 
 class MeasurementsViewModel (private val repository: MeasurementRepository) : ViewModel() {
     
-    val date = MutableLiveData<LocalDate>()
+    val date = MutableLiveData<Date>()
     
     val measurements = date.switchMap {
         repository.measurementsWithPreviousResults(it).asLiveData()
