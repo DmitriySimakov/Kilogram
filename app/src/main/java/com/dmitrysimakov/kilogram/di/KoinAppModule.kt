@@ -59,6 +59,7 @@ val appModule = module {
     single { get<KilogramDb>().measurementDao() }
     single { get<KilogramDb>().measurementParamDao() }
     // Remote data sources
+    single { FirebaseStorageSource() }
     single { MeasurementSource(get()) }
     single { MessagesSource() }
     single { PhotoSource(get()) }
@@ -94,7 +95,7 @@ val appModule = module {
     viewModel { HomeViewModel(get(), get(), get(), get()) }
     viewModel { MeasurementsViewModel(get()) }
     viewModel { MeasurementsHistoryViewModel(get()) }
-    viewModel { MessagesViewModel(get()) }
+    viewModel { MessagesViewModel(get(), get()) }
     viewModel { ProgramDayExercisesViewModel(get()) }
     viewModel { TrainingExercisesViewModel(get(), get(), get()) }
     viewModel { TrainingSetsViewModel(get(), get(), get()) }
