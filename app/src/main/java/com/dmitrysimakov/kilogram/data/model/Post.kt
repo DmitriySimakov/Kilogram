@@ -11,7 +11,7 @@ data class Post(
         val title: String? = null,
         val content: String? = null,
         val imageUrl: String? = null,
-        val programId: String? = null,
+        val program: Program? = null,
         val timestamp: Date = Date(),
         val likes: List<String> = listOf(), // Ids of people who liked the post
         val id: String = generateId()

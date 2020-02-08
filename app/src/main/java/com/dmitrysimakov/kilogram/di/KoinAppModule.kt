@@ -72,7 +72,7 @@ val appModule = module {
     single { PhotoRepository(get(), get()) }
     single { ProgramDayRepository(get(), get()) }
     single { ProgramDayExerciseRepository(get(), get()) }
-    single { ProgramRepository(get(), get()) }
+    single { ProgramRepository(get(), get(), get(), get()) }
     single { TrainingExerciseRepository(get(), get()) }
     single { TrainingSetRepository(get(), get()) }
     single { TrainingRepository(get(), get()) }
@@ -85,7 +85,7 @@ val appModule = module {
     viewModel { ExercisesViewModel(get(), get(), get(), get(), get()) }
     viewModel { ChooseProgramViewModel(get()) }
     viewModel { ProgramDaysViewModel(get()) }
-    viewModel { CreatePostViewModel(get(), get()) }
+    viewModel { CreatePostViewModel(get(), get(), get()) }
     viewModel { CreateProgramViewModel(get()) }
     viewModel { CreateProgramDayViewModel(get()) }
     viewModel { CreateTrainingViewModel(get(), get(), get()) }
