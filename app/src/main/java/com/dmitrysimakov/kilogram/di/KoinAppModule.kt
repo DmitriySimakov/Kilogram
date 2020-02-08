@@ -61,8 +61,9 @@ val appModule = module {
     // Remote data sources
     single { FirebaseStorageSource() }
     single { MeasurementSource(get()) }
-    single { MessagesSource() }
+    single { MessageSource() }
     single { PhotoSource(get()) }
+    single { PostSource() }
     single { ProgramSource(get()) }
     single { TrainingSource(get()) }
     // Repositories
@@ -80,16 +81,16 @@ val appModule = module {
     viewModel { AddMeasurementViewModel(get(), get()) }
     viewModel { AddTrainingSetViewModel(get(), get()) }
     viewModel { CalendarDayViewModel(get()) }
-    viewModel { ChatsViewModel() }
+    viewModel { ChatsViewModel(get()) }
     viewModel { ExercisesViewModel(get(), get(), get(), get(), get()) }
     viewModel { ChooseProgramViewModel(get()) }
     viewModel { ProgramDaysViewModel(get()) }
-    viewModel { CreatePostViewModel() }
+    viewModel { CreatePostViewModel(get(), get()) }
     viewModel { CreateProgramViewModel(get()) }
     viewModel { CreateProgramDayViewModel(get()) }
     viewModel { CreateTrainingViewModel(get(), get(), get()) }
     viewModel { DetailedExerciseViewModel(get(), get()) }
-    viewModel { EditProfileViewModel() }
+    viewModel { EditProfileViewModel(get()) }
     viewModel { SubscribersViewModel() }
     viewModel { SubscriptionsViewModel() }
     viewModel { HomeViewModel(get(), get(), get(), get()) }
@@ -104,7 +105,7 @@ val appModule = module {
     viewModel { PhotoViewModel(get()) }
     viewModel { PhotosViewModel(get()) }
     viewModel { ProportionsCalculatorViewModel(get()) }
-    viewModel { FeedViewModel() }
+    viewModel { FeedViewModel(get()) }
 }
 
 fun provideDb(context: Context): KilogramDb {

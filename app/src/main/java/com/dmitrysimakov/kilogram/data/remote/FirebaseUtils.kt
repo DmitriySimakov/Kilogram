@@ -46,11 +46,6 @@ val userPhotosCollection
 val userMeasurementsCollection
     get() = userDocument.collection("measurements")
 
-val userChatsCollection
-    get() = userDocument.collection("chats")
-
-val postsCollection = firestore.collection("posts")
-
 val programsCollection = firestore.collection("programs")
 
 

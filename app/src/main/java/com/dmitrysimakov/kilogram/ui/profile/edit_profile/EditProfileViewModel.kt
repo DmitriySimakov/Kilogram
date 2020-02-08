@@ -5,13 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dmitrysimakov.kilogram.data.model.User
-import com.dmitrysimakov.kilogram.data.remote.imagesRef
+import com.dmitrysimakov.kilogram.data.remote.data_sources.FirebaseStorageSource
 import com.dmitrysimakov.kilogram.data.remote.userDocument
 import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 
-class EditProfileViewModel : ViewModel() {
+class EditProfileViewModel(private val firebaseStorage: FirebaseStorageSource) : ViewModel() {
     
     private val _user = MutableLiveData<User>()
     
@@ -34,9 +33,7 @@ class EditProfileViewModel : ViewModel() {
     
     fun saveImage(uri: Uri) { viewModelScope.launch {
         photoUrl.setNewValue(null)
-        val imageRef = imagesRef.child(uri.lastPathSegment!!)
-        imageRef.putFile(uri).await()
-        val photoUri = imageRef.downloadUrl.await().toString()
-        photoUrl.setNewValue(photoUri)
+        val imageUri = firebaseStorage.uploadImage(uri)
+        photoUrl.setNewValue(imageUri)
     }}
 }

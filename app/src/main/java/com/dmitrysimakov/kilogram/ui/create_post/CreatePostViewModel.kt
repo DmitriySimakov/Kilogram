@@ -6,15 +6,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dmitrysimakov.kilogram.data.model.Post
 import com.dmitrysimakov.kilogram.data.model.User
-import com.dmitrysimakov.kilogram.data.remote.imagesRef
-import com.dmitrysimakov.kilogram.data.remote.postsCollection
+import com.dmitrysimakov.kilogram.data.remote.data_sources.FirebaseStorageSource
+import com.dmitrysimakov.kilogram.data.remote.data_sources.PostSource
 import com.dmitrysimakov.kilogram.util.live_data.Event
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
-import java.util.*
 import com.dmitrysimakov.kilogram.data.model.Program as LocalProgram
 
-class CreatePostViewModel : ViewModel() {
+class CreatePostViewModel(
+        private val postSrc: PostSource,
+        private val firebaseStorage: FirebaseStorageSource
+) : ViewModel() {
     
     val user = MutableLiveData<User>()
     val title = MutableLiveData("")
@@ -26,14 +27,11 @@ class CreatePostViewModel : ViewModel() {
     
     fun publishPost() { viewModelScope.launch {
         val author = user.value ?: return@launch
-    
-        val imageUrl = imageUri.value?.lastPathSegment
-        imageUrl?.let { imagesRef.child(it).putFile(imageUri.value!!) }
         
-        val postDoc = postsCollection.document()
-        val post = Post(postDoc.id, author.id, author.name, author.photoUrl, title.value, content.value, imageUrl, null, Date())
+        val imageUri = imageUri.value?.let { firebaseStorage.uploadImage(it) }
+        val post = Post(author.id, author.name, author.photoUrl, title.value, content.value, imageUri)
+        postSrc.publishPost(post)
         
-        postDoc.set(post).await()
         postPublishedEvent.value = Event(Unit)
     }}
 }

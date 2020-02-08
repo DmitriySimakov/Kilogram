@@ -10,7 +10,10 @@ import com.dmitrysimakov.kilogram.data.remote.usersCollection
 import com.dmitrysimakov.kilogram.util.live_data.liveData
 import kotlinx.coroutines.tasks.await
 
-class MessagesSource {
+class MessageSource {
+    
+    fun chatsLive() = firestore.collection("users/$uid/chats")
+            .liveData { doc -> doc.toObject(Chat::class.java)!! }
     
     suspend fun chat(user: User, companionId: String): Chat {
         val userChatRef      = firestore.document("users/$uid/chats/$companionId")
