@@ -10,135 +10,141 @@
             type="com.dmitrysimakov.kilogram.ui.create_post.CreatePostViewModel" />
     </data>
     
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:elevation="1dp"
-        android:orientation="vertical"
-        android:padding="?attr/dialogPreferredPadding">
-        
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/titleTIL"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/title"
-            app:errorEnabled="true">
-            
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:text="@={vm.title}" />
-        
-        </com.google.android.material.textfield.TextInputLayout>
-        
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textTIL"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:counterMaxLength="300"
-            android:hint="@string/content"
-            app:errorEnabled="true">
-            
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/descriptionET"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
-                android:maxLength="300"
-                android:text="@={vm.content}" />
-        
-        </com.google.android.material.textfield.TextInputLayout>
-        
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            app:goneUnless="@{vm.imageUri != null}"
-            app:imageUrl="@{vm.imageUri.toString()}"
-            tools:src="@tools:sample/backgrounds/scenic"/>
+        android:layout_height="wrap_content">
     
         <LinearLayout
-            style="@style/HorizontalListItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:elevation="1dp"
             android:orientation="vertical"
-            app:goneUnless="@{vm.program != null}">
-        
-            <TextView
+            android:padding="?attr/dialogPreferredPadding">
+            
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/titleTIL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{vm.program.name}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                tools:text="Название программы" />
-        
-            <TextView
+                android:hint="@string/title"
+                app:errorEnabled="true">
+                
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:text="@={vm.title}" />
+            
+            </com.google.android.material.textfield.TextInputLayout>
+            
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textTIL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{vm.program.description}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                tools:text="Описание" />
-    
-        </LinearLayout>
+                app:counterMaxLength="300"
+                android:hint="@string/content"
+                app:errorEnabled="true">
+                
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/descriptionET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:maxLength="300"
+                    android:text="@={vm.content}" />
+            
+            </com.google.android.material.textfield.TextInputLayout>
+            
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                app:goneUnless="@{vm.imageUri != null}"
+                app:imageUrl="@{vm.imageUri.toString()}"
+                tools:src="@tools:sample/backgrounds/scenic"/>
         
-        <LinearLayout
-            android:id="@+id/addImageButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/list_item_horizontal_padding"
-            app:goneUnless="@{vm.imageUri == null}">
+            <LinearLayout
+                style="@style/HorizontalListItem"
+                android:orientation="vertical"
+                app:goneUnless="@{vm.program != null}">
+            
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{vm.program.name}"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    tools:text="Название программы" />
+            
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{vm.program.description}"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    tools:text="Описание" />
         
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
+            </LinearLayout>
+            
+            <LinearLayout
+                android:id="@+id/addImageButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/list_item_horizontal_padding"
+                app:goneUnless="@{vm.imageUri == null}">
+            
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:clickable="false"
+                    android:src="@drawable/ic_photo_camera"
+                    app:elevation="0dp" />
+            
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/frame_padding"
+                    android:gravity="center_vertical"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:text="@string/add_image"/>
+        
+            </LinearLayout>
+        
+            <LinearLayout
+                android:id="@+id/addProgramButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/list_item_horizontal_padding"
+                app:goneUnless="@{vm.program == null}">
+            
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:clickable="false"
+                    android:src="@drawable/ic_fitness_center"
+                    app:elevation="0dp" />
+            
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/frame_padding"
+                    android:gravity="center_vertical"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:text="@string/attach_training_program"/>
+        
+            </LinearLayout>
+            
+            <Button
+                android:id="@+id/publishBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:clickable="false"
-                android:src="@drawable/ic_photo_camera"
-                app:elevation="0dp" />
+                android:text="@string/publish"
+                android:onClick="@{() -> vm.publishPost()}"/>
         
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/frame_padding"
-                android:gravity="center_vertical"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:text="@string/add_image"/>
-    
         </LinearLayout>
     
-        <LinearLayout
-            android:id="@+id/addProgramButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/list_item_horizontal_padding"
-            app:goneUnless="@{vm.program == null}">
-        
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:clickable="false"
-                android:src="@drawable/ic_fitness_center"
-                app:elevation="0dp" />
-        
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/frame_padding"
-                android:gravity="center_vertical"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:text="@string/attach_training_program"/>
-    
-        </LinearLayout>
-        
-        <Button
-            android:id="@+id/publishBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/publish"
-            android:onClick="@{() -> vm.publishPost()}"/>
-    
-    </LinearLayout>
+    </ScrollView>
 
 </layout>

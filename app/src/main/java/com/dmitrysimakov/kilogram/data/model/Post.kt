@@ -1,5 +1,6 @@
 package com.dmitrysimakov.kilogram.data.model
 
+import androidx.recyclerview.widget.DiffUtil
 import com.dmitrysimakov.kilogram.data.remote.generateId
 import java.util.*
 
@@ -15,3 +16,8 @@ data class Post(
         val likes: List<String> = listOf(), // Ids of people who liked the post
         val id: String = generateId()
 )
+
+class PostDiffCallback : DiffUtil.ItemCallback<Post>() {
+    override fun areItemsTheSame(oldItem: Post, newItem: Post) = oldItem.id == newItem.id
+    override fun areContentsTheSame(oldItem: Post, newItem: Post) = oldItem == newItem
+}
