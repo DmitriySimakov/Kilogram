@@ -5,9 +5,7 @@ import com.dmitrysimakov.kilogram.data.model.Program
 import com.dmitrysimakov.kilogram.data.model.ProgramDay
 import com.dmitrysimakov.kilogram.data.model.ProgramDayExercise
 import com.dmitrysimakov.kilogram.data.remote.firestore
-import com.dmitrysimakov.kilogram.data.remote.getNewData
 import com.dmitrysimakov.kilogram.data.remote.uid
-import com.dmitrysimakov.kilogram.workers.*
 
 class ProgramSource(workManager: WorkManager) : RemoteDataSource(workManager) {
     
@@ -27,18 +25,18 @@ class ProgramSource(workManager: WorkManager) : RemoteDataSource(workManager) {
     suspend fun newProgramDayExercises(lastUpdate: Long) =
             getNewData(ProgramDayExercise::class.java, programDayExercisesRef, lastUpdate)
     
-    fun uploadProgram(id: String) { upload(id, UploadProgramWorker::class.java) }
-    fun deleteProgram(id: String) { delete(id, UploadProgramWorker::class.java) }
+    fun uploadProgram(program: Program) {
+        programsRef.document(program.id).set(program)
+    }
     
-    fun uploadProgramDay(id: String) { upload(id, UploadProgramDayWorker::class.java) }
-    fun deleteProgramDay(id: String) { delete(id, UploadProgramDayWorker::class.java) }
+    fun uploadProgramDay(programDay: ProgramDay) {
+        programDaysRef.document(programDay.id).set(programDay)
+    }
     
-    fun uploadProgramDayList(programId: String) { upload(programId, UploadProgramDayListWorker::class.java) }
+    fun uploadProgramDayExercise(programDayExercise: ProgramDayExercise) {
+        programDayExercisesRef.document(programDayExercise.id).set(programDayExercise)
+    }
     
-    fun uploadProgramDayExercise(id: String) { upload(id, UploadProgramDayExerciseWorker::class.java) }
-    fun deleteProgramDayExercise(id: String) { delete(id, UploadProgramDayExerciseWorker::class.java) }
-    
-    fun uploadProgramDayExerciseList(programDayId: String) { upload(programDayId, UploadProgramDayExerciseListWorker::class.java) }
     
     fun publishProgram(program: Program) {
         firestore.document("programs/${program.id}").set(program)

@@ -3,6 +3,7 @@ package com.dmitrysimakov.kilogram.data.repository
 import com.dmitrysimakov.kilogram.data.local.dao.TrainingDao
 import com.dmitrysimakov.kilogram.data.model.Training
 import com.dmitrysimakov.kilogram.data.remote.data_sources.TrainingSource
+import com.dmitrysimakov.kilogram.workers.UploadTrainingWorker
 import java.util.*
 
 class TrainingRepository(
@@ -18,18 +19,20 @@ class TrainingRepository(
     
     suspend fun insert(training: Training) {
         dao.insert(training)
-        src.uploadTraining(training.id)
+        src.scheduleUpload(training.id, UploadTrainingWorker::class.java)
     }
     
     suspend fun update(training: Training) {
         dao.update(training)
-        src.uploadTraining(training.id)
+        src.scheduleUpload(training.id, UploadTrainingWorker::class.java)
     }
     
     suspend fun delete(id: String) {
         dao.delete(id)
-        src.deleteTraining(id)
+        src.scheduleDeletion(id, UploadTrainingWorker::class.java)
     }
+    
+    fun uploadTraining(training: Training) { src.uploadTraining(training) }
     
     suspend fun syncTrainings(lastUpdate: Long) {
         val items = src.newTrainings(lastUpdate)

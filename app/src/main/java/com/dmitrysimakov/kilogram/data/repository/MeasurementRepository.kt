@@ -3,6 +3,7 @@ package com.dmitrysimakov.kilogram.data.repository
 import com.dmitrysimakov.kilogram.data.local.dao.MeasurementDao
 import com.dmitrysimakov.kilogram.data.model.Measurement
 import com.dmitrysimakov.kilogram.data.remote.data_sources.MeasurementSource
+import com.dmitrysimakov.kilogram.workers.UploadMeasurementWorker
 import java.util.*
 
 class MeasurementRepository(
@@ -12,6 +13,8 @@ class MeasurementRepository(
     
     suspend fun lastMeasurementsWithCoefficients() = dao.lastMeasurementsWithCoefficients()
     
+    suspend fun measurement(id: String) = dao.measurement(id)
+    
     fun lastMeasurementsWithPreviousResults() = dao.lastMeasurementsWithPreviousResults()
     
     fun measurementsWithPreviousResults(date: Date) = dao.measurementsWithPreviousResults(date)
@@ -20,8 +23,10 @@ class MeasurementRepository(
     
     suspend fun insert(measurement: Measurement) {
         dao.insert(measurement)
-        src.uploadMeasurement(measurement.id)
+        src.scheduleUpload(measurement.id, UploadMeasurementWorker::class.java)
     }
+    
+    fun uploadMeasurement(measurement: Measurement) { src.uploadMeasurement(measurement) }
     
     suspend fun syncMeasurements(lastUpdate: Long) {
         val items = src.newMeasurements(lastUpdate)

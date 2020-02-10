@@ -5,6 +5,7 @@ import com.dmitrysimakov.kilogram.data.local.dao.ProgramDayDao
 import com.dmitrysimakov.kilogram.data.local.dao.ProgramDayExerciseDao
 import com.dmitrysimakov.kilogram.data.model.Program
 import com.dmitrysimakov.kilogram.data.remote.data_sources.ProgramSource
+import com.dmitrysimakov.kilogram.workers.UploadProgramWorker
 
 class ProgramRepository(
         private val programDao: ProgramDao,
@@ -15,14 +16,16 @@ class ProgramRepository(
     
     fun programsFlow() = programDao.programsFlow()
     
+    suspend fun program(id: String) = programDao.program(id)
+    
     suspend fun insert(program: Program) {
         programDao.insert(program)
-        src.uploadProgram(program.id)
+        src.scheduleUpload(program.id, UploadProgramWorker::class.java)
     }
     
     suspend fun delete(id: String) {
         programDao.delete(id)
-        src.deleteProgram(id)
+        src.scheduleDeletion(id, UploadProgramWorker::class.java)
     }
     
     suspend fun publishProgram(program: Program) {
@@ -34,6 +37,8 @@ class ProgramRepository(
             }
         }
     }
+    
+    fun uploadProgram(program: Program) { src.uploadProgram(program) }
     
     suspend fun syncPrograms(lastUpdate: Long) {
         val items = src.newPrograms(lastUpdate)

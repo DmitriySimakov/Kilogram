@@ -3,6 +3,7 @@ package com.dmitrysimakov.kilogram.data.repository
 import com.dmitrysimakov.kilogram.data.local.dao.PhotoDao
 import com.dmitrysimakov.kilogram.data.model.Photo
 import com.dmitrysimakov.kilogram.data.remote.data_sources.PhotoSource
+import com.dmitrysimakov.kilogram.workers.UploadPhotoWorker
 
 class PhotoRepository(
         private val dao: PhotoDao,
@@ -17,8 +18,10 @@ class PhotoRepository(
     
     suspend fun insert(photo: Photo) {
         dao.insert(photo)
-        src.uploadPhoto(photo.uri)
+        src.scheduleUpload(photo.uri, UploadPhotoWorker::class.java)
     }
+    
+    fun uploadPhoto(photo: Photo) { src.uploadPhoto(photo) }
     
     suspend fun syncPhotos(lastUpdate: Long) {
         val items = src.newPhotos(lastUpdate)

@@ -3,22 +3,21 @@ package com.dmitrysimakov.kilogram.workers
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.dmitrysimakov.kilogram.data.local.dao.MeasurementDao
 import com.dmitrysimakov.kilogram.data.remote.data_sources.ID
-import com.dmitrysimakov.kilogram.data.remote.userMeasurementsCollection
+import com.dmitrysimakov.kilogram.data.repository.MeasurementRepository
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
 class UploadMeasurementWorker(context: Context, workerParams: WorkerParameters): CoroutineWorker(context, workerParams), KoinComponent {
     
-    private val dao: MeasurementDao by inject()
+    private val repo: MeasurementRepository by inject()
     
     override suspend fun doWork(): Result {
-        val measurementId = inputData.getString(ID)!!
-        
-        val measurement = dao.measurement(measurementId)
-        userMeasurementsCollection.document(measurementId).set(measurement)
-        
-        return Result.success()
+        return try {
+            repo.uploadMeasurement(repo.measurement(inputData.getString(ID)!!))
+            Result.success()
+        } catch (e: Exception) {
+            Result.retry()
+        }
     }
 }

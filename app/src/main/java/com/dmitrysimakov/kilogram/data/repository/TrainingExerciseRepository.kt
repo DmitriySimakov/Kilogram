@@ -3,6 +3,8 @@ package com.dmitrysimakov.kilogram.data.repository
 import com.dmitrysimakov.kilogram.data.local.dao.TrainingExerciseDao
 import com.dmitrysimakov.kilogram.data.model.TrainingExercise
 import com.dmitrysimakov.kilogram.data.remote.data_sources.TrainingSource
+import com.dmitrysimakov.kilogram.workers.UploadTrainingExerciseListWorker
+import com.dmitrysimakov.kilogram.workers.UploadTrainingExerciseWorker
 
 class TrainingExerciseRepository(
         private val dao: TrainingExerciseDao,
@@ -10,6 +12,8 @@ class TrainingExerciseRepository(
 ) {
     
     fun trainingExercisesFlow(trainingId: String) = dao.trainingExercisesFlow(trainingId)
+    
+    suspend fun trainingExercises(trainingId: String) = dao.trainingExercises(trainingId)
     
     suspend fun previousTrainingExercise(trainingId: String, exercise: String) = dao.previousTrainingExercise(trainingId, exercise)
     
@@ -19,21 +23,21 @@ class TrainingExerciseRepository(
     
     suspend fun insert(exercise: TrainingExercise) {
         dao.insert(exercise)
-        src.uploadTrainingExercise(exercise.id)
+        src.scheduleUpload(exercise.id, UploadTrainingExerciseWorker::class.java)
     }
     
-    suspend fun insert(exercises: List<TrainingExercise>) {
-        if (exercises.isEmpty()) return
+    suspend fun insert(trainingExercises: List<TrainingExercise>) {
+        if (trainingExercises.isEmpty()) return
         
-        dao.insert(exercises)
-        src.uploadTrainingExerciseList(exercises[0].trainingId)
+        dao.insert(trainingExercises)
+        src.scheduleUpload(trainingExercises[0].trainingId, UploadTrainingExerciseListWorker::class.java)
     }
     
     suspend fun updateState(id: String, state: Int) {
         val exercise = dao.trainingExercise(id)
         val updatedExercise = exercise.copy(state = state)
         dao.update(updatedExercise)
-        src.uploadTrainingExercise(id)
+        src.scheduleUpload(exercise.id, UploadTrainingExerciseWorker::class.java)
     }
     
     suspend fun updateIndexNumbers(trainingExercises: List<TrainingExercise>) = dao.updateIndexNumbers(trainingExercises)
@@ -42,12 +46,20 @@ class TrainingExerciseRepository(
         if (trainingExercises.isEmpty()) return
         
         dao.update(trainingExercises)
-        src.uploadTrainingExerciseList(trainingExercises[0].trainingId)
+        src.scheduleUpload(trainingExercises[0].trainingId, UploadTrainingExerciseListWorker::class.java)
     }
     
     suspend fun delete(id: String) {
         dao.delete(id)
-        src.deleteTrainingExercise(id)
+        src.scheduleDeletion(id, UploadTrainingExerciseWorker::class.java)
+    }
+    
+    fun uploadTrainingExercises(trainingExercises: List<TrainingExercise>) {
+        trainingExercises.forEach { src.uploadTrainingExercise(it) }
+    }
+    
+    fun uploadTrainingExercise(trainingExercise: TrainingExercise) {
+        src.uploadTrainingExercise(trainingExercise)
     }
     
     suspend fun syncTrainingExercises(lastUpdate: Long) {

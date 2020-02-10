@@ -26,7 +26,7 @@ class SyncLocalDatabaseWorker(context: Context, workerParams: WorkerParameters):
     private var lastUpdate = 0L
     
     override suspend fun doWork(): Result {
-        try {
+        return try {
             lastUpdate = preferences.getLong(DB_LAST_SYNC, 0L)
             
             measurementRepo.syncMeasurements(lastUpdate)
@@ -42,9 +42,9 @@ class SyncLocalDatabaseWorker(context: Context, workerParams: WorkerParameters):
             
             preferences.edit().putLong(DB_LAST_SYNC, Date().time).apply()
     
-            return Result.success()
+            Result.success()
         } catch (e: Exception) {
-            return Result.failure()
+            Result.failure()
         }
     }
 }
