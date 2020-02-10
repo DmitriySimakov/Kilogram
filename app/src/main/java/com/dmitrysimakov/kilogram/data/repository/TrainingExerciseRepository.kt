@@ -49,4 +49,12 @@ class TrainingExerciseRepository(
         dao.delete(id)
         src.deleteTrainingExercise(id)
     }
+    
+    suspend fun syncTrainingExercises(lastUpdate: Long) {
+        val items = src.newTrainingExercises(lastUpdate)
+        val (deletedItems, existingItems) = items.partition { it.deleted }
+        
+        for (item in deletedItems) dao.delete(item.id)
+        dao.insert(existingItems)
+    }
 }

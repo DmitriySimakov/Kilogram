@@ -29,4 +29,12 @@ class ProgramDayExerciseRepository(
         dao.delete(id)
         src.deleteProgramDayExercise(id)
     }
+    
+    suspend fun syncProgramDayExercises(lastUpdate: Long) {
+        val items = src.newProgramDayExercises(lastUpdate)
+        val (deletedItems, existingItems) = items.partition { it.deleted }
+        
+        for (item in deletedItems) dao.delete(item.id)
+        dao.insert(existingItems)
+    }
 }

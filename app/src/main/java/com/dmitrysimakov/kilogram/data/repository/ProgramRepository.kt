@@ -34,4 +34,12 @@ class ProgramRepository(
             }
         }
     }
+    
+    suspend fun syncPrograms(lastUpdate: Long) {
+        val items = src.newPrograms(lastUpdate)
+        val (deletedItems, existingItems) = items.partition { it.deleted }
+        
+        for (item in deletedItems) programDao.delete(item.id)
+        programDao.insert(existingItems)
+    }
 }

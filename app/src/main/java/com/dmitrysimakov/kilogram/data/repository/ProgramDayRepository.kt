@@ -15,8 +15,6 @@ class ProgramDayRepository(
     
     suspend fun nextProgramDayAndProgram() = dao.nextProgramDayAndProgram()
     
-    suspend fun programDayAndProgram(id: String)  = dao.programDayAndProgram(id)
-    
     suspend fun insert(programDay: ProgramDay) {
         dao.insert(programDay)
         src.uploadProgramDay(programDay.id)
@@ -32,5 +30,13 @@ class ProgramDayRepository(
     suspend fun delete(id: String) {
         dao.delete(id)
         src.deleteProgramDay(id)
+    }
+    
+    suspend fun syncProgramDays(lastUpdate: Long) {
+        val items = src.newProgramDays(lastUpdate)
+        val (deletedItems, existingItems) = items.partition { it.deleted }
+        
+        for (item in deletedItems) dao.delete(item.id)
+        dao.insert(existingItems)
     }
 }

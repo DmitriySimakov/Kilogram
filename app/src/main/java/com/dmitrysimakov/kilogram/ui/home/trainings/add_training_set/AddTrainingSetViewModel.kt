@@ -41,11 +41,12 @@ class AddTrainingSetViewModel(
     }}
     
     fun submit() { viewModelScope.launch {
-        val setId = _trainingSetId.value!!
+        val setId = _trainingSetId.value
         val exerciseId = trainingExercise.value!!.id
-        val trainingSet = TrainingSet(exerciseId, weight.value, reps.value, time.value, distance.value, id = setId)
+        val trainingSet = TrainingSet(exerciseId, weight.value, reps.value, time.value, distance.value)
         
-        if (_trainingSetId.value == null) addSet(trainingSet) else updateSet(trainingSet)
+        if (setId == null) addSet(trainingSet)
+        else updateSet(trainingSet.copy(id = setId))
     }}
     
     private suspend fun addSet(trainingSet: TrainingSet) {

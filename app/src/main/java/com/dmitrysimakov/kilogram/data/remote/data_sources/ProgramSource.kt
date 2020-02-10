@@ -5,9 +5,27 @@ import com.dmitrysimakov.kilogram.data.model.Program
 import com.dmitrysimakov.kilogram.data.model.ProgramDay
 import com.dmitrysimakov.kilogram.data.model.ProgramDayExercise
 import com.dmitrysimakov.kilogram.data.remote.firestore
+import com.dmitrysimakov.kilogram.data.remote.getNewData
+import com.dmitrysimakov.kilogram.data.remote.uid
 import com.dmitrysimakov.kilogram.workers.*
 
 class ProgramSource(workManager: WorkManager) : RemoteDataSource(workManager) {
+    
+    private val programsRef
+        get() = firestore.collection("users/$uid/programs")
+    private val programDaysRef
+        get() = firestore.collection("users/$uid/program_days")
+    private val programDayExercisesRef
+        get() = firestore.collection("users/$uid/program_day_exercises")
+    
+    suspend fun newPrograms(lastUpdate: Long) =
+            getNewData(Program::class.java, programsRef, lastUpdate)
+    
+    suspend fun newProgramDays(lastUpdate: Long) =
+            getNewData(ProgramDay::class.java, programDaysRef, lastUpdate)
+    
+    suspend fun newProgramDayExercises(lastUpdate: Long) =
+            getNewData(ProgramDayExercise::class.java, programDayExercisesRef, lastUpdate)
     
     fun uploadProgram(id: String) { upload(id, UploadProgramWorker::class.java) }
     fun deleteProgram(id: String) { delete(id, UploadProgramWorker::class.java) }

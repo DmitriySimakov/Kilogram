@@ -19,4 +19,12 @@ class PhotoRepository(
         dao.insert(photo)
         src.uploadPhoto(photo.uri)
     }
+    
+    suspend fun syncPhotos(lastUpdate: Long) {
+        val items = src.newPhotos(lastUpdate)
+        val (deletedItems, existingItems) = items.partition { it.deleted }
+        
+        for (item in deletedItems) dao.delete(item.uri)
+        dao.insert(existingItems)
+    }
 }

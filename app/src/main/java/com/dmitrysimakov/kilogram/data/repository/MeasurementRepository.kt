@@ -22,4 +22,12 @@ class MeasurementRepository(
         dao.insert(measurement)
         src.uploadMeasurement(measurement.id)
     }
+    
+    suspend fun syncMeasurements(lastUpdate: Long) {
+        val items = src.newMeasurements(lastUpdate)
+        val (deletedItems, existingItems) = items.partition { it.deleted }
+        
+        for (item in deletedItems) dao.delete(item.id)
+        dao.insert(existingItems)
+    }
 }

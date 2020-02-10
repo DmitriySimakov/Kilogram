@@ -18,14 +18,6 @@ interface ProgramDayDao {
     suspend fun programDay(id: String): ProgramDay
     
     @Query("""
-        SELECT PD.id AS programDayId, PD.name AS programDay, P.name AS program
-        FROM ProgramDay AS PD
-        INNER JOIN program AS P ON PD.programId = P.id
-        WHERE PD.id = :id
-    """)
-    suspend fun programDayAndProgram(id: String): ProgramDayAndProgram?
-    
-    @Query("""
         SELECT Next.id AS programDayId, Next.name AS programDay, P.name AS program
         FROM (
             SELECT PD.programId, PD.indexNumber

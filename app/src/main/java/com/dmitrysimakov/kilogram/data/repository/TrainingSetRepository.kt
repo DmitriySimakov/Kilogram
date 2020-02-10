@@ -22,4 +22,12 @@ class TrainingSetRepository(private val dao: TrainingSetDao, private val src: Tr
         dao.delete(id)
         src.deleteTrainingSet(id)
     }
+    
+    suspend fun syncTrainingSets(lastUpdate: Long) {
+        val items = src.newTrainingSets(lastUpdate)
+        val (deletedItems, existingItems) = items.partition { it.deleted }
+        
+        for (item in deletedItems) dao.delete(item.id)
+        dao.insert(existingItems)
+    }
 }
