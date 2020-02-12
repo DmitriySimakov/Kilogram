@@ -15,6 +15,5 @@ class PhotoSource(
     suspend fun newPhotos(lastUpdate: Long) =
             getNewData(Photo::class.java, photosRef, lastUpdate)
     
-    fun uploadPhoto(photo: Photo) {
-        photosRef.document(photo.id).set(photo) }
+    fun uploadPhoto(photo: Photo) { photosRef.document(photo.id).set(photo) }
 }

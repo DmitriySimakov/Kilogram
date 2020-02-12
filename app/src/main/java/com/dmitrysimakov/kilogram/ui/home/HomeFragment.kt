@@ -12,7 +12,9 @@ import android.view.ViewGroup
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
+import com.dmitrysimakov.kilogram.AUTHORITY
 import com.dmitrysimakov.kilogram.data.model.Photo
+import com.dmitrysimakov.kilogram.data.remote.generateId
 import com.dmitrysimakov.kilogram.databinding.FragmentHomeBinding
 import com.dmitrysimakov.kilogram.ui.common.CalendarDayBinder
 import com.dmitrysimakov.kilogram.ui.common.CalendarMonthBinder
@@ -58,7 +60,7 @@ class HomeFragment : Fragment() {
     private val measurementsAdapter by lazy { MeasurementsAdapter() }
     private val programsAdapter by lazy { ProgramsAdapter { navigate(toChooseProgramDayFragment(it.id)) }}
     
-    private var lastPhotoDateTime = Date()
+    private var lastPhotoId = ""
     private var lastPhotoUri = ""
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -129,29 +131,21 @@ class HomeFragment : Fragment() {
     private fun dispatchImageCaptureIntent() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         intent.resolveActivity(activity!!.packageManager)
-        val photoFile: File? = try { createImageFile() } catch (ex: IOException) { null }
+        val photoFile: File? = try {
+            lastPhotoId = generateId()
+            createTempFile(lastPhotoId, ".jpg", context?.getExternalFilesDir(Environment.DIRECTORY_PICTURES))
+        } catch (ex: IOException) { null }
         photoFile?.let { file ->
-            val photoURI = FileProvider.getUriForFile(
-                    context!!,
-                    "com.dmitrysimakov.kilogram",
-                    file
-            )
+            val photoURI = FileProvider.getUriForFile(context!!, AUTHORITY, file)
             lastPhotoUri = photoURI.toString()
             intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
             startActivityForResult(intent, RC_TAKE_PHOTO)
         }
     }
     
-    @Throws(IOException::class)
-    private fun createImageFile(): File {
-        val filename = "Kilogram_${lastPhotoDateTime}"
-        val storageDir = context?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return File.createTempFile(filename, ".jpg", storageDir)
-    }
-    
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == RC_TAKE_PHOTO && resultCode == RESULT_OK) {
-            vm.addPhoto(Photo(lastPhotoUri, lastPhotoDateTime))
+            vm.addPhoto(Photo(lastPhotoId, lastPhotoUri))
         }
     }
 }

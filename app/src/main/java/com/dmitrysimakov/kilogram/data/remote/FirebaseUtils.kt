@@ -2,7 +2,6 @@ package com.dmitrysimakov.kilogram.data.remote
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.storage.FirebaseStorage
 
 val firebaseUser
     get() = FirebaseAuth.getInstance().currentUser
@@ -21,8 +20,3 @@ val userDocument
 
 val userTokensDocument
     get() = firestore.document("registration_tokens/$uid")
-
-
-val firebaseStorage = FirebaseStorage.getInstance()
-
-val imagesRef = firebaseStorage.reference.child("images")

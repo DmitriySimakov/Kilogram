@@ -8,11 +8,11 @@ import java.util.*
 
 @Entity
 data class Photo(
+        @PrimaryKey val id: String = generateId(),
         val uri: String = "",
         val dateTime: Date = Date(),
         val lastUpdate: Date = Date(),
-        val deleted: Boolean = false,
-        @PrimaryKey val id: String = generateId()
+        val deleted: Boolean = false
 )
 
 class PhotoDiffCallback : DiffUtil.ItemCallback<Photo>() {

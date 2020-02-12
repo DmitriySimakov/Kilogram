@@ -10,7 +10,7 @@ import org.koin.core.KoinComponent
 import org.koin.core.inject
 import java.util.*
 
-class SyncLocalDatabaseWorker(context: Context, workerParams: WorkerParameters): CoroutineWorker(context, workerParams), KoinComponent {
+class SyncLocalDatabaseWorker(private val context: Context, workerParams: WorkerParameters): CoroutineWorker(context, workerParams), KoinComponent {
     
     private val preferences: SharedPreferences by inject()
     
@@ -30,7 +30,7 @@ class SyncLocalDatabaseWorker(context: Context, workerParams: WorkerParameters):
             lastUpdate = preferences.getLong(DB_LAST_SYNC, 0L)
             
             measurementRepo.syncMeasurements(lastUpdate)
-            photoRepo.syncPhotos(lastUpdate)
+            photoRepo.syncPhotos(context, lastUpdate)
             programRepo.syncPrograms(lastUpdate)
             programDayRepo.syncProgramDays(lastUpdate)
             programDayExerciseRepo.syncProgramDayExercises(lastUpdate)

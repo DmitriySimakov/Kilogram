@@ -8,6 +8,8 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import timber.log.Timber
 
+const val AUTHORITY = "com.dmitrysimakov.kilogram"
+
 class KilogramApp : Application() {
 
     override fun onCreate() {

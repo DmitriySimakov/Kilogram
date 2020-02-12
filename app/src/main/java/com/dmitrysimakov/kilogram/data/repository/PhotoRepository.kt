@@ -1,5 +1,6 @@
 package com.dmitrysimakov.kilogram.data.repository
 
+import android.content.Context
 import android.net.Uri
 import com.dmitrysimakov.kilogram.data.local.dao.PhotoDao
 import com.dmitrysimakov.kilogram.data.model.Photo
@@ -25,18 +26,20 @@ class PhotoRepository(
     }
     
     suspend fun uploadPhoto(photo: Photo) {
-        firebaseStorage.uploadImage(Uri.parse(photo.uri))
+        firebaseStorage.uploadImage(Uri.parse(photo.uri), photo.id)
         src.uploadPhoto(photo)
     }
     
-    suspend fun syncPhotos(lastUpdate: Long) {
+    suspend fun syncPhotos(context: Context, lastUpdate: Long) {
         val items = src.newPhotos(lastUpdate)
         val (deletedItems, existingItems) = items.partition { it.deleted }
         
         deletedItems.forEach { dao.delete(it.uri) }
         existingItems.forEach { photo ->
-        
+            if (photo.dateTime == photo.lastUpdate) {
+                val uri = firebaseStorage.downloadImage(context, photo.id)
+                dao.insert(photo.copy(uri = uri.toString()))
+            } else dao.insert(photo)
         }
-        dao.insert(existingItems)
     }
 }
