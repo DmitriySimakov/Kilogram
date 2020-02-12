@@ -38,8 +38,6 @@ class SyncLocalDatabaseWorker(context: Context, workerParams: WorkerParameters):
             trainingExerciseRepo.syncTrainingExercises(lastUpdate)
             trainingSetRepo.syncTrainingSets(lastUpdate)
             
-            // TODO download photos from firebase storage
-            
             preferences.edit().putLong(DB_LAST_SYNC, Date().time).apply()
     
             Result.success()

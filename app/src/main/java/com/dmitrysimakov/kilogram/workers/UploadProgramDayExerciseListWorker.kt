@@ -18,7 +18,7 @@ class UploadProgramDayExerciseListWorker(context: Context, workerParams: WorkerP
             repo.uploadProgramDayExercises(repo.programDayExercises(programDayId))
             Result.success()
         } catch (e: Exception) {
-            Result.retry()
+            Result.failure()
         }
     }
 }

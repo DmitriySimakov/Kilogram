@@ -24,7 +24,7 @@ class UploadTrainingWorker(context: Context, workerParams: WorkerParameters): Co
         
             Result.success()
         } catch (e: Exception) {
-            Result.retry()
+            Result.failure()
         }
     }
 }

@@ -24,7 +24,7 @@ class UploadProgramDayExerciseWorker(context: Context, workerParams: WorkerParam
             
             Result.success()
         } catch (e: Exception) {
-            Result.retry()
+            Result.failure()
         }
     }
 }

@@ -18,7 +18,7 @@ class UploadTrainingExerciseListWorker(context: Context, workerParams: WorkerPar
             repo.uploadTrainingExercises(repo.trainingExercises(trainingId))
             Result.success()
         } catch (e: Exception) {
-            Result.retry()
+            Result.failure()
         }
     }
 }

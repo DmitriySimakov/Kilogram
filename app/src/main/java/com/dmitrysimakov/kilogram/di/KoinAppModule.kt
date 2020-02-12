@@ -69,7 +69,7 @@ val appModule = module {
     // Repositories
     single { ExerciseRepository(get()) }
     single { MeasurementRepository(get(), get()) }
-    single { PhotoRepository(get(), get()) }
+    single { PhotoRepository(get(), get(), get()) }
     single { ProgramDayRepository(get(), get()) }
     single { ProgramDayExerciseRepository(get(), get()) }
     single { ProgramRepository(get(), get(), get(), get()) }

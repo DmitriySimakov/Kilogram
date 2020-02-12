@@ -16,10 +16,9 @@ class UploadPhotoWorker(context: Context, workerParams: WorkerParameters): Corou
         return try {
             val uri = inputData.getString(ID)!!
             repo.uploadPhoto(repo.photo(uri))
-            // TODO upload image to firebase storage
             Result.success()
         } catch (e: Exception) {
-            Result.retry()
+            Result.failure()
         }
     }
 }

@@ -66,7 +66,7 @@ class TrainingExerciseRepository(
         val items = src.newTrainingExercises(lastUpdate)
         val (deletedItems, existingItems) = items.partition { it.deleted }
         
-        for (item in deletedItems) dao.delete(item.id)
+        deletedItems.forEach { dao.delete(it.id) }
         dao.insert(existingItems)
     }
 }

@@ -25,7 +25,7 @@ class UploadProgramWorker(context: Context, workerParams: WorkerParameters): Cor
         
             Result.success()
         } catch (e: Exception) {
-            Result.retry()
+            Result.failure()
         }
     }
 }

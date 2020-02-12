@@ -17,7 +17,7 @@ class UploadMeasurementWorker(context: Context, workerParams: WorkerParameters):
             repo.uploadMeasurement(repo.measurement(inputData.getString(ID)!!))
             Result.success()
         } catch (e: Exception) {
-            Result.retry()
+            Result.failure()
         }
     }
 }

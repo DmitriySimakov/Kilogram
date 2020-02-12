@@ -44,7 +44,7 @@ class ProgramRepository(
         val items = src.newPrograms(lastUpdate)
         val (deletedItems, existingItems) = items.partition { it.deleted }
         
-        for (item in deletedItems) programDao.delete(item.id)
+        deletedItems.forEach { programDao.delete(it.id) }
         programDao.insert(existingItems)
     }
 }
