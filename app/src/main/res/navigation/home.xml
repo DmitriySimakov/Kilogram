@@ -105,15 +105,18 @@
         tools:layout="@layout/fragment_exercises">
         <argument
             android:name="num"
-            app:argType="integer" />
+            app:argType="integer"
+            android:defaultValue="-1" />
         <argument
             android:name="programDayId"
             app:argType="string"
-            app:nullable="true" />
+            app:nullable="true"
+            android:defaultValue="@null" />
         <argument
             android:name="trainingId"
             app:argType="string"
-            app:nullable="true" />
+            app:nullable="true"
+            android:defaultValue="@null"/>
     </fragment>
     <fragment
         android:id="@+id/trainingSetsFragment"
