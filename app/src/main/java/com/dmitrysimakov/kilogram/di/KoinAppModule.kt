@@ -13,6 +13,7 @@ import com.dmitrysimakov.kilogram.ui.common.messages.MessagesViewModel
 import com.dmitrysimakov.kilogram.ui.create_post.CreatePostViewModel
 import com.dmitrysimakov.kilogram.ui.exercises.DetailedExerciseViewModel
 import com.dmitrysimakov.kilogram.ui.feed.FeedViewModel
+import com.dmitrysimakov.kilogram.ui.feed.program.PublicProgramDaysViewModel
 import com.dmitrysimakov.kilogram.ui.home.HomeViewModel
 import com.dmitrysimakov.kilogram.ui.home.calendar_day.CalendarDayViewModel
 import com.dmitrysimakov.kilogram.ui.home.measurements.MeasurementsViewModel
@@ -45,19 +46,19 @@ val appModule = module {
     // Database
     single { provideDb(androidContext()) }
     // Data Access Objects
-    single { get<KilogramDb>().exerciseDao() }
     single { get<KilogramDb>().equipmentDao() }
+    single { get<KilogramDb>().exerciseDao() }
+    single { get<KilogramDb>().exerciseTargetDao() }
+    single { get<KilogramDb>().measurementDao() }
+    single { get<KilogramDb>().measurementParamDao() }
     single { get<KilogramDb>().photoDao() }
     single { get<KilogramDb>().programDao() }
     single { get<KilogramDb>().programDayDao() }
     single { get<KilogramDb>().programDayExerciseDao() }
-    single { get<KilogramDb>().exerciseTargetDao() }
     single { get<KilogramDb>().targetedMuscleDao() }
     single { get<KilogramDb>().trainingDao() }
     single { get<KilogramDb>().trainingExerciseDao() }
     single { get<KilogramDb>().trainingSetDao() }
-    single { get<KilogramDb>().measurementDao() }
-    single { get<KilogramDb>().measurementParamDao() }
     // Remote data sources
     single { FirebaseStorageSource() }
     single { MeasurementSource(get()) }
@@ -82,30 +83,31 @@ val appModule = module {
     viewModel { AddTrainingSetViewModel(get(), get()) }
     viewModel { CalendarDayViewModel(get()) }
     viewModel { ChatsViewModel(get()) }
-    viewModel { ExercisesViewModel(get(), get(), get(), get(), get()) }
     viewModel { ChooseProgramViewModel(get()) }
-    viewModel { ProgramDaysViewModel(get()) }
     viewModel { CreatePostViewModel(get(), get(), get()) }
     viewModel { CreateProgramViewModel(get()) }
     viewModel { CreateProgramDayViewModel(get()) }
     viewModel { CreateTrainingViewModel(get(), get(), get()) }
     viewModel { DetailedExerciseViewModel(get(), get()) }
     viewModel { EditProfileViewModel(get()) }
-    viewModel { SubscribersViewModel() }
-    viewModel { SubscriptionsViewModel() }
+    viewModel { ExercisesViewModel(get(), get(), get(), get(), get()) }
+    viewModel { FeedViewModel(get()) }
     viewModel { HomeViewModel(get(), get(), get(), get()) }
     viewModel { MeasurementsViewModel(get()) }
     viewModel { MeasurementsHistoryViewModel(get()) }
     viewModel { MessagesViewModel(get(), get()) }
-    viewModel { ProgramDayExercisesViewModel(get()) }
-    viewModel { TrainingExercisesViewModel(get(), get(), get()) }
-    viewModel { TrainingSetsViewModel(get(), get(), get()) }
     viewModel { PeopleViewModel() }
     viewModel { PersonPageViewModel() }
     viewModel { PhotoViewModel(get()) }
     viewModel { PhotosViewModel(get()) }
+    viewModel { ProgramDayExercisesViewModel(get()) }
+    viewModel { ProgramDaysViewModel(get()) }
+    viewModel { PublicProgramDaysViewModel(get(), get()) }
     viewModel { ProportionsCalculatorViewModel(get()) }
-    viewModel { FeedViewModel(get()) }
+    viewModel { SubscribersViewModel() }
+    viewModel { SubscriptionsViewModel() }
+    viewModel { TrainingExercisesViewModel(get(), get(), get()) }
+    viewModel { TrainingSetsViewModel(get(), get(), get()) }
 }
 
 fun provideDb(context: Context): KilogramDb {

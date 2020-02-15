@@ -15,6 +15,8 @@ class ProgramDayRepository(
     
     suspend fun programDays(programId: String) = dao.programDays(programId)
     
+    suspend fun publicProgramDays(programId: String) = src.programDays(programId)
+    
     suspend fun programDay(id: String) = dao.programDay(id)
     
     suspend fun nextProgramDayAndProgram() = dao.nextProgramDayAndProgram()

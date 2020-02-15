@@ -9,6 +9,7 @@ import androidx.lifecycle.observe
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.ui.feed.FeedFragmentDirections.Companion.toCreatePostFragment
+import com.dmitrysimakov.kilogram.ui.feed.FeedFragmentDirections.Companion.toPublicProgramDaysFragment
 import com.dmitrysimakov.kilogram.util.navigate
 import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.android.synthetic.main.fragment_feed.*
@@ -20,7 +21,7 @@ class FeedFragment : Fragment() {
     private val vm: FeedViewModel by viewModel()
     private val sharedVM: SharedViewModel by sharedViewModel()
     
-    private val adapter by lazy { PostsListAdapter(vm) }
+    private val adapter by lazy { PostsListAdapter(vm) { navigate(toPublicProgramDaysFragment(it.id)) }}
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_feed, container, false)

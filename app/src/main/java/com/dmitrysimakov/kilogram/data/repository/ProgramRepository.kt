@@ -18,6 +18,8 @@ class ProgramRepository(
     
     suspend fun program(id: String) = programDao.program(id)
     
+    suspend fun publicProgram(id: String) = src.program(id)
+    
     suspend fun insert(program: Program) {
         programDao.insert(program)
         src.scheduleUpload(program.id, UploadProgramWorker::class.java)
