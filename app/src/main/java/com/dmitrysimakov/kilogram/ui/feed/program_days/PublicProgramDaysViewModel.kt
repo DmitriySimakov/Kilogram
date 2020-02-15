@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.feed.program
+package com.dmitrysimakov.kilogram.ui.feed.program_days
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

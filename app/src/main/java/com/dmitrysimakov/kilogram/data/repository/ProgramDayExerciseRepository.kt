@@ -17,6 +17,9 @@ class ProgramDayExerciseRepository(
     
     suspend fun programDayExercise(id: String) = dao.programDayExercise(id)
     
+    suspend fun publicProgramDayExercises(programId: String, programDayId: String) =
+            src.programDayExercises(programId, programDayId)
+    
     suspend fun insert(programDayExercise: ProgramDayExercise) {
         dao.insert(programDayExercise)
         src.scheduleUpload(programDayExercise.id, UploadProgramDayExerciseWorker::class.java)

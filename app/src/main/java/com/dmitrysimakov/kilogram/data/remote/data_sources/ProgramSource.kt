@@ -17,13 +17,20 @@ class ProgramSource(workManager: WorkManager) : RemoteDataSource(workManager) {
     private val programDayExercisesRef
         get() = firestore.collection("users/$uid/program_day_exercises")
     
-    suspend fun program(programId: String) =
-            firestore.document("programs/$programId")
-                    .get().await().toObject(ProgramDay::class.java)!!
+    suspend fun program(id: String) =
+            firestore.document("programs/$id").get().await().toObject(Program::class.java)!!
     
     suspend fun programDays(programId: String): List<ProgramDay> =
             firestore.collection("programs/$programId/program_days")
                     .get().await().toObjects(ProgramDay::class.java)
+    
+    suspend fun programDay(programId: String, programDayId: String) =
+            firestore.document("programs/$programId/program_days/$programDayId")
+                    .get().await().toObject(ProgramDay::class.java)!!
+    
+    suspend fun programDayExercises(programId: String, programDayId: String): List<ProgramDayExercise> =
+            firestore.collection("programs/$programId/program_days/$programDayId/program_day_exercises")
+                    .get().await().toObjects(ProgramDayExercise::class.java)
     
     suspend fun newPrograms(lastUpdate: Long) =
             getNewData(Program::class.java, programsRef, lastUpdate)
