@@ -10,9 +10,14 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlNormal">@color/black</item>
-        
+    
+        <item name="textInputStyle">@style/Widget.BaseAppThemeLight.TextInput</item>
         <item name="floatingActionButtonStyle">@style/Widget.BaseAppThemeLight.FloatingActionButton</item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.BaseAppThemeLight.BottomSheetDialog</item>
+    </style>
+    
+    <style name="Widget.BaseAppThemeLight.TextInput" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="boxBackgroundColor">@color/white</item>
     </style>
     
     <style name="Widget.BaseAppThemeLight.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
@@ -30,6 +35,8 @@
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowSoftInputMode">adjustResize</item>
         <!---->
+    
+        <item name="textInputStyle">@style/Widget.BaseAppThemeLight.TextInput</item>
     </style>
     
     <!-- DARK THEME -->
