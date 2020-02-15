@@ -12,6 +12,7 @@ import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
 import com.dmitrysimakov.kilogram.util.live_data.Event
 import com.dmitrysimakov.kilogram.util.toDate
+import com.dmitrysimakov.kilogram.util.toIsoString
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDateTime
 
@@ -32,7 +33,8 @@ class CreateTrainingViewModel(
     
     fun createTraining() = viewModelScope.launch{
         val programDayId = byProgram.value?.let { programDay.value?.id }
-        val training = Training(dateTime.value!!.toDate(), programDayId)
+        val startDateTime = dateTime.value!!.toIsoString().toDate()!!
+        val training = Training(startDateTime, programDayId)
         trainingRepo.insert(training)
         if (programDayId != null) fillTrainingWithProgramExercises(training.id, programDayId)
         

@@ -10,7 +10,7 @@ import java.util.*
 interface TrainingDao {
     
     @Query("""
-        SELECT T.id, T.startDateTime, T.duration, T.programDayId, PD.name AS programDayName, P.name AS programName
+        SELECT T.id, T.startDateTime, T.duration, P.name AS programName, PD.name AS programDayName
         FROM Training AS T
         LEFT JOIN ProgramDay AS PD ON PD.id = T.programDayId
         LEFT JOIN Program AS P ON P.id = PD.programId
@@ -18,7 +18,7 @@ interface TrainingDao {
     fun detailedTrainingsFlow() : Flow<List<DetailedTraining>>
     
     @Query("""
-        SELECT T.id, T.startDateTime, T.duration, T.programDayId, PD.name AS programDayName, P.name AS programName
+        SELECT T.id, T.startDateTime, T.duration, P.name AS programName, PD.name AS programDayName
         FROM Training AS T
         LEFT JOIN ProgramDay AS PD ON PD.id = T.programDayId
         LEFT JOIN Program AS P ON P.id = PD.programId

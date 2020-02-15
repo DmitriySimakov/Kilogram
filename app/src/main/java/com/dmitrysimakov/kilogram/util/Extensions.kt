@@ -33,8 +33,12 @@ fun <T> MutableLiveData<T>.setNewValue(newValue: T?) {
     }
 }
 
-fun Context.toast(message: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
+fun Activity.toast(message: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this, message, duration).show()
+}
+
+fun Fragment.toast(message: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(context, message, duration).show()
 }
 
 fun Fragment.setXNavIcon() {

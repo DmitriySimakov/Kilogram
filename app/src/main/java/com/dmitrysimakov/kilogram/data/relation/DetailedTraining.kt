@@ -7,9 +7,8 @@ data class DetailedTraining(
         val id: String,
         val startDateTime: Date,
         var duration: Int? = null,
-        var programDayId: String? = null,
-        val programDayName: String? = null,
-        val programName: String? = null
+        val programName: String? = null,
+        val programDayName: String? = null
 )
 
 class DetailedTrainingDiffCallback : DiffUtil.ItemCallback<DetailedTraining>() {
