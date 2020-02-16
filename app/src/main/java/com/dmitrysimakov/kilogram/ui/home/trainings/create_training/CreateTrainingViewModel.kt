@@ -31,7 +31,7 @@ class CreateTrainingViewModel(
     
     val trainingCreatedEvent = MutableLiveData<Event<String>>()
     
-    fun createTraining() = viewModelScope.launch{
+    fun createTraining() = viewModelScope.launch {
         val programDayId = byProgram.value?.let { programDay.value?.id }
         val startDateTime = dateTime.value!!.toIsoString().toDate()!!
         val training = Training(startDateTime, programDayId)
@@ -41,11 +41,11 @@ class CreateTrainingViewModel(
         trainingCreatedEvent.value = Event(training.id)
     }
     
-    private suspend fun fillTrainingWithProgramExercises(trainingId: String, programDayId: String) { viewModelScope.launch {
+    private suspend fun fillTrainingWithProgramExercises(trainingId: String, programDayId: String) {
         val programDayExercises = programDayExerciseRepo.programDayExercises(programDayId)
         val trainingExercises = programDayExercises.map {
             TrainingExercise(trainingId, it.exercise, it.indexNumber, it.rest, it.strategy)
         }
         trainingExerciseRepo.insert(trainingExercises)
-    }}
+    }
 }
