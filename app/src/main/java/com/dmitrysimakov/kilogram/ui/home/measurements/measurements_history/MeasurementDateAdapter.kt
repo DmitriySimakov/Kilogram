@@ -8,7 +8,7 @@ import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 import java.util.*
 
 class MeasurementDateAdapter(clickCallback: ((Date) -> Unit)? = null)
-    : DataBoundListAdapter<Date, ItemMeasurementDateBinding>(clickCallback, MeasurementDiffCallback()) {
+    : DataBoundListAdapter<Date, ItemMeasurementDateBinding>(clickCallback, DateDiffCallback()) {
 
     override fun createBinding(parent: ViewGroup): ItemMeasurementDateBinding = ItemMeasurementDateBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
@@ -18,7 +18,7 @@ class MeasurementDateAdapter(clickCallback: ((Date) -> Unit)? = null)
     }
 }
 
-private class MeasurementDiffCallback : DiffUtil.ItemCallback<Date>() {
+private class DateDiffCallback : DiffUtil.ItemCallback<Date>() {
     override fun areItemsTheSame(oldItem: Date, newItem: Date) = oldItem == newItem
     override fun areContentsTheSame(oldItem: Date, newItem: Date) = oldItem == newItem
 }

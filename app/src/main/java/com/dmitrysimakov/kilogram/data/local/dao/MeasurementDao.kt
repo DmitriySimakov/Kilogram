@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.dmitrysimakov.kilogram.data.model.Measurement
 import com.dmitrysimakov.kilogram.data.relation.MeasurementWithPreviousResults
+import com.dmitrysimakov.kilogram.data.relation.NewMeasurement
 import com.dmitrysimakov.kilogram.data.relation.ProportionsCalculatorItem
 import kotlinx.coroutines.flow.Flow
 import java.util.*
@@ -44,6 +45,13 @@ interface MeasurementDao {
     """)
     fun measurementsWithPreviousResults(date: Date) : Flow<List<MeasurementWithPreviousResults>>
 
+    @Query("""
+        SELECT MP.name AS param, M.value
+        FROM MeasurementParam AS MP
+        LEFT JOIN Measurement AS M ON MP.name = M.param AND M.date = :date
+    """)
+    suspend fun measurements(date: Date) : List<NewMeasurement>
+    
     @Query("SELECT date FROM Measurement GROUP BY date ORDER BY date DESC")
     fun measurementDates() : Flow<List<Date>>
     

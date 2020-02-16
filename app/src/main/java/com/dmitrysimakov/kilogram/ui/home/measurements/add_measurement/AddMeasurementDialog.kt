@@ -5,12 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.databinding.DialogAddMeasurementBinding
 import com.dmitrysimakov.kilogram.util.popBackStack
+import com.dmitrysimakov.kilogram.util.setNewValue
+import com.dmitrysimakov.kilogram.util.toDate
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddMeasurementDialog : BottomSheetDialogFragment() {
+    
+    private val args: AddMeasurementDialogArgs by navArgs()
     
     private val vm: AddMeasurementViewModel by viewModel()
     
@@ -29,12 +34,12 @@ class AddMeasurementDialog : BottomSheetDialogFragment() {
         super.onActivityCreated(savedInstanceState)
         
         binding.recyclerView.adapter = adapter
-        
-        vm.measurements.observe(viewLifecycleOwner) { adapter.submitList(it) }
-        
         binding.addMeasurementBtn.setOnClickListener {
             vm.addMeasurements()
             popBackStack()
         }
+        
+        vm.date.setNewValue(args.date.toDate())
+        vm.measurements.observe(viewLifecycleOwner) { adapter.submitList(it) }
     }
 }

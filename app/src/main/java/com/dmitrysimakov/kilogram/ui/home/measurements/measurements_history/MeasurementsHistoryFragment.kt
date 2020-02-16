@@ -6,12 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
+import com.dmitrysimakov.kilogram.ui.home.measurements.measurements_history.MeasurementsHistoryFragmentDirections.Companion.toAddMeasurementDialog
 import com.dmitrysimakov.kilogram.ui.home.measurements.measurements_history.MeasurementsHistoryFragmentDirections.Companion.toMeasurementsFragment
 import com.dmitrysimakov.kilogram.util.navigate
 import com.dmitrysimakov.kilogram.util.toIsoString
 import kotlinx.android.synthetic.main.fragment_measurements_history.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
 
 class MeasurementsHistoryFragment : Fragment() {
     
@@ -29,6 +33,9 @@ class MeasurementsHistoryFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         
         recyclerView.adapter = adapter
+        recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
+        
+        fab.setOnClickListener { navigate(toAddMeasurementDialog(Date().toIsoString())) }
         
         vm.measurementDates.observe(viewLifecycleOwner) { adapter.submitList(it) }
     }

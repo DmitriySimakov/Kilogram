@@ -15,6 +15,8 @@ class MeasurementRepository(
     
     suspend fun measurement(id: String) = dao.measurement(id)
     
+    suspend fun measurements(date: Date) = dao.measurements(date)
+    
     fun lastMeasurementsWithPreviousResults() = dao.lastMeasurementsWithPreviousResults()
     
     fun measurementsWithPreviousResults(date: Date) = dao.measurementsWithPreviousResults(date)

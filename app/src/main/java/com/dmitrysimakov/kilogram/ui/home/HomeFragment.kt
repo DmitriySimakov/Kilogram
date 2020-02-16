@@ -112,7 +112,7 @@ class HomeFragment : Fragment() {
         
         binding.startTrainingButton.setOnClickListener { navigate(toCreateTrainingDialog(null)) }
         binding.addPhotoButton.setOnClickListener { dispatchImageCaptureIntent() }
-        binding.addMeasurementButton.setOnClickListener { navigate(toAddMeasurementDialog()) }
+        binding.addMeasurementButton.setOnClickListener { navigate(toAddMeasurementDialog(Date().toIsoString())) }
         binding.proportionsCalculatorBtn.setOnClickListener { navigate(toProportionsCalculatorFragment()) }
         
         binding.photosLabel.setOnClickListener { navigate(toPhotosFragment()) }

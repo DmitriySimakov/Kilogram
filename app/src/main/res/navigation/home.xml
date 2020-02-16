@@ -41,6 +41,7 @@
     <fragment
         android:id="@+id/createTrainingDialog"
         android:name="com.dmitrysimakov.kilogram.ui.home.trainings.create_training.CreateTrainingDialog"
+        android:label="@string/training_parameters"
         tools:layout="@layout/dialog_create_training">
         <action
             android:id="@+id/to_exercisesFragment"
@@ -188,10 +189,6 @@
             android:name="uri"
             app:argType="string" />
     </fragment>
-    <dialog
-        android:id="@+id/addMeasurementDialog"
-        android:name="com.dmitrysimakov.kilogram.ui.home.measurements.add_measurement.AddMeasurementDialog"
-        tools:layout="@layout/dialog_add_measurement" />
     <fragment
         android:id="@+id/measurementsHistoryFragment"
         android:name="com.dmitrysimakov.kilogram.ui.home.measurements.measurements_history.MeasurementsHistoryFragment"
@@ -204,14 +201,24 @@
             android:id="@+id/to_measurementsFragment"
             app:destination="@id/measurementsFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/addMeasurementDialog"
+        android:name="com.dmitrysimakov.kilogram.ui.home.measurements.add_measurement.AddMeasurementDialog"
+        tools:layout="@layout/dialog_add_measurement" >
+        <argument
+            android:name="date"
+            app:argType="string" />
+    </dialog>
     <fragment
         android:id="@+id/measurementsFragment"
         android:name="com.dmitrysimakov.kilogram.ui.home.measurements.MeasurementsFragment"
-        android:label="MeasurementsFragment"
         tools:layout="@layout/fragment_measurements">
         <argument
             android:name="date"
             app:argType="string" />
+        <action
+            android:id="@+id/to_addMeasurementDialog"
+            app:destination="@id/addMeasurementDialog" />
     </fragment>
     <fragment
         android:id="@+id/proportionsCalculatorFragment"

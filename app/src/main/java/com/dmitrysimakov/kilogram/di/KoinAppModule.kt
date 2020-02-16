@@ -80,7 +80,7 @@ val appModule = module {
     single { TrainingRepository(get(), get()) }
     // ViewModels
     viewModel { SharedViewModel(get(), get()) }
-    viewModel { AddMeasurementViewModel(get(), get()) }
+    viewModel { AddMeasurementViewModel(get()) }
     viewModel { AddTrainingSetViewModel(get(), get()) }
     viewModel { CalendarDayViewModel(get()) }
     viewModel { ChatsViewModel(get()) }
