@@ -68,3 +68,5 @@ fun String.meetsQuery(query: String): Boolean {
     }
     return true
 }
+
+fun Double.toSignedString() = if (this > 0) "+$this" else "$this"

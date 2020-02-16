@@ -46,7 +46,7 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/measureValue"
-            tools:text="-3 за 3 дн." />
+            tools:text="+3 за 3 дн." />
     
     </androidx.constraintlayout.widget.ConstraintLayout>
 

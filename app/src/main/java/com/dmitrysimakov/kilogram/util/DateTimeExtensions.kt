@@ -32,3 +32,5 @@ fun Date.atNoon(): Date {
     cal[Calendar.MILLISECOND] = 0
     return cal.time
 }
+
+fun millisToDays(milliseconds: Long) = (milliseconds / (1000 * 60 * 60 * 24)).toInt()
