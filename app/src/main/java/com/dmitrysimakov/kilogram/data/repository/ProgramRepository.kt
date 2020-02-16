@@ -40,6 +40,16 @@ class ProgramRepository(
         }
     }
     
+    suspend fun addToMyPrograms(program: Program) {
+        programDao.insert(program)
+        val programDays = src.programDays(program.id)
+        programDayDao.insert(programDays)
+        for (programDay in programDays) {
+            val exercises = src.programDayExercises(program.id, programDay.id)
+            programDayExerciseDao.insert(exercises)
+        }
+    }
+    
     fun uploadProgram(program: Program) { src.uploadProgram(program) }
     
     suspend fun syncPrograms(lastUpdate: Long) {

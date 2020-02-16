@@ -1,11 +1,10 @@
 package com.dmitrysimakov.kilogram.ui.feed.program_days
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import androidx.lifecycle.switchMap
+import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.repository.ProgramDayRepository
 import com.dmitrysimakov.kilogram.data.repository.ProgramRepository
+import com.dmitrysimakov.kilogram.util.live_data.Event
+import kotlinx.coroutines.launch
 
 class PublicProgramDaysViewModel (
         private val programRepo: ProgramRepository,
@@ -20,5 +19,12 @@ class PublicProgramDaysViewModel (
     
     val programDays = programId.switchMap { programId -> liveData {
         emit(programDayRepo.publicProgramDays(programId))
+    }}
+    
+    val programAddedToMyProgramsEvent = MutableLiveData<Event<Unit>>()
+    
+    fun addToMyPrograms() { viewModelScope.launch {
+        programRepo.addToMyPrograms(program.value!!)
+        programAddedToMyProgramsEvent.value = Event(Unit)
     }}
 }

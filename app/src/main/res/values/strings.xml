@@ -146,5 +146,7 @@
     <string name="choose">Выбрать</string>
     <string name="share_text">Kilogram - крутой фитнес трекер. Переходи по ссылке и тренируйся вместе со мной.</string>
     <string name="add_training">Добавить тренировку</string>
+    <string name="add_to_my_programs">Добавить в Мои программы</string>
+    <string name="program_added_to_my_programs">Программа добавлена в Мои программы</string>
 
 </resources>
