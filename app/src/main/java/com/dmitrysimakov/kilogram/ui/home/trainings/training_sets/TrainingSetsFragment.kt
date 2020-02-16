@@ -65,7 +65,10 @@ class TrainingSetsFragment : Fragment() {
             }
         }).attachToRecyclerView(recyclerView)
         
-        vm.trainingExercise.observe(viewLifecycleOwner)  { setTitle(it.exercise) }
+        vm.trainingExercise.observe(viewLifecycleOwner)  {
+            setTitle(it.exercise)
+            activity?.invalidateOptionsMenu()
+        }
         vm.sets.observe(viewLifecycleOwner) { adapter.submitList(it) }
         
         binding.fab.setOnClickListener{
