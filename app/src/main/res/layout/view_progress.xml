@@ -5,6 +5,8 @@
     
     <data>
         
+        <import type="com.dmitrysimakov.kilogram.binding.Converter"/>
+        
         <variable
             name="curr"
             type="Integer" />
@@ -36,10 +38,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:text="@{curr > prev ? `+`+(curr - prev) : ``+(curr - prev)}"
+            android:text="@{curr >= prev ? `+`+(curr - prev) : ``+(curr - prev)}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-            android:textColor="@{curr > prev ? @color/light_green : @color/red500}"
-            app:goneUnless="@{curr != null &amp;&amp; prev != null &amp;&amp; curr != prev}"
+            android:textColor="@{curr &gt; prev ? @color/light_green : (curr &lt; prev ? @color/red500 : @color/grey500)}"
+            app:goneUnless="@{curr != null &amp;&amp; prev != null}"
             app:layout_constraintStart_toEndOf="@id/param"
             app:layout_constraintTop_toTopOf="@id/param"
             tools:text="+10"
