@@ -7,10 +7,9 @@ import com.dmitrysimakov.kilogram.data.model.Program
 import com.dmitrysimakov.kilogram.data.model.ProgramDay
 import com.dmitrysimakov.kilogram.data.model.Training
 import com.dmitrysimakov.kilogram.data.model.TrainingExercise
-import com.dmitrysimakov.kilogram.data.repository.ProgramDayExerciseRepository
-import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
-import com.dmitrysimakov.kilogram.data.repository.TrainingRepository
+import com.dmitrysimakov.kilogram.data.repository.*
 import com.dmitrysimakov.kilogram.util.live_data.Event
+import com.dmitrysimakov.kilogram.util.setNewValue
 import com.dmitrysimakov.kilogram.util.toDate
 import com.dmitrysimakov.kilogram.util.toIsoString
 import kotlinx.coroutines.launch
@@ -19,6 +18,8 @@ import org.threeten.bp.LocalDateTime
 class CreateTrainingViewModel(
         private val trainingRepo: TrainingRepository,
         private val trainingExerciseRepo: TrainingExerciseRepository,
+        private val programRepo: ProgramRepository,
+        private val programDayRepo: ProgramDayRepository,
         private val programDayExerciseRepo: ProgramDayExerciseRepository
 ) : ViewModel() {
     
@@ -30,6 +31,14 @@ class CreateTrainingViewModel(
     val byProgram = MutableLiveData(false)
     
     val trainingCreatedEvent = MutableLiveData<Event<String>>()
+    
+    init { viewModelScope.launch {
+        programDayRepo.nextProgramDay()?.let { day ->
+            program.setNewValue(programRepo.program(day.programId))
+            programDay.setNewValue(day)
+            byProgram.setNewValue(true)
+        }
+    }}
     
     fun createTraining() = viewModelScope.launch {
         val programDayId = byProgram.value?.let { programDay.value?.id }

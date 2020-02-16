@@ -22,7 +22,7 @@ class ProgramDayRepository(
     
     suspend fun programDay(id: String) = dao.programDay(id)
     
-    suspend fun nextProgramDayAndProgram() = dao.nextProgramDayAndProgram()
+    suspend fun nextProgramDay() = dao.nextProgramDay()
     
     suspend fun insert(programDay: ProgramDay) {
         dao.insert(programDay)

@@ -2,7 +2,6 @@ package com.dmitrysimakov.kilogram.data.local.dao
 
 import androidx.room.*
 import com.dmitrysimakov.kilogram.data.model.ProgramDay
-import com.dmitrysimakov.kilogram.data.relation.ProgramDayAndProgram
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -18,7 +17,7 @@ interface ProgramDayDao {
     suspend fun programDay(id: String): ProgramDay
     
     @Query("""
-        SELECT Next.id AS programDayId, Next.name AS programDay, P.name AS program
+        SELECT Next.programId, Next.indexNumber, Next.name, Next.description, Next.lastUpdate, Next.deleted, Next.id
         FROM (
             SELECT PD.programId, PD.indexNumber
             FROM ProgramDay AS PD
@@ -28,10 +27,9 @@ interface ProgramDayDao {
         ) AS Last
         INNER JOIN ProgramDay AS Next ON Next.programId = Last.programId
         AND Next.indexNumber IN (Last.indexNumber + 1, 1)
-        INNER JOIN program AS P ON Next.programId = P.id
         ORDER BY Next.indexNumber DESC
     """)
-    suspend fun nextProgramDayAndProgram(): ProgramDayAndProgram?
+    suspend fun nextProgramDay(): ProgramDay?
     
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -88,7 +88,7 @@ val appModule = module {
     viewModel { CreatePostViewModel(get(), get(), get()) }
     viewModel { CreateProgramViewModel(get()) }
     viewModel { CreateProgramDayViewModel(get()) }
-    viewModel { CreateTrainingViewModel(get(), get(), get()) }
+    viewModel { CreateTrainingViewModel(get(), get(), get(), get(), get()) }
     viewModel { DetailedExerciseViewModel(get(), get()) }
     viewModel { EditProfileViewModel(get()) }
     viewModel { ExercisesViewModel(get(), get(), get(), get(), get()) }
