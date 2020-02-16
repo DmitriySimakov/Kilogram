@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.databinding.DialogAddMeasurementBinding
+import com.dmitrysimakov.kilogram.util.atNoon
 import com.dmitrysimakov.kilogram.util.popBackStack
 import com.dmitrysimakov.kilogram.util.setNewValue
 import com.dmitrysimakov.kilogram.util.toDate
@@ -39,7 +40,7 @@ class AddMeasurementDialog : BottomSheetDialogFragment() {
             popBackStack()
         }
         
-        vm.date.setNewValue(args.date.toDate())
+        vm.date.setNewValue(args.date.toDate()?.atNoon())
         vm.measurements.observe(viewLifecycleOwner) { adapter.submitList(it) }
     }
 }

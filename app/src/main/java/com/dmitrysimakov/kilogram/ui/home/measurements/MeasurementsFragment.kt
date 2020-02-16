@@ -24,7 +24,7 @@ class MeasurementsFragment : Fragment() {
     
     private val vm: MeasurementsViewModel by viewModel()
     
-    private val adapter by lazy { MeasurementsAdapter { navigate(toAddMeasurementDialog(it.date!!.toIsoString())) }}
+    private val adapter by lazy { MeasurementsAdapter() }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_measurements, container, false)
@@ -32,12 +32,15 @@ class MeasurementsFragment : Fragment() {
     
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+    
+        val date = args.date.toDate()!!
+        
+        setTitle(SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(date))
         
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
     
-        val date = args.date.toDate()!!
-        setTitle(SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(date))
+        fab.setOnClickListener { navigate(toAddMeasurementDialog(date.toIsoString())) }
         
         vm.date.setNewValue(date)
         vm.measurements.observe(viewLifecycleOwner) { adapter.submitList(it) }

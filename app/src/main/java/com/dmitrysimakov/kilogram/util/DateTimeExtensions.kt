@@ -22,3 +22,13 @@ fun String.toDate() = try {
 fun Date.toIsoString(): String = iso8601DateFormat.format(this)
 
 fun Date.toLocalDate(): LocalDate = Instant.ofEpochMilli(time).atZone(ZoneId.systemDefault()).toLocalDate()
+
+fun Date.atNoon(): Date {
+    val cal = Calendar.getInstance()
+    cal.time = this
+    cal[Calendar.HOUR_OF_DAY] = 12
+    cal[Calendar.MINUTE] = 0
+    cal[Calendar.SECOND] = 0
+    cal[Calendar.MILLISECOND] = 0
+    return cal.time
+}

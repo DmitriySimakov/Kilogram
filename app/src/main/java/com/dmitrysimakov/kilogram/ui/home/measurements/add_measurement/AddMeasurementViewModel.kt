@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
 import com.dmitrysimakov.kilogram.data.model.Measurement
+import com.dmitrysimakov.kilogram.data.remote.generateId
 import com.dmitrysimakov.kilogram.data.repository.MeasurementRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,7 +22,10 @@ class AddMeasurementViewModel (
     
     fun addMeasurements() = CoroutineScope(Dispatchers.IO).launch {
         measurements.value?.forEach { measurement ->
-            measurement.value?.let { repository.insert(Measurement(measurement.param, it, date.value!!)) }
+            measurement.value?.let { value ->
+                val id = measurement.id ?: generateId()
+                repository.insert(Measurement(measurement.param, value, date.value!!, id = id))
+            }
         }
     }
 }

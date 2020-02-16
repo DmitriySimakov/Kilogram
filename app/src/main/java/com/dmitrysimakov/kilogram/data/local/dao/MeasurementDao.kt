@@ -46,7 +46,7 @@ interface MeasurementDao {
     fun measurementsWithPreviousResults(date: Date) : Flow<List<MeasurementWithPreviousResults>>
 
     @Query("""
-        SELECT MP.name AS param, M.value
+        SELECT MP.name AS param, M.value, M.id
         FROM MeasurementParam AS MP
         LEFT JOIN Measurement AS M ON MP.name = M.param AND M.date = :date
     """)

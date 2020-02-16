@@ -14,7 +14,7 @@ data class MeasurementWithPreviousResults(
 
 class MeasurementsWithPreviousResultsDiffCallback : DiffUtil.ItemCallback<MeasurementWithPreviousResults>() {
     override fun areItemsTheSame(oldItem: MeasurementWithPreviousResults, newItem: MeasurementWithPreviousResults) =
-            oldItem.id == newItem.id
+            oldItem.param == newItem.param
     override fun areContentsTheSame(oldItem: MeasurementWithPreviousResults, newItem: MeasurementWithPreviousResults) =
             oldItem == newItem
 }

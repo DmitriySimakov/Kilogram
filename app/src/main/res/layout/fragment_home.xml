@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -22,8 +22,10 @@
             android:paddingEnd="@dimen/frame_padding">
             
             <LinearLayout
+                android:id="@+id/calendarHeader"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent">
     
                 <ImageView
                     android:id="@+id/prevMonthButton"
@@ -54,12 +56,15 @@
                 app:cv_dayViewResource="@layout/item_calendar_day"
                 app:cv_orientation="horizontal"
                 app:cv_outDateStyle="endOfGrid"
-                app:cv_scrollMode="paged"/>
+                app:cv_scrollMode="paged"
+                app:layout_constraintTop_toBottomOf="@id/calendarHeader"/>
             
             <LinearLayout
+                android:id="@+id/buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:baselineAligned="false">
+                android:baselineAligned="false"
+                app:layout_constraintTop_toBottomOf="@id/calendarView">
                 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -144,7 +149,8 @@
                 android:padding="@dimen/icon_button_padding"
                 android:text="@string/photos"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                app:goneUnless="@{vm.recentPhotos != null}"/>
+                app:goneUnless="@{vm.recentPhotos != null}"
+                app:layout_constraintTop_toBottomOf="@id/buttons"/>
             
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/photosRV"
@@ -154,6 +160,7 @@
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="3"
                 app:goneUnless="@{vm.recentPhotos != null}"
+                app:layout_constraintTop_toBottomOf="@id/photosLabel"
                 tools:itemCount="3"
                 tools:listitem="@layout/item_photo" />
             
@@ -166,15 +173,18 @@
                 android:padding="@dimen/icon_button_padding"
                 android:text="@string/measurements"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                app:goneUnless="@{vm.recentMeasurements != null}"/>
+                app:goneUnless="@{vm.recentMeasurements != null}"
+                app:layout_constraintTop_toBottomOf="@id/photosRV"/>
             
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/measurementsRV"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:nestedScrollingEnabled="false"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:goneUnless="@{vm.recentMeasurements != null}"
+                app:layout_constraintTop_toBottomOf="@id/measurementsLabel"
                 tools:itemCount="2"
                 tools:listitem="@layout/item_measurement" />
     
@@ -182,7 +192,8 @@
                 android:id="@+id/proportionsCalculatorBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/icon_button_padding">
+                android:padding="@dimen/icon_button_padding"
+                app:layout_constraintTop_toBottomOf="@id/measurementsRV">
                 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:layout_width="wrap_content"
@@ -211,7 +222,8 @@
                 android:padding="@dimen/icon_button_padding"
                 android:text="@string/programs"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                app:goneUnless="@{vm.programs != null}"/>
+                app:goneUnless="@{vm.programs != null}"
+                app:layout_constraintTop_toBottomOf="@id/proportionsCalculatorBtn"/>
     
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/programsRV"
@@ -221,9 +233,10 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:goneUnless="@{vm.programs != null}"
                 tools:itemCount="2"
-                tools:listitem="@layout/item_program" />
+                tools:listitem="@layout/item_program"
+                app:layout_constraintTop_toBottomOf="@id/programsLabel"/>
         
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     
     </ScrollView>
 
