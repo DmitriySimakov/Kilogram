@@ -17,7 +17,6 @@ import com.dmitrysimakov.kilogram.util.navigate
 import com.dmitrysimakov.kilogram.util.popBackStack
 import com.dmitrysimakov.kilogram.util.setNewValue
 import com.dmitrysimakov.kilogram.util.setTitle
-import kotlinx.android.synthetic.main.fragment_training_sets.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TrainingSetsFragment : Fragment() {
@@ -35,7 +34,7 @@ class TrainingSetsFragment : Fragment() {
         val distance = set.distance ?: set.prevDistance ?: -1
         
         navigate(toAddSetDialog(args.trainingExerciseId, set.id, weight, reps, time, distance))
-    } }
+    }}
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
@@ -48,58 +47,56 @@ class TrainingSetsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        vm.trainingExerciseId.setNewValue(args.trainingExerciseId)
-        setupNavigation()
     
-        recyclerView.adapter = adapter
-        recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
-    
-        activity?.invalidateOptionsMenu()
-    
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder) = false
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
                 val set = adapter.getItem(viewHolder.adapterPosition)
                 vm.deleteSet(set.id)
             }
-        }).attachToRecyclerView(recyclerView)
+        }).attachToRecyclerView(binding.recyclerView)
         
-        vm.trainingExercise.observe(viewLifecycleOwner)  {
-            setTitle(it.exercise)
-            activity?.invalidateOptionsMenu()
-        }
-        vm.sets.observe(viewLifecycleOwner) { adapter.submitList(it) }
-        
-        binding.fab.setOnClickListener{
+        binding.fab.setOnClickListener {
             val set = vm.currentSets.value?.lastOrNull() ?: vm.previousSets.value?.firstOrNull()
-    
+        
             val exercise = vm.exercise.value!!
             val weight = if (exercise.measuredInWeight) { set?.weight ?: 0 } else -1
             val reps = if (exercise.measuredInReps) { set?.reps ?: 0 } else -1
             val time = if (exercise.measuredInTime) { set?.time ?: 0 } else -1
             val distance = if (exercise.measuredInDistance) { set?.distance ?: 0 } else -1
-            
+        
             navigate(toAddSetDialog(args.trainingExerciseId, null, weight, reps, time, distance))
         }
+        
+        vm.trainingExerciseId.setNewValue(args.trainingExerciseId)
+        vm.trainingExercise.observe(viewLifecycleOwner)  {
+            setTitle(it.exercise)
+            activity?.invalidateOptionsMenu()
+        }
+        vm.sets.observe(viewLifecycleOwner) { adapter.submitList(it) }
+        vm.trainingExerciseFinishedEvent.observe(viewLifecycleOwner, EventObserver { popBackStack() })
+        vm.trainingExerciseDeletedEvent.observe(viewLifecycleOwner, EventObserver {
+            popBackStack() })
     }
     
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.training_sets, menu)
-        val finishExerciseMenuItem = menu.findItem(R.id.finish_exercise)
-        finishExerciseMenuItem?.isVisible = vm.trainingExercise.value?.state == TrainingExercise.RUNNING
+        val exerciseIsRunning = vm.trainingExercise.value?.state == TrainingExercise.RUNNING
+        menu.findItem(R.id.finish_exercise)?.isVisible = exerciseIsRunning
         super.onCreateOptionsMenu(menu, inflater)
     }
     
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.finish_exercise -> {
-            vm.finishExercise(args.trainingExerciseId)
+            vm.finishExercise()
+            true
+        }
+        R.id.delete_exercise -> {
+            vm.deleteExercise()
             true
         }
         else -> false
-    }
-    
-    private fun setupNavigation() {
-        vm.trainingExerciseFinishedEvent.observe(viewLifecycleOwner, EventObserver { popBackStack() })
     }
 }

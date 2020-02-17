@@ -10,5 +10,12 @@
         android:icon="@drawable/ic_flag"
         android:visible="false"
         app:showAsAction="ifRoom" />
+    
+    <item
+        android:id="@+id/delete_exercise"
+        android:orderInCategory="1"
+        android:title="@string/delete_exercise"
+        android:icon="@drawable/ic_delete"
+        app:showAsAction="never" />
 
 </menu>

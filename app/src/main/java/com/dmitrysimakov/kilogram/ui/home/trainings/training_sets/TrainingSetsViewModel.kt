@@ -8,23 +8,27 @@ import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import com.dmitrysimakov.kilogram.data.repository.TrainingSetRepository
 import com.dmitrysimakov.kilogram.util.live_data.AbsentLiveData
 import com.dmitrysimakov.kilogram.util.live_data.Event
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.math.max
 
 class TrainingSetsViewModel(
         private val trainingSetRepository: TrainingSetRepository,
-        private val trainingExerciseRepository: TrainingExerciseRepository,
-        private val exerciseRepository: ExerciseRepository
+        private val trainingExerciseRepo: TrainingExerciseRepository,
+        private val exerciseRepo: ExerciseRepository
 ) : ViewModel() {
     
     val trainingExerciseId = MutableLiveData<String>()
     
     val trainingExercise = trainingExerciseId.switchMap {
-        trainingExerciseRepository.trainingExerciseFlow(it).asLiveData()
+        trainingExerciseRepo.trainingExerciseFlow(it).asLiveData()
     }
     
     val exercise = trainingExercise.switchMap {
-        liveData { emit(exerciseRepository.exercise(it.exercise)) }
+        liveData {
+            emit(exerciseRepo.exercise(it.exercise))
+        }
     }
     
     val currentSets = trainingExercise.switchMap {
@@ -32,7 +36,7 @@ class TrainingSetsViewModel(
     }
     
     private val previousExercise = trainingExercise.switchMap {
-        liveData { emit(trainingExerciseRepository.previousTrainingExercise(it.trainingId, it.exercise)) }
+        liveData { emit(trainingExerciseRepo.previousTrainingExercise(it.trainingId, it.exercise)) }
     }
     
     val previousSets = previousExercise.switchMap {
@@ -42,8 +46,8 @@ class TrainingSetsViewModel(
     
     val sets = MediatorLiveData<List<SetWithPreviousResults>>()
     
-    
     val trainingExerciseFinishedEvent = MutableLiveData<Event<Unit>>()
+    val trainingExerciseDeletedEvent = MutableLiveData<Event<Unit>>()
     
     init {
         sets.addSource(currentSets) { sets.value = updateSets() }
@@ -70,9 +74,15 @@ class TrainingSetsViewModel(
         trainingSetRepository.delete(id)
     }
     
-    fun finishExercise(trainingExerciseId: String)= viewModelScope.launch {
-        trainingExerciseRepository.updateState(trainingExerciseId, TrainingExercise.FINISHED)
-        trainingExercise.value?.let { exerciseRepository.increaseExecutionsCnt(it.exercise) }
+    fun finishExercise()= viewModelScope.launch {
+        trainingExerciseRepo.updateState(trainingExerciseId.value!!, TrainingExercise.FINISHED)
+        trainingExercise.value?.let { exerciseRepo.increaseExecutionsCnt(it.exercise) }
         trainingExerciseFinishedEvent.value = Event(Unit)
+    }
+    
+    fun deleteExercise() {
+        val id = trainingExerciseId.value ?: return
+        CoroutineScope(Dispatchers.IO).launch { trainingExerciseRepo.delete(id) }
+        trainingExerciseDeletedEvent.value = Event(Unit)
     }
 }
