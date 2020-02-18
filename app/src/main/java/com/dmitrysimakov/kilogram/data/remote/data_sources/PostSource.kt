@@ -4,12 +4,16 @@ import com.dmitrysimakov.kilogram.data.model.Post
 import com.dmitrysimakov.kilogram.data.remote.firestore
 import com.dmitrysimakov.kilogram.data.remote.uid
 import com.dmitrysimakov.kilogram.util.live_data.liveData
+import kotlinx.coroutines.tasks.await
 
 class PostSource {
     
     private val postsCollection = firestore.collection("posts")
     
     fun postsLive() = postsCollection.liveData { it.toObject(Post::class.java)!! }
+    
+    suspend fun posts(authorId: String) = postsCollection
+            .whereEqualTo("authorId", authorId).get().await().toObjects(Post::class.java)
     
     fun publishPost(post: Post) {
         postsCollection.document(post.id).set(post)

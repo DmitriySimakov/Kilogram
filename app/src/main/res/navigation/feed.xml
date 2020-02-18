@@ -15,30 +15,12 @@
             app:destination="@id/create_post" />
         <action
             android:id="@+id/to_publicProgramDaysFragment"
-            app:destination="@id/publicProgramDaysFragment" />
+            app:destination="@id/public_program">
+            <argument
+                android:name="programId"
+                app:argType="string" />
+        </action>
     </fragment>
     <include app:graph="@navigation/create_post" />
-    <fragment
-        android:id="@+id/publicProgramDaysFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.feed.program_days.PublicProgramDaysFragment"
-        tools:layout="@layout/fragment_public_program_days" >
-        <argument
-            android:name="programId"
-            app:argType="string" />
-        <action
-            android:id="@+id/to_publicProgramDayExercisesFragment"
-            app:destination="@id/publicProgramDayExercisesFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/publicProgramDayExercisesFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.feed.program_day_exercises.PublicProgramDayExercisesFragment"
-        tools:layout="@layout/fragment_public_program_day_exercises" >
-        <argument
-            android:name="programId"
-            app:argType="string" />
-        <argument
-            android:name="programDayId"
-            app:argType="string" />
-    </fragment>
-
+    <include app:graph="@navigation/public_program" />
 </navigation>

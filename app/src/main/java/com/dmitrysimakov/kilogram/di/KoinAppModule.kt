@@ -98,7 +98,7 @@ val appModule = module {
     viewModel { MeasurementsHistoryViewModel(get()) }
     viewModel { MessagesViewModel(get(), get()) }
     viewModel { PeopleViewModel() }
-    viewModel { PersonPageViewModel() }
+    viewModel { PersonPageViewModel(get()) }
     viewModel { PhotoViewModel(get()) }
     viewModel { PhotosViewModel(get()) }
     viewModel { ProgramDayExercisesViewModel(get()) }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/public_program"
+    app:startDestination="@id/publicProgramDaysFragment">
+    <fragment
+        android:id="@+id/publicProgramDaysFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.feed.program_days.PublicProgramDaysFragment"
+        tools:layout="@layout/fragment_public_program_days" >
+        <argument
+            android:name="programId"
+            app:argType="string" />
+        <action
+            android:id="@+id/to_publicProgramDayExercisesFragment"
+            app:destination="@id/publicProgramDayExercisesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/publicProgramDayExercisesFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.feed.program_day_exercises.PublicProgramDayExercisesFragment"
+        tools:layout="@layout/fragment_public_program_day_exercises" >
+        <argument
+            android:name="programId"
+            app:argType="string" />
+        <argument
+            android:name="programDayId"
+            app:argType="string" />
+    </fragment>
+</navigation>

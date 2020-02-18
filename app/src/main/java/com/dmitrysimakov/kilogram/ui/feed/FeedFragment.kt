@@ -21,7 +21,10 @@ class FeedFragment : Fragment() {
     private val vm: FeedViewModel by viewModel()
     private val sharedVM: SharedViewModel by sharedViewModel()
     
-    private val adapter by lazy { PostsListAdapter(vm) { navigate(toPublicProgramDaysFragment(it.id)) }}
+    private val adapter by lazy { PostsListAdapter(sharedVM,
+            { navigate(toPublicProgramDaysFragment(it.id)) },
+            { vm.like(it) }
+    )}
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_feed, container, false)

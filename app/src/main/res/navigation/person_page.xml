@@ -17,6 +17,13 @@
         <action
             android:id="@+id/to_messagesFragment"
             app:destination="@id/messagesFragment" />
+        <action
+            android:id="@+id/to_publicProgramDaysFragment"
+            app:destination="@id/public_program">
+            <argument
+                android:name="programId"
+                app:argType="string" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/subscriptionsTabFragment"
@@ -38,4 +45,5 @@
             android:name="id"
             app:argType="string" />
     </fragment>
+    <include app:graph="@navigation/public_program" />
 </navigation>

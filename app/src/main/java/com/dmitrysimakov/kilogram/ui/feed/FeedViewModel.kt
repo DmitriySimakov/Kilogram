@@ -20,8 +20,5 @@ class FeedViewModel(private val postSrc: PostSource) : ViewModel() {
         }}
     }
     
-    fun like(post: Post) {
-        user.value ?: return
-        postSrc.likePost(post)
-    }
+    fun like(post: Post) { postSrc.likePost(post) }
 }

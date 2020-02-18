@@ -1,7 +1,9 @@
 package com.dmitrysimakov.kilogram.ui.person_page
 
 import androidx.lifecycle.*
+import com.dmitrysimakov.kilogram.data.model.Post
 import com.dmitrysimakov.kilogram.data.model.User
+import com.dmitrysimakov.kilogram.data.remote.data_sources.PostSource
 import com.dmitrysimakov.kilogram.data.remote.firestore
 import com.dmitrysimakov.kilogram.data.remote.userDocument
 import com.dmitrysimakov.kilogram.data.remote.usersCollection
@@ -9,7 +11,7 @@ import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
-class PersonPageViewModel : ViewModel() {
+class PersonPageViewModel(private val postSrc: PostSource) : ViewModel() {
     
     private val _user = MutableLiveData<User?>()
     
@@ -20,6 +22,8 @@ class PersonPageViewModel : ViewModel() {
     
     private val _subscribed = MutableLiveData<Boolean>()
     val subscribed: LiveData<Boolean> = _subscribed
+    
+    val posts = _personId.switchMap { id -> liveData { emit(postSrc.posts(id)) }}
     
     fun start(user: User?, personId: String) {
         _user.setNewValue(user)
@@ -48,4 +52,6 @@ class PersonPageViewModel : ViewModel() {
                 .update(usersCollection.document(person.id), "subscribers", personSubscribers)
                 .commit()
     }}
+    
+    fun likePost(post: Post) { postSrc.likePost(post) }
 }
