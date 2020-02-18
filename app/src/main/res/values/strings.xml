@@ -150,5 +150,6 @@
     <string name="program_added_to_my_programs">Программа добавлена в Мои программы</string>
     <string name="training_parameters">Параметры тренировки</string>
     <string name="delete_training">Удалить тренировку</string>
+    <string name="delete_photo">Удалить фотографию</string>
 
 </resources>

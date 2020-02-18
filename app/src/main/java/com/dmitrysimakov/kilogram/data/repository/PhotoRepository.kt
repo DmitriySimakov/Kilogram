@@ -30,6 +30,11 @@ class PhotoRepository(
         src.uploadPhoto(photo)
     }
     
+    suspend fun delete(uri: String) {
+        dao.delete(uri)
+        src.scheduleDeletion(uri, UploadPhotoWorker::class.java)
+    }
+    
     suspend fun syncPhotos(context: Context, lastUpdate: Long) {
         val items = src.newPhotos(lastUpdate)
         val (deletedItems, existingItems) = items.partition { it.deleted }

@@ -2,12 +2,12 @@
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    
     <item
-        android:id="@+id/ok"
+        android:id="@+id/delete_photo"
         android:orderInCategory="1"
-        android:title="@string/ok"
-        android:icon="@drawable/ic_done"
-        app:showAsAction="always" />
+        android:title="@string/delete_photo"
+        android:icon="@drawable/ic_delete"
+        app:showAsAction="never" />
 
 </menu>
