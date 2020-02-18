@@ -46,16 +46,6 @@ interface TrainingExerciseDao {
     @Update
     suspend fun update(trainingExercise: TrainingExercise)
     
-    @Query("UPDATE TrainingExercise SET indexNumber = :indexNumber WHERE id = :id")
-    suspend fun setIndexNumber(id: String, indexNumber: Int)
-    
-    @Transaction
-    suspend fun updateIndexNumbers(exercises: List<TrainingExercise>) {
-        for (exercise in exercises) {
-            setIndexNumber(exercise.id, exercise.indexNumber)
-        }
-    }
-    
     @Query("""
         UPDATE TrainingExercise
         SET state = :finished

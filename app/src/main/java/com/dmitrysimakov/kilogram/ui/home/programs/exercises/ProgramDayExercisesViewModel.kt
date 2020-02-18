@@ -17,9 +17,10 @@ class ProgramDayExercisesViewModel(private val repository: ProgramDayExerciseRep
     }
     
     fun updateIndexNumbers() { CoroutineScope(Dispatchers.IO).launch {
-        exercises.value?.let { list ->
-            list.forEachIndexed { index, exercise -> exercise.indexNumber = index + 1 }
-            repository.update(list)
+        val exercises = exercises.value ?: return@launch
+        val newList = exercises.mapIndexed { index, exercise ->
+            exercise.copy(indexNumber = index + 1)
         }
+        repository.update(newList)
     }}
 }

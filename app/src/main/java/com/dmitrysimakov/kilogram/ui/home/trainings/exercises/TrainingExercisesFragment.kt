@@ -43,6 +43,7 @@ class TrainingExercisesFragment : Fragment() {
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
+        
         binding = FragmentTrainingExercisesBinding.inflate(inflater)
         binding.vm = vm
         binding.lifecycleOwner = this
@@ -50,7 +51,8 @@ class TrainingExercisesFragment : Fragment() {
         setupAdapters()
     
         binding.fab.setOnClickListener{
-            navigate(toExercisesFragment(exercisePlannedListAdapter.itemCount + 1, null, args.trainingId))
+            val num = exercisePlannedListAdapter.itemCount + 1
+            navigate(toExercisesFragment(num, null, args.trainingId))
         }
         
         return binding.root
@@ -65,6 +67,10 @@ class TrainingExercisesFragment : Fragment() {
         vm.plannedExercises.observe(viewLifecycleOwner) { exercisePlannedListAdapter.submitList(it) }
         vm.finishedExercises.observe(viewLifecycleOwner) { exerciseFinishedListAdapter.submitList(it) }
         vm.trainingFinishedEvent.observe(viewLifecycleOwner, EventObserver {
+            sharedVM.onTrainingSessionFinished()
+            popBackStack()
+        })
+        vm.trainingDeletedEvent.observe(viewLifecycleOwner, EventObserver {
             sharedVM.onTrainingSessionFinished()
             popBackStack()
         })
@@ -112,15 +118,17 @@ class TrainingExercisesFragment : Fragment() {
     
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.training_exercises, menu)
-        if (!args.trainingIsRunning) {
-            menu.removeItem(R.id.finish_training)
-        }
+        if (!args.trainingIsRunning) menu.removeItem(R.id.finish_training)
         super.onCreateOptionsMenu(menu, inflater)
     }
     
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.finish_training -> {
             vm.finishTraining(sharedVM.elapsedSessionTime.value ?: 0)
+            true
+        }
+        R.id.delete_training -> {
+            vm.deleteTraining()
             true
         }
         else -> false

@@ -17,9 +17,10 @@ class ProgramDaysViewModel (private val repository: ProgramDayRepository) : View
     }
     
     fun updateIndexNumbers() { CoroutineScope(Dispatchers.IO).launch {
-        programDays.value?.let { list ->
-            list.forEachIndexed { index, exercise -> exercise.indexNumber = index + 1 }
-            repository.update(list)
+        val programDays = programDays.value ?: return@launch
+        val newList = programDays.mapIndexed { index, programDay ->
+            programDay.copy(indexNumber = index + 1)
         }
+        repository.update(newList)
     }}
 }

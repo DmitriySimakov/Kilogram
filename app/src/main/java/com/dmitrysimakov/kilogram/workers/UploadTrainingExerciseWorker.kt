@@ -8,6 +8,7 @@ import com.dmitrysimakov.kilogram.data.remote.data_sources.NEED_TO_DELETE
 import com.dmitrysimakov.kilogram.data.repository.TrainingExerciseRepository
 import org.koin.core.KoinComponent
 import org.koin.core.inject
+import java.util.*
 
 class UploadTrainingExerciseWorker(context: Context, workerParams: WorkerParameters): CoroutineWorker(context, workerParams), KoinComponent {
     
@@ -15,12 +16,10 @@ class UploadTrainingExerciseWorker(context: Context, workerParams: WorkerParamet
     
     override suspend fun doWork(): Result {
         return try {
+            val id = inputData.getString(ID)!!
             val needToDelete = inputData.getBoolean(NEED_TO_DELETE, false)
-        
-            var trainingExercise = repo.trainingExercise(inputData.getString(ID)!!)
-            if (needToDelete) trainingExercise = trainingExercise.copy(deleted = true)
-        
-            repo.uploadTrainingExercise(trainingExercise)
+            
+            repo.uploadTrainingExercise(repo.trainingExercise(id).copy(deleted = needToDelete, lastUpdate = Date()))
         
             Result.success()
         } catch (e: Exception) {

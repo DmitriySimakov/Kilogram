@@ -40,8 +40,6 @@ class TrainingExerciseRepository(
         src.scheduleUpload(exercise.id, UploadTrainingExerciseWorker::class.java)
     }
     
-    suspend fun updateIndexNumbers(trainingExercises: List<TrainingExercise>) = dao.updateIndexNumbers(trainingExercises)
-    
     suspend fun update(trainingExercises: List<TrainingExercise>) {
         if (trainingExercises.isEmpty()) return
         

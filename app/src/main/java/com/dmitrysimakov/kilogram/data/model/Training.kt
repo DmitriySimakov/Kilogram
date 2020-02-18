@@ -18,8 +18,8 @@ import java.util.*
 )
 data class Training(
         val startDateTime: Date = Date(),
-        var programDayId: String? = null,
-        var duration: Int? = null,
+        val programDayId: String? = null,
+        val duration: Int? = null,
         val lastUpdate: Date = Date(),
         val deleted: Boolean = false,
         @PrimaryKey val id: String = generateId()

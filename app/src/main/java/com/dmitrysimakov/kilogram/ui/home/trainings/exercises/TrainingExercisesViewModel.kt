@@ -11,17 +11,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class TrainingExercisesViewModel(
-        private val trainingRepository: TrainingRepository,
-        private val trainingExerciseRepository: TrainingExerciseRepository,
-        private val exerciseRepository: ExerciseRepository
+        private val trainingRepo: TrainingRepository,
+        private val trainingExerciseRepo: TrainingExerciseRepository,
+        private val exerciseRepo: ExerciseRepository
 ) : ViewModel() {
     
     val trainingId = MutableLiveData<String>()
     
-    val training = trainingId.switchMap { liveData { emit(trainingRepository.training(it)) } }
+    val training = trainingId.switchMap { liveData { emit(trainingRepo.training(it)) } }
     
     private val exercises = trainingId.switchMap {
-        trainingExerciseRepository.trainingExercisesFlow(it).asLiveData()
+        trainingExerciseRepo.trainingExercisesFlow(it).asLiveData()
     }
     
     val runningExercises = exercises.map {
@@ -37,18 +37,19 @@ class TrainingExercisesViewModel(
     }
     
     val trainingFinishedEvent = MutableLiveData<Event<Unit>>()
+    val trainingDeletedEvent = MutableLiveData<Event<Unit>>()
     
     fun deleteExercise(exercise: TrainingExercise) = viewModelScope.launch {
-        trainingExerciseRepository.delete(exercise.id)
-        exerciseRepository.decreaseExecutionsCnt(exercise.exercise)
+        trainingExerciseRepo.delete(exercise.id)
+        exerciseRepo.decreaseExecutionsCnt(exercise.exercise)
     }
     
     fun finishTraining(duration: Int)  { viewModelScope.launch {
         val training = training.value ?: return@launch
         
-        trainingRepository.update(training.copy(duration = duration))
+        trainingRepo.update(training.copy(duration = duration))
         
-        trainingExerciseRepository.update(
+        trainingExerciseRepo.update(
                 exercises.value!!.map { it.copy(state = TrainingExercise.FINISHED) }
         )
         
@@ -56,14 +57,21 @@ class TrainingExercisesViewModel(
     }}
     
     fun finishExercise(exercise: TrainingExercise) = viewModelScope.launch {
-        trainingExerciseRepository.updateState(exercise.id, TrainingExercise.FINISHED)
-        exerciseRepository.increaseExecutionsCnt(exercise.exercise)
+        trainingExerciseRepo.updateState(exercise.id, TrainingExercise.FINISHED)
+        exerciseRepo.increaseExecutionsCnt(exercise.exercise)
     }
     
     fun updateIndexNumbers() = CoroutineScope(Dispatchers.IO).launch {
-        plannedExercises.value?.let { list ->
-            list.forEachIndexed { index, exercise -> exercise.indexNumber = index + 1 }
-            trainingExerciseRepository.updateIndexNumbers(list)
+        val exercises = plannedExercises.value ?: return@launch
+        val newList = exercises.mapIndexed { index, exercise ->
+            exercise.copy(indexNumber = index + 1)
         }
+        trainingExerciseRepo.update(newList)
+    }
+    
+    fun deleteTraining() {
+        val id = trainingId.value ?: return
+        CoroutineScope(Dispatchers.IO).launch { trainingRepo.delete(id) }
+        trainingDeletedEvent.value = Event(Unit)
     }
 }

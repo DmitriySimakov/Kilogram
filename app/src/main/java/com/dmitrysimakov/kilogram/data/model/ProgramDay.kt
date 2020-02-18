@@ -19,7 +19,7 @@ import java.util.*
 )
 data class ProgramDay(
         val programId: String = "",
-        var indexNumber: Int = 1,
+        val indexNumber: Int = 1,
         val name: String = "",
         val description: String = "",
         val lastUpdate: Date = Date(),

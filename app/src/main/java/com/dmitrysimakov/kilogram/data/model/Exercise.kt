@@ -30,7 +30,7 @@ data class Exercise(
         val equipment: String? = null,
         val description: String = "",
         val executionsCount: Long = 0,
-        var isFavorite: Boolean = false,
+        val isFavorite: Boolean = false,
         val measuredInWeight: Boolean = true,
         val measuredInReps: Boolean = true,
         val measuredInTime: Boolean = false,

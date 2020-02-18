@@ -25,7 +25,7 @@ import java.util.*
 data class ProgramDayExercise(
         val programDayId: String = "",
         val exercise: String = "",
-        var indexNumber: Int = 0,
+        val indexNumber: Int = 0,
         val rest: Int = 120,
         val strategy: String? = null,
         val lastUpdate: Date = Date(),

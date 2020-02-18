@@ -77,8 +77,7 @@ class TrainingSetsFragment : Fragment() {
         }
         vm.sets.observe(viewLifecycleOwner) { adapter.submitList(it) }
         vm.trainingExerciseFinishedEvent.observe(viewLifecycleOwner, EventObserver { popBackStack() })
-        vm.trainingExerciseDeletedEvent.observe(viewLifecycleOwner, EventObserver {
-            popBackStack() })
+        vm.trainingExerciseDeletedEvent.observe(viewLifecycleOwner, EventObserver { popBackStack() })
     }
     
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

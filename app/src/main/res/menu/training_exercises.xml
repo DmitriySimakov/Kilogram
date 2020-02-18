@@ -9,5 +9,12 @@
         android:title="@string/finish_training"
         android:icon="@drawable/ic_flag"
         app:showAsAction="ifRoom" />
-
+    
+    <item
+        android:id="@+id/delete_training"
+        android:orderInCategory="1"
+        android:title="@string/delete_training"
+        android:icon="@drawable/ic_delete"
+        app:showAsAction="never" />
+    
 </menu>
