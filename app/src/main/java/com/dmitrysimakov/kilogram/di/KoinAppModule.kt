@@ -102,7 +102,7 @@ val appModule = module {
     viewModel { PhotoViewModel(get()) }
     viewModel { PhotosViewModel(get()) }
     viewModel { ProgramDayExercisesViewModel(get()) }
-    viewModel { ProgramDaysViewModel(get()) }
+    viewModel { ProgramDaysViewModel(get(), get()) }
     viewModel { PublicProgramDaysViewModel(get(), get()) }
     viewModel { PublicProgramDayExercisesViewModel(get(), get()) }
     viewModel { ProportionsCalculatorViewModel(get()) }
