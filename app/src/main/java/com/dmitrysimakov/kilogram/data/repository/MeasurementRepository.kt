@@ -28,6 +28,11 @@ class MeasurementRepository(
         src.scheduleUpload(measurement.id, UploadMeasurementWorker::class.java)
     }
     
+    suspend fun delete(id: String) {
+        dao.delete(id)
+        src.scheduleDeletion(id, UploadMeasurementWorker::class.java)
+    }
+    
     fun uploadMeasurement(measurement: Measurement) { src.uploadMeasurement(measurement) }
     
     suspend fun syncMeasurements(lastUpdate: Long) {

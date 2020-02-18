@@ -151,5 +151,6 @@
     <string name="training_parameters">Параметры тренировки</string>
     <string name="delete_training">Удалить тренировку</string>
     <string name="delete_photo">Удалить фотографию</string>
+    <string name="delete_measurements">Удалить измерения</string>
 
 </resources>
