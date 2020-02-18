@@ -1,9 +1,7 @@
 package com.dmitrysimakov.kilogram.ui.home.programs.exercises
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
@@ -12,7 +10,9 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.home.programs.exercises.ProgramDayExercisesFragmentDirections.Companion.toExercisesFragment
+import com.dmitrysimakov.kilogram.util.live_data.EventObserver
 import com.dmitrysimakov.kilogram.util.navigate
+import com.dmitrysimakov.kilogram.util.popBackStack
 import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.android.synthetic.main.fragment_program_day_exercises.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -28,6 +28,7 @@ class ProgramDayExercisesFragment : Fragment() {
     private val adapter by lazy { ProgramDayExerciseListAdapter() }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_program_day_exercises, container, false)
     }
     
@@ -36,10 +37,6 @@ class ProgramDayExercisesFragment : Fragment() {
     
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
-    
-        vm.programDayId.setNewValue(args.programDayId)
-        vm.exercises.observe(viewLifecycleOwner) { adapter.submitList(it) }
-    
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.RIGHT) {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
                 val startPos = viewHolder.adapterPosition
@@ -57,6 +54,23 @@ class ProgramDayExercisesFragment : Fragment() {
         fab.setOnClickListener{
             navigate(toExercisesFragment(adapter.itemCount + 1, args.programDayId, null))
         }
+    
+        vm.programDayId.setNewValue(args.programDayId)
+        vm.exercises.observe(viewLifecycleOwner) { adapter.submitList(it) }
+        vm.programDayDeletedEvent.observe(viewLifecycleOwner, EventObserver { popBackStack() })
+    }
+    
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.program_day_exercises, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+    
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.delete_program_day -> {
+            vm.deleteProgramDay()
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
     
     override fun onPause() {

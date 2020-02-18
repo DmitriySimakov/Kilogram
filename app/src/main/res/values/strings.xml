@@ -153,5 +153,6 @@
     <string name="delete_photo">Удалить фотографию</string>
     <string name="delete_measurements">Удалить измерения</string>
     <string name="delete_program">Удалить программу</string>
+    <string name="delete_day">Удалить день</string>
 
 </resources>
