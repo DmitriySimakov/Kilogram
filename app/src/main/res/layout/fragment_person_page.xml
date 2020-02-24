@@ -69,6 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/frame_padding"
+                app:goneUnless="@{vm.user != null}"
                 app:layout_constraintTop_toBottomOf="@id/photo">
     
                 <Button

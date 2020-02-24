@@ -14,6 +14,7 @@ import kotlinx.coroutines.tasks.await
 class PersonPageViewModel(private val postSrc: PostSource) : ViewModel() {
     
     private val _user = MutableLiveData<User?>()
+    val user: LiveData<User?> = _user
     
     private val _personId = MutableLiveData<String>()
     val person = _personId.switchMap { id -> liveData {

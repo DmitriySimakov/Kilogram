@@ -154,5 +154,6 @@
     <string name="delete_measurements">Удалить измерения</string>
     <string name="delete_program">Удалить программу</string>
     <string name="delete_day">Удалить день</string>
+    <string name="need_to_sign_in">Для просмотра данной страницы необходимо авторизоваться</string>
 
 </resources>
