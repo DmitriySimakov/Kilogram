@@ -16,8 +16,6 @@ import com.dmitrysimakov.kilogram.AUTHORITY
 import com.dmitrysimakov.kilogram.data.model.Photo
 import com.dmitrysimakov.kilogram.data.remote.generateId
 import com.dmitrysimakov.kilogram.databinding.FragmentHomeBinding
-import com.dmitrysimakov.kilogram.ui.common.CalendarDayBinder
-import com.dmitrysimakov.kilogram.ui.common.CalendarMonthBinder
 import com.dmitrysimakov.kilogram.ui.common.ProgramsAdapter
 import com.dmitrysimakov.kilogram.ui.common.measurements.MeasurementsAdapter
 import com.dmitrysimakov.kilogram.ui.home.HomeFragmentDirections.Companion.toAddMeasurementDialog
@@ -52,10 +50,12 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     
     private val calendarMonthBinder by lazy { CalendarMonthBinder() }
-    private val calendarDayBinder by lazy { CalendarDayBinder {
-        val dateString = it.atTime(LocalTime.NOON).toIsoString()
-        navigate(toCalendarDayDialog(dateString))
-    }}
+    private val calendarDayBinder by lazy {
+        CalendarDayBinder {
+            val dateString = it.atTime(LocalTime.NOON).toIsoString()
+            navigate(toCalendarDayDialog(dateString))
+        }
+    }
     private val photosAdapter by lazy { PhotosAdapter { navigate(toPhotoFragment(it.uri)) } }
     private val measurementsAdapter by lazy { MeasurementsAdapter() }
     private val programsAdapter by lazy { ProgramsAdapter { navigate(toChooseProgramDayFragment(it.id)) }}

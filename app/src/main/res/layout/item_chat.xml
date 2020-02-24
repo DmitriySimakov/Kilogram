@@ -19,7 +19,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         style="@style/HorizontalListItem"
         android:layout_height="?attr/listPreferredItemHeightLarge"
-        android:background="@{(!chat.lastMessage.wasRead &amp;&amp; !chat.lastMessage.senderId.equals(vm.user.id)) ? @color/blue100 : @color/white}">
+        android:background="@{(!chat.lastMessage.wasRead &amp;&amp; !chat.lastMessage.senderId.equals(vm.user.id)) ? @color/blue100 : @color/colorPrimaryDark}">
         
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/photo"

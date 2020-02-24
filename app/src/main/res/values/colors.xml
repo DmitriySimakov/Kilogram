@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/red600</color>
+    
     <color name="colorPrimaryDark">@color/red600</color>
+    <color name="colorPrimary">@color/red600</color>
     <color name="colorAccent">@color/red600</color>
+    
+    <!-- LIGHT THEME COLORS -->
+    <color name="background">@color/white</color>
+    <!-- LIGHT THEME COLORS -->
+    
+    <!-- DARK THEME COLORS -->
+    <color name="darkBackground">#282828</color>
+    <!-- DARK THEME COLORS -->
     
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
@@ -32,10 +41,5 @@
     <color name="grey200">#EEEEEE</color>
     <color name="grey100">#F5F5F5</color>
     <color name="grey50">#FAFAFA</color>
-
-    <!-- DARK THEME COLORS -->
-    <color name="darkPrimaryDark">#27272f</color>
-    <color name="darkPrimary">#33333d</color>
-    <color name="darkBackground">#373740</color>
 
 </resources>

@@ -1,6 +1,7 @@
 package com.dmitrysimakov.kilogram.ui.profile
 
 import android.app.Activity
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,15 +19,19 @@ import com.dmitrysimakov.kilogram.ui.person_page.subscriptions_tab.SUBSCRIPTIONS
 import com.dmitrysimakov.kilogram.ui.profile.ProfileFragmentDirections.Companion.toChatsFragment
 import com.dmitrysimakov.kilogram.ui.profile.ProfileFragmentDirections.Companion.toEditProfileFragment
 import com.dmitrysimakov.kilogram.ui.profile.ProfileFragmentDirections.Companion.toSubscriptionsTabFragment
+import com.dmitrysimakov.kilogram.util.PreferencesKeys
 import com.dmitrysimakov.kilogram.util.navigate
 import com.firebase.ui.auth.AuthUI
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class ProfileFragment : Fragment() {
     
+    private lateinit var binding: FragmentProfileBinding
+    
     private val sharedVM: SharedViewModel by sharedViewModel()
     
-    private lateinit var binding: FragmentProfileBinding
+    private val preferences: SharedPreferences by inject()
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentProfileBinding.inflate(inflater)
@@ -43,6 +48,7 @@ class ProfileFragment : Fragment() {
                 R.id.chats -> { navigate(toChatsFragment()) }
                 R.id.editProfile -> { navigate(toEditProfileFragment()) }
                 R.id.signInSignOut -> signInSignOut()
+                R.id.darkTheme -> switchTheme()
                 R.id.share -> share()
             }
             true
@@ -85,6 +91,12 @@ class ProfileFragment : Fragment() {
             AuthUI.getInstance().signOut(context!!)
             sharedVM.signOut()
         }
+    }
+    
+    private fun switchTheme() {
+        val isDarkTheme = preferences.getBoolean(PreferencesKeys.IS_DARK_THEME, false)
+        preferences.edit().putBoolean(PreferencesKeys.IS_DARK_THEME, !isDarkTheme).apply()
+        activity?.recreate()
     }
     
     private fun share() = startActivity(ShareCompat.IntentBuilder.from(activity as Activity)

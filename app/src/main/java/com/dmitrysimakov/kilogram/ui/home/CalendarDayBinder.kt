@@ -1,5 +1,6 @@
-package com.dmitrysimakov.kilogram.ui.common
+package com.dmitrysimakov.kilogram.ui.home
 
+import android.graphics.Typeface
 import android.view.View
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.data.relation.DetailedTraining
@@ -27,8 +28,8 @@ class CalendarDayBinder(private val onClick: ((LocalDate) -> Unit)? = null) : Da
             
             dayText.text = curDate.dayOfMonth.toString()
     
-            if (day.owner != DayOwner.THIS_MONTH) {
-                dayText.setTextColor(view.resources.getColor(R.color.grey500))
+            if (day.owner == DayOwner.THIS_MONTH) {
+                dayText.setTypeface(dayText.typeface, Typeface.BOLD)
             }
             
             if (curDate == today) {

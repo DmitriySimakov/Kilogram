@@ -35,6 +35,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         Timber.d("onCreate")
         super.onCreate(savedInstanceState)
+    
+        val isDarkTheme = preferences.getBoolean(PreferencesKeys.IS_DARK_THEME, false)
+        setTheme(if (isDarkTheme) R.style.AppThemeDark else R.style.AppThemeLight)
         
         binding.lifecycleOwner = this
         binding.vm = vm

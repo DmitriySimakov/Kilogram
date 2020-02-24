@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.common
+package com.dmitrysimakov.kilogram.ui.home
 
 import android.view.View
 import com.kizitonwose.calendarview.model.CalendarMonth
