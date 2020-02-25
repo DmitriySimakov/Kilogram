@@ -7,7 +7,7 @@ import com.dmitrysimakov.kilogram.data.model.ProgramDayExerciseDiffCallback
 import com.dmitrysimakov.kilogram.databinding.ItemProgramExerciseBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 
-class ProgramDayExerciseListAdapter(
+class ProgramDayExercisesAdapter(
         clickCallback: ((ProgramDayExercise) -> Unit)? = null
 ) : DataBoundListAdapter<ProgramDayExercise, ItemProgramExerciseBinding>(clickCallback, ProgramDayExerciseDiffCallback()) {
 

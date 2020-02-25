@@ -24,7 +24,7 @@ class FeedFragment : Fragment() {
     private val vm: FeedViewModel by viewModel()
     private val sharedVM: SharedViewModel by sharedViewModel()
     
-    private val adapter by lazy { PostsListAdapter(sharedVM,
+    private val adapter by lazy { PostsAdapter(sharedVM,
             { navigate(toPublicProgramDaysFragment(it.id)) },
             { vm.like(it) }
     )}

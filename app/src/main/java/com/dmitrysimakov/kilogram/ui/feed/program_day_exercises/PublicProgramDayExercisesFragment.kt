@@ -10,7 +10,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.ui.home.programs.exercises.ProgramDayExerciseListAdapter
+import com.dmitrysimakov.kilogram.ui.home.programs.exercises.ProgramDayExercisesAdapter
 import com.dmitrysimakov.kilogram.util.setTitle
 import kotlinx.android.synthetic.main.fragment_public_program_day_exercises.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -21,7 +21,7 @@ class PublicProgramDayExercisesFragment : Fragment() {
     
     private val vm: PublicProgramDayExercisesViewModel by viewModel()
     
-    private val adapter by lazy { ProgramDayExerciseListAdapter() }
+    private val adapter by lazy { ProgramDayExercisesAdapter() }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_public_program_day_exercises, container, false)

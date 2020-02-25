@@ -7,7 +7,7 @@ import com.dmitrysimakov.kilogram.data.model.ExerciseDiffCallback
 import com.dmitrysimakov.kilogram.databinding.ItemExerciseBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 
-class ExerciseListAdapter(
+class ExercisesAdapter(
         private val viewModel: ExercisesViewModel,
         clickCallback: ((Exercise) -> Unit)? = null
 ) : DataBoundListAdapter<Exercise, ItemExerciseBinding>(clickCallback, ExerciseDiffCallback()) {

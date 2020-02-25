@@ -9,7 +9,7 @@ import com.dmitrysimakov.kilogram.databinding.ItemPostBinding
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 
-class PostsListAdapter(
+class PostsAdapter(
         private val sharedVM: SharedViewModel,
         private val programClickCallback: ((Program) -> Unit),
         private val likeClickCallback: ((Post) -> Unit)

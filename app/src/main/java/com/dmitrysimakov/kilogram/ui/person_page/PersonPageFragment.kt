@@ -9,7 +9,7 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.dmitrysimakov.kilogram.databinding.FragmentPersonPageBinding
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
-import com.dmitrysimakov.kilogram.ui.feed.PostsListAdapter
+import com.dmitrysimakov.kilogram.ui.feed.PostsAdapter
 import com.dmitrysimakov.kilogram.ui.person_page.PersonPageFragmentDirections.Companion.toMessagesFragment
 import com.dmitrysimakov.kilogram.ui.person_page.PersonPageFragmentDirections.Companion.toPublicProgramDaysFragment
 import com.dmitrysimakov.kilogram.ui.person_page.PersonPageFragmentDirections.Companion.toSubscriptionsTabFragment
@@ -29,7 +29,7 @@ class PersonPageFragment : Fragment() {
     
     private lateinit var binding: FragmentPersonPageBinding
     
-    private val adapter by lazy { PostsListAdapter(sharedVM,
+    private val adapter by lazy { PostsAdapter(sharedVM,
             { navigate(toPublicProgramDaysFragment(it.id)) },
             { vm.likePost(it) }
     )}

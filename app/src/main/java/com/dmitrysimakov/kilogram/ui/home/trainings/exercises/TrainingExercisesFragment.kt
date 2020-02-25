@@ -30,14 +30,14 @@ class TrainingExercisesFragment : Fragment() {
     
     private lateinit var binding: FragmentTrainingExercisesBinding
     
-    private val exerciseRunningListAdapter by lazy { TrainingExercisesAdapter(
+    private val runningExercisesAdapter by lazy { TrainingExercisesAdapter(
             { navigate(toTrainingSetsFragment(it.id)) },
             { vm.finishExercise(it) }
     )}
-    private val exercisePlannedListAdapter by lazy { TrainingExercisesAdapter({
+    private val plannedExercisesAdapter by lazy { TrainingExercisesAdapter({
         navigate(toTrainingSetsFragment(it.id))
     })}
-    private val exerciseFinishedListAdapter by lazy { TrainingExercisesAdapter ({
+    private val finishedExercisesAdapter by lazy { TrainingExercisesAdapter ({
         navigate(toTrainingSetsFragment(it.id))
     })}
     
@@ -51,7 +51,7 @@ class TrainingExercisesFragment : Fragment() {
         setupAdapters()
     
         binding.fab.setOnClickListener{
-            val num = exercisePlannedListAdapter.itemCount + 1
+            val num = plannedExercisesAdapter.itemCount + 1
             navigate(toExercisesFragment(num, null, args.trainingId))
         }
         
@@ -63,9 +63,9 @@ class TrainingExercisesFragment : Fragment() {
         vm.trainingId.setNewValue(args.trainingId)
         
         vm.training.observe(viewLifecycleOwner) {}
-        vm.runningExercises.observe(viewLifecycleOwner) { exerciseRunningListAdapter.submitList(it) }
-        vm.plannedExercises.observe(viewLifecycleOwner) { exercisePlannedListAdapter.submitList(it) }
-        vm.finishedExercises.observe(viewLifecycleOwner) { exerciseFinishedListAdapter.submitList(it) }
+        vm.runningExercises.observe(viewLifecycleOwner) { runningExercisesAdapter.submitList(it) }
+        vm.plannedExercises.observe(viewLifecycleOwner) { plannedExercisesAdapter.submitList(it) }
+        vm.finishedExercises.observe(viewLifecycleOwner) { finishedExercisesAdapter.submitList(it) }
         vm.trainingFinishedEvent.observe(viewLifecycleOwner, EventObserver {
             sharedVM.onTrainingSessionFinished()
             popBackStack()
@@ -83,14 +83,14 @@ class TrainingExercisesFragment : Fragment() {
             plannedExercisesRV.addItemDecoration(divider)
             finishedExercisesRV.addItemDecoration(divider)
             
-            runningExercisesRV.adapter = exerciseRunningListAdapter
-            plannedExercisesRV.adapter = exercisePlannedListAdapter
-            finishedExercisesRV.adapter = exerciseFinishedListAdapter
+            runningExercisesRV.adapter = runningExercisesAdapter
+            plannedExercisesRV.adapter = plannedExercisesAdapter
+            finishedExercisesRV.adapter = finishedExercisesAdapter
         
             ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
                 override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder) = false
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                    vm!!.deleteExercise(exerciseRunningListAdapter.getItem(viewHolder.adapterPosition))
+                    vm!!.deleteExercise(runningExercisesAdapter.getItem(viewHolder.adapterPosition))
                 }
             }).attachToRecyclerView(runningExercisesRV)
         
@@ -99,18 +99,18 @@ class TrainingExercisesFragment : Fragment() {
                     val startPos = viewHolder.adapterPosition
                     val targetPos = target.adapterPosition
                     Collections.swap(vm!!.plannedExercises.value!!, startPos, targetPos)
-                    exercisePlannedListAdapter.notifyItemMoved(startPos, targetPos)
+                    plannedExercisesAdapter.notifyItemMoved(startPos, targetPos)
                     return false
                 }
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                    vm!!.deleteExercise(exercisePlannedListAdapter.getItem(viewHolder.adapterPosition))
+                    vm!!.deleteExercise(plannedExercisesAdapter.getItem(viewHolder.adapterPosition))
                 }
             }).attachToRecyclerView(plannedExercisesRV)
         
             ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
                 override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder) = false
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                    vm!!.deleteExercise(exerciseFinishedListAdapter.getItem(viewHolder.adapterPosition))
+                    vm!!.deleteExercise(finishedExercisesAdapter.getItem(viewHolder.adapterPosition))
                 }
             }).attachToRecyclerView(finishedExercisesRV)
         }

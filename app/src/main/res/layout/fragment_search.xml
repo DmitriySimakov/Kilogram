@@ -38,6 +38,25 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintTop_toBottomOf="@id/peoplesLabel"
                 tools:listitem="@layout/item_user_horizontal" />
+    
+            <TextView
+                android:id="@+id/postsLabel"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:padding="@dimen/icon_button_padding"
+                android:text="@string/popular_publications"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                app:layout_constraintTop_toBottomOf="@id/peoplesRV"/>
+    
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/postsRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintTop_toBottomOf="@id/postsLabel"
+                tools:listitem="@layout/item_post" />
             
         </androidx.constraintlayout.widget.ConstraintLayout>
     

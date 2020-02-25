@@ -24,7 +24,7 @@ class MessagesFragment : Fragment() {
     private val vm: MessagesViewModel by viewModel()
     private val sharedVM: SharedViewModel by sharedViewModel()
     
-    private val adapter by lazy { MessagesListAdapter(vm) }
+    private val adapter by lazy { MessagesAdapter(vm) }
     
     private val args: MessagesFragmentArgs by navArgs()
     

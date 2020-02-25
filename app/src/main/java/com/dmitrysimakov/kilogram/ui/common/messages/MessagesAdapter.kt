@@ -7,7 +7,7 @@ import com.dmitrysimakov.kilogram.data.model.MessageDiffCallback
 import com.dmitrysimakov.kilogram.databinding.ItemMessageBinding
 import com.dmitrysimakov.kilogram.ui.common.DataBoundListAdapter
 
-class MessagesListAdapter(
+class MessagesAdapter(
         private val vm: MessagesViewModel
 ) : DataBoundListAdapter<Message, ItemMessageBinding>(null, MessageDiffCallback()) {
     

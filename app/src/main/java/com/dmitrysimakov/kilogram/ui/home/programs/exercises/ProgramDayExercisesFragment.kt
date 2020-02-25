@@ -25,7 +25,7 @@ class ProgramDayExercisesFragment : Fragment() {
     
     private val vm: ProgramDayExercisesViewModel by viewModel()
     
-    private val adapter by lazy { ProgramDayExerciseListAdapter() }
+    private val adapter by lazy { ProgramDayExercisesAdapter() }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)

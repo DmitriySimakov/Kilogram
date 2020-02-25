@@ -25,7 +25,7 @@ class ExercisesFragment : Fragment() {
     
     private lateinit var binding: FragmentExercisesBinding
     
-    private val exerciseAdapter by lazy { ExerciseListAdapter(vm) { exercise ->
+    private val exerciseAdapter by lazy { ExercisesAdapter(vm) { exercise ->
         hideKeyboard()
         when {
             args.programDayId != null -> vm.addExerciseToProgramDay(exercise, args.programDayId!!, args.num)
