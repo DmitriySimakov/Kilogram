@@ -36,6 +36,7 @@ import com.dmitrysimakov.kilogram.ui.person_page.subscribers.SubscribersViewMode
 import com.dmitrysimakov.kilogram.ui.person_page.subscriptions.SubscriptionsViewModel
 import com.dmitrysimakov.kilogram.ui.profile.chats.ChatsViewModel
 import com.dmitrysimakov.kilogram.ui.profile.edit_profile.EditProfileViewModel
+import com.dmitrysimakov.kilogram.ui.search.SearchViewModel
 import com.dmitrysimakov.kilogram.ui.search.people.PeopleViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -106,6 +107,7 @@ val appModule = module {
     viewModel { PublicProgramDaysViewModel(get(), get()) }
     viewModel { PublicProgramDayExercisesViewModel(get(), get()) }
     viewModel { ProportionsCalculatorViewModel(get()) }
+    viewModel { SearchViewModel() }
     viewModel { SubscribersViewModel() }
     viewModel { SubscriptionsViewModel() }
     viewModel { TrainingExercisesViewModel(get(), get(), get()) }

@@ -41,7 +41,7 @@ class SharedViewModel(
     
     //region Firebase
     
-    val userExist = MutableLiveData<Boolean>()
+    private val userExist = MutableLiveData<Boolean>()
     
     val user = userExist.switchMap { userExist ->
         if (!userExist) AbsentLiveData.create()

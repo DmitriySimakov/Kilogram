@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
-import com.dmitrysimakov.kilogram.ui.common.UserListAdapter
+import com.dmitrysimakov.kilogram.ui.common.UsersVerticalAdapter
 import com.dmitrysimakov.kilogram.ui.search.people.PeopleFragmentDirections.Companion.toPersonPageFragment
 import com.dmitrysimakov.kilogram.util.navigate
 import com.dmitrysimakov.kilogram.util.setNewValue
@@ -20,7 +20,7 @@ class PeopleFragment : Fragment() {
     private val vm: PeopleViewModel by viewModel()
     private val sharedVM: SharedViewModel by sharedViewModel()
     
-    private val adapter by lazy { UserListAdapter { navigate(toPersonPageFragment(it.id)) } }
+    private val adapter by lazy { UsersVerticalAdapter { navigate(toPersonPageFragment(it.id)) } }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import com.dmitrysimakov.kilogram.R
-import com.dmitrysimakov.kilogram.ui.common.UserListAdapter
+import com.dmitrysimakov.kilogram.ui.common.UsersVerticalAdapter
 import com.dmitrysimakov.kilogram.ui.person_page.subscriptions_tab.SubscriptionsTabFragmentDirections.Companion.toPersonPageFragment
 import com.dmitrysimakov.kilogram.util.navigate
 import com.dmitrysimakov.kilogram.util.setNewValue
@@ -18,7 +18,7 @@ class SubscriptionsFragment(private val userId: String) : Fragment() {
     
     private val vm: SubscriptionsViewModel by viewModel()
     
-    private val adapter by lazy { UserListAdapter { navigate(toPersonPageFragment(it.id)) } }
+    private val adapter by lazy { UsersVerticalAdapter { navigate(toPersonPageFragment(it.id)) } }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_subscribers, container, false)
