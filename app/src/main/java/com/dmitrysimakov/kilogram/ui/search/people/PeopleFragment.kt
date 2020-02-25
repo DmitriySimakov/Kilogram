@@ -17,10 +17,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PeopleFragment : Fragment() {
     
+    private val adapter by lazy { UsersVerticalAdapter { navigate(toPersonPageFragment(it.id)) } }
+    
     private val vm: PeopleViewModel by viewModel()
     private val sharedVM: SharedViewModel by sharedViewModel()
-    
-    private val adapter by lazy { UsersVerticalAdapter { navigate(toPersonPageFragment(it.id)) } }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)

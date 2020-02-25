@@ -31,17 +31,16 @@ class CalendarDayDialog : BottomSheetDialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DialogCalendarDayBinding.inflate(inflater)
         binding.vm = vm
-        binding.recyclerView.adapter = adapter
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.recyclerView.adapter = adapter
+        binding.addTrainingButton.setOnClickListener { navigate(toCreateTrainingDialog(args.date)) }
         return binding.root
     }
     
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        
         vm.date.setNewValue(args.date.toDate())
-        
         vm.trainings.observe(viewLifecycleOwner) { adapter.submitList(it) }
-        
-        binding.addTrainingButton.setOnClickListener { navigate(toCreateTrainingDialog(args.date)) }
     }
 }

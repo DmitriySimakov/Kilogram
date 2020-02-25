@@ -33,16 +33,17 @@ class FeedFragment : Fragment() {
         binding = FragmentFeedBinding.inflate(inflater)
         binding.vm = vm
         binding.lifecycleOwner = this
+    
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
+    
+        binding.fab.setOnClickListener { navigate(toCreatePostFragment()) }
+        
         return binding.root
     }
     
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
-        
-        binding.fab.setOnClickListener { navigate(toCreatePostFragment()) }
         
         sharedVM.user.observe(viewLifecycleOwner) { vm.user.setNewValue(it) }
         vm.posts.observe(viewLifecycleOwner) { adapter.submitList(it) }

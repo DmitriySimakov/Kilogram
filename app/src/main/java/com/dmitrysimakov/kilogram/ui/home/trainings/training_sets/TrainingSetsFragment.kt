@@ -38,16 +38,10 @@ class TrainingSetsFragment : Fragment() {
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
-        
         binding = FragmentTrainingSetsBinding.inflate(inflater)
         binding.vm = vm
         binding.lifecycleOwner = this
-        return binding.root
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    
+        
         binding.recyclerView.adapter = adapter
         binding.recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
@@ -57,7 +51,7 @@ class TrainingSetsFragment : Fragment() {
                 vm.deleteSet(set.id)
             }
         }).attachToRecyclerView(binding.recyclerView)
-        
+    
         binding.fab.setOnClickListener {
             val set = vm.currentSets.value?.lastOrNull() ?: vm.previousSets.value?.firstOrNull()
         
@@ -69,6 +63,11 @@ class TrainingSetsFragment : Fragment() {
         
             navigate(toAddSetDialog(args.trainingExerciseId, null, weight, reps, time, distance))
         }
+        return binding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         
         vm.trainingExerciseId.setNewValue(args.trainingExerciseId)
         vm.trainingExercise.observe(viewLifecycleOwner)  {

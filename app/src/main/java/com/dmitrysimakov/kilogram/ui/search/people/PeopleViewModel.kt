@@ -3,10 +3,11 @@ package com.dmitrysimakov.kilogram.ui.search.people
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
 import com.dmitrysimakov.kilogram.data.model.User
 import com.dmitrysimakov.kilogram.data.remote.usersCollection
-import com.dmitrysimakov.kilogram.util.live_data.liveData
 import com.dmitrysimakov.kilogram.util.meetsQuery
+import kotlinx.coroutines.tasks.await
 
 class PeopleViewModel : ViewModel() {
     
@@ -14,25 +15,22 @@ class PeopleViewModel : ViewModel() {
     
     val user = MutableLiveData<User?>()
     
-    private val _loadedPeople = usersCollection.liveData { it.toObject(User::class.java)!! }
+    private val _people = liveData {
+        emit(usersCollection.get().await().toObjects(User::class.java))
+    }
     val people = MediatorLiveData<List<User>>()
     
     init {
-        listOf(_loadedPeople, user, searchText).forEach { people.addSource(it) { filterPeople() } }
+        listOf(_people, user, searchText).forEach { people.addSource(it) { filterPeople() } }
     }
     
     private fun filterPeople() {
-        val loadedPeople = _loadedPeople.value
+        val loadedPeople = _people.value ?: return
         val user = user.value
         val searchText = searchText.value
         
-        if (loadedPeople == null || user == null) {
-            people.value = emptyList()
-            return
-        }
-        
         people.value = loadedPeople.filter { person ->
-            person.id != user.id && (searchText == null || person.name.meetsQuery(searchText))
+            (user == null || person.id != user.id) && (searchText == null || person.name.meetsQuery(searchText))
         }
     }
 }

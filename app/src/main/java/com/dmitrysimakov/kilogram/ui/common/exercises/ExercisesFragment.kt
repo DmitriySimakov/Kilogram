@@ -42,22 +42,22 @@ class ExercisesFragment : Fragment() {
         binding = FragmentExercisesBinding.inflate(inflater)
         binding.vm = vm
         binding.lifecycleOwner = this
-        return binding.root
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        if (args.num != -1) setXNavIcon()
         
         binding.recyclerView.adapter = exerciseAdapter
         binding.recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
-        
+    
         exerciseTargetAdapter = ChipGroupFilterAdapter(binding.targetsCG) { id, isChecked ->
             vm.setChecked(vm.exerciseTargetList, id, isChecked)
         }
         equipmentAdapter = ChipGroupFilterAdapter(binding.equipmentCG) { id, isChecked ->
             vm.setChecked(vm.equipmentList, id, isChecked)
         }
+        return binding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        if (args.num != -1) setXNavIcon()
         
         vm.exerciseList.observe(viewLifecycleOwner) { exerciseAdapter.submitList(it) }
         vm.exerciseTargetList.observe(viewLifecycleOwner) { exerciseTargetAdapter.submitList(it) }

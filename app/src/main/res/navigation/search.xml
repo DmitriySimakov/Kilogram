@@ -12,6 +12,13 @@
         <action
             android:id="@+id/to_peopleFragment"
             app:destination="@id/peopleFragment" />
+        <action
+            android:id="@+id/to_personPageFragment"
+            app:destination="@id/person_page" >
+            <argument
+                android:name="id"
+                app:argType="string" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/peopleFragment"

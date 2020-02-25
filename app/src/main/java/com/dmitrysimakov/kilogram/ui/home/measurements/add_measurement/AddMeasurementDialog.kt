@@ -28,17 +28,16 @@ class AddMeasurementDialog : BottomSheetDialogFragment() {
         binding = DialogAddMeasurementBinding.inflate(inflater)
         binding.vm = vm
         binding.lifecycleOwner = this
-        return binding.root
-    }
-    
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        
         binding.recyclerView.adapter = adapter
         binding.addMeasurementBtn.setOnClickListener {
             vm.addMeasurements()
             popBackStack()
         }
+        return binding.root
+    }
+    
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         
         vm.date.setNewValue(args.date.toDate()?.atNoon())
         vm.measurements.observe(viewLifecycleOwner) { adapter.submitList(it) }
