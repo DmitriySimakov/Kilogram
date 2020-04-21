@@ -6,7 +6,7 @@
     app:startDestination="@id/personPageFragment">
     <fragment
         android:id="@+id/personPageFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.person_page.PersonPageFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.common.person_page.PersonPageFragment"
         tools:layout="@layout/fragment_person_page" >
         <argument
             android:name="id"
@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/subscriptionsTabFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.person_page.subscriptions_tab.SubscriptionsTabFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.common.person_page.subscriptions_tab.SubscriptionsTabFragment"
         tools:layout="@layout/tab_fragment" >
         <argument android:name="pageId"
             app:argType="integer" />

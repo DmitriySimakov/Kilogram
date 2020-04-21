@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.person_page.subscriptions
+package com.dmitrysimakov.kilogram.ui.common.person_page.subscribers
 
 import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.model.User
@@ -6,7 +6,7 @@ import com.dmitrysimakov.kilogram.data.remote.usersCollection
 import com.dmitrysimakov.kilogram.util.live_data.liveData
 import kotlinx.coroutines.tasks.await
 
-class SubscriptionsViewModel : ViewModel() {
+class SubscribersViewModel : ViewModel() {
     
     val userId = MutableLiveData<String>()
     
@@ -15,9 +15,9 @@ class SubscriptionsViewModel : ViewModel() {
         emit(snapshot.toObject(User::class.java)!!)
     }}
     
-    val subscriptions = user.switchMap { user ->
+    val subscribers = user.switchMap { user ->
         usersCollection.liveData { it.toObject(User::class.java)!! }.map {
-            it.filter {person -> user.subscriptions.contains(person.id) }
+            it.filter {person -> user.subscribers.contains(person.id) }
         }
     }
 }

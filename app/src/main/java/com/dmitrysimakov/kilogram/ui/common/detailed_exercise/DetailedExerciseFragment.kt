@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.exercises
+package com.dmitrysimakov.kilogram.ui.common.detailed_exercise
 
 import android.os.Bundle
 import android.view.*

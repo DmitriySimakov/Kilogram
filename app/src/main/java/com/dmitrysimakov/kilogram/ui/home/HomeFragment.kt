@@ -130,13 +130,13 @@ class HomeFragment : Fragment() {
     
     private fun dispatchImageCaptureIntent() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        intent.resolveActivity(activity!!.packageManager)
+        intent.resolveActivity(requireActivity().packageManager)
         val photoFile: File? = try {
             lastPhotoId = generateId()
             createTempFile(lastPhotoId, ".jpg", context?.getExternalFilesDir(Environment.DIRECTORY_PICTURES))
         } catch (ex: IOException) { null }
         photoFile?.let { file ->
-            val photoURI = FileProvider.getUriForFile(context!!, AUTHORITY, file)
+            val photoURI = FileProvider.getUriForFile(requireContext(), AUTHORITY, file)
             lastPhotoUri = photoURI.toString()
             intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
             startActivityForResult(intent, RC_TAKE_PHOTO)

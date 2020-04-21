@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.exercises
+package com.dmitrysimakov.kilogram.ui.common.detailed_exercise
 
 import androidx.lifecycle.*
 import com.dmitrysimakov.kilogram.data.local.dao.TargetedMuscleDao

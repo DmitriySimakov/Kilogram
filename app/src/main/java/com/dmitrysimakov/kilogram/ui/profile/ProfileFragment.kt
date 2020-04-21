@@ -14,8 +14,8 @@ import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.FragmentProfileBinding
 import com.dmitrysimakov.kilogram.ui.RC_SIGN_IN
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
-import com.dmitrysimakov.kilogram.ui.person_page.subscriptions_tab.SUBSCRIBERS_PAGE
-import com.dmitrysimakov.kilogram.ui.person_page.subscriptions_tab.SUBSCRIPTIONS_PAGE
+import com.dmitrysimakov.kilogram.ui.common.person_page.subscriptions_tab.SUBSCRIBERS_PAGE
+import com.dmitrysimakov.kilogram.ui.common.person_page.subscriptions_tab.SUBSCRIPTIONS_PAGE
 import com.dmitrysimakov.kilogram.ui.profile.ProfileFragmentDirections.Companion.toChatsFragment
 import com.dmitrysimakov.kilogram.ui.profile.ProfileFragmentDirections.Companion.toEditProfileFragment
 import com.dmitrysimakov.kilogram.ui.profile.ProfileFragmentDirections.Companion.toSubscriptionsTabFragment
@@ -88,7 +88,7 @@ class ProfileFragment : Fragment() {
                     .setLogo(R.mipmap.ic_launcher_round)
                     .build(), RC_SIGN_IN)
         } else {
-            AuthUI.getInstance().signOut(context!!)
+            AuthUI.getInstance().signOut(requireContext())
             sharedVM.signOut()
         }
     }

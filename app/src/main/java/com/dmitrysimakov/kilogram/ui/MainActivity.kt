@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupBottomNavigationBar() {
         val navGraphIds = listOf(
                 R.navigation.home,
-                R.navigation.exercises,
+                R.navigation.map,
                 R.navigation.feed,
                 R.navigation.search,
                 R.navigation.profile

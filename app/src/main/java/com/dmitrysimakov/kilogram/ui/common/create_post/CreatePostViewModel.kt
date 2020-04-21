@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.create_post
+package com.dmitrysimakov.kilogram.ui.common.create_post
 
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData

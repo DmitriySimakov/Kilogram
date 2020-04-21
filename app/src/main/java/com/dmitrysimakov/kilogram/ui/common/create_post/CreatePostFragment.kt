@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.create_post
+package com.dmitrysimakov.kilogram.ui.common.create_post
 
 import android.app.Activity
 import android.content.Intent
@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import com.dmitrysimakov.kilogram.databinding.FragmentCreatePostBinding
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
-import com.dmitrysimakov.kilogram.ui.create_post.CreatePostFragmentDirections.Companion.toChooseProgramFragment
+import com.dmitrysimakov.kilogram.ui.common.create_post.CreatePostFragmentDirections.Companion.toChooseProgramFragment
 import com.dmitrysimakov.kilogram.util.dispatchGetImageContentIntent
 import com.dmitrysimakov.kilogram.util.live_data.EventObserver
 import com.dmitrysimakov.kilogram.util.navigate

@@ -6,7 +6,7 @@
     app:startDestination="@id/createPostFragment">
     <fragment
         android:id="@+id/createPostFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.create_post.CreatePostFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.common.create_post.CreatePostFragment"
         android:label="@string/new_post"
         tools:layout="@layout/fragment_create_post" >
         <action

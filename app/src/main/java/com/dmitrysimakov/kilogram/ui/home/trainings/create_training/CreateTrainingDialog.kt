@@ -46,7 +46,7 @@ class CreateTrainingDialog : Fragment() {
             val listener = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 vm.dateTime.setNewValue(dateTime.withYear(year).withMonth(monthOfYear + 1).withDayOfMonth(dayOfMonth))
             }
-            DatePickerDialog(context!!, listener, dateTime.year, dateTime.monthValue - 1, dateTime.dayOfMonth).apply {
+            DatePickerDialog(requireContext(), listener, dateTime.year, dateTime.monthValue - 1, dateTime.dayOfMonth).apply {
                 fun LocalDate.toEpochMilli() = atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli()
                 datePicker.minDate = Year.of(2000).atDay(1).toEpochMilli()
                 datePicker.maxDate = LocalDate.now().plusMonths(1).toEpochMilli()

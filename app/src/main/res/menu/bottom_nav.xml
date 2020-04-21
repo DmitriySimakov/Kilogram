@@ -3,23 +3,23 @@
     
     <item
         android:id="@+id/home"
-        android:icon="@drawable/ic_home"
+        android:icon="@drawable/ic_fitness_center"
         android:title="@string/home" />
     
     <item
-        android:id="@+id/exercises"
-        android:icon="@drawable/ic_fitness_center"
-        android:title="@string/exercises" />
-
+        android:id="@+id/search"
+        android:icon="@drawable/ic_search"
+        android:title="@string/search"/>
+    
     <item
         android:id="@+id/feed"
         android:icon="@drawable/ic_subscriptions"
         android:title="@string/subscriptions"/>
     
     <item
-        android:id="@+id/search"
-        android:icon="@drawable/ic_search"
-        android:title="@string/search"/>
+        android:id="@+id/map"
+        android:icon="@drawable/ic_explore"
+        android:title="@string/map" />
     
     <item
         android:id="@+id/profile"

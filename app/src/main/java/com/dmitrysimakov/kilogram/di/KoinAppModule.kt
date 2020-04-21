@@ -8,10 +8,13 @@ import com.dmitrysimakov.kilogram.data.remote.data_sources.*
 import com.dmitrysimakov.kilogram.data.repository.*
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.ui.common.choose_program.ChooseProgramViewModel
+import com.dmitrysimakov.kilogram.ui.common.create_post.CreatePostViewModel
+import com.dmitrysimakov.kilogram.ui.common.detailed_exercise.DetailedExerciseViewModel
 import com.dmitrysimakov.kilogram.ui.common.exercises.ExercisesViewModel
 import com.dmitrysimakov.kilogram.ui.common.messages.MessagesViewModel
-import com.dmitrysimakov.kilogram.ui.create_post.CreatePostViewModel
-import com.dmitrysimakov.kilogram.ui.exercises.DetailedExerciseViewModel
+import com.dmitrysimakov.kilogram.ui.common.person_page.PersonPageViewModel
+import com.dmitrysimakov.kilogram.ui.common.person_page.subscribers.SubscribersViewModel
+import com.dmitrysimakov.kilogram.ui.common.person_page.subscriptions.SubscriptionsViewModel
 import com.dmitrysimakov.kilogram.ui.feed.FeedViewModel
 import com.dmitrysimakov.kilogram.ui.feed.program_day_exercises.PublicProgramDayExercisesViewModel
 import com.dmitrysimakov.kilogram.ui.feed.program_days.PublicProgramDaysViewModel
@@ -31,9 +34,6 @@ import com.dmitrysimakov.kilogram.ui.home.trainings.add_training_set.AddTraining
 import com.dmitrysimakov.kilogram.ui.home.trainings.create_training.CreateTrainingViewModel
 import com.dmitrysimakov.kilogram.ui.home.trainings.exercises.TrainingExercisesViewModel
 import com.dmitrysimakov.kilogram.ui.home.trainings.training_sets.TrainingSetsViewModel
-import com.dmitrysimakov.kilogram.ui.person_page.PersonPageViewModel
-import com.dmitrysimakov.kilogram.ui.person_page.subscribers.SubscribersViewModel
-import com.dmitrysimakov.kilogram.ui.person_page.subscriptions.SubscriptionsViewModel
 import com.dmitrysimakov.kilogram.ui.profile.chats.ChatsViewModel
 import com.dmitrysimakov.kilogram.ui.profile.edit_profile.EditProfileViewModel
 import com.dmitrysimakov.kilogram.ui.search.SearchViewModel
