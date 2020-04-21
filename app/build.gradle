@@ -60,7 +60,7 @@ dependencies {
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation "androidx.viewpager2:viewpager2:1.0.0"
-    implementation "com.google.android.material:material:1.2.0-alpha05"
+    implementation "com.google.android.material:material:1.2.0-alpha06"
     implementation "com.github.kizitonwose:CalendarView:0.2.9"
     implementation "de.hdodenhof:circleimageview:3.0.1"
     
@@ -72,7 +72,7 @@ dependencies {
     //endregion UI
     
     //region Architecture components
-    implementation "androidx.work:work-runtime-ktx:2.3.2"
+    implementation "androidx.work:work-runtime-ktx:2.3.4"
     
     //region lifecycle
     def lifecycle_version = "2.2.0"
@@ -89,7 +89,7 @@ dependencies {
     //endregion navigation
     
     //region Room
-    def room_version = "2.2.4"
+    def room_version = "2.2.5"
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
@@ -103,11 +103,11 @@ dependencies {
     //endregion Koin
     
     //region Firebase
-    implementation "com.google.firebase:firebase-auth:19.2.0"
-    implementation "com.google.firebase:firebase-core:17.2.2"
+    implementation "com.google.firebase:firebase-auth:19.3.0"
+    implementation "com.google.firebase:firebase-core:17.3.0"
     implementation "com.google.firebase:firebase-database:19.2.1"
     implementation "com.google.firebase:firebase-firestore-ktx:21.4.0"
-    implementation "com.google.firebase:firebase-messaging:20.1.0"
+    implementation "com.google.firebase:firebase-messaging:20.1.5"
     implementation "com.google.firebase:firebase-storage:19.1.1"
     implementation "com.firebaseui:firebase-ui-auth:5.0.0"
     implementation "com.facebook.android:facebook-android-sdk:5.0.0"
