@@ -7,8 +7,6 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.FragmentExercisesBinding
 import com.dmitrysimakov.kilogram.ui.common.ChipGroupFilterAdapter
@@ -44,7 +42,6 @@ class ExercisesFragment : Fragment() {
         binding.lifecycleOwner = this
         
         binding.recyclerView.adapter = exerciseAdapter
-        binding.recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
     
         exerciseTargetAdapter = ChipGroupFilterAdapter(binding.targetsCG) { id, isChecked ->
             vm.setChecked(vm.exerciseTargetList, id, isChecked)

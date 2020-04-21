@@ -23,6 +23,10 @@
             android:id="@+id/to_exercisesFragment"
             app:destination="@id/exercisesFragment"
             />
+        <action
+            android:id="@+id/to_exerciseDetailFragment"
+            app:destination="@id/exerciseDetailFragment"
+            />
     </fragment>
     
     <fragment

@@ -4,16 +4,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.dmitrysimakov.kilogram.data.model.User
 import com.dmitrysimakov.kilogram.data.model.UserDiffCallback
-import com.dmitrysimakov.kilogram.databinding.ItemUserVerticalBinding
+import com.dmitrysimakov.kilogram.databinding.ItemUserBinding
 
 class UsersVerticalAdapter(
         clickCallback: ((User) -> Unit)? = null
-) : DataBoundListAdapter<User, ItemUserVerticalBinding>(clickCallback, UserDiffCallback()) {
+) : DataBoundListAdapter<User, ItemUserBinding>(clickCallback, UserDiffCallback()) {
     
-    override fun createBinding(parent: ViewGroup): ItemUserVerticalBinding = ItemUserVerticalBinding
+    override fun createBinding(parent: ViewGroup): ItemUserBinding = ItemUserBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
     
-    override fun bind(binding: ItemUserVerticalBinding, item: User) {
+    override fun bind(binding: ItemUserBinding, item: User) {
         binding.user = item
     }
 }

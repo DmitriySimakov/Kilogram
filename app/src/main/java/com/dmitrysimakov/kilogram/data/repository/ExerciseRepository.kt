@@ -7,6 +7,8 @@ class ExerciseRepository(private val dao: ExerciseDao) {
 
     fun exercisesFlow(query: SupportSQLiteQuery) = dao.exercisesFlow(query)
     
+    suspend fun exercises(number: Int) = dao.exercises(number)
+    
     suspend fun exercise(name: String) = dao.exercise(name)
     
     suspend fun setFavorite(name: String, isFavorite: Boolean) = dao.setFavorite(name, isFavorite)

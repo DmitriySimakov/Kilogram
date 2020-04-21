@@ -18,16 +18,23 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/listPreferredItemHeight"
         android:background="?android:attr/windowBackground"
-        android:padding="4dp">
+        android:padding="@dimen/list_item_padding">
         
-        <ImageView
-            android:id="@+id/exercise_image"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            app:assetsImage='@{"exercises/"+ exercise.name +"_1.jpeg"}'
-            tools:layout_width="?android:attr/listPreferredItemHeight"
-            tools:src="@drawable/exercise_sample_1" />
+            android:layout_height="match_parent">
+            
+            <ImageView
+                android:id="@+id/exercise_image"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                app:assetsImage='@{"exercises/"+ exercise.name +"_1.jpeg"}'
+                tools:layout_width="?android:attr/listPreferredItemHeight"
+                tools:src="@drawable/exercise_sample_1" />
+            
+        </com.google.android.material.card.MaterialCardView>
         
         <TextView
             android:id="@+id/exercise_name"

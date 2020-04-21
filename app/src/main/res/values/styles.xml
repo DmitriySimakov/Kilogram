@@ -11,9 +11,10 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlNormal">@color/black</item>
     
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.BaseAppThemeLight.BottomSheetDialog</item>
         <item name="textInputStyle">@style/Widget.BaseAppThemeLight.TextInput</item>
         <item name="floatingActionButtonStyle">@style/Widget.BaseAppThemeLight.FloatingActionButton</item>
-        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.BaseAppThemeLight.BottomSheetDialog</item>
+        <item name="cardViewStyle">@style/Widget.BaseAppThemeLight.CardView</item>
     </style>
     
     <style name="Widget.BaseAppThemeLight.TextInput" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
@@ -39,6 +40,11 @@
         <item name="textInputStyle">@style/Widget.BaseAppThemeLight.TextInput</item>
     </style>
     
+    <style name="Widget.BaseAppThemeLight.CardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">@dimen/card_corner_radius</item>
+        <item name="cardElevation">2dp</item>
+    </style>
+    
     <!-- DARK THEME -->
     
     <style name="AppThemeDark" parent="BaseAppThemeDark"/>
@@ -49,9 +55,9 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
     
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.BaseAppThemeDark.BottomSheetDialog</item>
         <item name="textInputStyle">@style/Widget.BaseAppThemeLight.TextInput</item>
         <item name="floatingActionButtonStyle">@style/Widget.BaseAppThemeLight.FloatingActionButton</item>
-        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.BaseAppThemeDark.BottomSheetDialog</item>
     </style>
     
     <style name="ThemeOverlay.BaseAppThemeDark.BottomSheetDialog" parent="Theme.MaterialComponents.BottomSheetDialog">
@@ -114,6 +120,10 @@
         <item name="android:paddingStart">4dp</item>
         <item name="android:paddingEnd">4dp</item>
         <item name="android:textSize">10sp</item>
+    </style>
+    
+    <style name="CardCaption">
+        <item name="android:textSize">12sp</item>
     </style>
     
 </resources>

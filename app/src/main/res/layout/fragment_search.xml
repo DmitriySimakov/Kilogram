@@ -37,7 +37,27 @@
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintTop_toBottomOf="@id/peoplesLabel"
-                tools:listitem="@layout/item_user_horizontal" />
+                tools:listitem="@layout/item_user_mini" />
+    
+            <TextView
+                android:id="@+id/exercisesLabel"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:drawableEnd="@drawable/ic_arrow_forward"
+                android:gravity="center_vertical"
+                android:padding="@dimen/icon_button_padding"
+                android:text="@string/exercises"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                app:layout_constraintTop_toBottomOf="@id/peoplesRV"/>
+    
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/exercisesRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/exercisesLabel"
+                tools:listitem="@layout/item_exercise_mini" />
     
             <TextView
                 android:id="@+id/postsLabel"
@@ -47,7 +67,7 @@
                 android:padding="@dimen/icon_button_padding"
                 android:text="@string/popular_publications"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                app:layout_constraintTop_toBottomOf="@id/peoplesRV"/>
+                app:layout_constraintTop_toBottomOf="@id/exercisesRV"/>
     
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/postsRV"

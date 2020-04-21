@@ -9,6 +9,8 @@ import androidx.lifecycle.observe
 import com.dmitrysimakov.kilogram.databinding.FragmentSearchBinding
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.ui.feed.PostsAdapter
+import com.dmitrysimakov.kilogram.ui.search.SearchFragmentDirections.Companion.toExerciseDetailFragment
+import com.dmitrysimakov.kilogram.ui.search.SearchFragmentDirections.Companion.toExercisesFragment
 import com.dmitrysimakov.kilogram.ui.search.SearchFragmentDirections.Companion.toPeopleFragment
 import com.dmitrysimakov.kilogram.ui.search.SearchFragmentDirections.Companion.toPersonPageFragment
 import com.dmitrysimakov.kilogram.util.navigate
@@ -21,6 +23,7 @@ class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
     
     private val peopleAdapter by lazy { UsersHorizontalAdapter { navigate(toPersonPageFragment(it.id)) } }
+    private val exercisesAdapter by lazy { ExercisesHorizontalAdapter { navigate(toExerciseDetailFragment(it.name)) } }
     private val postsAdapter by lazy { PostsAdapter(sharedVM, {}, {}) }
     
     private val vm: SearchViewModel by viewModel()
@@ -32,6 +35,8 @@ class SearchFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.peoplesLabel.setOnClickListener { navigate(toPeopleFragment()) }
         binding.peoplesRV.adapter = peopleAdapter
+        binding.exercisesLabel.setOnClickListener { navigate(toExercisesFragment()) }
+        binding.exercisesRV.adapter = exercisesAdapter
         binding.postsRV.adapter = postsAdapter
         return binding.root
     }
@@ -41,6 +46,7 @@ class SearchFragment : Fragment() {
     
         sharedVM.user.observe(viewLifecycleOwner) { vm.user.setNewValue(it) }
         vm.people.observe(viewLifecycleOwner) { peopleAdapter.submitList(it) }
+        vm.exercises.observe(viewLifecycleOwner) { exercisesAdapter.submitList(it) }
         vm.posts.observe(viewLifecycleOwner) { postsAdapter.submitList(it) }
     }
 }

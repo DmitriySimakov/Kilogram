@@ -11,6 +11,9 @@ interface ExerciseDao {
     @RawQuery(observedEntities = [Exercise::class])
     fun exercisesFlow(query: SupportSQLiteQuery) : Flow<List<Exercise>>
     
+    @Query("SELECT * FROM Exercise LIMIT :number")
+    suspend fun exercises(number: Int): List<Exercise>
+    
     @Query("SELECT * FROM Exercise WHERE name = :name")
     suspend fun exercise(name: String) : Exercise
     

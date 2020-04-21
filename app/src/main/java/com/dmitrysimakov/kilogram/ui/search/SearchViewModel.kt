@@ -7,16 +7,22 @@ import androidx.lifecycle.liveData
 import com.dmitrysimakov.kilogram.data.model.User
 import com.dmitrysimakov.kilogram.data.remote.data_sources.PostSource
 import com.dmitrysimakov.kilogram.data.remote.usersCollection
+import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
 import kotlinx.coroutines.tasks.await
 
-class SearchViewModel(postSrc: PostSource) : ViewModel() {
+class SearchViewModel(
+        exerciseRepo: ExerciseRepository,
+        postSrc: PostSource
+) : ViewModel() {
     
     val user = MutableLiveData<User?>()
     
     private val _people = liveData {
-        emit(usersCollection.get().await().toObjects(User::class.java))
+        emit(usersCollection.limit(20).get().await().toObjects(User::class.java))
     }
     val people = MediatorLiveData<List<User>>()
+    
+    val exercises = liveData { emit(exerciseRepo.exercises(20)) }
     
     val posts = postSrc.postsLive()
     
