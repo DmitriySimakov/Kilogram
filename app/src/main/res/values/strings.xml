@@ -2,12 +2,8 @@
     <string name="app_name">Kilogram</string>
     <string name="facebook_application_id">379491969582169</string>
     <string name="facebook_login_protocol_scheme">fb379491969582169</string>
-    
-    <!-- NavigationView -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    
-    <!-- NavigationView items -->
     <string name="main">На главную</string>
     <string name="exercises">Упражнения</string>
     <string name="programs">Программы</string>
@@ -15,14 +11,9 @@
     <string name="measurements">Замеры</string>
     <string name="settings">Настройки</string>
     <string name="about">О приложении</string>
-    
-    <!-- Options menu -->
     <string name="finish_training">Завершить тренировку</string>
     <string name="delete_session">Удалить тренировку</string>
-    
-    <!-- ExerciseDescriptionFragment -->
     <string name="exercise">Упражнение</string>
-    
     <string name="exercise_name">Название упражнения</string>
     <string name="images">Изображения</string>
     <string name="main_muscle">Целевые мышцы</string>
@@ -32,20 +23,12 @@
     <string name="equipment">Оборудование</string>
     <string name="description">Описание</string>
     <string name="technique">Техника выполнения</string>
-    
-    <!-- CreateTrainingDialog -->
     <string name="training_session">Тренировка</string>
     <string name="training_program">Тренировочная программа</string>
-    
-    <!-- MeasurementTabFragment -->
     <string name="calculator">Калькулятор</string>
     <string name="add_measurement">Добавить</string>
     <string name="measurement_history">История</string>
-    
-    <!-- MeasurementDialog -->
     <string name="enter_value">Введите значение параметра</string>
-    
-    <!-- ProportionsCalculatorFragment -->
     <string name="parameter">Параметр</string>
     <string name="actual_value">Фактическое значение</string>
     <string name="expected_value">Ожидаемое значение</string>
@@ -158,5 +141,6 @@
     <string name="popular_publications">Популярные публикации</string>
     <string name="title_activity_map_fragment">Map</string>
     <string name="map">Карта</string>
+    <string name="training_programs">Программы тренировок</string>
 
 </resources>

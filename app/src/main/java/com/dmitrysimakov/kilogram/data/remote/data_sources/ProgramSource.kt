@@ -17,6 +17,12 @@ class ProgramSource(workManager: WorkManager) : RemoteDataSource(workManager) {
     private val programDayExercisesRef
         get() = firestore.collection("users/$uid/program_day_exercises")
     
+    suspend fun programs(): List<Program> =
+            firestore.collection("programs").get().await().toObjects(Program::class.java)
+    
+    suspend fun programs(limit: Long): List<Program> =
+            firestore.collection("programs").limit(limit).get().await().toObjects(Program::class.java)
+    
     suspend fun program(id: String) =
             firestore.document("programs/$id").get().await().toObject(Program::class.java)!!
     

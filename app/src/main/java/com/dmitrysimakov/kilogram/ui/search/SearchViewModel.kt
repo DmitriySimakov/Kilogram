@@ -8,10 +8,12 @@ import com.dmitrysimakov.kilogram.data.model.User
 import com.dmitrysimakov.kilogram.data.remote.data_sources.PostSource
 import com.dmitrysimakov.kilogram.data.remote.usersCollection
 import com.dmitrysimakov.kilogram.data.repository.ExerciseRepository
+import com.dmitrysimakov.kilogram.data.repository.ProgramRepository
 import kotlinx.coroutines.tasks.await
 
 class SearchViewModel(
         exerciseRepo: ExerciseRepository,
+        programsRepo: ProgramRepository,
         postSrc: PostSource
 ) : ViewModel() {
     
@@ -23,6 +25,8 @@ class SearchViewModel(
     val people = MediatorLiveData<List<User>>()
     
     val exercises = liveData { emit(exerciseRepo.exercises(20)) }
+    
+    val programs = liveData { emit(programsRepo.publicPrograms(3)) }
     
     val posts = postSrc.postsLive()
     

@@ -219,7 +219,7 @@
                 android:drawableEnd="@drawable/ic_add"
                 android:gravity="center_vertical"
                 android:padding="@dimen/icon_button_padding"
-                android:text="@string/programs"
+                android:text="@string/training_programs"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
                 app:goneUnless="@{vm.programs != null}"
                 app:layout_constraintTop_toBottomOf="@id/proportionsCalculatorBtn"/>

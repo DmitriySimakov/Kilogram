@@ -18,6 +18,10 @@ class ProgramRepository(
     
     suspend fun program(id: String) = programDao.program(id)
     
+    suspend fun publicPrograms() = src.programs()
+    
+    suspend fun publicPrograms(limit: Long) = src.programs(limit)
+    
     suspend fun publicProgram(id: String) = src.program(id)
     
     suspend fun insert(program: Program) {

@@ -14,7 +14,6 @@
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.BaseAppThemeLight.BottomSheetDialog</item>
         <item name="textInputStyle">@style/Widget.BaseAppThemeLight.TextInput</item>
         <item name="floatingActionButtonStyle">@style/Widget.BaseAppThemeLight.FloatingActionButton</item>
-        <item name="cardViewStyle">@style/Widget.BaseAppThemeLight.CardView</item>
     </style>
     
     <style name="Widget.BaseAppThemeLight.TextInput" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
@@ -38,11 +37,6 @@
         <!---->
     
         <item name="textInputStyle">@style/Widget.BaseAppThemeLight.TextInput</item>
-    </style>
-    
-    <style name="Widget.BaseAppThemeLight.CardView" parent="Widget.MaterialComponents.CardView">
-        <item name="cardCornerRadius">@dimen/card_corner_radius</item>
-        <item name="cardElevation">2dp</item>
     </style>
     
     <!-- DARK THEME -->

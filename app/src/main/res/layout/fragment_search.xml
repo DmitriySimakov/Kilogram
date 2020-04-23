@@ -60,6 +60,27 @@
                 tools:listitem="@layout/item_exercise_mini" />
     
             <TextView
+                android:id="@+id/programsLabel"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:drawableEnd="@drawable/ic_arrow_forward"
+                android:gravity="center_vertical"
+                android:padding="@dimen/icon_button_padding"
+                android:text="@string/training_programs"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                app:layout_constraintTop_toBottomOf="@id/exercisesRV"/>
+    
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/programsRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_program"
+                app:layout_constraintTop_toBottomOf="@id/programsLabel"/>
+            
+            <TextView
                 android:id="@+id/postsLabel"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -67,7 +88,7 @@
                 android:padding="@dimen/icon_button_padding"
                 android:text="@string/popular_publications"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                app:layout_constraintTop_toBottomOf="@id/exercisesRV"/>
+                app:layout_constraintTop_toBottomOf="@id/programsRV"/>
     
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/postsRV"

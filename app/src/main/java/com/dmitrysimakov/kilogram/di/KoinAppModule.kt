@@ -107,7 +107,7 @@ val appModule = module {
     viewModel { PublicProgramDaysViewModel(get(), get()) }
     viewModel { PublicProgramDayExercisesViewModel(get(), get()) }
     viewModel { ProportionsCalculatorViewModel(get()) }
-    viewModel { SearchViewModel(get(), get()) }
+    viewModel { SearchViewModel(get(), get(), get()) }
     viewModel { SubscribersViewModel() }
     viewModel { SubscriptionsViewModel() }
     viewModel { TrainingExercisesViewModel(get(), get(), get()) }

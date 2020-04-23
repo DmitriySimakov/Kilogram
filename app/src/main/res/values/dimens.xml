@@ -10,4 +10,5 @@
     <dimen name="list_item_horizontal_padding">16dp</dimen>
     <dimen name="list_item_padding">8dp</dimen>
     <dimen name="card_corner_radius">16dp</dimen>
+    <dimen name="card_corner_radius_small">8dp</dimen>
 </resources>

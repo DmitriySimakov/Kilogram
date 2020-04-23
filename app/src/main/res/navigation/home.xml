@@ -239,7 +239,7 @@
         android:id="@+id/programDaysFragment"
         android:name="com.dmitrysimakov.kilogram.ui.home.programs.program_days.ProgramDaysFragment"
         android:label="@string/program_days"
-        tools:layout="@layout/fragment_choose_program_day">
+        tools:layout="@layout/fragment_program_days">
         <argument
             android:name="programId"
             app:argType="string" />
