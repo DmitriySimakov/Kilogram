@@ -28,9 +28,5 @@ class PhotosFragment : Fragment() {
         recyclerView.adapter = adapter
         
         vm.photos.observe(viewLifecycleOwner) { adapter.submitList(it) }
-        
-        fab.setOnClickListener{
-            //TODO
-        }
     }
 }
