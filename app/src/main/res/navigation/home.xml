@@ -51,8 +51,12 @@
         <action
             android:id="@+id/to_chooseProgramFragment"
             app:destination="@id/chooseProgramFragment" >
-            <argument android:defaultValue="true"
-                android:name="toChooseProgramDay" />
+            <argument
+                android:name="toChooseProgramDay"
+                android:defaultValue="true"/>
+            <argument
+                android:name="publishProgram"
+                android:defaultValue="false"/>
         </action>
         <argument
             android:name="date"
@@ -66,6 +70,9 @@
         tools:layout="@layout/fragment_choose_program">
         <argument
             android:name="toChooseProgramDay"
+            app:argType="boolean" />
+        <argument
+            android:name="publishProgram"
             app:argType="boolean" />
         <action
             android:id="@+id/to_chooseProgramDayFragment"

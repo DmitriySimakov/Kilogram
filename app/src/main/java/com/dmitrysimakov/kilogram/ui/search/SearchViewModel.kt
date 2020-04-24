@@ -27,7 +27,7 @@ class SearchViewModel(
     
     val exercises = liveData { emit(exerciseRepo.exercises(20)) }
     
-    val programs = liveData { emit(programsRepo.publicPrograms(3)) }
+    val programs = programsRepo.publicPrograms(3)
     
     val posts = postSrc.postsLive()
     

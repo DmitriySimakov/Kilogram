@@ -147,8 +147,8 @@
                 android:gravity="center_vertical"
                 android:padding="@dimen/icon_button_padding"
                 android:text="@string/photos"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                app:goneUnless="@{vm.recentPhotos != null}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                app:goneUnless="@{vm.recentPhotos.size() > 0}"
                 app:layout_constraintTop_toBottomOf="@id/buttons"/>
             
             <androidx.recyclerview.widget.RecyclerView
@@ -158,7 +158,6 @@
                 android:nestedScrollingEnabled="false"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="3"
-                app:goneUnless="@{vm.recentPhotos != null}"
                 app:layout_constraintTop_toBottomOf="@id/photosLabel"
                 tools:itemCount="3"
                 tools:listitem="@layout/item_photo" />
@@ -171,8 +170,8 @@
                 android:gravity="center_vertical"
                 android:padding="@dimen/icon_button_padding"
                 android:text="@string/measurements"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                app:goneUnless="@{vm.recentMeasurements != null}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                app:goneUnless="@{vm.recentMeasurements.size() > 0}"
                 app:layout_constraintTop_toBottomOf="@id/photosRV"/>
             
             <androidx.recyclerview.widget.RecyclerView
@@ -182,7 +181,6 @@
                 android:layout_weight="1"
                 android:nestedScrollingEnabled="false"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:goneUnless="@{vm.recentMeasurements != null}"
                 app:layout_constraintTop_toBottomOf="@id/measurementsLabel"
                 tools:itemCount="2"
                 tools:listitem="@layout/item_measurement" />
@@ -220,8 +218,7 @@
                 android:gravity="center_vertical"
                 android:padding="@dimen/icon_button_padding"
                 android:text="@string/training_programs"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                app:goneUnless="@{vm.programs != null}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 app:layout_constraintTop_toBottomOf="@id/proportionsCalculatorBtn"/>
     
             <androidx.recyclerview.widget.RecyclerView
@@ -230,7 +227,6 @@
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:goneUnless="@{vm.programs != null}"
                 tools:itemCount="2"
                 tools:listitem="@layout/item_program"
                 app:layout_constraintTop_toBottomOf="@id/programsLabel"/>

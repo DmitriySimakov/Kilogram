@@ -10,9 +10,11 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.common.ProgramsAdapter
+import com.dmitrysimakov.kilogram.ui.search.public_programs.PublicProgramsFragmentDirections.Companion.toChooseProgramFragment
 import com.dmitrysimakov.kilogram.ui.search.public_programs.PublicProgramsFragmentDirections.Companion.toPublicProgramDaysFragment
 import com.dmitrysimakov.kilogram.util.navigate
-import kotlinx.android.synthetic.main.fragment_choose_program.*
+import kotlinx.android.synthetic.main.fragment_choose_program.recyclerView
+import kotlinx.android.synthetic.main.fragment_public_programs.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PublicProgramsFragment : Fragment() {
@@ -33,5 +35,6 @@ class PublicProgramsFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
         vm.programs.observe(viewLifecycleOwner) { adapter.submitList(it) }
+        fab.setOnClickListener { navigate(toChooseProgramFragment()) }
     }
 }

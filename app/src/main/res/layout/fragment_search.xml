@@ -27,7 +27,7 @@
                 android:gravity="center_vertical"
                 android:padding="@dimen/icon_button_padding"
                 android:text="@string/people"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 app:layout_constraintTop_toTopOf="parent"/>
             
             <androidx.recyclerview.widget.RecyclerView
@@ -47,7 +47,7 @@
                 android:gravity="center_vertical"
                 android:padding="@dimen/icon_button_padding"
                 android:text="@string/exercises"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 app:layout_constraintTop_toBottomOf="@id/peoplesRV"/>
     
             <androidx.recyclerview.widget.RecyclerView
@@ -67,7 +67,7 @@
                 android:gravity="center_vertical"
                 android:padding="@dimen/icon_button_padding"
                 android:text="@string/training_programs"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 app:layout_constraintTop_toBottomOf="@id/exercisesRV"/>
     
             <androidx.recyclerview.widget.RecyclerView
@@ -87,7 +87,7 @@
                 android:gravity="center_vertical"
                 android:padding="@dimen/icon_button_padding"
                 android:text="@string/popular_publications"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 app:layout_constraintTop_toBottomOf="@id/programsRV"/>
     
             <androidx.recyclerview.widget.RecyclerView

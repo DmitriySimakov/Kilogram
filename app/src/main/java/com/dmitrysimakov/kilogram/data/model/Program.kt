@@ -10,6 +10,8 @@ import java.util.*
 data class Program(
         val name: String = "",
         val description: String = "",
+        val authorId: String? = null,
+        val authorName: String? = null,
         val lastUpdate: Date = Date(),
         val deleted: Boolean = false,
         @PrimaryKey val id: String = generateId()

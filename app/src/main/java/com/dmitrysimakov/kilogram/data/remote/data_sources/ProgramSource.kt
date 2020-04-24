@@ -6,6 +6,7 @@ import com.dmitrysimakov.kilogram.data.model.ProgramDay
 import com.dmitrysimakov.kilogram.data.model.ProgramDayExercise
 import com.dmitrysimakov.kilogram.data.remote.firestore
 import com.dmitrysimakov.kilogram.data.remote.uid
+import com.dmitrysimakov.kilogram.util.live_data.liveData
 import kotlinx.coroutines.tasks.await
 
 class ProgramSource(workManager: WorkManager) : RemoteDataSource(workManager) {
@@ -17,11 +18,14 @@ class ProgramSource(workManager: WorkManager) : RemoteDataSource(workManager) {
     private val programDayExercisesRef
         get() = firestore.collection("users/$uid/program_day_exercises")
     
-    suspend fun programs(): List<Program> =
-            firestore.collection("programs").get().await().toObjects(Program::class.java)
+    fun programs() = firestore.collection("programs").liveData {
+        it.toObject(Program::class.java)!!
+    }
     
-    suspend fun programs(limit: Long): List<Program> =
-            firestore.collection("programs").limit(limit).get().await().toObjects(Program::class.java)
+    fun programs(limit: Long) =
+            firestore.collection("programs").limit(limit).liveData {
+                it.toObject(Program::class.java)!!
+            }
     
     suspend fun program(id: String) =
             firestore.document("programs/$id").get().await().toObject(Program::class.java)!!

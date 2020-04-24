@@ -4,13 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.observe
 import com.dmitrysimakov.kilogram.databinding.DialogCreateProgramBinding
+import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.ui.home.programs.create_program.CreateProgramDialogDirections.Companion.toProgramDaysFragment
 import com.dmitrysimakov.kilogram.util.hideKeyboard
 import com.dmitrysimakov.kilogram.util.live_data.EventObserver
 import com.dmitrysimakov.kilogram.util.navigate
+import com.dmitrysimakov.kilogram.util.setNewValue
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.dialog_create_program.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CreateProgramDialog : BottomSheetDialogFragment() {
@@ -18,6 +22,7 @@ class CreateProgramDialog : BottomSheetDialogFragment() {
     private lateinit var binding: DialogCreateProgramBinding
 
     private val vm: CreateProgramViewModel by viewModel()
+    private val sharedVM: SharedViewModel by sharedViewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DialogCreateProgramBinding.inflate(inflater)
@@ -36,7 +41,8 @@ class CreateProgramDialog : BottomSheetDialogFragment() {
         binding.createProgramBtn.setOnClickListener {
             if (validate()) vm.createProgram()
         }
-        
+    
+        sharedVM.user.observe(viewLifecycleOwner) { vm.author.setNewValue(it) }
         vm.programCreatedEvent.observe(viewLifecycleOwner, EventObserver {
             hideKeyboard()
             navigate(toProgramDaysFragment(it))

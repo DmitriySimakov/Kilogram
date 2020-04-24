@@ -101,5 +101,27 @@
                 android:name="programId"
                 app:argType="string" />
         </action>
+        <action
+            android:id="@+id/to_chooseProgramFragment"
+            app:destination="@id/chooseProgramFragment" >
+            <argument
+                android:name="toChooseProgramDay"
+                android:defaultValue="false"/>
+            <argument
+                android:name="publishProgram"
+                android:defaultValue="true"/>
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/chooseProgramFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.common.choose_program.ChooseProgramFragment"
+        android:label="@string/chooseProgram"
+        tools:layout="@layout/fragment_choose_program">
+        <argument
+            android:name="toChooseProgramDay"
+            app:argType="boolean" />
+        <argument
+            android:name="publishProgram"
+            app:argType="boolean" />
     </fragment>
 </navigation>

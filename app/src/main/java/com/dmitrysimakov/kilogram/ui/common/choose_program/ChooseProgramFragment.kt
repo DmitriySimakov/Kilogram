@@ -29,10 +29,19 @@ class ChooseProgramFragment : Fragment() {
     private val sharedVM: SharedViewModel by sharedViewModel()
     
     private val adapter by lazy { ProgramsAdapter { program ->
-        sharedVM.program.value = Event(program)
-        
-        if (args.toChooseProgramDay) navigate(toChooseProgramDayFragment(program.id))
-        else popBackStack()
+        when {
+            args.publishProgram -> {
+                vm.publishProgram(program)
+                vm.programPublishedEvent.observe(viewLifecycleOwner) { popBackStack() }
+            }
+            args.toChooseProgramDay -> {
+                navigate(toChooseProgramDayFragment(program.id))
+            }
+            else -> {
+                sharedVM.program.value = Event(program)
+                popBackStack()
+            }
+        }
     }}
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
