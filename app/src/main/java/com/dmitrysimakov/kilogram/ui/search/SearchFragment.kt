@@ -14,6 +14,7 @@ import com.dmitrysimakov.kilogram.ui.search.SearchFragmentDirections.Companion.t
 import com.dmitrysimakov.kilogram.ui.search.SearchFragmentDirections.Companion.toExercisesFragment
 import com.dmitrysimakov.kilogram.ui.search.SearchFragmentDirections.Companion.toPeopleFragment
 import com.dmitrysimakov.kilogram.ui.search.SearchFragmentDirections.Companion.toPersonPageFragment
+import com.dmitrysimakov.kilogram.ui.search.SearchFragmentDirections.Companion.toPublicProgramDaysFragment
 import com.dmitrysimakov.kilogram.util.navigate
 import com.dmitrysimakov.kilogram.util.setNewValue
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -25,8 +26,11 @@ class SearchFragment : Fragment() {
     
     private val peopleAdapter by lazy { UsersHorizontalAdapter { navigate(toPersonPageFragment(it.id)) } }
     private val exercisesAdapter by lazy { ExercisesHorizontalAdapter { navigate(toExerciseDetailFragment(it.name)) } }
-    private val programsAdapter by lazy { ProgramsAdapter { } }
-    private val postsAdapter by lazy { PostsAdapter(sharedVM, {}, {}) }
+    private val programsAdapter by lazy { ProgramsAdapter { navigate(toPublicProgramDaysFragment(it.id)) } }
+    private val postsAdapter by lazy { PostsAdapter(sharedVM,
+            { navigate(toPublicProgramDaysFragment(it.id)) },
+            { vm.likePost(it) })
+    }
     
     private val vm: SearchViewModel by viewModel()
     private val sharedVM: SharedViewModel by sharedViewModel()

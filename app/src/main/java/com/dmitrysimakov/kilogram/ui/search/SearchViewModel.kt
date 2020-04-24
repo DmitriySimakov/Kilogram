@@ -4,6 +4,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
+import com.dmitrysimakov.kilogram.data.model.Post
 import com.dmitrysimakov.kilogram.data.model.User
 import com.dmitrysimakov.kilogram.data.remote.data_sources.PostSource
 import com.dmitrysimakov.kilogram.data.remote.usersCollection
@@ -14,7 +15,7 @@ import kotlinx.coroutines.tasks.await
 class SearchViewModel(
         exerciseRepo: ExerciseRepository,
         programsRepo: ProgramRepository,
-        postSrc: PostSource
+        private val postSrc: PostSource
 ) : ViewModel() {
     
     val user = MutableLiveData<User?>()
@@ -33,6 +34,8 @@ class SearchViewModel(
     init {
         listOf(_people, user).forEach { people.addSource(it) { filterPeople() } }
     }
+    
+    fun likePost(post: Post) { postSrc.likePost(post) }
     
     private fun filterPeople() {
         val loadedPeople = _people.value ?: return

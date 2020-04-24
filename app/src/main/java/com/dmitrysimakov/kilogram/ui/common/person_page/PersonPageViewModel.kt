@@ -24,7 +24,7 @@ class PersonPageViewModel(private val postSrc: PostSource) : ViewModel() {
     private val _subscribed = MutableLiveData<Boolean>()
     val subscribed: LiveData<Boolean> = _subscribed
     
-    val posts = _personId.switchMap { id -> liveData { emit(postSrc.posts(id)) }}
+    val posts = _personId.switchMap { postSrc.postsLive(it) }
     
     fun start(user: User?, personId: String) {
         _user.setNewValue(user)

@@ -27,7 +27,15 @@
             android:id="@+id/to_exerciseDetailFragment"
             app:destination="@id/exerciseDetailFragment"
             />
+        <action
+            android:id="@+id/to_publicProgramDaysFragment"
+            app:destination="@id/public_program">
+            <argument
+                android:name="programId"
+                app:argType="string" />
+        </action>
     </fragment>
+    <include app:graph="@navigation/public_program" />
     
     <fragment
         android:id="@+id/peopleFragment"
