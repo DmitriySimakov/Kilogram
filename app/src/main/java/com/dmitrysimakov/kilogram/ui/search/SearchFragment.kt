@@ -15,6 +15,7 @@ import com.dmitrysimakov.kilogram.ui.search.SearchFragmentDirections.Companion.t
 import com.dmitrysimakov.kilogram.ui.search.SearchFragmentDirections.Companion.toPeopleFragment
 import com.dmitrysimakov.kilogram.ui.search.SearchFragmentDirections.Companion.toPersonPageFragment
 import com.dmitrysimakov.kilogram.ui.search.SearchFragmentDirections.Companion.toPublicProgramDaysFragment
+import com.dmitrysimakov.kilogram.ui.search.SearchFragmentDirections.Companion.toPublicProgramsFragment
 import com.dmitrysimakov.kilogram.util.navigate
 import com.dmitrysimakov.kilogram.util.setNewValue
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -24,9 +25,15 @@ class SearchFragment : Fragment() {
     
     private lateinit var binding: FragmentSearchBinding
     
-    private val peopleAdapter by lazy { UsersHorizontalAdapter { navigate(toPersonPageFragment(it.id)) } }
-    private val exercisesAdapter by lazy { ExercisesHorizontalAdapter { navigate(toExerciseDetailFragment(it.name)) } }
-    private val programsAdapter by lazy { ProgramsAdapter { navigate(toPublicProgramDaysFragment(it.id)) } }
+    private val peopleAdapter by lazy { UsersHorizontalAdapter {
+        navigate(toPersonPageFragment(it.id))
+    }}
+    private val exercisesAdapter by lazy { ExercisesHorizontalAdapter {
+        navigate(toExerciseDetailFragment(it.name))
+    }}
+    private val programsAdapter by lazy { ProgramsAdapter {
+        navigate(toPublicProgramDaysFragment(it.id))
+    }}
     private val postsAdapter by lazy { PostsAdapter(sharedVM,
             { navigate(toPublicProgramDaysFragment(it.id)) },
             { vm.likePost(it) })
@@ -43,6 +50,7 @@ class SearchFragment : Fragment() {
         binding.peoplesRV.adapter = peopleAdapter
         binding.exercisesLabel.setOnClickListener { navigate(toExercisesFragment()) }
         binding.exercisesRV.adapter = exercisesAdapter
+        binding.programsLabel.setOnClickListener { navigate(toPublicProgramsFragment()) }
         binding.programsRV.adapter = programsAdapter
         binding.postsRV.adapter = postsAdapter
         return binding.root

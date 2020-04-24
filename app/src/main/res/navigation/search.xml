@@ -34,6 +34,10 @@
                 android:name="programId"
                 app:argType="string" />
         </action>
+        <action
+            android:id="@+id/to_publicProgramsFragment"
+            app:destination="@id/publicProgramsFragment"
+            />
     </fragment>
     <include app:graph="@navigation/public_program" />
     
@@ -83,5 +87,19 @@
         <argument
             android:name="exercise"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/publicProgramsFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.search.public_programs.PublicProgramsFragment"
+        android:label="@string/training_programs"
+        tools:layout="@layout/fragment_public_programs"
+        >
+        <action
+            android:id="@+id/to_publicProgramDaysFragment"
+            app:destination="@id/public_program">
+            <argument
+                android:name="programId"
+                app:argType="string" />
+        </action>
     </fragment>
 </navigation>
