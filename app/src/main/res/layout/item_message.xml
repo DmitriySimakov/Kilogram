@@ -18,7 +18,6 @@
     
     <androidx.constraintlayout.widget.ConstraintLayout
         style="@style/HorizontalListItem"
-        android:layout_height="wrap_content"
         android:background="@{(!message.wasRead &amp;&amp; !message.senderId.equals(vm.user.id)) ? @color/blue100 : @color/white}">
         
         <de.hdodenhof.circleimageview.CircleImageView

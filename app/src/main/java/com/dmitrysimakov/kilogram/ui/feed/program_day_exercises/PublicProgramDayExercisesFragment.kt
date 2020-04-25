@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.home.programs.exercises.ProgramDayExercisesAdapter
 import com.dmitrysimakov.kilogram.util.setTitle
@@ -31,7 +29,6 @@ class PublicProgramDayExercisesFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         
         recyclerView.adapter = adapter
-        recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
         
         vm.start(args.programId, args.programDayId)
         vm.programDay.observe(viewLifecycleOwner) { setTitle(it.name) }

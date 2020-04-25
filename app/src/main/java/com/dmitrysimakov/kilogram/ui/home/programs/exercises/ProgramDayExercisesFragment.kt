@@ -5,7 +5,6 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.dmitrysimakov.kilogram.R
@@ -36,7 +35,6 @@ class ProgramDayExercisesFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
     
         recyclerView.adapter = adapter
-        recyclerView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.RIGHT) {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
                 val startPos = viewHolder.adapterPosition

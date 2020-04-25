@@ -80,7 +80,8 @@
     
     <style name="HorizontalListItem">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">?attr/listPreferredItemHeight</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">?attr/listPreferredItemHeight</item>
         <item name="android:background">?android:attr/windowBackground</item>
         <item name="android:paddingTop">@dimen/list_item_vertical_padding</item>
         <item name="android:paddingBottom">@dimen/list_item_vertical_padding</item>

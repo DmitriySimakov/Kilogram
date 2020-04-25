@@ -18,7 +18,10 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/listPreferredItemHeight"
         android:background="?android:attr/windowBackground"
-        android:padding="@dimen/list_item_padding">
+        android:paddingTop="@dimen/list_item_vertical_padding"
+        android:paddingBottom="@dimen/list_item_vertical_padding"
+        android:paddingStart="@dimen/list_item_horizontal_padding"
+        android:paddingEnd="@dimen/list_item_horizontal_padding">
         
         <com.google.android.material.card.MaterialCardView
             android:layout_width="wrap_content"
@@ -46,6 +49,8 @@
             android:paddingStart="?android:attr/listPreferredItemPaddingLeft"
             android:paddingEnd="?android:attr/listPreferredItemPaddingRight"
             android:text="@{exercise.name}"
+            android:lines="2"
+            android:ellipsize="end"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             tools:text="Упражнение" />
         
@@ -54,6 +59,8 @@
             android:layout_gravity="center_vertical"
             android:onClick="@{() -> vm.setFavorite(exercise)}"
             android:src="@{exercise.favorite ? @drawable/ic_favorite : @drawable/ic_favorite_border}"
+            android:tint="@{exercise.favorite ? @color/red500 : @color/grey500}"
+            tools:tint="@color/red500"
             tools:src="@drawable/ic_favorite" />
     
     </LinearLayout>

@@ -13,20 +13,24 @@
             type="TrainingExercise" />
     </data>
     
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/listPreferredItemHeight"
-        android:padding="4dp">
-        
-        <ImageView
+    <androidx.constraintlayout.widget.ConstraintLayout style="@style/HorizontalListItem">
+    
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/image"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            app:assetsImage='@{"exercises/"+ exercise.exercise +"_1.jpeg"}'
-            app:layout_constraintDimensionRatio="1:1"
+            android:layout_width="?attr/listPreferredItemHeight"
+            android:layout_height="?attr/listPreferredItemHeight"
+            app:cardCornerRadius="@dimen/card_corner_radius_small"
             app:layout_constraintStart_toStartOf="parent"
-            tools:src="@drawable/exercise_sample_1" />
+            app:layout_constraintTop_toTopOf="parent">
+            
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:assetsImage='@{"exercises/"+ exercise.exercise +"_1.jpeg"}'
+                tools:src="@drawable/exercise_sample_1" />
+        
+        </com.google.android.material.card.MaterialCardView>
         
         <TextView
             android:id="@+id/name"
