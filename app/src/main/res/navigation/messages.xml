@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/messages"
+    app:startDestination="@id/chatsFragment">
+    
+    <fragment
+        android:id="@+id/chatsFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.messages.chats.ChatsFragment"
+        android:label="@string/messages"
+        tools:layout="@layout/fragment_chats" >
+        <action
+            android:id="@+id/to_messagesFragment"
+            app:destination="@id/messagesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/messagesFragment"
+        android:name="com.dmitrysimakov.kilogram.ui.messages.messages.MessagesFragment"
+        android:label="@string/messages"
+        tools:layout="@layout/fragment_messages" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
+</navigation>

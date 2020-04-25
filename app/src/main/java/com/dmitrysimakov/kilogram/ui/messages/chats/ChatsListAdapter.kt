@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.profile.chats
+package com.dmitrysimakov.kilogram.ui.messages.chats
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -25,24 +25,6 @@
         android:label="@string/profile_editing"
         tools:layout="@layout/fragment_edit_profile" />
     <fragment
-        android:id="@+id/chatsFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.profile.chats.ChatsFragment"
-        android:label="@string/messages"
-        tools:layout="@layout/fragment_chats" >
-        <action
-            android:id="@+id/to_messagesFragment"
-            app:destination="@id/messagesFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/messagesFragment"
-        android:name="com.dmitrysimakov.kilogram.ui.common.messages.MessagesFragment"
-        android:label="@string/messages"
-        tools:layout="@layout/fragment_messages" >
-        <argument
-            android:name="id"
-            app:argType="string" />
-    </fragment>
-    <fragment
         android:id="@+id/subscriptionsTabFragment"
         android:name="com.dmitrysimakov.kilogram.ui.common.person_page.subscriptions_tab.SubscriptionsTabFragment"
         tools:layout="@layout/tab_fragment" >

@@ -11,7 +11,6 @@ import com.dmitrysimakov.kilogram.ui.common.choose_program.ChooseProgramViewMode
 import com.dmitrysimakov.kilogram.ui.common.create_post.CreatePostViewModel
 import com.dmitrysimakov.kilogram.ui.common.detailed_exercise.DetailedExerciseViewModel
 import com.dmitrysimakov.kilogram.ui.common.exercises.ExercisesViewModel
-import com.dmitrysimakov.kilogram.ui.common.messages.MessagesViewModel
 import com.dmitrysimakov.kilogram.ui.common.person_page.PersonPageViewModel
 import com.dmitrysimakov.kilogram.ui.common.person_page.subscribers.SubscribersViewModel
 import com.dmitrysimakov.kilogram.ui.common.person_page.subscriptions.SubscriptionsViewModel
@@ -34,7 +33,8 @@ import com.dmitrysimakov.kilogram.ui.home.trainings.add_training_set.AddTraining
 import com.dmitrysimakov.kilogram.ui.home.trainings.create_training.CreateTrainingViewModel
 import com.dmitrysimakov.kilogram.ui.home.trainings.exercises.TrainingExercisesViewModel
 import com.dmitrysimakov.kilogram.ui.home.trainings.training_sets.TrainingSetsViewModel
-import com.dmitrysimakov.kilogram.ui.profile.chats.ChatsViewModel
+import com.dmitrysimakov.kilogram.ui.messages.chats.ChatsViewModel
+import com.dmitrysimakov.kilogram.ui.messages.messages.MessagesViewModel
 import com.dmitrysimakov.kilogram.ui.profile.edit_profile.EditProfileViewModel
 import com.dmitrysimakov.kilogram.ui.search.SearchViewModel
 import com.dmitrysimakov.kilogram.ui.search.people.PeopleViewModel

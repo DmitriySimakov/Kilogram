@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.profile.chats
+package com.dmitrysimakov.kilogram.ui.messages.chats
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
-import com.dmitrysimakov.kilogram.ui.profile.chats.ChatsFragmentDirections.Companion.toMessagesFragment
+import com.dmitrysimakov.kilogram.ui.messages.chats.ChatsFragmentDirections.Companion.toMessagesFragment
 import com.dmitrysimakov.kilogram.util.navigate
 import com.dmitrysimakov.kilogram.util.setNewValue
 import kotlinx.android.synthetic.main.fragment_program_day_exercises.*

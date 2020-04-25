@@ -7,19 +7,19 @@
         android:title="@string/home" />
     
     <item
-        android:id="@+id/search"
-        android:icon="@drawable/ic_search"
-        android:title="@string/search"/>
-    
-    <item
         android:id="@+id/feed"
         android:icon="@drawable/ic_subscriptions"
         android:title="@string/subscriptions"/>
     
     <item
-        android:id="@+id/map"
-        android:icon="@drawable/ic_explore"
-        android:title="@string/map" />
+        android:id="@+id/messages"
+        android:icon="@drawable/ic_message"
+        android:title="@string/messages" />
+    
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/ic_search"
+        android:title="@string/search"/>
     
     <item
         android:id="@+id/profile"

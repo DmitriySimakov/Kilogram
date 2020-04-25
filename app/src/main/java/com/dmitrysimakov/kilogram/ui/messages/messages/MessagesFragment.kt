@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.common.messages
+package com.dmitrysimakov.kilogram.ui.messages.messages
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent

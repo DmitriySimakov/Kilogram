@@ -139,8 +139,6 @@
     <string name="delete_day">Удалить день</string>
     <string name="need_to_sign_in">Для просмотра данной страницы необходимо авторизоваться</string>
     <string name="popular_publications">Популярные публикации</string>
-    <string name="title_activity_map_fragment">Map</string>
-    <string name="map">Карта</string>
     <string name="training_programs">Программы тренировок</string>
     <string name="gender">Пол</string>
     <string name="about_me">Обо мне</string>

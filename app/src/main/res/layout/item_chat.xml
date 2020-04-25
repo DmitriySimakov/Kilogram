@@ -9,7 +9,7 @@
         
         <variable
             name="vm"
-            type="com.dmitrysimakov.kilogram.ui.profile.chats.ChatsViewModel" />
+            type="com.dmitrysimakov.kilogram.ui.messages.chats.ChatsViewModel" />
         
         <variable
             name="chat"

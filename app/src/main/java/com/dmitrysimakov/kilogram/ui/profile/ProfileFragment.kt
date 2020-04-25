@@ -16,7 +16,6 @@ import com.dmitrysimakov.kilogram.ui.RC_SIGN_IN
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.ui.common.person_page.subscriptions_tab.SUBSCRIBERS_PAGE
 import com.dmitrysimakov.kilogram.ui.common.person_page.subscriptions_tab.SUBSCRIPTIONS_PAGE
-import com.dmitrysimakov.kilogram.ui.profile.ProfileFragmentDirections.Companion.toChatsFragment
 import com.dmitrysimakov.kilogram.ui.profile.ProfileFragmentDirections.Companion.toEditProfileFragment
 import com.dmitrysimakov.kilogram.ui.profile.ProfileFragmentDirections.Companion.toSubscriptionsTabFragment
 import com.dmitrysimakov.kilogram.util.PreferencesKeys
@@ -45,7 +44,6 @@ class ProfileFragment : Fragment() {
         
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.chats -> { navigate(toChatsFragment()) }
                 R.id.editProfile -> { navigate(toEditProfileFragment()) }
                 R.id.signInSignOut -> signInSignOut()
                 R.id.darkTheme -> switchTheme()
@@ -55,11 +53,9 @@ class ProfileFragment : Fragment() {
         }
         
         sharedVM.user.observe(viewLifecycleOwner) { user ->
-            val chatsItem = binding.navView.menu.findItem(R.id.chats)
             val editProfileItem = binding.navView.menu.findItem(R.id.editProfile)
             val signInSignOutItem = binding.navView.menu.findItem(R.id.signInSignOut)
     
-            chatsItem.isVisible = user != null
             editProfileItem.isVisible = user != null
             signInSignOutItem.title = if (user != null) getString(R.string.sign_out) else getString(R.string.sign_in)
             

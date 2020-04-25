@@ -1,4 +1,4 @@
-package com.dmitrysimakov.kilogram.ui.common.messages
+package com.dmitrysimakov.kilogram.ui.messages.messages
 
 import android.net.Uri
 import androidx.lifecycle.*
