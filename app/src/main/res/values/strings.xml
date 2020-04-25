@@ -142,5 +142,11 @@
     <string name="title_activity_map_fragment">Map</string>
     <string name="map">Карта</string>
     <string name="training_programs">Программы тренировок</string>
+    <string name="gender">Пол</string>
+    <string name="about_me">Обо мне</string>
+    <string name="training_target">Цель тренировок</string>
+    <string name="gym">Спортзал</string>
+    <string name="male">мужской</string>
+    <string name="female">женский</string>
 
 </resources>

@@ -46,11 +46,12 @@
                 android:layout_height="0dp"
                 android:gravity="center_vertical"
                 android:text="@{@string/subscribers +`: `+ vm.person.subscribers.size()}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 app:layout_constraintStart_toStartOf="@id/usernameTV"
                 app:layout_constraintEnd_toStartOf="@id/subscriptions"
                 app:layout_constraintTop_toBottomOf="@id/usernameTV"
                 app:layout_constraintBottom_toBottomOf="@id/photo"
-                tools:text="Подписчики 45" />
+                tools:text="Подписчики: 45" />
     
             <TextView
                 android:id="@+id/subscriptions"
@@ -58,19 +59,73 @@
                 android:layout_height="0dp"
                 android:gravity="center_vertical"
                 android:text="@{@string/subscriptions +`: `+ vm.person.subscriptions.size()}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 app:layout_constraintStart_toEndOf="@id/subscribers"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/usernameTV"
                 app:layout_constraintBottom_toBottomOf="@id/photo"
-                tools:text="Подписки 24" />
+                tools:text="Подписки: 24" />
 
+            <TextView
+                android:id="@+id/gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/frame_padding"
+                android:text="@{@string/gender +`: `+ vm.person.gender}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_marginStart="@dimen/frame_padding"
+                android:layout_marginEnd="@dimen/frame_padding"
+                app:goneUnless="@{vm.person.gender != ``}"
+                app:layout_constraintTop_toBottomOf="@id/photo"
+                tools:text="Пол: мужской"
+                />
+    
+            <TextView
+                android:id="@+id/about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{@string/about_me +`: `+ vm.person.about}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_marginStart="@dimen/frame_padding"
+                android:layout_marginEnd="@dimen/frame_padding"
+                app:goneUnless="@{vm.person.about != ``}"
+                app:layout_constraintTop_toBottomOf="@id/gender"
+                tools:text="Обо мне: качок-новичок"
+                />
+    
+            <TextView
+                android:id="@+id/trainingTarget"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{@string/training_target +`: `+ vm.person.trainingTarget}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_marginStart="@dimen/frame_padding"
+                android:layout_marginEnd="@dimen/frame_padding"
+                app:goneUnless="@{vm.person.trainingTarget != ``}"
+                app:layout_constraintTop_toBottomOf="@id/about"
+                tools:text="Цель тренировок: похудеть"
+                />
+    
+            <TextView
+                android:id="@+id/gym"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{@string/gym +`: `+ vm.person.gym}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_marginStart="@dimen/frame_padding"
+                android:layout_marginEnd="@dimen/frame_padding"
+                app:goneUnless="@{vm.person.gym != ``}"
+                app:layout_constraintTop_toBottomOf="@id/trainingTarget"
+                tools:text="Спортзал: тренируюсь дома"
+                />
+            
             <LinearLayout
                 android:id="@+id/buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/frame_padding"
                 app:goneUnless="@{vm.user != null}"
-                app:layout_constraintTop_toBottomOf="@id/photo">
+                app:layout_constraintTop_toBottomOf="@id/gym">
     
                 <Button
                     android:id="@+id/followBtn"

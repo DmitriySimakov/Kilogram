@@ -16,17 +16,29 @@ class EditProfileViewModel(private val firebaseStorage: FirebaseStorageSource) :
     
     val name = MutableLiveData<String>()
     val photoUrl = MutableLiveData<String>()
+    val gender = MutableLiveData("")
+    val about = MutableLiveData("")
+    val trainingTarget = MutableLiveData("")
+    val gym = MutableLiveData("")
     
     fun setUser(user: User) {
         _user.setNewValue(user)
         name.setNewValue(user.name)
         photoUrl.setNewValue(user.photoUrl)
+        gender.setNewValue(user.gender)
+        about.setNewValue(user.about)
+        trainingTarget.setNewValue(user.trainingTarget)
+        gym.setNewValue(user.gym)
     }
     
     fun saveChanges() {
         val user = _user.value!!.copy(
                 name = name.value!!,
-                photoUrl = photoUrl.value
+                photoUrl = photoUrl.value,
+                gender = gender.value!!,
+                about = about.value!!,
+                trainingTarget = trainingTarget.value!!,
+                gym = gym.value!!
         )
         userDocument.set(user)
     }

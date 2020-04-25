@@ -6,6 +6,10 @@ data class User(
         val id: String = "",
         val name: String = "",
         val photoUrl: String? = null,
+        val gender: String = "",
+        val about: String = "",
+        val trainingTarget: String = "",
+        val gym: String = "",
         val subscribers: List<String> = listOf(),  // ids
         val subscriptions: List<String> = listOf() // ids
 )

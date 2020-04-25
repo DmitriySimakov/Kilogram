@@ -7,10 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.dmitrysimakov.kilogram.R
 import com.dmitrysimakov.kilogram.databinding.FragmentEditProfileBinding
 import com.dmitrysimakov.kilogram.ui.SharedViewModel
 import com.dmitrysimakov.kilogram.util.dispatchGetImageContentIntent
 import com.dmitrysimakov.kilogram.util.popBackStack
+import com.dmitrysimakov.kilogram.util.setNewValue
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -28,6 +30,14 @@ class EditProfileFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.vm = vm
         binding.photo.setOnClickListener { dispatchGetImageContentIntent(RC_TAKE_PHOTO) }
+        binding.gender.setOnCheckedChangeListener { _, id ->
+            val newGender = when (id) {
+                R.id.male -> getString(R.string.male)
+                R.id.female -> getString(R.string.female)
+                else -> ""
+            }
+            vm.gender.setNewValue(newGender)
+        }
         binding.saveBtn.setOnClickListener {
             vm.saveChanges()
             popBackStack()
@@ -38,7 +48,12 @@ class EditProfileFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
     
-        vm.setUser(sharedVM.user.value!!)
+        val user = sharedVM.user.value!!
+        vm.setUser(user)
+        when (user.gender) {
+            getString(R.string.male) -> binding.gender.check(R.id.male)
+            getString(R.string.female) -> binding.gender.check(R.id.female)
+        }
     }
     
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
