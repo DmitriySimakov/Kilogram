@@ -13,28 +13,20 @@ class ProportionsCalculatorViewModel (private val repository: MeasurementReposit
     
     private val _calculatorItems = MutableLiveData<List<ProportionsCalculatorItem>>()
     val calculatorItems = _calculatorItems.map { list ->
-        val listRelatedByChest = list.map { item ->
-            val chest = list.find { it.param == "Грудь" }!!
-            val value = item.value
-            val recommendedValue = chest.value?.let { it * item.coefficient }?.round(1)
-            val percent = calculatePercent(value, recommendedValue)
-            ProportionsCalculatorItem(item.param, item.coefficient, item.value, recommendedValue, percent)
-        }
-        val minPercentItem = listRelatedByChest
+        val notNullValueItem = list.find { it.value != null } ?: return@map list
+        
+        val listRelativeByItem = list.calculateParamsRelativeBy(notNullValueItem)
+        
+        val minPercentNotWaistItem = listRelativeByItem
                 .filter { it.param != "Талия" && it.percent != null }
                 .minBy { it.percent!! }
-                ?: return@map listRelatedByChest
-    
-        return@map listRelatedByChest.map { item ->
-            val recommendedValue = (minPercentItem.value!! * item.coefficient / minPercentItem.coefficient).round(1)
-            val percent = calculatePercent(item.value, recommendedValue)
-            ProportionsCalculatorItem(item.param, item.coefficient, item.value, recommendedValue, percent)
-        }
+        val waistItem = listRelativeByItem.find { it.param == "Талия" }
+        val minPercentItem = minPercentNotWaistItem ?: waistItem
+        if (minPercentItem == null || minPercentItem.param == notNullValueItem.param) return@map list
+
+        // return list relative by minPercentItem
+        return@map listRelativeByItem.calculateParamsRelativeBy(minPercentItem)
     }
-    
-    private fun calculatePercent(value: Double?, recommendedValue: Double?) =
-            if (value == null || recommendedValue == null) null
-            else ((recommendedValue / value - 1) * 100).round(1)
     
     init { viewModelScope.launch {
         _calculatorItems.value = repository.lastMeasurementsWithCoefficients()
@@ -47,5 +39,15 @@ class ProportionsCalculatorViewModel (private val repository: MeasurementReposit
                 ProportionsCalculatorItem(it.param, it.coefficient, v, it.recommendedValue)
             } else it
         }
+    }
+    
+    private fun List<ProportionsCalculatorItem>.calculateParamsRelativeBy(relativeItem: ProportionsCalculatorItem) = map { curItem ->
+        val curItemValue = curItem.value ?: return@map curItem
+        val relativeItemValue = relativeItem.value ?: return@map curItem
+        
+        val recommendedValue = (relativeItemValue * curItem.coefficient / relativeItem.coefficient).round(1)
+        val percent = ((recommendedValue / curItemValue - 1) * 100).round(1)
+        
+        curItem.copy(recommendedValue = recommendedValue, percent = percent)
     }
 }
