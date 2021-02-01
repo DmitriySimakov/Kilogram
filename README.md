@@ -1,5 +1,7 @@
 # Kilogram
 
+https://play.google.com/store/apps/details?id=com.dmitrysimakov.kilogram
+
 Main
 
 <img src="screenshots/main.jpg" height="500">
